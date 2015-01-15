@@ -1,0 +1,226 @@
+<html><head><title>~~function to do ... ~~</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>regci(openair)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   regci">
+<param name="keyword" value=" ~~function to do ... ~~">
+</object>
+
+
+<h2>~~function to do ... ~~</h2>
+
+
+<h3>Description</h3>
+
+<p>
+~~ A concise (1-5 lines) description of what the function does. ~~
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+regci(x, y, regfun = tsp1reg, nboot = 599, alpha = 0.05, SEED = TRUE, pr = TRUE, xout = FALSE, outfun = out, autocor = autocor, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+~~Describe <code>x</code> here~~ </td></tr>
+<tr valign="top"><td><code>y</code></td>
+<td>
+~~Describe <code>y</code> here~~ </td></tr>
+<tr valign="top"><td><code>regfun</code></td>
+<td>
+~~Describe <code>regfun</code> here~~ </td></tr>
+<tr valign="top"><td><code>nboot</code></td>
+<td>
+~~Describe <code>nboot</code> here~~ </td></tr>
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+~~Describe <code>alpha</code> here~~ </td></tr>
+<tr valign="top"><td><code>SEED</code></td>
+<td>
+~~Describe <code>SEED</code> here~~ </td></tr>
+<tr valign="top"><td><code>pr</code></td>
+<td>
+~~Describe <code>pr</code> here~~ </td></tr>
+<tr valign="top"><td><code>xout</code></td>
+<td>
+~~Describe <code>xout</code> here~~ </td></tr>
+<tr valign="top"><td><code>outfun</code></td>
+<td>
+~~Describe <code>outfun</code> here~~ </td></tr>
+<tr valign="top"><td><code>autocor</code></td>
+<td>
+~~Describe <code>autocor</code> here~~ </td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+~~Describe <code>...</code> here~~ </td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+~~ If necessary, more details than the description above ~~
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+~Describe the value returned
+If it is a LIST, use
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>comp1 </code></td>
+<td>
+Description of 'comp1'</td></tr>
+<tr valign="top"><td><code>comp2 </code></td>
+<td>
+Description of 'comp2'</td></tr>
+</table>
+<p>
+
+...</p>
+
+<h3>Warning</h3>
+
+<p>
+....
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+~~further notes~~ 
+</p>
+<p>
+~Make other sections like Warning with section{Warning }{....} ~
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+~~who you are~~
+</p>
+
+
+<h3>References</h3>
+
+<p>
+~put references to the literature/web site here ~
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+~~objects to See Also as <code><a onclick="findlink('utils', 'help.html')" style="text-decoration: underline; color: blue; cursor: hand">help</a></code>, ~~~
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+##---- Should be DIRECTLY executable !! ----
+##-- ==&gt;  Define data, use random,
+##--    or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function(x, y, regfun = tsp1reg, nboot = 599, alpha = 0.05, SEED = TRUE,
+                pr = TRUE, xout = FALSE, outfun = out, autocor = autocor,...){
+#
+#   Compute a .95 confidence interval for each of the parameters of
+#   a linear regression equation. The default regression method is
+#   the Theil-Sen estimator.
+#
+#   When using the least squares estimator, and when n&lt;250, use
+#   lsfitci instead.
+#
+#   The predictor values are assumed to be in the n by p matrix x.
+#   The default number of bootstrap samples is nboot=599
+#
+#   regfun can be any s-plus function that returns the coefficients in
+#   the vector regfun$coef, the first element of which contains the
+#   estimated intercept, the second element contains the estimated of
+#   the first predictor, etc.
+#
+        x &lt;- as.matrix(x)
+        p1 &lt;- ncol(x) + 1
+        p &lt;- ncol(x)
+        xy &lt;- cbind(x, y)
+        xy &lt;- elimna(xy)
+        x &lt;- xy[, 1:p]
+        y &lt;- xy[, p1]
+        if(xout){
+                m &lt;- cbind(x,y)
+                flag &lt;-outfun(x, plotit = FALSE)$keep
+                m &lt;- m[flag, ]
+                x &lt;- m[, 1:p]
+                y &lt;- m[, p1]
+        }
+        x &lt;- as.matrix(x)
+        if(SEED)set.seed(2) # set seed of random number generator so that
+#             results can be duplicated.
+        if(pr)print("Taking bootstrap samples. Please wait...")
+        #data &lt;- matrix(sample(length(y), size = length(y) * nboot, replace = TRUE), 
+        #               nrow = nboot)
+        #length of block set to l^(1/3)
+        # Buhlmann and Kunsch 1994 report
+        block.length &lt;- 1
+        if(autocor) block.length &lt;- round(length(y)^(1/3))
+        data &lt;- samp.boot.block(length(y), nboot, block.length)
+        
+        #bvec &lt;- apply(data, 1, regboot, x, y, regfun,...)
+        bvec &lt;- apply(data, 2, regboot, x, y, regfun,...)
+# bvec is a p+1 by nboot matrix. The first row
+#                     contains the bootstrap intercepts, the second row
+#                     contains the bootstrap values for first predictor, etc.
+        regci &lt;- matrix(0, p1, 2)
+        VAL &lt;- c("intercept", rep("X", ncol(x)))
+        dimnames(regci) &lt;- list(VAL, c("ci.low", "ci.up"))
+        ilow &lt;- round((alpha / 2) * nboot)
+        ihi &lt;- nboot - ilow
+        ilow &lt;- ilow + 1
+        se &lt;- NA
+        pvec &lt;- NA
+        for(i in 1:p1){
+                bsort &lt;- sort(bvec[i, ])
+                pvec[i] &lt;- (sum(bvec[i, ] &lt; 0) + 0.5 * sum(bvec[i, ] == 0)) / nboot
+                if(pvec[i] &gt; 0.5)pvec[i] &lt;- 1-pvec[i]
+                regci[i, 1] &lt;- bsort[ilow]
+                regci[i, 2] &lt;- bsort[ihi]
+                se[i] &lt;- sqrt(var(bvec[i, ]))
+        }
+        pvec &lt;- 2 * pvec
+        if(pr){
+                #print("First row of regci is the confidence interval for the intercept,")
+                #print("the second row is the confidence interval for the first slope, etc.")
+        }
+        list(regci = regci, p.value = pvec, se = se)
+  }
+</pre>
+
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
+
+
+<hr><div align="center">[Package <em>openair</em> version 1.0 <a href="00Index.html">Index]</a></div>
+
+</body></html>

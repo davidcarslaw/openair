@@ -1,0 +1,239 @@
+<html><head><title>~~function to do ... ~~</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>fourier(openair)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   fourier">
+<param name="keyword" value=" ~~function to do ... ~~">
+</object>
+
+
+<h2>~~function to do ... ~~</h2>
+
+
+<h3>Description</h3>
+
+<p>
+~~ A concise (1-5 lines) description of what the function does. ~~
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+fourier(mydata, pollutant = "nox", ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mydata</code></td>
+<td>
+~~Describe <code>mydata</code> here~~ </td></tr>
+<tr valign="top"><td><code>pollutant</code></td>
+<td>
+~~Describe <code>pollutant</code> here~~ </td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+~~Describe <code>...</code> here~~ </td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+~~ If necessary, more details than the description above ~~
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+~Describe the value returned
+If it is a LIST, use
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>comp1 </code></td>
+<td>
+Description of 'comp1'</td></tr>
+<tr valign="top"><td><code>comp2 </code></td>
+<td>
+Description of 'comp2'</td></tr>
+</table>
+<p>
+
+...</p>
+
+<h3>Warning</h3>
+
+<p>
+....
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+~~further notes~~ 
+</p>
+<p>
+~Make other sections like Warning with section{Warning }{....} ~
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+~~who you are~~
+</p>
+
+
+<h3>References</h3>
+
+<p>
+~put references to the literature/web site here ~
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+~~objects to See Also as <code><a onclick="findlink('utils', 'help.html')" style="text-decoration: underline; color: blue; cursor: hand">help</a></code>, ~~~
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+##---- Should be DIRECTLY executable !! ----
+##-- ==&gt;  Define data, use random,
+##--    or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function(mydata, pollutant = "nox",...) {
+{    library(RODBC)
+    library(lattice)
+    
+    #order by date
+    mydata &lt;- mydata[order(mydata$date),]
+    
+    means &lt;- tapply(mydata[, pollutant], format(mydata$date,"%Y-%j"), 
+                    mean, na.rm = TRUE)
+    means &lt;- as.vector(means)
+    
+    #simple fill of missing data
+    means[which(is.nan(means))] &lt;- mean(means, na.rm = T)
+    means[which(is.na(means))] &lt;- mean(means, na.rm = T)
+    
+    #sort out dates here!!
+    dates &lt;- seq(mydata$date[1], mydata$date[nrow(mydata)], length = length(means))
+    
+    decomp &lt;- tsdecomp(means, dates)
+    # plotting code in lattice below
+    plot.decomp(decomp, dates,...)
+  }
+
+###PLOT data ##################################################################
+plot.decomp &lt;- function(decomp, dates,...) {
+    decomp &lt;- stack(as.data.frame(decomp))
+    period.name &lt;- c("Long-term", "Seasonal", "2-12 months", "1-2 months",
+                    "2-4 weeks", "1-2 weeks", "3.5 days to 1 week", "&lt; 3.5 days")
+    
+    decomp &lt;- data.frame(date = rep(dates, 8), decomp = decomp, 
+              period = rep(period.name, each = length(dates)))
+     
+    decomp$period &lt;- ordered(decomp$period, levels = period.name)
+    
+    #find year
+    year &lt;- as.factor(format(mydata$date, "%Y"))
+    mydata &lt;- cbind(mydata, year)
+    
+    #determine begin/end year (+1) for gridlines and axis
+    begin.year &lt;- ISOdate(levels(year)[1], 1, 1, 0, 0)
+    end.year &lt;- ISOdate(as.numeric(levels(year)[length(levels(year))]) 
+                + 1, 1, 1, 0, 0)
+                
+    xyplot(decomp.values ~ date|period, data = decomp, 
+            type = "l", 
+            as.table = T,
+            layout = c(2, 4),
+            scales = list(relation = "free", x = list(format = "%Y", 
+                    at = seq(begin.year, end.year, by = "2 year"))),...,
+            
+            panel = function(x, y,...) {
+                    panel.abline(v = seq(begin.year, end.year, by = "year"), 
+                                col = "grey85")
+                    panel.grid(h = -1, v = 0)
+                    panel.xyplot(x, y,...)
+            }
+    )
+  }
+###############################################################################        
+
+######################################################################
+## Decompose a vector into a matrix of "fourier" components
+##
+## Author:  Aidan McDermott (AMcD), modified by Roger Peng &lt;rpeng@jhsph.edu&gt;
+## Date  :  Dec 8, 2000
+## Adapted by David Carslaw Feb 2008
+######################################################################
+
+tsdecomp &lt;- function(x, dates) {
+    #consider fixed breaks
+    breaks &lt;- c(1, 2, round(length(x)/c(345, 60, 30, 14, 7, 3.5)), length(x))
+
+    ## Check for missing values
+    nax &lt;- is.na(x)
+    if(nas &lt;- any(nax))
+        x &lt;- x[!nax]
+
+    ## Need to be careful if length(x) is even or odd
+    is.even &lt;- !length(x) %% 2
+
+    xf  &lt;- fft(x) / length(x)
+    xf1 &lt;- xf[1]   # first bit is the sum of x
+    xf.first &lt;- xf[2:(1 + floor(length(xf) / 2))]
+
+    ## Break xf.first into various components
+    cuts  &lt;- cut(seq(length(xf.first)), breaks, include.lowest = TRUE)
+    lcuts &lt;- levels(cuts)
+    ncuts &lt;- length(lcuts)
+
+    mat &lt;- matrix(0, nrow = length(x), ncol = ncuts)
+
+    for(i in 1:ncuts) {
+        xf.temp &lt;- rep(0, length(xf.first))
+        xf.temp[cuts == lcuts[i]] &lt;- xf.first[cuts == lcuts[i]]
+
+        d &lt;- if(is.even)
+            c(xf1 / ncuts, xf.temp, rev(Conj(xf.temp[-length(xf.temp)])))
+        else
+            c(xf1 / ncuts, xf.temp, rev(Conj(xf.temp)))
+        mat[, i] &lt;- Re(fft(d, inverse = TRUE))
+    }
+    if(nas) {
+        nmat &lt;- matrix(NA, length(nax), NCOL(mat))
+        nmat[!nax, ] &lt;- mat
+        mat &lt;- nmat
+    }
+    structure(mat, breaks = breaks, class = c("tsdecomp", "matrix"))
+  }
+  }
+</pre>
+
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
+
+
+<hr><div align="center">[Package <em>openair</em> version 1.0 <a href="00Index.html">Index]</a></div>
+
+</body></html>

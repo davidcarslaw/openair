@@ -1,0 +1,46 @@
+##' Helper function to find airbase codes
+##'
+##' .. content for \details{} ..
+##' @title Helper function to find EEA airbase codes
+##' @param country A character or vector of characters representing country code.
+##' @param site.type One of \dQuote{Background}, \dQuote{Traffic},
+##' \dQuote{Industrial}, \dQuote{Unknown} representing the type of
+##' site.
+##' @param local.code A character or vector of characters representing
+##' the local site code. For example \dQuote{MY1} is the UK code for
+##' Marylebone Road.
+##' @param lat The latitude range to select in the form c(lower, upper).
+##' @param lon The longitude range to select in the form c(lower, upper).
+##' @return 
+##' @author David Carslaw
+airbaseFindCode <- function(country = c("AL", "AT", "BA", "BE", "BG", "CH", "CY", "CZ",
+                                "DE", "DK", "EE", "ES", "FI", "FR", "GB", "GR", "HR", "HU",
+                                "IE", "IS", "IT", "LI", "LT", "LU","LV", "ME", "MK", "MT",
+                                "NL", "NO", "PL", "PT", "RO", "RS", "SE", "SI", "SK", "TR"),
+                            site.type = c("Background", "Traffic", "Industrial", "Unknown"),
+                            local.code = NA, 
+                            lat = c(-90, 90), lon = c(-180, 180)) {
+
+    all <- site.info
+
+    ## country
+    id <- which(all$country.code %in% country)
+    res <- all[id, ]
+
+    ## site type
+    res <- res[res$site.type %in% site.type, ]
+
+    ## lat/lon
+    id <- which(res$lat >= lat[1] & res$lat <= lat[2] & res$lon >= lon[1] &
+                res$lon <= lon[2])
+    res <- res[id, ]
+
+    if (all(!is.na(local.code))) {
+        
+        id <- which(toupper(res$station_local_code) %in% toupper(local.code))
+        res <- res[id, ]
+    }
+    
+    as.character(res$code)
+
+}

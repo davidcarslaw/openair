@@ -1,0 +1,186 @@
+<html><head><title>~~function to do ... ~~</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>year.panels(openair)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   year.panels">
+<param name="keyword" value=" ~~function to do ... ~~">
+</object>
+
+
+<h2>~~function to do ... ~~</h2>
+
+
+<h3>Description</h3>
+
+<p>
+~~ A concise (1-5 lines) description of what the function does. ~~
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+year.panels(mydata, pollutant = "nox", add.smooth = FALSE, ylab = pollutant, main = "", auto.text = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mydata</code></td>
+<td>
+~~Describe <code>mydata</code> here~~ </td></tr>
+<tr valign="top"><td><code>pollutant</code></td>
+<td>
+~~Describe <code>pollutant</code> here~~ </td></tr>
+<tr valign="top"><td><code>add.smooth</code></td>
+<td>
+~~Describe <code>add.smooth</code> here~~ </td></tr>
+<tr valign="top"><td><code>ylab</code></td>
+<td>
+~~Describe <code>ylab</code> here~~ </td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+~~Describe <code>main</code> here~~ </td></tr>
+<tr valign="top"><td><code>auto.text</code></td>
+<td>
+~~Describe <code>auto.text</code> here~~ </td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+~~Describe <code>...</code> here~~ </td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+~~ If necessary, more details than the description above ~~
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+~Describe the value returned
+If it is a LIST, use
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>comp1 </code></td>
+<td>
+Description of 'comp1'</td></tr>
+<tr valign="top"><td><code>comp2 </code></td>
+<td>
+Description of 'comp2'</td></tr>
+</table>
+<p>
+
+...</p>
+
+<h3>Warning</h3>
+
+<p>
+....
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+~~further notes~~ 
+</p>
+<p>
+~Make other sections like Warning with section{Warning }{....} ~
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+~~who you are~~
+</p>
+
+
+<h3>References</h3>
+
+<p>
+~put references to the literature/web site here ~
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+~~objects to See Also as <code><a onclick="findlink('utils', 'help.html')" style="text-decoration: underline; color: blue; cursor: hand">help</a></code>, ~~~
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+##---- Should be DIRECTLY executable !! ----
+##-- ==&gt;  Define data, use random,
+##--    or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function(mydata,
+                pollutant = "nox",
+                add.smooth = FALSE,
+                                ylab = pollutant,
+                                main = "",
+                                auto.text = TRUE,...) {
+
+    library(lattice)
+
+    #extract variables of interest
+    vars &lt;- c("date", pollutant)
+    mydata &lt;- mydata[, vars]
+    mydata &lt;- mydata[order(mydata$date), ]
+    #rename pollutant to keep code consistent
+    colnames(mydata)[2] &lt;- "conc"
+    
+    year &lt;- as.factor(format(mydata$date, "%Y"))
+    mydata &lt;- cbind(mydata, year)
+
+    #determine begin/end year (+1) for gridlines and axis
+    begin.year &lt;- ISOdate(levels(year)[1], 1, 1, 0, 0)
+    end.year &lt;- ISOdate(as.numeric(levels(year)[length(levels(year))]) +1, 1, 1, 0, 0)
+
+    xyplot(conc ~ date | year,
+        data = mydata,
+        aspect = 0.4,
+        as.table = TRUE,
+                main = quick.text(main, auto.text),
+                ylab = quick.text(ylab, auto.text),
+        scales = list(relation = "free",x = list(format = "%b",
+        at = seq(begin.year, end.year, by = "2 month"))),...,
+
+        panel = function(x, y,...) {
+          #add grid lines every month by finding start/end date
+          panel.abline(v = seq(begin.year, end.year, by = "month"), col = "grey85")
+          panel.abline(h = 0, col = "grey85")
+          panel.grid(h = -1, v = 0)
+          panel.xyplot(x, y, type = "l", lwd = 1,...)
+
+          if (add.smooth == TRUE) {
+              panel.loess(x, y, lwd = 2, col = "red")
+          }
+    })
+  }
+</pre>
+
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
+
+
+<hr><div align="center">[Package <em>openair</em> version 1.0 <a href="00Index.html">Index]</a></div>
+
+</body></html>

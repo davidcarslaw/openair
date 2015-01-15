@@ -1,0 +1,150 @@
+<html><head><title>Traditional wind rose plot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>wind.rose(openair)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   wind.rose">
+<param name="keyword" value=" Traditional wind rose plot">
+</object>
+
+
+<h2>Traditional wind rose plot</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Traditional wind rose plot that plots wind speed  and wind direction by
+different intervals
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+wind.rose(polar,
+ws.int = 2,
+angle = 30,
+type = "default",
+cols = "default",
+main = "",
+grid.line = 5,
+width = 1,
+units = "(m/s)",
+auto.text = TRUE,
+ ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>polar</code></td>
+<td>
+A data frame containing fields <code>ws</code> and <code>wd</code></td></tr>
+<tr valign="top"><td><code>ws.int</code></td>
+<td>
+Wind speed interval. Default is 2 m/s but for low met
+masts with low mean wind speeds a value of 1 or 0.5 m/s may be
+better.</td></tr>
+<tr valign="top"><td><code>angle</code></td>
+<td>
+Default angle of "spokes" is 30. Other potentially useful
+angles are 45 and 10. Note that the width of the wind speed interval
+may need adjusting using <code>width</code>.</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+Default is <code>default</code>, which will plot all data on one
+wind rose. Can also be <code>year</code>, <code>month</code> and <code>hour</code> for
+one wind rose for each year or each month respectfully.</td></tr>
+<tr valign="top"><td><code>cols</code></td>
+<td>
+Colours to be used for plotting. Options include
+<code>default</code>, <code>increment</code>, <code>heat</code>, <code>jet</code>, <code>hue</code>
+and user defined. For user defined the user can supply a list of
+colour names recognised by R (type <code>colours()</code> to see the full
+list). An example would be <code>cols = c("yellow", "green", "blue",
+  "black")</code></td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+Title of plot.</td></tr>
+<tr valign="top"><td><code>grid.line</code></td>
+<td>
+Grid line interval to use.</td></tr>
+<tr valign="top"><td><code>width</code></td>
+<td>
+Adjustment factor for width of wind speed intervals. For
+example, <code>width = 1.5</code> will make the width 1.5 times wider.</td></tr>
+<tr valign="top"><td><code>units</code></td>
+<td>
+Controls the units shown on the scale e.g. <code>units =
+"knots"</code>.</td></tr>
+<tr valign="top"><td><code>auto.text</code></td>
+<td>
+Either <code>TRUE</code> (default) or <code>FALSE</code>. If
+<code>TRUE</code> titles and axis labels will automatically try and format
+pollutant names and units properly e.g.  by subscripting the `2' in
+NO2.</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+Other graphical parameters to pass to <code>wind.rose</code>.</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+Data are summarised by direction, typically by 45 or 30 (or
+10) degrees and by different wind speed categories. Typically, wind
+speeds are represented by different width "paddles". The plots show
+the proportion (here represented as a percentage) of time that the
+wind is from a certain angle and wind speed range.
+</p>
+<p>
+The <code>wind.rose</code> function plots the frequency of wind
+directions/speeds in 30 degree intervals of wind direction by
+default. By default the function will show a wind rose using all the
+data. Sometimes it is useful to set the wind speed interval to &lt; 2 m/s
+if wind speeds are from a met mast that is lower than 10 m height.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+David Carslaw
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="polar.freq.html">polar.freq</a></code> for a more flexible version that
+considers other statistics and pollutant concentrations.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+# load example data from package data(mydata)
+
+# basic plot
+wind.rose(mydata)
+
+# one wind rose for each year
+wind.rose(mydata,type = "year")
+
+# plot wind roses by month of the year
+wind.rose(mydata, type = "month")
+
+# wind rose in 10 degree intervals with gridlines and width adjusted
+wind.rose(mydata, angle = 10, width = 0.3, grid.line = 1)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>openair</em> version 1.0 <a href="00Index.html">Index</a>]</div>
+
+</body></html>

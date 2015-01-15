@@ -1,0 +1,324 @@
+<html><head><title>~~function to do ... ~~</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>diurnal.error(openair)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   diurnal.error">
+<param name="keyword" value=" ~~function to do ... ~~">
+</object>
+
+
+<h2>~~function to do ... ~~</h2>
+
+
+<h3>Description</h3>
+
+<p>
+~~ A concise (1-5 lines) description of what the function does. ~~
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+diurnal.error(mydata, pollutant = "nox", local.time = TRUE, normalise = FALSE, ylab = pollutant, name.pol = pollutant, main = "", auto.text = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mydata</code></td>
+<td>
+~~Describe <code>mydata</code> here~~ </td></tr>
+<tr valign="top"><td><code>pollutant</code></td>
+<td>
+~~Describe <code>pollutant</code> here~~ </td></tr>
+<tr valign="top"><td><code>local.time</code></td>
+<td>
+~~Describe <code>local.time</code> here~~ </td></tr>
+<tr valign="top"><td><code>normalise</code></td>
+<td>
+~~Describe <code>normalise</code> here~~ </td></tr>
+<tr valign="top"><td><code>ylab</code></td>
+<td>
+~~Describe <code>ylab</code> here~~ </td></tr>
+<tr valign="top"><td><code>name.pol</code></td>
+<td>
+~~Describe <code>name.pol</code> here~~ </td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+~~Describe <code>main</code> here~~ </td></tr>
+<tr valign="top"><td><code>auto.text</code></td>
+<td>
+~~Describe <code>auto.text</code> here~~ </td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+~~Describe <code>...</code> here~~ </td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+~~ If necessary, more details than the description above ~~
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+~Describe the value returned
+If it is a LIST, use
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>comp1 </code></td>
+<td>
+Description of 'comp1'</td></tr>
+<tr valign="top"><td><code>comp2 </code></td>
+<td>
+Description of 'comp2'</td></tr>
+</table>
+<p>
+
+...</p>
+
+<h3>Warning</h3>
+
+<p>
+....
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+~~further notes~~ 
+</p>
+<p>
+~Make other sections like Warning with section{Warning }{....} ~
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+~~who you are~~
+</p>
+
+
+<h3>References</h3>
+
+<p>
+~put references to the literature/web site here ~
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+~~objects to See Also as <code><a onclick="findlink('utils', 'help.html')" style="text-decoration: underline; color: blue; cursor: hand">help</a></code>, ~~~
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+##---- Should be DIRECTLY executable !! ----
+##-- ==&gt;  Define data, use random,
+##--    or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function(mydata, pollutant = "nox",
+                local.time = TRUE,
+                normalise = FALSE,
+                ylab = pollutant,
+                name.pol = pollutant,
+                main = "",
+                auto.text = TRUE,
+                ...)   {
+        
+        library(lattice)
+        library(Hmisc)
+        library(reshape)
+        
+        #extract variables of interest
+        vars &lt;- c("date", pollutant)
+        mydata &lt;- mydata[, vars]
+        mydata &lt;- mydata[order(mydata$date), ]
+        
+        # ylabs for more than one pollutant
+        if (length(pollutant) &gt; 1 &amp; missing(ylab)) ylab &lt;- paste(pollutant[1], ", ", 
+                                pollutant[2], sep = "") 
+        
+        # for pollutant names
+        if (length(pollutant) == 1) mylab &lt;- quick.text(pollutant, auto.text)
+        
+        if (length(pollutant) &gt; 1 &amp; missing(name.pol)) mylab &lt;- c(quick.text(pollutant[1], TRUE), 
+                                quick.text(pollutant[2], TRUE))
+        
+        if (length(pollutant) &gt; 1 &amp; !missing(name.pol)) mylab &lt;- c(quick.text(name.pol[1], TRUE), 
+                                quick.text(name.pol[2], TRUE))
+        
+        if (normalise)
+        {
+                N &lt;- dim(mydata)[2] #number of columns
+                means &lt;- colMeans(mydata[, 2 : N], na.rm = TRUE)
+                swept &lt;- sweep(mydata[, 2 : N], 2, means, "/")
+                mydata &lt;- cbind(date = mydata[, 1], swept)
+                ylab = "normalised level"
+        }
+        
+        mydata &lt;- melt(mydata, id = "date")
+        
+        #convert to local time
+        if (local.time) mydata$date &lt;- as.POSIXct(format(mydata$date, tz = "Europe/London"))
+        
+        
+        #first do diurnal by day of the week ######################################
+        calc &lt;- summarize(mydata[, "value"], llist(mydata[, "variable"],
+                                        format(mydata[, "date"], "%w-%H")), smean.cl.normal, na.rm = TRUE)
+        
+        
+        #make the names sensible
+        names(calc)[1:3]&lt;- c("pollutant", "day", "conc")
+        
+        days &lt;- c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
+        
+        #for polygon
+        x1 &lt;- rep(1:168, 2)
+        x2 &lt;- x1
+        y1 &lt;- calc$Lower
+        y2 &lt;- calc$Upper
+        
+#polygon that can handle missing data
+        poly &lt;- function(start, end, colour) {
+                for(i in seq(start, end))
+                        
+                        if (!any(is.na(y2[c(i - 1, i)]))){
+                                lpolygon(c(x1[i - 1], x1[i], x2[i], x2[i - 1]),
+                                                c(y1[i - 1], y1[i], y2[i], y2[i - 1]),
+                                                col = colour, border = 0) }
+        }
+        
+        #for decent y-scale
+        ymin = 0.99 * min(y1, na.rm = TRUE)
+        ymax = 1.01 * max(y2, na.rm = TRUE)
+        cols &lt;- c("#0080ff", "magenta")    #cols for key
+        cols &lt;- cols[1:length(pollutant)]
+        
+        
+        plt1 &lt;- xyplot(conc ~ x1, data = calc, type = "l", groups = pollutant,
+                        ylim = c(ymin, ymax),
+                        xlab = "day of week",
+                        ylab = quick.text(ylab, TRUE),
+                        main = quick.text(main, TRUE),
+                        
+                        scales = list(x = list(at = seq(13, 157, 24), labels = days) ),...,
+                        
+                        key = list(lines = list(lwd = 2, col = cols),
+                                        space = "bottom",
+                                        lwd = 2,
+                                        text = list(lab = mylab),
+                                        columns = length(pollutant)),
+                        
+                        
+                        panel = function(x, y,...) {
+                                
+                                poly(2, length(x1)/2, colour = rgb(0, 0, 1, 0.2))
+                                poly(length(x1)/2 + 2, length(x1), colour = rgb(1, 0, 0, 0.2))
+                                
+                                panel.abline(v = seq(0, 168, 24), col = "grey85")
+                                panel.grid(h = -1, v = 0)
+                                panel.xyplot(x, y, lwd = 2,...)
+                        })
+        
+        print(plt1, position=c(0, 0.5, 1, 1), more = TRUE)
+        
+#next do diurnal for all days########### ######################################
+        calc &lt;- summarize(mydata[, "value"], llist(mydata[, "variable"],
+                                        format(mydata[, "date"], "%H")), smean.cl.normal, na.rm = TRUE)
+        
+        #make the names sensible
+        names(calc)[1:3]&lt;- c("pollutant", "day", "conc")
+        
+        #for polygon
+        x1 &lt;- rep(1:24, 2)
+        x2 &lt;- x1
+        y1 &lt;- calc$Lower
+        y2 &lt;- calc$Upper
+        
+        #for decent y-scale
+        ymin = 0.99 * min(y1, na.rm = TRUE)
+        ymax = 1.01 * max(y2, na.rm = TRUE)
+        
+        plt2 &lt;- xyplot(conc ~ x1, data = calc, groups = pollutant, type = "l",
+                        ylim = c(ymin, ymax),
+                        xlab = "hour of day",
+                        ylab = quick.text(ylab, TRUE),
+                        main = "",...,
+                        
+                        panel = function(x, y,...) {
+                                
+                                poly(2, length(x1)/2, colour = rgb(0, 0, 1, 0.2))
+                                poly(length(x1)/2 + 2, length(x1), colour = rgb(1, 0, 0, 0.2))
+                                
+                                panel.grid(h = -1, v = -1)
+                                panel.xyplot(x, y, lwd = 2,...)
+                        })
+        
+        print(plt2, position=c(0, 0, 0.5, 0.6), more = TRUE)
+        
+#by day of week ################################################################
+        calc &lt;- summarize(mydata[, "value"], llist(mydata[, "variable"],
+                                        format(mydata[, "date"], "%w")), smean.cl.normal, na.rm = TRUE)
+        
+        #make the names sensible
+        names(calc)[1:3]&lt;- c("pollutant", "day", "conc")
+        
+        calc$day &lt;- as.factor(calc$day)
+        
+        #for decent y-scale
+        ymin = 0.99 * min(calc$Lower, na.rm = TRUE)
+        ymax = 1.01 * max(calc$Upper, na.rm = TRUE)
+        
+        plt3 &lt;- xyplot(conc ~ day, groups = pollutant, data = calc,
+                        par.settings = simpleTheme(pch = 16),
+                        xlab = "day of week",
+                        ylim = c(ymin, ymax),
+                        ylab = quick.text(ylab, TRUE),
+                        main = "",
+                        scales = list(x = list(labels = days)),...,
+                        
+                        panel = function(x, y,...) {
+                                #add grid lines every month by finding start/end date
+                                panel.grid(-1, -1)
+                                panel.dotplot(x, y, horiz = FALSE, cex = 1,...)
+                                
+                                larrows(1:7, calc$Lower[1:7], 1:7, calc$Upper[1:7], code = 3,
+                                                length = 0.1, angle = 90, col = "#0080ff")
+                                
+                                larrows(1:7, calc$Lower[8:14], 1:7, calc$Upper[8:14], code = 3,
+                                                length = 0.1, angle = 90, col = "magenta")
+                        })
+        
+        print(plt3, position=c(0.5, 0, 1, 0.6))
+        
+  }
+</pre>
+
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
+
+
+<hr><div align="center">[Package <em>openair</em> version 1.0 <a href="00Index.html">Index]</a></div>
+
+</body></html>

@@ -1,0 +1,29 @@
+airbaseStats <- function(statistic = "mean", add = c("lat", "lon")) {
+
+    stat.name <- match.arg(statistic, c("P50", "Mean", "P95", "P98", "Max", "Max36",
+                                        "Max8", "Days.c.50.", "Max26", "Days.c.120.",
+                                        "SOMO35", "AOT40", "Max19", "Hours.c.200.",
+                                        "Max4", "Days.c.125.", "P99_9", "Max25",
+                                        "Hours.c.350."))
+    
+
+    fileName <- paste0("http://www.erg.kcl.ac.uk/downloads/Policy_Reports/airbase/", stat.name, ".RData")
+
+    con <- url(fileName)
+    load(con) ## brings in data frame dat
+    close(con)
+
+    if (length(add) > 0 ) {
+        ## add other fields
+        fileName <- "http://www.erg.kcl.ac.uk/downloads/Policy_Reports/airbase/site.info.RData"
+
+        con <- url(fileName)
+        load(con) ## brings in data frame site.info
+        close(con)
+        
+        dat <- merge(dat, subset(site.info, select = c(code, lat, lon)), by = "code")
+    }
+    
+    dat
+    
+}

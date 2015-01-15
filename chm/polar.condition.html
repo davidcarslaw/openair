@@ -1,0 +1,376 @@
+<html><head><title>~~function to do ... ~~</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>polar.condition(openair)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   polar.condition">
+<param name="keyword" value=" ~~function to do ... ~~">
+</object>
+
+
+<h2>~~function to do ... ~~</h2>
+
+
+<h3>Description</h3>
+
+<p>
+~~ A concise (1-5 lines) description of what the function does. ~~
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+polar.condition(polar, pollutant = "", resolution = "normal", limits = c(0, 100), exclude.missing = TRUE, cols = "jet", min.bin = 1, upper = 10, auto.smooth = FALSE, k = 100, xlim = c(-upper - 3, upper + 3), ylim = c(-upper - 3, upper + 3), ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>polar</code></td>
+<td>
+~~Describe <code>polar</code> here~~ </td></tr>
+<tr valign="top"><td><code>pollutant</code></td>
+<td>
+~~Describe <code>pollutant</code> here~~ </td></tr>
+<tr valign="top"><td><code>resolution</code></td>
+<td>
+~~Describe <code>resolution</code> here~~ </td></tr>
+<tr valign="top"><td><code>limits</code></td>
+<td>
+~~Describe <code>limits</code> here~~ </td></tr>
+<tr valign="top"><td><code>exclude.missing</code></td>
+<td>
+~~Describe <code>exclude.missing</code> here~~ </td></tr>
+<tr valign="top"><td><code>cols</code></td>
+<td>
+~~Describe <code>cols</code> here~~ </td></tr>
+<tr valign="top"><td><code>min.bin</code></td>
+<td>
+~~Describe <code>min.bin</code> here~~ </td></tr>
+<tr valign="top"><td><code>upper</code></td>
+<td>
+~~Describe <code>upper</code> here~~ </td></tr>
+<tr valign="top"><td><code>auto.smooth</code></td>
+<td>
+~~Describe <code>auto.smooth</code> here~~ </td></tr>
+<tr valign="top"><td><code>k</code></td>
+<td>
+~~Describe <code>k</code> here~~ </td></tr>
+<tr valign="top"><td><code>xlim</code></td>
+<td>
+~~Describe <code>xlim</code> here~~ </td></tr>
+<tr valign="top"><td><code>ylim</code></td>
+<td>
+~~Describe <code>ylim</code> here~~ </td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+~~Describe <code>...</code> here~~ </td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+~~ If necessary, more details than the description above ~~
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+~Describe the value returned
+If it is a LIST, use
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>comp1 </code></td>
+<td>
+Description of 'comp1'</td></tr>
+<tr valign="top"><td><code>comp2 </code></td>
+<td>
+Description of 'comp2'</td></tr>
+</table>
+<p>
+
+...</p>
+
+<h3>Warning</h3>
+
+<p>
+....
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+~~further notes~~ 
+</p>
+<p>
+~Make other sections like Warning with section{Warning }{....} ~
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+~~who you are~~
+</p>
+
+
+<h3>References</h3>
+
+<p>
+~put references to the literature/web site here ~
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+~~objects to See Also as <code><a onclick="findlink('utils', 'help.html')" style="text-decoration: underline; color: blue; cursor: hand">help</a></code>, ~~~
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+##---- Should be DIRECTLY executable !! ----
+##-- ==&gt;  Define data, use random,
+##--    or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function(polar,
+              pollutant = "",
+              resolution = "normal",
+              limits = c(0,100),
+              exclude.missing = TRUE,
+              cols = "jet",
+              min.bin = 1,
+              upper = 10,
+              auto.smooth = FALSE,
+              k = 100,
+              xlim = c(-upper - 3, upper + 3), 
+              ylim =c(-upper - 3, upper + 3),...) {
+
+  ## Input variables are described as follows:
+
+  ## polar - data.frame consisting of ws, wd and conc.  This is the only
+  ## compulsary requirement, all others below are optional and have defaults
+
+  ## resolution - can be "normal" (default) or "fine".  Normal should be
+  ## adequate for most purposes; "fine" doubles the resolution for smoother
+  ## rendering.
+
+  ## limits - the user can specify their own lower and upper limits if the
+  ## default scale is not appropriate.  This is input in the form
+  ## c(lower, upper).
+
+  ## exlude.missing - if TRUE (default) plots are shown with missing data
+  ## removed.
+
+
+
+  #needs access to these packages
+  library(mgcv)    #for smoothing surfaces and removing noise
+  library(vcd)     #colours ("heat")
+  library(matlab)  #colours ("jet")
+  library(lattice) #basic plotting
+  library(IDPmisc) #more colours ("default")
+
+  #extract variables of interest
+  vars &lt;- c("ws", "wd", "date", pollutant)
+  polar &lt;- polar[, vars]
+  polar &lt;- polar[order(polar$date), ]
+
+  #upper is useful for extending plots with ws to &gt; 10 m/s
+
+  #upper ws
+  if (upper &lt; 10) upper &lt;- 10
+  
+  ws.scale &lt;- 1
+  d &lt;- 0
+  
+
+  polar$wd[polar$wd == 0] &lt;- 360
+
+  #for resolution of grid plotting (default = 0.2; fine =0.1)
+  if (resolution =="normal") int &lt;- 0.2
+  if (resolution =="fine") int &lt;- 0.1
+  if (resolution =="ultra.fine") int &lt;- 0.05  #very large files!
+
+  #binning wd data properly
+  max.ws &lt;- ceiling(max(polar$ws, na.rm = TRUE))
+  ws &lt;- seq(0, max.ws, length = 30)
+  wd &lt;- seq(from = 10, to = 360, by = 10) #wind directions from 10 to 360
+  ws.wd &lt;- expand.grid(ws = ws, wd = wd)
+
+  #round wd to make processing obvious
+  polar$wd[polar$wd == 0] &lt;- NA
+  polar$wd &lt;- 10 * round(polar$wd/10)
+  polar$wd[polar$wd == 0] &lt;- 360   # angles &lt;5 should be in 360 bin
+  polar$wd[polar$wd == 0] &lt;- 360
+  
+  u &lt;- ws.wd$ws * sin(pi * ws.wd$wd / 180) #convert to polar coords
+  v &lt;- ws.wd$ws * cos(pi * ws.wd$wd / 180)
+
+  #data to predict over
+  input.data &lt;- expand.grid(u = seq(-upper - d, upper + d, by = int),
+                v = seq(-upper - d, upper + d, by = int))
+
+prepare.grid &lt;- function(polar) {
+  #identify which ws and wd bins the data belong
+  wd &lt;- cut(polar$wd, breaks = seq(0, 360, 10), include.lowest = TRUE)
+  ws &lt;- cut(polar$ws, breaks = seq(0, max.ws, length = 31))
+
+   #this automatically deals with missing data
+  binned &lt;- tapply(polar[, pollutant], list(wd, ws), mean, na.rm = TRUE)
+  binned &lt;- as.vector(t(binned))
+  
+  #frequency - remove points with freq &lt; min.bin
+  bin.len &lt;- tapply(polar[, pollutant], list(wd, ws), length)
+  binned.len &lt;- as.vector(t(bin.len))
+  ids &lt;- which(binned.len &lt; min.bin)
+  binned[ids] &lt;- NA
+######################Smoothing#################################################
+
+    #run GAM to make a smooth surface
+    #use square root to avoid any problems with negative predictions (rare)
+    if (auto.smooth == TRUE) {
+        Mgam &lt;- gam(binned ~ s(u, v))
+     } else {
+        Mgam &lt;- gam(binned ~ s(u, v, k = k))
+    }
+    pred &lt;- predict.gam(Mgam, input.data)
+    pred &lt;- pred
+
+  #############################################################################
+
+  results &lt;- data.frame(u = input.data$u, v = input.data$v, z = pred)
+
+  if (exclude.missing == TRUE) {
+      # exclude predictions too far from data (from mgcv)
+      # assumes wind speeds up to 10
+      x &lt;- seq(-upper, upper, by = int)
+      y &lt;- x
+      res &lt;- (2*upper)/int + 1
+      wsp &lt;- rep(x, res)
+      wdp &lt;- rep(y, rep(res, res))
+      #remove null data
+      polar &lt;- na.omit(polar)
+
+      ind &lt;- exclude.too.far(wsp, wdp, polar$ws * sin(pi * polar$wd/180),
+             polar$ws * cos(pi * polar$wd/180), dist = 0.05)
+
+      results$z[ind] &lt;- NA
+      results
+  }
+  }
+
+#############################################################################
+  #cut data by year
+  polar$cond &lt;- cut(polar$date, "year", labels = FALSE)
+  polar &lt;- na.omit(polar)
+  #prepare input grid
+  results.grid &lt;- data.frame(u = NULL, v = NULL, z = NULL, cond = NULL)
+
+  for (i in unique(polar$cond)) {
+      pred &lt;- prepare.grid(subset(polar, cond == i))
+      pred &lt;- cbind(pred, cond = i)
+      results.grid &lt;- rbind(results.grid, pred)
+  }
+
+  #remove wind speeds &gt; upper to make a circle
+  results.grid$z[(results.grid$u^2 + results.grid$v^2)^.5 &gt; upper*ws.scale] &lt;- NA
+  
+  results.grid$cond &lt;- as.factor(results.grid$cond)
+  levels(results.grid$cond) = unique(format(polar$date, "%Y"))
+
+  #auto-scaling
+  nlev = 200  #preferred number of intervals
+  #handle missing breaks arguments
+    if(missing(limits)) {
+          breaks=pretty(results.grid$z, n = nlev)
+     } else {
+          breaks=pretty(limits, n = nlev)
+    }
+
+  nlev2 = length(breaks)
+
+  #various colour schemes ######################################################
+
+  if(cols == "default") col &lt;- IDPcolorRamp(nlev2 - 1)
+  if(cols == "jet") col &lt;- jet.colors(nlev2 - 1)
+  if(cols == "heat") col &lt;- rev(heat_hcl(nlev2 - 1, c = c(100, 30),
+            l = c(30, 100), power = c(1/5,3)))
+  ##############################################################################
+
+  col.scale = breaks
+
+contourplot(z ~ u * v | cond, results.grid, axes = FALSE,
+      as.table = TRUE,
+      col.regions = col, region = TRUE,
+      aspect = 1, at = col.scale, xlab = "", ylab = "",
+      scales = list(draw = FALSE),
+      xlim = c(-upper - 3, upper + 3), ylim =c(-upper - 3, upper + 3),
+      ...,
+
+      #colorkey = list(labels = list(labels=as.character(col.scale),
+      #  at=col.scale, cex = 0.7)),
+      panel = function(x, y, z,subscripts,...) {
+              panel.contourplot(x, y, z, subscripts, at = col.scale,
+              pretty = TRUE,
+              col.regions = col, labels = FALSE)
+
+              #add axis line to central polar plot
+              llines(c(-upper*ws.scale, upper*ws.scale), c(0, 0),
+                      col = "grey20")
+              llines(c(0, 0), c(-upper*ws.scale, upper*ws.scale),
+                      col = "grey20")
+
+               #annotate
+               lsegments(-upper:upper,
+                  rep(-.2, 2 * upper + 1),
+                  -upper:upper,
+                  rep(.2, 2 * upper + 1), col = "grey20")
+               lsegments(rep(-.2, 2 * upper + 1),
+                  -upper:upper,
+                  rep(.2, 2 * upper + 1),
+                  -upper:upper, col = "grey20")
+                #larger ticks every 5
+                lsegments(seq(-upper, upper, by = 5),
+                  rep(-.4, 2 * upper + 1),
+                  seq(-upper , upper, by = 5),
+                  rep(.4, 2*upper + 1), col = "grey20")
+               lsegments(rep(-.4, 2 * upper + 1),
+                  seq(-upper, upper, by = 5),
+                  rep(.4, 2 * upper + 1),
+                  seq(-upper, upper, by = 5), col = "grey20")
+
+        # text for directions
+
+            ltext(-upper - 1.5, 0, "W")
+            ltext(0, -upper - 1.5, "S")
+            ltext(0, upper + 1.5, "N")
+            ltext(upper + 1.5, 0, "E")
+      })
+
+  }
+</pre>
+
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
+
+
+<hr><div align="center">[Package <em>openair</em> version 1.0 <a href="00Index.html">Index]</a></div>
+
+</body></html>

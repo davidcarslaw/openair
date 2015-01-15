@@ -1,0 +1,261 @@
+<html><head><title>~~function to do ... ~~</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>trend.plot(openair)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   trend.plot">
+<param name="keyword" value=" ~~function to do ... ~~">
+</object>
+
+
+<h2>~~function to do ... ~~</h2>
+
+
+<h3>Description</h3>
+
+<p>
+~~ A concise (1-5 lines) description of what the function does. ~~
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+trend.plot(mydata, pollutant = "nox", deseason = FALSE, simulate = FALSE, n = 200, legend.pos = "bottomleft", ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mydata</code></td>
+<td>
+~~Describe <code>mydata</code> here~~ </td></tr>
+<tr valign="top"><td><code>pollutant</code></td>
+<td>
+~~Describe <code>pollutant</code> here~~ </td></tr>
+<tr valign="top"><td><code>deseason</code></td>
+<td>
+~~Describe <code>deseason</code> here~~ </td></tr>
+<tr valign="top"><td><code>simulate</code></td>
+<td>
+~~Describe <code>simulate</code> here~~ </td></tr>
+<tr valign="top"><td><code>n</code></td>
+<td>
+~~Describe <code>n</code> here~~ </td></tr>
+<tr valign="top"><td><code>legend.pos</code></td>
+<td>
+~~Describe <code>legend.pos</code> here~~ </td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+~~Describe <code>...</code> here~~ </td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+~~ If necessary, more details than the description above ~~
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+~Describe the value returned
+If it is a LIST, use
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>comp1 </code></td>
+<td>
+Description of 'comp1'</td></tr>
+<tr valign="top"><td><code>comp2 </code></td>
+<td>
+Description of 'comp2'</td></tr>
+</table>
+<p>
+
+...</p>
+
+<h3>Warning</h3>
+
+<p>
+....
+</p>
+
+
+<h3>Note</h3>
+
+<p>
+~~further notes~~ 
+</p>
+<p>
+~Make other sections like Warning with section{Warning }{....} ~
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+~~who you are~~
+</p>
+
+
+<h3>References</h3>
+
+<p>
+~put references to the literature/web site here ~
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+~~objects to See Also as <code><a onclick="findlink('utils', 'help.html')" style="text-decoration: underline; color: blue; cursor: hand">help</a></code>, ~~~
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+##---- Should be DIRECTLY executable !! ----
+##-- ==&gt;  Define data, use random,
+##--    or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function(mydata, 
+                      pollutant = "nox", 
+                      deseason = FALSE, 
+                      simulate = FALSE,
+                      n = 200,
+                      legend.pos = "bottomleft",...)  {        #bootstrap simulations
+
+library(mgcv)    
+    #extract variables of interest
+    vars &lt;- c("date", pollutant)
+    mydata &lt;- mydata[, vars]
+    mydata &lt;- mydata[order(mydata$date), ]
+    
+    #rename pollutant to keep code consistent
+    colnames(mydata)[2] &lt;- "conc"
+
+    #sometimes data have long trailing NAs, so start and end at first and last data
+    min.idx &lt;- min(which(!is.na(mydata$conc)))
+    max.idx &lt;- max(which(!is.na(mydata$conc)))
+    
+    mydata &lt;- mydata[min.idx:max.idx, ]
+
+    means &lt;- tapply(mydata$conc, format(mydata$date,"%Y-%m"), mean, na.rm = TRUE)
+    means &lt;- as.vector(means)
+    
+    start.year &lt;- as.numeric(format(mydata$date[1], "%Y"))
+    end.year &lt;- as.numeric(format(mydata$date[nrow(mydata)], "%Y"))
+    start.month &lt;- as.numeric(format(mydata$date[1], "%m"))
+    end.month &lt;- as.numeric(format(mydata$date[nrow(mydata)], "%m"))
+
+    #dates as numeric for GAM fitting
+    dates &lt;- seq((start.year + (start.month - 1)/12), 
+             (end.year + (end.month - 1)/12), by = 1/12)
+    
+    if (deseason == TRUE) {
+    
+        #simple fill of missing data
+        means[which(is.nan(means))] &lt;- mean(means, na.rm = TRUE)
+        myts &lt;- ts(means, start = c(start.year, start.month),
+                end = c(end.year, end.month), frequency = 12)
+    
+        ssd &lt;- stl(myts, "periodic", robust = TRUE, s.degree = 1)
+        
+        deseas &lt;- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
+        results &lt;- data.frame(date = dates, conc = deseas)
+        
+    } else {
+    
+        results &lt;- na.omit(data.frame(date = dates, conc = means))
+    
+    }
+    
+    if (simulate == FALSE) {  #just plot the data   
+        mod &lt;- gam(conc ~ s(date), data = results)
+        pred &lt;- predict(mod, results, se = TRUE)
+        
+        results &lt;- cbind(results, pred = pred$fit, lower = pred$fit - 2 * pred$se.fit, 
+                    upper = pred$fit + 2 * pred$se.fit)
+        
+        x &lt;- c(results$date, rev(results$date))
+        y &lt;- c(pred$fit + 2 * pred$se.fit, rev(pred$fit - 2 * pred$se.fit))
+        
+        plot(results$date, results$conc, type = "n", xlab = "date",...)
+        
+        polygon(x, y, col = "lightpink", border = NA)
+        
+        grid(col = "grey85", lty = 1)      
+        lines(results$date, pred$fit, col = "red", lwd = 2)
+        lines(results$date, results$conc, col = "grey50")
+    } else {
+   
+       sam.size = nrow(results)
+       boot.pred &lt;- matrix(nrow = sam.size, ncol = n)
+       boot.pred2 &lt;- matrix(nrow = sam.size, ncol = n)
+       
+       for (i in 1:n) {
+          index &lt;- sample(sam.size, replace = TRUE)
+          index2 &lt;- sample(sam.size, replace = TRUE)
+          
+          new.results &lt;- data.frame(date = results$date[index], 
+                         conc = results$conc[index2])
+                        
+          mod &lt;- gam(conc ~ s(date, bs = "tp"), data = results[index, ])
+          mod2 &lt;- gam(conc ~ s(date, bs = "tp"), data = new.results)
+          
+          pred &lt;- predict(mod, results)
+          pred2 &lt;- predict(mod2, new.results) 
+          
+          boot.pred[, i] &lt;- pred
+          boot.pred2[, i] &lt;- pred2
+       }   
+       
+       #calculate percentiles
+       percentiles &lt;- apply(boot.pred, 1, function(x) 
+                      quantile(x, probs = c(0.025, 0.975)))
+       percentiles2 &lt;- apply(boot.pred2, 1, function(x) 
+                       quantile(x, probs = c(0.025, 0.975))) 
+       
+       x &lt;- c(results$date, rev(results$date))
+       y &lt;- c(percentiles[2, ], rev(percentiles[1, ]))
+          
+        plot(results$date, results$conc, type = "n", xlab = "date",...)
+        
+        grid(col = "grey85", lty = 1)
+        lines(results$date, results$conc, col = "grey50")
+        polygon(x, y, col = rgb(1, 0, 0, 0.2), border = NA)
+        
+        y &lt;- c(percentiles2[2, ], rev(percentiles2[1, ]))
+        polygon(x, y, col = rgb(0, 0, 1, 0.2), border = NA)
+              
+        lines(results$date, rowMeans(boot.pred), col = "red", lwd = 2)
+        lines(results$date, rowMeans(boot.pred2), col = "blue", lwd = 2)
+        
+       legend(legend.pos, c("Measurements", "No trend hypothesis"), col = c("red",
+              "blue"), lty = 1, lwd = 2, inset = 0.02, bg = "white")
+    }
+   results
+   invisible(results)    
+  }
+</pre>
+
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
+
+
+<hr><div align="center">[Package <em>openair</em> version 1.0 <a href="00Index.html">Index]</a></div>
+
+</body></html>

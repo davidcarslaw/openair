@@ -1,0 +1,223 @@
+<html><head><title>Function to plot wind speed/direction frequencies and other statistics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>polar.freq(openair)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   polar.freq">
+<param name="keyword" value=" Function to plot wind speed/direction frequencies and other statistics">
+</object>
+
+
+<h2>Function to plot wind speed/direction frequencies and other statistics</h2>
+
+
+<h3>Description</h3>
+
+<p>
+<code>polar.freq</code> primarily plots wind speed-direction
+frequencies in &lsquo;bins&rsquo;. Each bin is colour-coded depending on the
+frequency of measurements. Bins can also be used to show the
+concentration of pollutants using a range of commonly used statistics.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+polar.freq(polar,
+pollutant = "",
+statistic = "frequency",
+ws.int = 1,
+breaks = seq(0, 5000, 500),
+cols = "default",
+trans = TRUE,
+type = "default",
+min.bin = 1,
+border.col = "transparent",
+main = "",
+auto.text = TRUE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>polar</code></td>
+<td>
+A data frame minimally containing <code>ws</code>, <code>wd</code> and <code>date</code>.</td></tr>
+<tr valign="top"><td><code>pollutant</code></td>
+<td>
+Mandatory. A pollutant name corresponding to a variable in a data frame should be supplied e.g. <code>pollutant = "nox"</code> </td></tr>
+<tr valign="top"><td><code>statistic</code></td>
+<td>
+The statistic that should be applied to each wind
+speed/direction bin. Can be "frequency", "mean", "median", "max"
+(maximum), "stdev" (standard deviation) or "weighted.mean". The option
+"frequency" (the default) is the simplest and plots the frequency of
+wind speed/direction in different bins. The scale therefore shows the
+counts in each bin. The option "mean" will plot the mean concentration
+of a pollutant (see next point) in wind speed/direction bins, and so
+on. Finally, "weighted.mean" will plot the concentration of a pollutant
+weighted by wind speed/direction. Each segment therefore provides the
+percentage overall contribution to the total concentration.  More
+information is given in the examples. Note that for options other than
+"frequency", it is necessary to also provide the name of a pollutant.</td></tr>
+<tr valign="top"><td><code>ws.int</code></td>
+<td>
+Wind speed interval assumed. In some cases e.g. a low met mast, an interval of 0.5 may be more appropriate.</td></tr>
+<tr valign="top"><td><code>breaks</code></td>
+<td>
+The user can provide their own scale. <code>breaks</code>
+expects a sequence of numbers that define the range of the scale. The
+sequence could represent one with equal spacing e.g. <code>breaks =
+  seq(0, 100, 10)</code> - a scale from 0-10 in intervals of 10, or a more
+flexible sequence e.g. <code>breaks = c(0, 1, 5, 7, 10)</code>, which may be
+useful for some situations.</td></tr>
+<tr valign="top"><td><code>cols</code></td>
+<td>
+Colours to be used for plotting. Options include
+"default", "increment", "heat", "jet" and user defined. For user
+defined the user can supply a list of colour names recognised by R
+(type <code>colours()</code> to see the full list). An example would be
+<code>cols = c("yellow", "green", "blue")</code></td></tr>
+<tr valign="top"><td><code>trans</code></td>
+<td>
+Should a transformation be applied? Sometimes when
+producing plots of this kind they can be dominated by a few high
+points. The default therefore is <code>TRUE</code> and a square-root transform
+is applied. This results in a non-linear scale and (usually) a better
+representation of the distribution. If set to <code>FALSE</code> a linear
+scale is used.</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+The type of analysis to be done. The default is will
+produce a single plot using the entire data. Other types include "hour"
+(for hour of the day), "weekday" (for day of the week), "month" (for
+month of the year) and "year". There is an option "site", which
+requires a slightly different format. If "site" is used a data frame
+with headings <code>date</code>, a pollutant and <code>site</code> is required. It is also
+possible to choose <code>type</code> as another variable in the data frame. For
+example, <code>type = "o3"</code> will plot four wind roses for different
+levels of ozone, split into four quantiles (approximately equal numbers
+of counts in each of the four splits). This offers great flexibility for
+understanding the variation of different variables dependent on
+another.</td></tr>
+<tr valign="top"><td><code>min.bin</code></td>
+<td>
+The minimum number of points allowed in a wind
+speed/wind direction bin.  The default is 1. A value of two requires
+at least 2 valid records in each bin (units of 1 m/s and 10 degrees)
+an so on; bins with less than 2 valid records are set to NA. Care
+should be taken when using a value &gt; 1 because of the risk of removing
+real data points. It is recommended to consider your data with
+care. Also, the <code><a href="polar.plot.html">polar.plot</a></code> function can be of use in
+such circumstances.</td></tr>
+<tr valign="top"><td><code>border.col</code></td>
+<td>
+The colour of the boundary of each wind
+speed/direction bin. The default is transparent. Another useful choice
+sometimes is "white".</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+Title of plot.</td></tr>
+<tr valign="top"><td><code>auto.text</code></td>
+<td>
+Either <code>TRUE</code> (default) or <code>FALSE</code>. If
+<code>TRUE</code> titles and axis labels will automatically try and format
+pollutant names and units properly e.g.  by subscripting the
+&lsquo;2&rsquo; in NO2.</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+Other graphical parameters.</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+<code>polar.freq</code> is its default use provides details of wind speed and
+direction frequencies. In this respect it is similar to
+<code><a href="wind.rose.html">wind.rose</a></code>, but considers wind direction intervals of 10
+degrees and a user-specified wind speed interval. The frequency of wind
+speeds/directions formed by these &lsquo;bins&rsquo; is represented on a
+colour scale.
+</p>
+<p>
+The <code>polar.freq</code> function is more flexible than either
+<code><a href="wind.rose.html">wind.rose</a></code> or <code><a href="polar.plot.html">polar.plot</a></code>. It can, for
+example, also consider pollutant concentrations (see examples
+below). Instead of the number of data points in each bin, the
+concentration can be shown. Further, a range of statistics can be used
+to describe each bin - see <code>statistic</code> above. Plotting mean
+concentrations is useful for source identification and is the same as
+<code><a href="polar.plot.html">polar.plot</a></code> but without smoothing, which may be preferable
+for some data. Plotting with <code>statistic = "weighted.mean"</code> is
+particularly useful for understanding the relative importance of
+different source contributions. For example, high mean concentrations
+may be observed for high wind speed conditions, but the weighted mean
+concentration may well show that the contribution to overall
+concentrations is very low.
+</p>
+<p>
+<code>polar.freq</code> also offers great flexibility with the scale used and
+the user has fine control over both the range, interval and colour.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+David Carslaw
+</p>
+
+
+<h3>References</h3>
+
+<p>
+~put references to the literature/web site here ~
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+See Also as <code><a href="wind.rose.html">wind.rose</a></code>, <code><a href="polar.plot.html">polar.plot</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+# basic wind frequency plot
+polar.freq(mydata)
+
+# wind frequencies by year
+polar.freq(mydata, type = "year")
+
+# drop the date strip at the top
+polar.freq(mydata, strip = FALSE)
+
+# mean SO2 by year, showing only bins with at least 2 points
+polar.freq(mydata, pollutant = "so2", type = "year", statistic = "mean", min.bin = 2)
+
+# weighted mean SO2 by year, showing only bins with at least 2 points
+polar.freq(mydata, pollutant = "so2", type = "year", statistic = "weighted.mean", min.bin = 2)
+
+#wind rose for just 2000 and 2003 with different colours
+polar.freq(subset(mydata, format(date, "%Y") %in% c(2000, 2003)), type = "year", cols = "jet")
+
+# user defined breaks from 0-700 in intervals of 100 (note linear scale)
+polar.freq(mydata, breaks = seq(0, 700, 100))
+
+# more complicated user-defined breaks - useful for highlighting bins with a certain number of data points
+polar.freq(mydata, breaks = c(0, 10, 50, 100, 250, 500, 700))
+
+</pre>
+
+
+
+<hr><div align="center">[Package <em>openair</em> version 1.0 <a href="00Index.html">Index</a>]</div>
+
+</body></html>

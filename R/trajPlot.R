@@ -1,0 +1,282 @@
+##' Trajectory line plots with conditioning
+##'
+##' This function plots back trajectories. This function
+##' requires that data are imported using the \code{importTraj}
+##' function.
+##'
+##' Several types of trajectory plot are available. \code{trajPlot} by
+##' default will plot each lat/lon location showing the origin of
+##' each trajectory, if no \code{pollutant} is supplied.
+##'
+##' If a pollutant is given, by merging the trajectory data with
+##' concentration data (see example below), the trajectories are
+##' colour-coded by the concentration of \code{pollutant}. With a long
+##' time series there can be lots of overplotting making it difficult
+##' to gauge the overall concentration pattern. In these cases setting
+##' \code{alpha} to a low value e.g. 0.1 can help.
+##'
+##' The user can aslo show points instead of lines by \code{plot.type
+##' = "p"}.
+##'
+##' Note that \code{trajPlot} will plot only the full length
+##' trajectories. This should be remembered when selecting only part
+##' of a year to plot.
+##'
+##'
+##' @param mydata Data frame, the result of importing a trajectory
+##' file using \code{importTraj}.
+##' @param lon Column containing the longitude, as a decimal.
+##' @param lat Column containing the latitude, as a decimal.
+##' @param pollutant Pollutant to be plotted. By default the
+##' trajectory height is used.
+##' @param type \code{type} determines how the data are split
+##' i.e. conditioned, and then plotted. The default is will produce a
+##' single plot using the entire data. Type can be one of the built-in
+##' types as detailed in \code{cutData} e.g. "season", "year",
+##' "weekday" and so on. For example, \code{type = "season"} will
+##' produce four plots --- one for each season.
+##'
+##' It is also possible to choose \code{type} as another variable in
+##' the data frame. If that variable is numeric, then the data will be
+##' split into four quantiles (if possible) and labelled
+##' accordingly. If type is an existing character or factor variable,
+##' then those categories/levels will be used directly. This offers
+##' great flexibility for understanding the variation of different
+##' variables and how they depend on one another.
+##'
+##' \code{type} can be up length two e.g. \code{type = c("season",
+##' "weekday")} will produce a 2x2 plot split by season and day of the
+##' week. Note, when two types are provided the first forms the
+##' columns and the second the rows.
+##' @param map Should a base map be drawn? If \code{TRUE} the world
+##' base map from the \code{maps} package is used.
+##' @param group It is sometimes useful to group and colour
+##' trajectories according to a grouping variable. See example below.
+##' @param map.fill Should the base map be a filled polygon? Default
+##' is to fill countries.
+##' @param map.res The resolution of the base map. By default the
+##' function uses the \sQuote{world} map from the \code{maps}
+##' package. If \code{map.res = "hires"} then the (much) more detailed
+##' base map \sQuote{worldHires} from the \code{mapdata} package is
+##' used.
+##' @param map.cols If \code{map.fill = TRUE} \code{map.cols} controls
+##' the fill colour. Examples include \code{map.fill = "grey40"} and
+##' \code{map.fill = openColours("default", 10)}. The latter colours
+##' the countries and can help differentiate them.
+##' @param map.alpha The transpency level of the filled map which
+##' takes values from 0 (full transparency) to 1 (full
+##' opacity). Setting it below 1 can help view trajectories,
+##' trajectory surfaces etc. \emph{and} a filled base map.
+##' @param projection The map projection to be used. Different map
+##' projections are possible through the \code{mapproj}
+##' package. See \code{?mapproj} for extensive details and information
+##' on setting other parameters and orientation (see below).
+##' @param parameters From the \code{mapproj} package. Optional
+##' numeric vector of parameters for use with the projection
+##' argument. This argument is optional only in the sense that certain
+##' projections do not require additional parameters. If a projection
+##' does not require additional parameters then set to null
+##' i.e. \code{parameters = NULL}.
+##' @param orientation From the \code{mapproj} package. An optional
+##' vector c(latitude, longitude, rotation) which describes where the
+##' "North Pole" should be when computing the projection. Normally
+##' this is c(90, 0), which is appropriate for cylindrical and conic
+##' projections. For a planar projection, you should set it to the
+##' desired point of tangency. The third value is a clockwise rotation
+##' (in degrees), which defaults to the midrange of the longitude
+##' coordinates in the map.
+##' @param grid.col The colour of the map grid to be used. To remove
+##' the grid set \code{grid.col = "transparent"}.
+##' @param ... other arguments are passed to \code{cutData} and
+##' \code{scatterPlot}. This provides access to arguments used in both
+##' these functions and functions that they in turn pass arguments on
+##' to. For example, \code{plotTraj} passes the argument \code{cex} on
+##' to \code{scatterPlot} which in turn passes it on to the
+##' \code{lattice} function \code{xyplot} where it is applied to set
+##' the plot symbol size.
+##' @export
+##' @seealso \code{\link{importTraj}} to import trajectory data from the King's
+##' College server and \code{\link{trajLevel}} for trajectory binning functions.
+##' @author David Carslaw
+##' @examples
+##'
+##' # show a simple case with no pollutant i.e. just the trajectories
+##' # let's check to see where the trajectories were coming from when
+##' # Heathrow Airport was closed due to the Icelandic volcanic eruption
+##' # 15--21 April 2010.
+##' # import trajectories for London and plot
+##' \dontrun{
+##' lond <- importTraj("london", 2010)
+##' # well, HYSPLIT seems to think there certainly were conditions where trajectories
+##' # orginated from Iceland...
+##' trajPlot(selectByDate(lond, start = "15/4/2010", end = "21/4/2010"))}
+##'
+##' # plot by day, need a column that makes a date
+##' \dontrun{
+##' lond$day <- as.Date(lond$date)
+##' trajPlot(selectByDate(lond, start = "15/4/2010", end = "21/4/2010"),
+##' type = "day")
+##' }
+##'
+##' # or show each day grouped by colour, with some other options set
+##' \dontrun{
+##'  trajPlot(selectByDate(lond, start = "15/4/2010", end = "21/4/2010"),
+##' group = "day", col = "jet", lwd = 2, key.pos = "right", key.col = 1)
+##' }
+##' # more examples to follow linking with concentration measurements...
+##'
+trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
+                     type = "default", map = TRUE, group = NA, map.fill = TRUE,
+                     map.res = "default", map.cols = "grey40",
+                     map.alpha = 0.4, projection = "lambert",
+                     parameters = c(51, 51), orientation = c(90, 0, 0),
+                     grid.col = "deepskyblue", ...)
+{
+    len <- NULL ## silence R check
+
+    ## variables needed in trajectory plots
+    vars <- c("date", "lat", "lon", "hour.inc", pollutant)
+    mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
+
+    ## slect only full length trajectories
+    mydata <- mydata[order(mydata$date, mydata$hour.inc), ]
+
+    ## length of back mydataectories
+    mydata$len <- ave(mydata$lat, mydata$date, FUN = length)
+
+    ## find length of back trajectories, choose most frequent
+    ## so that partial trajectories are not plotted
+    n <- as.numeric(names(which.max(table(abs(mydata$len)))))
+
+    mydata <- subset(mydata, len == n)
+
+    ##extra.args
+    extra.args <- list(...)
+    method <- "scatter"
+
+    #aspect, cex
+     if (!"plot.type" %in% names(extra.args))
+        extra.args$plot.type <- "l"
+
+    if (!"cex" %in% names(extra.args))
+        extra.args$cex <- 0.1
+
+    if (!"ylab" %in% names(extra.args))
+        extra.args$ylab <- ""
+
+    if (!"xlab" %in% names(extra.args))
+        extra.args$xlab <- ""
+
+
+    if (missing(pollutant)) { ## don't need key
+
+        if (is.na(group)) key <- FALSE else key <- TRUE
+
+        if(!"main" %in% names(extra.args))
+             extra.args$main <- NULL
+
+        scatterPlot.args <- list(mydata, x = lon, y = lat, z = NA,
+                                 type = type, method = method,
+                                 map = map, key = key, group = group,
+                                 map.fill = map.fill, map.res = map.res,
+                                 map.cols = map.cols, map.alpha = map.alpha,
+                                 traj = TRUE, projection = projection,
+                                 parameters = parameters, orientation = orientation,
+                                 grid.col = grid.col)
+
+    } else {
+         if(!"main" %in% names(extra.args))
+             extra.args$main <- pollutant
+
+        scatterPlot.args <- list(mydata, x = lon, y = lat, z = pollutant,
+                                 type = type, method = method,
+                                 map = map, group = group,
+                                 map.fill = map.fill, map.res = map.res,
+                                 map.cols = map.cols,
+                                 map.alpha = map.alpha, traj = TRUE, projection = projection,
+                                 parameters = parameters, orientation = orientation,
+                                 grid.col = grid.col)
+    }
+
+    #reset for extra.args
+    scatterPlot.args <- listUpdate(scatterPlot.args, extra.args)
+
+    #plot
+    do.call(scatterPlot, scatterPlot.args)
+
+
+
+}
+
+## function from mapproj to add grid lines to a map
+map.grid2 <- function (lim, nx = 9, ny = 9, labels = TRUE, pretty = TRUE,
+                      cex = 1, col = "deepskyblue", lty = 2, font = 1,
+                      projection = "rectangular", parameters = 52,
+                      orientation = c(90, 0, 0), ...)
+
+{
+
+
+    pretty.range <- function(lim, ...) {
+        x = pretty(lim, ...)
+        if (abs(x[1] - lim[1]) > abs(x[2] - lim[1]))
+            x = x[-1]
+        n = length(x)
+        if (abs(x[n] - lim[2]) > abs(x[n - 1] - lim[2]))
+            x = x[-n]
+        x[1] = lim[1]
+        x[length(x)] = lim[2]
+        x
+    }
+    auto.format <- function(x) {
+        for (digits in 0:6) {
+            s = formatC(x, digits = digits, format = "f")
+            if (all(duplicated(s) == duplicated(x)))
+                break
+        }
+        s
+    }
+    if (missing(lim))
+        lim = maps::.map.range()
+    if (is.list(lim)) {
+        lim <- lim$range
+    }
+    if (lim[2] - lim[1] > 360) {
+        lim[2] <- lim[1] + 360
+    }
+    if (pretty) {
+        x <- pretty.range(lim[1:2], n = nx)
+        y <- pretty.range(lim[3:4], n = ny)
+    }
+    else {
+        x <- seq(lim[1], lim[2], len = nx)
+        y <- seq(lim[3], lim[4], len = ny)
+    }
+    p <- mapproject(expand.grid(x = c(seq(lim[1], lim[2], len = 100),
+                                    NA), y = y), projection = projection,
+                    parameters = parameters,
+                 orientation = orientation)
+    p <- maps::map.wrap(p)
+    llines(p, col = col, lty = lty, ...)
+    llines(mapproject(expand.grid(y = c(seq(lim[3], lim[4], len = 100),
+                                      NA), x = x), projection = projection,
+                    parameters = parameters,
+                 orientation = orientation), col = col, lty = lty, ...)
+    if (labels) {
+        tx <- x[2]
+        xinc <- median(diff(x))
+        ty <- y[length(y) - 2]
+        yinc <- median(diff(y))
+        ltext(mapproject(expand.grid(x = x + xinc * 0.05, y = ty +
+                                         yinc * 0.5), projection = projection,
+                    parameters = parameters,
+                 orientation = orientation), labels = auto.format(x), cex = cex,
+            adj = c(0, 0), col = col, font = font, ...)
+        ltext(mapproject(expand.grid(x = tx + xinc * 0.5, y = y +
+                                         yinc * 0.05), projection = projection,
+                    parameters = parameters,
+                 orientation = orientation), labels = auto.format(y), cex = cex,
+            adj = c(0, 0), col = col, font = font, ...)
+    }
+}
+

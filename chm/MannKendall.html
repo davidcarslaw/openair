@@ -1,0 +1,235 @@
+<html><head><title>Mann-Kendall trend tests</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>MannKendall(openair)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   MannKendall">
+<param name="keyword" value=" Mann-Kendall trend tests">
+</object>
+
+
+<h2>Mann-Kendall trend tests</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Mann-Kendall tests for trend with Sen-Theil slope estimates.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+MannKendall(mydata,
+pollutant = "nox",
+deseason = FALSE,
+type = "default",
+period = "monthly",
+simulate = FALSE,
+alpha = 0.05,
+dec.place = 2,
+ylab = pollutant,
+main = "",
+auto.text = TRUE,
+autocor = FALSE, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>mydata</code></td>
+<td>
+A data frame containing the field <code>date</code> and at least
+one other parameter for which a trend test is required; typically (but
+not necessarily) a pollutant.</td></tr>
+<tr valign="top"><td><code>pollutant</code></td>
+<td>
+The parameter for which a trend test is
+required. Mandatory.</td></tr>
+<tr valign="top"><td><code>deseason</code></td>
+<td>
+Should the data be de-deasonalized first? If
+<code>TRUE</code> the function <code>stl</code> is used (seasonal trend
+decomposition using loess). Note that if <code>TRUE</code> missing data are
+first linearly interpolated because <code>stl</code> cannot handle missing
+data.</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+The type of analysis to be done. The default is will
+produce a single plot using the entire data. Other types include
+<code>hour</code> (for hour of the day), <code>weekday</code> (for day of the week),
+<code>month</code> (for month of the year), <code>wd</code> (wind direction split
+into eight sectors and <code>ws</code> (wind speed split into eight
+quantiles). There is an option <code>site</code>, which requires a slightly
+different format. If <code>site</code> is used a data frame with headings
+<code>date</code>, a pollutant and <code>site</code> is required. It is also
+possible to choose <code>type</code> as another variable in the data
+frame. For example, <code>type = "o3"</code> will plot four wind roses for
+different levels of ozone, split into four quantiles (approximately
+equal numbers of counts in each of the four splits). This offers great
+flexibility for understanding the variation of different variables
+dependent on another.</td></tr>
+<tr valign="top"><td><code>period</code></td>
+<td>
+Either <code>monthly</code> (the default), or
+<code>annual</code>. Determines whether monthly mean or annual mean trends are
+plotted. Note that for <code>annual</code>, six or more years are required.</td></tr>
+<tr valign="top"><td><code>simulate</code></td>
+<td>
+Should simulations be carried out to determine the
+Mann-Kendall tau and p-value. The default is <code>FALSE</code>. If
+<code>TRUE</code>, bootstrap simulations are undertaken, which also account
+for autocorrelation.</td></tr>
+<tr valign="top"><td><code>alpha</code></td>
+<td>
+For the confidence interval calculations of the
+slope. The default is 0.05. To show 99% confidence intervals for the
+value of the trend, choose alpha = 0.01 etc.</td></tr>
+<tr valign="top"><td><code>dec.place</code></td>
+<td>
+The number of decimal places to display the trend
+estimate at. The default is 2.</td></tr>
+<tr valign="top"><td><code>ylab</code></td>
+<td>
+y-axis label.</td></tr>
+<tr valign="top"><td><code>main</code></td>
+<td>
+Title of plot, if required.</td></tr>
+<tr valign="top"><td><code>auto.text</code></td>
+<td>
+Either <code>TRUE</code> (default) or <code>FALSE</code>. If
+<code>TRUE</code> titles and axis labels will automatically try and format
+pollutant names and units properly e.g.  by subscripting the
+&lsquo;2&rsquo; in NO2.</td></tr>
+<tr valign="top"><td><code>autocor</code></td>
+<td>
+Should autocorrelation be considered in the trend
+uncertainty estimates? The default is <code>FALSE</code>. Generally,
+accounting for autocorrelation increases the uncertainty of the trend
+estimate - sometimes by a large amount.</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+Other graphical parameters.</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+The <code>Mann-Kendall</code> function provides a collection of
+functions to analyse trends in air pollution data. The Mann-Kendall test
+is a commonly used test in environmental sciences to detect the presence
+of a trend. It is often used with the Sen-Theil (or just Sen) estimate
+of slope. See references.  The <code>Mann-Kendall</code> function is flexible
+in the sense that it can be applied to data in many ways e.g. by day of
+the week, hour of day and wind direction. This flexibility makes it much
+easier to draw inferences from data e.g. why is there a strong downward
+trend in concentration from one wind sector and not another, or why
+trends on one day of the week or a certain time of day are unexpected.
+</p>
+<p>
+The Mann-Kendall test from trend is for data that are <EM>monotonic</EM> -
+see <a href="http://en.wikipedia.org/wiki/Monotonic_function">http://en.wikipedia.org/wiki/Monotonic_function</a>. The most
+appropriate use for this function is for data that are
+&lsquo;well-behaved&rsquo; i.e. tend to be steadily increasing or decreasing
+or steady. For data that are strongly seasonal, perhaps from a
+background site, or a pollutant such as ozone, it will be important to
+deseasonalise the data (using the option <code>deseason =
+TRUE</code>.Similarly, for data that increase, then decrease, or show sharp
+changes it may be better to use <code><a href="smooth.trend.html">smooth.trend</a></code>.
+</p>
+<p>
+Mann-Kendall code from Rand Wilxox
+<a href="http://www-rcf.usc.edu/~rwilcox/">http://www-rcf.usc.edu/~rwilcox/</a> has been modified to take account
+of correlated data.
+</p>
+<p>
+The slope estimate and confidence intervals in the slope are plotted and
+numerical information presented.
+</p>
+<p>
+The basic function have been adapted to take account of auto-correlated
+data using block bootstrap simulations (Kunsch, 1989). The principal
+reason for doing so is to gain a better estimate of trend uncertainty.
+</p>
+
+
+<h3>Warning</h3>
+
+<p>
+If <code>deseason = TRUE</code>, missing data will be
+linearly interpolated.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+David Carslaw with trend code from Rand Wilcox
+</p>
+
+
+<h3>References</h3>
+
+<p>
+Helsel, D., Hirsch, R., 2002. Statistical methods in water resources. US
+Geological Survey.  <a href="http://pubs.usgs.gov/twri/twri4a3/">http://pubs.usgs.gov/twri/twri4a3/</a>. Note that
+this is a very good resource statistics as applied to environmental
+data.
+</p>
+<p>
+Hirsch, R. M., Slack, J. R., Smith, R. A., 1982. Techniques of trend analysis for monthly
+water-quality data. Water Resources Research 18 (1), 107-121.
+</p>
+<p>
+Kunsch, H. R., 1989. The jackknife and the bootstrap for general stationary observations.
+Annals of Statistics 17 (3), 1217-1241.
+</p>
+<p>
+... see also several of the Air Qulaity Expert Group (AQEG) reports
+for the use of similar tests applied to UK/European air quality data,
+see <a href="http://www.defra.gov.uk/ENVIRONMENT/airquality/panels/aqeg/">http://www.defra.gov.uk/ENVIRONMENT/airquality/panels/aqeg/</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+See <code><a href="smooth.trend.html">smooth.trend</a></code> for a flexible approach to
+estimating trends using nonparametric regression. The
+<code>smooth.trend</code> function is suitable for cases where trends are not
+monotonic and is probably better for exploring the shape of trends.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+
+# load example data from package
+data(mydata)
+
+# trend plot for nox
+MannKendall(mydata, pollutant = "nox")
+
+# trend plot for ozone with p=0.01 i.e. uncertainty in slope shown at
+# 99 
+
+MannKendall(mydata, pollutant = "o3", ylab = "o3 (ppb)", alpha = 0.01)
+
+# trend plot by each of 8 wind sectors
+## Not run: MannKendall(mydata, pollutant = "o3", type = "wd", ylab = "o3 (ppb)")
+
+# and for a subset of data (from year 2000 onwards)
+## Not run: MannKendall(select.by.date(mydata, year = 2000:2005), pollutant = "o3", ylab = "o3 (ppb)")
+
+</pre>
+
+
+
+<hr><div align="center">[Package <em>openair</em> version 0.1 <a href="00Index.html">Index</a>]</div>
+
+</body></html>
