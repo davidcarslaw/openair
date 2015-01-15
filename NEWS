@@ -4,6 +4,7 @@ Changes in openair 1.1-99 [2015-01-05]
 	for timeVariation subsets
 *	Check data are numeric before appling running mean (would
 	crash R if not)
+* Begin transition to Github, more details to follow
 
 Changes in openair 1.1 [2015-01-05]
 =====================================
