@@ -392,7 +392,7 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
     if (length(weights) != 3) stop ("weights should be of length 3.")
 
     if (missing(key.header)) key.header <- statistic
-    if (key.header == "weighted.mean") key.header <- c("weighted", "mean")
+    if (key.header == "weighted.mean") key.header <- "weighted\nmean"
     if (key.header == "percentile") key.header <- c(paste(percentile, "th", sep = ""), "percentile")
     if (key.header == "cpf") key.header <- c("CPF", "probability")
 
