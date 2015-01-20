@@ -2,11 +2,19 @@
 
 <img src="inst/plume.png" width="35%">
 
-openair is an R package developed for the purpose of analysing air quality data - or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council ([NERC](http://www.nerc.ac.uk/)), with additional funds from Defra.
+openair is an R package developed for the purpose of analysing air
+quality data - or more generally atmospheric composition data. The
+package is extensively used in academia, the public and private
+sectors. The project was initially funded by the UK Natural
+Environment Research Council ([NERC](http://www.nerc.ac.uk/)), with
+additional funds from Defra.
 
 ## Installation
 
-Installation of openair from GitHub is easy using the devtools package:
+Installation of openair from GitHub is easy using the devtools
+package. Note, because openair contains C++ code a compiler is also
+needed. For Windows - for example,
+[Rtools](http://cran.r-project.org/bin/windows/Rtools/) is needed.
 
 ```R
 require(devtools)
@@ -17,21 +25,38 @@ install_github('davidcarslaw/openair')
 
 openair has developed over several years to help analyse atmospheric composition data; initially focused on air quality data. i
 
-This package icontinues to develop and input from other developers would be welcome. A summary of some of teh features are:
+This package icontinues to develop and input from other developers would be welcome. A summary of some of the features are:
 
-- **Access to data** from several hundred UK air pollution monitoring sites through the `importAURN` and `importKCL` functions as well as archive data from the EEA (European Environment Agency) [Airbase](http://www.eea.europa.eu/themes/air/air-quality/map/airbase) database.
-- **Utility functions** such as `timeAverage` and `selectByDate` to make it easier to manipulate atmospheric composition data.
+- **Access to data** from several hundred UK air pollution monitoring
+  sites through the `importAURN` and `importKCL` functions as well as
+  archive data from the EEA (European Environment Agency)
+  [Airbase](http://www.eea.europa.eu/themes/air/air-quality/map/airbase)
+  database.
+- **Utility functions** such as `timeAverage` and `selectByDate` to
+  make it easier to manipulate atmospheric composition data.
 - Flexible **wind and pollution roses** through `windRose` and `pollutionRose`.
-- Flexible plot conditioning to easily plot data by hour or the day, day of teh week, season etc. through the openair `type` option available in most functions.
-- More sophisticated **bivariate polar plots** and conditional probability functions to help characterise different sources of pollution. A paper on the latter is available [here](http://www.sciencedirect.com/science/article/pii/S1364815214001339).
-- Access to NOAA [Hysplit](http://ready.arl.noaa.gov/HYSPLIT.php) pre-calculated annual 96-hour back **trajectories** and many plotting and analysis functions e.g. trajectory frequencies, Potential Source Contribution Function and trajectory clustering.
-- Many functions for air quality **model evaluation** using the flexible methods described above e.g. the `type` option to easily evaluate models by season, hour of the day etc. These include key model statistics, Taylor Diagram, Conditional Quantile plots.
+- Flexible plot conditioning to easily plot data by hour or the day,
+  day of the week, season etc. through the openair `type` option
+  available in most functions.
+- More sophisticated **bivariate polar plots** and conditional
+  probability functions to help characterise different sources of
+  pollution. A paper on the latter is available
+  [here](http://www.sciencedirect.com/science/article/pii/S1364815214001339).
+- Access to NOAA [Hysplit](http://ready.arl.noaa.gov/HYSPLIT.php)
+  pre-calculated annual 96-hour back **trajectories** and many
+  plotting and analysis functions e.g. trajectory frequencies,
+  Potential Source Contribution Function and trajectory clustering.
+- Many functions for air quality **model evaluation** using the
+  flexible methods described above e.g. the `type` option to easily
+  evaluate models by season, hour of the day etc. These include key
+  model statistics, Taylor Diagram, Conditional Quantile plots.
 
 ## Brief examples
 
 ### Import data from the UK Automatic Urban and Rural Network
 
-It is easy to import hourly data from 100s of sites and to import several sites at one time and several years of data.
+It is easy to import hourly data from 100s of sites and to import
+several sites at one time and several years of data.
 
 ```R
 kc1 <- importAURN(site = "kc1", year = 2011:2012)
@@ -54,7 +79,10 @@ kc1 <- importAURN(site = "kc1", year = 2011:2012)
 
 ### Utility functions
 
-Using the `selectByDate` function it is easy to select quite complex time-based periods. For example, to select weekday (Monday to Friday) data from June to September for 2012 *and* for the hours 7am to 7pm inclusive:
+Using the `selectByDate` function it is easy to select quite complex
+time-based periods. For example, to select weekday (Monday to Friday)
+data from June to September for 2012 *and* for the hours 7am to 7pm
+inclusive:
 
 ```R
 sub <- selectByDate(kc1, day = "weekday", year = 2012, month = 6:9, hour = 7:19)
@@ -75,7 +103,8 @@ sub <- selectByDate(kc1, day = "weekday", year = 2012, month = 6:9, hour = 7:19)
 12421 London N. Kensington  KC1
 ```
 
-Similalry it is easy to time-average data in many flexible ways. For example, 2-week means can be calculated as
+Similalry it is easy to time-average data in many flexible ways. For
+example, 2-week means can be calculated as
 
 ```R
 sub2 <- timeAverage(kc1, avg.time = "2 week")
@@ -83,25 +112,39 @@ sub2 <- timeAverage(kc1, avg.time = "2 week")
 
 ### The `type` option
 
-One of the key aspects of openair is the use of the `type` option, which is available for almost all openair functions. The `type` option partitions data by different categories of variable. There are many built-in options that `type` can take based on splitting your data by different date values. A summary of in-built values of type are:
+One of the key aspects of openair is the use of the `type` option,
+which is available for almost all openair functions. The `type` option
+partitions data by different categories of variable. There are many
+built-in options that `type` can take based on splitting your data by
+different date values. A summary of in-built values of type are:
 
 * "year" splits data by year
 * "month" splits variables by month of the year
 * "monthyear" splits data by year *and* month
-* "season" splits variables by season. Note in this case the user can also supply a `hemisphere` option that can be either "northern" (default) or "southern"
+* "season" splits variables by season. Note in this case the user can
+  also supply a `hemisphere` option that can be either "northern"
+  (default) or "southern"
 * "weekday" splits variables by day of the week
 * "weekend" splits variables by Saturday, Sunday, weekday
-* "daylight" splits variables by nighttime/daytime. Note the user must supply a `longitude` and `latitude`
-* "dst" splits variables by daylight saving time and non-daylight saving time (see manual for more details)
-* "wd" if wind direction (`wd`) is available `type = "wd"` will split the data up into 8 sectors: N, NE, E, SE, S, SW, W, NW.
+* "daylight" splits variables by nighttime/daytime. Note the user must
+  supply a `longitude` and `latitude`
+* "dst" splits variables by daylight saving time and non-daylight
+  saving time (see manual for more details)
+* "wd" if wind direction (`wd`) is available `type = "wd"` will split
+  the data up into 8 sectors: N, NE, E, SE, S, SW, W, NW.
 
-If a categorical variable is present in a data frame e.g. `site` then that variables can be used directly e.g. `type = "site"`.
+If a categorical variable is present in a data frame e.g. `site` then
+that variables can be used directly e.g. `type = "site"`.
 
-`type` can also be a numeric variable. In this case the numeric variable is split up into 4 *quantiles* i.e. four partitions containing equal numbers of points. Note the user can supply the option `n.levels` to indicate how many quantiles to use.
+`type` can also be a numeric variable. In this case the numeric
+variable is split up into 4 *quantiles* i.e. four partitions
+containing equal numbers of points. Note the user can supply the
+option `n.levels` to indicate how many quantiles to use.
 
 ### Wind roses and pollution roses
 
-openair can plot basic wind roses very easily provided the variables `ws` (wind speed) and `wd` (wind direction) are available.
+openair can plot basic wind roses very easily provided the variables
+`ws` (wind speed) and `wd` (wind direction) are available.
 
 ```R
 windRose(mydata)
