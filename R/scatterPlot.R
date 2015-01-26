@@ -211,7 +211,7 @@
 ##' out any transformation the options \code{trans = NULL} and
 ##' \code{inv = NULL} should be used.
 ##' @export
-##' @import mapdata mapproj hexbin maps
+##' @import mapproj hexbin maps
 ##' @return As well as generating the plot itself, \code{scatterPlot} also
 ##'   returns an object of class ``openair''. The object includes three main
 ##'   components: \code{call}, the command used to generate the plot;
@@ -1315,6 +1315,7 @@ add.map <- function (Args, ...) {
         res <- "world"
     } else {
         res <- "worldHires"
+        require(mapdata)
     }
     
     if (Args$map.fill) {
