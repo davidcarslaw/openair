@@ -20,13 +20,13 @@ Imports:
     latticeExtra,
     cluster,
     RColorBrewer,
-    mapdata,
     mapproj,
     hexbin,
     RgoogleMaps,
     Rcpp
 Suggests:
     png,
+    mapdata,
     KernSmooth
 LinkingTo: Rcpp
 Maintainer: David Carslaw <david.carslaw@kcl.ac.uk>
