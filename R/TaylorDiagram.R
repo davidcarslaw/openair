@@ -175,8 +175,7 @@
 ##'   Panel on Climate Change [Houghton, J.T., Y. Ding, D.J. Griggs, M. Noguer,
 ##'   P.J. van der Linden, X. Dai, K. Maskell, and C.A.  Johnson (eds.)].
 ##'   Cambridge University Press, Cambridge, United Kingdom and New York, NY,
-##'   USA, 881 pp. (see
-##'   \url{http://www.grida.no/climate/ipcc_tar/wg1/317.htm#fig84})
+##'   USA, 881 pp. 
 ##' @keywords methods
 ##'
 ##' @examples

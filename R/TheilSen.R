@@ -212,7 +212,7 @@
 ##'
 ##' \dots{} see also several of the Air Quality Expert Group (AQEG) reports for
 ##'   the use of similar tests applied to UK/European air quality data, see
-##'   \url{http://www.defra.gov.uk/ENVIRONMENT/airquality/panels/aqeg/}.
+##'   \url{http://uk-air.defra.gov.uk/library/aqeg/}.
 ##' @keywords methods
 ##' @examples
 ##'
