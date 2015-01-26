@@ -21,12 +21,12 @@ Imports:
     RColorBrewer,
     mapproj,
     hexbin,
+    maps,
+    mapdata,
     RgoogleMaps,
     Rcpp
 Suggests:
     png,
-    mapdata,
-    maps,
     KernSmooth
 LinkingTo: Rcpp
 Maintainer: David Carslaw <david.carslaw@kcl.ac.uk>

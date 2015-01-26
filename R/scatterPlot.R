@@ -211,7 +211,7 @@
 ##' out any transformation the options \code{trans = NULL} and
 ##' \code{inv = NULL} should be used.
 ##' @export
-##' @import mapproj hexbin
+##' @import mapproj hexbin maps mapdata
 ##' @return As well as generating the plot itself, \code{scatterPlot} also
 ##'   returns an object of class ``openair''. The object includes three main
 ##'   components: \code{call}, the command used to generate the plot;
