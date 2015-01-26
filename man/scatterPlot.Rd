@@ -12,7 +12,7 @@ scatterPlot(mydata, x = "nox", y = "no2", z = NA, method = "scatter",
   key.position = "right", strip = TRUE, log.x = FALSE, log.y = FALSE,
   x.inc = 10, y.inc = 10, limits = NULL, y.relation = "same",
   x.relation = "same", ref.x = NULL, ref.y = NULL, k = 100,
-  map = FALSE, auto.text = TRUE, ...)
+  dist = 0.1, map = FALSE, auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing at least two numeric variables to
@@ -183,6 +183,13 @@ on adding/controlling lines.}
 
 \item{k}{Smoothing parameter supplied to \code{gam} for fitting a smooth
 surface when \code{method = "level"}.}
+
+\item{dist}{When plotting smooth surfaces (\code{method = "level"}
+and \code{smooth = TRUE}, \code{dist} controls how far from the
+original data the predictions should be made. See
+\code{exclude.too.far} from the \code{mgcv} package. Data are
+first transformed to a unit square. Values should be between 0 and
+1.}
 
 \item{map}{Should a base map be drawn? This option is under development.}
 
