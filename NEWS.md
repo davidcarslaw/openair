@@ -1,11 +1,12 @@
-# Changes in openair 1.1-99 [2015-01-05]
+# Changes in openair 1.1-99 [2015-01-26]
 
 -	Fix regression for openair methods e.g. affected plot method
 	for `timeVariation` subsets
 -	Check data are numeric before appling running mean (would
 	crash R if not)
 - 	Begin transition to Github, more details to follow
--	Add option dist to ``scatterPlot`` for surfacw modelling
+-	Add option dist to `scatterPlot` for surface modelling
+- Sort out package dependencies etc. to make maps easier to load.
 
 # Changes in openair 1.1 [2015-01-05]
 
