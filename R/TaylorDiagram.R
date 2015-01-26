@@ -168,7 +168,7 @@
 ##'
 ##' Taylor, K.E.: Summarizing multiple aspects of model performance in a single
 ##'   diagram. J.  Geophys. Res., 106, 7183-7192, 2001 (also see PCMDI Report
-##'   55, \url{http://wwwpcmdi.  llnl.gov/publications/ab55.html})
+##'   55, \url{http://www-pcmdi.llnl.gov/about/staff/Taylor/CV/Taylor_2001_JGR.pdf})
 ##'
 ##' IPCC, 2001: Climate Change 2001: The Scientific Basis, Contribution of
 ##'   Working Group I to the Third Assessment Report of the Intergovernmental
