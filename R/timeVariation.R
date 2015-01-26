@@ -502,8 +502,10 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     ## hour ############################################################################
 
     if (difference) {
+        
         data.hour <- errorDiff(mydata, vars = "hour", type = type, poll1 = poll1,
                                poll2 = poll2, B = B, conf.int = conf.int)
+        
     } else {
 
         data.hour <- ldply(conf.int, proc, mydata, vars = "hour", pollutant, type, B = B,
@@ -928,8 +930,9 @@ wd.smean.normal <- function(wd, B = B, statistic, conf.int) {
     c(Mean = Mean, Lower = Mean - diff.wd, Upper = Mean + diff.wd)
 }
 
-errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B, conf.int = conf.int)
-{
+errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
+                      conf.int = conf.int) {
+    
     ## bootstrap mean difference confidence intervals
     ## rearrange data
     mydata <- dcast(mydata, ... ~ variable)

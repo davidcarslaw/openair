@@ -1,50 +1,49 @@
 # Changes in openair 1.1-99 [2015-01-05]
 
-*	Fix regression for openair methods e.g. affected plot method
-	for timeVariation subsets
-*	Check data are numeric before appling running mean (would
+-	Fix regression for openair methods e.g. affected plot method
+	for `timeVariation` subsets
+-	Check data are numeric before appling running mean (would
 	crash R if not)
-* 	Begin transition to Github, more details to follow
-*	Add option dist to scatterPlot for surfacw modelling
-*       
+- 	Begin transition to Github, more details to follow
+-	Add option dist to ``scatterPlot`` for surfacw modelling
 
 # Changes in openair 1.1 [2015-01-05]
 
-*	Add ref.y option to timeVariation for y references line(s)
-*	Fix type = "wd" labelling to corPlot
+*	Add ref.y option to `timeVariation` for y references line(s)
+*	Fix type = "wd" labelling to `corPlot`
 *	Refine airbaseStats to include site type and city by default
 *	Make trendLevel colour scaling consistent with other functions
 	and allow missing data to be shown in different colour
 *	Allow categorical scales in trendLevel
-* 	Fix type = 'season' in trajLevel (winter period not properly
+* 	Fix type = 'season' in `trajLevel` (winter period not properly
 	calculated)
-*	Allow multiple reference lines to be added to timePlot,
-	scatterPlot, timeVariation and add to smoothTrend together
+*	Allow multiple reference lines to be added to `timePlot`,
+	`scatterPlot`, `timeVariation` and add to `smoothTrend` together
 	with full control of their properties. Note - ref.x and
 	ref.y must now be lists; see help file for details.
 *	Don't open graphics window in aqStats
-*	Add more flexibility to timeAverage for irregular time
+*	Add more flexibility to `timeAverage` for irregular time
 	intervals
 *	Add 12-hour interval points on back trajectory lines
-*	Fix bug in percentileRose with stat = "cpf" and non-default
+*	Fix bug in `percentileRose` with stat = "cpf" and non-default
 	type (now uses single percentile based on all data, not
 	each panel)
 *	Check if date is in POSIXt format and throw error if TRUE
 *	Improve date checks in selectByDate
-*	Add dendrogram option to corPlot (thanks to James Durant for
+*	Add dendrogram option to `corPlot` (thanks to James Durant for
 	the suggestion)
-*	Remove strip in corPlot when type = "default"
-*	Remove statistic description in pollutionRose when annotate =
+*	Remove strip in `corPlot` when type = "default"
+*	Remove statistic description in `pollutionRose` when annotate =
 	FALSE.
-*	Fix colour scaling bug in scatterPlot/trajPlot when user
+*	Fix colour scaling bug in `scatterPlot`/`trajPlot` when user
 	limits supplied
-*	Check period = "years" or "months" in summaryPlot; some users
+*	Check period = "years" or "months" in `summaryPlot`; some users
 	supplied "year" resulting in incorrect statistics
-*	Give mean and percent calm in pollutionRose when statistic =
+*	Give mean and percent calm in `pollutionRose` when statistic =
 	"prop.mean" (was erroneously percentage)
 *	getMet function for downloading Hysplit met files in manual
 	did not download as binary files; now corrected
-*	Add name.pol argument to smoothTrend for more control over
+*	Add name.pol argument to `smoothTrend` for more control over
 	names used for plotting
 *	Show first few dates when import fails to apply correct date format
 	(helps to provide a clue as to actual date format)
@@ -54,151 +53,151 @@
 
 # Changes in openair 1.0-0 [2014-06-09]
 
-*	Pass all arguments in corPlot
-*	Enhance timeVariation to consider median + quantiles through
+*	Pass all arguments in `corPlot`
+*	Enhance `timeVariation` to consider median + quantiles through
 	option 'statistic'
 *	Do not remove NA results from modStats
-*	Better scaling in polarCluster; consitent with polarPlot
-*	Fix importKCL where dates were filled if two non contiguous
+*	Better scaling in polarCluster; consitent with `polarPlot`
+*	Fix `importKCL` where dates were filled if two non contiguous
 	years were chosen
-*	Refine scaling of ws in polarPlot when upper is set
+*	Refine scaling of ws in `polarPlot` when upper is set
 *	Fix bug when type = "weekday" but not all days of the week
 	are present
 *	Add annotate option to TaylorDiagram
 *	Allow modStat statistics to be chosen by user and add Index of Agreement
-*	Needs to be >24 months to deseason in smoothTrend/TheilSen
+*	Needs to be >24 months to deseason in `smoothTrend`/`TheilSen`
 	(was >=)
 * 	Refine names returned by importADMS when used with .pst file
 *	Fix trajectory code in appendix D in the manual (some function
 	arguments were not passed)
-*	Better user defined limits scaling in polarPlot, scatterPlot,
+*	Better user defined limits scaling in `polarPlot`, `scatterPlot`,
 	polarAnnulus when limits within data range
 *	Clarify time zone for importing data to openair and checking
 	(see manual for details)
 *	Initial versions of functions to import EEA airbase data - see
 	newsletter/manual for details
 *	Better treatment of daylight saving time in cutData,
-	timeVariation and polarAnnulus (allow any local time zone to be used;
+	`timeVariation` and polarAnnulus (allow any local time zone to be used;
 	was just GMT/BST befote)
 *	Remove existing date-based columns in cutData to ensure date
 	is used instead
-* 	Allow users to shade/not shade alternate years in smoothTrend
-	and TheilSen
-*	Do not smooth percentileRose by wind direction by default.
-* 	Add option 'wd' to percentileRose
-* 	Fix trajPlot bug when trajectory data was not at 3-hour intervals
-* 	Return data and smooth fit information in smoothTrend
+* 	Allow users to shade/not shade alternate years in `smoothTrend`
+	and `TheilSen`
+*	Do not smooth `percentileRose` by wind direction by default.
+* 	Add option 'wd' to `percentileRose`
+* 	Fix `trajPlot` bug when trajectory data was not at 3-hour intervals
+* 	Return data and smooth fit information in `smoothTrend`
 
 # Changes in openair 0.9-0 [2013-02-13]
 
-*	Fix bug introduced in 0.8-0 for scatterPlot surfaces
+*	Fix bug introduced in 0.8-0 for `scatterPlot` surfaces
 *	Add statistic and percentile option to polarAnnulus; allow
 	Conditional Probability Functions
-*	Allow percentile intervals to be considered in polarPlot when
+*	Allow percentile intervals to be considered in `polarPlot` when
 	statistic = "cpf"
 *	Correct calculation of AOT40 in aqStats to take account of
 	daylight hours and growing season (Apr. to Sep.). Can use
 	latitude/longitude, if supplied
 *	Fix bug in aqStats when non predefined pollutant used
-*	Allow log10 factor of 2 lines in scatterPlot when x and/or
+*	Allow log10 factor of 2 lines in `scatterPlot` when x and/or
 	y are on a log scale
 *	Allow users to supply own transform/inverse functions to hexbin
 *	Don't try and pad-out missing data in rollingMean when
 	returning results
 *	Make latticeExtra a 'depends'
-*	Don't copy-down data by default in timeAverage when requested
+*	Don't copy-down data by default in `timeAverage` when requested
 	averaging time is < original. Better handling when 'site' is
 	present
 *	Update AURN help file site information; add site type
-*	Show where data removed when min.bin > 1 for polarPlot
-*	Add 'trim' value to percentiles in polarPlot to extract more
+*	Show where data removed when min.bin > 1 for `polarPlot`
+*	Add 'trim' value to percentiles in `polarPlot` to extract more
 	source information.
-*	Add 'weights' argument to polarPlot to down-weight bins with
+*	Add 'weights' argument to `polarPlot` to down-weight bins with
 	few data points - alternative to min.bin
 *	Use more wd sectors for surface modelling when wd is not
-	already rounded to 10 degree intervals in polarPlot
-*	Fix bug in timePlot when pch supplied and group = TRUE.
+	already rounded to 10 degree intervals in `polarPlot`
+*	Fix bug in `timePlot` when pch supplied and group = TRUE.
 *	Add Air Quality Standard for O3 in aqStats (days >120 ug/m3)
 	not to be exceeded more than 10 days a year.
-*	Add max.freq option to windRose/pollutionRose to control
+*	Add max.freq option to `windRose`/`pollutionRose` to control
 	extent of radial limits
-*	Add map.res option to trajPlot and trajLevel and make default
+*	Add map.res option to `trajPlot` and `trajLevel` and make default
 	lower resolution. Make default pollutant 'height' (always
 	present)
 *	Add Oslo and Rotterdam to trajectory database for 2010-2012
-*	Better limits control on calendarPlot, use first year if not
+*	Better limits control on `calendarPlot`, use first year if not
 	supplied, add option month to allow only selected month(s)
 *	Fix bug when type = "wd" and some are missing (remove them)
-*	Don't open up graphic window in timeAverage
+*	Don't open up graphic window in `timeAverage`
 *	Fix indexing problem in polarCluster which sometimes caused
 	the function to trip up
-*	Only plot full length trajectories in trajPlot
+*	Only plot full length trajectories in `trajPlot`
 *	Allow smoothing parameter k to be used when smooth = TRUE for
-	more control in scatterPlot
-*	Add a bias correction to windRose (thanks to Philippe Barneoud
+	more control in `scatterPlot`
+*	Add a bias correction to `windRose` (thanks to Philippe Barneoud
 	from Environment Canada for pointing out the need and
 	solution)
-*	Better treatment of pollutionRose when comparing two met
+*	Better treatment of `pollutionRose` when comparing two met
 	datasets when ws bias is zero
 *	Fix conditionalEval to use COE, not IOA and other minor
 	changes
-*	Allow method = "density" in trajLevel
+*	Allow method = "density" in `trajLevel`
 
 
 
 # Changes in openair 0.8-0 [2012-11-30]
 
-*	make sure missing dates are plotted properly in scatterPlot
-*	fix regression in corPlot - main did not work
+*	make sure missing dates are plotted properly in `scatterPlot`
+*	fix regression in `corPlot` - main did not work
 *	remove time zone options in import - users must supply data in
 	GMT (UTC). Too many problems introduced due to daylight saving
 	time
 *	Use Legates and McCabe Coefficient of Efficiency in modStats
 	in place of the Index of Agreement - easier to interpret.
-*	Allow type = "month" etc to be used in timeVariation (was
+*	Allow type = "month" etc to be used in `timeVariation` (was
 	variable clash). Allow more flexibility when group and type
 	are used
-*	Better handling of user-defined limits in polarPlot and
-	scatterPlot (method = "level")
-*	Add optional mean line option to percentileRose.
-*	Correct pollutionRose documentation about comparing 2 data
+*	Better handling of user-defined limits in `polarPlot` and
+	`scatterPlot` (method = "level")
+*	Add optional mean line option to `percentileRose`.
+*	Correct `pollutionRose` documentation about comparing 2 data
 	sets (first subtracted from second)
-*	Fix bug in timeVariation that showed extra NA level for
+*	Fix bug in `timeVariation` that showed extra NA level for
 	certain groups/types
 *	Fix scaling bug in polarCluster when there is negative data
 	e.g. x = "temp"
-*	Allow statistic = "median" in trajLevel
+*	Allow statistic = "median" in `trajLevel`
 *	NEW FUNCTION timeProp to plot time series by category as a
 	barchart
-*	Fix windRose bug when wind direction name was not wd
-*	Fix bug in importAURN when pollutant = "all" was specified
+*	Fix `windRose` bug when wind direction name was not wd
+*	Fix bug in `importAURN` when pollutant = "all" was specified
 *	Allow minimum value of breaks in ws to be above minimum ws
 	value, but warn.
 *	Allow day to be numeric in selectByDate to select days of the
 	month
 *	Better base maps with trajectory plotting (filled and alpha
 	transparency)
-*	Fix windRose bug where all data are missing
+*	Fix `windRose` bug where all data are missing
 *	Use higher resolution mapdata not maps package for trajectory
 	plots
-*	Allow method = "hexbin" in trajLevel for hexagonal binning
+*	Allow method = "hexbin" in `trajLevel` for hexagonal binning
 	of trajectory frequencies
 *	Refine rollingMean to allow moving window to be aligned
 	centre/center, left or right + better treatment of ends when
 	data capture threshold used. Use option 'width' rather than
 	'hours' because non-hourly data can be considered.
-*	Fix pollutionRose scaling issue, which sometimes missed the
+*	Fix `pollutionRose` scaling issue, which sometimes missed the
 	lower interval
-*	Fix timeAverage data capture issue - was not always setting
+*	Fix `timeAverage` data capture issue - was not always setting
 	data to NA
 *	Output clusters as C1, C2 etc. not 1, 2.
-*	Use same labelling in calendarPlot as other functions (wrong
+*	Use same labelling in `calendarPlot` as other functions (wrong
 	month order in non-English locales)
-*	Export dendogram in corPlot - see example in help file
-*	Fix scaling bug in polarPlot when radial variable was negative
+*	Export dendogram in `corPlot` - see example in help file
+*	Fix scaling bug in `polarPlot` when radial variable was negative
 	and small
 *	Update 'mydata' to set negative data to NA
-*	Add method = CPF to percentile rose and polarPlot
+*	Add method = CPF to percentile rose and `polarPlot`
 *	Update trajectory analysis to allow Potential Source
 	Contribution Function (PSCF) and Concentration Weighted
 	Trajectory (CWT) to be considered
@@ -206,38 +205,38 @@
 # Changes in openair 0.7-0 [2012-05-30]
 
 *	Allow more flexible layout when two or more pollutants
-	are used with polarPlot and type is default
-*	Fix colour scale problem for windRose when interval does not
+	are used with `polarPlot` and type is default
+*	Fix colour scale problem for `windRose` when interval does not
 	exist
 *	Added 'nativeRaster' class handler for GoogleMapsPlots
 *	(test) Fix for GoogleMapsPlot xlim, ylim
-*	Do not remove missing data from timeVariation
+*	Do not remove missing data from `timeVariation`
 *	Fix bug in FAC2 in modStats when observations = 0 (exclude
 	from calculation because indeterminate)
-*	Fix bug in windRose for empty panels and panel labelling when
+*	Fix bug in `windRose` for empty panels and panel labelling when
 	data missing
 *	New option start.day in cutData that affects most plots;
 	allows users to set start day when type = "weekday"
-*	Allow categorical scales in calendarPlot
-*	Allow two met data sets to be compared in pollutionRose
-*	Allow statistic = "percentile" to be used with polarPlot
-*	Allow 'method' to be passed to cor in corPlot
+*	Allow categorical scales in `calendarPlot`
+*	Allow two met data sets to be compared in `pollutionRose`
+*	Allow statistic = "percentile" to be used with `polarPlot`
+*	Allow 'method' to be passed to cor in `corPlot`
 *	Added more back trajectory locations.
-*	Try harder to plot polarPlots when there is insufficent data
+*	Try harder to plot `polarPlot`s when there is insufficent data
 	to calculate a smooth surface.
-* 	Rename some variables in timeAverage to avoid variable clash.
-*	Add gridded frequency capability to trajLevel
+* 	Rename some variables in `timeAverage` to avoid variable clash.
+*	Add gridded frequency capability to `trajLevel`
 *	Fix bug in colour scaling in polarFreq when statistic =
 	"stdev" (0 would not be plotted)
-*	Fix bug in summaryPlot: type = "density" broken in recent versions
+*	Fix bug in `summaryPlot`: type = "density" broken in recent versions
 
 # Changes in openair 0.6-0 [2012-04-10]
 
-*	Add y.relation option to timePlot
+*	Add y.relation option to `timePlot`
 *	Fix interpolation bug in calcFno2 and names in documentation.
 *	Refine conditionalQuantile scales
 *	Provide volatile and non-volatile components for FDMS PM10 and
-	PM2.5 in importKCL - now consistent with importAURN
+	PM2.5 in `importKCL` - now consistent with `importAURN`
 *	NEW FUNCTION conditionalEval for model evaluation - allows
 	other variable performance to be assessed.
 *	Make lattice strips white by default for cleaner look on
@@ -246,7 +245,7 @@
 	backward compatible but will allow more developments
 *	Allow line breaks in titles using \n to work woth quickText
 	- thanks to Karl
-*	Allow better annotation of calendarPlot - highlight values
+*	Allow better annotation of `calendarPlot` - highlight values
 	above/below a certain threshold.
 
 
@@ -255,23 +254,23 @@
 *	Fix bug when type = "wd" - would add missing data to north
 	sector
 *	Add observed histogram to conditionalQuantile
-*	Fix bug in timeAverage when ws was not available but wd was
+*	Fix bug in `timeAverage` when ws was not available but wd was
 *	Temporaryfix to GoogleMapsPlot documentation due to new
 	package version
 
 # Changes in openair 0.5-23 [2012-02-28]
 
-*	Fix bug in windRose when paddle = FALSE
+*	Fix bug in `windRose` when paddle = FALSE
 
 Changes in openair 0.5-22 [2012-01-12]
 
-*	Fix scaling bug that could sometime affect polarPlot grid
+*	Fix scaling bug that could sometime affect `polarPlot` grid
 	lines
-*	Fix regression in importKCL that was intruduced in 0.5-21
+*	Fix regression in `importKCL` that was intruduced in 0.5-21
 *	Make sure wd data are rounded to 10 degrees in polarFreq
-*	Fix date padding issue in smoothTrend when type = "site"
-*	windRose now gives mean ws in each panel rather than count
-*	add otion date.format to timePlot for more control over date
+*	Fix date padding issue in `smoothTrend` when type = "site"
+*	`windRose` now gives mean ws in each panel rather than count
+*	add otion date.format to `timePlot` for more control over date
 	format on axis
 
 # Changes in openair 0.5-21 [2012-02-21]
@@ -282,13 +281,13 @@ Changes in openair 0.5-22 [2012-01-12]
 *	Simple model ranking available in modStats
 # Changes in openair 0.5-18 [2012-01-16]
 *	Update trajectory files to 2011 and add Berlin, Paris
-*	Add option seg to pollutionRose to control the width of the
+*	Add option seg to `pollutionRose` to control the width of the
 	segments
-*	Add option start.day to timeVariation to control the order of
+*	Add option start.day to `timeVariation` to control the order of
 	weekdays.
 *	Fixed bug in polarAnnulus where 360 degree winds were absent.
 *	Remove dependency on zoo and proto.
-* 	Allow importAURN to import new ws/wd from pre-calculated WRF
+* 	Allow `importAURN` to import new ws/wd from pre-calculated WRF
 	data at AURN sites
 
 # Changes in openair 0.5-17 [2012-01-12]
@@ -299,104 +298,94 @@ Changes in openair 0.5-22 [2012-01-12]
 
 # Changes in openair 0.5-15 [2011-12-08]
 
-
 *	Update imports etc.
 
 # Changes in openair 0.5-15 [2011-12-08]
 
-
-*       Update to [IN DEVELOPMENT] GoogleMapsPlot.
+*   Update to [IN DEVELOPMENT] GoogleMapsPlot.
 *	Tidy up calcFno2 plotting.
-*	Improve speed of timeAverage by removing date.pad.
-*	Add vector averaging option to timeAverage for wind speed.
+*	Improve speed of `timeAverage` by removing date.pad.
+*	Add vector averaging option to `timeAverage` for wind speed.
 
-Changes in openair 0.5-14 [2011-11-29]
+# Changes in openair 0.5-14 [2011-11-29]
 
 
-*       NEW FUNCTION polarCluster for undertaking k-means clustering
-        of bivariate polar plots
-*       Remove any considerations of time zones in selectByDate. If
-        start and end are supplied, whole days based on Date format
-        are used to select. Now accepts start/end in the form
-        "YYYY-mm-dd" as well as UK format e.g. dd/mm/YYYY.
+- NEW FUNCTION polarCluster for undertaking k-means clustering of
+bivariate polar plots
+
+* Remove any considerations of time zones in selectByDate. If start
+        and end are supplied, whole days based on Date format are used
+        to select. Now accepts start/end in the form "YYYY-mm-dd" as
+        well as UK format e.g. dd/mm/YYYY.
 
 # Changes in openair 0.5-13 [2011-11-18]
 
-
-*       Major update to polarPlot allowing variables other than
+* Major update to `polarPlot` allowing variables other than
 	"ws" to be plotted with wind direction.
-*       Improve documentation for polarPlot/TaylorDiagram
-*	Update openair citation information to Journal article
+* Improve documentation for `polarPlot`/TaylorDiagram
+* Update openair citation information to Journal article
 
 # Changes in openair 0.5-12 [2011-11-14]
 
-
-*       do not clip polarPlot concentrations unless upper is supplied
-*       new option 'intervals' for percentileRose
-*       add min.bin option to polarAnnulus
-*       add Index of Agreement to modStats
-*       new averaging time "season" for timeAverage
+* do not clip `polarPlot` concentrations unless upper is supplied
+* new option 'intervals' for `percentileRose`
+* add min.bin option to polarAnnulus
+* add Index of Agreement to modStats
+* new averaging time "season" for `timeAverage`
 *	better treatment of avg.time = "season" and type = "season" in
-	TheilSen and smoothTrend
+	`TheilSen` and `smoothTrend`
 *	use bootstrap methods to calculate 95% confidence intervals in
-        the mean for timeVariation
-*	New option 'difference' in timeVariation to show difference
+        the mean for `timeVariation`
+*	New option 'difference' in `timeVariation` to show difference
         between two variables with bootstrap 95% CI in the mean
 *	Byte-compile package
-*	Place key on right be default in scatterPlot to avoid clash
+*	Place key on right be default in `scatterPlot` to avoid clash
         with x or y axis labels.
 *	Include all colour schemes defined in the RColorBrewer package
 
 # Changes in openair 0.5-11 [2011-09-14]
 
-
-*       update to corPlot, scatterPlot, smoothTrend, linearRelation,
-        percentileRose, trajPlot, trajLevel, timeVariation, TaylorDiagram,
-        timePlot, summaryPlot
+* update to `corPlot`, `scatterPlot`, `smoothTrend`, linearRelation,
+        `percentileRose`, `trajPlot`, `trajLevel`, `timeVariation`, TaylorDiagram,
+        `timePlot`, `summaryPlot`
         improved ... handling
 *	remove warnings when importing air pollution data
-*	additional update to corPlot
+*	additional update to `corPlot`
         added pollutant option, and openair class output
-*	tweak scaling on percentileRose deal with negative data
-*	change MannKendall to use TheilSen for all estimates for
+*	tweak scaling on `percentileRose` deal with negative data
+*	change MannKendall to use `TheilSen` for all estimates for
         consistency. May slightly affect some p estimates.
 
 # Changes in openair 0.5-10 [2011-09-12]
 
-
-*       update to calendarPlot, kernelExceed,
+* update to `calendarPlot`, kernelExceed,
         MannKendall and conditionalQuantile
         improved ... handling
 *       minor update to GoogleMapsPlot
 
 # Changes in openair 0.5-9 [2011-09-08]
 
-
-*	allow model performance change to be considered in TaylorDiagram
-*	update to windRose and pollutionRose
+* allow model performance change to be considered in TaylorDiagram
+* update to `windRose` and `pollutionRose`
         stat related annotation
-*       update to polarPlot, ploarFreq and polarAnnulus
+* update to `polarPlot`, ploarFreq and polarAnnulus
         improved ... handling
-
 
 # Changes in openair 0.5-8 [2011-09-02]
 
-
-*	NEW FUNCTION importMeta to import site meta data from air
+* NEW FUNCTION `importMeta` to import site meta data from air
          pollution networks
 
 # Changes in openair 0.5-7 [2011-08-30]
 
-
-*	update to trendLevel: improved ... handling
-*	update to windRose/pollutionRose: added statistic option
+* update to trendLevel: improved ... handling
+* update to `windRose`/`pollutionRose`: added statistic option
 	"abs.count"; improved scaling of segment widths; improved
 	... handling
 
 # Changes in openair 0.5-6 [2011-08-30]
 
-
-*	NEW FUNCTIONS importTraj, trajPlot, trajLevel for importing
+*	NEW FUNCTIONS importTraj, `trajPlot`, `trajLevel` for importing
 	and plotting pre-defined HYSPLIT back trajectories. These
 	functions are under active development and are for testing
 	purposes only!
@@ -417,27 +406,27 @@ Changes in openair 0.5-14 [2011-11-29]
 
 # Changes in openair 0.5-0 [2011-08-04]
 
-*	NEW FUNCTION corPlot for correlation matrices
+*	NEW FUNCTION `corPlot` for correlation matrices
 *	add sep argument to import
 
 # Changes in openair 0.4-23 [2011-08-03]
 
-*	enhance 'normalise' option in timePlot
-*	add annotate option to windRose/pollutionRose
+*	enhance 'normalise' option in `timePlot`
+*	add annotate option to `windRose`/`pollutionRose`
 *	NEW FUNCTION TaylorDiagram for model evaluation.
 
 # Changes in openair 0.4-22 [2011-06-03]
 
 *	NOTE - use reshape2 in place of reshape for speed and reliability
-* 	allow more than one pollutant with percentileRose
-* 	fixed title bug with scatterPlot - not shown for some methods
+* 	allow more than one pollutant with `percentileRose`
+* 	fixed title bug with `scatterPlot` - not shown for some methods
 * 	modifed key handling on plots using drawOpenKey, so
   	key = NULL or FALSE now removes colour key.
-* 	added method = "level" to scatterPlot for binning data with
+* 	added method = "level" to `scatterPlot` for binning data with
 	optional smoothing, plus other code clean-ups
 * 	fix bug in conditionalQuantile that labelled plots wrongly
 	when site(s) has missing data
-*	added ref.x and ref.y to timePlot to allow refernce lines to
+*	added ref.x and ref.y to `timePlot` to allow refernce lines to
 	be added
 * 	do not remove calm wind speed conditions in any functions
 	where this is unecessary
@@ -447,28 +436,28 @@ Changes in openair 0.5-14 [2011-11-29]
 * 	fixed bug in polarAnnulus that resulsted in a failure to
 	annotate the plot properly with period = "trend" and less than 1 year
 	of data; improved smoothing default options used
-* 	new 'statistic' option to pollutionRose to show contribution
+* 	new 'statistic' option to `pollutionRose` to show contribution
 	to counts and contribution to the mean. The latter is useful for
 	displaying those wind directions that make most contribution to teh
 	overall mean. Panel mean is also now shown.
-* 	small change to final example of re-shaping data in importKCL
-* 	timeAverage can now expand data to shorter time periods
+* 	small change to final example of re-shaping data in `importKCL`
+* 	`timeAverage` can now expand data to shorter time periods
 	e.g. hourly to 15-minute. This makes it more flexible to combine data
 	sets with differeing averging times. For example, daily mean particle
 	data can be expanded to 1-hour means and combined with an hourly
 	meteorological data set.
 * 	Fix treatment of calms in checkPrep, which affected cases with
-	zero wind speeds in timeAverage
-*	Fix to vector averaging in timeAverage (did not include wind
+	zero wind speeds in `timeAverage`
+*	Fix to vector averaging in `timeAverage` (did not include wind
 	speed in calculations). For most data this will make very little
 	difference, but will be more important for low wind speeds and/or
 	variable wind directions.
-* 	allow type = 'variable' in smoothTrend
-* 	Add avg.time to smoothTrend for "month" or "year" averages
+* 	allow type = 'variable' in `smoothTrend`
+* 	Add avg.time to `smoothTrend` for "month" or "year" averages
 
 # Changes in openair 0.4-20 [2011-05-31]
 
-* 	Do not remove calms in timeAverage
+* 	Do not remove calms in `timeAverage`
 * 	NEW FUNCTION importSAQN to import data from the Scottish Air
 	Quality Network
 
@@ -476,8 +465,8 @@ Changes in openair 0.5-14 [2011-11-29]
 
 * 	improved import date.name/time.name handling of spaces
 * 	Improved scaling for polarFreq
-* 	scatterPlot type = "wd" labels aligned
-* 	Added option "statistic" to polarPlot, which can now consider
+* 	`scatterPlot` type = "wd" labels aligned
+* 	Added option "statistic" to `polarPlot`, which can now consider
 	"mean", "median", "max" (maximum), "frequency". "stdev"
 	(standard deviation) or "weighted.mean" in a similar way to polarFreq
 * 	Fixed bad.24 and international tz bugs in import
@@ -485,12 +474,12 @@ Changes in openair 0.5-14 [2011-11-29]
 
 # Changes in openair 0.4-18 [2011-05-19]
 
-*	Better handling of missing data in smoothTrend/MannKendall;
+*	Better handling of missing data in `smoothTrend`/MannKendall;
 	particularly when there are mutiple sites
 *	Do not run checkPreo on selectByDate because it removes calms
 *	Fixed scaling bug in polarFreq when ws.int != 1
 *	use avg.time in calcPercentile instead of 'period' to ensure
-	consistency with other functions (timePlot would fail with
+	consistency with other functions (`timePlot` would fail with
 	percentiles)
 *	return NA in aqStats when no data present; previously it tried
 	to calculate quanities, returning -Inf etc
@@ -510,7 +499,7 @@ Changes in openair 0.5-14 [2011-11-29]
   	= "month". Also affected type = "season" and "weekday". The
   	plots were labelled in the wrong order.
 *	Ensure that missing wind sectors are skipped in type = "wd"
-	for smoothTrend, MannKendall, timePlot and scatterPlot
+	for `smoothTrend`, MannKendall, `timePlot` and `scatterPlot`
 
 # Changes in openair 0.4-15 [2011-04-12]
 
@@ -525,24 +514,24 @@ Changes in openair 0.5-14 [2011-11-29]
 
 # Changes in openair 0.4-13 [2011-03-31]
 
-*	Removed ad-hoc sites from importKCL, added site classification
+*	Removed ad-hoc sites from `importKCL`, added site classification
 	to the help file and ensured GMT is exported.
 
 # Changes in openair 0.4-12 [2011-03-22]
 
 
-*	Added y.relation option to smoothTrend and MannKendall to
+*	Added y.relation option to `smoothTrend` and MannKendall to
          allow flexible y-scales.
-*	NEW FUNCTION 'percentileRose' for flexible plotting of
+*	NEW FUNCTION '`percentileRose`' for flexible plotting of
          percentiles by wind direction
-*	 NEW FUNCTION 'selectRunning' for selecting run lengths of a numeric
+*	 NEW FUNCTION `selectRunning` for selecting run lengths of a numeric
          variable above a certain threshold.
-*	Modified plot layout in polarPlot to maximise plotting area
+*	Modified plot layout in `polarPlot` to maximise plotting area
 *	Initial fixes to functions affected by time zone settings
-*	polarFreq now has consistent annotation cf. windRose and
-         percentileRose; new option grid.line to control radial axes.
-*	 Fixed couple of minor auto.text bugs in summaryPlot and
-         timePlot
+*	polarFreq now has consistent annotation cf. `windRose` and
+         `percentileRose`; new option grid.line to control radial axes.
+*	 Fixed couple of minor auto.text bugs in `summaryPlot` and
+         `timePlot`
 *	 Removed dependency of date for polar functions where
          time-based types are not required.
 
@@ -551,19 +540,19 @@ Changes in openair 0.5-14 [2011-11-29]
 
 
 *	More consistent use of strips in default plot (remove them)
-*	Add percentage units to windRose and pollutionRose on radial scale
+*	Add percentage units to `windRose` and `pollutionRose` on radial scale
 
 # Changes in openair 0.4-10 [2011-03-07]
 
 
-*	Fixed calendarPlot main/quickText handling.
-*	Fixed calendarPlot first day of month error.
-*	Fixed summaryPlot site ordering when more than one site.
+*	Fixed `calendarPlot` main/quickText handling.
+*	Fixed `calendarPlot` first day of month error.
+*	Fixed `summaryPlot` site ordering when more than one site.
 
 # Changes in openair 0.4-9 [2011-03-04]
 
 
-*	Added new options to scatterPlot (plot.type, lwd, and lty)
+*	Added new options to `scatterPlot` (plot.type, lwd, and lty)
          making it possible to add points and/or lines
 
 
@@ -579,7 +568,7 @@ Changes in openair 0.5-14 [2011-11-29]
 
 *     Added new function conditionalQuantile for model
       evaluation purposes.
-*     Fixed importAURN to account for a change in web domain
+*     Fixed `importAURN` to account for a change in web domain
       address at AEA.
 
 

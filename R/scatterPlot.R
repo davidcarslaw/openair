@@ -176,6 +176,12 @@
 ##' on adding/controlling lines.
 ##' @param k Smoothing parameter supplied to \code{gam} for fitting a smooth
 ##'   surface when \code{method = "level"}.
+##' @param dist When plotting smooth surfaces (\code{method = "level"}
+##' and \code{smooth = TRUE}, \code{dist} controls how far from the
+##' original data the predictions should be made. See
+##' \code{exclude.too.far} from the \code{mgcv} package. Data are
+##' first transformed to a unit square. Values should be between 0 and
+##' 1.
 ##' @param map Should a base map be drawn? This option is under development.
 ##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
 ##'   \code{TRUE} titles and axis labels will automatically try and format
@@ -297,7 +303,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                         key.columns = 1, key.position = "right", strip = TRUE,
                         log.x = FALSE, log.y = FALSE, x.inc = 10, y.inc = 10,
                         limits = NULL, y.relation = "same", x.relation = "same",
-                        ref.x = NULL, ref.y = NULL, k = 100,
+                        ref.x = NULL, ref.y = NULL, k = 100, dist = 0.1, 
                         map = FALSE, auto.text = TRUE, ...)   {
 
     ## basic function to plot single/multiple time series in flexible waysproduce scatterPlot
@@ -348,9 +354,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     Args$map.fill <- if ("map.fill" %in% names(Args)) Args$map.fill else TRUE
     Args$map.res <- if ("map.res" %in% names(Args)) Args$map.res else "default"
     Args$traj <- if ("traj" %in% names(Args)) Args$traj else FALSE
-    Args$projection <- if ("projection" %in% names(Args)) Args$projection else FALSE
-    Args$parameters <- if ("parameters" %in% names(Args)) Args$parameters else FALSE
-    Args$orientation <- if ("orientation" %in% names(Args)) Args$orientation else FALSE
+    Args$projection <- if ("projection" %in% names(Args)) Args$projection else "lambert"
+    Args$parameters <- if ("parameters" %in% names(Args)) Args$parameters else c(51, 51)
+    Args$orientation <- if ("orientation" %in% names(Args)) Args$orientation else c(90, 0, 0)
     Args$grid.col <- if ("grid.col" %in% names(Args)) Args$grid.col else "deepskyblue"
 
     ## transform hexbin by default
@@ -571,7 +577,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                    y = list(log = nlog.y, relation = y.relation, rot = 0))
 
     ## don't need scales for trajectories
-    if (Args$traj)  scales <- list(x = list(draw = FALSE), y = list(draw = FALSE))
+    if (Args$traj | method %in% c("traj", "map"))  scales <- list(x = list(draw = FALSE),
+                        y = list(draw = FALSE))
 
 
     ## if logs are chosen, ensure data >0 for line fitting etc
@@ -823,7 +830,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
         ## only aggregate if we have to (for data pre-gridded)
         if (nrow(unique(subset(mydata, select = c(xgrid, ygrid)))) != nrow(mydata)) {
-            mydata <-aggregate(myform, data = mydata, mean, na.rm = TRUE)
+            mydata <- aggregate(myform, data = mydata, mean, na.rm = TRUE)
         }
 
         smooth.grid <- function(mydata, z) {
@@ -849,12 +856,12 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             wsp <- rep(x, res)
             wdp <- rep(y, rep(res, res))
 
-            if (Args$traj) d <- 0.05 else d <- 0.02
+           
 
             ## data with gaps caused by min.bin
             all.data <- na.omit(data.frame(xgrid = mydata$xgrid, ygrid = mydata$ygrid, z))
             ind <- with(all.data, exclude.too.far(wsp, wdp, mydata$xgrid,
-                                                  mydata$ygrid, dist = d))
+                                                  mydata$ygrid, dist = dist))
 
             new.data[ind, z] <- NA
 
@@ -967,15 +974,15 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     }
 
 
-    if (method == "traj") {
-
-        ## used for map grid
-        Args$trajLims <- c(range(mydata$xgrid, na.rm = TRUE), range(mydata$ygrid, na.rm = TRUE))
+    if (method %in% c("traj", "map")) {
 
         ## bin data
         mydata$ygrid <- round_any(mydata[ , y], y.inc)
         mydata$xgrid <- round_any(mydata[ , x], x.inc)
 
+        ## used for map grid
+
+        Args$trajLims <- c(range(mydata$xgrid, na.rm = TRUE), range(mydata$ygrid, na.rm = TRUE))
 
         rhs <- paste0("xgrid * ygrid |", type)
         myform <- formula(paste(z, "~", rhs))
@@ -1027,12 +1034,10 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             wsp <- rep(x, res)
             wdp <- rep(y, rep(res, res))
 
-            if (Args$traj) d <- 0.05 else d <- 0.02
-
             ## data with gaps caused by min.bin
             all.data <- na.omit(data.frame(xgrid = mydata$xgrid, ygrid = mydata$ygrid, z))
             ind <- with(all.data, exclude.too.far(wsp, wdp, mydata$xgrid,
-                                                  mydata$ygrid, dist = d))
+                                                  mydata$ygrid, dist = dist))
 
             new.data[ind, z] <- NA
 
@@ -1311,7 +1316,7 @@ add.map <- function (Args, ...) {
     } else {
         res <- "worldHires"
     }
-
+    
     if (Args$map.fill) {
 
         mp <- maps::map(database = res, plot = FALSE, fill = TRUE, projection = Args$projection,
