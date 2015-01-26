@@ -211,7 +211,7 @@
 ##' out any transformation the options \code{trans = NULL} and
 ##' \code{inv = NULL} should be used.
 ##' @export
-##' @import mapproj hexbin maps
+##' @import mapproj hexbin
 ##' @return As well as generating the plot itself, \code{scatterPlot} also
 ##'   returns an object of class ``openair''. The object includes three main
 ##'   components: \code{call}, the command used to generate the plot;
@@ -1310,20 +1310,21 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
 ## function to add base map ##############################################################
 add.map <- function (Args, ...) {
-
+    
+    
     if (Args$map.res == "default") {
         res <- "world"
     } else {
         res <- "worldHires"
-        requireNamespace("mapdata")
+       
     }
     
     if (Args$map.fill) {
 
-        mp <- maps::map(database = res, plot = FALSE, fill = TRUE, projection = Args$projection,
+        mp <- map(database = res, plot = FALSE, fill = TRUE, projection = Args$projection,
                   parameters = Args$parameters, orientation = Args$orientation,
                   xlim = Args$trajLims[1:2], ylim = Args$trajLims[3:4])
-        mp <- maps::map.wrap(mp)
+        mp <- map.wrap(mp)
 
         panel.polygon(mp$x, mp$y, col = Args$map.cols, border = "white",
                       alpha = Args$map.alpha)
@@ -1331,9 +1332,9 @@ add.map <- function (Args, ...) {
 
     } else {
 
-        mp <- maps::map(database = res, plot = FALSE, projection = Args$projection,
+        mp <- map(database = res, plot = FALSE, projection = Args$projection,
                   parameters = Args$parameters, orientation = Args$orientation)
-        mp <- maps::map.wrap(mp)
+        mp <- map.wrap(mp)
         llines(mp$x, mp$y, col = "black")
 
     }

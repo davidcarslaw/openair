@@ -9,7 +9,6 @@ Authors@R: c(person("David", "Carslaw", role = c("aut", "cre"), email =
 ByteCompile: true
 Depends:
     R (>= 2.15.1),
-    maps,
 Imports:
     utils,
     grid,
@@ -27,6 +26,7 @@ Imports:
 Suggests:
     png,
     mapdata,
+    maps,
     KernSmooth
 LinkingTo: Rcpp
 Maintainer: David Carslaw <david.carslaw@kcl.ac.uk>
