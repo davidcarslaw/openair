@@ -1315,7 +1315,7 @@ add.map <- function (Args, ...) {
         res <- "world"
     } else {
         res <- "worldHires"
-        require(mapdata)
+        requireNamespace("mapdata")
     }
     
     if (Args$map.fill) {
