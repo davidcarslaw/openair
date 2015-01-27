@@ -192,12 +192,24 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
     ## extra args
     extra.args <- list(...)
 
+    ## set graphics
+    current.strip <- trellis.par.get("strip.background")
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
+
     ## label controls
     ## (main currently handled in formals)
-    extra.args$xlab <- if("xlab" %in% names(extra.args))
+    extra.args$xlab <- if ("xlab" %in% names(extra.args))
         quickText(extra.args$xlab, auto.text) else quickText("", auto.text)
-    extra.args$ylab <- if("ylab" %in% names(extra.args))
-        quickText(extra.args$ylab, auto.text) else quickText("", auto.text)
+
+    extra.args$ylab <- if ("ylab" %in% names(extra.args))
+                           quickText(extra.args$ylab, auto.text) else quickText("", auto.text)
+
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
 
     ## extract variables of interest
     if (annotate %in% c("date", "value")) vars <- c("date", pollutant)

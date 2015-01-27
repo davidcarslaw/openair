@@ -195,9 +195,13 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
         trellis.par.set(list(strip.background = list(col = "white")))
     }
 
-    ## reset strip color on exit
+    ## set graphics
     current.strip <- trellis.par.get("strip.background")
-    on.exit(trellis.par.set("strip.background", current.strip))
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
 
     ##Args setup
     Args <- list(...)
@@ -208,6 +212,9 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     Args$main <- if("main" %in% names(Args))
                            quickText(Args$main, auto.text) else quickText("", auto.text)
 
+    if ("fontsize" %in% names(Args))
+        trellis.par.set(fontsize = list(text = Args$fontsize))
+    
     xlim <- if ("xlim" %in% names(Args))
         Args$xlim else  NULL
 

@@ -382,7 +382,8 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
 
     if (uncertainty) type <- "default" ## can't have conditioning here
 
-    if (uncertainty & length(pollutant) > 1) stop("Can only have one pollutant when uncertainty = TRUE")
+    if (uncertainty & length(pollutant) > 1)
+        stop("Can only have one pollutant when uncertainty = TRUE")
 
     if (!statistic %in% c("mean", "median", "frequency", "max", "stdev",
                           "weighted.mean", "percentile", "cpf")) {
@@ -393,7 +394,8 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
 
     if (missing(key.header)) key.header <- statistic
     if (key.header == "weighted.mean") key.header <- "weighted\nmean"
-    if (key.header == "percentile") key.header <- c(paste(percentile, "th", sep = ""), "percentile")
+    if (key.header == "percentile")
+        key.header <- c(paste(percentile, "th", sep = ""), "percentile")
     if (key.header == "cpf") key.header <- c("CPF", "probability")
 
     ## greyscale handling
@@ -404,23 +406,31 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
 
     ## set graphics
     current.strip <- trellis.par.get("strip.background")
-
+    current.font <- trellis.par.get("fontsize")
+    
     ## reset graphic parameters
-    on.exit(trellis.par.set(strip.background = current.strip))
-
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
+    
+    
     ## extra.args setup
     extra.args <- list(...)
 
     ## label controls
-    extra.args$xlab <- if("xlab" %in% names(extra.args))
+    extra.args$xlab <- if ("xlab" %in% names(extra.args))
         quickText(extra.args$xlab, auto.text) else quickText("", auto.text)
-    extra.args$ylab <- if("ylab" %in% names(extra.args))
-        quickText(extra.args$ylab, auto.text) else quickText("", auto.text)
-    extra.args$main <- if("main" %in% names(extra.args))
-        quickText(extra.args$main, auto.text) else quickText("", auto.text)
 
+    extra.args$ylab <- if ("ylab" %in% names(extra.args))
+        quickText(extra.args$ylab, auto.text) else quickText("", auto.text)
+
+    extra.args$main <- if ("main" %in% names(extra.args))
+        quickText(extra.args$main, auto.text) else quickText("", auto.text)
+    
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+    
     ## layout default
-    if(!"layout" %in% names(extra.args))
+    if (!"layout" %in% names(extra.args))
         extra.args$layout <- NULL
 
     ## extract variables of interest

@@ -143,9 +143,13 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
         trellis.par.set(list(strip.background = list(col = "white")))
     }
 
-    ## reset strip color on exit
+    ## set graphics
     current.strip <- trellis.par.get("strip.background")
-    on.exit(trellis.par.set("strip.background", current.strip))
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
 
     ##extra.args setup
     extra.args <- list(...)
@@ -158,7 +162,10 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
     extra.args$main <- if ("main" %in% names(extra.args))
                            quickText(extra.args$main, auto.text) else quickText("", auto.text)
     extra.args$method <- if ("method" %in% names(extra.args))
-                           extra.args$method else "pearson"
+                             extra.args$method else "pearson"
+
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
 
     #layout default
     if(!"layout" %in% names(extra.args))

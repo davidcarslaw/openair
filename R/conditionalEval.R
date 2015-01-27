@@ -193,9 +193,13 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
         trellis.par.set(list(strip.background = list(col = "white")))
     }
 
-    ## reset strip color on exit
+    ## set graphics
     current.strip <- trellis.par.get("strip.background")
-    on.exit(trellis.par.set("strip.background", current.strip))
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
 
     ## statistic is date-based
     if (any(statistic %in% dateTypes)) {
@@ -242,8 +246,11 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
     ## label controls
     ## (xlab and ylab handled in formals because unique action)
-    extra.args$main <- if("main" %in% names(extra.args))
-        quickText(extra.args$main, auto.text) else quickText("", auto.text)
+    extra.args$main <- if ("main" %in% names(extra.args))
+                           quickText(extra.args$main, auto.text) else quickText("", auto.text)
+
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
 
     ## variables needed
     vars <- c(vars, mod, obs, var.obs, var.mod)

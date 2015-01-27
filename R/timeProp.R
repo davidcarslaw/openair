@@ -152,6 +152,14 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time
     ## extra.args setup
     extra.args <- list(...)
 
+    ## set graphics
+    current.strip <- trellis.par.get("strip.background")
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
+
     ## label controls
 
     main <- if ("main" %in% names(extra.args))
@@ -165,7 +173,8 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time
     ylim <- if ("ylim" %in% names(extra.args))
         ylim else NULL
 
-
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
 
     ## variables needed
     vars <- c("date", pollutant, proportion)

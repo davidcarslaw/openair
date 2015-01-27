@@ -157,15 +157,22 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
     ##extra.args setup
     extra.args <- list(...)
 
+    ## set graphics
+    current.strip <- trellis.par.get("strip.background")
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
+
     #label controls
     #(xlab and ylab handled in formals because unique action)
-    extra.args$main <- if("main" %in% names(extra.args))
+    extra.args$main <- if ("main" %in% names(extra.args))
                            quickText(extra.args$main, auto.text) else quickText("", auto.text)
 
-    ## greyscale handling
-    ## reset strip color on exit
-    current.strip <- trellis.par.get("strip.background")
-    on.exit(trellis.par.set("strip.background", current.strip))
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+
 
     if (length(col) == 1 && col == "greyscale") {
 

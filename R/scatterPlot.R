@@ -316,9 +316,13 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
     xgrid <- NULL; ygrid <- NULL
 
-    ## reset strip color on exit
+    ## set graphics
     current.strip <- trellis.par.get("strip.background")
-    on.exit(trellis.par.set("strip.background", current.strip))
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
 
     ## greyscale handling
     if (length(cols) == 1 && cols == "greyscale") {
@@ -348,6 +352,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         Args$layout <- NULL
     if ("trajStat" %in% names(Args))
         trajStat <- Args$trajStat else trajStat <- "mean"
+
+    if ("fontsize" %in% names(Args))
+        trellis.par.set(fontsize = list(text = Args$fontsize))
 
     Args$map.cols <- if ("map.cols" %in% names(Args)) Args$map.cols else "grey20"
     Args$map.alpha <- if ("map.alpha" %in% names(Args)) Args$map.alpha else 0.2

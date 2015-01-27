@@ -307,10 +307,13 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
         calm.col <- "forestgreen"
     }
 
-    ## reset strip color on exit
+    ## set graphics
     current.strip <- trellis.par.get("strip.background")
-    on.exit(trellis.par.set("strip.background", current.strip))
-
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
 
     if (360 / angle != round(360 / angle)) {
         warning("In windRose(...):\n  angle will produce some spoke overlap",
@@ -333,6 +336,9 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     extra$main <- if("main" %in% names(extra))
         quickText(extra$main, auto.text) else quickText("", auto.text)
 
+    if ("fontsize" %in% names(extra))
+        trellis.par.set(fontsize = list(text = extra$fontsize))
+    
     rounded <- FALSE ## is the wd already rounded to 10 degrees, if so need to correct bias later
     if (all(mydata[, wd] %% 10 == 0, na.rm = TRUE)) rounded <- TRUE
 

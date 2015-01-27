@@ -154,6 +154,14 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
     extra.args <- list(...)
     method <- "scatter"
 
+    ## set graphics
+    current.strip <- trellis.par.get("strip.background")
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
+
     #aspect, cex
      if (!"plot.type" %in% names(extra.args))
         extra.args$plot.type <- "l"
@@ -167,12 +175,15 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
     if (!"xlab" %in% names(extra.args))
         extra.args$xlab <- ""
 
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+
 
     if (missing(pollutant)) { ## don't need key
 
         if (is.na(group)) key <- FALSE else key <- TRUE
 
-        if(!"main" %in% names(extra.args))
+        if (!"main" %in% names(extra.args))
              extra.args$main <- NULL
 
         scatterPlot.args <- list(mydata, x = lon, y = lat, z = NA,

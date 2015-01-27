@@ -282,9 +282,13 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         trellis.par.set(list(strip.background = list(col = "white")))
     }
 
-    ## reset strip color on exit
+    ## set graphics
     current.strip <- trellis.par.get("strip.background")
-    on.exit(trellis.par.set("strip.background", current.strip))
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
 
     ## extra.args setup
     extra.args <- list(...)
@@ -298,6 +302,9 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     extra.args$main <- if ("main" %in% names(extra.args))
         quickText(extra.args$main, auto.text) else quickText("", auto.text)
 
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+    
     if (statistic == "median" && missing(conf.int)) conf.int <- c(0.75, 0.95)
 
     ## sub heading stat info

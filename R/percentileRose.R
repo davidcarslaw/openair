@@ -224,14 +224,27 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
   ##extra.args setup
   extra.args <- list(...)
 
+  ## set graphics
+  current.strip <- trellis.par.get("strip.background")
+  current.font <- trellis.par.get("fontsize")
+  
+  ## reset graphic parameters
+  on.exit(trellis.par.set(strip.background = current.strip,
+                          fontsize = current.font))
+
   #label controls
   extra.args$xlab <- if ("xlab" %in% names(extra.args))
     quickText(extra.args$xlab, auto.text) else quickText("", auto.text)
+
   extra.args$ylab <- if ("ylab" %in% names(extra.args))
     quickText(extra.args$ylab, auto.text) else quickText("", auto.text)
+
   extra.args$main <- if ("main" %in% names(extra.args))
     quickText(extra.args$main, auto.text) else quickText("", auto.text)
 
+  if ("fontsize" %in% names(extra.args))
+      trellis.par.set(fontsize = list(text = extra.args$fontsize))
+  
   ## layout default
   if (!"layout" %in% names(extra.args))
     extra.args$layout <- NULL
@@ -251,9 +264,7 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
     trellis.par.set(list(strip.background = list(col = "white")))
   }
 
-  ## reset strip color on exit
-  current.strip <- trellis.par.get("strip.background")
-  on.exit(trellis.par.set("strip.background", current.strip))
+ 
 
   if (!fill) { ## labels depend on whether line or area are used
     theLabels <- percentile

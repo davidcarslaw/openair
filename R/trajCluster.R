@@ -112,13 +112,22 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5, plot = TRUE, typ
 
     extra.args <- list(...)
 
+    ## set graphics
+    current.strip <- trellis.par.get("strip.background")
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
+    
     ## label controls
     extra.args$plot.type <- if ("plot.type" %in% names(extra.args))
         extra.args$plot.type else extra.args$plot.type <- "l"
     extra.args$lwd <- if ("lwd" %in% names(extra.args))
        extra.args$lwd else extra.args$lwd <- 4
 
-
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
 
     calcTraj <- function(traj) {
 

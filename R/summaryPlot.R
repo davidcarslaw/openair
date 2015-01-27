@@ -174,15 +174,25 @@ summaryPlot <- function(mydata,
     ##extra.args setup
     extra.args <- list(...)
 
-    #label controls
+    ## set graphics
+    current.strip <- trellis.par.get("strip.background")
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
+
+                                        #label controls
     #all handled further in code body
-    xlab <- if("xlab" %in% names(extra.args))
+    xlab <- if ("xlab" %in% names(extra.args))
                 extra.args$xlab else NULL
-    ylab <- if("ylab" %in% names(extra.args))
+    ylab <- if ("ylab" %in% names(extra.args))
                 extra.args$ylab else NULL
-    main <- if("main" %in% names(extra.args))
+    main <- if ("main" %in% names(extra.args))
                 extra.args$main else NULL
 
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
     #drop main, xlab, ylab from extra.args
     extra.args <- extra.args[!names(extra.args) %in% c("xlab", "ylab", "main")]
 

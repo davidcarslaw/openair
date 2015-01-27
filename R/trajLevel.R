@@ -240,18 +240,35 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     ## extra.args
     extra.args <- list(...)
 
+    ## set graphics
+    current.strip <- trellis.par.get("strip.background")
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
+
     statistic <- tolower(statistic)
 
-    if(!"ylab" %in% names(extra.args))
+    if (!"ylab" %in% names(extra.args))
         extra.args$ylab <- ""
 
-    if(!"xlab" %in% names(extra.args))
+    if (!"xlab" %in% names(extra.args))
         extra.args$xlab <- ""
 
-     if(!"main" %in% names(extra.args))
+    if (!"main" %in% names(extra.args))
         extra.args$main <- ""
 
-    if(!"key.header" %in% names(extra.args)) {
+    if (!"cols" %in% names(extra.args))
+        extra.args$cols <- "increment"
+
+    if (!"border" %in% names(extra.args))
+        extra.args$border <- NA
+
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+
+    if (!"key.header" %in% names(extra.args)) {
         if (statistic == "frequency") extra.args$key.header <- "% trajectories"
         if (statistic == "pscf") extra.args$key.header <- "PSCF \nprobability"
         if (statistic == "difference") extra.args$key.header <- quickText(paste("gridded differences", "\n(", percentile, "th percentile)", sep = ""))

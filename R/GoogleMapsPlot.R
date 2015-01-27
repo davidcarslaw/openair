@@ -303,6 +303,9 @@ GoogleMapsPlot <- function(mydata,
     #robust args handling
     extra.args <- list(...)
 
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+
     #map panel
     map.panel <- if(map.raster)
                      panel.GoogleMapsRaster else panel.GoogleMaps

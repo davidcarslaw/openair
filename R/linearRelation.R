@@ -135,9 +135,13 @@ linearRelation <- function(mydata,
 
     adj <- 1 ## factors for ratios (oxidant is a percentage)
 
-     ## reset strip color on exit
+    ## set graphics
     current.strip <- trellis.par.get("strip.background")
-    on.exit(trellis.par.set("strip.background", current.strip))
+    current.font <- trellis.par.get("fontsize")
+    
+    ## reset graphic parameters
+    on.exit(trellis.par.set(strip.background = current.strip,
+                            fontsize = current.font))
 
     #greyscale handling
     if (length(cols) == 1 && cols == "greyscale") {
@@ -158,10 +162,13 @@ linearRelation <- function(mydata,
     #label controls
     ##ylab handled in args because unique
     ##further xlab handled in code because mulitple outputs by period
-    extra.args$xlab <- if("xlab" %in% names(extra.args))
+    extra.args$xlab <- if ("xlab" %in% names(extra.args))
                            quickText(extra.args$xlab, auto.text) else NULL
-    extra.args$main <- if("main" %in% names(extra.args))
+    extra.args$main <- if ("main" %in% names(extra.args))
                            quickText(extra.args$main, auto.text) else quickText("", auto.text)
+
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
 
 
     ## prepare data

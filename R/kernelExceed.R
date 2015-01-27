@@ -144,12 +144,15 @@ kernelExceed <- function(polar,
     ##extra.args
     extra.args <- list(...)
     #label controls
-    extra.args$xlab <- if("xlab" %in% names(extra.args))
+    extra.args$xlab <- if ("xlab" %in% names(extra.args))
                            quickText(extra.args$xlab, auto.text) else quickText(x, auto.text)
-    extra.args$ylab <- if("ylab" %in% names(extra.args))
+    extra.args$ylab <- if ("ylab" %in% names(extra.args))
                            quickText(extra.args$ylab, auto.text) else quickText(y, auto.text)
-    extra.args$main <- if("main" %in% names(extra.args))
+    extra.args$main <- if ("main" %in% names(extra.args))
                            quickText(extra.args$main, auto.text) else quickText("", auto.text)
+
+    if ("fontsize" %in% names(extra.args))
+        trellis.par.set(fontsize = list(text = extra.args$fontsize))
 
     #greyscale handling
     if (length(cols) == 1 && cols == "greyscale") {

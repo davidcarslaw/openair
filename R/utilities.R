@@ -983,3 +983,4 @@ chooseFace <- function (fontface = NULL, font = 1)
     rv$bandwidth <- bandwidth
     return(rv)
 }
+
