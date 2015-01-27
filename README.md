@@ -1,3 +1,7 @@
+# openair
+
+[![Travis-CI Build Status](https://travis-ci.org/davidcarslaw/openair.png?branch=master)](https://travis-ci.org/davidcarslaw/openair)
+
 # openair - R package for air quality data analysis
 
 <img src="inst/plume.png" width="35%">
