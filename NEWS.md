@@ -1,4 +1,6 @@
-# Changes in openair 1.1-99 [2015-01-26]
+# Changes in openair 1.2-99 [2015-01-26]
+
+# Changes in openair 1.1-2 [2015-01-26]
 
 - Fix regression for openair methods e.g. affected plot method for
 `timeVariation` subsets
