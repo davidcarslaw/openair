@@ -1,6 +1,6 @@
 # openair
 
-[![Travis-CI Build Status](https://travis-ci.org/davidcarslaw/openair.png?branch=master)](https://travis-ci.org/davidcarslaw/openair)
+[![Travis-CI Build Status](https://travis-ci.org/davidcarslaw/openair.svg?branch=master)](https://travis-ci.org/davidcarslaw/openair)
 
 # openair - R package for air quality data analysis
 
