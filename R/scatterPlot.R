@@ -334,7 +334,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         method.col <- cols
     }
 
-
+    
     ##Args setup
     Args <- list(...)
 

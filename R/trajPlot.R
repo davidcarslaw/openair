@@ -136,6 +136,24 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
 
     ## variables needed in trajectory plots
     vars <- c("date", "lat", "lon", "hour.inc", pollutant)
+
+    ## if group is present, need to add that list of variables unless it is a
+    ## pre-defined date-based one
+    if (!is.na(group)){
+
+        if (group %in%  dateTypes | any(type %in% dateTypes)) {
+            if (group %in%  dateTypes) {
+                vars <- unique(c(vars, "date")) ## don't need group because it is
+                ## defined by date
+            } else {
+                vars <- unique(c(vars, "date", group))
+            }
+
+        } else {
+            vars <- unique(c(vars, group))
+        }
+    }
+    
     mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
 
     ## slect only full length trajectories
@@ -177,7 +195,7 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
 
     if ("fontsize" %in% names(extra.args))
         trellis.par.set(fontsize = list(text = extra.args$fontsize))
-
+    
 
     if (missing(pollutant)) { ## don't need key
 
