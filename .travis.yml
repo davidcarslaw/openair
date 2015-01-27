@@ -17,6 +17,9 @@ after_failure:
   - ./travis-tool.sh dump_logs
 
 env:
+   global:
+     - R_BUILD_ARGS="--no-build-vignettes --no-manual --resave-data"
+     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
 
 notifications:
   email:
