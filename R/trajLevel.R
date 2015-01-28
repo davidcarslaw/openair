@@ -259,9 +259,6 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     if (!"main" %in% names(extra.args))
         extra.args$main <- ""
 
-    if (!"cols" %in% names(extra.args))
-        extra.args$cols <- "increment"
-
     if (!"border" %in% names(extra.args))
         extra.args$border <- NA
 
