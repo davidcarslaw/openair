@@ -9,6 +9,7 @@ Authors@R: c(person("David", "Carslaw", role = c("aut", "cre"), email =
 ByteCompile: true
 Depends:
     R (>= 2.15.1),
+    maps,
 Imports:
     utils,
     grid,
@@ -21,7 +22,6 @@ Imports:
     RColorBrewer,
     mapproj,
     hexbin,
-    maps,
     mapdata,
     RgoogleMaps,
     Rcpp

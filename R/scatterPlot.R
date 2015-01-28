@@ -211,7 +211,7 @@
 ##' out any transformation the options \code{trans = NULL} and
 ##' \code{inv = NULL} should be used.
 ##' @export
-##' @import mapproj hexbin maps mapdata
+##' @import mapproj hexbin mapdata maps
 ##' @return As well as generating the plot itself, \code{scatterPlot} also
 ##'   returns an object of class ``openair''. The object includes three main
 ##'   components: \code{call}, the command used to generate the plot;
@@ -1328,10 +1328,10 @@ add.map <- function (Args, ...) {
     
     if (Args$map.fill) {
 
-        mp <- map(database = res, plot = FALSE, fill = TRUE, projection = Args$projection,
+        mp <- maps::map(database = res, plot = FALSE, fill = TRUE, projection = Args$projection,
                   parameters = Args$parameters, orientation = Args$orientation,
                   xlim = Args$trajLims[1:2], ylim = Args$trajLims[3:4])
-        mp <- map.wrap(mp)
+        mp <- maps::map.wrap(mp)
 
         panel.polygon(mp$x, mp$y, col = Args$map.cols, border = "white",
                       alpha = Args$map.alpha)
@@ -1339,9 +1339,9 @@ add.map <- function (Args, ...) {
 
     } else {
 
-        mp <- map(database = res, plot = FALSE, projection = Args$projection,
+        mp <- maps::map(database = res, plot = FALSE, projection = Args$projection,
                   parameters = Args$parameters, orientation = Args$orientation)
-        mp <- map.wrap(mp)
+        mp <- maps::map.wrap(mp)
         llines(mp$x, mp$y, col = "black")
 
     }
