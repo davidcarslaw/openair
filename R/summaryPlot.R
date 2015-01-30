@@ -170,6 +170,17 @@ summaryPlot <- function(mydata,
     if (!period %in% c("years", "months"))
         stop ("period should either be 'years' or 'months'.")
 
+    ## if site is in the data set, check none are missing
+    ## seems to be a problem for some KCL data...
+    if ("site" %in% names(mydata)) { ## split by site
+
+        ## remove any NA sites
+        if (anyNA(mydata$site)) {
+            id <- which(is.na(mydata$site))
+            mydata <- mydata[-id, ]
+        }
+    }
+
 
     ##extra.args setup
     extra.args <- list(...)

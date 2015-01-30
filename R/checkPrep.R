@@ -35,6 +35,17 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
     ## just select data needed
     mydata <- mydata[, Names]
 
+    ## if site is in the data set, check none are missing
+    ## seems to be a problem for some KCL data...
+    if ("site" %in% names(mydata)) { ## split by site
+
+        ## remove any NA sites
+        if (anyNA(mydata$site)) {
+            id <- which(is.na(mydata$site))
+            mydata <- mydata[-id, ]
+        }
+    }
+
 
     ## check to see if there are any missing dates, stop if there are
     if ("date" %in% names(mydata)) {
