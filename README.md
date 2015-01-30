@@ -4,7 +4,7 @@
 
 # openair - R package for air quality data analysis
 
-<img src="inst/plume.png" width="35%">
+<img src="inst/plume.png" alt="openair logo" width="35%" />
 
 openair is an R package developed for the purpose of analysing air
 quality data - or more generally atmospheric composition data. The
@@ -27,7 +27,7 @@ install_github('davidcarslaw/openair')
 
 ## Description
 
-openair has developed over several years to help analyse atmospheric composition data; initially focused on air quality data. i
+openair has developed over several years to help analyse atmospheric composition data; initially focused on air quality data. 
 
 This package icontinues to develop and input from other developers would be welcome. A summary of some of the features are:
 
@@ -153,11 +153,11 @@ openair can plot basic wind roses very easily provided the variables
 ```R
 windRose(mydata)
 ```
-<img src="inst/windRose.png" width="35%">
+<img src="inst/windRose.png" alt="wind rose" width="35%" />
 
 However, the real flexibility comes from being able to use the `type` option.
 
 ```R
 windRose(mydata, type = "year", layout = c(4, 2))
 ```
-<img src="inst/windRosePM10.png" width="75%">
+<img src="inst/windRosePM10.png" alt="conditional wind rose" width="75%" />
