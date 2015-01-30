@@ -984,3 +984,18 @@ chooseFace <- function (fontface = NULL, font = 1)
     return(rv)
 }
 
+
+Cquantile <- function(x, probs = 0.5) {
+    ## Quick (but basic) C++ quantile function
+
+    if (!is.numeric(x))
+        stop("Quantiles only work for numeric data")
+
+    if (any(probs < 0) | any(probs > 1))
+        stop("Probabilities should be betweem 0 and 1")
+
+    res <- .Call("Cquant", x, probs, PACKAGE = "openair")
+
+    return(res)
+    
+}
