@@ -167,7 +167,7 @@ summaryPlot <- function(mydata,
         col.stat <- "darkgreen"
     }
 
-    if (!period %in% c("years", "months"))
+    if (!period %in% c("years", "months", "days"))
         stop ("period should either be 'years' or 'months'.")
 
     ## if site is in the data set, check none are missing
@@ -292,9 +292,15 @@ summaryPlot <- function(mydata,
     mydata <- merge(mydata, all.dates, all = TRUE)
 
     ## means for trend line
-    monthly.mean <- timeAverage(mydata, "day")
-    monthly.mean <- melt(monthly.mean, id.var = "date")
-    monthly.mean <- split(monthly.mean, monthly.mean$variable)
+
+    if (period == "years") avgt <- "day"
+    if (period == "month") avgt <- "day"
+    if (period == "days") avgt <- "hour"
+    
+    
+    meanLine <- timeAverage(mydata, avgt)
+    meanLine <- melt(meanLine, id.var = "date")
+    meanLine <- split(meanLine, meanLine$variable)
 
     mydata <- melt(mydata, id.var = "date")
 
@@ -322,7 +328,9 @@ summaryPlot <- function(mydata,
         median.dat <- round(median(value, na.rm = TRUE), 1)
         percentile <- round(quantile(value, probs = 0.95, na.rm = TRUE), 1)
 
-        if (period == "years") format.t <- "%Y" else format.t <- "%Y-%m"
+        if (period == "years") format.t <- "%Y"
+        if (period == "months") format.t <- "%Y-%m"
+        if (period == "days") format.t <- "%Y-%m-%d"
 
         data.cap <- round(tapply(value, list(year = format(mydata$date, format.t)),
                                  function (x) 100 * length(na.omit(x)) / length(x)), 1)
@@ -382,9 +390,9 @@ summaryPlot <- function(mydata,
                        panel.abline(v = dateBreaks, col = "grey85")
 
                        ## plot the monthly mean data as a line
-                       monthly.mean[[panelNo]]$value <- 1 + range01(monthly.mean[[panelNo]]$value) * 4
+                       meanLine[[panelNo]]$value <- 1 + range01(meanLine[[panelNo]]$value) * 4
 
-                       panel.xyplot(monthly.mean[[panelNo]]$date, monthly.mean[[panelNo]]$value, type = "l",
+                       panel.xyplot(meanLine[[panelNo]]$date, meanLine[[panelNo]]$value, type = "l",
                                     col = col.trend,...)
 
                        ## plot all data region

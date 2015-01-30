@@ -1,4 +1,7 @@
-# Changes in openair 1.2-99 [2015-01-26]
+# Changes in openair 1.4-99 [2015-01-26]
+
+- Add 'days' as a time unit to `summaryPlot` - useful for shorter time
+  series
 
 # Changes in openair 1.1-2 [2015-01-26]
 
