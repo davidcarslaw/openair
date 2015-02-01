@@ -928,7 +928,7 @@ poly.na <- function(x1, y1, x2, y2, group.number, myColors, alpha = 0.4, border 
 ## gives names of lattice strips
 strip.fun <- function(results.grid, type, auto.text) {
     ## proper names of labelling ###################################################
-    pol.name <- sapply(levels(factor(results.grid[ , type[1]])),
+    pol.name <- sapply(levels(factor(results.grid[[type[1]]])),
                        function(x) quickText(x, auto.text))
     strip <- strip.custom(factor.levels = pol.name)
 
@@ -938,7 +938,7 @@ strip.fun <- function(results.grid, type, auto.text) {
 
     } else { ## two conditioning variables
 
-        pol.name <- sapply(levels(factor(results.grid[ , type[2]])),
+        pol.name <- sapply(levels(factor(results.grid[[type[2]]])),
                            function(x) quickText(x, auto.text))
         strip.left <- strip.custom(factor.levels = pol.name)
     }
