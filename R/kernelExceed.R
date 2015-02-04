@@ -219,7 +219,7 @@ kernelExceed <- function(polar,
 
 #############################################################################
 
-    results.grid <-  ddply(subdata, type, prepare.grid)
+    results.grid <-  plyr::ddply(subdata, type, prepare.grid)
 
     ## adjust to get number of exceedance days
     total.sum <-  sum(unique(results.grid$freq)) ## by each condition

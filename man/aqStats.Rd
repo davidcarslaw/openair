@@ -88,10 +88,7 @@ the calculations.
 \examples{
 ## Statistics for 2004. NOTE! these data are in ppb/ppm so the
 ## example is for illustrative purposes only
-aqStats(selectByDate(mydata, year = 2004), pollu=c("no2", "pm10"))
-## transpose the results:
-aqStats(selectByDate(mydata, year = 2004), pollu=c("no2", "pm10"),
-transpose = TRUE)
+aqStats(selectByDate(mydata, year = 2004), pollutant = "no2")
 }
 \author{
 David Carslaw

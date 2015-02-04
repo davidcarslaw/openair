@@ -341,7 +341,7 @@ polarFreq <- function(mydata,
         lpolygon(c(x1, x2), c(y1, y2), col = colour, border = border.col, lwd = 0.5)
     }
 
-    results.grid <- ddply(mydata, type, prepare.grid)
+    results.grid <- plyr::ddply(mydata, type, prepare.grid)
     results.grid <- na.omit(results.grid)
 
     ## proper names of labelling ###################################################

@@ -247,7 +247,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
                      as.Date(paste(year, "-12-31", sep = "")), by = "day")
 
     prepare.grid <- function(mydata, pollutant) {
-
+        
         ## make sure all days in month are present
         all.days <-  all.dates[format(all.dates, "%B") %in% format(mydata$date[1], "%B")]
         all.days <- data.frame(date = all.days)
@@ -295,10 +295,10 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
         conc.mat <-  as.vector(apply(conc.mat, 1, rev))
         date.mat <-  as.vector(apply(date.mat, 1, rev))
         colour.mat <- as.vector(apply(colour.mat, 1, rev))
-
+        
         grid <- data.frame(expand.grid(x = 1:7, y = 1:6))
         results <- suppressWarnings(data.frame(x = grid$x, y = grid$y, conc.mat,
-                                               month = format(mydata$date[1], "%B"),
+                                               month = mydata$month[1],
                                                date.mat = date.mat, dateColour = colour.mat))
 
         results
@@ -322,7 +322,9 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
     strip.dat <- strip.fun(mydata, type, auto.text)
     strip <- strip.dat[[1]]
 
-    mydata <- ddply(mydata, type, function(x) prepare.grid(x, pollutant))
+    mydata <- group_by_(mydata, type) %>%
+        do(prepare.grid(., pollutant))
+    
     mydata$value <- mydata$conc.mat ## actual numerical value (retain for categorical scales)
 
     category <- FALSE ## assume pollutant is not a categorical value
@@ -334,14 +336,14 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
 
     if (annotate == "wd") {
         baseData$wd <- baseData$wd * 2 * pi / 360
-        wd <- ddply(baseData, type, function(x) prepare.grid(x, "wd"))
+        wd <- plyr::ddply(baseData, type, function(x) prepare.grid(x, "wd"))
         wd$value <- wd$conc.mat ## actual numerical value (retain for categorical scales)
     }
 
     if (annotate == "ws") {
         baseData$wd <- baseData$wd * 2 * pi / 360
-        wd <- ddply(baseData, type, function(x) prepare.grid(x, "wd"))
-        ws <- ddply(baseData, type, function(x) prepare.grid(x, "ws"))
+        wd <- plyr::ddply(baseData, type, function(x) prepare.grid(x, "wd"))
+        ws <- plyr::ddply(baseData, type, function(x) prepare.grid(x, "ws"))
         ## normalise wind speeds to highest daily mean
         ws$conc.mat <- ws$conc.mat / max(ws$conc.mat, na.rm = TRUE)
         ws$value <- ws$conc.mat ## actual numerical value (retain for categorical scales)
@@ -405,8 +407,8 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
     }
 
 
-
-
+    
+    
     lv.args <- list(x = value ~ x * y | month, data = mydata,
                     par.settings = cal.theme,
                     main = main,
@@ -425,7 +427,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
                         panel.levelplot(x, y, subscripts,...)
                         panel.abline(v=c(0.5: 7.5), col = "grey90")
                         panel.abline(h=c(0.5: 7.5), col = "grey90")
-
+                        
                         if (annotate == "date") {
                             ltext(x, y, labels = mydata$date.mat[subscripts], cex = 0.6,
                                   col = as.character(mydata$dateColour[subscripts]))

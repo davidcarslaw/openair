@@ -364,10 +364,10 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
         res
     }
 
-    results <- ddply(mydata, c(group, type), calcStats, obs = obs, mod = mod[1])
+    results <- plyr::ddply(mydata, c(group, type), calcStats, obs = obs, mod = mod[1])
 
     results.new <- NULL
-    if (combine) results.new <- ddply(mydata, c(group, type), calcStats,
+    if (combine) results.new <- plyr::ddply(mydata, c(group, type), calcStats,
                                       obs = obs, mod = mod[2])
 
 

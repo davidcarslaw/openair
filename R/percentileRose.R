@@ -282,7 +282,7 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
      if (length(ids) > 0) {
        zero.wd <- mydata[ids, ]
        zero.wd[, wd] <- 0
-       mydata <- rbind.fill(mydata, zero.wd)
+       mydata <- bind_rows(mydata, zero.wd)
      }
 
     mod.percentiles <- function(i, mydata, overall.lower, overall.upper) {
@@ -333,9 +333,9 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
     }
 
     if (method == "default") {
-
+        
       ## calculate percentiles
-      percentiles <- ddply(mydata, wd, numcolwise(function (x)
+      percentiles <- plyr::ddply(mydata, wd, numcolwise(function (x)
         quantile(x, probs = percentile / 100, na.rm = TRUE)))
       percentiles$percentile <- percentile
 
@@ -343,12 +343,12 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
 
     if (tolower(method) == "cpf") {
 
-      percentiles1 <- ddply(mydata, wd, numcolwise(function (x)
+      percentiles1 <- plyr::ddply(mydata, wd, numcolwise(function (x)
                                                    length(which(x < overall.lower)) /
                                                    length(x)))
       percentiles1$percentile <- min(percentile)
 
-      percentiles2 <- ddply(mydata, wd, numcolwise(function (x)
+      percentiles2 <- plyr::ddply(mydata, wd, numcolwise(function (x)
                                                    length(which(x > overall.upper)) /
                                                    length(x)))
       percentiles2$percentile <- max(percentile)
@@ -362,12 +362,12 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
     }
 
 
-    results <- ldply(percentile, mod.percentiles, overall.lower, overall.upper)
+    results <- plyr::ldply(percentile, mod.percentiles, overall.lower, overall.upper)
 
     ## calculate mean; assume a percentile of 999 to flag it later
-    percentiles <- ddply(mydata, wd, numcolwise(function (x) mean(x, na.rm = TRUE)))
+    percentiles <- plyr::ddply(mydata, wd, numcolwise(function (x) mean(x, na.rm = TRUE)))
     percentiles$percentile <- 999
-    Mean <- ldply(999, mod.percentiles)
+    Mean <- plyr::ldply(999, mod.percentiles)
 
     if (stat == "percentile") results <- results else results <- Mean
     results
@@ -380,7 +380,7 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
   overall.lower <-  quantile(mydata[, pollutant], probs = min(percentile) / 100, na.rm = TRUE)
   overall.upper =  quantile(mydata[, pollutant], probs = max(percentile) / 100, na.rm = TRUE)
 
-  results.grid <- ddply(mydata, type, prepare.grid, stat = "percentile",
+  results.grid <- plyr::ddply(mydata, type, prepare.grid, stat = "percentile",
                         overall.lower, overall.upper)
 
   if (method == "cpf") {
@@ -393,7 +393,7 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
 
 
   if (mean) {
-    Mean <- ddply(mydata, type, prepare.grid, stat = "mean")
+    Mean <- plyr::ddply(mydata, type, prepare.grid, stat = "mean")
 
     results.grid <- rbind(results.grid, Mean)
   }

@@ -313,7 +313,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
             }
 
             if (nrow(x) > 4) {
-                res <- ldply(1:200, tmpFun, x, ...)
+                res <- plyr::ldply(1:200, tmpFun, x, ...)
 
                 data.frame(statistic = statistic, group = var.obs, mean = mean(res[[statistic]]),
                            lower = quantile(res[[statistic]], probs = 0.025, na.rm = TRUE),
@@ -323,15 +323,15 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
         if (other) {
 
-             res <- ldply(res, function (x) as.data.frame(table(x[, statistic])))
+             res <- plyr::ldply(res, function (x) as.data.frame(table(x[, statistic])))
 
             ## calculate proportions by interval
-             res <- ddply(res, .(.id), transform, Freq = Freq / sum(Freq))
+             res <- plyr::ddply(res, .(.id), transform, Freq = Freq / sum(Freq))
              res$statistic <- factor(statistic)
 
         } else {
 
-            res <- ldply(res, statFun, statistic = statistic)
+            res <- plyr::ldply(res, statFun, statistic = statistic)
 
         }
 
@@ -342,7 +342,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
     if (other) {
 
-        clust.results <- ddply(mydata, type, procData, other = other, statistic = statistic)
+        clust.results <- plyr::ddply(mydata, type, procData, other = other, statistic = statistic)
 
         clust.results$.id <- as.numeric(clust.results$.id)
 
@@ -398,8 +398,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     if (length(statistic) > 0) {
 
         ## go through vars, then statistics
-        results <- ldply(seq_along(var.obs), function (x) {
-            ldply(statistic, function (y) ddply(mydata, type, procData, statistic = y,
+        results <- plyr::ldply(seq_along(var.obs), function (x) {
+            plyr::ldply(statistic, function (y) plyr::ddply(mydata, type, procData, statistic = y,
                                                 var.obs = var.obs[x], var.mod = var.mod[x]))})
         results$.id <- as.numeric(results$.id)
 

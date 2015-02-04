@@ -202,15 +202,15 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time
 
     ## remove missing
     mydata <- na.omit(mydata)
-    mydata <- ddply(mydata, c(proportion, type), fun.pad)
+    mydata <- plyr::ddply(mydata, c(proportion, type), fun.pad)
 
     procData <- function(mydata, avg.time, ...) {
 
         ## time frequencies
-        freqs <- ddply(mydata, proportion, timeAverage, avg.time = avg.time, statistic = "frequency")
+        freqs <- plyr::ddply(mydata, proportion, timeAverage, avg.time = avg.time, statistic = "frequency")
 
         ## the values
-        values <- ddply(mydata, proportion, timeAverage, avg.time = avg.time, statistic = "mean")
+        values <- plyr::ddply(mydata, proportion, timeAverage, avg.time = avg.time, statistic = "mean")
 
         ## do not weight by concentration if statistic = frequency, just repeat overall mean
         ## by proportion
@@ -227,17 +227,17 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time
         values$sums <- freqs[[pollutant]] * values[[pollutant]]
 
         ## weighted conc
-        res <- ddply(values, .(date), transform, Var1 = sums / sum(freq, na.rm = TRUE))
+        res <- plyr::ddply(values, .(date), transform, Var1 = sums / sum(freq, na.rm = TRUE))
 
         ## normlaise to 100 if needed
-        if (normalise) res <- ddply(res, .(date), transform,
+        if (normalise) res <- plyr::ddply(res, .(date), transform,
                                     Var1 = Var1 * (100 / sum(Var1, na.rm = TRUE)))
 
         res
 
     }
 
-    results <- ddply(mydata, type, procData, avg.time)
+    results <- plyr::ddply(mydata, type, procData, avg.time)
 
     ## proper names of labelling ###################################################
     strip.dat <- strip.fun(results, type, auto.text)

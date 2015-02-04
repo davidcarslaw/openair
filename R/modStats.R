@@ -154,16 +154,16 @@ modStats <- function(mydata,  mod = "mod", obs = "obs",
     mydata <- cutData(mydata, type, ...)
 
     ## calculate the various statistics
-    if ("n" %in% statistic) res.n <- ddply(mydata, type, n, mod, obs) else res.n <- NULL
-    if ("FAC2" %in% statistic) res.FAC <- ddply(mydata, type, FAC2, mod, obs) else res.FAC <- NULL
-    if ("MB" %in% statistic) res.MB <- ddply(mydata, type, MB, mod, obs) else res.MB <- NULL
-    if ("MGE" %in% statistic) res.MGE <- ddply(mydata, type, MGE, mod, obs) else res.MGE <- NULL
-    if ("NMB" %in% statistic) res.NMB <- ddply(mydata, type, NMB, mod, obs) else res.NMB <- NULL
-    if ("NMGE" %in% statistic) res.NMGE <- ddply(mydata, type, NMGE, mod, obs) else res.NMGE <- NULL
-    if ("RMSE" %in% statistic) res.RMSE <- ddply(mydata, type, RMSE, mod, obs) else res.RMSE <- NULL
-    if ("r" %in% statistic) res.r <- ddply(mydata, type, r, mod, obs, ...) else res.r <- NULL
-    if ("COE" %in% statistic) res.COE <- ddply(mydata, type, COE, mod, obs) else res.COE <- NULL
-    if ("IOA" %in% statistic) res.IOA <- ddply(mydata, type, IOA, mod, obs) else res.IOA <- NULL
+    if ("n" %in% statistic) res.n <- plyr::ddply(mydata, type, n, mod, obs) else res.n <- NULL
+    if ("FAC2" %in% statistic) res.FAC <- plyr::ddply(mydata, type, FAC2, mod, obs) else res.FAC <- NULL
+    if ("MB" %in% statistic) res.MB <- plyr::ddply(mydata, type, MB, mod, obs) else res.MB <- NULL
+    if ("MGE" %in% statistic) res.MGE <- plyr::ddply(mydata, type, MGE, mod, obs) else res.MGE <- NULL
+    if ("NMB" %in% statistic) res.NMB <- plyr::ddply(mydata, type, NMB, mod, obs) else res.NMB <- NULL
+    if ("NMGE" %in% statistic) res.NMGE <- plyr::ddply(mydata, type, NMGE, mod, obs) else res.NMGE <- NULL
+    if ("RMSE" %in% statistic) res.RMSE <- plyr::ddply(mydata, type, RMSE, mod, obs) else res.RMSE <- NULL
+    if ("r" %in% statistic) res.r <- plyr::ddply(mydata, type, r, mod, obs, ...) else res.r <- NULL
+    if ("COE" %in% statistic) res.COE <- plyr::ddply(mydata, type, COE, mod, obs) else res.COE <- NULL
+    if ("IOA" %in% statistic) res.IOA <- plyr::ddply(mydata, type, IOA, mod, obs) else res.IOA <- NULL
 
     ## merge them all into one data frame
     results <- list(res.n, res.FAC, res.MB, res.MGE, res.NMB, res.NMGE, res.RMSE, res.r,
@@ -184,7 +184,7 @@ modStats <- function(mydata,  mod = "mod", obs = "obs",
             results <- rankModels(results, rank.name)
         } else {
 
-            results <- ddply(results, types, rankModels, rank.name = rank.name)
+            results <- plyr::ddply(results, types, rankModels, rank.name = rank.name)
         }
 
     }

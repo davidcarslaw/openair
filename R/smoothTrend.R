@@ -274,7 +274,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
     if (length(percentile) > 1) {
 
-        mydata <- ddply(mydata, c(type, "variable"), calcPercentile, pollutant = "value",
+        mydata <- plyr::ddply(mydata, c(type, "variable"), calcPercentile, pollutant = "value",
                         avg.time = avg.time, percentile = percentile, data.thresh = data.thresh)
 
         mydata <- melt(subset(mydata, select = -variable), measure.vars = paste("percentile.",
@@ -282,7 +282,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
     } else {
 
-        mydata <- ddply(mydata, c(type, "variable"), timeAverage, avg.time = avg.time,
+        mydata <- plyr::ddply(mydata, c(type, "variable"), timeAverage, avg.time = avg.time,
                         statistic = statistic, percentile = percentile,
                         data.thresh = data.thresh)
     }
@@ -332,10 +332,10 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
     }
 
-    res <- ddply(mydata, c(type, "variable"),  process.cond)
+    res <- plyr::ddply(mydata, c(type, "variable"),  process.cond)
 
     ## smooth fits so that they can be returned to the user
-    fit <- ddply(res, c(type, "variable"), fitGam, x = "date", y = "conc",
+    fit <- plyr::ddply(res, c(type, "variable"), fitGam, x = "date", y = "conc",
                  k = k, ...)
     class(fit$date) <- c("POSIXt", "POSIXct")
 

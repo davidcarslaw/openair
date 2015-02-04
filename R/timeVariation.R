@@ -515,12 +515,12 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         
     } else {
 
-        data.hour <- ldply(conf.int, proc, mydata, vars = "hour", pollutant, type, B = B,
+        data.hour <- plyr::ldply(conf.int, proc, mydata, vars = "hour", pollutant, type, B = B,
                            statistic = statistic)
     }
 
 
-    if (normalise) data.hour <-  ddply(data.hour, .(variable), divide.by.mean)
+    if (normalise) data.hour <-  plyr::ddply(data.hour, .(variable), divide.by.mean)
 
     if (is.null(xlab[2]) | is.na(xlab[2])) xlab[2] <- "hour"
 
@@ -585,11 +585,11 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         data.weekday <- errorDiff(mydata, vars = "wkday", type = type, poll1 =poll1,
                                   poll2 = poll2, B = B, conf.int = conf.int)
     } else {
-        data.weekday <- ldply(conf.int, proc, mydata, vars = "wkday", pollutant, type, B = B,
+        data.weekday <- plyr::ldply(conf.int, proc, mydata, vars = "wkday", pollutant, type, B = B,
                               statistic = statistic)
     }
 
-    if (normalise) data.weekday <-  ddply(data.weekday, .(variable), divide.by.mean)
+    if (normalise) data.weekday <-  plyr::ddply(data.weekday, .(variable), divide.by.mean)
 
     data.weekday$wkday <- ordered(data.weekday$wkday, levels = day.ord)
 
@@ -648,11 +648,11 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         data.month <- errorDiff(mydata, vars = "mnth", type = type, poll1 = poll1,
                                 poll2 = poll2, B = B, conf.int = conf.int)
     } else {
-        data.month <- ldply(conf.int, proc, mydata, vars = "mnth", pollutant, type, B = B,
+        data.month <- plyr::ldply(conf.int, proc, mydata, vars = "mnth", pollutant, type, B = B,
                             statistic = statistic)
     }
 
-    if (normalise) data.month <-  ddply(data.month, .(variable), divide.by.mean)
+    if (normalise) data.month <-  plyr::ddply(data.month, .(variable), divide.by.mean)
 
     if (is.null(xlab[3]) | is.na(xlab[3])) xlab[3] <- "month"
 
@@ -714,11 +714,11 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         data.day.hour <- errorDiff(mydata, vars = "day.hour", type = type, poll1 = poll1,
                                    poll2 = poll2, B = B, conf.int = conf.int)
     } else {
-        data.day.hour <- ldply(conf.int, proc, mydata, vars = "day.hour", pollutant, type, B = B,
+        data.day.hour <- plyr::ldply(conf.int, proc, mydata, vars = "day.hour", pollutant, type, B = B,
                                statistic = statistic)
     }
 
-    if (normalise) data.day.hour <-  ddply(data.day.hour, .(variable), divide.by.mean)
+    if (normalise) data.day.hour <-  plyr::ddply(data.day.hour, .(variable), divide.by.mean)
 
     ids <- which(is.na(data.day.hour$Lower)) ## missing Lower ci, set to mean
 
@@ -894,7 +894,7 @@ proc <- function(conf.int = conf.int, mydata, vars = "day.hour", pollutant, type
         data2 <- data.frame(subset(data2, select = -value), data2$value)
     }
 
-    if (length(pollutant) > 1 & "wd" %in% pollutant) data2 <- rbind.fill(data1, data2)
+    if (length(pollutant) > 1 & "wd" %in% pollutant) data2 <- bind_rows(data1, data2)
 
     if (!"wd" %in% pollutant) data2 <- data1
 
@@ -948,7 +948,7 @@ errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
     if (vars == "wkday") splits <- c("wkday", type)
     if (vars == "mnth") splits <- c("mnth", type)
 
-    res <- ddply(mydata, splits, bootMeanDiff, x = poll1, y = poll2, B = B)
+    res <- plyr::ddply(mydata, splits, bootMeanDiff, x = poll1, y = poll2, B = B)
     res$ci <- conf.int[1]
     res
 }

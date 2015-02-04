@@ -529,12 +529,12 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
     }
 
     ## more compact way?  Need to test
-    results.grid <- ddply(mydata, type, prepare.grid)
+    results.grid <- plyr::ddply(mydata, type, prepare.grid)
 
 
     ## normalise by divining by mean conditioning value if needed
     if (normalise){
-        results.grid <- ddply(results.grid, type, transform, z = z / mean(z, na.rm = TRUE))
+        results.grid <- plyr::ddply(results.grid, type, transform, z = z / mean(z, na.rm = TRUE))
         if (missing(key.footer)) key.footer <- "normalised \nlevel"
     }
 

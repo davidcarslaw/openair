@@ -72,8 +72,10 @@ calcPercentile <- function(mydata, pollutant = "o3", avg.time = "month", percent
 
     }
 
-    mydata <- lapply(percentile, function(x) make.percentile(mydata, pollutant = pollutant,
-                                                               avg.time = avg.time, percentile = x))
+    mydata <- lapply(percentile, function(x)
+        make.percentile(mydata, pollutant = pollutant, avg.time = avg.time,
+                        data.thresh = data.thresh, percentile = x))
+    
     mydata <- Reduce(function(x, y, by = 'date') merge(x, y, by = 'date', all = TRUE), mydata)
 
     if (site) mydata$site <- site.name

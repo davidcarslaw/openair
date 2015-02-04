@@ -285,14 +285,14 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
     if (method == "density") stop ("Use trajPlot with method = 'density' instead")
 
-    if (is.list(mydata)) mydata <- rbind.fill(mydata)
-
+    if (is.list(mydata)) mydata <- bind_rows(mydata)
+    
     mydata <- cutData(mydata, type, ...)
 
     ## bin data
     if (method == "traj") {
-        mydata$ygrid <- round_any(mydata[ , lat], lat.inc)
-        mydata$xgrid <- round_any(mydata[ , lon], lon.inc)
+        mydata$ygrid <- round_any(mydata[[lat]], lat.inc)
+        mydata$xgrid <- round_any(mydata[[lon]], lon.inc)
     } else {
         mydata$ygrid <- mydata[ , lat]
         mydata$xgrid <- mydata[ , lon]
@@ -337,24 +337,14 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
     ## plot trajectory frequecies
     if (statistic == "frequency") {
-        ## count % of times a cell contains a trajectory
-        ## counts by conditioning variable not total
+        ## count % of times a cell contains a trajectory point
+        ## need date for later use of type
 
-        ## need dates for later processing e.g. for type = "season"
-        dates <- aggregate(mydata[ , -ids], mydata[ , ids], function (x) head(x, 1))
-        dates <- dates$date
+        mydata <- group_by_(mydata, "xgrid", "ygrid", type) %>%
+          summarise(date = head(date, 1),  count = n())
 
-        mydata <- aggregate(mydata[ , -ids], mydata[ , ids],
-                            function (x) length(unique(x)))
-
-
-        mydata$count <-  mydata[, pollutant] #mydata[, "date"] #counts$date
-        mydata$date <- dates
-
-        mydata[, pollutant] <- ave(mydata$count, mydata[, type], FUN = function (x) 100 * x / max(x))
-
-
-        attr(mydata$date, "tzone") <- "GMT"  ## avoid warning messages about TZ
+        mydata[[pollutant]] <- 100 * mydata$count / max(mydata$count)
+                                                        
 
     }
 

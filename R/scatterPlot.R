@@ -385,9 +385,10 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             stop ("Can't have an averging period set and a time-based 'type' or 'group'.")
         if ("default" %in% types) mydata$default <- 0 ## FIX ME
 
-        mydata <- ddply(mydata, types, timeAverage, avg.time = avg.time,
+        mydata <- group_by_(mydata, types) %>%
+          do(timeAverage(., avg.time = avg.time,
                         statistic = statistic, percentile = percentile,
-                        data.thresh = data.thresh)
+                        data.thresh = data.thresh))
     }
 
     ## the following makes sure all variables are present, which depends on 'group'
@@ -693,30 +694,38 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                 ## in batches
                                 if (Args$traj) {
 
-                                    if (!is.na(z)) {
+                                    ## data of interest
+                                    tmp <- split(mydata[subscripts, ],
+                                                     mydata[subscripts, "date"])
 
+                                    if (!is.na(z)) {
+                                        
                                         ## colour by z
-                                        ddply(mydata[subscripts, ], "date", function (x)
-                                            llines(x$lon, x$lat, col.line = x$col, lwd = lwd,
-                                                   lty = lty))
-                                    } else {
+                                        lapply(tmp, function (dat)
+                                            llines(dat$lon, dat$lat, col.line = x$col,
+                                                   lwd = lwd, lty = lty))
+                                        
+                                      } else {
 
                                         ## colour by a grouping variable
-                                        ddply(mydata[subscripts, ], .(date), function (x)
-                                            llines(x$lon, x$lat, col.line = myColors[group.number],
-                                                   lwd = lwd, lty = lty))
+                                        
+                                          lapply(tmp, function (dat)
+                                              llines(dat$lon, dat$lat,
+                                                     col.line = myColors[group.number],
+                                                    lwd = lwd, lty = lty))
+                                        
 
                                         ## major 12 hour points
-                                        id <- seq(min(subscripts), max(subscripts), by = 12)
+                                       
+                                          id <- seq(min(subscripts), max(subscripts),
+                                                    by = 12)
 
-                                        ddply(mydata[id, ], .(date), function (x)
-                                            lpoints(x$lon, x$lat,
+                                          lapply(tmp, function (dat)
+                                            lpoints(dat[id, "lon"], dat[id, "lat"],
                                                     col = myColors[group.number],
-                                                    pch = 16, cex = 1))
+                                                    pch = 16))
 
-                                    }
-
-
+                                        }
                                 }
 
                                 ## add base map
@@ -875,8 +884,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             new.data
         }
 
-        if (smooth) mydata <- ddply(mydata, type, smooth.grid, z)
-
+        if (smooth) mydata <- group_by_(mydata, type) %>%
+          do(smooth.grid(., z))
+           
         ## basic function for lattice call + defaults
         temp <- paste(type, collapse = "+")
         myform <- formula(paste(z, "~ xgrid * ygrid |", temp, sep = ""))
@@ -984,8 +994,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     if (method %in% c("traj", "map")) {
 
         ## bin data
-        mydata$ygrid <- round_any(mydata[ , y], y.inc)
-        mydata$xgrid <- round_any(mydata[ , x], x.inc)
+        mydata$ygrid <- round_any(mydata[[y]], y.inc)
+        mydata$xgrid <- round_any(mydata[[x]], x.inc)
 
         ## used for map grid
 
@@ -1015,7 +1025,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         mydata <- transform(mydata, x1 = coord1$x, x2 = coord2$x, x3 = coord3$x, x4 = coord4$x,
                             y1 = coord1$y, y2 = coord2$y, y3 = coord3$y, y4 = coord4$y,
                             xgrid = coordGrid$x, ygrid = coordGrid$y)
-
+        
 
         smooth.grid <- function(mydata, z) {
 
@@ -1051,8 +1061,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             new.data
         }
 
-        if (smooth) mydata <- ddply(mydata, type, smooth.grid, z)
-
+        if (smooth) mydata <- group_by_(mydata, type) %>%
+          do(smooth.grid(., z))
+           
         ## basic function for lattice call + defaults
         temp <- paste(type, collapse = "+")
         if (!smooth) myform <- formula(paste(z, "~ x1 * y1 |", temp, sep = ""))
@@ -1208,8 +1219,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     if (method == "density") {
         prepare.grid <- function(subdata) {
             n <- nrow(subdata) ## for intensity estimate
-            x <- subdata[, x]
-            y <- subdata[, y]
+            x <- subdata[[x]]
+            y <- subdata[[y]]
             xy <- xy.coords(x, y, "xlab", "ylab")
             xlab <-  xy$xlab
             ylab <- xy$ylab
@@ -1232,7 +1243,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
         ## ###########################################################################
 
-        results.grid <-  ddply(mydata, type, prepare.grid)
+        results.grid <- group_by_(mydata, type) %>%
+          do(prepare.grid(.))
+            
 
         ## auto-scaling
         nlev <- nrow(mydata)  ## preferred number of intervals

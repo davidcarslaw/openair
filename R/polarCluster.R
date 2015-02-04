@@ -223,7 +223,7 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
         dat.orig
     }
 
-    results.grid <- ldply(seq_along(n.clusters), make.clust, results.grid)
+    results.grid <- plyr::ldply(seq_along(n.clusters), make.clust, results.grid)
 
     results.grid$nclust <- ordered(results.grid$nclust, levels = paste(n.clusters, "clusters"))
 

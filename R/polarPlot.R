@@ -368,499 +368,506 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
                       units = x, force.positive = TRUE, k = 100, normalise = FALSE,
                       key.header = "", key.footer = pollutant, key.position = "right",
                       key = TRUE, auto.text = TRUE, ...) {
-
-    ## get rid of R check annoyances
-    z = NULL
-
-    if (statistic == "percentile" & is.na(percentile[1] & statistic != "cpf")) {
-        warning("percentile value missing,  using 50")
-        percentile <- 50
-    }
-
-    ## initial checks ####################################################################
-    if (length(type) > 2) {stop("Maximum number of types is 2.")}
-
-    if (uncertainty) type <- "default" ## can't have conditioning here
-
-    if (uncertainty & length(pollutant) > 1)
-        stop("Can only have one pollutant when uncertainty = TRUE")
-
-    if (!statistic %in% c("mean", "median", "frequency", "max", "stdev",
-                          "weighted.mean", "percentile", "cpf")) {
-        stop (paste("statistic '", statistic, "' not recognised", sep = ""))
-    }
-
-    if (length(weights) != 3) stop ("weights should be of length 3.")
-
-    if (missing(key.header)) key.header <- statistic
-    if (key.header == "weighted.mean") key.header <- "weighted\nmean"
-    if (key.header == "percentile")
-        key.header <- c(paste(percentile, "th", sep = ""), "percentile")
-    if (key.header == "cpf") key.header <- c("CPF", "probability")
-
-    ## greyscale handling
-    if (length(cols) == 1 && cols == "greyscale") {
-
-        trellis.par.set(list(strip.background = list(col = "white")))
-    }
-
-    ## set graphics
-    current.strip <- trellis.par.get("strip.background")
-    current.font <- trellis.par.get("fontsize")
+  
+  ## get rid of R check annoyances
+  z = NULL
+  
+  if (statistic == "percentile" & is.na(percentile[1] & statistic != "cpf")) {
+    warning("percentile value missing,  using 50")
+    percentile <- 50
+  }
+  
+  ## initial checks ####################################################################
+  if (length(type) > 2) {stop("Maximum number of types is 2.")}
+  
+  if (uncertainty) type <- "default" ## can't have conditioning here
+  
+  if (uncertainty & length(pollutant) > 1)
+    stop("Can only have one pollutant when uncertainty = TRUE")
+  
+  if (!statistic %in% c("mean", "median", "frequency", "max", "stdev",
+                        "weighted.mean", "percentile", "cpf")) {
+    stop (paste("statistic '", statistic, "' not recognised", sep = ""))
+  }
+  
+  if (length(weights) != 3) stop ("weights should be of length 3.")
+  
+  if (missing(key.header)) key.header <- statistic
+  if (key.header == "weighted.mean") key.header <- "weighted\nmean"
+  if (key.header == "percentile")
+    key.header <- c(paste(percentile, "th", sep = ""), "percentile")
+  
+  if ("cpf" %in% key.header) key.header <- c("CPF", "probability")
+  
+  ## greyscale handling
+  if (length(cols) == 1 && cols == "greyscale") {
     
-    ## reset graphic parameters
-    on.exit(trellis.par.set(strip.background = current.strip,
-                            fontsize = current.font))
+    trellis.par.set(list(strip.background = list(col = "white")))
+  }
+  
+  ## set graphics
+  current.strip <- trellis.par.get("strip.background")
+  current.font <- trellis.par.get("fontsize")
+  
+  ## reset graphic parameters
+  on.exit(trellis.par.set(strip.background = current.strip,
+                          fontsize = current.font))
+  
+  
+  ## extra.args setup
+  extra.args <- list(...)
+  
+  ## label controls
+  extra.args$xlab <- if ("xlab" %in% names(extra.args))
+    quickText(extra.args$xlab, auto.text) else quickText("", auto.text)
+  
+  extra.args$ylab <- if ("ylab" %in% names(extra.args))
+    quickText(extra.args$ylab, auto.text) else quickText("", auto.text)
+  
+  extra.args$main <- if ("main" %in% names(extra.args))
+    quickText(extra.args$main, auto.text) else quickText("", auto.text)
+  
+  if ("fontsize" %in% names(extra.args))
+    trellis.par.set(fontsize = list(text = extra.args$fontsize))
+  
+  ## layout default
+  if (!"layout" %in% names(extra.args))
+    extra.args$layout <- NULL
+  
+  ## extract variables of interest
+  
+  vars <- c(wd, x, pollutant)
+  if (any(type %in%  dateTypes)) vars <- c(vars, "date")
+  
+  mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
+  
+  mydata <- na.omit(mydata)
+  
+  ## this is used later for the 'x' scale
+  min.scale <- min(mydata[[x]], na.rm = TRUE)
+  
+  
+  ## scale data by subtracting the min value
+  ## this helps with dealing with negative data on radial axis (starts from zero, always postive)
+  mydata[[x]] <- mydata[[x]] - min(mydata[[x]], na.rm = TRUE)
+  
+  ## if more than one pollutant, need to stack the data and set type = "variable"
+  ## this case is most relevent for model-measurement compasrions where data are in columns
+  ## Can also do more than one pollutant and a single type that is not "default", in which
+  ## case pollutant becomes a conditioning variable
+  if (length(pollutant) > 1) {
     
-    
-    ## extra.args setup
-    extra.args <- list(...)
-
-    ## label controls
-    extra.args$xlab <- if ("xlab" %in% names(extra.args))
-        quickText(extra.args$xlab, auto.text) else quickText("", auto.text)
-
-    extra.args$ylab <- if ("ylab" %in% names(extra.args))
-        quickText(extra.args$ylab, auto.text) else quickText("", auto.text)
-
-    extra.args$main <- if ("main" %in% names(extra.args))
-        quickText(extra.args$main, auto.text) else quickText("", auto.text)
-    
-    if ("fontsize" %in% names(extra.args))
-        trellis.par.set(fontsize = list(text = extra.args$fontsize))
-    
-    ## layout default
-    if (!"layout" %in% names(extra.args))
-        extra.args$layout <- NULL
-
-    ## extract variables of interest
-
-    vars <- c(wd, x, pollutant)
-    if (any(type %in%  dateTypes)) vars <- c(vars, "date")
-
-    mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
-
-    mydata <- na.omit(mydata)
-
-    ## this is used later for the 'x' scale
-    min.scale <- min(mydata[[x]], na.rm = TRUE)
-
-
-    ## scale data by subtracting the min value
-    ## this helps with dealing with negative data on radial axis (starts from zero, always postive)
-    mydata[ , x] <- mydata[ , x] - min(mydata[ , x], na.rm = TRUE)
-
-    ## if more than one pollutant, need to stack the data and set type = "variable"
-    ## this case is most relevent for model-measurement compasrions where data are in columns
-    ## Can also do more than one pollutant and a single type that is not "default", in which
-    ## case pollutant becomes a conditioning variable
-    if (length(pollutant) > 1) {
-
-        if (length(type) > 1) {
-            warning(paste("Only type = '", type[1], "' will be used", sep = ""))
-            type <- type[1]
-        }
-        ## use pollutants as conditioning variables
-        mydata <- melt(mydata, measure.vars = pollutant)
-        ## now set pollutant to "value"
-        pollutant <- "value"
-
-        if (type == "default") {
-            type <- "variable"
-        } else {
-            type <- c(type, "variable")
-        }
+    if (length(type) > 1) {
+      warning(paste("Only type = '", type[1], "' will be used", sep = ""))
+      type <- type[1]
     }
-
-    ## ####################################################################
-
-
-    ## cutData depending on type
-    mydata <- cutData(mydata, type, ...)
-
-
-    ## if upper ws not set, set it to the max to display all information
-    max.ws <- max(mydata[[x]], na.rm = TRUE)
-    min.ws <- min(mydata[[x]], na.rm = TRUE)
-    clip <- TRUE ## used for removing data where ws > upper
-
-    if (missing(upper)) {
-        upper <- max.ws
-        clip <- FALSE
-    }
-
-    ## for resolution of grid plotting (default = 101; fine =201)
-    if (resolution == "normal") int <- 101
-    if (resolution == "fine") int <- 201
-    if (resolution == "ultra.fine") int <- 401  ## very large files!
-
-    ## binning wd data properly
-    ## use 10 degree binning of wd if already binned, else 5
-    if (all(mydata[, wd] %% 10 == 0, na.rm = TRUE)) {
-        wd.int <- 10
+    ## use pollutants as conditioning variables
+    mydata <- melt(mydata, measure.vars = pollutant)
+    ## now set pollutant to "value"
+    pollutant <- "value"
+    
+    if (type == "default") {
+      type <- "variable"
     } else {
-        wd.int <- 5 ## how to split wd
+      type <- c(type, "variable")
     }
-
-    ws.seq <- seq(min.ws, max.ws, length = 30)
-    wd.seq <- seq(from = wd.int, to = 360, by = wd.int) ## wind directions from wd.int to 360
-    ws.wd <- expand.grid(x = ws.seq, wd = wd.seq)
-
-    u <- with(ws.wd, x * sin(pi * wd / 180))  ## convert to polar coords
-    v <- with(ws.wd, x * cos(pi * wd / 180))
-
-    ## data to predict over
-    input.data <- expand.grid(u = seq(-upper, upper, length = int),
-                              v = seq(-upper, upper, length = int))
-
-    ## ######################################################################
-    if (statistic == "cpf") {
-        ## can be interval of percentiles or a single (threshold)
-        if (length(percentile) > 1) {
-            statistic <- "cpfi" # CPF interval
-
-            if (length(percentile) == 3) {
-                ## in this case there is a trim value as a proprtion of the mean
-                ## if this value <0 use absolute values as range
-                Mean <- mean(mydata[, pollutant], na.rm = TRUE)
-
-                if (percentile[3] < 0) {
-
-                    Pval <- percentile[1:2]
-
-                } else  {
-                    Pval <- quantile(subset(mydata[[pollutant]],
-                                            mydata[[pollutant]] >= Mean *
-                                            percentile[3]),
-                                     probs = percentile[1:2] / 100,
-                                     na.rm = TRUE)
-                }
-
-            } else {
-
-                Pval <- quantile(mydata[, pollutant],
-                                 probs = percentile / 100, na.rm = TRUE)
-
-            }
-            sub <- paste("CPF (", format(Pval[1], digits = 2), " to ",
-                         format(Pval[2], digits = 2), ")", sep = "")
-
-        } else {
-            Pval <- quantile(mydata[, pollutant], probs = percentile / 100, na.rm = TRUE)
-            sub <- paste("CPF at the ", percentile,
-                         "th percentile (=", format(Pval, digits = 2), ")", sep = "")
+  }
+  
+  ## ####################################################################
+  
+  
+  ## cutData depending on type
+  mydata <- cutData(mydata, type, ...)
+  
+  
+  ## if upper ws not set, set it to the max to display all information
+  max.ws <- max(mydata[[x]], na.rm = TRUE)
+  min.ws <- min(mydata[[x]], na.rm = TRUE)
+  clip <- TRUE ## used for removing data where ws > upper
+  
+  if (missing(upper)) {
+    upper <- max.ws
+    clip <- FALSE
+  }
+  
+  ## for resolution of grid plotting (default = 101; fine =201)
+  if (resolution == "normal") int <- 101
+  if (resolution == "fine") int <- 201
+  if (resolution == "ultra.fine") int <- 401  ## very large files!
+  
+  ## binning wd data properly
+  ## use 10 degree binning of wd if already binned, else 5
+  if (all(mydata[[wd]] %% 10 == 0, na.rm = TRUE)) {
+    wd.int <- 10
+  } else {
+    wd.int <- 5 ## how to split wd
+  }
+  
+  ws.seq <- seq(min.ws, max.ws, length = 30)
+  wd.seq <- seq(from = wd.int, to = 360, by = wd.int) ## wind directions from wd.int to 360
+  ws.wd <- expand.grid(x = ws.seq, wd = wd.seq)
+  
+  u <- with(ws.wd, x * sin(pi * wd / 180))  ## convert to polar coords
+  v <- with(ws.wd, x * cos(pi * wd / 180))
+  
+  ## data to predict over
+  input.data <- expand.grid(u = seq(-upper, upper, length = int),
+                            v = seq(-upper, upper, length = int))
+  
+  ## ######################################################################
+  if (statistic == "cpf") {
+    ## can be interval of percentiles or a single (threshold)
+    if (length(percentile) > 1) {
+      statistic <- "cpfi" # CPF interval
+      
+      if (length(percentile) == 3) {
+        ## in this case there is a trim value as a proprtion of the mean
+        ## if this value <0 use absolute values as range
+        Mean <- mean(mydata[[pollutant]], na.rm = TRUE)
+        
+        if (percentile[3] < 0) {
+          
+          Pval <- percentile[1:2]
+          
+        } else  {
+          Pval <- quantile(subset(mydata[[pollutant]],
+                                  mydata[[pollutant]] >= Mean *
+                                    percentile[3]),
+                           probs = percentile[1:2] / 100,
+                           na.rm = TRUE)
         }
+        
+      } else {
+        
+        Pval <- quantile(mydata[[pollutant]],
+                         probs = percentile / 100, na.rm = TRUE)
+        
+      }
+      sub <- paste("CPF (", format(Pval[1], digits = 2), " to ",
+                   format(Pval[2], digits = 2), ")", sep = "")
+      
     } else {
-        sub <- NULL
+      Pval <- quantile(mydata[, pollutant], probs = percentile / 100, na.rm = TRUE)
+      sub <- paste("CPF at the ", percentile,
+                   "th percentile (=", format(Pval, digits = 2), ")", sep = "")
     }
-
-    ## ######################################################################
-
-    prepare.grid <- function(mydata) {
-        ## identify which ws and wd bins the data belong
-        wd <- cut(wd.int * ceiling(mydata[, wd] / wd.int - 0.5),
-                  breaks = seq(0, 360, wd.int), include.lowest = TRUE)
-
-        x <- cut(mydata[ , x], breaks = seq(0, max.ws, length = 31), include.lowest = TRUE)
-
-        binned <- switch(statistic,
-                         frequency = tapply(mydata[ , pollutant], list(wd, x), function(x)
-                         length(na.omit(x))),
-                         mean =  tapply(mydata[, pollutant], list(wd, x), function(x)
-                         mean(x, na.rm = TRUE)),
-                         median = tapply(mydata[, pollutant], list(wd, x), function(x)
-                         median(x, na.rm = TRUE)),
-                         max = tapply(mydata[, pollutant], list(wd, x), function(x)
-                         max(x, na.rm = TRUE)),
-                         stdev = tapply(mydata[, pollutant], list(wd, x), function(x)
-                         sd(x, na.rm = TRUE)),
-                         cpf =  tapply(mydata[, pollutant], list(wd, x),
-                         function(x) (length(which(x > Pval)) / length(x))),
-                         cpfi =  tapply(mydata[, pollutant], list(wd, x),
-                         function(x) (length(which(x > Pval[1] & x <= Pval[2])) / length(x))),
-                         weighted.mean = tapply(mydata[, pollutant], list(wd, x),
-                         function(x) (mean(x) * length(x) / nrow(mydata))),
-                         percentile = tapply(mydata[, pollutant], list(wd, x), function(x)
-                         quantile(x, probs = percentile / 100, na.rm = TRUE))
-
-                         )
-
-        binned <- as.vector(t(binned))
-
-        ## frequency - remove points with freq < min.bin
-        bin.len <- tapply(mydata[, pollutant], list(x, wd), length)
-        binned.len <- as.vector(bin.len)
-
-        ## apply weights
-        W <- rep(1, times = length(binned))
-        ids <- which(binned.len == 1)
-        W[ids] <- W[ids] * weights[1]
-        ids <- which(binned.len == 2)
-        W[ids] <- W[ids] * weights[2]
-        ids <- which(binned.len == 3)
-        W[ids] <- W[ids] * weights[3]
-
-        ## set missing to NA
-        ids <- which(binned.len < min.bin)
-        binned[ids] <- NA
-        ## ####################Smoothing#######################################
-        if (force.positive) n <- 0.5 else n <- 1
-
-        ## no uncertainty to calculate
-        if (!uncertainty) {
-            ## catch errors when not enough data to calculate surface
-            Mgam <- try(gam(binned ^ n ~ s(u, v, k = k), weights = W), TRUE)
-            if (!inherits(Mgam, "try-error")) {
-                pred <- predict.gam(Mgam, input.data)
-                pred <- pred ^ (1 / n)
-                pred <- as.vector(pred)
-                results <- data.frame(u = input.data$u, v = input.data$v, z = pred)
-            } else {
-                results <- data.frame(u = u, v = v, z = binned)
-                exclude.missing <- FALSE
-                warning(call. = FALSE, paste("Not enough data to fit surface.\nTry reducing the value of the smoothing parameter, k to less than ", k, ".",  sep = ""))
-            }
-
-        } else {
-
-            ## uncertainties calculated, weighted by number of points in each bin
-            Mgam <- gam(binned ^ n ~ s(u, v, k = k), weights = binned.len)
-            pred <- predict.gam(Mgam, input.data, se.fit = TRUE)
-            uncer <- 2 * as.vector(pred[[2]]) ## for approx 95% CI
-            pred <- as.vector(pred[[1]]) ^ (1 / n)
-
-
-            ## do not weight for central prediction
-            Mgam <- gam(binned ^ n ~ s(u, v, k = k))
-            pred <- predict.gam(Mgam, input.data)
-            pred <- as.vector(pred)
-            Lower <- (pred - uncer) ^ (1 / n)
-            Upper <- (pred + uncer) ^ (1 / n)
-            pred <- pred ^ (1 / n)
-
-            n <- length(pred)
-            results <-  data.frame(u = rep(input.data$u, 3), v = rep(input.data$v, 3),
-                                   z = c(pred, Lower, Upper),
-                                   default = rep(c("prediction", "lower uncertainty",
-                                   "upper uncertainty"), each = n))
-        }
-
-        ## ###########################################################################
-        ## function to remove points too far from original data
-        exclude <- function(results) {
-
-            ## exclude predictions too far from data (from mgcv)
-            x <- seq(-upper, upper, length = int)
-            y <- x
-            res <- int
-            wsp <- rep(x, res)
-            wdp <- rep(y, rep(res, res))
-
-            ## data with gaps caused by min.bin
-            all.data <- na.omit(data.frame(u, v, binned))
-            ind <- with(all.data, exclude.too.far(wsp, wdp, u, v, dist = 0.05))
-
-            results$z[ind] <- NA
-            results
-        }
-
-        if (exclude.missing) results <- exclude(results)
-
-        results
-    }
-
-    ## #################################################################
-
-    ## if min.bin >1 show the missing data. Work this out by running twice:
-    ## first time with no missings, second with min.bin.
-    ## Plot one surface on top of the other.
-
-    if (!missing(min.bin)) {
-        tmp <- min.bin
-        min.bin <- 0
-        res1 <- ddply(mydata, type, prepare.grid)
-
-        min.bin <- tmp
-        res <- ddply(mydata, type, prepare.grid)
-        res$miss <- res1$z
-
+  } else {
+    sub <- NULL
+  }
+  
+  ## ######################################################################
+  
+  prepare.grid <- function(mydata) {
+    
+    ## identify which ws and wd bins the data belong
+    wd <- cut(wd.int * ceiling(mydata[[wd]] / wd.int - 0.5),
+              breaks = seq(0, 360, wd.int), include.lowest = TRUE)
+    
+    x <- cut(mydata[[x]], breaks = seq(0, max.ws, length = 31), include.lowest = TRUE)
+    
+    binned <- switch(statistic,
+                     frequency = tapply(mydata[[pollutant]], list(wd, x), function(x)
+                       length(na.omit(x))),
+                     mean =  tapply(mydata[[pollutant]], list(wd, x), function(x)
+                       mean(x, na.rm = TRUE)),
+                     median = tapply(mydata[[pollutant]], list(wd, x), function(x)
+                       median(x, na.rm = TRUE)),
+                     max = tapply(mydata[[pollutant]], list(wd, x), function(x)
+                       max(x, na.rm = TRUE)),
+                     stdev = tapply(mydata[[pollutant]], list(wd, x), function(x)
+                       sd(x, na.rm = TRUE)),
+                     cpf =  tapply(mydata[[pollutant]], list(wd, x),
+                                   function(x) (length(which(x > Pval)) / length(x))),
+                     cpfi =  tapply(mydata[[pollutant]], list(wd, x),
+                                    function(x) (length(which(x > Pval[1] & x <= Pval[2])) / length(x))),
+                     weighted.mean = tapply(mydata[[pollutant]], list(wd, x),
+                                            function(x) (mean(x) * length(x) / nrow(mydata))),
+                     percentile = tapply(mydata[[pollutant]], list(wd, x), function(x)
+                       quantile(x, probs = percentile / 100, na.rm = TRUE))
+                     
+    )
+    
+    binned <- as.vector(t(binned))
+    
+    ## frequency - remove points with freq < min.bin
+    bin.len <- tapply(mydata[[pollutant]], list(x, wd), length)
+    binned.len <- as.vector(bin.len)
+    
+    ## apply weights
+    W <- rep(1, times = length(binned))
+    ids <- which(binned.len == 1)
+    W[ids] <- W[ids] * weights[1]
+    ids <- which(binned.len == 2)
+    W[ids] <- W[ids] * weights[2]
+    ids <- which(binned.len == 3)
+    W[ids] <- W[ids] * weights[3]
+    
+    ## set missing to NA
+    ids <- which(binned.len < min.bin)
+    binned[ids] <- NA
+    ## ####################Smoothing#######################################
+    if (force.positive) n <- 0.5 else n <- 1
+    
+    ## no uncertainty to calculate
+    if (!uncertainty) {
+      ## catch errors when not enough data to calculate surface
+      Mgam <- try(gam(binned ^ n ~ s(u, v, k = k), weights = W), TRUE)
+      if (!inherits(Mgam, "try-error")) {
+        pred <- predict.gam(Mgam, input.data)
+        pred <- pred ^ (1 / n)
+        pred <- as.vector(pred)
+        results <- data.frame(u = input.data$u, v = input.data$v, z = pred)
+      } else {
+        results <- data.frame(u = u, v = v, z = binned)
+        exclude.missing <- FALSE
+        warning(call. = FALSE, paste("Not enough data to fit surface.\nTry reducing the value of the smoothing parameter, k to less than ", k, ".",  sep = ""))
+      }
+      
     } else {
-
-        res <- ddply(mydata, type, prepare.grid)
+      
+      ## uncertainties calculated, weighted by number of points in each bin
+      Mgam <- gam(binned ^ n ~ s(u, v, k = k), weights = binned.len)
+      pred <- predict.gam(Mgam, input.data, se.fit = TRUE)
+      uncer <- 2 * as.vector(pred[[2]]) ## for approx 95% CI
+      pred <- as.vector(pred[[1]]) ^ (1 / n)
+      
+      
+      ## do not weight for central prediction
+      Mgam <- gam(binned ^ n ~ s(u, v, k = k))
+      pred <- predict.gam(Mgam, input.data)
+      pred <- as.vector(pred)
+      Lower <- (pred - uncer) ^ (1 / n)
+      Upper <- (pred + uncer) ^ (1 / n)
+      pred <- pred ^ (1 / n)
+      
+      n <- length(pred)
+      results <-  data.frame(u = rep(input.data$u, 3), v = rep(input.data$v, 3),
+                             z = c(pred, Lower, Upper),
+                             default = rep(c("prediction", "lower uncertainty",
+                                             "upper uncertainty"), each = n))
     }
-
-    ## with CPF make sure not >1 due to surface fitting
-    if (any(res$z > 1, na.rm = TRUE) & statistic %in% c("cpf", "cpfi")) {
-        id <- which(res$z > 1)
-        res$z[id] <- 1
+    
+    ## ###########################################################################
+    ## function to remove points too far from original data
+    exclude <- function(results) {
+      
+      ## exclude predictions too far from data (from mgcv)
+      x <- seq(-upper, upper, length = int)
+      y <- x
+      res <- int
+      wsp <- rep(x, res)
+      wdp <- rep(y, rep(res, res))
+      
+      ## data with gaps caused by min.bin
+      all.data <- na.omit(data.frame(u, v, binned))
+      ind <- with(all.data, exclude.too.far(wsp, wdp, u, v, dist = 0.05))
+      
+      results$z[ind] <- NA
+      results
     }
-
-    ## remove wind speeds > upper to make a circle
-    if (clip) res$z[(res$u ^ 2 + res$v ^ 2) ^ 0.5 > upper] <- NA
-
-    ## proper names of labelling ###################################################
-    strip.dat <- strip.fun(res, type, auto.text)
-    strip <- strip.dat[[1]]
-    strip.left <- strip.dat[[2]]
-    pol.name <- strip.dat[[3]]
-    if (uncertainty) strip <- TRUE
-
-    ## normalise by divining by mean conditioning value if needed
-    if (normalise){
-        res <- ddply(res, type, transform, z = z / mean(z, na.rm = TRUE))
-        if (missing(key.footer)) key.footer <- "normalised \nlevel"
+    
+    if (exclude.missing) results <- exclude(results)
+    
+    results
+  }
+  
+  ## #################################################################
+  
+  ## if min.bin >1 show the missing data. Work this out by running twice:
+  ## first time with no missings, second with min.bin.
+  ## Plot one surface on top of the other.
+  
+  if (!missing(min.bin)) {
+    tmp <- min.bin
+    min.bin <- 0
+    res1 <- group_by_(mydata, type) %>%
+      do(prepare.grid(.))
+    
+    min.bin <- tmp
+    
+    res <- group_by_(mydata, type) %>%
+      do(prepare.grid(.))
+    res$miss <- res1$z
+    
+  } else {
+    
+    res <- group_by_(mydata, type) %>%
+      do(prepare.grid(.))
+  }
+  
+  ## with CPF make sure not >1 due to surface fitting
+  if (any(res$z > 1, na.rm = TRUE) & statistic %in% c("cpf", "cpfi")) {
+    id <- which(res$z > 1)
+    res$z[id] <- 1
+  }
+  
+  ## remove wind speeds > upper to make a circle
+  if (clip) res$z[(res$u ^ 2 + res$v ^ 2) ^ 0.5 > upper] <- NA
+  
+  ## proper names of labelling ###################################################
+  strip.dat <- strip.fun(res, type, auto.text)
+  strip <- strip.dat[[1]]
+  strip.left <- strip.dat[[2]]
+  pol.name <- strip.dat[[3]]
+  if (uncertainty) strip <- TRUE
+  
+  ## normalise by divining by mean conditioning value if needed
+  if (normalise){
+    
+    res <- mutate(res, z = z / mean(z, na.rm = TRUE))
+    
+    if (missing(key.footer)) key.footer <- "normalised \nlevel"
+  }
+  
+  
+  ## auto-scaling
+  nlev <- 200  ## preferred number of intervals
+  
+  ## handle missing breaks arguments
+  
+  if (missing(limits)) {
+    # breaks <- pretty(res$z, n = nlev)
+    breaks <- seq(min(res$z, na.rm = TRUE), max(res$z, na.rm = TRUE),
+                  length.out = nlev)
+    labs <- pretty(breaks, 7)
+    labs <- labs[labs >= min(breaks) & labs <= max(breaks)]
+    at <- labs
+    
+  } else {
+    
+    ## handle user limits and clipping
+    breaks <- seq(min(limits), max(limits), length.out = nlev)
+    labs <- pretty(breaks, 7)
+    labs <- labs[labs >= min(breaks) & labs <= max(breaks)]
+    at <- labs
+    
+    ## case where user max is < data max
+    if (max(limits) < max(res[["z"]], na.rm = TRUE)) {
+      id <- which(res[["z"]] > max(limits))
+      res[["z"]][id] <- max(limits)
+      labs[length(labs)] <- paste(">", labs[length(labs)])
     }
-
-
-    ## auto-scaling
-    nlev <- 200  ## preferred number of intervals
-
-    ## handle missing breaks arguments
-
-    if (missing(limits)) {
-       # breaks <- pretty(res$z, n = nlev)
-        breaks <- seq(min(res$z, na.rm = TRUE), max(res$z, na.rm = TRUE),
-                          length.out = nlev)
-        labs <- pretty(breaks, 7)
-        labs <- labs[labs >= min(breaks) & labs <= max(breaks)]
-        at <- labs
-
-    } else {
-
-        ## handle user limits and clipping
-        breaks <- seq(min(limits), max(limits), length.out = nlev)
-        labs <- pretty(breaks, 7)
-        labs <- labs[labs >= min(breaks) & labs <= max(breaks)]
-        at <- labs
-
-        ## case where user max is < data max
-        if (max(limits) < max(res[["z"]], na.rm = TRUE)) {
-            id <- which(res[["z"]] > max(limits))
-            res[["z"]][id] <- max(limits)
-            labs[length(labs)] <- paste(">", labs[length(labs)])
-        }
-
-        ## case where user min is > data min
-        if (min(limits) > min(res[["z"]], na.rm = TRUE)) {
-            id <- which(res[["z"]] < min(limits))
-            res[["z"]][id] <- min(limits)
-            labs[1] <- paste("<", labs[1])
-        }
-
+    
+    ## case where user min is > data min
+    if (min(limits) > min(res[["z"]], na.rm = TRUE)) {
+      id <- which(res[["z"]] < min(limits))
+      res[["z"]][id] <- min(limits)
+      labs[1] <- paste("<", labs[1])
     }
-
-    nlev2 <- length(breaks)
-
-    col <- openColours(cols, (nlev2 - 1))
-
-    col.scale <- breaks
-
-    ## special handling of layout for uncertainty
-    if (uncertainty & is.null(extra.args$layout)) {
-        extra.args$layout <- c(3, 1)
-    }
-
-    ## scale key setup ##############################################################
-
-    legend <- list(col = col, at = col.scale, labels = list(labels = labs, at = at),
-                   space = key.position, auto.text = auto.text,
-                   footer = key.footer, header = key.header,
-                   height = 1, width = 1.5, fit = "all")
-    legend <- makeOpenKeyLegend(key, legend, "polarPlot")
-
-    ## ##############################################################################
-
-    ## scaling
-    ## scaling of 'zeroed' data
-    ## note - add upper because user can set this to be different to data
-    intervals <- pretty(c(mydata[ , x], upper))
-
-    ## labels for scaling
-    labels <- pretty(c(mydata[ , x], upper) + min.scale)
-    ## offset the lines/labels if necessary
-    intervals <- intervals + (min(labels) - min.scale)
-
-    ## add zero in the middle if it exists
-    if (min.scale != 0){
-        labels <- labels[-1]
-        intervals <- intervals[-1]
-    }
-
-
-    temp <- paste(type, collapse = "+")
-    myform <- formula(paste("z ~ u * v | ", temp, sep = ""))
-
-    Args <- list(x = myform, res, axes = FALSE,
-                 as.table = TRUE,
-                 strip = strip,
-                 strip.left = strip.left,
-                 col.regions = col,
-                 region = TRUE,
-                 aspect = 1,
-                 sub = sub,
-                 par.strip.text = list(cex = 0.8),
-                 scales = list(draw = FALSE),
-                 xlim = c(-upper * 1.025, upper * 1.025),
-                 ylim = c(-upper * 1.025, upper * 1.025),
-                 colorkey = FALSE, legend = legend,
-
-                 panel = function(x, y, z, subscripts,...) {
-
-                     ## show missing data due to min.bin
-                     if (min.bin > 1)
-                         panel.levelplot(x, y, res$miss,
-                                         subscripts,
-                                         col.regions = mis.col,
-                                         labels = FALSE)
-
-                     panel.levelplot(x, y, z,
-                                     subscripts,
-                                     at = col.scale,
-                                     pretty = TRUE,
-                                     col.regions = col,
-                                    labels = FALSE)
-
-                     angles <- seq(0, 2 * pi, length = 360)
-
-                     sapply(intervals, function(x) llines(x * sin(angles), x * cos(angles),
-                                                          col = "grey", lty = 5))
-
-
-                     ltext(1.07 * intervals * sin(pi * angle.scale / 180),
-                           1.07 * intervals * cos(pi * angle.scale / 180),
-                           sapply(paste(labels, c("", "", units, rep("", 7))), function(x)
-                                  quickText(x, auto.text)) , cex = 0.7, pos = 4)
-
-                     ## add axis line to central polarPlot
-                     larrows(-upper, 0, upper, 0, code = 3, length = 0.1)
-                     larrows(0, -upper, 0, upper, code = 3, length = 0.1)
-
-                     ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
-                     ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
-                     ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
-                     ltext(upper * 0.95, 0.07 *upper, "E", cex = 0.7)
-
-                 })
-
-    ## reset for extra.args
-    Args<- listUpdate(Args, extra.args)
-
-    plt <- do.call(levelplot, Args)
-
-    ## output #######################################################################
-
-
-    if (length(type) == 1) plot(plt) else plot(useOuterStrips(plt, strip = strip,
-              strip.left = strip.left))
-
-
-
-    newdata <- res
-    output <- list(plot = plt, data = newdata, call = match.call())
-    class(output) <- "openair"
-
-    invisible(output)
-
+    
+  }
+  
+  nlev2 <- length(breaks)
+  
+  col <- openColours(cols, (nlev2 - 1))
+  
+  col.scale <- breaks
+  
+  ## special handling of layout for uncertainty
+  if (uncertainty & is.null(extra.args$layout)) {
+    extra.args$layout <- c(3, 1)
+  }
+  
+  ## scale key setup ##############################################################
+  
+  legend <- list(col = col, at = col.scale, labels = list(labels = labs, at = at),
+                 space = key.position, auto.text = auto.text,
+                 footer = key.footer, header = key.header,
+                 height = 1, width = 1.5, fit = "all")
+  legend <- makeOpenKeyLegend(key, legend, "polarPlot")
+  
+  ## ##############################################################################
+  
+  ## scaling
+  ## scaling of 'zeroed' data
+  ## note - add upper because user can set this to be different to data
+  intervals <- pretty(c(mydata[[x]], upper))
+  
+  ## labels for scaling
+  labels <- pretty(c(mydata[[x]], upper) + min.scale)
+  ## offset the lines/labels if necessary
+  intervals <- intervals + (min(labels) - min.scale)
+  
+  ## add zero in the middle if it exists
+  if (min.scale != 0){
+    labels <- labels[-1]
+    intervals <- intervals[-1]
+  }
+  
+  
+  temp <- paste(type, collapse = "+")
+  myform <- formula(paste("z ~ u * v | ", temp, sep = ""))
+  
+  Args <- list(x = myform, res, axes = FALSE,
+               as.table = TRUE,
+               strip = strip,
+               strip.left = strip.left,
+               col.regions = col,
+               region = TRUE,
+               aspect = 1,
+               sub = sub,
+               par.strip.text = list(cex = 0.8),
+               scales = list(draw = FALSE),
+               xlim = c(-upper * 1.025, upper * 1.025),
+               ylim = c(-upper * 1.025, upper * 1.025),
+               colorkey = FALSE, legend = legend,
+               
+               panel = function(x, y, z, subscripts,...) {
+                 
+                 ## show missing data due to min.bin
+                 if (min.bin > 1)
+                   panel.levelplot(x, y, res$miss,
+                                   subscripts,
+                                   col.regions = mis.col,
+                                   labels = FALSE)
+                 
+                 panel.levelplot(x, y, z,
+                                 subscripts,
+                                 at = col.scale,
+                                 pretty = TRUE,
+                                 col.regions = col,
+                                 labels = FALSE)
+                 
+                 angles <- seq(0, 2 * pi, length = 360)
+                 
+                 sapply(intervals, function(x) llines(x * sin(angles), x * cos(angles),
+                                                      col = "grey", lty = 5))
+                 
+                 
+                 ltext(1.07 * intervals * sin(pi * angle.scale / 180),
+                       1.07 * intervals * cos(pi * angle.scale / 180),
+                       sapply(paste(labels, c("", "", units, rep("", 7))), function(x)
+                         quickText(x, auto.text)) , cex = 0.7, pos = 4)
+                 
+                 ## add axis line to central polarPlot
+                 larrows(-upper, 0, upper, 0, code = 3, length = 0.1)
+                 larrows(0, -upper, 0, upper, code = 3, length = 0.1)
+                 
+                 ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
+                 ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
+                 ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
+                 ltext(upper * 0.95, 0.07 *upper, "E", cex = 0.7)
+                 
+               })
+  
+  ## reset for extra.args
+  Args<- listUpdate(Args, extra.args)
+  
+  plt <- do.call(levelplot, Args)
+  
+  ## output #######################################################################
+  
+  
+  if (length(type) == 1) plot(plt) else plot(useOuterStrips(plt, strip = strip,
+                                                            strip.left = strip.left))
+  
+  
+  
+  newdata <- res
+  output <- list(plot = plt, data = newdata, call = match.call())
+  class(output) <- "openair"
+  
+  invisible(output)
+  
 }
-
 

@@ -166,7 +166,7 @@ importTraj <- function(site = "london", year = 2009, local = NA) {
     }
 
     thedata <- lapply(files, loadData)
-    thedata <- do.call(rbind.fill, thedata)
+    thedata <- do.call(bind_rows, thedata)
 
     ## change names
     names(thedata) <- tolower(names(thedata))

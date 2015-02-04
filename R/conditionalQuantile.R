@@ -248,9 +248,9 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
     hi <- max(mydata[ , c(mod, obs)])
     all.results <- dlply(mydata, type, procData)
 
-    results <- ldply(all.results, function(x) rbind(x[[1]]))
-    hist.results <- ldply(all.results, function(x) rbind(x[[2]]))
-    obs.results <- ldply(all.results, function(x) rbind(x[[3]]))
+    results <- plyr::ldply(all.results, function(x) rbind(x[[1]]))
+    hist.results <- plyr::ldply(all.results, function(x) rbind(x[[2]]))
+    obs.results <- plyr::ldply(all.results, function(x) rbind(x[[3]]))
 
     ## proper names of labelling ##############################################################################
     pol.name <- sapply(levels(results[ , type[1]]), function(x) quickText(x, auto.text))

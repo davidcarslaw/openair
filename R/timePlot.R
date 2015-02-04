@@ -360,7 +360,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
         if (length(percentile) > 1) {
 
-            mydata <- ddply(mydata, type, calcPercentile, pollutant = pollutant,
+            mydata <- plyr::ddply(mydata, type, calcPercentile, pollutant = pollutant,
                             avg.time = avg.time, data.thresh = data.thresh,
                             percentile = percentile)
 
@@ -370,7 +370,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
         } else {
 
-            mydata <- ddply(mydata, type, timeAverage, avg.time = avg.time,
+            mydata <- plyr::ddply(mydata, type, timeAverage, avg.time = avg.time,
                             statistic = statistic, percentile = percentile,
                             data.thresh = data.thresh, ...)
         }
@@ -414,14 +414,14 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
         if (normalise == "mean") {
 
-            mydata <-  ddply(mydata, .(variable), divide.by.mean)
+            mydata <-  plyr::ddply(mydata, .(variable), divide.by.mean)
 
         } else {
 
             ## scale value to 100 at specific date
 
             thedate <- as.POSIXct(strptime(normalise, format = "%d/%m/%Y", tz = "GMT"))
-            mydata <- ddply(mydata, .(variable), norm.by.date, thedate = thedate)
+            mydata <- plyr::ddply(mydata, .(variable), norm.by.date, thedate = thedate)
         }
     }
 

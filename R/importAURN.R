@@ -344,7 +344,7 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all", hc = FALSE)
     ## note unlist will drop NULLs from non-existant sites/years
     mylist <- lapply(theObjs, get)
 
-    thedata <- do.call(rbind.fill, mylist)
+    thedata <- do.call(bind_rows, mylist)
     if (is.null(thedata)) stop("No data to import - check site codes and year.", call. = FALSE)
 
     thedata$site <- factor(thedata$site, levels = unique(thedata$site))

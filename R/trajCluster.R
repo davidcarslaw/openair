@@ -167,11 +167,11 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5, plot = TRUE, typ
     ## this bit decides whether to separately calculate trajectories for each level of type
 
     if (split.after) {
-        traj <- ddply(traj, "default", calcTraj)
+        traj <- plyr::ddply(traj, "default", calcTraj)
         traj <- cutData(traj, type)
     } else {
         traj <- cutData(traj, type)
-        traj <- ddply(traj, type, calcTraj)
+        traj <- plyr::ddply(traj, type, calcTraj)
     }
 
     if (plot) {

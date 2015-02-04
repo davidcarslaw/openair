@@ -20,8 +20,8 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 
         ## breaks from the minimum to 90th percentile, which generally gives sensible
         ## spacing for skewed data. Maximum is added later.
-        breaks <- unique(pretty(c(min(mydata[ , pollutant], na.rm = TRUE),
-                                  quantile(mydata[ , pollutant], probs = 0.9, na.rm = TRUE),
+        breaks <- unique(pretty(c(min(mydata[[pollutant]], na.rm = TRUE),
+                                  quantile(mydata[[pollutant]], probs = 0.9, na.rm = TRUE),
                                   breaks)))
 
     }
@@ -208,7 +208,7 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##' \code{quickText} to handle routine formatting.
 ##'
 ##' @export windRose pollutionRose
-##' @import plyr
+##' @importFrom plyr ddply ldply dlply llply numcolwise .
 ##' @return As well as generating the plot itself, \code{windRose} and
 ##' \code{pollutionRose} also return an object of class
 ##' \dQuote{openair}. The object includes three main components:
@@ -340,7 +340,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
         trellis.par.set(fontsize = list(text = extra$fontsize))
     
     rounded <- FALSE ## is the wd already rounded to 10 degrees, if so need to correct bias later
-    if (all(mydata[, wd] %% 10 == 0, na.rm = TRUE)) rounded <- TRUE
+    if (all(mydata[[wd]] %% 10 == 0, na.rm = TRUE)) rounded <- TRUE
 
     ## preset statitistics
 
@@ -417,7 +417,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
         diff <- TRUE
         rm.neg <- FALSE
         mydata$ws <- mydata[, ws2] - mydata[, ws]
-        mydata$wd <- mydata[, wd2] - mydata[, wd]
+        mydata$wd <- mydata[, wd2] - mydata[[wd]]
 
         ## fix negative wd
         id <- which(mydata$wd < 0)
@@ -454,11 +454,11 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
     mydata$x <- mydata[, pollutant]
 
-    mydata[ , wd] <- angle * ceiling(mydata[ , wd] / angle - 0.5)
-    mydata[ , wd][mydata[ , wd] == 0] <- 360
+    mydata[[wd]] <- angle * ceiling(mydata[[wd]] / angle - 0.5)
+    mydata[[wd]][mydata[[wd]] == 0] <- 360
 
     ## flag calms as negatives
-    mydata[ , wd][mydata[ , ws] == 0] <- -999 ## set wd to flag where there are calms
+    mydata[[wd]][mydata[ , ws] == 0] <- -999 ## set wd to flag where there are calms
     ## do after rounding or -999 changes
 
     if (length(breaks) == 1) breaks <- 0:(breaks - 1) * ws.int
@@ -485,15 +485,15 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
         levels(mydata$x) <- c(paste("Interval", 1:length(labs), sep = ""))
 
-        all <- stat.fun(mydata[ , wd])
-        calm <- mydata[mydata[ , wd] == -999, ][, pollutant]
-        mydata <- mydata[mydata[ , wd] != -999, ]
+        all <- stat.fun(mydata[[wd]])
+        calm <- mydata[mydata[[wd]] == -999, ][, pollutant]
+        mydata <- mydata[mydata[[wd]] != -999, ]
 
         calm <- stat.fun(calm)
 
-        weights <- tapply(mydata[, pollutant], list(mydata[ , wd], mydata$x),
+        weights <- tapply(mydata[[pollutant]], list(mydata[[wd]], mydata$x),
                           stat.fun)
-        freqs <- tapply(mydata[, pollutant], mydata[ , wd], length)
+        freqs <- tapply(mydata[[pollutant]], mydata[[wd]], length)
 
         ## scaling
         if (stat.scale == "all") {
@@ -515,11 +515,11 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
             calm <- calm * 100
         }
 
-        panel.fun <- stat.fun2(mydata[ , pollutant])
+        panel.fun <- stat.fun2(mydata[[pollutant]])
 
         ## calculate mean wd - useful for cases comparing two met data sets
-        u <- mean(sin(2 * pi * mydata[, wd] / 360))
-        v <- mean(cos(2 * pi * mydata[, wd] / 360))
+        u <- mean(sin(2 * pi * mydata[[wd]] / 360))
+        v <- mean(cos(2 * pi * mydata[[wd]] / 360))
         mean.wd <- atan2(u, v) * 360 / 2 / pi
 
         if (all(is.na(mean.wd))) {
@@ -576,7 +576,8 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
         }
     }
 
-    results.grid <- ddply(mydata, type, prepare.grid)
+   results.grid <- group_by_(mydata, type) %>%
+      do(prepare.grid(.))
 
     ## format
     results.grid$calm <- stat.labcalm(results.grid$calm)

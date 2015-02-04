@@ -63,6 +63,8 @@ find.time.interval <- function(dates) {
 ## when interval is known
 date.pad2 <- function(mydata, type = "default", interval = "month") {
 
+    site <- NULL
+
     date.pad.site <- function(mydata, type = type, interval = interval) {
         ## function to fill missing data gaps
         ## assume no missing data to begin with
@@ -81,9 +83,14 @@ date.pad2 <- function(mydata, type = "default", interval = "month") {
     }
 
     if (type == "site") {
-        mydata <- ddply(mydata, .(site), date.pad.site, interval)
+        
+        mydata <- group_by(mydata, site) %>%
+          do(date.pad.site(., interval))
+        
     } else {
+        
         mydata <- date.pad.site(mydata, type, interval)
+        
     }
     mydata
 }
@@ -93,9 +100,15 @@ date.pad2 <- function(mydata, type = "default", interval = "month") {
 date.pad <- function(mydata, print.int = FALSE) {
     site <- NULL
 
+    ## time zone of data
+  TZ <- attr(mydata$date, "tzone")
+  if (is.null(TZ)) TZ <- "GMT" ## as it is on Windows for BST
+    
     date.pad.site <- function(mydata, print.int) {
         ## function to fill missing data gaps
         ## assume no missing data to begin with
+
+        if ("site" %in% names(mydata)) siteName <- mydata$site[1]
 
         ## pad out missing data
         start.date <- min(mydata$date, na.rm = TRUE)
@@ -125,12 +138,24 @@ date.pad <- function(mydata, print.int = FALSE) {
 
         ## only pad if there are missing data
         if (length(unique(diff(mydata$date))) != 1L) {
-
+            
             all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
             mydata <- merge(mydata, all.dates, all = TRUE)
 
+            ## check to see if padding data introduces blank site names
+            if ("site" %in% names(mydata)) {
+                if (any(is.na(mydata$site))) {
+
+                    id <- which(is.na(mydata$site))
+                    mydata$site[id] <- siteName
+                }
+            }
         }
 
+        ## return the same TZ that we started with
+        mydata$date <- as.POSIXct(format(mydata$date), tz = TZ)
+
+                
         if (print.int) print(paste0("Input data time interval assumed is ", interval))
 
         ## make sure no gaps in site name are left
@@ -141,45 +166,18 @@ date.pad <- function(mydata, print.int = FALSE) {
 
     if ("site" %in% names(mydata)) {
 
-        mydata <- ddply(mydata, .(site), date.pad.site, print.int)
+           mydata <- group_by(mydata, site) %>%
+            do(date.pad.site(., print.int))
 
     } else {
         mydata <- date.pad.site(mydata, print.int)
     }
 
-
+    
     mydata
 }
 #############################################################################################
 
-## Function to pad out missing time data, optionally dealing with conditioning
-## variable "site" version where interval is given
-date.pad2 <- function(mydata, interval = "month") {
-
-    date.pad.site <- function(mydata) {
-        ## function to fill missing data gaps
-        ## assume no missing data to begin with
-
-        ## pad out missing data for better looking plot
-        start.date <- min(mydata$date, na.rm = TRUE)
-        end.date <- max(mydata$date, na.rm = TRUE)
-
-        all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
-        mydata <- merge(mydata, all.dates, all = TRUE)
-
-        ## put missing identifiers in gaps
-        if ("code" %in% names(mydata)) mydata$code[1]
-        mydata
-    }
-
-    if ("site" %in% names(mydata)) {
-        mydata <- ddply(mydata, "site", date.pad.site)
-
-    } else {
-        mydata <- date.pad.site(mydata)
-    }
-    mydata
-}
 
 ## unitility function to convert decimal date to POSIXct
 decimalDate <- function(x, date = "date") {
@@ -260,11 +258,11 @@ rollingMean <- function(mydata, pollutant = "o3", width = 8, new.name = "rolling
 
     if (missing(new.name)) new.name <- paste("rolling", width, pollutant, sep = "")
     if (data.thresh < 0 | data.thresh > 100) stop("Data threshold must be between 0 and 100.")
-
+    
     calc.rolling <- function(mydata, ...) {
 
         ## data needs to be numeric
-        if (!is.numeric(mydata[, pollutant])) {
+        if (!is.numeric(mydata[[pollutant]])) {
             warning("Data are not numeric.")
             return(mydata)
         }
@@ -278,7 +276,7 @@ rollingMean <- function(mydata, pollutant = "o3", width = 8, new.name = "rolling
         ## make sure function is not called with window width longer than data
         if (width > nrow(mydata)) return(mydata)
 
-        mydata[, new.name] <- .Call("rollingMean", mydata[, pollutant],
+        mydata[[new.name]] <- .Call("rollingMean", mydata[[pollutant]],
                                     width, data.thresh, align,
                                     PACKAGE = "openair")
 
@@ -294,9 +292,13 @@ rollingMean <- function(mydata, pollutant = "o3", width = 8, new.name = "rolling
     ## split if several sites
     if ("site" %in% names(mydata)) { ## split by site
 
-        mydata <- ddply(mydata, .(site), function(x) calc.rolling(x, ...))
+        mydata <- group_by(mydata, site) %>%
+            do(calc.rolling(., ...))
+
         mydata
+        
     } else {
+        
         mydata <- calc.rolling(mydata, ...)
         mydata
     }
@@ -833,7 +835,7 @@ bootMeanDiff <- function (mydata, x = "x", y = "y", conf.int = 0.95, B = 1000, n
         res2 <- data.frame(variable = y.name, Mean = mean(y), Lower = NA, Upper = NA)
         res <- data.frame(variable = paste(y.name, "-", x.name), Mean = Mean, Lower = NA, Upper = NA)
 
-        res <- rbind.fill(res1, res2, res)
+        res <- bind_rows(res1, res2, res)
         res$variable <- factor(res$variable)
         return(res)
 
@@ -852,7 +854,7 @@ bootMeanDiff <- function (mydata, x = "x", y = "y", conf.int = 0.95, B = 1000, n
     res2 <- data.frame(variable = y.name, Mean = mean(y), Lower = quant2[1], Upper = quant2[2])
     res <- data.frame(variable = paste(y.name, "-", x.name), Mean = Mean, Lower = quant[1], Upper = quant[2])
 
-    res <- rbind.fill(res1, res2, res)
+    res <- bind_rows(res1, res2, res)
     res$variable <- factor(res$variable)
     res
 }
@@ -1000,4 +1002,9 @@ Cquantile <- function(x, probs = 0.5) {
 
     return(res)
     
+}
+
+## simple rounding function from plyr
+round_any <- function(x, accuracy, f = round) {
+  f(x / accuracy) * accuracy
 }

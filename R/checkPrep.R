@@ -81,26 +81,26 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
         if (wd %in% Names & is.numeric(mydata[, wd])) {
 
             ## check for wd <0 or > 360
-            if (any(sign(mydata[ , wd][!is.na(mydata[ , wd])]) == -1 | mydata[ , wd][!is.na(mydata[ , wd])] > 360)) {
+            if (any(sign(mydata[[wd]][!is.na(mydata[[wd]])]) == -1 | mydata[[wd]][!is.na(mydata[[wd]])] > 360)) {
 
                 warning("Wind direction < 0 or > 360; removing these data")
-                mydata[ , wd][mydata[ , wd] < 0] <- NA
-                mydata[ , wd][mydata[ , wd] > 360] <- NA
+                mydata[[wd]][mydata[[wd]] < 0] <- NA
+                mydata[[wd]][mydata[[wd]] > 360] <- NA
             }
 
             if (remove.calm) {
                 if ("ws" %in% names(mydata)) {
-                    mydata[ , wd][mydata$ws == 0]  <- NA ## set wd to NA where there are calms
+                    mydata[[wd]][mydata$ws == 0]  <- NA ## set wd to NA where there are calms
                     mydata$ws[mydata$ws == 0] <- NA ## remove calm ws
                 }
-                mydata[ , wd][mydata[ , wd] == 0] <- 360 ## set any legitimate wd to 360
+                mydata[[wd]][mydata[[wd]] == 0] <- 360 ## set any legitimate wd to 360
 
                 ## round wd for use in functions - except windRose/pollutionRose
-                mydata[ , wd] <- 10 * ceiling(mydata[ , wd] / 10 - 0.5)
-                mydata[ , wd][mydata[ , wd] == 0] <- 360   # angles <5 should be in 360 bin
+                mydata[[wd]] <- 10 * ceiling(mydata[[wd]] / 10 - 0.5)
+                mydata[[wd]][mydata[[wd]] == 0] <- 360   # angles <5 should be in 360 bin
 
             }
-            mydata[ , wd][mydata[ , wd] == 0] <- 360 ## set any legitimate wd to 360
+            mydata[[wd]][mydata[[wd]] == 0] <- 360 ## set any legitimate wd to 360
         }
     }
 

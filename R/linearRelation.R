@@ -215,8 +215,8 @@ linearRelation <- function(mydata,
         if(is.null(extra.args$xlab))
             extra.args$xlab <- "hour"
 
-        models <- dlply(mydata, .(cond, hour = as.numeric(format(date, "%H"))), model)
-        results <- ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
+        models <- plyr::dlply(mydata, .(cond, hour = as.numeric(format(date, "%H"))), model)
+        results <- plyr::ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
         names(results) <- c("cond", "hour", "intercept", "slope", "rsquare", "seslope", "N")
         results$slope <- results$slope * adj
         results$seslope <- results$seslope * adj
@@ -255,9 +255,9 @@ linearRelation <- function(mydata,
             extra.args$xlab <- "year"
 
         if (period == "monthly") {
-            models <- dlply(mydata, .(cond, year = as.numeric(format(date, "%Y")),
+            models <- plyr::dlply(mydata, .(cond, year = as.numeric(format(date, "%Y")),
                                       month = as.numeric(format(date, "%m"))), model)
-            results <- ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
+            results <- plyr::ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
             names(results) <- c("cond", "year", "month", "intercept", "slope",
                                 "rsquare", "seslope", "N")
             results$slope <- results$slope * adj
@@ -265,9 +265,9 @@ linearRelation <- function(mydata,
             results$date <- ISOdate(results$year, results$month, 15)
 
         } else {
-            models <- dlply(mydata, .(cond, year = as.numeric(format(date, "%Y")),
+            models <- plyr::dlply(mydata, .(cond, year = as.numeric(format(date, "%Y")),
                                       month = as.numeric(format(date, "%U"))), model)
-            results <- ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
+            results <- plyr::ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
             names(results) <- c("cond", "year", "week", "intercept", "slope",
                                 "rsquare", "seslope", "N")
             results$slope <- results$slope * adj
@@ -312,8 +312,8 @@ linearRelation <- function(mydata,
         if(is.null(extra.args$xlab))
             extra.args$xlab <- "weekday"
 
-        models <- dlply(mydata, .(cond, weekday = format(date, "%a")), model)
-        results <- ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
+        models <- plyr::dlply(mydata, .(cond, weekday = format(date, "%a")), model)
+        results <- plyr::ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
         names(results) <- c("cond", "weekday", "intercept", "slope", "rsquare", "seslope", "N")
         results <- subset(results, rsquare >= rsq.thresh & N >= n)
         results$slope <- results$slope * adj
@@ -356,9 +356,9 @@ linearRelation <- function(mydata,
         if(is.null(extra.args$xlab))
             extra.args$xlab <- "hour"
 
-        models <- dlply(mydata, .(cond, weekday = format(date, "%A"),
+        models <- plyr::dlply(mydata, .(cond, weekday = format(date, "%A"),
                                   hour = as.numeric(format(date, "%H"))), model)
-        results <- ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
+        results <- plyr::ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
         names(results) <- c("cond", "weekday", "hour", "intercept", "slope",
                             "rsquare", "seslope", "N")
         results$slope <- results$slope * adj

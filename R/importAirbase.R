@@ -105,7 +105,7 @@ importAirbase <- function(site = "gb0620a", year = 1969:2012, pollutant = NA,
     thedata <- lapply(files, loadData)
     
     thedata <- thedata[!sapply(thedata, is.null)] ## remove NULL
-    thedata <- do.call(rbind.fill, thedata)
+    thedata <- do.call(bind_rows, thedata)
 
     if (length(add) > 0 ) {
         ## add other fields

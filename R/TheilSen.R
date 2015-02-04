@@ -317,7 +317,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
     end.month <-   endMonth(mydata$date)
 
 
-    mydata <- ddply(mydata, type, timeAverage, avg.time = avg.time,
+    mydata <- plyr::ddply(mydata, type, timeAverage, avg.time = avg.time,
                          statistic = statistic, percentile = percentile,
                          data.thresh = data.thresh)
     
@@ -384,7 +384,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
         results
     }
     
-    split.data <- ddply(mydata, type,  process.cond)
+    split.data <- plyr::ddply(mydata, type,  process.cond)
     if (nrow(split.data) < 2) return()
 
 
@@ -419,15 +419,15 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
 
     ## aggregated results
 
-    res2 <- ddply(split.data, c(type, "p.stars"), numcolwise(mean), na.rm = TRUE)
+    res2 <- plyr::ddply(split.data, c(type, "p.stars"), numcolwise(mean), na.rm = TRUE)
 
     ## calculate percentage changes in slope and uncertainties
     ## need start and end dates (in days) to work out concentrations at those points
     ## percentage change defind as 100.(C.end/C.start -1) / duration
 
 
-    start <- ddply(split.data, type, function (x) head(x, 1))
-    end <- ddply(split.data, type, function (x) tail(x, 1))
+    start <- plyr::ddply(split.data, type, function (x) head(x, 1))
+    end <- plyr::ddply(split.data, type, function (x) tail(x, 1))
     percent.change <- merge(start, end, by = type, suffixes = c(".start", ".end"))
 
     percent.change <- transform(percent.change, slope.percent = 100 * 365 *

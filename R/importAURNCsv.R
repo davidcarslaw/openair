@@ -218,7 +218,7 @@ importAURNCsv <- function (file = file.choose(), header.at = 5, data.at = 7, na.
         site <- rep(site.names[x], nrow(initial.ans$data))
         ans <- cbind(date = initial.ans$date, site = site, ans)
     })
-    initial.ans$data <- do.call(rbind.fill, initial.ans$data)
+    initial.ans$data <- do.call(bind_rows, initial.ans$data)
     if (simplify.names == TRUE) {
         initial.ans$misc <- c(initial.ans$misc, "importAURN operation: simplify names applied")
     }

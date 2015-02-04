@@ -176,9 +176,9 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
         ## if conditioning type already built in, is present in data frame and is a factor
         if (type %in% conds & type %in% names(x)) {
 
-            if (is.factor(x[ , type])) {
+            if (is.factor(x[[type]])) {
 
-                x[ , type] <- factor(x[ , type])  ## remove unused factor levels
+                x[[type]] <- factor(x[[type]])  ## remove unused factor levels
                 return(x)
             }
         }
@@ -200,15 +200,15 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
                                                                      n.levels + 1),
                                                                      na.rm = TRUE)), include.lowest = TRUE))
 
-                x[ , type] <- cut(x[, type], unique(quantile(x[, type],
+                x[[type]] <- cut(x[, type], unique(quantile(x[, type],
                                                              probs = seq(0, 1, length = n.levels + 1),
                                                              na.rm = TRUE)), include.lowest = TRUE,
                                   labels = FALSE)
 
-                x[ , type] <- as.factor(x[ , type])
+                x[[type]] <- as.factor(x[[type]])
                 temp.levels <- gsub("[(]|[)]|[[]|[]]", "", temp.levels)
                 temp.levels <- gsub("[,]", " to ", temp.levels)
-                levels(x[ , type]) <- if(is.axis) temp.levels else paste(type, temp.levels)
+                levels(x[[type]]) <- if(is.axis) temp.levels else paste(type, temp.levels)
             }
 
         }
@@ -218,25 +218,25 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
             ## not always available e.g. scatterPlot
             if ("date" %in% names(x)) {
 
-                x[ , type] <- factor(paste(format(min(x$date), "%d %B %Y"), " to ",
+                x[[type]] <- factor(paste(format(min(x$date), "%d %B %Y"), " to ",
                                     format(max(x$date), "%d %B %Y"), sep = ""))
                 ## order the data by date
                 x <- x[order(x$date), ]
 
             } else {
-                x[ , type] <- factor("all data")
+                x[[type]] <- factor("all data")
             }
 
         }
 
-        if (type == "year") x[ , type] <- factor(format(x$date, "%Y"))
+        if (type == "year") x[[type]] <- factor(format(x$date, "%Y"))
 
-        if (type == "hour") x[ , type] <- factor(format(x$date, "%H"))
+        if (type == "hour") x[[type]] <- factor(format(x$date, "%H"))
 
         if (type == "month") {
             ## need to generate month abbrevs on the fly for different languages
              temp <- if (is.axis) "%b" else "%B"
-             x[ , type] <- format(x$date, temp)
+             x[[type]] <- format(x$date, temp)
 
              ## month names
              month.abbs <- format(seq(as.Date("2000-01-01"), as.Date("2000-12-31"), "month"), temp)
@@ -245,12 +245,12 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
              ids <- which(month.abbs %in% unique(x$month))
              the.months <- month.abbs[ids]
 
-             x[ , type] <- ordered(x[ , type], levels = the.months)
+             x[[type]] <- ordered(x[[type]], levels = the.months)
         }
 
         if (type == "monthyear") {
-            x[ , type] <- format(x$date, "%B %Y")
-            x[ , type] <- ordered(x[ , type], levels = unique(x[ , type]))
+            x[[type]] <- format(x$date, "%B %Y")
+            x[[type]] <- ordered(x[[type]], levels = unique(x[[type]]))
         }
 
         if (type == "season") {
@@ -259,36 +259,36 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
                 stop("hemisphere must be 'northern' or 'southern'")}
 
             if (hemisphere == "northern") {
-                x[ , type] <- "winter (DJF)" ## define all as winter first, then assign others
+                x[[type]] <- "winter (DJF)" ## define all as winter first, then assign others
                 ids <- which(as.numeric(format(x$date, "%m")) %in% 3:5)
-                x[ , type][ids] <- "spring (MAM)"
+                x[[type]][ids] <- "spring (MAM)"
                 ids <- which(as.numeric(format(x$date, "%m")) %in% 6:8)
-                x[ , type][ids] <- "summer (JJA)"
+                x[[type]][ids] <- "summer (JJA)"
                 ids <- which(as.numeric(format(x$date, "%m")) %in% 9:11)
-                x[ , type][ids] <- "autumn (SON)"
+                x[[type]][ids] <- "autumn (SON)"
 
                 seasons <- c("spring (MAM)", "summer (JJA)", "autumn (SON)", "winter (DJF)")
 
                 ## might only be partial year...
                 ids <- which(seasons %in% unique(x$season))
                 the.season <- seasons[ids]
-                x[ , type] <- ordered(x[ , type], levels = the.season)
+                x[[type]] <- ordered(x[[type]], levels = the.season)
             }
             if (hemisphere == "southern") {
-                x[ , type] <- "summer (DJF)" ## define all as winter first, then assign others
+                x[[type]] <- "summer (DJF)" ## define all as winter first, then assign others
                 ids <- which(as.numeric(format(x$date, "%m")) %in% 3:5)
-                x[ , type][ids] <- "autumn (MAM)"
+                x[[type]][ids] <- "autumn (MAM)"
                 ids <- which(as.numeric(format(x$date, "%m")) %in% 6:8)
-                x[ , type][ids] <- "winter (JJA)"
+                x[[type]][ids] <- "winter (JJA)"
                 ids <- which(as.numeric(format(x$date, "%m")) %in% 9:11)
-                x[ , type][ids] <- "spring (SON)"
+                x[[type]][ids] <- "spring (SON)"
 
                 seasons <- c("spring (SON)", "summer (DJF)", "autumn (MAM)", "winter (JJA)")
 
                 ## might only be partial year...
                 ids <- which(seasons %in% unique(x$season))
                 the.season <- seasons[ids]
-                x[ , type] <- ordered(x[ , type], levels = c("spring (SON)", "summer (DJF)",
+                x[[type]] <- ordered(x[[type]], levels = c("spring (SON)", "summer (DJF)",
                                                   "autumn (MAM)", "winter (JJA)"))
 
             }
@@ -298,17 +298,17 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
         if (type == "weekend") {
             ## split by weekend/weekday
             weekday <- selectByDate(x, day = "weekday")
-            weekday[ , type] <- "weekday"
+            weekday[[type]] <- "weekday"
             weekend <- selectByDate(x, day = "weekend")
-            weekend[ , type] <- "weekend"
+            weekend[[type]] <- "weekend"
 
             x <- rbind(weekday, weekend)
-            x[ , type] <- ordered(x[ , type], levels = c("weekday", "weekend"))
+            x[[type]] <- ordered(x[[type]], levels = c("weekday", "weekend"))
 
         }
 
         if (type == "weekday") {
-            x[ , type] <- format(x$date, "%A")
+            x[[type]] <- format(x$date, "%A")
            # weekday.names <-  format(ISOdate(2000, 1, 3:9), "%A")
             weekday.names <- format(ISOdate(2000, 1, 2:8), "%A")
 
@@ -322,9 +322,9 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
 
             ## just use sequence of days given if <7, if not order them
             if (length(unique(x$weekday)) < 7) {
-                x[ , type] <- ordered(x[ , type], levels = factor(unique(x$weekday)))
+                x[[type]] <- ordered(x[[type]], levels = factor(unique(x$weekday)))
             } else {
-                x[ , type] <- ordered(x[ , type], levels = the.days)
+                x[[type]] <- ordered(x[[type]], levels = the.days)
             }
         }
 
@@ -337,18 +337,18 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
                               "missing wind direction line(s) removed"))
             }
 
-            x[ , type] <- cut(x$wd, breaks = seq(22.5, 382.5, 45),
+            x[[type]] <- cut(x$wd, breaks = seq(22.5, 382.5, 45),
                               labels = c("NE", "E", "SE", "S", "SW", "W",
                               "NW", "N"))
-            x[ , type][is.na(x[ , type])] <- "N" # for wd < 22.5
+            x[[type]][is.na(x[[type]])] <- "N" # for wd < 22.5
 
-            x[ , type] <- ordered(x[ , type], levels = c("N", "NE", "E",
+            x[[type]] <- ordered(x[[type]], levels = c("N", "NE", "E",
                                               "SE", "S", "SW", "W", "NW"))}
 
 
         if (type == "site") {
-            x[ , type] <- x$site
-            x[ , type] <- factor(x[ , type]) ## will get rid of any unused factor levels
+            x[[type]] <- x$site
+            x[[type]] <- factor(x[[type]]) ## will get rid of any unused factor levels
         }
 
         if (type %in% c("dst", "bstgmt", "gmtbst")) {
