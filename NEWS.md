@@ -3,6 +3,9 @@
 - Add 'days' as a time unit to `summaryPlot` - useful for shorter time
 series
 - Initial changes to use `dplyr` to speed up some of the code
+  e.g. `timeAverage`
+- Automate `x.inc` and `y.inc` if not supplied by user in `scatterPlot`
+- Fix regression in `trajLevel` frequency calculation
 
 # Changes in openair 1.1-2 [2015-01-26]
 

@@ -10,7 +10,7 @@ scatterPlot(mydata, x = "nox", y = "no2", z = NA, method = "scatter",
   linear = FALSE, ci = TRUE, mod.line = FALSE, cols = "hue",
   plot.type = "p", key = TRUE, key.title = group, key.columns = 1,
   key.position = "right", strip = TRUE, log.x = FALSE, log.y = FALSE,
-  x.inc = 10, y.inc = 10, limits = NULL, y.relation = "same",
+  x.inc = NULL, y.inc = NULL, limits = NULL, y.relation = "same",
   x.relation = "same", ref.x = NULL, ref.y = NULL, k = 100,
   dist = 0.1, map = FALSE, auto.text = TRUE, ...)
 }
@@ -331,7 +331,7 @@ scatterPlot(mydata, x = "nox", y = "no2", type = "year", method =
 
 ## bin data and plot it - can see how for high NO2, O3 is also high
 \dontrun{
-scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level", x.inc = 10, y.inc = 2)
+scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level", dist = 0.02)
 }
 
 ## fit surface for clearer view of relationship - clear effect of

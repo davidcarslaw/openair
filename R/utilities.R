@@ -1008,3 +1008,8 @@ Cquantile <- function(x, probs = 0.5) {
 round_any <- function(x, accuracy, f = round) {
   f(x / accuracy) * accuracy
 }
+
+## pretty gap calculator
+prettyGap <- function(x, n = 100) {
+    return(diff(pretty(x, n))[1])
+}

@@ -282,7 +282,7 @@
 ##'
 ##' ## bin data and plot it - can see how for high NO2, O3 is also high
 ##' \dontrun{
-##' scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level", x.inc = 10, y.inc = 2)
+##' scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level", dist = 0.02)
 ##' }
 ##'
 ##' ## fit surface for clearer view of relationship - clear effect of
@@ -301,7 +301,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                         linear = FALSE, ci = TRUE, mod.line = FALSE, cols = "hue",
                         plot.type = "p", key = TRUE, key.title = group,
                         key.columns = 1, key.position = "right", strip = TRUE,
-                        log.x = FALSE, log.y = FALSE, x.inc = 10, y.inc = 10,
+                        log.x = FALSE, log.y = FALSE, x.inc = NULL, y.inc = NULL,
                         limits = NULL, y.relation = "same", x.relation = "same",
                         ref.x = NULL, ref.y = NULL, k = 100, dist = 0.1, 
                         map = FALSE, auto.text = TRUE, ...)   {
@@ -315,6 +315,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     thekey <- key
 
     xgrid <- NULL; ygrid <- NULL
+    
 
     ## set graphics
     current.strip <- trellis.par.get("strip.background")
@@ -836,9 +837,13 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     ## ######################################################################################
     if (method == "level") {
 
+        if (missing(x.inc)) x.inc <- prettyGap(mydata[[x]])
+        if (missing(y.inc)) y.inc <- prettyGap(mydata[[y]])
+        
+
         ## bin data
-        mydata$ygrid <- round_any(mydata[ , y], y.inc)
-        mydata$xgrid <- round_any(mydata[ , x], x.inc)
+        mydata$ygrid <- round_any(mydata[[y]], y.inc)
+        mydata$xgrid <- round_any(mydata[[x]], x.inc)
 
         rhs <- c("xgrid", "ygrid", type)
         rhs <- paste(rhs, collapse = "+")
