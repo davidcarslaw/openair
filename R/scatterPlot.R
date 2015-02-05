@@ -840,18 +840,20 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         if (missing(x.inc)) x.inc <- prettyGap(mydata[[x]])
         if (missing(y.inc)) y.inc <- prettyGap(mydata[[y]])
         
-
         ## bin data
         mydata$ygrid <- round_any(mydata[[y]], y.inc)
         mydata$xgrid <- round_any(mydata[[x]], x.inc)
 
-        rhs <- c("xgrid", "ygrid", type)
-        rhs <- paste(rhs, collapse = "+")
-        myform <- formula(paste(z, "~", rhs))
-
-        ## only aggregate if we have to (for data pre-gridded)
+                ## only aggregate if we have to (for data pre-gridded)
         if (nrow(unique(subset(mydata, select = c(xgrid, ygrid)))) != nrow(mydata)) {
-            mydata <- aggregate(myform, data = mydata, mean, na.rm = TRUE)
+                                  
+            mydata <- select_(mydata, "xgrid", "ygrid", type, z) %>%
+              group_by_(., "xgrid", "ygrid", type) %>%
+              summarise_(MN = interp(~ mean(var, na.rm = TRUE), var = as.name(z)))
+
+            names(mydata)[which(names(mydata) == "MN")] <- z
+            
+            
         }
 
         smooth.grid <- function(mydata, z) {
