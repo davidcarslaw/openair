@@ -819,8 +819,7 @@ bootMean <- function (x, conf.int = 0.95, B = 1000, na.rm = TRUE, reps = FALSE, 
     res
 }
 
-bootMeanDiff <- function (mydata, x = "x", y = "y", conf.int = 0.95, B = 1000,
-                          na.rm = TRUE, reps = TRUE)
+bootMeanDiff <- function (mydata, x = "x", y = "y", conf.int = 0.95, B = 1000, na.rm = TRUE, reps = TRUE)
 {
 
     ## calculates bootstrap mean differences

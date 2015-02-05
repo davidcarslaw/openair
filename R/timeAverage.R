@@ -402,7 +402,9 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       ## Aggregate data
     
     if ("site" %in% names(mydata))
-      vars <- c("site",  "cuts") else vars <- "cuts"
+        vars <- c("site",  "cuts") else vars <- "cuts"
+
+    if (avg.time == "season") vars <- c(vars, "season")
       
     if (data.thresh !=0) { ## take account of data capture
         
@@ -411,7 +413,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
         ## useful for debugging
         if (!padded) mydata <- date.pad(mydata, ...)
 
-        mydata$cuts <- cut(mydata$date, avg.time)
+        if (avg.time != "season") mydata$cuts <- cut(mydata$date, avg.time)
         
         dailymet <- select(mydata, -date) %>%
           group_by_(., .dots = vars) %>%
@@ -426,8 +428,8 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       } else {
         
           ## faster if do not need data capture
-          mydata$cuts <- cut(mydata$date, avg.time)
-        
+          if (avg.time != "season") mydata$cuts <- cut(mydata$date, avg.time)
+          
         dailymet <- select(mydata, -date) %>%
           group_by_(., .dots = vars) %>%
           summarise_each(funs(FUN(.)))            

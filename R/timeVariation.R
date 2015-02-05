@@ -520,7 +520,8 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     }
 
 
-    if (normalise) data.hour <-  plyr::ddply(data.hour, .(variable), divide.by.mean)
+   if (normalise) data.hour <-  group_by(data.hour, variable) %>%
+      do(divide.by.mean(.))
 
     if (is.null(xlab[2]) | is.na(xlab[2])) xlab[2] <- "hour"
 
@@ -589,8 +590,9 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
                               statistic = statistic)
     }
 
-    if (normalise) data.weekday <-  plyr::ddply(data.weekday, .(variable), divide.by.mean)
-
+    if (normalise) data.weekday <-  group_by(data.weekday, variable) %>%
+      do(divide.by.mean(.))
+    
     data.weekday$wkday <- ordered(data.weekday$wkday, levels = day.ord)
 
     data.weekday$wkday <- as.numeric(as.factor(data.weekday$wkday))
@@ -652,7 +654,9 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
                             statistic = statistic)
     }
 
-    if (normalise) data.month <-  plyr::ddply(data.month, .(variable), divide.by.mean)
+    if (normalise) data.month <-  group_by(data.month, variable) %>%
+      do(divide.by.mean(.))
+    
 
     if (is.null(xlab[3]) | is.na(xlab[3])) xlab[3] <- "month"
 
@@ -714,12 +718,13 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         data.day.hour <- errorDiff(mydata, vars = "day.hour", type = type, poll1 = poll1,
                                    poll2 = poll2, B = B, conf.int = conf.int)
     } else {
-        data.day.hour <- plyr::ldply(conf.int, proc, mydata, vars = "day.hour", pollutant, type, B = B,
-                               statistic = statistic)
+        data.day.hour <- plyr::ldply(conf.int, proc, mydata, vars = "day.hour", pollutant,
+                                     type, B = B, statistic = statistic)
     }
 
-    if (normalise) data.day.hour <-  plyr::ddply(data.day.hour, .(variable), divide.by.mean)
-
+    if (normalise) data.day.hour <-  group_by(data.day.hour, variable) %>%
+      do(divide.by.mean(.))
+   
     ids <- which(is.na(data.day.hour$Lower)) ## missing Lower ci, set to mean
 
     data.day.hour$Lower[ids] <-  data.day.hour$Mean[ids]
