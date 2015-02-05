@@ -490,7 +490,7 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         if (missing(group)) poll1 <- pollutant[1]; poll2 <- pollutant[2]
         if (!missing(group)) poll1 <- levels(mydata$variable)[1]; poll2 <- levels(mydata$variable)[2]
     }
-
+    
     ## number of columns for key
     if (missing(key.columns)) key.columns <- npol
 
@@ -556,7 +556,7 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
                         panel.superpose(x, y, ...,
                                         panel.groups = function(x, y, col.line, type,
                                             group.number, subscripts,...) {
-
+                                            
                                             if (difference) panel.abline(h = 0, lty = 5)
                                             ## plot once
                                             id <- which(data.hour$ci[subscripts] == data.hour$ci[1])
@@ -626,7 +626,7 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
                                             id <- which(data.weekday$ci[subscripts] == data.weekday$ci[1])
                                             panel.xyplot(x[id], y[id], type = "l",
                                                          col.line = myColors[group.number],...)
-
+                                            
                                             if (ci) {mkrect(data.weekday[subscripts, ], x = "wkday",
                                                             y = "Mean", group.number, myColors, alpha)}
                                             ## refrence line(s)
@@ -634,8 +634,8 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
                                         }
                                         )
                     }
-                    )
-
+                    
+)
     ## reset for extra.args
     xy.args <- listUpdate(xy.args, extra.args)
 
@@ -947,8 +947,11 @@ errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
     if (vars == "day.hour") splits <- c("hour", "wkday", type)
     if (vars == "wkday") splits <- c("wkday", type)
     if (vars == "mnth") splits <- c("mnth", type)
-
-    res <- plyr::ddply(mydata, splits, bootMeanDiff, x = poll1, y = poll2, B = B)
+    
+    ## warnings from dplyr seem harmless FIXME
+    res <- suppressWarnings(group_by_(mydata, .dots = splits) %>%
+      do(bootMeanDiff(., x = poll1, y = poll2, B = B)))
+  
     res$ci <- conf.int[1]
     res
 }
@@ -966,7 +969,7 @@ median.hilow <- function (x, conf.int = 0.95, na.rm = TRUE, ...) {
 mkpoly <- function(dat, x = "hour", y = "Mean", group.number, myColors, alpha) {
     len <- length(unique(dat$ci)) ## number of confidence intervals to consider
     ci <- sort(unique(dat$ci))
-
+    
     fac <- 2
 
     if (len == 1L) id1 <- which(dat$ci == ci[1]) ## ids of higher band
@@ -977,10 +980,10 @@ mkpoly <- function(dat, x = "hour", y = "Mean", group.number, myColors, alpha) {
         fac <- 1
     }
 
-    poly.na(dat[id1, x], dat$Lower[id1], dat[id1, x], dat$Upper[id1],
+    poly.na(dat[[x]][id1], dat$Lower[id1], dat[[x]][id1], dat$Upper[id1],
             group.number, myColors, alpha = fac * alpha / 2)
 
-    if (len == 2L) poly.na(dat[id2, x], dat$Lower[id2], dat[id2, x], dat$Upper[id2],
+    if (len == 2L) poly.na(dat[[x]][id2], dat$Lower[id2], dat[[x]][id2], dat$Upper[id2],
             group.number, myColors, alpha = alpha)
 }
 
@@ -998,11 +1001,11 @@ mkrect <- function(dat, x = "wkday", y = "Mean", group.number, myColors, alpha) 
         fac <- 1
     }
 
-    panel.rect(dat[id1, x] - 0.15 * fac, dat$Lower[id1], dat[id1, x] + 0.15 * fac,
+    panel.rect(dat[[x]][id1] - 0.15 * fac, dat$Lower[id1], dat[[x]][id1] + 0.15 * fac,
                dat$Upper[id1], fill = myColors[group.number],
                border = NA, alpha = fac * alpha / 2)
 
-    if (len == 2L) panel.rect(dat[id2, x] - 0.3, dat$Lower[id2], dat[id2, x] + 0.3,
+    if (len == 2L) panel.rect(dat[[x]][id2] - 0.3, dat$Lower[id2], dat[[x]][id2] + 0.3,
             dat$Upper[id2], fill = myColors[group.number],
             border = NA, alpha = alpha)
 }
