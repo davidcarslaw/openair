@@ -56,7 +56,7 @@ quickText <- function(text, auto.text = TRUE){
     ans <- gsub("nmhc", "' 'NMHC' '", ans)
 
     
-    ans <- if (nchar(text) == 2 && length(grep("ws", text)) > 0)
+    ans <- if (nchar(as.character(text)) == 2 && length(grep("ws", text)) > 0)
                gsub("ws", "' 'wind spd.' '", ans) else ans
     ans <- gsub("wd", "' 'wind dir.' '", ans)
     ans <- gsub("rh ", "' 'relative humidity' '", ans)
