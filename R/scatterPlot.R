@@ -999,7 +999,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
 
     if (method %in% c("traj", "map")) {
-
+        if (missing(x.inc)) x.inc <- prettyGap(mydata[[x]])
+        if (missing(y.inc)) y.inc <- prettyGap(mydata[[y]])
+        
         ## bin data
         mydata$ygrid <- round_any(mydata[[y]], y.inc)
         mydata$xgrid <- round_any(mydata[[x]], x.inc)
@@ -1111,8 +1113,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         nlev2 <- length(breaks)
 
         if (missing(cols)) cols <- "default"
-
-        thecol <- openColours(cols, length(breaks) - 1)[cut(mydata[, z], breaks, label = FALSE)]
+        
+        thecol <- openColours(cols, length(breaks) - 1)[cut(mydata[[z]], breaks, label = FALSE)]
         mydata$col <- thecol
         col <- thecol
 
@@ -1349,8 +1351,7 @@ add.map <- function (Args, ...) {
     if (Args$map.fill) {
 
         mp <- maps::map(database = res, plot = FALSE, fill = TRUE, projection = Args$projection,
-                  parameters = Args$parameters, orientation = Args$orientation,
-                  xlim = Args$trajLims[1:2], ylim = Args$trajLims[3:4])
+                  parameters = Args$parameters, orientation = Args$orientation)
         mp <- maps::map.wrap(mp)
 
         panel.polygon(mp$x, mp$y, col = Args$map.cols, border = "white",
