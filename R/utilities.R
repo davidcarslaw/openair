@@ -151,9 +151,9 @@ date.pad <- function(mydata, print.int = FALSE) {
                 }
             }
         }
-
+        
         ## return the same TZ that we started with
-        mydata$date <- as.POSIXct(format(mydata$date), tz = TZ)
+        attr(mydata$date, "tzone") <- TZ
 
                 
         if (print.int) print(paste0("Input data time interval assumed is ", interval))
