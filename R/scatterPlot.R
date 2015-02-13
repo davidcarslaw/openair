@@ -1124,7 +1124,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         col.scale <- breaks
 
         ## this is the default
-        if (trajStat %in% c("cwt", "pscf", "mean")) {
+        if (trajStat %in% c("cwt", "pscf", "mean", "frequency")) {
             legend <- list(col = col, at = breaks, labels = list(labels = labs),
                            space = key.position,
                            auto.text = auto.text, footer = Args$key.footer,
@@ -1133,7 +1133,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             legend <- makeOpenKeyLegend(key, legend, "other")
         }
 
-        if (trajStat %in% c("frequency", "difference")) {
+        if (trajStat %in% c("frequency", "difference") && !smooth) {
 
             if (trajStat == "frequency") {
                 breaks <- c(0, 1, 5, 10, 25, 100)
