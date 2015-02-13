@@ -236,7 +236,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     ## variables needed in trajectory plots
     vars <- c("date", "lat", "lon", "hour.inc", pollutant)
     mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
-
+    
     ## extra.args
     extra.args <- list(...)
 
@@ -294,8 +294,8 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
         mydata$ygrid <- round_any(mydata[[lat]], lat.inc)
         mydata$xgrid <- round_any(mydata[[lon]], lon.inc)
     } else {
-        mydata$ygrid <- mydata[ , lat]
-        mydata$xgrid <- mydata[ , lon]
+        mydata$ygrid <- mydata[[lat]]
+        mydata$xgrid <- mydata[[lon]]
     }
 
     rhs <- c("xgrid", "ygrid", type)
@@ -306,37 +306,29 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     ## plot mean concentration - CWT method
     if (statistic %in% c("cwt", "median")) {
 
-        counts <-  aggregate(mydata[ , -ids], mydata[ , ids],
-                             function (x)  length(x))
-
-        if (statistic == "cwt") stat.name <- "mean" else stat.name <- "median"
-
-        ## need dates for later processing e.g. for type = "season"
-        dates <- aggregate(mydata[ , -ids], mydata[ , ids], function (x) head(x, 1))
-        dates <- dates$date
-
-        mydata <- aggregate(mydata[ , -ids], mydata[ , ids], get(stat.name), na.rm = TRUE)
-        mydata$count <- counts$date
-
-        mydata$date <- dates
-
-        mydata <- subset(mydata, count >= min.bin)
+        ## calculate the mean of points in each cell 
+        mydata <- group_by_(mydata, "xgrid", "ygrid", type) %>%
+          summarise_(date = interp(~ head(date, 1)),
+                     N = interp(~ n()),
+                     count = interp(~ mean(var, na.rm = TRUE), var = as.name(pollutant)))
+       
+        mydata[[pollutant]] <- mydata$count
 
         ## adjust at edges
 
-        id <- which(mydata$count > 20 & mydata$count <= 80)
+        id <- which(mydata$N > 20 & mydata$N <= 80)
         mydata[id, pollutant] <- mydata[id, pollutant] * 0.7
 
-        id <- which(mydata$count > 10 & mydata$count <= 20)
+        id <- which(mydata$N > 10 & mydata$N <= 20)
         mydata[id, pollutant] <- mydata[id, pollutant] * 0.42
 
-        id <- which(mydata$count <= 10)
+        id <- which(mydata$N <= 10)
         mydata[id, pollutant] <- mydata[id, pollutant] * 0.05
         attr(mydata$date, "tzone") <- "GMT"  ## avoid warning messages about TZ
     }
 
     ## plot trajectory frequecies
-    if (statistic == "frequency") {
+    if (statistic == "frequency" && method != "hexbin") {
         ## count % of times a cell contains a trajectory point
         ## need date for later use of type
 
@@ -350,50 +342,27 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
     ## Poential Source Contribution Function
     if (statistic == "pscf") {
-         ## count % of times a cell contains a trajectory
-        n1 <- length(unique(mydata$date))
-        dat1 <- aggregate(mydata[ , -ids], mydata[ , ids],
-                          function (x) length(x))
-        dat1[, pollutant] <- dat1[, "date"]
-        dat1 <- subset(dat1, select = -date)
 
-        ## select top X percent
-        Q90 <- quantile(mydata[, pollutant], probs = percentile / 100, na.rm = TRUE)
+        ## high percentile
+        Q90 <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
 
-        ## now select trajectories with conc > percentile
-        dat2 <- subset(mydata, get(pollutant) > Q90)
-        n2 <- length(unique(dat2$date))
-        ## number in each bin
-        counts <-  aggregate(dat2[ , -ids], dat2[ , ids],
-                             function (x)  length(x))
-
-        ## need dates for later processing e.g. for type = "season"
-        dates <- aggregate(dat2[ , -ids], dat2[ , ids], function (x) head(x, 1))
-        dates <- dates$date
-
-        dat2 <- aggregate(dat2[ , -ids], dat2[ , ids],
-                          function (x) length(x))
-        dat2[, pollutant] <- dat2[, "date"]
-        dat2$count <- counts$date
-        dat2$date <- dates
-        attr(dat2$date, "tzone") <- "GMT"  ## avoid warning messages about TZ
-        dat2 <- subset(dat2, count >= min.bin)
-
-        ## differences
-        mydata <- merge(dat1, dat2, by = c("xgrid", "ygrid", type))
-        pol1 <- paste(pollutant, ".x", sep = "")
-        pol2 <- paste(pollutant, ".y", sep = "")
-        mydata[, pollutant] <-  mydata[, pol2] / mydata[, pol1]
-
-        ## adjust at edges
-        n <- mean(mydata$count)
-        id <- which(mydata$count > n & mydata$count <= 2 * n)
+        ## calculate the proportion of points in cell with value > Q90
+        mydata <- group_by_(mydata, "xgrid", "ygrid", type) %>%
+          summarise_(date = interp(~ head(date, 1)),
+                     N = interp(~ n()),
+                     count = interp(~ length(which(var > Q90)) / N, var = as.name(pollutant)))
+       
+        mydata[[pollutant]] <- mydata$count
+        
+        ## ## adjust at edges
+        n <- mean(mydata$N)
+        id <- which(mydata$N > n & mydata$N <= 2 * n)
         mydata[id, pollutant] <- mydata[id, pollutant] * 0.75
 
-        id <- which(mydata$count > (n / 2) & mydata$count <= n)
+        id <- which(mydata$N > (n / 2) & mydata$N <= n)
         mydata[id, pollutant] <- mydata[id, pollutant] * 0.5
 
-        id <- which(mydata$count <= (n / 2))
+        id <- which(mydata$N <= (n / 2))
         mydata[id, pollutant] <- mydata[id, pollutant] * 0.15
 
 
@@ -401,48 +370,40 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
     ## plot trajectory frequecy differences e.g. top 10% concs cf. mean
     if (statistic == "difference") {
-        ## count % of times a cell contains a trajectory
-        n1 <- length(unique(mydata$date))
-        dat1 <- aggregate(mydata[ , -ids], mydata[ , ids],
-                          function (x) 100 * length(unique(x)) / n1)
-        dat1[, pollutant] <- dat1[, "date"]
-        dat1 <- subset(dat1, select = -date)
 
-        ## select top X percent
-        Q90 <- quantile(mydata[, pollutant], probs = percentile / 100, na.rm = TRUE)
+        ## calculate percentage of points for all data
+        
+        base <- group_by_(mydata, "xgrid", "ygrid", type) %>%
+          summarise(date = head(date, 1),  count = n())
 
-        ## now select trajectories with conc > percentile
-        dat2 <- subset(mydata, get(pollutant) > Q90)
-        n2 <- length(unique(dat2$date))
-        ## number in each bin
-        counts <-  aggregate(dat2[ , -ids], dat2[ , ids],
-                             function (x)  length(unique(x)))
+        base[[pollutant]] <- 100 * base$count / max(base$count)
 
-        ## need dates for later processing e.g. for type = "season"
-        dates <- aggregate(dat2[ , -ids], dat2[ , ids], function (x) head(x, 1))
-        dates <- dates$date
+        ## high percentile
+        Q90 <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
 
-        dat2 <- aggregate(dat2[ , -ids], dat2[ , ids],
-                          function (x) 100 * length(unique(x)) / n2)
-        dat2[, pollutant] <- dat2[, "date"]
-        dat2$count <- counts$date
-        dat2$date <- dates
-        attr(dat2$date, "tzone") <- "GMT"  ## avoid warning messages about TZ
-        dat2 <- subset(dat2, count >= min.bin)
+        
+        ## calculate percentage of points for high data
+        high <- group_by_(mydata, "xgrid", "ygrid", type) %>%
+          summarise_(date = interp(~ head(date, 1)),
+                     N = interp(~ n()),
+                     count = interp(~ length(which(var > Q90)), var = as.name(pollutant)))
 
-        ## differences
-        mydata <- merge(dat1, dat2, by = c("xgrid", "ygrid", type))
-        pol1 <- paste(pollutant, ".x", sep = "")
-        pol2 <- paste(pollutant, ".y", sep = "")
-        mydata[, pollutant] <-  mydata[, pol2] - mydata[, pol1]
+        high[[pollutant]] <- 100 * high$count / max(high$count)
 
+        ## calculate percentage absolute difference
+        mydata <- base
+        mydata[[pollutant]] <-  high[[pollutant]] - mydata[[pollutant]]
+
+        ## select only if > min.bin points in grid cell
+        mydata <- subset(mydata, count >= min.bin)
+        
     }
 
 
     ## change x/y names to gridded values
     lon <- "xgrid"
     lat <- "ygrid"
-
+    
     ## the plot
     scatterPlot.args <- list(mydata, x = lon, y = lat, z = pollutant,
                              type = type, method = method, smooth = smooth,

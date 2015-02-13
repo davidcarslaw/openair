@@ -439,21 +439,21 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             var1 <- "lon"
             var2 <- "lat"
         }
-
+        
         vars <- c(vars, "date")
 
         ## these are the map limits used for grid lines - in degrees
-        Args$trajLims <- c(range(mydata[, var1], na.rm = TRUE), range(mydata[, var2],
+        Args$trajLims <- c(range(mydata[[var1]], na.rm = TRUE), range(mydata[[var2]],
                                                      na.rm = TRUE) )
 
         ## apply map projection
-        tmp <- mapproject(x = mydata[, var1],
-                          y = mydata[, var2],
+        tmp <- mapproject(x = mydata[[var1]],
+                          y = mydata[[var2]],
                           projection = Args$projection,
                           parameters = Args$parameters,
                           orientation = Args$orientation)
-        mydata[, var1] <- tmp$x
-        mydata[, var2] <- tmp$y
+        mydata[[var1]] <- tmp$x
+        mydata[[var2]] <- tmp$y
 
     }
 
@@ -465,15 +465,15 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
     ## remove missing data except for time series where we want to show gaps
     ## this also removes missing factors
-    if (class(mydata[ , x])[1] != "Date" & !"POSIXt" %in% class(mydata[ , x])) {
+    if (class(mydata[[x]])[1] != "Date" & !"POSIXt" %in% class(mydata[ , x])) {
         mydata <- na.omit(mydata)
     }
 
     ## if x is a factor/character, then rotate axis labels for clearer labels
     x.rot <- 0
-    if ("factor" %in% class(mydata[, x]) | "character"  %in% class(mydata[, x])) {
+    if ("factor" %in% class(mydata[[x]]) | "character"  %in% class(mydata[, x])) {
         x.rot <- 90
-        mydata[, x] <- factor(mydata[, x])
+        mydata[, x] <- factor(mydata[[x]])
     }
 
     ## continuous colors ####################################################################
@@ -483,7 +483,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             stop("You tried to use a date type for the 'z' variable. \nColour coding requires 'z' to be continuous numeric variable'")
 
         ## check to see if type is numeric/integer
-        if (class(mydata[, z]) %in% c("integer", "numeric") == FALSE)
+        if (class(mydata[[z]]) %in% c("integer", "numeric") == FALSE)
             stop(paste("Continuous colour coding requires ", z , " to be numeric", sep = ""))
 
         ## don't need a key with this
@@ -492,9 +492,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         mydata <- cutData(mydata, type, ...)
 
         if (missing(cols)) cols <- "default" ## better default colours for this
-        thecol <- openColours(cols, 100)[cut(mydata[, z], 100, label = FALSE)]
+        thecol <- openColours(cols, 100)[cut(mydata[[z]], 100, label = FALSE)]
         mydata$col <- thecol
-
+        
         ## don't need to group by all levels - want one smooth etc
         group <- "NewGroupVar"
         mydata$NewGroupVar <- "NewGroupVar"
@@ -534,7 +534,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             }
 
 
-            thecol <- openColours(cols, 100)[cut(mydata[, z],
+            thecol <- openColours(cols, 100)[cut(mydata[[z]],
                                                  breaks = seq(limits[1], limits[2],
                                                      length.out = 100), label = FALSE)]
             mydata$col <- thecol
@@ -703,7 +703,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                         
                                         ## colour by z
                                         lapply(tmp, function (dat)
-                                            llines(dat$lon, dat$lat, col.line = x$col,
+                                            llines(dat$lon, dat$lat, col.line = dat$col,
                                                    lwd = lwd, lty = lty))
                                         
                                       } else {
@@ -1157,7 +1157,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
             col.scale <- breaks
 
-            thecol <- openColours(cols, length(breaks) - 1)[cut(mydata[, z], breaks, label = FALSE)]
+            thecol <- openColours(cols, length(breaks) - 1)[cut(mydata[[z]], breaks, label = FALSE)]
             mydata$col <- thecol
             col <- thecol
 

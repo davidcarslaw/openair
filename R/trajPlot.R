@@ -196,7 +196,7 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
     if ("fontsize" %in% names(extra.args))
         trellis.par.set(fontsize = list(text = extra.args$fontsize))
     
-
+    
     if (missing(pollutant)) { ## don't need key
 
         if (is.na(group)) key <- FALSE else key <- TRUE

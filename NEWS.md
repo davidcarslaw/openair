@@ -1,4 +1,4 @@
-# Changes in openair 1.5 [2015-02-04]
+# Changes in openair 1.2 [2015-02-04]
 
 - Add 'days' as a time unit to `summaryPlot` - useful for shorter time
 series
@@ -6,6 +6,9 @@ series
   e.g. `timeAverage`
 - Automate `x.inc` and `y.inc` if not supplied by user in `scatterPlot`
 - Fix regression in `trajLevel` frequency calculation
+- Fix a few problems with trajectory plotting - some methods would
+fail given recent updates
+- Make trajectory gridded analysis faster
 
 # Changes in openair 1.1-2 [2015-01-26]
 
