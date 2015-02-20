@@ -74,7 +74,7 @@ importMeta <- function(source = "aurn", all = FALSE) {
         meta <- meta[ids, ]
 
         ## rename to match imported names e.g. importAURN
-        meta <- rename(meta, c(site_id = "code", site_name = "site", location_type = "site.type"))
+        meta <- rename(meta, code = site_id, site = site_name, site.type = location_type)
 
     }
 
@@ -90,7 +90,8 @@ importMeta <- function(source = "aurn", all = FALSE) {
         meta <- meta[ids, ]
 
         ## rename to match imported names e.g. importAURN
-        meta <- rename(meta, c(site_id = "code", site_name = "site", location_type = "site.type"))
+        meta <- rename(meta, code = site_id, site = site_name, site.type = location_type)
+        
     }
 
     if (source == "kcl") {
@@ -99,8 +100,10 @@ importMeta <- function(source = "aurn", all = FALSE) {
         close(con)
 
         ## rename to match imported names e.g. importKCL
-        meta <- rename(meta, c(SiteCode = "code", SiteName = "site", Classification = "site.type",
-                               Latitude = "latitude", Longitude = "longitude"))
+        meta <- rename(meta, code = SiteCode, site = SiteName,  site.type = Classification,
+                               latitude = Latitude, longitude = Longitude)
+
+        
     }
 
     if (!all) meta <-  subset(meta, select = c(site, code, latitude, longitude, site.type))

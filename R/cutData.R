@@ -187,20 +187,22 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
             ## split by quantiles unless it is a factor, in which case keep as is
             ## number of quantiles set by n.levels
 
-            if (is.factor(x[, type]) | is.character(x[, type]) | class(x[, type])[1] == "Date" |
-                "POSIXt" %in% class(x[, type])) {
+            if (is.factor(x[[type]]) | is.character(x[[type]]) | class(x[[type]])[1] == "Date" |
+                "POSIXt" %in% class(x[[type]])) {
 
                 ## drop unused levels while we are at it
-                x[, type] <- factor(x[, type])
+                x[[type]] <- factor(x[[type]])
 
             } else {
 
-                temp.levels <- levels(cut(x[, type], unique(quantile(x[, type],
-                                                                     probs = seq(0, 1, length =
+                temp.levels <- levels(cut(x[[type]],
+                                          unique(quantile(x[[type]],
+                                                          probs = seq(0, 1, length =
                                                                      n.levels + 1),
-                                                                     na.rm = TRUE)), include.lowest = TRUE))
+                                                          na.rm = TRUE)),
+                                          include.lowest = TRUE))
 
-                x[[type]] <- cut(x[, type], unique(quantile(x[, type],
+                x[[type]] <- cut(x[, type], unique(quantile(x[[type]],
                                                              probs = seq(0, 1, length = n.levels + 1),
                                                              na.rm = TRUE)), include.lowest = TRUE,
                                   labels = FALSE)

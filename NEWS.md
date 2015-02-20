@@ -9,6 +9,7 @@ series
 - Fix a few problems with trajectory plotting - some methods would
 fail given recent updates
 - Make trajectory gridded analysis faster
+- Fix bug in `importMeta` introduced since using `dplyr`
 
 # Changes in openair 1.1-2 [2015-01-26]
 
