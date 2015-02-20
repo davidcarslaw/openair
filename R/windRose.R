@@ -199,6 +199,12 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##' @param annotate If \code{TRUE} then the percentage calm and mean
 ##' values are printed in each panel together with a description of
 ##' the statistic below the plot.
+##' @param angle.scale The wind speed scale is by default shown at a
+##' 315 degree angle. Sometimes the placement of the scale may
+##' interfere with an interesting feature. The user can therefore set
+##' \code{angle.scale} to another value (between 0 and 360 degrees) to
+##' mitigate such problems. For example \code{angle.scale = 45} will
+##' draw the scale heading in a NE direction.
 ##' @param border Border colour for shaded areas. Default is no border.
 ##' @param ... For \code{pollutionRose} other parameters that are
 ##' passed on to \code{windRose}. For \code{windRose} other parameters
@@ -291,7 +297,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                       max.freq = NULL, paddle = TRUE, key.header = NULL,
                       key.footer = "(m/s)", key.position = "bottom",
                       key = TRUE, dig.lab = 5, statistic = "prop.count",
-                      pollutant = NULL, annotate = TRUE, border = NA,
+                      pollutant = NULL, annotate = TRUE, angle.scale = 315, border = NA,
                       ...)
 {
 
@@ -688,8 +694,8 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                             }
                         }
 
-                        ltext(seq((myby + off.set), mymax, myby) * sin(pi / 4),
-                              seq((myby + off.set), mymax, myby) * cos(pi / 4),
+                        ltext(seq((myby + off.set), mymax, myby) * sin(pi * angle.scale / 180),
+                              seq((myby + off.set), mymax, myby) * cos(pi * angle.scale / 180),
                               paste(seq(myby, mymax, by = myby), stat.unit,  sep = ""), cex = 0.7)
 
                         ## annotations e.g. calms, means etc
