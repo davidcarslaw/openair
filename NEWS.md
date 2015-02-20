@@ -11,7 +11,8 @@ fail given recent updates
 - Make trajectory gridded analysis faster
 - Fix bug in `importMeta` introduced since using `dplyr`
 - Add `angle.scale` to `windRose` to control placement of radial scale
-  (helps to avoid clash with wind rose paddles)
+(helps to avoid clash with wind rose paddles)
+- Fix bug in `timePlot` when `avg.time` given (regression)
 
 # Changes in openair 1.1-2 [2015-01-26]
 
