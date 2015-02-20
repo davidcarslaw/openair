@@ -86,7 +86,7 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##' = 4, offset = 10, max.freq = NULL, paddle = TRUE, key.header =
 ##' NULL, key.footer = "(m/s)", key.position = "bottom", key = TRUE,
 ##' dig.lab = 5, statistic = "prop.count", pollutant = NULL, annotate
-##' = TRUE, border = NA, ...)
+##' = TRUE, angle.scale = 315, border = NA, ...)
 ##'
 ##'
 ##'     pollutionRose(mydata, pollutant = "nox", key.footer = pollutant,
