@@ -369,10 +369,10 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
             if (missing(group)) group <- TRUE
 
         } else {
-
+            
             mydata <- plyr::ddply(mydata, type, timeAverage, avg.time = avg.time,
                             statistic = statistic, percentile = percentile,
-                            data.thresh = data.thresh, ...)
+                            data.thresh = data.thresh)
         }
     }
 
