@@ -29,9 +29,15 @@ different assumptions e.g. input data or model set up. See
 examples below.}
 
 \item{group}{The \code{group} column is used to differentiate between
-different models and can be a factor or character. The total number of
-models compared will be equal to the number of unique values of
-\code{group}.}
+  different models and can be a factor or character. The total number of
+  models compared will be equal to the number of unique values of
+  \code{group}.
+
+\code{group} can also be of length two e.g. \code{group =
+c("model", "site")}. In this case all model-site combinations will
+be shown but they will only be differentiated by colour/symbol by
+the first grouping variable ("model" in this case). In essence the
+plot removes the differentiation by the second grouping variable.}
 
 \item{type}{\code{type} determines how the data are split
 i.e. conditioned, and then plotted. The default is will produce a
