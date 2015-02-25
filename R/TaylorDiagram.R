@@ -74,6 +74,12 @@
 ##'   different models and can be a factor or character. The total number of
 ##'   models compared will be equal to the number of unique values of
 ##'   \code{group}.
+##'
+##' \code{group} can also be of length two e.g. \code{group =
+##' c("model", "site")}. In this case all model-site combinations will
+##' be shown but they will only be differentiated by colour/symbol by
+##' the first grouping variable ("model" in this case). In essence the
+##' plot removes the differentiation by the second grouping variable.
 ##' @param type \code{type} determines how the data are split
 ##' i.e. conditioned, and then plotted. The default is will produce a
 ##' single plot using the entire data. Type can be one of the built-in
@@ -307,8 +313,25 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
         vars <- c(obs, mod)
     }
 
-    ## if group is present, need to add that list of variables unless it is a pre-defined date-based one
+    ## if group is present, need to add that list of variables unless it is
+    ## a pre-defined date-based one
     if (!missing(group)){
+
+        twoGrp <- FALSE
+        
+        ## if group is of length 2
+        if (length(group) == 2L) {
+            
+            twoGrp <- TRUE
+            grp1 <- group[1]
+            grp2 <- group[2]
+
+            if (missing(key.title)) key.title <- grp1
+            vars <- c(vars, grp1, grp2)
+            mydata$newgrp <- paste(mydata[[group[1]]], mydata[[group[2]]], sep = "-")
+            group <- "newgrp"
+            
+        }
 
         if (group %in%  dateTypes | any(type %in% dateTypes)) {
             if (group %in%  dateTypes) {
@@ -350,6 +373,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
     npol <- length(levels(mydata[ , group]))
 
+
     ## function to calculate stats for TD
     calcStats <- function(mydata, obs = obs, mod = mod) {
         R <- cor(mydata[[obs]], mydata[[mod]], use = "pairwise")
@@ -377,6 +401,11 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
     ## set up colours
     myColors <- openColours(cols, npol)
 
+    ## combined colours if two groups
+    if (twoGrp)
+        myColors <- rep(openColours(cols, length(unique(mydata[[grp1]]))),
+                     each = length(unique(mydata[[grp2]])))
+    
     ## basic function for lattice call + defaults
     temp <- paste(type, collapse = "+")
 
@@ -385,16 +414,20 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
     scales <- list(x = list(rot = 0), y = list(rot = 0))
 
     pol.name <- sapply(levels(mydata[ , group]), function(x) quickText(x, auto.text))
+    
 
     if (key & npol > 1 & !combine) {
-
-        key <- list(points = list(col = myColors[1:npol]), pch = extra.args$pch, cex = extra.args$cex,
-                    text = list(lab = pol.name, cex = 0.8), space = key.pos,
-                    columns = key.columns,
+        thecols <- unique(myColors)
+        if (twoGrp) pol.name <- unique(mydata[[grp1]])
+        
+        key <- list(points = list(col = thecols), pch = extra.args$pch,
+                    cex = extra.args$cex, text = list(lab = pol.name, cex = 0.8),
+                    space = key.pos, columns = key.columns,
                     title = quickText(key.title, auto.text),
                     cex.title = 0.8, lines.title = 3)
-    } else if (key & npol > 1 & combine) {
-
+        
+       } else if (key & npol > 1 & combine) {
+        
         key <- list(lines = list(col = myColors[1:npol]), lwd = arrow.lwd,
                     text = list(lab = pol.name, cex = 0.8), space = key.pos,
                     columns = key.columns,

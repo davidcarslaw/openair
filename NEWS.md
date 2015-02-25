@@ -1,4 +1,4 @@
-# Changes in openair 1.2 [2015-02-04]
+# Changes in openair 1.3 [2015-02-25]
 
 - Add 'days' as a time unit to `summaryPlot` - useful for shorter time
 series
@@ -13,6 +13,9 @@ fail given recent updates
 - Add `angle.scale` to `windRose` to control placement of radial scale
 (helps to avoid clash with wind rose paddles)
 - Fix bug in `timePlot` when `avg.time` given (regression)
+- Allow `TaylorDiagram` to have `group` of length two. This will show
+  all group combinations but will only differentiate them by
+  colour/symbol according to the first grouping variable.
 
 # Changes in openair 1.1-2 [2015-01-26]
 
