@@ -421,7 +421,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
         if (twoGrp) pol.name <- unique(mydata[[grp1]])
         
         key <- list(points = list(col = thecols), pch = extra.args$pch,
-                    cex = extra.args$cex, text = list(lab = pol.name, cex = 0.8),
+                    cex = extra.args$cex, text = list(lab = as.character(pol.name), cex = 0.8),
                     space = key.pos, columns = key.columns,
                     title = quickText(key.title, auto.text),
                     cex.title = 0.8, lines.title = 3)
