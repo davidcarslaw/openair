@@ -313,12 +313,12 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
         vars <- c(obs, mod)
     }
 
+    twoGrp <- FALSE
+
     ## if group is present, need to add that list of variables unless it is
     ## a pre-defined date-based one
     if (!missing(group)){
-
-        twoGrp <- FALSE
-        
+       
         ## if group is of length 2
         if (length(group) == 2L) {
             
@@ -345,7 +345,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
             vars <- unique(c(vars, group))
         }
     }
-
+    
     if (!missing(group)) if (group %in% type) stop ("Can't have 'group' also in 'type'.")
 
     ## data checks, for base and new data if necessary
@@ -418,10 +418,10 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
     if (key & npol > 1 & !combine) {
         thecols <- unique(myColors)
-        if (twoGrp) pol.name <- unique(mydata[[grp1]])
+        if (twoGrp) pol.name <- as.character(unique(mydata[[grp1]]))
         
         key <- list(points = list(col = thecols), pch = extra.args$pch,
-                    cex = extra.args$cex, text = list(lab = as.character(pol.name), cex = 0.8),
+                    cex = extra.args$cex, text = list(lab = pol.name, cex = 0.8),
                     space = key.pos, columns = key.columns,
                     title = quickText(key.title, auto.text),
                     cex.title = 0.8, lines.title = 3)
@@ -455,7 +455,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
         extra.args$skip <- FALSE
 
 
-    ## proper names of labelling ##############################################################################
+    ## proper names of labelling ####################################################
 
     stripName <- sapply(levels(mydata[ , type[1]]), function(x) quickText(x, auto.text))
     if (strip) strip <- strip.custom(factor.levels = stripName)
