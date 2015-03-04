@@ -37,7 +37,9 @@ examples below.}
 c("model", "site")}. In this case all model-site combinations will
 be shown but they will only be differentiated by colour/symbol by
 the first grouping variable ("model" in this case). In essence the
-plot removes the differentiation by the second grouping variable.}
+plot removes the differentiation by the second grouping
+variable. Because there will be different values of \code{obs} for
+each group, \code{normalise = TRUE} should be used.}
 
 \item{type}{\code{type} determines how the data are split
 i.e. conditioned, and then plotted. The default is will produce a

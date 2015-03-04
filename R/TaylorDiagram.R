@@ -79,7 +79,9 @@
 ##' c("model", "site")}. In this case all model-site combinations will
 ##' be shown but they will only be differentiated by colour/symbol by
 ##' the first grouping variable ("model" in this case). In essence the
-##' plot removes the differentiation by the second grouping variable.
+##' plot removes the differentiation by the second grouping
+##' variable. Because there will be different values of \code{obs} for
+##' each group, \code{normalise = TRUE} should be used.
 ##' @param type \code{type} determines how the data are split
 ##' i.e. conditioned, and then plotted. The default is will produce a
 ##' single plot using the entire data. Type can be one of the built-in
@@ -418,7 +420,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
     if (key & npol > 1 & !combine) {
         thecols <- unique(myColors)
-        if (twoGrp) pol.name <- as.character(factor((levels(mydata[[grp1]]))))
+        if (twoGrp) pol.name <- levels(factor(mydata[[grp1]]))
         
         key <- list(points = list(col = thecols), pch = extra.args$pch,
                     cex = extra.args$cex, text = list(lab = pol.name, cex = 0.8),
@@ -492,6 +494,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
     if(is.null(extra.args$xlab))
         extra.args$xlab <- extra.args$ylab
 
+    
     ## plot
     xyplot.args <- list(x = myform,  data = results, groups = results$MyGroupVar,
                         aspect = 1,
@@ -521,7 +524,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
     ## plot
     plt <- do.call(xyplot, xyplot.args)
-
+    
 
     if (length(type) == 1) plot(plt) else plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
     newdata <- results
