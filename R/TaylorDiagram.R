@@ -389,7 +389,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
     }
 
     results <- plyr::ddply(mydata, c(group, type), calcStats, obs = obs, mod = mod[1])
-
+    
     results.new <- NULL
     if (combine) results.new <- plyr::ddply(mydata, c(group, type), calcStats,
                                       obs = obs, mod = mod[2])
@@ -418,7 +418,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
     if (key & npol > 1 & !combine) {
         thecols <- unique(myColors)
-        if (twoGrp) pol.name <- as.character(unique(mydata[[grp1]]))
+        if (twoGrp) pol.name <- as.character(factor((levels(mydata[[grp1]]))))
         
         key <- list(points = list(col = thecols), pch = extra.args$pch,
                     cex = extra.args$cex, text = list(lab = pol.name, cex = 0.8),
