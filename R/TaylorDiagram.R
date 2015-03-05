@@ -289,22 +289,23 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
     if ("fontsize" %in% names(extra.args))
         trellis.par.set(fontsize = list(text = extra.args$fontsize))
 
-                                        #layout (also code in body)
-    if(!"layout" %in% names(extra.args))
+                                        
+    if (!"layout" %in% names(extra.args))
         extra.args$layout <- NULL
 
-                                        #pch, cex (also code in body)
-    if(!"pch" %in% names(extra.args))
+                                       
+    if (!"pch" %in% names(extra.args))
         extra.args$pch <- 20
-    if(!"cex" %in% names(extra.args))
+    
+    if (!"cex" %in% names(extra.args))
         extra.args$cex <- 2
 
     ## #######################################################################################
-
+    
     ## check to see if two data sets are present
     combine <- FALSE
 
-    if (length(mod) ==2) combine <- TRUE
+    if (length(mod) == 2) combine <- TRUE
 
     if (any(type %in%  dateTypes)) {
 
@@ -402,11 +403,15 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
     ## set up colours
     myColors <- openColours(cols, npol)
-
+    pch.orig <- extra.args$pch
+    
     ## combined colours if two groups
-    if (twoGrp)
+    if (twoGrp) {
         myColors <- rep(openColours(cols, length(unique(mydata[[grp1]]))),
-                     each = length(unique(mydata[[grp2]])))
+                        each = length(unique(mydata[[grp2]])))
+
+        extra.args$pch <- rep(extra.args$pch, each = length(unique(mydata[[grp2]])))
+    }
     
     ## basic function for lattice call + defaults
     temp <- paste(type, collapse = "+")
@@ -420,9 +425,12 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
     if (key & npol > 1 & !combine) {
         thecols <- unique(myColors)
-        if (twoGrp) pol.name <- levels(factor(mydata[[grp1]]))
+        if (twoGrp) {
+            pol.name <- levels(factor(mydata[[grp1]]))
+            
+        }
         
-        key <- list(points = list(col = thecols), pch = extra.args$pch,
+        key <- list(points = list(col = thecols), pch = pch.orig,
                     cex = extra.args$cex, text = list(lab = pol.name, cex = 0.8),
                     space = key.pos, columns = key.columns,
                     title = quickText(key.title, auto.text),
