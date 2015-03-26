@@ -111,57 +111,57 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
         all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
         mydata <- merge(mydata, all.dates, all = TRUE)
         mydata$year <- format(mydata$date, "%Y")
-        
-       
+
+
         Mean <- group_by(mydata, year) %>%
           do(timeAverage(., avg.time = "year", statistic = "mean", data.thresh,
                          print.int = FALSE)) %>%
           rename_(mean = pollutant)
-        
+
         Min <- group_by(mydata, year) %>%
           do(timeAverage(., avg.time = "year", statistic = "min", data.thresh,
                          print.int = FALSE)) %>%
           rename_(minimum = pollutant)
-        
+
         Max <- group_by(mydata, year) %>%
           do(timeAverage(., avg.time = "year", statistic = "max", data.thresh,
                          print.int = FALSE)) %>%
           rename_(maximum = pollutant)
-        
+
         maxDaily <- group_by(mydata, year) %>%
           do(timeAverage(., avg.time = "day", statistic = "mean", data.thresh,
                          print.int = FALSE)) %>%
                            do(timeAverage(., avg.time = "year", statistic = "max",
                                           data.thresh, print.int = FALSE)) %>%
           rename_(daily.max = pollutant)
-        
+
         Median <- group_by(mydata, year) %>%
           do(timeAverage(., avg.time = "year", statistic = "median", data.thresh)) %>%
           rename_(median = pollutant)
-        
+
         dataCapture <- group_by(mydata, year) %>%
           do(timeAverage(., avg.time = "year", statistic = "data.cap", data.thresh)) %>%
           rename_(dat.cap = pollutant)
-        
+
         rollMax8 <- group_by(mydata, year) %>%
           do(rollingMean(., pollutant = pollutant, data.thresh = data.thresh,
                          width = 8, new.name = pollutant)) %>%
                            do(timeAverage(., avg.time = "year", statistic = "max", data.thresh)) %>%
                            rename_(max.roll.8 = pollutant)
-        
+
         rollMax24 <- group_by(mydata, year) %>%
           do(rollingMean(., pollutant = pollutant, data.thresh = data.thresh,
                          width = 24, new.name = pollutant)) %>%
                            do(timeAverage(., avg.time = "year", statistic = "max", data.thresh)) %>%
                            rename_(max.roll.24 = pollutant)
-        
+
         Percentile <- group_by(mydata, year) %>%
           do(calcPercentile(., avg.time = "year", pollutant = pollutant,
                             data.thresh = data.thresh, percentile = percentile))
 
-        
+
         if (length(grep("o3", pollutant, ignore.case = TRUE)) == 1) {
-            
+
             rollingO3 <- group_by(mydata, year) %>%
               do(rollingMean(., pollutant, data.thresh = data.thresh)) %>%
               do(timeAverage(., avg.time = "day", statistic = "max", data.thresh = data.thresh)) %>%
@@ -178,7 +178,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 
             rollingO3b$site <- Mean$site ## make sure all have same columns
             rollingO3b$date <- Mean$date
-            
+
             AOT40 <- group_by(mydata, year) %>%
               do(AOT40(., pollutant))
 
@@ -195,16 +195,16 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
         }
 
         if (length(grep("no2", pollutant, ignore.case = TRUE)) == 1) {
-            
+
             hours <- group_by(mydata, year) %>%
               summarise_(hours = interp(~ length(which(var > 200)),
                              var = as.name(pollutant)))
             hours$site <- Mean$site ## make sure all have same columns
             hours$date <- Mean$date
-            
+
             no2.results <- list(dataCapture, Mean, Min, Max, Median,  maxDaily, rollMax8,
                                 rollMax24, Percentile, hours)
-            
+
             no2.results <- Reduce(function(x, y) merge(x, y, by = c('site', 'year', 'date'),
                                                        all = TRUE), no2.results)
 
@@ -236,7 +236,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 
             co.results <- list(dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8, rollMax24,
                                Percentile)
-            co.results <- Reduce(function(x, y, by = 'year') merge(x, y, by = 'year',
+            co.results <- Reduce(function(x, y) merge(x, y, by = c('site', 'year', 'date'),
                                                     all = TRUE), co.results)
             co.results$pollutant <- "CO"
             results <- co.results
@@ -250,7 +250,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 
             results <- list(dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8, rollMax24,
                             Percentile)
-            results <- Reduce(function(x, y, by = 'year') merge(x, y, by = 'year',
+            results <- Reduce(function(x, y) merge(x, y, by = c('site', 'year', 'date'),
                                                  all = TRUE), results)
             results$pollutant <- pollutant
             results <- results
@@ -281,7 +281,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
         results
     }
 
-    
+
     results <- group_by(mydata, site) %>%
       do(bySite(mydata, pollutant = pollutant, data.thresh = data.thresh,
                 percentile = percentile,...))
@@ -313,7 +313,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 AOT40 <- function(mydata, pollutant, ...) {
     ## note the assumption is the O3 is in ug/m3
     daylight <- NULL
-    
+
     ## need daylight hours in growing season (April to September)
     mydata <- selectByDate(mydata, month = 4:9)
     mydata <- cutData(mydata, "daylight", ...)
