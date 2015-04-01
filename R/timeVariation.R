@@ -27,6 +27,13 @@
 ##' stacked. This will work in a similar way to having multiple
 ##' pollutants in separate columns.
 ##'
+##' The user can supply their own \code{ylim} e.g. \code{ylim = c(0,
+##' 200)} that will be used for all plots. \code{ylim} can also be a
+##' list of length four to control the y-limits on each individual
+##' plot e.g. \code{ylim = list(c(-100,500), c(200, 300), c(-400,400),
+##' c(50,70))}. These pairs correspond to the hour, weekday, month and
+##' day-hour plots respectively.
+##'
 ##' The option \code{difference} will calculate the difference in
 ##' means of two pollutants together with bootstrap estimates of the
 ##' 95\% confidence intervals in the difference in the mean. This works
@@ -329,7 +336,19 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     extra.args$lwd <- if ("lwd" %in% names(extra.args)) extra.args$lwd else 2
 
     ylim.handler <- if ("ylim" %in% names(extra.args))
-        FALSE else TRUE
+                        FALSE else TRUE
+
+    
+    ## if user supplies separate ylims for each plot
+    ylimList <- FALSE
+    
+    if ("ylim" %in% names(extra.args)) {
+        if (is.list(extra.args$ylim)) {
+            if (length(extra.args$ylim) != 4) stop("ylim should be a list of 4")
+            ylim.list <- extra.args$ylim
+            ylimList <- TRUE
+        }
+    }
 
     vars <- c("date", pollutant)
 
@@ -525,14 +544,14 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
 
     if (is.null(xlab[2]) | is.na(xlab[2])) xlab[2] <- "hour"
 
-    ## proper names of labelling ##############################################################################
+    ## proper names of labelling ##########################################################
     if (type != "default") {
         stripName <- sapply(levels(mydata[ , type]), function(x) quickText(x, auto.text))
         strip <- strip.custom(factor.levels =  stripName)
     } else {
         strip <- FALSE
     }
-    ## ########################################################################################################
+    ## ###################################################################################
 
     temp <- paste(type, collapse = "+")
     myform <- formula(paste("Mean ~ hour | ", temp, sep = ""))
@@ -540,7 +559,11 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     ## ylim hander
     if (ylim.handler)
         extra.args$ylim <- rng(data.hour)
-
+    
+    ## user supplied separate ylim
+    if (ylimList)
+        extra.args$ylim <- ylim.list[[1]]
+    
     ## plot
     xy.args <- list(x = myform, data = data.hour, groups = data.hour$variable,
                     as.table = TRUE,
@@ -606,6 +629,10 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     if (ylim.handler)
         extra.args$ylim <- rng(data.weekday)
 
+    ## user supplied separate ylim
+    if (ylimList)
+        extra.args$ylim <- ylim.list[[2]]
+
     ## plot
     xy.args <- list(x = myform,  data = data.weekday, groups = data.weekday$variable,
                     as.table = TRUE,
@@ -666,6 +693,10 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     ## ylim hander
     if (ylim.handler)
         extra.args$ylim <- rng(data.month)
+
+    ## user supplied separate ylim
+    if (ylimList)
+        extra.args$ylim <- ylim.list[[3]]
 
     ## plot
     xy.args <- list(x = myform, data = data.month, groups = data.month$variable,
@@ -760,6 +791,10 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     ## ylim hander
     if(ylim.handler)
         extra.args$ylim <- rng(data.day.hour)
+
+    ## user supplied separate ylim
+    if (ylimList)
+        extra.args$ylim <- ylim.list[[4]]
 
 
     ## plot

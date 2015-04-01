@@ -1,8 +1,8 @@
 Package: openair
 Type: Package
 Title: Tools for the Analysis of Air Pollution Data
-Version: 1.3
-Date: 2015-02-25
+Version: 1.4
+Date: 2015-04-21
 Authors@R: c(person("David", "Carslaw", role = c("aut", "cre"), email =
     "david.carslaw@kcl.ac.uk"), person("Karl", "Ropkins", role =
     "aut", email = "K.Ropkins@its.leeds.ac.uk"))

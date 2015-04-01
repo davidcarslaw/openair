@@ -1,4 +1,4 @@
-# Changes in openair 1.3 [2015-02-25]
+# Changes in openair 1.3 [2015-04-01]
 
 - Add 'days' as a time unit to `summaryPlot` - useful for shorter time
 series
@@ -16,6 +16,8 @@ fail given recent updates
 - Allow `TaylorDiagram` to have `group` of length two. This will show
   all group combinations but will only differentiate them by
   colour/symbol according to the first grouping variable.
+- `timeVariation` can now take a `ylim` list to control the y-limits
+on each individual plot
 
 # Changes in openair 1.1-2 [2015-01-26]
 

@@ -190,6 +190,13 @@ accept a \code{group} option which is useful if data are
 stacked. This will work in a similar way to having multiple
 pollutants in separate columns.
 
+The user can supply their own \code{ylim} e.g. \code{ylim = c(0,
+200)} that will be used for all plots. \code{ylim} can also be a
+list of length four to control the y-limits on each individual
+plot e.g. \code{ylim = list(c(-100,500), c(200, 300), c(-400,400),
+c(50,70))}. These pairs correspond to the hour, weekday, month and
+day-hour plots respectively.
+
 The option \code{difference} will calculate the difference in
 means of two pollutants together with bootstrap estimates of the
 95\% confidence intervals in the difference in the mean. This works
