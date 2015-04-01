@@ -1344,9 +1344,12 @@ add.map <- function (Args, ...) {
     if (Args$map.res == "default") {
         res <- "world"
     } else {
-        res <- "worldHires"
-       
+        res <- "worldHires"       
     }
+
+    ## USA specific maps
+    if (Args$map.res == "state") 
+        res <- "state"
     
     if (Args$map.fill) {
 

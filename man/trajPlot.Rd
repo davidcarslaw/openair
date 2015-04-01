@@ -54,7 +54,9 @@ is to fill countries.}
 function uses the \sQuote{world} map from the \code{maps}
 package. If \code{map.res = "hires"} then the (much) more detailed
 base map \sQuote{worldHires} from the \code{mapdata} package is
-used. Use \code{library(mapdata)}.}
+used. Use \code{library(mapdata)}. Also available is a map showing
+the US states. In this case \code{map.res = "state"} should be
+used.}
 
 \item{map.cols}{If \code{map.fill = TRUE} \code{map.cols} controls
 the fill colour. Examples include \code{map.fill = "grey40"} and
