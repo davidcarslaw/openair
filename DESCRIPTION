@@ -1,10 +1,10 @@
 Package: openair
 Type: Package
 Title: Tools for the Analysis of Air Pollution Data
-Version: 1.4
-Date: 2015-04-21
+Version: 1.5
+Date: 2015-04-12
 Authors@R: c(person("David", "Carslaw", role = c("aut", "cre"), email =
-    "david.carslaw@kcl.ac.uk"), person("Karl", "Ropkins", role =
+    "david.carslaw@york.ac.uk"), person("Karl", "Ropkins", role =
     "aut", email = "K.Ropkins@its.leeds.ac.uk"))
 ByteCompile: true
 Depends:
@@ -31,7 +31,7 @@ Suggests:
     png,
     KernSmooth
 LinkingTo: Rcpp
-Maintainer: David Carslaw <david.carslaw@kcl.ac.uk>
+Maintainer: David Carslaw <david.carslaw@york.ac.uk>
 Description: Tools to analyse, interpret and understand air
     pollution data. Data are typically hourly time series
     and both monitoring data and dispersion model output

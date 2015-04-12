@@ -30,6 +30,7 @@ not)
 - Add option dist to `scatterPlot` for surface modelling
 - Sort out package dependencies etc. to make maps easier to load
 - Add fontsize option to all openair plot functions
+- Change contact details, fix citation problem
 
 # Changes in openair 1.1 [2015-01-05]
 
