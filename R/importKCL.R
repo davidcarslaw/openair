@@ -498,7 +498,18 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
              fileName <- paste("http://www.londonair.org.uk/r_data/", x, ".RData", sep = "")
              con <- url(fileName)
              load(con)
-             close(con)
+            close(con)
+            
+            ## need to check the date starts at start of year...
+            start <- ISOdatetime(year = as.numeric(format(x$date[1], "%Y")), month = 1,
+                                 day = 1, hour = 0, min = 0, sec = 0, tz = "GMT")
+
+            if (x$date[1] != start) {
+                ## add first row
+                x1 <- data.frame(date = start, site = x$site[1])
+                x <- plyr::rbind.fill(x1, x)
+            }
+            
              x <- date.pad(x) ## pad out missing dates
              x
              },
