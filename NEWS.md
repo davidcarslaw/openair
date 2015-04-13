@@ -18,7 +18,9 @@ fail given recent updates
   colour/symbol according to the first grouping variable.
 - `timeVariation` can now take a `ylim` list to control the y-limits
 on each individual plot
-- For trajectory plotting allow `map.res` to be "state" to show the US States.
+- For trajectory plotting allow `map.res` to be "state" to show the US
+States.
+- Fix bug in `importKCL` when date was not at beginning of the year
 
 # Changes in openair 1.1-2 [2015-01-26]
 

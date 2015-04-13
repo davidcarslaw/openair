@@ -1,20 +1,21 @@
 # Sample .travis.yml for R projects from https://github.com/craigcitro/r-travis
 
-language: c
+language: r
+warnings_are_errors: true
+sudo: required
 
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-
-install:
-  - ./travis-tool.sh r_binary_install plyr reshape2 Rcpp latticeExtra RColorBrewer mapproj hexbin maps mapdata RgoogleMaps png
-  - ./travis-tool.sh install_deps
-
-script: ./travis-tool.sh run_tests
-
-after_failure:
-  - ./travis-tool.sh dump_logs
+r_packages:
+  - Rcpp
+  - plyr
+  - reshape2
+  - latticeExtra
+  - RColorBrewer
+  - mapproj
+  - hexbin
+  - maps
+  - mapdata
+  - RgoogleMaps
+  - png
 
 env:
    global:
