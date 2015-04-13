@@ -16,7 +16,6 @@ r_packages:
   - mapdata
   - RgoogleMaps
   - png
-
 env:
    global:
      - R_BUILD_ARGS="--no-build-vignettes --no-manual --resave-data"
