@@ -102,6 +102,9 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 
     calcStats <- function(mydata, pollutant, data.thresh, percentile, ...) {
 
+        ## select only data needed
+        mydata <- mydata[c("date", pollutant, "site")]
+
         ## file any missing hours
         start.date <- as.POSIXct(dateTrunc(min(mydata$date), "year"))
         end.date <- as.POSIXct(dateCeil(max(mydata$date), "year") - 3600)
@@ -112,7 +115,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
         mydata <- merge(mydata, all.dates, all = TRUE)
         mydata$year <- format(mydata$date, "%Y")
 
-
+        
         Mean <- group_by(mydata, year) %>%
           do(timeAverage(., avg.time = "year", statistic = "mean", data.thresh,
                          print.int = FALSE)) %>%
@@ -204,7 +207,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 
             no2.results <- list(dataCapture, Mean, Min, Max, Median,  maxDaily, rollMax8,
                                 rollMax24, Percentile, hours)
-
+            
             no2.results <- Reduce(function(x, y) merge(x, y, by = c('site', 'year', 'date'),
                                                        all = TRUE), no2.results)
 
@@ -242,7 +245,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
             results <- co.results
             results
         }
-
+        
 
         ## see if pollutant string in any pre-defined ones
         ## if not calculate basic stats
@@ -250,8 +253,10 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 
             results <- list(dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8, rollMax24,
                             Percentile)
+            
             results <- Reduce(function(x, y) merge(x, y, by = c('site', 'year', 'date'),
-                                                 all = TRUE), results)
+                                                   all = TRUE), results)
+            
             results$pollutant <- pollutant
             results <- results
 
@@ -275,7 +280,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
                                                             data.thresh = data.thresh,
                                                             percentile = percentile, ...))
 
-
+        
         results <- rbind_all(results)
         results$year <- as.numeric(results$year)
         results
@@ -285,6 +290,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
     results <- group_by(mydata, site) %>%
       do(bySite(mydata, pollutant = pollutant, data.thresh = data.thresh,
                 percentile = percentile,...))
+    
 
     ## order sensible
     results <- cbind(subset(results, select = c(site, pollutant)), subset(results,
