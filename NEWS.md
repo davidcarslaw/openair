@@ -33,6 +33,8 @@ not)
 - Sort out package dependencies etc. to make maps easier to load
 - Add fontsize option to all openair plot functions
 - Change contact details, fix citation problem
+- Make sure `importKCL` is file of full year
+- Fix warning messages in `aqStats` when multiple pollutants selected
 
 # Changes in openair 1.1 [2015-01-05]
 
