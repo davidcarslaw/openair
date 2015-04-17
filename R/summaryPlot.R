@@ -294,7 +294,7 @@ summaryPlot <- function(mydata,
     ## means for trend line
 
     if (period == "years") avgt <- "day"
-    if (period == "month") avgt <- "day"
+    if (period == "months") avgt <- "day"
     if (period == "days") avgt <- "hour"
     
     
