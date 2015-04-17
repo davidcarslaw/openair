@@ -356,20 +356,7 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all", hc = FALSE)
     id <- which(names(thedata) %in% "noxasno2")
     if (length(id) == 1) names(thedata)[id] <- "nox"
 
-    ## set class to integer for post-processing convenience
-    if ("nox" %in% names(thedata)) class(thedata$nox) <- "integer"
-    if ("no" %in% names(thedata)) class(thedata$no) <- "integer"
-    if ("no2" %in% names(thedata)) class(thedata$no2) <- "integer"
-    if ("o3" %in% names(thedata)) class(thedata$o3) <- "integer"
-    if ("so2" %in% names(thedata)) class(thedata$so2) <- "integer"
-    if ("pm10" %in% names(thedata)) class(thedata$pm10) <- "integer"
-    if ("pm2.5" %in% names(thedata)) class(thedata$pm2.5) <- "integer"
-    if ("v10" %in% names(thedata)) class(thedata$v10) <- "integer"
-    if ("v2.5" %in% names(thedata)) class(thedata$v2.5) <- "integer"
-    if ("nv10" %in% names(thedata)) class(thedata$v10) <- "integer"
-    if ("nv2.5" %in% names(thedata)) class(thedata$v2.5) <- "integer"
-
-
+    
     ## should hydrocarbons be imported?
     if (hc) {
         thedata <- thedata

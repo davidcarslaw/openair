@@ -1,4 +1,6 @@
-# Changes in openair 1.6 [2015-04-14]
+# Changes in openair 1.6 [2015-04-17]
+
+- Don't force integer results for `importAURN`
 
 # Changes in openair 1.5 [2015-04-14]
 
