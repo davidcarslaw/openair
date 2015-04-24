@@ -339,12 +339,16 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     ##Args setup
     Args <- list(...)
 
-    Args$xlab <- if("xlab" %in% names(Args))
+    Args$xlab <- if ("xlab" %in% names(Args))
                      quickText(Args$xlab, auto.text) else quickText(x, auto.text)
-    Args$ylab <- if("ylab" %in% names(Args))
+    Args$ylab <- if ("ylab" %in% names(Args))
                      quickText(Args$ylab, auto.text) else quickText(y, auto.text)
-    Args$key.footer <- if("key.footer" %in% names(Args))
+    Args$key.footer <- if ("key.footer" %in% names(Args))
                            Args$key.footer else NULL
+    
+    if (!"aspect" %in% names(Args) && method == "hexbin")
+        Args$aspect <- 1
+
     if (!"lwd" %in% names(Args))
         Args$lwd <- 1
     if (!"lty" %in% names(Args))
@@ -790,7 +794,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     }
 
     ## ######################################################################################
-    if (method == "hexbin") {       
+    if (method == "hexbin") {
 
         hex.args <- list(x = myform, data = mydata,
                          strip = strip,
