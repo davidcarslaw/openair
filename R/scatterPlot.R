@@ -803,12 +803,17 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                          colorkey = TRUE,
                          colramp = function(n) {openColours(method.col, n)},
                          ...,
-                         panel = function(x,...) {
+                         panel = function(x, lty, lwd, ...) {
                              if (!Args$traj) panel.grid(-1, -1)
                              panel.hexbinplot(x,...)
 
                              if (mod.line)
                                  panel.modline(log.x, log.y)
+
+                             if (linear & npol == 1)
+                                    panel.linear(x, y, col = "black", myColors[group.number],
+                                                 lwd = 1, lty = 5, x.nam = x.nam,
+                                                 y.nam = y.nam, se = ci,  ...)
 
                            ## base map
                              if (map)
@@ -1354,7 +1359,7 @@ add.map <- function (Args, ...) {
     if (Args$map.fill) {
 
         mp <- maps::map(database = res, plot = FALSE, fill = TRUE, projection = Args$projection,
-                  parameters = Args$parameters, orientation = Args$orientation)
+                        parameters = Args$parameters, orientation = Args$orientation)
         mp <- maps::map.wrap(mp)
 
         panel.polygon(mp$x, mp$y, col = Args$map.cols, border = "white",

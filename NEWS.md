@@ -2,6 +2,7 @@
 
 - Don't force integer results for `importAURN`
 - fix bug with `period = "months"` in `summaryPlot`
+- allow linear fit with `method = "hexbin"` in `scatterPlot`
 
 # Changes in openair 1.5 [2015-04-14]
 
