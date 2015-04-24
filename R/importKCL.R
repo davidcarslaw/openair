@@ -485,7 +485,7 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
     con <- url((paste("http://www.londonair.org.uk/r_data/", "sites", ".RData", sep = "")))
     load(con)
     close(con)
-
+    
     id <- sapply(site, function(x) which(sites$SiteCode %in% toupper(x)))
     site.name <- sites$SiteName[id]
 
@@ -577,7 +577,9 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
                            "v10", "v2.5", "nv10", "nv2.5", "code", "site")
         thedata <- thedata[,  which(names(thedata) %in% theNames)]
     }
-
+    
+    if (is.null(nrow(thedata))) return()
+    
     ## warning about recent, possibly unratified data
     timeDiff <- difftime(Sys.time(),  max(thedata$date), units='days')
     if (timeDiff < 180) {
