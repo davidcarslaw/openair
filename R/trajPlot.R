@@ -170,8 +170,8 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
 
     mydata <- subset(mydata, len == n)
 
-    ##extra.args
-    extra.args <- list(...)
+    ##Args
+    Args <- list(...)
     method <- "scatter"
 
     ## set graphics
@@ -183,28 +183,50 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                             fontsize = current.font))
 
     #aspect, cex
-     if (!"plot.type" %in% names(extra.args))
-        extra.args$plot.type <- "l"
+     if (!"plot.type" %in% names(Args))
+        Args$plot.type <- "l"
 
-    if (!"cex" %in% names(extra.args))
-        extra.args$cex <- 0.1
+    if (!"cex" %in% names(Args))
+        Args$cex <- 0.1
 
-    if (!"ylab" %in% names(extra.args))
-        extra.args$ylab <- ""
+    if (!"ylab" %in% names(Args))
+        Args$ylab <- ""
 
-    if (!"xlab" %in% names(extra.args))
-        extra.args$xlab <- ""
+    if (!"xlab" %in% names(Args))
+        Args$xlab <- ""
 
-    if ("fontsize" %in% names(extra.args))
-        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+    if ("fontsize" %in% names(Args))
+        trellis.par.set(fontsize = list(text = Args$fontsize))
+
+    ## xlim and ylim set by user
+    if (!"xlim" %in% names(Args))
+        Args$xlim <- range(mydata$lon)
+
+    if (!"ylim" %in% names(Args))
+        Args$ylim <- range(mydata$lat)
+
+    ## extent of data (or limits set by user) in degrees
+    trajLims <- c(Args$xlim, Args$ylim)
+    
+    ## need *outline* of boundary for map limits
+    Args <- setTrajLims(mydata, Args, projection, parameters, orientation)
+
+    ## transform data for map projection
+    tmp <- mapproject(x = mydata[["lon"]],
+                      y = mydata[["lat"]],
+                      projection = projection,
+                      parameters = parameters,
+                      orientation = orientation)
+    mydata[["lon"]] <- tmp$x
+    mydata[["lat"]] <- tmp$y
     
     
     if (missing(pollutant)) { ## don't need key
 
         if (is.na(group)) key <- FALSE else key <- TRUE
 
-        if (!"main" %in% names(extra.args))
-             extra.args$main <- NULL
+        if (!"main" %in% names(Args))
+             Args$main <- NULL
 
         scatterPlot.args <- list(mydata, x = lon, y = lat, z = NA,
                                  type = type, method = method,
@@ -213,11 +235,11 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                                  map.cols = map.cols, map.alpha = map.alpha,
                                  traj = TRUE, projection = projection,
                                  parameters = parameters, orientation = orientation,
-                                 grid.col = grid.col)
+                                 grid.col = grid.col, trajLims = trajLims)
 
     } else {
-         if(!"main" %in% names(extra.args))
-             extra.args$main <- pollutant
+         if(!"main" %in% names(Args))
+             Args$main <- pollutant
 
         scatterPlot.args <- list(mydata, x = lon, y = lat, z = pollutant,
                                  type = type, method = method,
@@ -226,17 +248,62 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                                  map.cols = map.cols,
                                  map.alpha = map.alpha, traj = TRUE, projection = projection,
                                  parameters = parameters, orientation = orientation,
-                                 grid.col = grid.col)
+                                 grid.col = grid.col, trajLims = trajLims)
     }
 
-    #reset for extra.args
-    scatterPlot.args <- listUpdate(scatterPlot.args, extra.args)
+    #reset for Args
+    scatterPlot.args <- listUpdate(scatterPlot.args, Args)
 
     #plot
     do.call(scatterPlot, scatterPlot.args)
 
 
 
+}
+
+
+setTrajLims <- function(mydata, Args, projection, parameters, orientation) {
+
+    ## xlim and ylim set by user
+    if ("xlim" %in% names(Args)) {
+
+        x1 <- Args$xlim[1]
+        x2 <- Args$xlim[2]
+
+    } else {
+
+        x1 <- min(mydata$lon)
+        x2 <- max(mydata$lon)
+
+    }
+
+    if ("ylim" %in% names(Args)) {
+
+        y1 <- Args$ylim[1]
+        y2 <- Args$ylim[2]
+
+    } else {
+
+        y1 <- min(mydata$lat)
+        y2 <- max(mydata$lat)
+
+    }
+
+    n <- 40 ## number of points along each vertex
+    
+    X <- c(seq(x1, x1, length.out = n), seq(x1, x2, length.out = n),
+       seq(x2, x2, length.out = n), seq(x2, x1, length.out = n))
+
+    Y <- c(seq(y1, y2, length.out = n), seq(y2, y2, length.out = n),
+           seq(y2, y1, length.out = n), seq(y1, y1, length.out = n))
+    
+    tmp <- mapproject(x = X, y = Y, projection = projection,
+                      parameters = parameters, orientation = orientation)
+    
+    Args$xlim <- tmp$range[1:2]
+    Args$ylim <- tmp$range[3:4]
+    Args
+    
 }
 
 ## function from mapproj to add grid lines to a map

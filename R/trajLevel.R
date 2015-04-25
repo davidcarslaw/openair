@@ -239,8 +239,8 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     vars <- c("date", "lat", "lon", "hour.inc", pollutant)
     mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
     
-    ## extra.args
-    extra.args <- list(...)
+    ## Args
+    Args <- list(...)
 
     ## set graphics
     current.strip <- trellis.par.get("strip.background")
@@ -252,36 +252,49 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
     statistic <- tolower(statistic)
 
-    if (!"ylab" %in% names(extra.args))
-        extra.args$ylab <- ""
+    if (!"ylab" %in% names(Args))
+        Args$ylab <- ""
 
-    if (!"xlab" %in% names(extra.args))
-        extra.args$xlab <- ""
+    if (!"xlab" %in% names(Args))
+        Args$xlab <- ""
 
-    if (!"main" %in% names(extra.args))
-        extra.args$main <- ""
+    if (!"main" %in% names(Args))
+        Args$main <- ""
 
-    if (!"border" %in% names(extra.args))
-        extra.args$border <- NA
+    if (!"border" %in% names(Args))
+        Args$border <- NA
 
-    if ("fontsize" %in% names(extra.args))
-        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+    if ("fontsize" %in% names(Args))
+        trellis.par.set(fontsize = list(text = Args$fontsize))
 
-    if (!"key.header" %in% names(extra.args)) {
-        if (statistic == "frequency") extra.args$key.header <- "% trajectories"
-        if (statistic == "pscf") extra.args$key.header <- "PSCF \nprobability"
-        if (statistic == "difference") extra.args$key.header <- quickText(paste("gridded differences", "\n(", percentile, "th percentile)", sep = ""))
+    if (!"key.header" %in% names(Args)) {
+        if (statistic == "frequency") Args$key.header <- "% trajectories"
+        if (statistic == "pscf") Args$key.header <- "PSCF \nprobability"
+        if (statistic == "difference") Args$key.header <- quickText(paste("gridded differences", "\n(", percentile, "th percentile)", sep = ""))
     }
 
-     if(!"key.footer" %in% names(extra.args))
-         extra.args$key.footer <- ""
+     if(!"key.footer" %in% names(Args))
+         Args$key.footer <- ""
 
-    extra.args$trajStat <- statistic
+    ## xlim and ylim set by user
+    if (!"xlim" %in% names(Args))
+        Args$xlim <- range(mydata$lon)
 
-    if (!"method" %in% names(extra.args)) {
+    if (!"ylim" %in% names(Args))
+        Args$ylim <- range(mydata$lat)
+
+    ## extent of data (or limits set by user) in degrees
+    trajLims <- c(Args$xlim, Args$ylim)
+
+    ## need *outline* of boundary for map limits
+    Args <- setTrajLims(mydata, Args, projection, parameters, orientation)
+
+    Args$trajStat <- statistic
+
+    if (!"method" %in% names(Args)) {
         method <- "traj"
     } else {
-        method <- extra.args$method
+        method <- Args$method
         statistic = "XX" ## i.e. it wont touch the data
     }
 
@@ -414,10 +427,10 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
                              map.cols = map.cols, map.alpha = map.alpha, traj = TRUE,
                              projection = projection,
                              parameters = parameters, orientation = orientation,
-                             grid.col = grid.col)
+                             grid.col = grid.col, trajLims = trajLims)
 
-    ## reset for extra.args
-    scatterPlot.args <- listUpdate(scatterPlot.args, extra.args)
+    ## reset for Args
+    scatterPlot.args <- listUpdate(scatterPlot.args, Args)
 
     ## plot
     do.call(scatterPlot, scatterPlot.args)

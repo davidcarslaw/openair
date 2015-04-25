@@ -447,17 +447,17 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         vars <- c(vars, "date")
 
         ## these are the map limits used for grid lines - in degrees
-        Args$trajLims <- c(range(mydata[[var1]], na.rm = TRUE), range(mydata[[var2]],
-                                                     na.rm = TRUE) )
+   #     Args$trajLims <- c(range(mydata[[var1]], na.rm = TRUE), range(mydata[[var2]],
+    #                                                 na.rm = TRUE) )
 
-        ## apply map projection
-        tmp <- mapproject(x = mydata[[var1]],
-                          y = mydata[[var2]],
-                          projection = Args$projection,
-                          parameters = Args$parameters,
-                          orientation = Args$orientation)
-        mydata[[var1]] <- tmp$x
-        mydata[[var2]] <- tmp$y
+       ## apply map projection
+    #    tmp <- mapproject(x = mydata[[var1]],
+    #                      y = mydata[[var2]],
+    #                      projection = Args$projection,
+    #                      parameters = Args$parameters,
+    #                      orientation = Args$orientation)
+    #    mydata[[var1]] <- tmp$x
+    #    mydata[[var2]] <- tmp$y
 
     }
 
@@ -1017,7 +1017,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
         ## used for map grid
 
-        Args$trajLims <- c(range(mydata$xgrid, na.rm = TRUE), range(mydata$ygrid, na.rm = TRUE))
+      #  Args$trajLims <- c(range(mydata$xgrid, na.rm = TRUE), range(mydata$ygrid, na.rm = TRUE))
 
         rhs <- paste0("xgrid * ygrid |", type)
         myform <- formula(paste(z, "~", rhs))
@@ -1378,7 +1378,7 @@ add.map <- function (Args, ...) {
         llines(mp$x, mp$y, col = "black")
 
     }
-
+    
     map.grid2(lim = Args$trajLims, projection = Args$projection,
              parameters = Args$parameters,
              orientation = Args$orientation, col = Args$grid.col)

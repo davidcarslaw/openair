@@ -110,7 +110,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5, plot = TRUE, typ
     if (tolower(method) == "euclid")  method <- "distEuclid" else method <- "distAngle"
 
 
-    extra.args <- list(...)
+    Args <- list(...)
 
     ## set graphics
     current.strip <- trellis.par.get("strip.background")
@@ -121,13 +121,13 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5, plot = TRUE, typ
                             fontsize = current.font))
     
     ## label controls
-    extra.args$plot.type <- if ("plot.type" %in% names(extra.args))
-        extra.args$plot.type else extra.args$plot.type <- "l"
-    extra.args$lwd <- if ("lwd" %in% names(extra.args))
-       extra.args$lwd else extra.args$lwd <- 4
+    Args$plot.type <- if ("plot.type" %in% names(Args))
+        Args$plot.type else Args$plot.type <- "l"
+    Args$lwd <- if ("lwd" %in% names(Args))
+       Args$lwd else Args$lwd <- 4
 
-    if ("fontsize" %in% names(extra.args))
-        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+    if ("fontsize" %in% names(Args))
+        trellis.par.set(fontsize = list(text = Args$fontsize))
 
     calcTraj <- function(traj) {
 
@@ -183,14 +183,36 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5, plot = TRUE, typ
         class(agg$date) = class(traj$date)
         attr(agg$date, "tzone") <- "GMT"
 
+        ## xlim and ylim set by user
+        if (!"xlim" %in% names(Args))
+            Args$xlim <- range(agg$lon)
+
+        if (!"ylim" %in% names(Args))
+            Args$ylim <- range(agg$lat)
+
+        ## extent of data (or limits set by user) in degrees
+        trajLims <- c(Args$xlim, Args$ylim)
+        
+        ## need *outline* of boundary for map limits
+        Args <- setTrajLims(traj, Args, projection, parameters, orientation)
+
+        ## transform data for map projection
+        tmp <- mapproject(x = agg[["lon"]],
+                          y = agg[["lat"]],
+                          projection = projection,
+                          parameters = parameters,
+                          orientation = orientation)
+        agg[["lon"]] <- tmp$x
+        agg[["lat"]] <- tmp$y
+
         plot.args <- list(agg, x = "lon", y ="lat", group = "cluster",
-                    col = cols, type = type, map = TRUE, map.fill = map.fill,
+                          col = cols, type = type, map = TRUE, map.fill = map.fill,
                           map.cols = map.cols, map.alpha = map.alpha,
                           projection = projection, parameters = parameters,
-                          orientation = orientation, traj = TRUE)
+                          orientation = orientation, traj = TRUE, trajLims = trajLims)
 
-         ## reset for extra.args
-        plot.args <- listUpdate(plot.args, extra.args)
+         ## reset for Args
+        plot.args <- listUpdate(plot.args, Args)
 
         ## plot
         plt <- do.call(scatterPlot, plot.args)
