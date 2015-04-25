@@ -434,33 +434,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
     ## will need date so that trajectory groups can be coloured
 
-    if (Args$traj && method %in% c("scatter", "density", "hexbin"))  {
-
-        if (method == "hexbin") {
-            var1 <- "xgrid"
-            var2 <- "ygrid"
-        } else {
-            var1 <- "lon"
-            var2 <- "lat"
-        }
-        
+    if (Args$traj && method %in% c("scatter", "density", "hexbin"))
         vars <- c(vars, "date")
-
-        ## these are the map limits used for grid lines - in degrees
-   #     Args$trajLims <- c(range(mydata[[var1]], na.rm = TRUE), range(mydata[[var2]],
-    #                                                 na.rm = TRUE) )
-
-       ## apply map projection
-    #    tmp <- mapproject(x = mydata[[var1]],
-    #                      y = mydata[[var2]],
-    #                      projection = Args$projection,
-    #                      parameters = Args$parameters,
-    #                      orientation = Args$orientation)
-    #    mydata[[var1]] <- tmp$x
-    #    mydata[[var2]] <- tmp$y
-
-    }
-
 
     ## data checks
 
@@ -1014,10 +989,6 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         ## bin data
         mydata$ygrid <- round_any(mydata[[y]], y.inc)
         mydata$xgrid <- round_any(mydata[[x]], x.inc)
-
-        ## used for map grid
-
-      #  Args$trajLims <- c(range(mydata$xgrid, na.rm = TRUE), range(mydata$ygrid, na.rm = TRUE))
 
         rhs <- paste0("xgrid * ygrid |", type)
         myform <- formula(paste(z, "~", rhs))

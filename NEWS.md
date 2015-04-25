@@ -3,6 +3,8 @@
 - Don't force integer results for `importAURN`
 - fix bug with `period = "months"` in `summaryPlot`
 - allow linear fit with `method = "hexbin"` in `scatterPlot`
+- allow users to define own map limits in trajectory functions and
+  better scaled map grids
 
 # Changes in openair 1.5 [2015-04-14]
 
