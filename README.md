@@ -11,7 +11,11 @@ quality data - or more generally atmospheric composition data. The
 package is extensively used in academia, the public and private
 sectors. The project was initially funded by the UK Natural
 Environment Research Council ([NERC](http://www.nerc.ac.uk/)), with
-additional funds from Defra.
+additional funds from Defra. The most up to date information on
+openair can be found in the package itself and the
+[manual](https://www.dropbox.com/s/2n7wdyursdul8dk/openairManual.pdf?dl=0)
+which provides an introduction to R with a focus on air quality data
+as well as extensive reproducible examples.
 
 ## Installation
 
