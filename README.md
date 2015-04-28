@@ -25,6 +25,10 @@ require(devtools)
 install_github('davidcarslaw/openair')
 ```
 
+I also try to keep up to date versions of the package
+[here](https://www.dropbox.com/sh/x8mmf5d54wfo5vq/AACpKqsrPkTC0guiu5ftiKNna?dl=0)
+if you can't build the package yourself.
+
 ## Description
 
 openair has developed over several years to help analyse atmospheric composition data; initially focused on air quality data. 
