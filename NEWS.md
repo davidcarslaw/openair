@@ -4,7 +4,8 @@
 - fix bug with `period = "months"` in `summaryPlot`
 - allow linear fit with `method = "hexbin"` in `scatterPlot`
 - allow users to define own map limits in trajectory functions and
-  better scaled map grids
+better scaled map grids
+- fix renaming bug in `airbaseStats`
 
 # Changes in openair 1.5 [2015-04-14]
 

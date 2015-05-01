@@ -318,18 +318,21 @@ airbaseStats <- function(statistic = "Mean",
         dat <- dat[-id, ]
 
     }
-
+    
     ## site type
     dat <- dat[toupper(dat$site.type) %in% toupper(site.type) , ]
 
     ## year
     dat <- dat[dat$year %in% year, ]
-
+    
     ## rename some fields
-    dat <- rename(dat, c("component_caption" = "pollutant",
-                         "value" = pollutant))
+    id <- which(names(dat) == "value")
+    names(dat)[id] <- pollutant
 
-    dat
+    id <- which(names(dat) == "component_caption")
+    names(dat)[id] <- "pollutant"
+
+    datg
 
 }
 
