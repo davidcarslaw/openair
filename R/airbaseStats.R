@@ -332,7 +332,7 @@ airbaseStats <- function(statistic = "Mean",
     id <- which(names(dat) == "component_caption")
     names(dat)[id] <- "pollutant"
 
-    datg
+    dat
 
 }
 
