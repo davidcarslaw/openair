@@ -520,8 +520,18 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
     thedata <- lapply(files, loadData)
 
     thedata <- plyr::ldply(thedata, bind_rows)
+    
+    if (is.null(thedata)) {
 
-    if (is.null(thedata)) stop("No data to import - check site codes and year.", call. = FALSE)
+        warning("No data to import - check site codes and year.", call. = FALSE)
+        return()
+    }
+    
+    if (nrow(thedata) < 1) {
+        warning("No data to import - check site codes and year.", call. = FALSE)
+        return()
+    }
+
 
     thedata$code <- thedata$site
 
