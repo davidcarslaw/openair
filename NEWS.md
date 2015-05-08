@@ -7,6 +7,7 @@
 better scaled map grids
 - fix renaming bug in `airbaseStats`
 - bug in `windRose` when all calm
+- date bug fixes in `scatterPlot`
 
 # Changes in openair 1.5 [2015-04-14]
 
