@@ -351,12 +351,18 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
     if (!"lwd" %in% names(Args))
         Args$lwd <- 1
+    
     if (!"lty" %in% names(Args))
         Args$lty <- 1
+    
     if (!"layout" %in% names(Args))
         Args$layout <- NULL
+    
     if ("trajStat" %in% names(Args))
         trajStat <- Args$trajStat else trajStat <- "mean"
+
+    if ("date.format" %in% names(Args))
+        Args$date.format <- Args$date.format else Args$date.format <- NULL
 
     if ("fontsize" %in% names(Args))
         trellis.par.set(fontsize = list(text = Args$fontsize))
@@ -381,7 +387,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
     ## average the data if necessary (default does nothing)
     ## note - need to average before cutting data up etc
-
+    
     if (!is.na(group)) types <- c(type, group) else types <- type
     if (avg.time != "default")  {
 
@@ -390,12 +396,12 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             stop ("Can't have an averging period set and a time-based 'type' or 'group'.")
         if ("default" %in% types) mydata$default <- 0 ## FIX ME
 
-        mydata <- group_by_(mydata, types) %>%
-          do(timeAverage(., avg.time = avg.time,
+        mydata <- plyr::ddply(mydata, types, timeAverage, avg.time = avg.time,
                         statistic = statistic, percentile = percentile,
-                        data.thresh = data.thresh))
+                        data.thresh = data.thresh)
+        
     }
-
+    
     ## the following makes sure all variables are present, which depends on 'group'
     ## and 'type'
     if (is.na(z) & method == "level")
@@ -410,7 +416,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
         vars <- c(x, y)
     }
-
+    
     ## if group is present, need to add that list of variables unless it is a
     ## pre-defined date-based one
     if (!is.na(group)){
@@ -550,7 +556,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     if (is.na(group)) {mydata$MyGroupVar <- factor("MyGroupVar"); group <-  "MyGroupVar"}
 
     ## number of groups
-    npol <- length(unique(mydata[ , group]))
+    npol <- length(unique(mydata[[group]]))
 
     if (!"pch" %in% names(Args)) Args$pch <- seq(npol)
 
@@ -561,7 +567,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     temp <- paste(type, collapse = "+")
     myform <- formula(paste(y, "~", x, "|", temp, sep = ""))
 
-    scales <- list(x = list(log = nlog.x, rot = x.rot, relation = x.relation),
+
+    scales <- list(x = list(log = nlog.x, rot = x.rot, relation = x.relation,
+                            format = Args$date.format),
                    y = list(log = nlog.y, relation = y.relation, rot = 0))
 
     ## don't need scales for trajectories
@@ -573,8 +581,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     if (log.x)  mydata <- mydata[mydata[ , x] > 0, ]
     if (log.y)  mydata <- mydata[mydata[ , y] > 0, ]
 
-    pol.name <- sapply(levels(mydata[ , group]), function(x) quickText(x, auto.text))
-
+    pol.name <- sapply(levels(mydata[[group]]), function(x) quickText(x, auto.text))
+    
     if (is.na(z)) { ## non-continuous key
 
         if (key & npol > 1) {
@@ -646,7 +654,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     groupMax <- length(unique(factor(mydata$MyGroupVar)))
 
     plotType <- if (!Args$traj) c("p", "g") else "n"
-
+    
     if (method == "scatter") {
 
         if (missing(k)) k <- NULL ## auto-smoothing by default
@@ -768,7 +776,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
     }
 
-    ## ######################################################################################
+    ## ################################################################################
     if (method == "hexbin") {
 
         hex.args <- list(x = myform, data = mydata,
@@ -1306,7 +1314,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         plt <- do.call(levelplot, levelplot.args)
 
     }
-
+    
 
     if (length(type) == 1) plot(plt) else plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
     newdata <- mydata
