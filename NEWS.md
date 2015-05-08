@@ -6,6 +6,7 @@
 - allow users to define own map limits in trajectory functions and
 better scaled map grids
 - fix renaming bug in `airbaseStats`
+- bug in `windRose` when all calm
 
 # Changes in openair 1.5 [2015-04-14]
 

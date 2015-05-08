@@ -336,18 +336,18 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
     ## label controls
     extra$xlab <- if("xlab" %in% names(extra))
-        quickText(extra$xlab, auto.text) else quickText("", auto.text)
+                      quickText(extra$xlab, auto.text) else quickText("", auto.text)
     extra$ylab <- if("ylab" %in% names(extra))
-        quickText(extra$ylab, auto.text) else quickText("", auto.text)
+                      quickText(extra$ylab, auto.text) else quickText("", auto.text)
     extra$main <- if("main" %in% names(extra))
-        quickText(extra$main, auto.text) else quickText("", auto.text)
+                      quickText(extra$main, auto.text) else quickText("", auto.text)
 
     if ("fontsize" %in% names(extra))
         trellis.par.set(fontsize = list(text = extra$fontsize))
     
     rounded <- FALSE ## is the wd already rounded to 10 degrees, if so need to correct bias later
     if (all(mydata[[wd]] %% 10 == 0, na.rm = TRUE)) rounded <- TRUE
-
+    
     ## preset statitistics
 
     if (is.character(statistic)) {
@@ -458,7 +458,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
     if (is.null(pollutant)) pollutant <- ws
 
-    mydata$x <- mydata[, pollutant]
+    mydata$x <- mydata[[pollutant]]
 
     mydata[[wd]] <- angle * ceiling(mydata[[wd]] / angle - 0.5)
     mydata[[wd]][mydata[[wd]] == 0] <- 360
@@ -468,10 +468,12 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     ## do after rounding or -999 changes
 
     if (length(breaks) == 1) breaks <- 0:(breaks - 1) * ws.int
+    
+    if (max(breaks) < max(mydata$x, na.rm = TRUE))
+        breaks <- c(breaks, max(mydata$x, na.rm = TRUE))
 
-    if (max(breaks) < max(mydata$x, na.rm = TRUE)) breaks <- c(breaks, max(mydata$x, na.rm = TRUE))
-
-    if (min(breaks) > min(mydata$x, na.rm = TRUE)) warning ("Some values are below minimum break.")
+    if (min(breaks) > min(mydata$x, na.rm = TRUE))
+        warning ("Some values are below minimum break.")
 
     breaks <- unique(breaks)
     mydata$x <- cut(mydata$x, breaks = breaks, include.lowest = FALSE,
@@ -486,59 +488,67 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     ## statistic handling
 
     prepare.grid <- function(mydata) {
-        ## return if there is nothing to plot
-        if (all(is.na(mydata$x))) return()
-
-        levels(mydata$x) <- c(paste("Interval", 1:length(labs), sep = ""))
-
-        all <- stat.fun(mydata[[wd]])
-        calm <- mydata[mydata[[wd]] == -999, ][, pollutant]
-        mydata <- mydata[mydata[[wd]] != -999, ]
-
-        calm <- stat.fun(calm)
-
-        weights <- tapply(mydata[[pollutant]], list(mydata[[wd]], mydata$x),
-                          stat.fun)
-        freqs <- tapply(mydata[[pollutant]], mydata[[wd]], length)
-
-        ## scaling
-        if (stat.scale == "all") {
-            calm <- calm / all
-            weights <- weights / all
-        }
-
-        if (stat.scale == "panel") {
-            temp <- stat.fun(stat.fun(weights)) + calm
-            calm <- calm / temp
-            weights <- weights / temp
-        }
-
-        weights[is.na(weights)] <- 0
-        weights <- t(apply(weights, 1, cumsum))
-
-        if (stat.scale == "all" | stat.scale == "panel"){
-            weights <- weights * 100
-            calm <- calm * 100
-        }
-
-        panel.fun <- stat.fun2(mydata[[pollutant]])
-
-        ## calculate mean wd - useful for cases comparing two met data sets
-        u <- mean(sin(2 * pi * mydata[[wd]] / 360))
-        v <- mean(cos(2 * pi * mydata[[wd]] / 360))
-        mean.wd <- atan2(u, v) * 360 / 2 / pi
-
-        if (all(is.na(mean.wd))) {
-            mean.wd <- NA
+        
+        ## these are all calms...
+        if (all(is.na(mydata$x))) {
+            
+            weights <- data.frame(Interval1 = NA, wd = NA,
+                                  calm = 100, panel.fun = NA, mean.wd = NA, freqs = NA)
+            
         } else {
-            if (mean.wd < 0) mean.wd <- mean.wd + 360
-            ## show as a negative (bias)
-            if (mean.wd > 180) mean.wd <- mean.wd - 360
+            
+            levels(mydata$x) <- c(paste("Interval", 1:length(labs), sep = ""))
+
+            all <- stat.fun(mydata[[wd]])
+            calm <- mydata[mydata[[wd]] == -999, ][[pollutant]]
+            mydata <- mydata[mydata[[wd]] != -999, ]
+
+            calm <- stat.fun(calm)
+
+            weights <- tapply(mydata[[pollutant]], list(mydata[[wd]], mydata$x),
+                              stat.fun)
+            freqs <- tapply(mydata[[pollutant]], mydata[[wd]], length)
+
+            ## scaling
+            if (stat.scale == "all") {
+                calm <- calm / all
+                weights <- weights / all
+            }
+
+            if (stat.scale == "panel") {
+                temp <- stat.fun(stat.fun(weights)) + calm
+                calm <- calm / temp
+                weights <- weights / temp
+            }
+
+            weights[is.na(weights)] <- 0
+            weights <- t(apply(weights, 1, cumsum))
+
+            if (stat.scale == "all" | stat.scale == "panel"){
+                weights <- weights * 100
+                calm <- calm * 100
+            }
+
+            panel.fun <- stat.fun2(mydata[[pollutant]])
+
+            ## calculate mean wd - useful for cases comparing two met data sets
+            u <- mean(sin(2 * pi * mydata[[wd]] / 360))
+            v <- mean(cos(2 * pi * mydata[[wd]] / 360))
+            mean.wd <- atan2(u, v) * 360 / 2 / pi
+
+            if (all(is.na(mean.wd))) {
+                mean.wd <- NA
+            } else {
+                if (mean.wd < 0) mean.wd <- mean.wd + 360
+                ## show as a negative (bias)
+                if (mean.wd > 180) mean.wd <- mean.wd - 360
+            }
+
+
+            weights <- cbind(data.frame(weights), wd = as.numeric(row.names(weights)),
+                             calm = calm, panel.fun = panel.fun, mean.wd = mean.wd, freqs = freqs)
+
         }
-
-
-        weights <- cbind(data.frame(weights), wd = as.numeric(row.names(weights)),
-                         calm = calm, panel.fun = panel.fun, mean.wd = mean.wd, freqs = freqs)
 
         weights
     }
@@ -581,10 +591,10 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
             lpolygon(c(x1, x2), c(y1, y2), col = colour, border = border)
         }
     }
-
-   results.grid <- group_by_(mydata, type) %>%
+    
+    results.grid <- group_by_(mydata, type) %>%
       do(prepare.grid(.))
-
+    
     ## format
     results.grid$calm <- stat.labcalm(results.grid$calm)
     results.grid$mean.wd <- stat.labcalm(results.grid$mean.wd)
