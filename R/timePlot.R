@@ -666,7 +666,7 @@ panel.windflow <- function (x, y, dat, subscripts, scale = 0.2, ws = "ws", wd = 
     delta.x.cm <-  diff(current.panel.limits(unit = "cm")$xlim)
     delta.y.cm <-  diff(current.panel.limits(unit = "cm")$ylim)
 
-    ## phsical size of plot windows, correct so wd is right when plotted.
+    ## physical size of plot windows, correct so wd is right when plotted.
     ## need to replot if window re-scaled by user
     if (delta.x.cm > delta.y.cm) {
 
@@ -683,16 +683,10 @@ panel.windflow <- function (x, y, dat, subscripts, scale = 0.2, ws = "ws", wd = 
     y0 <- delta.y * dat[[ws]][subscripts] * 
         cos(2 * pi * dat[[wd]][subscripts] / 360) / max.ws
     
-    x1 <- delta.x * dat[[ws]][subscripts] * 
-        sin(2 * pi * dat[[wd]][subscripts] / 360) / max.ws
-    
-    y1 <- delta.y * dat[[ws]][subscripts] * 
-        cos(2 * pi * dat[[wd]][subscripts] / 360) / max.ws
-
     panel.arrows(x0 = x - x0 / 2,
                  y0 = y - y0 / 2,
-                 x1 = x + x1 / 2,
-                 y1 = y + y1 / 2,  length = length, angle = angle, code = 1,
+                 x1 = x + x0 / 2,
+                 y1 = y + y0 / 2,  length = length, angle = angle, code = 1,
                  col = col, lwd = lwd)
 }
 
