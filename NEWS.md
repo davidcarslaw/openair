@@ -8,7 +8,7 @@ better scaled map grids
 - fix renaming bug in `airbaseStats`
 - bug in `windRose` when all calm
 - date bug fixes in `scatterPlot`
-- add option `windflow` to `scatterPlot` to allow wind flow plots
+- add option `windflow` to `scatterPlot` and `timePlot` to allow wind flow plots
 
 # Changes in openair 1.5 [2015-04-14]
 

@@ -8,9 +8,10 @@ timePlot(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
   normalise = NULL, avg.time = "default", data.thresh = 0,
   statistic = "mean", percentile = NA, date.pad = FALSE,
   type = "default", cols = "brewer1", plot.type = "l", key = TRUE,
-  log = FALSE, smooth = FALSE, ci = TRUE, y.relation = "same",
-  ref.x = NULL, ref.y = NULL, key.columns = 1, name.pol = pollutant,
-  date.breaks = 7, date.format = NULL, auto.text = TRUE, ...)
+  log = FALSE, windflow = list(), smooth = FALSE, ci = TRUE,
+  y.relation = "same", ref.x = NULL, ref.y = NULL, key.columns = 1,
+  name.pol = pollutant, date.breaks = 7, date.format = NULL,
+  auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame of time series. Must include a \code{date} field
@@ -112,6 +113,24 @@ user can supply a list of colour names recognised by R (type
 can be useful for plotting data for several different pollutants that
 exist on very different scales. It is therefore useful to use \code{log =
 TRUE} together with \code{group = TRUE}.}
+
+\item{windflow}{This option allows a scatter plot to show the wind
+speed/direction shows as an arrow. The option is a list
+e.g. \code{windflow = list(col = "grey", lwd = 2, scale =
+0.1)}. This option requires wind speed (\code{ws}) and wind
+direction (\code{wd}) to be available.
+
+The maximum length of the arrow plotted is a faction of the plot
+dimension with the longest arrow being \code{scale} of the plot
+x-y dimension. Note, if the plot size is adjusted manually by the
+user it should be re-plotted to ensure the correct wind angle. The
+list may contain other options to \code{panel.arrows} in the
+\code{lattice} package. Other useful options include
+\code{length}, which controls the length of the arrow head and
+\code{angle}, which controls the angle of the arrow head.
+
+This option works best where there are not too many data to ensure
+over-plotting does not become a problem.}
 
 \item{smooth}{Should a smooth line be applied to the data? The default is
 \code{FALSE}.}
