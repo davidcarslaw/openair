@@ -158,6 +158,23 @@
 ##' circumstances when the user will wish to set different ones. The
 ##' limits are set in the form \code{c(lower, upper)}, so \code{limits
 ##' = c(0, 100)} would force the plot limits to span 0-100.
+##' @param windflow This option allows a scatter plot to show the wind
+##' speed/direction shows as an arrow. The option is a list
+##' e.g. \code{windflow = list(col = "grey", lwd = 2, scale =
+##' 0.1)}. This option requires wind speed (\code{ws}) and wind
+##' direction (\code{wd}) to be available. 
+##'
+##' The maximum length of the arrow plotted is a faction of the plot
+##' dimension with the longest arrow being \code{scale} of the plot
+##' x-y dimension. Note, if the plot size is adjusted manually by the
+##' user it should be re-plotted to ensure the correct wind angle. The
+##' list may contain other options to \code{panel.arrows} in the
+##' \code{lattice} package. Other useful options include
+##' \code{length}, which controls the length of the arrow head and
+##' \code{angle}, which controls the angle of the arrow head.
+##'
+##' This option works best where there are not too many data to ensure
+##' over-plotting does not become a problem.
 ##' @param y.relation This determines how the y-axis scale is
 ##' plotted. \dQuote{same} ensures all panels use the same scale and
 ##' \dQuote{free} will use panel-specfic scales. The latter is a
@@ -302,7 +319,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                         plot.type = "p", key = TRUE, key.title = group,
                         key.columns = 1, key.position = "right", strip = TRUE,
                         log.x = FALSE, log.y = FALSE, x.inc = NULL, y.inc = NULL,
-                        limits = NULL, y.relation = "same", x.relation = "same",
+                        limits = NULL, windflow = list(), y.relation = "same", x.relation = "same",
                         ref.x = NULL, ref.y = NULL, k = 100, dist = 0.1, 
                         map = FALSE, auto.text = TRUE, ...)   {
 
@@ -444,6 +461,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         vars <- c(vars, "date")
 
     ## data checks
+    if ("windflow" %in% names(Args))
+        vars <- unique(c(vars, "wd", "ws"))
 
     if (!is.na(z)) vars <- c(vars, z)
     mydata <- checkPrep(mydata, vars, type)
@@ -720,6 +739,14 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                 if (map && group.number == groupMax)
                                     add.map(Args, ...)
 
+                                if ("windflow" %in% names(Args)) {
+                                    list1 <- list(x, y, dat = mydata, subscripts)
+                                    list2 <- Args$windflow
+                                    flow.args <- listUpdate(list1, list2)
+                                    do.call(panel.windflow, flow.args)
+                                }
+
+
                                 if (!is.na(z) & !Args$traj)
                                     panel.xyplot(x, y, col.symbol = thecol[subscripts],
                                                  as.table = TRUE, ...)
@@ -730,7 +757,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                                  col.line = myColors[group.number],
                                                  lty = lty, lwd = lwd,
                                                  as.table = TRUE,...)
-
+                                
                                 if (linear & npol == 1)
                                     panel.linear(x, y, col = "black", myColors[group.number],
                                                  lwd = 1, lty = 5, x.nam = x.nam,
