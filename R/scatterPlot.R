@@ -5,7 +5,7 @@
 ##' also has options for fitting smooth fits and linear models with
 ##' uncertainties shown.
 ##'
-##' The \code{scatterPlot} is the basic function for plotting scatterPlots in
+##' The \code{scatterPlot} is the basic function for plotting scatter plots in
 ##' flexible ways in \code{openair}. It is flexible enough to consider lots of
 ##' conditioning variables and takes care of fitting smooth or linear
 ##' relationships to the data.
@@ -164,7 +164,7 @@
 ##' 0.1)}. This option requires wind speed (\code{ws}) and wind
 ##' direction (\code{wd}) to be available. 
 ##'
-##' The maximum length of the arrow plotted is a faction of the plot
+##' The maximum length of the arrow plotted is a fraction of the plot
 ##' dimension with the longest arrow being \code{scale} of the plot
 ##' x-y dimension. Note, if the plot size is adjusted manually by the
 ##' user it should be re-plotted to ensure the correct wind angle. The
@@ -177,10 +177,10 @@
 ##' over-plotting does not become a problem.
 ##' @param y.relation This determines how the y-axis scale is
 ##' plotted. \dQuote{same} ensures all panels use the same scale and
-##' \dQuote{free} will use panel-specfic scales. The latter is a
+##' \dQuote{free} will use panel-specific scales. The latter is a
 ##' useful setting when plotting data with very different values.
 ##' @param x.relation This determines how the x-axis scale is plotted. \dQuote{same}
-##'   ensures all panels use the same scale and \dQuote{free} will use panel-specfic
+##'   ensures all panels use the same scale and \dQuote{free} will use panel-specific
 ##'   scales. The latter is a useful setting when plotting data with very
 ##'   different values.
 ##' @param ref.x See \code{ref.y} for details.
@@ -199,7 +199,8 @@
 ##' \code{exclude.too.far} from the \code{mgcv} package. Data are
 ##' first transformed to a unit square. Values should be between 0 and
 ##' 1.
-##' @param map Should a base map be drawn? This option is under development.
+##' @param map Should a base map be drawn? This option is under
+##' development.
 ##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
 ##'   \code{TRUE} titles and axis labels will automatically try and format
 ##'   pollutant names and units properly e.g.  by subscripting the \sQuote{2} in NO2.

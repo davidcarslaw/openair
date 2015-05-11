@@ -28,7 +28,7 @@
 ##' used for selecting particular date ranges quickly and easily. See examples
 ##' below.
 ##'
-##' By default plots are shown with a colour key at the bottom and in teh case
+##' By default plots are shown with a colour key at the bottom and in the case
 ##' of multiple pollutants or sites, strips on the left of each plot. Sometimes
 ##' this may be overkill and the user can opt to remove the key and/or the
 ##' strip by setting \code{key} and/or \code{strip} to \code{FALSE}. One reason
@@ -121,12 +121,12 @@
 ##'   exist on very different scales. It is therefore useful to use \code{log =
 ##'   TRUE} together with \code{group = TRUE}.
 ##' @param windflow This option allows a scatter plot to show the wind
-##' speed/direction shows as an arrow. The option is a list
+##' speed/direction as an arrow. The option is a list
 ##' e.g. \code{windflow = list(col = "grey", lwd = 2, scale =
 ##' 0.1)}. This option requires wind speed (\code{ws}) and wind
-##' direction (\code{wd}) to be available. 
+##' direction (\code{wd}) to be available.
 ##'
-##' The maximum length of the arrow plotted is a faction of the plot
+##' The maximum length of the arrow plotted is a fraction of the plot
 ##' dimension with the longest arrow being \code{scale} of the plot
 ##' x-y dimension. Note, if the plot size is adjusted manually by the
 ##' user it should be re-plotted to ensure the correct wind angle. The
@@ -140,9 +140,9 @@
 ##' @param smooth Should a smooth line be applied to the data? The default is
 ##'   \code{FALSE}.
 ##' @param ci If a smooth fit line is applied, then \code{ci} determines
-##'   whether the 95\% confidence intervals aer shown.
+##'   whether the 95\% confidence intervals are shown.
 ##' @param y.relation This determines how the y-axis scale is plotted. "same"
-##'   ensures all panels use the same scale and "free" will use panel-specfic
+##'   ensures all panels use the same scale and "free" will use panel-specific
 ##'   scales. The latter is a useful setting when plotting data with very
 ##'   different values.
 ##' @param ref.x See \code{ref.y} for details. In this case the
