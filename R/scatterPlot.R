@@ -462,7 +462,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         vars <- c(vars, "date")
 
     ## data checks
-    if ("windflow" %in% names(Args))
+    if (!missing(windflow))
         vars <- unique(c(vars, "wd", "ws"))
 
     if (!is.na(z)) vars <- c(vars, z)
@@ -690,11 +690,12 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                         yscale.components = yscale.components.log10ticks,
                         xscale.components = xscale.components.log10ticks,
                         legend = legend,
+                        windflow = windflow, 
                         panel =  panel.superpose,...,
                         panel.groups = function(x, y, col.symbol, col,
                             type, col.line,
                             lty, lwd, group.number,
-                            subscripts, ...)
+                            subscripts, windflow, ...)
                             {
 
                                 ## specific treatemt of trajectory lines
@@ -740,9 +741,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                 if (map && group.number == groupMax)
                                     add.map(Args, ...)
 
-                                if ("windflow" %in% names(Args)) {
+                                if (!missing(windflow)) {
                                     list1 <- list(x, y, dat = mydata, subscripts)
-                                    list2 <- Args$windflow
+                                    list2 <- windflow
                                     flow.args <- listUpdate(list1, list2)
                                     do.call(panel.windflow, flow.args)
                                 }

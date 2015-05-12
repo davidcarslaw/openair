@@ -359,8 +359,8 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
         avg.time <- "month"}
 
     ## #######################################################################################
-
-     if ("windflow" %in% names(Args))
+    
+     if (!missing(windflow))
         vars <- unique(c(vars, "wd", "ws"))
 
     ## data checks
@@ -396,7 +396,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
         }
     }
     
-    if ("windflow" %in% names(Args)) {
+    if (!missing(windflow)) {
         
          mydata <- melt(mydata, id.var = c("date", type, "ws", "wd"))
          
@@ -592,10 +592,11 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
                         xlim = xlim,
                         strip = strip,
                         strip.left = strip.left,
+                        windflow = windflow, 
                         yscale.components = yscale.components.log10ticks,
                         panel =  panel.superpose,
                         panel.groups = function(x, y, col.line, col.symbol, col, col.se, type,
-                        group.number, lty, lwd, pch, subscripts,...) {
+                            group.number, lty, lwd, pch, subscripts, windflow, ...) {
 
                             if (group.number == 1) {
                                 panel.grid(-1, 0)
@@ -616,10 +617,10 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
                                 lpoints(x, y, type = "p", pch = Args$pch[group.number],
                                         col.symbol = myColors[group.number],...)
                             }
-
-                            if ("windflow" %in% names(Args)) {
+                            
+                            if (!missing(windflow)) {
                                     list1 <- list(x, y, dat = mydata, subscripts)
-                                    list2 <- Args$windflow
+                                    list2 <- windflow
                                     flow.args <- listUpdate(list1, list2)
                                     do.call(panel.windflow, flow.args)
                                 }
