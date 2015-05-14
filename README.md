@@ -1,8 +1,8 @@
 # openair
 
 [![Travis-CI Build Status](https://travis-ci.org/davidcarslaw/openair.svg?branch=master)](https://travis-ci.org/davidcarslaw/openair)
-
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/openair)](http://cran.r-project.org/web/packages/openair)
+[![Downloads from the RStudio CRAN mirror](http://cranlogs.r-pkg.org/badges/openair)](http://cran.rstudio.com/package=openair)
 
 # openair - R package for air quality data analysis
 
