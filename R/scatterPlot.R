@@ -320,7 +320,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                         plot.type = "p", key = TRUE, key.title = group,
                         key.columns = 1, key.position = "right", strip = TRUE,
                         log.x = FALSE, log.y = FALSE, x.inc = NULL, y.inc = NULL,
-                        limits = NULL, windflow = list(), y.relation = "same", x.relation = "same",
+                        limits = NULL, windflow = NULL, y.relation = "same", x.relation = "same",
                         ref.x = NULL, ref.y = NULL, k = 100, dist = 0.1, 
                         map = FALSE, auto.text = TRUE, ...)   {
 
@@ -462,9 +462,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         vars <- c(vars, "date")
 
     ## data checks
-    if (!missing(windflow))
+    if (!is.null(windflow))
         vars <- unique(c(vars, "wd", "ws"))
-
+    
     if (!is.na(z)) vars <- c(vars, z)
     mydata <- checkPrep(mydata, vars, type)
 
@@ -702,46 +702,55 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                 ## in order to avoid a line back to the origin, need to process
                                 ## in batches
                                 if (Args$traj) {
-
+                                    
                                     ## data of interest
                                     tmp <- split(mydata[subscripts, ],
                                                      mydata[subscripts, "date"])
 
                                     if (!is.na(z)) {
                                         
-                                        ## colour by z
+                                        ## colour by 
                                         lapply(tmp, function (dat)
                                             llines(dat$lon, dat$lat, col.line = dat$col,
                                                    lwd = lwd, lty = lty))
-                                        
-                                      } else {
-
-                                        ## colour by a grouping variable
-                                        
-                                          lapply(tmp, function (dat)
-                                              llines(dat$lon, dat$lat,
-                                                     col.line = myColors[group.number],
-                                                    lwd = lwd, lty = lty))
-                                        
 
                                         ## major 12 hour points
-                                       
-                                          id <- seq(min(subscripts), max(subscripts),
-                                                    by = 12)
+                                        id <- seq(min(subscripts), max(subscripts),
+                                                  by = 12)
 
-                                          lapply(tmp, function (dat)
+                                        lapply(tmp, function (dat)
                                             lpoints(dat[id, "lon"], dat[id, "lat"],
                                                     col = myColors[group.number],
                                                     pch = 16))
+                                       
+                                        
+                                    } else {
 
-                                        }
+                                        ## colour by a z
+                                        
+                                        lapply(tmp, function (dat)
+                                            llines(dat$lon, dat$lat,
+                                                   col.line = myColors[group.number],
+                                                   lwd = lwd, lty = lty))
+
+                                        ## major 12 hour points
+                                        
+                                        lapply(tmp, function (dat)
+                                            lpoints(dat[seq(1, nrow(dat), 12), "lon"],
+                                                    dat[seq(1, nrow(dat), 12), "lat"],
+                                                    col = myColors[group.number],
+                                                    pch = 16))
+                                        
+                                    }
+                                    
+                                    
                                 }
 
                                 ## add base map
                                 if (map && group.number == groupMax)
                                     add.map(Args, ...)
-
-                                if (!missing(windflow)) {
+                                
+                                if (!is.null(windflow)) {
                                     list1 <- list(x, y, dat = mydata, subscripts)
                                     list2 <- windflow
                                     flow.args <- listUpdate(list1, list2)
