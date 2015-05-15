@@ -713,15 +713,14 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                         lapply(tmp, function (dat)
                                             llines(dat$lon, dat$lat, col.line = dat$col,
                                                    lwd = lwd, lty = lty))
-
+                                        
                                         ## major 12 hour points
                                         id <- seq(min(subscripts), max(subscripts),
                                                   by = 12)
 
                                         lapply(tmp, function (dat)
                                             lpoints(dat[id, "lon"], dat[id, "lat"],
-                                                    col = myColors[group.number],
-                                                    pch = 16))
+                                                    col = dat$col, pch = 16))
                                        
                                         
                                     } else {
@@ -732,7 +731,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                             llines(dat$lon, dat$lat,
                                                    col.line = myColors[group.number],
                                                    lwd = lwd, lty = lty))
-
+                                        
                                         ## major 12 hour points
                                         
                                         lapply(tmp, function (dat)
