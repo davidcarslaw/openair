@@ -289,7 +289,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     ## need *outline* of boundary for map limits
     Args <- setTrajLims(mydata, Args, projection, parameters, orientation)
 
-    
+
     Args$trajStat <- statistic
 
     if (!"method" %in% names(Args)) {
