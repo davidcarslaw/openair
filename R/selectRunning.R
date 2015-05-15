@@ -50,7 +50,7 @@ selectRunning <- function (mydata, pollutant = "nox", run.len = 5, threshold = 5
     mydata <- thedata ## save for later
     thedata <- checkPrep(mydata, vars, type = "default", remove.calm = FALSE)
 
-    x <- thedata[, pollutant]
+    x <- thedata[[pollutant]]
     rle.seq = rle(x > threshold)
     cumsum.seq <- cumsum(rle.seq$lengths)
     myruns <- which(rle.seq$values == 1 & rle.seq$lengths >= run.len)
