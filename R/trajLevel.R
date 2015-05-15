@@ -289,6 +289,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     ## need *outline* of boundary for map limits
     Args <- setTrajLims(mydata, Args, projection, parameters, orientation)
 
+    
     Args$trajStat <- statistic
 
     if (!"method" %in% names(Args)) {
@@ -297,6 +298,19 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
         method <- Args$method
         statistic = "XX" ## i.e. it wont touch the data
     }
+
+    if (method == "hexbin") {
+
+        ## transform data for map projection
+        tmp <- mapproject(x = mydata[["lon"]],
+                      y = mydata[["lat"]],
+                      projection = projection,
+                      parameters = parameters,
+                      orientation = orientation)
+        mydata[["lon"]] <- tmp$x
+        mydata[["lat"]] <- tmp$y
+    }
+
 
     if (method == "density") stop ("Use trajPlot with method = 'density' instead")
 

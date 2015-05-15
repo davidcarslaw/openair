@@ -812,7 +812,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         plt <- do.call(xyplot, xy.args)
 
     }
-
+    
     ## ################################################################################
     if (method == "hexbin") {
 
