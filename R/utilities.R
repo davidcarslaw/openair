@@ -593,10 +593,10 @@ panel.gam <- function (x, y, form = y ~ x, method = "loess", k = k, Args, ..., s
         if (!simulate) {
 
             if (is.null(k)) {
-                mod <- gam(y ~ s(x), select = TRUE, data = thedata, ...)
+                mod <- suppressWarnings(gam(y ~ s(x), select = TRUE, data = thedata, ...))
 
             } else {
-                mod <- gam(y ~ s(x, k = k), select = TRUE, data = thedata, ...)
+                mod <- suppressWarnings(gam(y ~ s(x, k = k), select = TRUE, data = thedata, ...))
             }
 
 
@@ -711,10 +711,10 @@ fitGam <- function (thedata, x = "date", y = "conc", form = y ~ x, k = k,
         if (!simulate) {
 
             if (is.null(k)) {
-                mod <- gam(y ~ s(x), select = TRUE, data = thedata, ...)
+                mod <- suppressWarnings(gam(y ~ s(x), select = TRUE, data = thedata, ...))
 
             } else {
-                mod <- gam(y ~ s(x, k = k), select = TRUE, data = thedata, ...)
+                mod <- suppressWarnings(gam(y ~ s(x, k = k), select = TRUE, data = thedata, ...))
             }
 
             xseq <- seq(min(thedata$x, na.rm = TRUE), max(thedata$x, na.rm = TRUE), length = n)
