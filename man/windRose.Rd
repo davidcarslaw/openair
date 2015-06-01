@@ -8,7 +8,7 @@
 windRose(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 ws.int = 2, angle = 30, type = "default", bias.corr = TRUE, cols = "default",
 grid.line = NULL, width = 1, seg = NULL, auto.text = TRUE, breaks
-= 4, offset = 10, max.freq = NULL, paddle = TRUE, key.header =
+= 4, offset = 10, normalise = FALSE, max.freq = NULL, paddle = TRUE, key.header =
 NULL, key.footer = "(m/s)", key.position = "bottom", key = TRUE,
 dig.lab = 5, statistic = "prop.count", pollutant = NULL, annotate
 = TRUE, angle.scale = 315, border = NA, ...)
@@ -16,7 +16,7 @@ dig.lab = 5, statistic = "prop.count", pollutant = NULL, annotate
 
     pollutionRose(mydata, pollutant = "nox", key.footer = pollutant,
        key.position = "right", key = TRUE, breaks = 6, paddle = FALSE,
-seg = 0.9, ...)
+seg = 0.9, normalise = FALSE, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing fields \code{ws} and \code{wd}}
@@ -104,6 +104,13 @@ data into segments <1, 1-10, 10-100, >100.}
 
 \item{offset}{The size of the 'hole' in the middle of the plot, expressed
 as a percentage of the polar axis scale, default 10.}
+
+\item{normalise}{If \code{TRUE} each wind direction segment of a
+pollution rose is normalised to equal one. This is useful for
+showing how the concentrations (or other parameters) contribute to
+each wind sector when the proprtion of time the wind is from that
+direction is low. A line showing the probability that the wind
+directions is from a particular wind sector is also shown.}
 
 \item{max.freq}{Controls the scaling used by setting the maximum
 value for the radial limits. This is useful to ensure several
