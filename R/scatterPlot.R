@@ -920,7 +920,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             new.data
         }
 
-        if (smooth) mydata <- group_by_(mydata, type) %>%
+        if (smooth) mydata <- group_by_(mydata, .dots = type) %>%
           do(smooth.grid(., z))
            
         ## basic function for lattice call + defaults
@@ -1095,7 +1095,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             new.data
         }
 
-        if (smooth) mydata <- group_by_(mydata, type) %>%
+        if (smooth) mydata <- group_by_(mydata, .dots = type) %>%
           do(smooth.grid(., z))
            
         ## basic function for lattice call + defaults
@@ -1277,7 +1277,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
         ## ###########################################################################
 
-        results.grid <- group_by_(mydata, type) %>%
+        results.grid <- group_by_(mydata, .dots = type) %>%
           do(prepare.grid(.))
             
 

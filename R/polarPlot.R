@@ -680,18 +680,18 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
   if (!missing(min.bin)) {
     tmp <- min.bin
     min.bin <- 0
-    res1 <- group_by_(mydata, type) %>%
+    res1 <- group_by_(mydata, .dots = type) %>%
       do(prepare.grid(.))
     
     min.bin <- tmp
     
-    res <- group_by_(mydata, type) %>%
+    res <- group_by_(mydata, .dots = type) %>%
       do(prepare.grid(.))
     res$miss <- res1$z
     
   } else {
     
-    res <- group_by_(mydata, type) %>%
+    res <- group_by_(mydata, .dots = type) %>%
       do(prepare.grid(.))
   }
   
