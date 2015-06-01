@@ -11,6 +11,9 @@ better scaled map grids
 - add option `windflow` to `scatterPlot` and `timePlot` to allow wind
 flow plots
 - suppress harmless warnings in `smoothTrend`
+- fix bug in some functions when type more than one
+- add support in `pollutionRose` for option `normalise` to show
+  probability by wind sector (0 to 1).
 
 # Changes in openair 1.5 [2015-04-14]
 
