@@ -70,7 +70,7 @@ trajectory surfaces etc. \emph{and} a filled base map.}
 
 \item{projection}{The map projection to be used. Different map
 projections are possible through the \code{mapproj}
-package. See \code{?mapproj} for extensive details and information
+package. See \code{?mapproject} for extensive details and information
 on setting other parameters and orientation (see below).}
 
 \item{parameters}{From the \code{mapproj} package. Optional

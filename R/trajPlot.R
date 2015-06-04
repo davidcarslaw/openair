@@ -71,7 +71,7 @@
 ##' trajectory surfaces etc. \emph{and} a filled base map.
 ##' @param projection The map projection to be used. Different map
 ##' projections are possible through the \code{mapproj}
-##' package. See \code{?mapproj} for extensive details and information
+##' package. See \code{?mapproject} for extensive details and information
 ##' on setting other parameters and orientation (see below).
 ##' @param parameters From the \code{mapproj} package. Optional
 ##' numeric vector of parameters for use with the projection
