@@ -231,7 +231,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     
     ## need to check whether avg.time is > or < actual time gap of data
     ## then data will be expanded or aggregated accordingly
-    
+      
     ## start from a particular time, if given
     if (!is.na(start.date)) {
       
@@ -265,7 +265,8 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     
     ## if interval specified, then use it
     if (!is.na(interval)) {
-      mydata <- date.pad2(mydata, interval)
+        
+      mydata <- date.pad2(mydata, interval = interval)
       padded <- TRUE
     }
     

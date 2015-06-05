@@ -62,7 +62,7 @@ find.time.interval <- function(dates) {
 ###############################################################################
 ## when interval is known
 date.pad2 <- function(mydata, type = "default", interval = "month") {
-
+    
     site <- NULL
 
     date.pad.site <- function(mydata, type = type, interval = interval) {
@@ -73,7 +73,7 @@ date.pad2 <- function(mydata, type = "default", interval = "month") {
         ## pad out missing data for better looking plot
         start.date <- min(mydata$date, na.rm = TRUE)
         end.date <- max(mydata$date, na.rm = TRUE)
-
+        
         all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
         mydata <- merge(mydata, all.dates, all = TRUE)
 
