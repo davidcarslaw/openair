@@ -89,6 +89,11 @@
 ##' percentile level (\%) between 0-100, which can be set using the
 ##' \dQuote{percentile} option --- see below. Not used if \code{avg.time
 ##' = "default"}.
+##' @param type \code{type} allows \code{timeAverage} to be applied to
+##' cases where there are groups of data that need to be split and the
+##' function applied to each group. The most common example is data
+##' with mutiple sites identified with a column represeneting site
+##' name e.g. \code{type = "site"}.
 ##' @param percentile The percentile level in \% used when
 ##' \code{statistic = "percentile"}. The default is 95.
 ##' @param start.date A string giving a start date to use. This is
@@ -146,8 +151,7 @@
 ##' @import dplyr
 ##' @export
 ##' @importFrom Rcpp evalCpp
-##' @return Returns a data frame with date in class \code{POSIXct} and will
-##'   remove any non-numeric columns except a column "site".
+##' @return Returns a data frame with date in class \code{POSIXct}.
 ##' @author David Carslaw
 ##' @seealso See \code{\link{timePlot}} that plots time series data and uses
 ##'   \code{timeAverage} to aggregate data where necessary.
@@ -171,337 +175,342 @@
 ##'
 ##'
 timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
-                        statistic = "mean", percentile = NA, start.date = NA,
-                        end.date = NA, interval = NA,
+                        statistic = "mean", type = "default", percentile = NA,
+                        start.date = NA, end.date = NA, interval = NA,
                         vector.ws = FALSE, fill = FALSE, ...) {
 
-  ## get rid of R check annoyances
-  year = season = month = Uu = Vv = site = NULL
-  
-  ## extract variables of interest
-  vars <- names(mydata)
-  
-  ## whether a time series has already been padded to fill time gaps
-  padded <- FALSE
-  
-  mydata <- checkPrep(mydata, vars, type = "default", remove.calm = FALSE,
-                      strip.white = FALSE)
-  
-  ## time zone of data
-  TZ <- attr(mydata$date, "tzone")
-  if (is.null(TZ)) TZ <- "GMT" ## as it is on Windows for BST
-  
-  if (!is.na(percentile)) {
-    percentile <- percentile / 100
-    if (percentile < 0 | percentile > 100) stop("Percentile range outside 0-100")
-  }
-  if (data.thresh < 0 | data.thresh > 100) stop("Data capture range outside 0-100")
-  
-  ## make data.thresh a number between 0 and 1
-  data.thresh <- data.thresh / 100
-  
-  if (!statistic %in% c("mean", "median", "frequency", "max", "min", "sum",
-                        "sd", "percentile", "data.cap"))
-    stop("Statistic not recognised")
-  
-  if (statistic == "mean") FUN <- function (x) mean(x, na.rm = TRUE)
-  if (statistic == "median") FUN <- function (x) Cquantile(x, probs = 0.50)
-  if (statistic == "frequency") FUN <- function (x) length(x)
-  if (statistic == "max") FUN <- function (x) Cquantile(x, probs = 1.0)
-  if (statistic == "min") FUN <- function (x) Cquantile(x, probs = 0)
-  if (statistic == "sum") FUN <- function (x) sum(x, na.rm = TRUE)
-  if (statistic == "sd") FUN <- function (x) sd(x, na.rm = TRUE)
-  if (statistic == "data.cap") FUN <- function (x) {
+    ## get rid of R check annoyances
+    year = season = month = Uu = Vv = site = NULL
     
-    if (all(is.na(x))) {
-      
-      res <- 0
-      
-    } else {
-      
-      res <- 100 * (1 - sum(is.na(x)) / length(x))
+    ## extract variables of interest
+    vars <- names(mydata)
+    
+    ## whether a time series has already been padded to fill time gaps
+    padded <- FALSE
+    
+    mydata <- checkPrep(mydata, vars, type = "default", remove.calm = FALSE,
+                        strip.white = FALSE)
+    
+    ## time zone of data
+    TZ <- attr(mydata$date, "tzone")
+    if (is.null(TZ)) TZ <- "GMT" ## as it is on Windows for BST
+    
+    if (!is.na(percentile)) {
+        percentile <- percentile / 100
+        if (percentile < 0 | percentile > 100) stop("Percentile range outside 0-100")
     }
-    res
-  }
-  
-  if (statistic == "percentile") FUN <- function (x)
-    Cquantile(x, probs = percentile)
-  
-  calc.mean <- function(mydata, start.date) { ## function to calculate means
+    if (data.thresh < 0 | data.thresh > 100) stop("Data capture range outside 0-100")
     
-    ## need to check whether avg.time is > or < actual time gap of data
-    ## then data will be expanded or aggregated accordingly
-      
-    ## start from a particular time, if given
-    if (!is.na(start.date)) {
-      
-      firstLine <- data.frame(date = as.POSIXct(start.date, tz = TZ))
-      if ("site" %in% names (mydata)) firstLine$site <- mydata$site[1]
-      
-      mydata <- bind_rows(firstLine, mydata)
-      
-      ## for cutting data must ensure it is in GMT because combining
-      ## data frames when system is not GMT puts it in local time!...
-      ## and then cut makes a string/factor levels with tz lost...
-      
-      mydata$date <- as.POSIXct(format(mydata$date), tz = TZ)
-      
+    ## make data.thresh a number between 0 and 1
+    data.thresh <- data.thresh / 100
+    
+    if (!statistic %in% c("mean", "median", "frequency", "max", "min", "sum",
+                          "sd", "percentile", "data.cap"))
+        stop("Statistic not recognised")
+    
+    if (statistic == "mean") FUN <- function (x) mean(x, na.rm = TRUE)
+    if (statistic == "median") FUN <- function (x) Cquantile(x, probs = 0.50)
+    if (statistic == "frequency") FUN <- function (x) length(x)
+    if (statistic == "max") FUN <- function (x) Cquantile(x, probs = 1.0)
+    if (statistic == "min") FUN <- function (x) Cquantile(x, probs = 0)
+    if (statistic == "sum") FUN <- function (x) sum(x, na.rm = TRUE)
+    if (statistic == "sd") FUN <- function (x) sd(x, na.rm = TRUE)
+    if (statistic == "data.cap") FUN <- function (x) {
+        
+        if (all(is.na(x))) {
+            
+            res <- 0
+            
+        } else {
+            
+            res <- 100 * (1 - sum(is.na(x)) / length(x))
+        }
+        res
     }
     
-    if (!is.na(end.date)) {
-      
-      lastLine <- data.frame(date = as.POSIXct(end.date, tz = TZ))
-      if ("site" %in% names (mydata)) lastLine$site <- mydata$site[1]
-      
-      mydata <- bind_rows(mydata, lastLine)
-      
-      ## for cutting data must ensure it is in GMT because combining
-      ## data frames when system is not GMT puts it in local time!...
-      ## and then cut makes a string/factor levels with tz lost...
-      
-      mydata$date <- as.POSIXct(format(mydata$date), tz = TZ)
-      
-    }
+    if (statistic == "percentile") FUN <- function (x)
+        Cquantile(x, probs = percentile)
     
-    ## if interval specified, then use it
-    if (!is.na(interval)) {
+    calc.mean <- function(mydata, start.date) { ## function to calculate means
         
-      mydata <- date.pad2(mydata, interval = interval)
-      padded <- TRUE
-    }
-    
-    ## If interval of original time series not specified, calculate it
-    ## time diff in seconds of orginal data
-    timeDiff <-  as.numeric(strsplit(find.time.interval(mydata$date),
-                                     " ")[[1]][1])
-    
-    ## time diff of new interval
-    by2 <- strsplit(avg.time, " ", fixed = TRUE)[[1]]
-    
-    seconds <- 1
-    if (length(by2) > 1) seconds <- as.numeric(by2[1])
-    units <- by2[length(by2)]
-    
-    
-    if (units == "sec") int <- 1
-    if (units == "min") int <- 60
-    if (units == "hour") int <- 3600
-    if (units == "day") int <- 3600 * 24
-    if (units == "week") int <- 3600 * 24 * 7
-    if (units == "month") int <- 3600 * 24 * 31 ## approx
-    if (units == "quarter" || units == "season") int <- 3600 * 24 * 31 * 3 ## approx
-    if (units == "year") int <- 3600 * 8784 ## approx
-    
-    seconds <- seconds * int ## interval in seconds
-    if (is.na(timeDiff)) timeDiff <- seconds ## when only one row
-    
-    ## check to see if we need to expand data rather than aggregate it
-    ## i.e. chosen time interval less than that of data
-    if (seconds < timeDiff) {
-      
-      ## orginal dates
-      theDates <- mydata$date
-      
-      ## need to add a date to the end when expanding times
-      interval <- find.time.interval(mydata$date)
-      
-      ## equivalent number of days, used to refine interval for month/year
-      days <- as.numeric(strsplit(interval, split = " ")[[1]][1]) /
-        24 / 3600
-      
-      ## find time interval of data
-      if (class(mydata$date)[1] == "Date") {
+        ## need to check whether avg.time is > or < actual time gap of data
+        ## then data will be expanded or aggregated accordingly
         
-        interval <- paste(days, "day")
-        
-      } else {
-        ## this will be in seconds
-        interval <- find.time.interval(mydata$date)
-        
-      }
-      
-      ## better interval, most common interval in a year
-      if (days == 31) interval <- "month"
-      if (days %in% c(365, 366)) interval <- "year"
-      
-      allDates <- seq(min(mydata$date), max(mydata$date), by = interval)
-      allDates <- c(allDates, max(allDates) + timeDiff)
-      
-      ## all data with new time interval
-      allData <- data.frame(date = seq(min(allDates), max(allDates), avg.time))
-      
-      ## merge with orginal data, which leaves gaps to fill
-      mydata <- merge(mydata, allData, by = "date", all = TRUE)
-      
-      if (fill) {
-        
-        ## this will copy-down data to next original row of data
-        ## number of additional lines to fill
-        inflateFac <-  timeDiff / seconds
-        if (timeDiff %% seconds != 0) stop("Non-regular time expansion selected, or non-regular input time series.")
-        
-        ## ids of orginal dates in new dates
-        ids <- which(mydata$date %in% theDates)
-        
-        date <- mydata$date
-        mydata <-subset(mydata, select = -date)
-        
-        for (i in 1:(inflateFac - 1)) {
-          mydata[ids + i, ] <-  mydata[ids, ]
+        ## start from a particular time, if given
+        if (!is.na(start.date)) {
+            
+            firstLine <- data.frame(date = as.POSIXct(start.date, tz = TZ))
+
+            ## add in type
+            firstLine[[type]] <- mydata[[type]][1]
+            mydata <- bind_rows(firstLine, mydata)
+            
+            ## for cutting data must ensure it is in GMT because combining
+            ## data frames when system is not GMT puts it in local time!...
+            ## and then cut makes a string/factor levels with tz lost...
+            
+            mydata$date <- as.POSIXct(format(mydata$date), tz = TZ)
+            
         }
         
-        mydata <- cbind(date, mydata)
-        mydata <- mydata[1:nrow(mydata) - 1, ] ## don't need last row
-      }
-      
-      ## when expanding with column 'site' make sure it is added
-      if ("site" %in% names(mydata)) mydata$site <- mydata$site[1]
-      return(mydata)
-      
-    }
-    
-    
-    
-    ## calculate wind components
-    if ("wd" %in% names(mydata)) {
-      if (is.numeric(mydata$wd) && "ws" %in% names(mydata)) {
-        mydata <- transform(mydata,  Uu = ws * sin(2 * pi * wd / 360),
-                            Vv = ws * cos(2 * pi * wd / 360))
-        
-      }
-      
-      if (is.numeric(mydata$wd) && !"ws" %in% names(mydata)) {
-        mydata <- transform(mydata,  Uu = sin(2 * pi * wd / 360),
-                            Vv = cos(2 * pi * wd / 360))
-      }
-    }
-    
-    if (avg.time == "season") {
-      ## special case for season
-      ## need to group specific months: Dec/Jan/Feb etc
-      
-      mydata <- cutData(mydata, type = "season")
-      ## remove any missing seasons e.g. through type = "season"
-      mydata <- mydata[!is.na(mydata$season), ]
-      
-      ## calculate year
-      mydata <- transform(mydata, year = as.numeric(format(date, "%Y")),
-                          month = as.numeric(format(date, "%m")))
-      
-      ## ids where month = 12, make December part of following year's season
-      ids <- which(mydata$month == 12)
-      mydata$year[ids] <- mydata$year[ids] + 1
-      
-      ## find mean date in year-season
-      mydata <- transform(mydata, cuts = ave(date, list(year, season), FUN = mean))
-      
-      mydata <- subset(mydata, select = -c(year, month))
-      
-      
-    } 
-      
-      ## Aggregate data
-    
-    if ("site" %in% names(mydata))
-        vars <- c("site",  "cuts") else vars <- "cuts"
-
-    if (avg.time == "season") vars <- c(vars, "season")
-      
-    if (data.thresh !=0) { ## take account of data capture
-        
-        ## need to make sure all data are present..
-        ## print out time interval assumed for input time series
-        ## useful for debugging
-        if (!padded) mydata <- date.pad(mydata, ...)
-
-        if (avg.time != "season") mydata$cuts <- cut(mydata$date, avg.time)
-        
-        dailymet <- select(mydata, -date) %>%
-          group_by_(., .dots = vars) %>%
-          summarise_each(
-            funs(
-              if (sum(is.na(.)) / length(.) <= 1 - data.thresh)
-                FUN(.)
-              else NA
-            )
-          )
-        
-      } else {
-        
-          ## faster if do not need data capture
-          if (avg.time != "season") mydata$cuts <- cut(mydata$date, avg.time)
-          
-        dailymet <- select(mydata, -date) %>%
-          group_by_(., .dots = vars) %>%
-          summarise_each(funs(FUN(.)))            
-      }
-      
-      dailymet <- rename_(dailymet, date = "cuts")
-    
-      ## return same date class as went in...
-      if (class(mydata$date)[1] == "Date") {
-        dailymet$date <- as.Date(dailymet$date)
-        
-    } else {
-        
-        ## return the same TZ that we started with
-        dailymet$date <- as.POSIXct(format(dailymet$date), tz = TZ)
-        
-      }
-      
-      if ("wd" %in% names(mydata)) {
-        if (is.numeric(mydata$wd)) {
-          ## mean wd
-          dailymet <- within(dailymet, wd <- as.vector(atan2(Uu, Vv) * 360 / 2 / pi))
-          
-          ## correct for negative wind directions
-          ids <- which(dailymet$wd < 0)  ## ids where wd < 0
-          dailymet$wd[ids] <- dailymet$wd[ids] + 360
-          
-          ## vector average ws
-          if ("ws" %in% names(mydata)) {
-            if (vector.ws) dailymet <- within(dailymet, ws <- (Uu ^ 2 + Vv ^ 2) ^ 0.5)
-          }
-          
-          dailymet <- subset(dailymet, select = c(-Uu, -Vv))
+        if (!is.na(end.date)) {
+            
+            lastLine <- data.frame(date = as.POSIXct(end.date, tz = TZ))
+            lastLine[[type]] <- mydata[[type]][1]
+            
+            mydata <- bind_rows(mydata, lastLine)
+            
+            ## for cutting data must ensure it is in GMT because combining
+            ## data frames when system is not GMT puts it in local time!...
+            ## and then cut makes a string/factor levels with tz lost...
+            
+            mydata$date <- as.POSIXct(format(mydata$date), tz = TZ)
+            
         }
-      }
-      
-      ## fill missing gaps
-      if (avg.time != "season") {
         
-        dailymet <- date.pad2(dailymet, interval = avg.time)
-      }
-      
-      
-      dailymet
-      
-  }
-  
-  ## ids of numeric columns, site and date
-  ids <- c(which(names(mydata) %in% c("date", "site")),
-           which(sapply(mydata, is.numeric)))
-  mydata <- mydata[, ids]
-  
-  
-  ## split if several sites
-  if ("site" %in% names(mydata)) { ## split by site
-    
-    ## remove any NA sites
-    if (anyNA(mydata$site)) {
-      id <- which(is.na(mydata$site))
-      mydata <- mydata[-id, ]
+        ## if interval specified, then use it
+        if (!is.na(interval)) {
+
+            mydata <- group_by_(mydata, .dots = type) %>%
+              do(date.pad2(., interval = interval))
+
+            ## make sure missing types are inserted
+            mydata[[type]] <- mydata[[type]][1]
+            
+           # mydata <- plyr::ddply(mydata, type, date.pad2, interval = interval)
+            padded <- TRUE
+        }
+        
+        ## If interval of original time series not specified, calculate it
+        ## time diff in seconds of orginal data
+        timeDiff <-  as.numeric(strsplit(find.time.interval(mydata$date),
+                                         " ")[[1]][1])
+        
+        ## time diff of new interval
+        by2 <- strsplit(avg.time, " ", fixed = TRUE)[[1]]
+        
+        seconds <- 1
+        if (length(by2) > 1) seconds <- as.numeric(by2[1])
+        units <- by2[length(by2)]
+        
+        
+        if (units == "sec") int <- 1
+        if (units == "min") int <- 60
+        if (units == "hour") int <- 3600
+        if (units == "day") int <- 3600 * 24
+        if (units == "week") int <- 3600 * 24 * 7
+        if (units == "month") int <- 3600 * 24 * 31 ## approx
+        if (units == "quarter" || units == "season") int <- 3600 * 24 * 31 * 3 ## approx
+        if (units == "year") int <- 3600 * 8784 ## approx
+        
+        seconds <- seconds * int ## interval in seconds
+        if (is.na(timeDiff)) timeDiff <- seconds ## when only one row
+        
+        ## check to see if we need to expand data rather than aggregate it
+        ## i.e. chosen time interval less than that of data
+        if (seconds < timeDiff) {
+            
+            ## orginal dates
+            theDates <- mydata$date
+            
+            ## need to add a date to the end when expanding times
+            interval <- find.time.interval(mydata$date)
+            
+            ## equivalent number of days, used to refine interval for month/year
+            days <- as.numeric(strsplit(interval, split = " ")[[1]][1]) /
+              24 / 3600
+            
+            ## find time interval of data
+            if (class(mydata$date)[1] == "Date") {
+                
+                interval <- paste(days, "day")
+                
+            } else {
+                ## this will be in seconds
+                interval <- find.time.interval(mydata$date)
+                
+            }
+            
+            ## better interval, most common interval in a year
+            if (days == 31) interval <- "month"
+            if (days %in% c(365, 366)) interval <- "year"
+            
+            allDates <- seq(min(mydata$date), max(mydata$date), by = interval)
+            allDates <- c(allDates, max(allDates) + timeDiff)
+            
+            ## all data with new time interval
+            allData <- data.frame(date = seq(min(allDates), max(allDates), avg.time))
+            
+            ## merge with orginal data, which leaves gaps to fill
+            mydata <- merge(mydata, allData, by = "date", all = TRUE)
+            
+            if (fill) {
+                
+                ## this will copy-down data to next original row of data
+                ## number of additional lines to fill
+                inflateFac <-  timeDiff / seconds
+                if (timeDiff %% seconds != 0) stop("Non-regular time expansion selected, or non-regular input time series.")
+                
+                ## ids of orginal dates in new dates
+                ids <- which(mydata$date %in% theDates)
+                
+                date <- mydata$date
+                mydata <-subset(mydata, select = -date)
+                
+                for (i in 1:(inflateFac - 1)) {
+                    mydata[ids + i, ] <-  mydata[ids, ]
+                }
+                
+                mydata <- cbind(date, mydata)
+                mydata <- mydata[1:nrow(mydata) - 1, ] ## don't need last row
+            }
+            
+            return(mydata)
+            
+        }
+        
+        
+        
+        ## calculate wind components
+        if ("wd" %in% names(mydata)) {
+            if (is.numeric(mydata$wd) && "ws" %in% names(mydata)) {
+                mydata <- transform(mydata,  Uu = ws * sin(2 * pi * wd / 360),
+                                    Vv = ws * cos(2 * pi * wd / 360))
+                
+            }
+            
+            if (is.numeric(mydata$wd) && !"ws" %in% names(mydata)) {
+                mydata <- transform(mydata,  Uu = sin(2 * pi * wd / 360),
+                                    Vv = cos(2 * pi * wd / 360))
+            }
+        }
+        
+        if (avg.time == "season") {
+            ## special case for season
+            ## need to group specific months: Dec/Jan/Feb etc
+            
+            mydata <- cutData(mydata, type = "season")
+            ## remove any missing seasons e.g. through type = "season"
+            mydata <- mydata[!is.na(mydata$season), ]
+            
+            ## calculate year
+            mydata <- transform(mydata, year = as.numeric(format(date, "%Y")),
+                                month = as.numeric(format(date, "%m")))
+            
+            ## ids where month = 12, make December part of following year's season
+            ids <- which(mydata$month == 12)
+            mydata$year[ids] <- mydata$year[ids] + 1
+            
+            ## find mean date in year-season
+            mydata <- transform(mydata, cuts = ave(date, list(year, season), FUN = mean))
+            
+            mydata <- subset(mydata, select = -c(year, month))
+            
+            
+        } 
+        
+        ## Aggregate data
+
+        ## variables to split by
+        vars <- c(type,  "cuts")
+
+        if (avg.time == "season") vars <- c(vars, "season")
+        
+        if (data.thresh !=0) { ## take account of data capture
+            
+            ## need to make sure all data are present..
+            ## print out time interval assumed for input time series
+            ## useful for debugging
+            if (!padded) mydata <- date.pad(mydata, ...)
+
+            if (avg.time != "season") mydata$cuts <- cut(mydata$date, avg.time)
+            
+            dailymet <- select(mydata, -date) %>%
+              group_by_(., .dots = vars) %>%
+              summarise_each(
+                  funs(
+                      if (sum(is.na(.)) / length(.) <= 1 - data.thresh)
+                          FUN(.)
+                      else NA
+                      )
+                  )
+            
+        } else {
+            
+            ## faster if do not need data capture
+            if (avg.time != "season") mydata$cuts <- cut(mydata$date, avg.time)
+            
+            dailymet <- select(mydata, -date) %>%
+              group_by_(., .dots = vars) %>%
+              summarise_each(funs(FUN(.)))            
+        }
+        
+        dailymet <- rename_(dailymet, date = "cuts")
+        
+        ## return same date class as went in...
+        if (class(mydata$date)[1] == "Date") {
+            dailymet$date <- as.Date(dailymet$date)
+            
+        } else {
+            
+            ## return the same TZ that we started with
+            dailymet$date <- as.POSIXct(format(dailymet$date), tz = TZ)
+            
+        }
+        
+        if ("wd" %in% names(mydata)) {
+            if (is.numeric(mydata$wd)) {
+                ## mean wd
+                dailymet <- within(dailymet, wd <- as.vector(atan2(Uu, Vv) * 360 / 2 / pi))
+                
+                ## correct for negative wind directions
+                ids <- which(dailymet$wd < 0)  ## ids where wd < 0
+                dailymet$wd[ids] <- dailymet$wd[ids] + 360
+                
+                ## vector average ws
+                if ("ws" %in% names(mydata)) {
+                    if (vector.ws) dailymet <- within(dailymet, ws <- (Uu ^ 2 + Vv ^ 2) ^ 0.5)
+                }
+                
+                dailymet <- subset(dailymet, select = c(-Uu, -Vv))
+            }
+        }
+        
+        ## fill missing gaps
+        if (avg.time != "season") {
+            
+            dailymet <- date.pad2(dailymet, interval = avg.time)
+        }
+        
+        
+        dailymet
+        
     }
+
+    ## cut data into intervals
+    mydata <- cutData(mydata, type)
     
-    mydata$site <- factor(mydata$site) ## removes empty factors
+    ## ids of numeric columns, type and date
+    ids <- c(which(names(mydata) %in% c("date", type)),
+             which(sapply(mydata, is.numeric)))
+    mydata <- mydata[, ids]
     
     
-    mydata <- group_by(mydata, site) %>%
+    ## some LAQN data seem to have the odd missing site name
+    if ("site" %in% names(mydata)) { ## split by site
+        
+        ## remove any NA sites
+        if (anyNA(mydata$site)) {
+            id <- which(is.na(mydata$site))
+            mydata <- mydata[-id, ]
+        }
+        
+        mydata$site <- factor(mydata$site) ## removes empty factors
+    }
+
+    ## calculate stats split by type
+    mydata <- group_by_(mydata, .dots = type) %>%
       do(calc.mean(., start.date))
     
-  } else {
-    mydata <- calc.mean(mydata, start.date)
-  }
-  
-  mydata
+    mydata
 }

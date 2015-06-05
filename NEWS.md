@@ -13,7 +13,11 @@ flow plots
 - suppress harmless warnings in `smoothTrend`
 - fix bug in some functions when type more than one
 - add support in `pollutionRose` for option `normalise` to show
-  probability by wind sector (0 to 1).
+probability by wind sector (0 to 1).
+- `timeAverage` now has an option `type` similar to other functions. A
+  common use would be to apply `timeAverage` to a data frame with
+  multiple sites where there is a column representing site name
+  e.g. `type = "site"`.
 
 # Changes in openair 1.5 [2015-04-14]
 

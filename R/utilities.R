@@ -85,7 +85,7 @@ date.pad2 <- function(mydata, type = "default", interval = "month") {
     if (type == "site") {
         
         mydata <- group_by(mydata, site) %>%
-          do(date.pad.site(., interval))
+          do(date.pad.site(., interval = interval))
         
     } else {
         

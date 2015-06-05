@@ -5,8 +5,8 @@
 \title{Function to calculate time averages for data frames}
 \usage{
 timeAverage(mydata, avg.time = "day", data.thresh = 0, statistic = "mean",
-  percentile = NA, start.date = NA, end.date = NA, interval = NA,
-  vector.ws = FALSE, fill = FALSE, ...)
+  type = "default", percentile = NA, start.date = NA, end.date = NA,
+  interval = NA, vector.ws = FALSE, fill = FALSE, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing a \code{date} field . Can be
@@ -53,6 +53,12 @@ valid records in the period.  \dQuote{percentile} is the
 percentile level (\%) between 0-100, which can be set using the
 \dQuote{percentile} option --- see below. Not used if \code{avg.time
 = "default"}.}
+
+\item{type}{\code{type} allows \code{timeAverage} to be applied to
+cases where there are groups of data that need to be split and the
+function applied to each group. The most common example is data
+with mutiple sites identified with a column represeneting site
+name e.g. \code{type = "site"}.}
 
 \item{percentile}{The percentile level in \% used when
 \code{statistic = "percentile"}. The default is 95.}
@@ -116,8 +122,7 @@ choose \code{fill = TRUE}.}
 \code{timeAverage}.}
 }
 \value{
-Returns a data frame with date in class \code{POSIXct} and will
-  remove any non-numeric columns except a column "site".
+Returns a data frame with date in class \code{POSIXct}.
 }
 \description{
 Function to flexibly aggregate or expand data frames by different
