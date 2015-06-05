@@ -512,5 +512,9 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     mydata <- group_by_(mydata, .dots = type) %>%
       do(calc.mean(., start.date))
     
+    ## don't need default column
+    if ("default" %in% names(mydata))
+        mydata <- subset(mydata, select = -default)
+    
     mydata
 }

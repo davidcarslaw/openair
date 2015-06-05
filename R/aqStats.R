@@ -114,7 +114,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
         all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
         mydata <- merge(mydata, all.dates, all = TRUE)
         mydata$year <- format(mydata$date, "%Y")
-
+        
         
         Mean <- group_by(mydata, year) %>%
           do(timeAverage(., avg.time = "year", statistic = "mean", data.thresh,
