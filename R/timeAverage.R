@@ -332,7 +332,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
             }
             
             ## better interval, most common interval in a year
-            if (days == 31) interval <- "month"
+            if (days %in% c(30, 31)) interval <- "month"
             if (days %in% c(365, 366)) interval <- "year"
             
             allDates <- seq(min(mydata$date), max(mydata$date), by = interval)
