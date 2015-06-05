@@ -876,8 +876,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                 ## only aggregate if we have to (for data pre-gridded)
         if (nrow(unique(subset(mydata, select = c(xgrid, ygrid)))) != nrow(mydata)) {
                                   
-            mydata <- select_(mydata, "xgrid", "ygrid", type, z) %>%
-              group_by_(., "xgrid", "ygrid", type) %>%
+            mydata <- select_(mydata, "xgrid", "ygrid", .dots = type, z) %>%
+              group_by_(., "xgrid", "ygrid", .dots = type) %>%
               summarise_(MN = interp(~ mean(var, na.rm = TRUE), var = as.name(z)))
 
             names(mydata)[which(names(mydata) == "MN")] <- z
