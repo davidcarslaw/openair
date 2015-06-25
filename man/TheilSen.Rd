@@ -8,10 +8,10 @@ TheilSen(mydata, pollutant = "nox", deseason = FALSE, type = "default",
   avg.time = "month", statistic = "mean", percentile = NA,
   data.thresh = 0, alpha = 0.05, dec.place = 2, xlab = "year",
   lab.frac = 0.99, lab.cex = 0.8, x.relation = "same",
-  y.relation = "same", data.col = "cornflowerblue", line.col = "red",
-  text.col = "darkgreen", cols = NULL, shade = "grey95",
-  auto.text = TRUE, autocor = FALSE, slope.percent = FALSE,
-  date.breaks = 7, ...)
+  y.relation = "same", data.col = "cornflowerblue", trend = list(lty =
+  c(1, 5), lwd = c(2, 1), col = c("red", "red")), text.col = "darkgreen",
+  cols = NULL, shade = "grey95", auto.text = TRUE, autocor = FALSE,
+  slope.percent = FALSE, date.breaks = 7, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing the field \code{date} and at least
@@ -95,7 +95,9 @@ useful setting when plotting data with very different values.}
 
 \item{data.col}{Colour name for the data}
 
-\item{line.col}{Colour name for the slope and uncertainty estimates}
+\item{trend}{list containing information on the line width, line
+type and line colour for the main trend line and confidence
+intervals respectively.}
 
 \item{text.col}{Colour name for the slope/uncertainty numeric estimates}
 

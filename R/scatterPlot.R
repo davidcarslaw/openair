@@ -332,7 +332,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     y.nam <- y
     thekey <- key
 
-    xgrid <- NULL; ygrid <- NULL
+    xgrid <- NULL; ygrid <- NULL ; group.number <- NULL
     
 
     ## set graphics

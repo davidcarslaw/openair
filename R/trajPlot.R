@@ -134,7 +134,7 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                      parameters = c(51, 51), orientation = c(90, 0, 0),
                      grid.col = "deepskyblue", ...)
 {
-    len <- NULL ## silence R check
+    len <- NULL; hour.inc <- NULL ## silence R check
 
     ## variables needed in trajectory plots
     vars <- c("date", "lat", "lon", "hour.inc", pollutant)

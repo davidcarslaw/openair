@@ -234,7 +234,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
     ## mydata can be a list of several trajectory files; in which case combine them
     ## before averaging
-
+    hour.inc <- NULL
     ## variables needed in trajectory plots
     vars <- c("date", "lat", "lon", "hour.inc", pollutant)
     mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)

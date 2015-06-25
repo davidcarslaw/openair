@@ -115,7 +115,9 @@
 ##' \dQuote{free} will use panel-specfic scales. The latter is a
 ##' useful setting when plotting data with very different values.
 ##' @param data.col Colour name for the data
-##' @param line.col Colour name for the slope and uncertainty estimates
+##' @param trend list containing information on the line width, line
+##' type and line colour for the main trend line and confidence
+##' intervals respectively.
 ##' @param text.col Colour name for the slope/uncertainty numeric estimates
 ##' @param cols Predefined colour scheme, currently only enabled for
 ##'   \code{"greyscale"}.
@@ -239,7 +241,8 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
                      statistic = "mean", percentile = NA, data.thresh = 0, alpha = 0.05,
                      dec.place = 2, xlab = "year", lab.frac = 0.99, lab.cex = 0.8,
                      x.relation = "same", y.relation = "same", data.col = "cornflowerblue",
-                     line.col = "red", text.col = "darkgreen", cols = NULL, 
+                     trend = list(lty = c(1, 5), lwd = c(2, 1), col = c("red", "red")),
+                     text.col = "darkgreen", cols = NULL, 
                      shade = "grey95", auto.text = TRUE,
                      autocor = FALSE, slope.percent = FALSE, date.breaks = 7,...)  {
 
@@ -259,11 +262,11 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
 
         trellis.par.set(list(strip.background = list(col = "white")))
         ## other local colours
-        line.col <- "black"
+        trend$col <- c("black", "black")
         data.col <- "darkgrey"
         text.col <- "black"
     } else {
-        line.col <- line.col
+       
         data.col <- data.col
         text.col <- text.col
     }
@@ -451,7 +454,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
     split.data <- merge(split.data, percent.change, by = type)
 
     res2 <- merge(res2, percent.change, by = type)
-########################################################################################################
+## #######################################################################################
 
 
     temp <- paste(type, collapse = "+")
@@ -468,13 +471,13 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
                         strip = strip,
                         strip.left = strip.left,
                         scales = list(x = list(at = date.at, format = date.format,
-                                      relation = x.relation),
-                        y = list(relation = y.relation, rot = 0)),
+                                          relation = x.relation),
+                            y = list(relation = y.relation, rot = 0)),
 
                         panel = function(x, y, subscripts,...){
                             ## year shading
                             panel.shade(split.data, start.year, end.year,
-                                                  ylim = current.panel.limits()$ylim, shade)
+                                        ylim = current.panel.limits()$ylim, shade)
                             panel.grid(-1, 0)
 
                             panel.xyplot(x, y, type = "b", col = data.col, ...)
@@ -483,14 +486,18 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
                             sub.dat <- split.data[subscripts, ]
 
                             if (nrow(sub.dat) > 0) {
-                                panel.abline(a = sub.dat[1, "intercept"], b = sub.dat[1, "slope"] / 365,
-                                             col = line.col, lwd = 2)
-                                panel.abline(a = sub.dat[1, "intercept.lower"], b = sub.dat[1, "lower"] / 365,
-                                             lty = 5,
-                                             col = line.col)
-                                panel.abline(a = sub.dat[1, "intercept.upper"], b = sub.dat[1, "upper"] / 365,
-                                             lty = 5,
-                                             col = line.col)
+                                panel.abline(a = sub.dat[1, "intercept"],
+                                             b = sub.dat[1, "slope"] / 365,
+                                             col = trend$col[1], lwd = trend$lwd[1],
+                                             lty = trend$lty[1])
+                                panel.abline(a = sub.dat[1, "intercept.lower"],
+                                             b = sub.dat[1, "lower"] / 365,
+                                             col = trend$col[2], lwd = trend$lwd[2],
+                                             lty = trend$lty[2])
+                                panel.abline(a = sub.dat[1, "intercept.upper"],
+                                             b = sub.dat[1, "upper"] / 365,
+                                             col = trend$col[2], lwd = trend$lwd[2],
+                                             lty = trend$lty[2])
 
                                 ## for text on plot - % trend or not?
                                 slope <- "slope"

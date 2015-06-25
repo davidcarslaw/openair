@@ -18,7 +18,10 @@ probability by wind sector (0 to 1).
   common use would be to apply `timeAverage` to a data frame with
   multiple sites where there is a column representing site name
   e.g. `type = "site"`.
-- Add receptor location for trajectory plots `trajLevel` and `trajPlot`.
+- Add receptor location for trajectory plots `trajLevel` and
+`trajPlot`.
+- Add an option `trend` to `TheilSen` to control how the trend lines
+  are drawn.
 
 # Changes in openair 1.5 [2015-04-14]
 

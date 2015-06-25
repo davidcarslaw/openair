@@ -180,7 +180,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
                         vector.ws = FALSE, fill = FALSE, ...) {
 
     ## get rid of R check annoyances
-    year = season = month = Uu = Vv = site = NULL
+    year = season = month = Uu = Vv = site = default = NULL
     
     ## extract variables of interest
     vars <- names(mydata)
