@@ -721,6 +721,10 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                         lapply(tmp, function (dat)
                                             lpoints(dat[id, "lon"], dat[id, "lat"],
                                                     col = dat$col, pch = 16))
+
+                                        ## add mark for receptor location
+                                        lpoints(Args$receptor[1], Args$receptor[2], pch = 16,
+                                                cex = 1.5, col = "black")
                                        
                                         
                                     } else {
@@ -1223,6 +1227,10 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                             ## add base map
                             if (map)
                                 add.map(Args, ...)
+
+                            ## add mark for receptor location
+                            lpoints(Args$receptor[1], Args$receptor[2], pch = 16,
+                                    cex = 1.5, col = "black")
 
 
                             ## add reference lines

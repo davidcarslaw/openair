@@ -174,6 +174,15 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
     Args <- list(...)
     method <- "scatter"
 
+    ## location of receptor for map projection, used to show location on maps
+    origin <- head(subset(mydata, hour.inc == 0), 1) ## origin
+    tmp <- mapproject(x = origin[["lon"]][1],
+                      y = origin[["lat"]][1],
+                      projection = projection,
+                      parameters = parameters,
+                      orientation = orientation)
+    receptor <- c(tmp$x, tmp$y)
+
     ## set graphics
     current.strip <- trellis.par.get("strip.background")
     current.font <- trellis.par.get("fontsize")
@@ -235,7 +244,8 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                                  map.cols = map.cols, map.alpha = map.alpha,
                                  traj = TRUE, projection = projection,
                                  parameters = parameters, orientation = orientation,
-                                 grid.col = grid.col, trajLims = trajLims)
+                                 grid.col = grid.col, trajLims = trajLims,
+                                 receptor = receptor)
 
     } else {
          if(!"main" %in% names(Args))
@@ -248,7 +258,8 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                                  map.cols = map.cols,
                                  map.alpha = map.alpha, traj = TRUE, projection = projection,
                                  parameters = parameters, orientation = orientation,
-                                 grid.col = grid.col, trajLims = trajLims)
+                                 grid.col = grid.col, trajLims = trajLims,
+                                 receptor = receptor)
     }
 
     #reset for Args
