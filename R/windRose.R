@@ -222,7 +222,7 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##' @export windRose pollutionRose
 ##' @importFrom plyr ddply ldply dlply llply numcolwise . 
 ##' @importFrom graphics abline
-##' @importFrom grDevices col2rgb colorRampPalette grey rgb
+##' @importFrom grDevices col2rgb colorRampPalette grey rgb xy.coords
 ##' @importFrom methods is
 ##' @importFrom stats aggregate approx as.dendrogram as.dist
 ##' ave coef cor dist formula hclust lm median
