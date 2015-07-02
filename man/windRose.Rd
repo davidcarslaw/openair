@@ -174,12 +174,11 @@ and \code{cutData}. Axis and title labelling options (\code{xlab},
 }
 \value{
 As well as generating the plot itself, \code{windRose} and
-\code{pollutionRose} also return an object of class
-\dQuote{openair}. The object includes three main components:
-\code{call}, the command used to generate the plot; \code{data},
-the data frame of summarised information used to make the plot;
-and \code{plot}, the plot itself. If retained, e.g. using
-\code{output <- windRose(mydata)}, this output can be used to
+  \code{pollutionRose} also return an object of class \dQuote{openair}. The
+  object includes three main components: \code{call}, the command used to
+  generate the plot; \code{data}, the data frame of summarised information
+  used to make the plot; and \code{plot}, the plot itself. If retained, e.g.
+  using \code{output <- windRose(mydata)}, this output can be used to
 recover the data, reproduce or rework the original plot or
 undertake further analysis.
 

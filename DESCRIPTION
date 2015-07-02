@@ -13,7 +13,6 @@ Depends:
     dplyr,
     maps,
 Imports:
-    utils,
     grid,
     plyr,
     reshape2,
@@ -26,7 +25,12 @@ Imports:
     hexbin,
     mapdata,
     RgoogleMaps,
-    Rcpp
+    Rcpp,
+    grDevices,
+    graphics,
+    methods,
+    stats,
+    utils
 Suggests:
     png,
     KernSmooth
@@ -42,4 +46,3 @@ URL: http://www.openair-project.org/, http://github.com/davidcarslaw/openair
 BugReports: http://github.com/davidcarslaw/openair/issues
 LazyLoad: yes
 LazyData: yes
-Packaged: 2010-01-18 09:56:13 UTC; trakr

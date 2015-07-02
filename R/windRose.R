@@ -220,14 +220,23 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##' \code{quickText} to handle routine formatting.
 ##'
 ##' @export windRose pollutionRose
-##' @importFrom plyr ddply ldply dlply llply numcolwise .
-##' @return As well as generating the plot itself, \code{windRose} and
-##' \code{pollutionRose} also return an object of class
-##' \dQuote{openair}. The object includes three main components:
-##' \code{call}, the command used to generate the plot; \code{data},
-##' the data frame of summarised information used to make the plot;
-##' and \code{plot}, the plot itself. If retained, e.g. using
-##' \code{output <- windRose(mydata)}, this output can be used to
+##' @importFrom plyr ddply ldply dlply llply numcolwise . 
+##' @importFrom graphics abline
+##' @importFrom grDevices col2rgb colorRampPalette grey rgb
+##' @importFrom methods is
+##' @importFrom stats aggregate approx as.dendrogram as.dist
+##' ave coef cor dist formula hclust lm median
+##' na.omit optimize order.dendrogram predict qchisq qnorm
+##' qt quantile reshape sd smooth.spline spline stl ts
+##' update var
+##' @importFrom utils compareVersion modifyList packageDescription
+##' read.csv read.table
+##' @return As well as generating the plot itself, \code{windRose} and 
+##'   \code{pollutionRose} also return an object of class \dQuote{openair}. The
+##'   object includes three main components: \code{call}, the command used to
+##'   generate the plot; \code{data}, the data frame of summarised information
+##'   used to make the plot; and \code{plot}, the plot itself. If retained, e.g.
+##'   using \code{output <- windRose(mydata)}, this output can be used to
 ##' recover the data, reproduce or rework the original plot or
 ##' undertake further analysis.
 ##'
