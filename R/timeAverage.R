@@ -183,7 +183,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     year = season = month = Uu = Vv = site = default = NULL
     
     ## extract variables of interest
-    vars <- names(mydata)
+    vars <- unique(c("date", names(mydata)))
     
     ## whether a time series has already been padded to fill time gaps
     padded <- FALSE
