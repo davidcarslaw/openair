@@ -381,7 +381,9 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     }
 
     if (length(npol) > 1) {
-        key.columns <- length(npol)
+        if (missing(key.columns)) 
+          key.columns <- length(npol) 
+        
         key <- list(lines = list(col = myColors[1 : length(npol)],
                         lty = Args$lty, lwd = Args$lwd,
                         pch = Args$pch, type = "b", cex = Args$cex),
