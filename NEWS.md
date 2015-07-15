@@ -23,6 +23,7 @@ probability by wind sector (0 to 1).
 - Add an option `trend` to `TheilSen` to control how the trend lines
 are drawn.
 - fix bug in `calendarPlot` when partial month available
+- fix bug in `calendarPlot`, don't need to cut data first
 
 # Changes in openair 1.5 [2015-04-14]
 

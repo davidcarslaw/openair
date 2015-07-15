@@ -392,15 +392,14 @@ GoogleMapsPlot <- function(mydata,
     ############################
     #type, cutData handling
     ############################
-    newdata <- cutData(mydata, type, ...)
+ #   newdata <- cutData(mydata, type, ...)
 
     ############################
     #pollutant, cols, etc.
     ############################
 
     #z pollutant if set else default
-    z <- if(is.null(pollutant))
-             rep(1, nrow(newdata)) else mydata[, pollutant]
+    z <-  mydata[, pollutant]
 
     #cex.range setup
     if(is.null(cex.range))
