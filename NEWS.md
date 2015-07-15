@@ -21,7 +21,8 @@ probability by wind sector (0 to 1).
 - Add receptor location for trajectory plots `trajLevel` and
 `trajPlot`.
 - Add an option `trend` to `TheilSen` to control how the trend lines
-  are drawn.
+are drawn.
+- fix bug in `calendarPlot` when partial month available
 
 # Changes in openair 1.5 [2015-04-14]
 

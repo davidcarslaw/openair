@@ -247,11 +247,15 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
                      as.Date(paste(year, "-12-31", sep = "")), by = "day")
 
     prepare.grid <- function(mydata, pollutant) {
+
+        ## if month is partial make sure name is available for all days
+        month <- mydata$month[1]
         
         ## make sure all days in month are present
         all.days <-  all.dates[format(all.dates, "%B") %in% format(mydata$date[1], "%B")]
         all.days <- data.frame(date = all.days)
         mydata <- merge(mydata, all.days, all = TRUE)
+        mydata$month <- month
 
         firstDay <- format(mydata$date[1], "%A")
         lastDay <- as.numeric(format(mydata$date[length(mydata$date)], "%d"))
@@ -303,7 +307,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
 
         results
     }
-
+    
     ## calculate daily means
     if ("POSIXt" %in% class(mydata$date) && !is.factor(mydata[, pollutant])) {
         mydata <- timeAverage(mydata, "day", statistic = statistic, data.thresh = data.thresh)
@@ -314,7 +318,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
     type <- "month"
     mydata <- cutData(mydata, type = type, ...)
     baseData <- mydata
-
+    
     ## subset months if necessary
     mydata <- mydata[mydata$month %in% unique(format(all.dates, "%B")), ]
     mydata$month <- factor(mydata$month)
@@ -322,7 +326,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
     strip.dat <- strip.fun(mydata, type, auto.text)
     strip <- strip.dat[[1]]
 
-    mydata <- group_by_(mydata, type) %>%
+    mydata <- group_by_(mydata, .dots = type) %>%
         do(prepare.grid(., pollutant))
     
     mydata$value <- mydata$conc.mat ## actual numerical value (retain for categorical scales)
@@ -410,6 +414,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
     
     
     lv.args <- list(x = value ~ x * y | month, data = mydata,
+                    
                     par.settings = cal.theme,
                     main = main,
                     strip = strip,
@@ -424,6 +429,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
                     between = list(x = 1),
                     colorkey = FALSE, legend = legend,
                     panel = function(x, y, subscripts,...) {
+                        
                         panel.levelplot(x, y, subscripts,...)
                         panel.abline(v=c(0.5: 7.5), col = "grey90")
                         panel.abline(h=c(0.5: 7.5), col = "grey90")
@@ -432,7 +438,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
                             ltext(x, y, labels = mydata$date.mat[subscripts], cex = 0.6,
                                   col = as.character(mydata$dateColour[subscripts]))
                         }
-
+                        
                         if (annotate == "value") {
                             ## add some dates for navigation
                             date.col <- as.character(mydata$dateColour[subscripts])
