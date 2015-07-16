@@ -394,6 +394,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   Args$parameters <- if ("parameters" %in% names(Args)) Args$parameters else c(51, 51)
   Args$orientation <- if ("orientation" %in% names(Args)) Args$orientation else c(90, 0, 0)
   Args$grid.col <- if ("grid.col" %in% names(Args)) Args$grid.col else "deepskyblue"
+  Args$npoints <- if ("npoints" %in% names(Args)) Args$npoints else 12
   
   ## transform hexbin by default
   Args$trans <- if ("trans" %in% names(Args)) Args$trans else function(x) log(x)
@@ -717,9 +718,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                             llines(dat$lon, dat$lat, col.line = dat$col,
                                    lwd = lwd, lty = lty))
                           
-                          ## major 12 hour points
+                          ## major npoints from trajPlot
                           id <- seq(min(subscripts), max(subscripts),
-                                    by = 12)
+                                    by = Args$npoints)
                           
                           lapply(tmp, function (dat)
                             lpoints(dat[id, "lon"], dat[id, "lat"],
@@ -739,11 +740,11 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                    col.line = myColors[group.number],
                                    lwd = lwd, lty = lty))
                           
-                          ## major 12 hour points
+                          ## major npoints from trajPlot
                           
                           lapply(tmp, function (dat)
-                            lpoints(dat[seq(1, nrow(dat), 12), "lon"],
-                                    dat[seq(1, nrow(dat), 12), "lat"],
+                            lpoints(dat[seq(1, nrow(dat), Args$npoints), "lon"],
+                                    dat[seq(1, nrow(dat), Args$npoints), "lat"],
                                     col = myColors[group.number],
                                     pch = 16))
                           

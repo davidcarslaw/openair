@@ -6,3 +6,5 @@ src/*.so
 src/*.dll
 openair.Rproj
 *~
+src-i386
+src-x64

@@ -24,6 +24,7 @@ probability by wind sector (0 to 1).
 are drawn.
 - fix bug in `calendarPlot` when partial month available
 - fix bug in `calendarPlot`, don't need to cut data first
+- add `npoints` option to `trajPlot` to control time spacing of dots shown on back trajectories
 
 # Changes in openair 1.5 [2015-04-14]
 
