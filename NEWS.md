@@ -26,6 +26,7 @@ are drawn.
 - fix bug in `calendarPlot`, don't need to cut data first
 - add `npoints` option to `trajPlot` to control time spacing of dots shown on back trajectories
 - don't include missings when `statistic = "frequency` in `timeAverage`
+- fix bug in `timeProp` due to point above
 
 # Changes in openair 1.5 [2015-04-14]
 
