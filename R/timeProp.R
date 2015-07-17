@@ -207,10 +207,12 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time
     procData <- function(mydata, avg.time, ...) {
 
         ## time frequencies
-        freqs <- plyr::ddply(mydata, proportion, timeAverage, avg.time = avg.time, statistic = "frequency")
-
+        freqs <- plyr::ddply(mydata, proportion, timeAverage, avg.time = avg.time,
+                             statistic = "frequency")
+        
         ## the values
-        values <- plyr::ddply(mydata, proportion, timeAverage, avg.time = avg.time, statistic = "mean")
+        values <- plyr::ddply(mydata, proportion, timeAverage, avg.time = avg.time,
+                              statistic = "mean")
 
         ## do not weight by concentration if statistic = frequency, just repeat overall mean
         ## by proportion
@@ -223,11 +225,21 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time
         ## add frequencies
         values$freq <- freqs[[pollutant]]
 
+        ## means
+  #      values$means <- values[[pollutant]]
+
         ## conc * freq
         values$sums <- freqs[[pollutant]] * values[[pollutant]]
 
-        ## weighted conc
-        res <- plyr::ddply(values, .(date), transform, Var1 = sums / sum(freq, na.rm = TRUE))
+     #   if (statistic == "mean") {
+            ## weighted conc
+            res <- plyr::ddply(values, .(date), transform, Var1 = sums / sum(freq, na.rm = TRUE))
+            
+     #   } else {
+
+       #     res <- plyr::ddply(values, .(date), transform, Var1 = means * freq / sum(freq, na.rm = TRUE))
+            
+    #    }
 
         ## normlaise to 100 if needed
         if (normalise) res <- plyr::ddply(res, .(date), transform,

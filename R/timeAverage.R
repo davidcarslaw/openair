@@ -210,7 +210,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     
     if (statistic == "mean") FUN <- function (x) mean(x, na.rm = TRUE)
     if (statistic == "median") FUN <- function (x) Cquantile(x, probs = 0.50)
-    if (statistic == "frequency") FUN <- function (x) length(x)
+    if (statistic == "frequency") FUN <- function (x) length(na.omit(x))
     if (statistic == "max") FUN <- function (x) Cquantile(x, probs = 1.0)
     if (statistic == "min") FUN <- function (x) Cquantile(x, probs = 0)
     if (statistic == "sum") FUN <- function (x) sum(x, na.rm = TRUE)
