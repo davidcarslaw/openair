@@ -336,7 +336,7 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
             if (length(id) > 0) {
                 x <- x[-id, ]
                 warning(paste(length(id),
-                              "missing wind direction line(s) removed"))
+                              "missing wind direction line(s) removed"), call. = FALSE)
             }
 
             x[[type]] <- cut(x$wd, breaks = seq(22.5, 382.5, 45),
