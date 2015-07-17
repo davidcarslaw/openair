@@ -395,6 +395,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   Args$orientation <- if ("orientation" %in% names(Args)) Args$orientation else c(90, 0, 0)
   Args$grid.col <- if ("grid.col" %in% names(Args)) Args$grid.col else "deepskyblue"
   Args$npoints <- if ("npoints" %in% names(Args)) Args$npoints else 12
+  Args$origin <- if ("origin" %in% names(Args)) Args$origin else TRUE
   
   ## transform hexbin by default
   Args$trans <- if ("trans" %in% names(Args)) Args$trans else function(x) log(x)
@@ -701,16 +702,16 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                             lty, lwd, group.number,
                                             subscripts, windflow, ...)
                     {
-                      
+                        
                       ## specific treatemt of trajectory lines
                       ## in order to avoid a line back to the origin, need to process
                       ## in batches
                       if (Args$traj) {
                         
-                        ## data of interest
+                          ## data of interest
                         tmp <- split(mydata[subscripts, ],
                                      mydata[subscripts, "date"])
-                        
+                          
                         if (!is.na(z)) {
                           
                           ## colour by 
@@ -725,13 +726,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                           lapply(tmp, function (dat)
                             lpoints(dat[id, "lon"], dat[id, "lat"],
                                     col = dat$col, pch = 16))
-                          
-                          ## add mark for receptor location
-                          lpoints(Args$receptor[1], Args$receptor[2], pch = 16,
-                                  cex = 1.5, col = "black")
-                          
-                          
-                        } else {
+                            
+                           } else {
                           
                           ## colour by a z
                           
@@ -747,6 +743,14 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                     dat[seq(1, nrow(dat), Args$npoints), "lat"],
                                     col = myColors[group.number],
                                     pch = 16))
+
+                             ## add mark for receptor location
+                            if (Args$origin)
+                                lpoints(Args$receptor[1], Args$receptor[2], pch = 16,
+                                        cex = 1.5, col = "black")
+
+
+
                           
                         }
                         

@@ -98,6 +98,8 @@
 ##'     where the air masses were at particular times and get a feel
 ##'     for the speed of the air (points closer togther correspond to
 ##'     slower moving air masses).
+##' @param origin If true a filled circle dot is shown to mark the
+##'     receptor point.
 ##' @param ... other arguments are passed to \code{cutData} and
 ##'     \code{scatterPlot}. This provides access to arguments used in
 ##'     both these functions and functions that they in turn pass
@@ -142,7 +144,7 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                      map.res = "default", map.cols = "grey40",
                      map.alpha = 0.4, projection = "lambert",
                      parameters = c(51, 51), orientation = c(90, 0, 0),
-                     grid.col = "deepskyblue", npoints = 12, ...)
+                     grid.col = "deepskyblue", npoints = 12, origin = TRUE, ...)
 {
     len <- NULL; hour.inc <- NULL ## silence R check
 
@@ -185,9 +187,9 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
     method <- "scatter"
 
     ## location of receptor for map projection, used to show location on maps
-    origin <- head(subset(mydata, hour.inc == 0), 1) ## origin
-    tmp <- mapproject(x = origin[["lon"]][1],
-                      y = origin[["lat"]][1],
+    origin_xy <- head(subset(mydata, hour.inc == 0), 1) ## origin
+    tmp <- mapproject(x = origin_xy[["lon"]][1],
+                      y = origin_xy[["lat"]][1],
                       projection = projection,
                       parameters = parameters,
                       orientation = orientation)
@@ -255,7 +257,8 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                                  traj = TRUE, projection = projection,
                                  parameters = parameters, orientation = orientation,
                                  grid.col = grid.col, trajLims = trajLims,
-                                 receptor = receptor, npoints = npoints)
+                                 receptor = receptor, npoints = npoints,
+                                 origin = origin)
 
     } else {
          if(!"main" %in% names(Args))
@@ -269,7 +272,8 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                                  map.alpha = map.alpha, traj = TRUE, projection = projection,
                                  parameters = parameters, orientation = orientation,
                                  grid.col = grid.col, trajLims = trajLims,
-                                 receptor = receptor,  npoints = npoints)
+                                 receptor = receptor,  npoints = npoints,
+                                 origin = origin)
     }
 
     #reset for Args

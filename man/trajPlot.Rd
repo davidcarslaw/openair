@@ -8,7 +8,7 @@ trajPlot(mydata, lon = "lon", lat = "lat", pollutant = "height",
   type = "default", map = TRUE, group = NA, map.fill = TRUE,
   map.res = "default", map.cols = "grey40", map.alpha = 0.4,
   projection = "lambert", parameters = c(51, 51), orientation = c(90, 0,
-  0), grid.col = "deepskyblue", npoints = 12, ...)
+  0), grid.col = "deepskyblue", npoints = 12, origin = TRUE, ...)
 }
 \arguments{
 \item{mydata}{Data frame, the result of importing a trajectory
@@ -101,6 +101,9 @@ plotted every \code{npoint} hours. This helps to understand
 where the air masses were at particular times and get a feel
 for the speed of the air (points closer togther correspond to
 slower moving air masses).}
+
+\item{origin}{If true a filled circle dot is shown to mark the
+receptor point.}
 
 \item{...}{other arguments are passed to \code{cutData} and
 \code{scatterPlot}. This provides access to arguments used in
