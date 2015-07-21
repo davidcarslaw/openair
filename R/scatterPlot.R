@@ -1241,12 +1241,12 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                       
                       ## add base map
                       if (map)
-                        add.map(Args, ...)
+                          add.map(Args, ...)
                       
-                      ## add mark for receptor location
-                      lpoints(Args$receptor[1], Args$receptor[2], pch = 16,
-                              cex = 1.5, col = "black")
-                      
+                       ## add mark for receptor location
+                            if (Args$origin)
+                                lpoints(Args$receptor[1], Args$receptor[2], pch = 16,
+                                        cex = 1.5, col = "black")
                       
                       ## add reference lines
                       if (!is.null(ref.x)) do.call(panel.abline, ref.x)

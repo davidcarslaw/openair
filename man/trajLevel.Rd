@@ -9,7 +9,7 @@ trajLevel(mydata, lon = "lon", lat = "lat", pollutant = "height",
   percentile = 90, map = TRUE, lon.inc = 1, lat.inc = 1, min.bin = 1,
   map.fill = TRUE, map.res = "default", map.cols = "grey40",
   map.alpha = 0.3, projection = "lambert", parameters = c(51, 51),
-  orientation = c(90, 0, 0), grid.col = "deepskyblue", ...)
+  orientation = c(90, 0, 0), grid.col = "deepskyblue", origin = TRUE, ...)
 }
 \arguments{
 \item{mydata}{Data frame, the result of importing a trajectory
@@ -134,6 +134,8 @@ coordinates in the map.}
 
 \item{grid.col}{The colour of the map grid to be used. To remove
 the grid set \code{grid.col = "transparent"}.}
+
+\item{origin}{should the receptor origin be shown by a black dot?}
 
 \item{...}{other arguments are passed to \code{cutData} and
 \code{scatterPlot}. This provides access to arguments used in both

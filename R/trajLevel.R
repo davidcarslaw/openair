@@ -164,6 +164,7 @@
 ##' coordinates in the map.
 ##' @param grid.col The colour of the map grid to be used. To remove
 ##' the grid set \code{grid.col = "transparent"}.
+##' @param origin should the receptor origin be shown by a black dot?
 ##' @param ... other arguments are passed to \code{cutData} and
 ##' \code{scatterPlot}. This provides access to arguments used in both
 ##' these functions and functions that they in turn pass arguments on
@@ -230,7 +231,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
                       map.fill = TRUE, map.res = "default", map.cols = "grey40",
                       map.alpha = 0.3, projection = "lambert",
                       parameters = c(51, 51), orientation = c(90, 0, 0),
-                      grid.col = "deepskyblue", ...)  {
+                      grid.col = "deepskyblue", origin = TRUE, ...)  {
 
     ## mydata can be a list of several trajectory files; in which case combine them
     ## before averaging
@@ -300,9 +301,9 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     }
 
     ## location of receptor for map projection, used to show location on maps
-    origin <- head(subset(mydata, hour.inc == 0), 1) ## origin
-    tmp <- mapproject(x = origin[["lon"]][1],
-                      y = origin[["lat"]][1],
+    origin_xy <- head(subset(mydata, hour.inc == 0), 1) ## origin
+    tmp <- mapproject(x = origin_xy[["lon"]][1],
+                      y = origin_xy[["lat"]][1],
                       projection = projection,
                       parameters = parameters,
                       orientation = orientation)
@@ -452,7 +453,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
                              projection = projection,
                              parameters = parameters, orientation = orientation,
                              grid.col = grid.col, trajLims = trajLims,
-                             receptor = receptor)
+                             receptor = receptor, origin = origin)
 
     ## reset for Args
     scatterPlot.args <- listUpdate(scatterPlot.args, Args)
