@@ -130,7 +130,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time
                      key.position = "right", auto.text = TRUE, ...) {
 
     ## keep check happy
-    sums <- NULL; freq <- NULL; Var1 <- NULL
+    sums <- NULL; freq <- NULL; Var1 <- NULL; means <- NULL
 
     ## greyscale handling
     if (length(cols) == 1 && cols == "greyscale") {
