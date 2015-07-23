@@ -421,7 +421,7 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     ## labels for pollutants, can be user-defined, special handling when difference = TRUE
     poll.orig <- pollutant
     if (difference && missing(group)) pollutant <- c(pollutant, paste(pollutant[2], "-", pollutant[1]))
-
+    
     if (missing(name.pol)) mylab <- sapply(seq_along(pollutant), function(x)
                                            quickText(pollutant[x], auto.text))
 
@@ -440,7 +440,7 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         names(mydata)[id] <- "variable"
 
         mydata$variable <- factor(mydata$variable)  ## drop unused factor levels
-        the.names <- levels(mydata[ , "variable"])
+        the.names <- levels(mydata[["variable"]])
         if (difference) the.names <- c(the.names, paste(levels(mydata$variable)[2], "-",
                                                         levels(mydata$variable)[1]))
         mylab <-  sapply(the.names, function(x) quickText(x, auto.text))
@@ -848,7 +848,7 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     } else {
         y.upp <- 0.975; y.dwn <- 0.025
     }
-
+    
     main.plot <- function(...) {
         if (type == "default") {
             print(update(day.hour, key = list(rectangles = list(col = myColors[1:npol], border = NA),
