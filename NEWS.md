@@ -1,3 +1,7 @@
+# Changes in openair 1.6.1 [2015-07-23]
+
+- fix bug in `GoogleMapsPlot` when pollutant not given
+
 # Changes in openair 1.6 [2015-04-17]
 
 - Don't force integer results for `importAURN`
