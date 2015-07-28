@@ -152,7 +152,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time
     ## extra.args setup
     extra.args <- list(...)
 
-    ## set graphics
+    ## set graphaics
     current.strip <- trellis.par.get("strip.background")
     current.font <- trellis.par.get("fontsize")
     

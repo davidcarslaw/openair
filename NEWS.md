@@ -1,6 +1,8 @@
 # Changes in openair 1.6.1 [2015-07-23]
 
 - fix bug in `GoogleMapsPlot` when pollutant not given
+- don't clutter up working directory with `GoogleMapsPlot`; write to
+  temporary file instead
 
 # Changes in openair 1.6 [2015-04-17]
 

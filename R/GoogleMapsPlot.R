@@ -563,7 +563,7 @@ my.size <- if(my.y > my.x)
                c(640, ceiling((my.y/my.x) * 640))
 
         #override some RgoogleMaps defaults
-        map <- list(lon = temp2$lonR, lat = temp2$latR, destfile = "XtempX.png",
+        map <- list(lon = temp2$lonR, lat = temp2$latR, destfile = tempfile(),
                      maptype = "terrain", size = my.size)
 
         #catch all missing x/y dimensions
@@ -810,11 +810,12 @@ openairMapManager <- function(map){
     #native raster handler
     #######################
 
-    if("nativeRaster" %in% class(map$myTile)){
+    if ("nativeRaster" %in% class(map$myTile)) {
 
-        #do to png native output
-        png::writePNG(map$myTile, "XtempX.png")
-        map$myTile <- png::readPNG("XtempX.png", native = FALSE)
+        ## do to png native output
+        tmpFile <- tempfile()
+        png::writePNG(map$myTile, tmpFile)
+        map$myTile <- png::readPNG(tmpFile, native = FALSE)
         attr(map$myTile, "type") <- "rgb"
 
     }
