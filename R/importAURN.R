@@ -332,6 +332,7 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all", hc = FALSE)
              con <- url(fileName)
              load(con, envir = .GlobalEnv)
              close(con)
+             
              x
              },
                   error = function(ex) {cat(x, "does not exist - ignoring that one.\n")})
@@ -339,14 +340,15 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all", hc = FALSE)
      }
 
     thedata <- lapply(files, loadData)
-
+    
     theObjs <- unlist(thedata)
     ## note unlist will drop NULLs from non-existant sites/years
     mylist <- lapply(theObjs, get)
     
     if (length(mylist) == 0) return() ## no data
-    
-    thedata <- do.call(bind_rows, mylist)
+
+    ## suppress warnings for now - unequal factors, harmless
+    thedata <- suppressWarnings(do.call(bind_rows, mylist))
     if (is.null(thedata)) stop("No data to import - check site codes and year.", call. = FALSE)
 
     thedata$site <- factor(thedata$site, levels = unique(thedata$site))
