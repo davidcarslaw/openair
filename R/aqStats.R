@@ -277,7 +277,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 
     bySite <- function (mydata, pollutant, data.thresh = data.thresh,
                         percentile = percentile, ...) {
-
+        
         ## dates should be unique; issue warning if not
         if (any(duplicated(mydata$date))) warning ("Duplicate dates detected - more than one site?",
                                                    call. = FALSE)
@@ -293,9 +293,9 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
         results
     }
 
-
+    
     results <- group_by(mydata, site) %>%
-      do(bySite(mydata, pollutant = pollutant, data.thresh = data.thresh,
+      do(bySite(., pollutant = pollutant, data.thresh = data.thresh,
                 percentile = percentile,...))
     
 

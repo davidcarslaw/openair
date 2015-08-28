@@ -3,7 +3,9 @@
 - fix bug in `GoogleMapsPlot` when pollutant not given
 - don't clutter up working directory with `GoogleMapsPlot`; write to
 temporary file instead
-- fix bug when trying to access multiple sites with no data in `importAURN`
+- fix bug when trying to access multiple sites with no data in
+`importAURN`
+- fix problem with mutiple sites in `aqStats`
 
 # Changes in openair 1.6 [2015-04-17]
 
