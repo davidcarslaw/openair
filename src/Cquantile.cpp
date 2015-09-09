@@ -5,11 +5,13 @@ using namespace Rcpp;
 // Better with larger vectors
 // Need to implement Type 7 (R) version...
 
-RcppExport SEXP Cquant(SEXP x, SEXP probs) {
-  NumericVector A(x) ;
+// [[Rcpp::export]]
+NumericVector Cquant(NumericVector A, NumericVector probs) {
+  
   NumericVector q(probs) ;
   NumericVector y = wrap(na_omit(A)) ;
   
   std::sort(y.begin(), y.end());
   return y[y.size()*(q - 0.000000001)];
 }
+

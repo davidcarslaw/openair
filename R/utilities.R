@@ -998,11 +998,13 @@ Cquantile <- function(x, probs = 0.5) {
 
     if (all(is.na(x))) return(NA)
 
-    res <- .Call("Cquant", x, probs, PACKAGE = "openair")
-
+    res <- Cquant(x, probs)
+    
     return(res)
     
 }
+
+
 
 ## simple rounding function from plyr
 round_any <- function(x, accuracy, f = round) {
