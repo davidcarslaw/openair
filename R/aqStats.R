@@ -287,8 +287,8 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
                                                             data.thresh = data.thresh,
                                                             percentile = percentile, ...))
 
-        
-        results <- rbind_all(results)
+        ## supress warnings about binding factors
+        results <- suppressWarnings(bind_rows(results))
         results$year <- as.numeric(results$year)
         results
     }
