@@ -6,6 +6,8 @@ temporary file instead
 - fix bug when trying to access multiple sites with no data in
 `importAURN`
 - fix problem with mutiple sites in `aqStats`
+- `TheilSen` should always give trend in units/year (would use xlab if
+  supplied)
 
 # Changes in openair 1.6 [2015-04-17]
 

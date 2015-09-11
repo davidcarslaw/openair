@@ -519,7 +519,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
                                            paste(round(sub.dat[1, slope], dec.place), " ", "[",
                                                  round(sub.dat[1, lower], dec.place), ", ",
                                                  round(sub.dat[1, upper], dec.place), "] ",
-                                                 units, "/", xlab, " ", sub.dat[1, "p.stars"], sep = ""),
+                                                 units, "/", "year", " ", sub.dat[1, "p.stars"], sep = ""),
                                            cex = lab.cex, adj = c(0.5, 1), col = text.col, font = 2)
                             }
                         })
