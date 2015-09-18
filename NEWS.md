@@ -4,10 +4,11 @@
 - don't clutter up working directory with `GoogleMapsPlot`; write to
 temporary file instead
 - fix bug when trying to access multiple sites with no data in
-`importAURN`
 - fix problem with mutiple sites in `aqStats`
 - don't remove missings in `scatterPlot` so that factors with no data
   still shown
+- `TheilSen` should always give trend in units/year (would use xlab if
+  supplied)
 
 # Changes in openair 1.6 [2015-04-17]
 
