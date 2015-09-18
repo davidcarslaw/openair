@@ -6,6 +6,8 @@ temporary file instead
 - fix bug when trying to access multiple sites with no data in
 `importAURN`
 - fix problem with mutiple sites in `aqStats`
+- don't remove missings in `scatterPlot` so that factors with no data
+  still shown
 
 # Changes in openair 1.6 [2015-04-17]
 
