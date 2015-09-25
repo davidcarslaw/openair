@@ -193,11 +193,13 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
     vars <- c(mod, obs)
 
     if (any(type %in%  dateTypes)) vars <- c("date", vars)
-
+    
     ## check the data
     mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
     mydata <- na.omit(mydata)
     mydata <- cutData(mydata, type)
+
+    
 
     procData <- function(mydata){
         mydata <- mydata[ , sapply(mydata, class) %in% c("numeric", "integer"),
@@ -243,9 +245,9 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
         results
     }
 
-
-    lo <- min(mydata[ , c(mod, obs)])
-    hi <- max(mydata[ , c(mod, obs)])
+    
+    lo <- min(mydata[c(mod, obs)])
+    hi <- max(mydata[c(mod, obs)])
     all.results <- dlply(mydata, type, procData)
 
     results <- plyr::ldply(all.results, function(x) rbind(x[[1]]))

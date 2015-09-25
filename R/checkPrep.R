@@ -152,7 +152,8 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
             suppressWarnings(trellis.par.set(list(strip.background = list(col = "white"))))
         }
 
-        ## return data frame
-        mydata
+        
     }
+    ## return data frame
+    return(mydata)
 }
