@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 NEWS\.md
 ^\.travis\.yml$
+^data-raw$

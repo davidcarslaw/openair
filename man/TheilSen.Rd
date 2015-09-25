@@ -10,8 +10,8 @@ TheilSen(mydata, pollutant = "nox", deseason = FALSE, type = "default",
   lab.frac = 0.99, lab.cex = 0.8, x.relation = "same",
   y.relation = "same", data.col = "cornflowerblue", trend = list(lty =
   c(1, 5), lwd = c(2, 1), col = c("red", "red")), text.col = "darkgreen",
-  cols = NULL, shade = "grey95", auto.text = TRUE, autocor = FALSE,
-  slope.percent = FALSE, date.breaks = 7, ...)
+  slope.text = NULL, cols = NULL, shade = "grey95", auto.text = TRUE,
+  autocor = FALSE, slope.percent = FALSE, date.breaks = 7, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing the field \code{date} and at least
@@ -100,6 +100,8 @@ type and line colour for the main trend line and confidence
 intervals respectively.}
 
 \item{text.col}{Colour name for the slope/uncertainty numeric estimates}
+
+\item{slope.text}{The text shown for the slope (default is \sQuote{units/year}).}
 
 \item{cols}{Predefined colour scheme, currently only enabled for
 \code{"greyscale"}.}

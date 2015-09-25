@@ -119,6 +119,7 @@
 ##' type and line colour for the main trend line and confidence
 ##' intervals respectively.
 ##' @param text.col Colour name for the slope/uncertainty numeric estimates
+##' @param slope.text The text shown for the slope (default is \sQuote{units/year}).
 ##' @param cols Predefined colour scheme, currently only enabled for
 ##'   \code{"greyscale"}.
 ##' @param shade The colour used for marking alternate years. Use
@@ -242,7 +243,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
                      dec.place = 2, xlab = "year", lab.frac = 0.99, lab.cex = 0.8,
                      x.relation = "same", y.relation = "same", data.col = "cornflowerblue",
                      trend = list(lty = c(1, 5), lwd = c(2, 1), col = c("red", "red")),
-                     text.col = "darkgreen", cols = NULL, 
+                     text.col = "darkgreen", slope.text = NULL, cols = NULL, 
                      shade = "grey95", auto.text = TRUE,
                      autocor = FALSE, slope.percent = FALSE, date.breaks = 7,...)  {
 
@@ -512,6 +513,17 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
                                     units <- "%"
                                 }
 
+                                ## allow user defined slope text
+                                if (!is.null(slope.text)) {
+
+                                    slope.text <- slope.text
+                                    
+                                } else {
+
+                                    slope.text <- paste0(units, "/year")
+                                    
+                                }
+
                                 ## plot top, middle
                                 panel.text(mean(c(current.panel.limits()$xlim[2], current.panel.limits()$xlim[1])),
                                            current.panel.limits()$ylim[1] + lab.frac *
@@ -519,7 +531,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
                                            paste(round(sub.dat[1, slope], dec.place), " ", "[",
                                                  round(sub.dat[1, lower], dec.place), ", ",
                                                  round(sub.dat[1, upper], dec.place), "] ",
-                                                 units, "/", "year", " ", sub.dat[1, "p.stars"], sep = ""),
+                                                 slope.text, " ", sub.dat[1, "p.stars"], sep = ""),
                                            cex = lab.cex, adj = c(0.5, 1), col = text.col, font = 2)
                             }
                         })
