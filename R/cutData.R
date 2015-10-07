@@ -162,7 +162,7 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
 
     makeCond <- function(x, type = "default") {
         ## adds a column "cond"
-
+        
         ## if type is time based and already exists in data, remove it
         ## because we need to calculate it based on the date
 
@@ -202,7 +202,7 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
                                                           na.rm = TRUE)),
                                           include.lowest = TRUE))
 
-                x[[type]] <- cut(x[, type], unique(quantile(x[[type]],
+                x[[type]] <- cut(x[[type]], unique(quantile(x[[type]],
                                                              probs = seq(0, 1, length = n.levels + 1),
                                                              na.rm = TRUE)), include.lowest = TRUE,
                                   labels = FALSE)

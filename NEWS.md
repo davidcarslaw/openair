@@ -7,7 +7,8 @@ temporary file instead
 `importAURN`
 - fix problem with mutiple sites in `aqStats`
 - `TheilSen` should always give trend in units/year (would use xlab if
-  supplied)
+supplied)
+- fix `cutData` bug where quantile cuts are made
 
 # Changes in openair 1.6 [2015-04-17]
 
