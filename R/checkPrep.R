@@ -133,23 +133,27 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
         zz <- attr(z, "tzone")
 
         if (length(zz) == 3L) {
-            if (!zz[3] %in%  c("WILDABBR", "   ")) ## means that no DST e.g. for tz = Etc/GMT+5
-                {
-                    warning("Detected data with Daylight Saving Time, converting to UTC/GMT")
-                    attr(mydata$date, "tzone") <- "GMT"
-                }
 
+            ## strings meaning that no DST occurs
+            ## check if winter and summer time are really different
+            ## special case: CET and WEST are the same indeed e.g. tz="Africa/Algiers"
+            
+            if (!zz[3] %in% c("WILDABBR", "   ") && zz[2] != zz[3] &&
+                            !(zz[2] == "CET" && zz[3] == "WEST"))   {
+
+                warning("Detected data with Daylight Saving Time, converting to UTC/GMT")
+                attr(mydata$date, "tzone") <- "GMT"
+                
+            }
         }
-    }
 
-    if (strip.white) {
-        ## set panel strip to white
-        suppressWarnings(trellis.par.set(list(strip.background = list(col = "white"))))
-    }
+        if (strip.white) {
+            ## set panel strip to white
+            suppressWarnings(trellis.par.set(list(strip.background = list(col = "white"))))
+        }
 
+        
+    }
     ## return data frame
-    mydata
+    return(mydata)
 }
-
-
-

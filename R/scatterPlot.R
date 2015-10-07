@@ -473,7 +473,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   ## remove missing data except for time series where we want to show gaps
   ## this also removes missing factors
   if (class(mydata[[x]])[1] != "Date" & !"POSIXt" %in% class(mydata[ , x])) {
-    mydata <- na.omit(mydata)
+ ##   mydata <- na.omit(mydata)
   }
   
   ## if x is a factor/character, then rotate axis labels for clearer labels
