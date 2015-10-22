@@ -12,7 +12,7 @@ openColours(scheme = "default", n = 100)
 colour names e.g. c("green", "blue"). It is also possible to
 supply colour schemes from the \code{RColorBrewer} package. This
 package defines three types of colour schemes: sequential,
-diverging or qualitative. See \url{http://colorbrewer.org} for
+diverging or qualitative. See \url{http://colorbrewer2.org} for
 more details concerning the orginal work on which this is based.
 
 Sequential colours are useful for ordered data where there is a

@@ -45,14 +45,15 @@ and \code{end.date} to see whether it is advisable to set these
 other options.}
 
 \item{statistic}{The statistic to apply when aggregating the data;
-default is the mean. Can be one of \dQuote{mean}, \dQuote{max},
-\dQuote{min}, \dQuote{median}, \dQuote{frequency}, \dQuote{sd},
-\dQuote{percentile}. Note that \dQuote{sd} is the standard
-deviation and \dQuote{frequency} is the number (frequency) of
-valid records in the period.  \dQuote{percentile} is the
-percentile level (\%) between 0-100, which can be set using the
-\dQuote{percentile} option --- see below. Not used if \code{avg.time
-= "default"}.}
+    default is the mean. Can be one of \dQuote{mean},
+    \dQuote{max}, \dQuote{min}, \dQuote{median},
+    \dQuote{frequency}, \dQuote{sd}, \dQuote{percentile}. Note
+    that \dQuote{sd} is the standard deviation, \dQuote{frequency}
+    is the number (frequency) of valid records in the period and
+    \dQuote{data.cap} is the percentage data capture.
+    \dQuote{percentile} is the percentile level (\%) between
+    0-100, which can be set using the \dQuote{percentile} option
+    --- see below. Not used if \code{avg.time = "default"}.}
 
 \item{type}{\code{type} allows \code{timeAverage} to be applied to
 cases where there are groups of data that need to be split and the

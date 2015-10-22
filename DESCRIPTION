@@ -1,8 +1,8 @@
 Package: openair
 Type: Package
 Title: Tools for the Analysis of Air Pollution Data
-Version: 1.6.3
-Date: 2015-09-25
+Version: 1.6.4
+Date: 2015-10-22
 Authors@R: c(person("David", "Carslaw", role = c("aut", "cre"), email =
     "david.carslaw@york.ac.uk"), person("Karl", "Ropkins", role =
     "aut", email = "K.Ropkins@its.leeds.ac.uk"))
@@ -42,7 +42,7 @@ Description: Tools to analyse, interpret and understand air
     can be analysed.  Many functions can also be applied to
     other data, including meteorological and traffic data.
 License: GPL (>= 2)
-URL: http://www.openair-project.org/, http://github.com/davidcarslaw/openair
-BugReports: http://github.com/davidcarslaw/openair/issues
+URL: http://www.openair-project.org/, https://github.com/davidcarslaw/openair
+BugReports: https://github.com/davidcarslaw/openair/issues
 LazyLoad: yes
 LazyData: yes

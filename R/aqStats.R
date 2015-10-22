@@ -145,7 +145,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
           rename_(median = pollutant)
 
         dataCapture <- group_by(mydata, year) %>%
-          do(timeAverage(., avg.time = "year", statistic = "data.cap", data.thresh,
+          do(timeAverage(., avg.time = "year", statistic = "data.cap",
                          type = "site")) %>%
           rename_(dat.cap = pollutant)
 

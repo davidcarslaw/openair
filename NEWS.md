@@ -1,4 +1,4 @@
-# Changes in openair 1.6.1 [2015-07-23]
+# Changes in openair 1.6.4 [2015-10-22]
 
 - fix bug in `GoogleMapsPlot` when pollutant not given
 - don't clutter up working directory with `GoogleMapsPlot`; write to
@@ -13,7 +13,8 @@ supplied)
 - `TheilSen` should always give trend in units/year (would use xlab if supplied)
 - New option `slope.text` in `TheilSen` to allow users to add their
   own text i.e. not the default "units/year"
-- refine check on DST 
+- refine check on DST
+- Always report data capture % in `aqStats`
 
 
 # Changes in openair 1.6 [2015-04-17]
