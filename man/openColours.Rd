@@ -82,7 +82,7 @@ cols
 David Carslaw
 }
 \references{
-\url{http://colorbrewer.org}
+\url{http://colorbrewer2.org}
 }
 \keyword{methods}
 
