@@ -314,7 +314,9 @@ pollutant = c("nox", "no2", "o3"))}
 \dontrun{mary <- importAURN(site = "my1", year =1998, hc = TRUE)}
 
 ## reshape the data so that each column represents a pollutant/site
-\dontrun{thedata <- importAURN(site = c("nott", "kc1"), year = 2008,
+\dontrun{
+require(reshape2)
+thedata <- importAURN(site = c("nott", "kc1"), year = 2008,
 pollutant = "o3")
 thedata <- melt(thedata, measure.vars = "o3")
 thedata <- dcast(thedata, ... ~ variable + site + code)

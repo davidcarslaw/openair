@@ -110,23 +110,8 @@ Note that it is assumed that the input data are in GMT (UTC)
 format and in particular there is no consideration of daylight
 saving time i.e. where in the input data set an hour is missing in
 spring and duplicated in autumn.
-}
-\examples{
-## Note that more examples are given in the openair manual
 
-\dontrun{
-## import a file with date in format 1/12/2000 10:00 (default format dd/mm/YYYY HH:MM) called "DATE"
-thedata <- import("~/data/testdata.csv", date = "DATE")
-
-## import a file with date in format 12/1/2000 10:00 (USA format mm/dd/YYYY HH:MM) called "DATE"
-thedata <- import("~/data/testdata.csv", date = "DATE", date.format = "\%m/\%d/\%Y \%H:\%M")
-
-## import a file where date and time are in separate columns with
-## names "date" (called "Date" in format dd/mm/YYYY) and "time"
-## (called "Time" in format "HH:MM")
-thedata <- import("~/data/testdata.csv", date = "Date", date.format = "\%d/\%m/\%Y",
-time = "Time", time.format = "\%H:\%M")
-}
+Examples of use are given in the openair manual.
 }
 \author{
 David Carslaw

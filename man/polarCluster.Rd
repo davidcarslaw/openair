@@ -139,9 +139,9 @@ Note that unlike most other \code{openair} functions only a single
 data(mydata)
 
 ## plot 2-8 clusters. Warning! This can take several minutes...
-\dontrun{
+
 polarCluster(mydata, pollutant = "nox", n.clusters = 2:8)
-}
+
 
 # basic plot with 6 clusters
 results <- polarCluster(mydata, pollutant = "nox", n.clusters = 6)

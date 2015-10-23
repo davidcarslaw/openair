@@ -266,30 +266,31 @@
 ##' # different levels of a third (numeric) variable
 ##' # plot daily averages and choose a filled plot symbol (pch = 16)
 ##' # select only 2004
-##' \dontrun{dat2004 <- selectByDate(mydata, year = 2004)
-##' scatterPlot(dat2004, x = "nox", y = "no2", z = "co", avg.time = "day", pch = 16)}
+##' \dontrun{
+##' dat2004 <- selectByDate(mydata, year = 2004)
+##' scatterPlot(dat2004, x = "nox", y = "no2", z = "co", avg.time = "day", pch = 16)
 ##'
 ##' # show linear fit, by year
-##' \dontrun{scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
-##' FALSE, linear = TRUE)}
+##' scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
+##' FALSE, linear = TRUE)
 ##'
 ##' # do the same, but for daily means...
-##' \dontrun{scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
-##' FALSE, linear = TRUE, avg.time = "day")}
+##' scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
+##' FALSE, linear = TRUE, avg.time = "day")
 ##'
 ##' # log scales
-##' \dontrun{scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
-##' FALSE, linear = TRUE, avg.time = "day", log.x = TRUE, log.y = TRUE)}
+##' scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
+##' FALSE, linear = TRUE, avg.time = "day", log.x = TRUE, log.y = TRUE)
 ##'
 ##' # also works with the x-axis in date format (alternative to timePlot)
-##' \dontrun{scatterPlot(mydata, x = "date", y = "no2", avg.time = "month",
-##' key = FALSE)}
+##' scatterPlot(mydata, x = "date", y = "no2", avg.time = "month",
+##' key = FALSE)
 ##'
 ##' ## multiple types and grouping variable and continuous colour scale
-##' \dontrun{scatterPlot(mydata, x = "nox", y = "no2", z = "o3", type = c("season", "weekend"))}
+##' scatterPlot(mydata, x = "nox", y = "no2", z = "o3", type = c("season", "weekend"))
 ##'
 ##' # use hexagonal binning
-##' \dontrun{
+##' 
 ##' library(hexbin)
 ##' # basic use, single pollutant
 ##' scatterPlot(mydata, x = "nox", y = "no2", method = "hexbin")
@@ -298,17 +299,17 @@
 ##' scatterPlot(mydata, x = "nox", y = "no2", type = "year", method =
 ##' "hexbin")
 ##'
+##'
 ##' ## bin data and plot it - can see how for high NO2, O3 is also high
-##' \dontrun{
+##' 
 ##' scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level", dist = 0.02)
-##' }
+##' 
 ##'
 ##' ## fit surface for clearer view of relationship - clear effect of
 ##' ## increased O3
-##' \dontrun{
+##' 
 ##' scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level",
 ##' x.inc = 10, y.inc = 2, smooth = TRUE)
-##' }
 ##' }
 ##'
 ##'
@@ -412,8 +413,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   if (avg.time != "default")  {
     
     ## can't have a type or group that is date-based
-    if (group %in% dateTypes | type  %in% dateTypes)
-      stop ("Can't have an averging period set and a time-based 'type' or 'group'.")
+ #   if (group %in% dateTypes | type  %in% dateTypes)
+                                        #     stop ("Can't have an averging period set and a time-based 'type' or 'group'.")
+      mydata <- cutData(mydata, types)
     if ("default" %in% types) mydata$default <- 0 ## FIX ME
     
     mydata <- plyr::ddply(mydata, types, timeAverage, avg.time = avg.time,
@@ -904,12 +906,15 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     smooth.grid <- function(mydata, z) {
       
       myform <- formula(paste(z, "~ s(xgrid, ygrid, k = ", k , ")", sep = ""))
-      res <- 101
+        res <- 101
+
+        mydata <- na.omit(mydata)
+        
       Mgam <- gam(myform, data = mydata)
-      new.data <- expand.grid(xgrid = seq(min(mydata$xgrid),
-                                          max(mydata$xgrid), length = res),
-                              ygrid = seq(min(mydata$ygrid),
-                                          max(mydata$ygrid), length = res))
+        new.data <- expand.grid(xgrid = seq(min(mydata$xgrid, na.rm = TRUE),
+                                            max(mydata$xgrid, na.rm = TRUE), length = res),
+                                ygrid = seq(min(mydata$ygrid, na.rm = TRUE),
+                                            max(mydata$ygrid, na.rm = TRUE), length = res))
       
       pred <- predict.gam(Mgam, newdata = new.data)
       pred <- as.vector(pred)
@@ -918,8 +923,10 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       
       ## exlcude too far
       ## exclude predictions too far from data (from mgcv)
-      x <- seq(min(mydata$xgrid), max(mydata$xgrid), length = res)
-      y <- seq(min(mydata$ygrid), max(mydata$ygrid), length = res)
+        x <- seq(min(mydata$xgrid, na.rm = TRUE), max(mydata$xgrid, na.rm = TRUE),
+                 length = res)
+        y <- seq(min(mydata$ygrid, na.rm = TRUE), max(mydata$ygrid, na.rm = TRUE),
+                 length = res)
       
       wsp <- rep(x, res)
       wdp <- rep(y, rep(res, res))

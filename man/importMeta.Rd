@@ -50,7 +50,7 @@ aq <- merge(aq, meta, by = "site")
 aq <- importAURN(site = c("kc1", "my1"), year = 2009)
 meta <- importMeta(source = "aurn")
 ## calculate annual means
-annual <- timeAverage(aq, avg.time = "year")
+annual <- timeAverage(aq, avg.time = "year", type = "site")
 annual <- merge(annual, meta, by = "site")
 ## make a GoogleMapsPlot
 GoogleMapsPlot(annual, pollutant = "no2")

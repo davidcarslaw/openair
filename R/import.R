@@ -27,6 +27,8 @@
 ##' saving time i.e. where in the input data set an hour is missing in
 ##' spring and duplicated in autumn.
 ##'
+##' Examples of use are given in the openair manual.
+##'
 ##' @param file The name of the file to be imported. Default, \code{file =
 ##'   file.choose()}, opens browser. Alternatively, the use of
 ##'   \code{read.table} (in \code{utils}) also allows this to be a character
@@ -87,24 +89,7 @@
 ##'   : \code{\link{importAURN}}, \code{\link{importAURNCsv}},
 ##'   \code{\link{importKCL}}, \code{\link{importADMS}}, etc.
 ##' @keywords methods
-##' @examples
-##'
-##' ## Note that more examples are given in the openair manual
-##'
-##' \dontrun{
-##' ## import a file with date in format 1/12/2000 10:00 (default format dd/mm/YYYY HH:MM) called "DATE"
-##' thedata <- import("~/data/testdata.csv", date = "DATE")
-##'
-##' ## import a file with date in format 12/1/2000 10:00 (USA format mm/dd/YYYY HH:MM) called "DATE"
-##' thedata <- import("~/data/testdata.csv", date = "DATE", date.format = "%m/%d/%Y %H:%M")
-##'
-##' ## import a file where date and time are in separate columns with
-##' ## names "date" (called "Date" in format dd/mm/YYYY) and "time"
-##' ## (called "Time" in format "HH:MM")
-##' thedata <- import("~/data/testdata.csv", date = "Date", date.format = "%d/%m/%Y",
-##' time = "Time", time.format = "%H:%M")
-##' }
-##'
+##' 
 import <- function (file = file.choose(), file.type = "csv", sep = ",", header.at = 1,
                     data.at = 2,  date = "date", date.format = "%d/%m/%Y %H:%M",
                     time = NULL,  time.format = NULL, tzone = "GMT", na.strings = c("", "NA"),

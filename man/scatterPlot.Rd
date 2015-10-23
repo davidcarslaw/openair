@@ -316,30 +316,31 @@ FALSE)
 # different levels of a third (numeric) variable
 # plot daily averages and choose a filled plot symbol (pch = 16)
 # select only 2004
-\dontrun{dat2004 <- selectByDate(mydata, year = 2004)
-scatterPlot(dat2004, x = "nox", y = "no2", z = "co", avg.time = "day", pch = 16)}
+\dontrun{
+dat2004 <- selectByDate(mydata, year = 2004)
+scatterPlot(dat2004, x = "nox", y = "no2", z = "co", avg.time = "day", pch = 16)
 
 # show linear fit, by year
-\dontrun{scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
-FALSE, linear = TRUE)}
+scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
+FALSE, linear = TRUE)
 
 # do the same, but for daily means...
-\dontrun{scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
-FALSE, linear = TRUE, avg.time = "day")}
+scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
+FALSE, linear = TRUE, avg.time = "day")
 
 # log scales
-\dontrun{scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
-FALSE, linear = TRUE, avg.time = "day", log.x = TRUE, log.y = TRUE)}
+scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
+FALSE, linear = TRUE, avg.time = "day", log.x = TRUE, log.y = TRUE)
 
 # also works with the x-axis in date format (alternative to timePlot)
-\dontrun{scatterPlot(mydata, x = "date", y = "no2", avg.time = "month",
-key = FALSE)}
+scatterPlot(mydata, x = "date", y = "no2", avg.time = "month",
+key = FALSE)
 
 ## multiple types and grouping variable and continuous colour scale
-\dontrun{scatterPlot(mydata, x = "nox", y = "no2", z = "o3", type = c("season", "weekend"))}
+scatterPlot(mydata, x = "nox", y = "no2", z = "o3", type = c("season", "weekend"))
 
 # use hexagonal binning
-\dontrun{
+
 library(hexbin)
 # basic use, single pollutant
 scatterPlot(mydata, x = "nox", y = "no2", method = "hexbin")
@@ -348,17 +349,17 @@ scatterPlot(mydata, x = "nox", y = "no2", method = "hexbin")
 scatterPlot(mydata, x = "nox", y = "no2", type = "year", method =
 "hexbin")
 
+
 ## bin data and plot it - can see how for high NO2, O3 is also high
-\dontrun{
+
 scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level", dist = 0.02)
-}
+
 
 ## fit surface for clearer view of relationship - clear effect of
 ## increased O3
-\dontrun{
+
 scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level",
 x.inc = 10, y.inc = 2, smooth = TRUE)
-}
 }
 }
 \author{
