@@ -137,7 +137,7 @@ data are imported as expected.}
 data(mydata)
 
 # do not clip density plot data
-summaryPlot(mydata, clip = FALSE)
+\dontrun{summaryPlot(mydata, clip = FALSE)}
 
 # exclude highest 5 \% of data etc.
 \dontrun{summaryPlot(mydata, percentile = 0.95)}

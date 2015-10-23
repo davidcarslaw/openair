@@ -260,7 +260,7 @@ pollutant = "pm10", ylab = "pm10 (ug/m3)")
 \dontrun{timeVariation(mydata, pollutant = c("nox", "no2"), type = "o3", normalise = TRUE)}
 
 ## difference in concentrations
-timeVariation(mydata, poll= c("pm25", "pm10"), difference = TRUE)
+\dontrun{timeVariation(mydata, poll= c("pm25", "pm10"), difference = TRUE)}
 
 # It is also useful to consider how concentrations vary by
 # considering two different periods e.g. in intervention

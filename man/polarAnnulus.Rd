@@ -240,7 +240,8 @@ through the smoothing parameter \code{k}.
 data(mydata)
 
 # diurnal plot for PM10 at Marylebone Rd
-polarAnnulus(mydata, pollutant = "pm10", main = "diurnal variation in pm10 at Marylebone Road")
+\dontrun{polarAnnulus(mydata, pollutant = "pm10",
+main = "diurnal variation in pm10 at Marylebone Road")}
 
 # seasonal plot for PM10 at Marylebone Rd
 \dontrun{polarAnnulus(mydata, poll="pm10", period = "season")}

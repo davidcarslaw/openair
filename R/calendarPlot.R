@@ -158,7 +158,7 @@
 ##'
 ##' # show wind vectors
 ##' calendarPlot(mydata, pollutant = "o3", year = 2003, annotate = "wd")
-##'
+##' \dontrun{
 ##' # show wind vectors scaled by wind speed and different colours
 ##' calendarPlot(mydata, pollutant = "o3", year = 2003, annotate = "ws",
 ##' cols = "heat")
@@ -171,6 +171,8 @@
 ##' calendarPlot(mydata, pollutant = "no2", breaks = c(0, 50, 100, 150, 1000),
 ##' labels = c("Very low", "Low", "High", "Very High"),
 ##' cols = c("lightblue", "green", "yellow",  "red"), statistic = "max")
+##'
+##' }
 ##'
 calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, type = "default",
                          annotate = "date", statistic = "mean", cols = "heat", limits = c(0, 100),
