@@ -1,3 +1,7 @@
+# Changes in openair 1.6.5 [2015-10-23]
+
+- changes to fix examples not run during the R CMD check
+
 # Changes in openair 1.6.4 [2015-10-22]
 
 - fix bug in `GoogleMapsPlot` when pollutant not given
