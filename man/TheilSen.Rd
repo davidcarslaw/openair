@@ -236,7 +236,7 @@ TheilSen(mydata, pollutant = "nox")
 \dontrun{TheilSen(mydata, pollutant = "o3", type = "wd", ylab = "o3 (ppb)")}
 
 # and for a subset of data (from year 2000 onwards)
-\dontrun{TheilSen(select.by.date(mydata, year = 2000:2005), pollutant = "o3", ylab = "o3 (ppb)")}
+\dontrun{TheilSen(selectByDate(mydata, year = 2000:2005), pollutant = "o3", ylab = "o3 (ppb)")}
 }
 \author{
 David Carslaw with some trend code from Rand Wilcox
