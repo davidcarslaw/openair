@@ -578,9 +578,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   
   ## if no group to plot, then add a dummy one to make xyplot work
   if (is.na(group)) {mydata$MyGroupVar <- factor("MyGroupVar"); group <-  "MyGroupVar"}
-  
+    
   ## number of groups
-  npol <- length(unique(mydata[[group]]))
+  npol <- length(levels(as.factor(mydata[[group]])))
   
   if (!"pch" %in% names(Args)) Args$pch <- seq(npol)
   
@@ -604,9 +604,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   ## if logs are chosen, ensure data >0 for line fitting etc
   if (log.x)  mydata <- mydata[mydata[ , x] > 0, ]
   if (log.y)  mydata <- mydata[mydata[ , y] > 0, ]
-  
+    
   pol.name <- sapply(levels(mydata[[group]]), function(x) quickText(x, auto.text))
-  
+    
   if (is.na(z)) { ## non-continuous key
     
     if (key & npol > 1) {
