@@ -8,3 +8,4 @@ r_binary_packages:
   - Rcpp
   
 r_check_args: --run-dontrun
+
