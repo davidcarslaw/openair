@@ -466,8 +466,6 @@
 ##' thedata <- melt(thedata, measure.vars="o3")
 ##' thedata <- dcast(thedata, ... ~ site + code + variable)
 ##' ## thedata now has columns for O3 at MY1 and KC1
-##' ## now can export as a csv file:
-##' write.csv(thedata, file = "~/temp/thedata.csv")
 ##'
 ##' }
 ##'

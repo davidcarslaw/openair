@@ -321,8 +321,6 @@ pollutant = "o3")
 thedata <- melt(thedata, measure.vars = "o3")
 thedata <- dcast(thedata, ... ~ variable + site + code)
 ## thedata now has columns  o3_Nottingham Centre_NOTT o3_London N. Kensington_KC1
-## now can export as a csv file:
-write.csv(thedata, file = "~/temp/thedata.csv")
 
 }
 }
