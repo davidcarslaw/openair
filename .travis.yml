@@ -5,5 +5,5 @@ warnings_are_errors: true
 r_binary_packages:
   - Rcpp
   
-r_check_args: --run-dontrun
+# r_check_args: --run-dontrun
 
