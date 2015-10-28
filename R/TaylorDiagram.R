@@ -321,12 +321,32 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
         vars <- c(obs, mod)
     }
 
+    ## assume two groups do not exist
     twoGrp <- FALSE
+    
+    if (!missing(group)) if (any(group %in% type)) stop ("Can't have 'group' also in 'type'.")
+
+    mydata <- cutData(mydata, type, ...)
+
+    if (missing(group)) {
+
+        if ((!"group" %in% type) & (!"group" %in% c(obs, mod))) {
+            mydata$group <- factor("group")
+            group <- "group"
+            npol <- 1
+        }
+        ## don't overwrite a
+    } else {  ## means that group is there
+        mydata <- cutData(mydata, group, ...)
+
+    }
 
     ## if group is present, need to add that list of variables unless it is
     ## a pre-defined date-based one
-    if (!missing(group)){
-       
+    if (!missing(group)) {
+
+        npol <- length(unique((mydata[[group[1]]])))
+
         ## if group is of length 2
         if (length(group) == 2L) {
             
@@ -342,45 +362,24 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
         }
 
         if (group %in%  dateTypes | any(type %in% dateTypes)) {
-            if (group %in%  dateTypes) {
-                vars <- unique(c(vars, "date")) ## don't need group because it is defined by date
-            } else {
-                vars <- unique(c(vars, "date", group))
-            }
+            
+            vars <- unique(c(vars, "date", group))
 
         } else {
 
             vars <- unique(c(vars, group))
         }
+        
     }
-    
-    if (!missing(group)) if (group %in% type) stop ("Can't have 'group' also in 'type'.")
 
     ## data checks, for base and new data if necessary
-
+    
     mydata <- checkPrep(mydata, vars, type)
 
     ## remove missing data
     mydata <- na.omit(mydata)
 
-    mydata <- cutData(mydata, type, ...)
-
-    if (missing(group)) {
-
-        if ((!"group" %in% type) & (!"group" %in% c(obs, mod))) {
-            mydata$group <- factor("group")
-            group <- "group"
-        }
-        ## don't overwrite a
-    } else {  ## means that group is there
-        mydata <- cutData(mydata, group, ...)
-
-    }
-
     legend <- NULL
-
-    npol <- length(levels(mydata[ , group]))
-
 
     ## function to calculate stats for TD
     calcStats <- function(mydata, obs = obs, mod = mod) {
