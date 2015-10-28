@@ -239,6 +239,11 @@
 ##' ## all models, by season
 ##' TaylorDiagram(mod.dat, obs = "obs", mod = c("mod", "mod2"), group = "model",
 ##' type = "season")
+##'
+##' ## consider two groups (model/month). In this case all months are shown by model
+##' ## but are only differentiated by model.
+##'
+##' TaylorDiagram(mod.dat, obs = "obs", mod = "mod", group = c("model", "month"))
 ##' }
 ##'
 ##'
