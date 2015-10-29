@@ -588,8 +588,10 @@ panel.gam <- function (x, y, form = y ~ x, method = "loess", k = k, Args, ..., s
     plot.line = NULL
 
     thedata <- data.frame(x = x, y = y)
+    thedata <- na.omit(thedata)
+    
     tryCatch({
-
+        
         if (!simulate) {
 
             if (is.null(k)) {
@@ -601,7 +603,7 @@ panel.gam <- function (x, y, form = y ~ x, method = "loess", k = k, Args, ..., s
 
 
             lims <- current.panel.limits()
-            xrange <- c(max(min(lims$x), min(x)), min(max(lims$x), max(x)))
+            xrange <- c(max(min(lims$x), min(x, na.rm = TRUE)), min(max(lims$x), max(x, na.rm = TRUE)))
             xseq <- seq(xrange[1], xrange[2], length = n)
 
             ## for uncertainties
