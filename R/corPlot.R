@@ -80,7 +80,7 @@
 ##' options (such as \code{xlab}, \code{ylab}, \code{main}) being
 ##' passed via \code{quickText} to handle routine formatting.
 ##' @export
-##'  @return As well as generating the plot itself, \code{corPlot}
+##' @return As well as generating the plot itself, \code{corPlot}
 ##' also returns an object of class \dQuote{openair}. The object
 ##' includes three main components: \code{call}, the command used to
 ##' generate the plot; \code{data}, the data frame of summarised
