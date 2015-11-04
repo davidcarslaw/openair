@@ -159,6 +159,15 @@
 ##' #trendLevel(mydata, pollutant = "nox", statistic = mean,
 ##' #           stat.args = list(na.rm = TRUE))
 ##'
+##' \dontrun{
+##' # example with categorical scale
+##' trendLevel(mydata, pollutant = "no2",
+##' border = "white", statistic = "max",
+##' breaks = c(0, 50, 100, 500),
+##' labels = c("low", "medium", "high"),
+##' cols = c("forestgreen", "yellow", "red"))
+##' }
+##'
 ##'
 trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
                        type = "year", rotate.axis = c(90, 0), n.levels = c(10, 10, 4),
