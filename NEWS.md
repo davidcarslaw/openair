@@ -1,3 +1,7 @@
+# Changes in openair 1.6.6 [2015-11-04]
+
+- Not all labels shown if >25 in `trendLevel`; make sure strip is white
+
 # Changes in openair 1.6.5 [2015-10-23]
 
 - changes to fix examples not run during the R CMD check

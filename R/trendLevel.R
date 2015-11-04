@@ -376,8 +376,8 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
     newdata <- cutData(newdata, y, n.levels = n.levels[2], is.axis = TRUE, ...)
     newdata <- cutData(newdata, type, n.levels = n.levels[3], ...)
     newdata <- newdata[c(pollutant, x, y, type)]
-
-
+    
+    
     ## ##########################
     ## calculate statistic
     ## ##########################
@@ -448,6 +448,8 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
         if(is.factor(temp)) temp <- as.character(temp)
         strip.custom(factor.levels = temp)
     }
+
+    suppressWarnings(trellis.par.set(list(strip.background = list(col = "white"))))
 
     scales <- list(x = list(rot = rotate.axis[1]),
                    y = list(rot = rotate.axis[2]))
@@ -539,6 +541,7 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
         ans$left$labels$check.overlap <- TRUE
         ans$left$labels$labels <- levels(newdata[, y])
         ans$left$labels$at <- seq_along(levels(newdata[, y]))
+        
         ans
     }
     xscale.lp <- function(...){
@@ -560,6 +563,11 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
     ## the axes are discrete factors - therefore can define exactly
     xlim <- range(as.numeric(newdata[, x])) + c(-0.5, 0.5)
     ylim <- range(as.numeric(newdata[, y])) + c(-0.5, 0.5)
+
+    ## lattice does not display all labels - even if requested when there are many
+    ## make a bit more space when there are >25
+    if (length(levels(newdata[[y]])) > 25) ylim <- ylim + c(-0.3, 0.3)
+    if (length(levels(newdata[[x]])) > 25) xlim <- xlim + c(-0.3, 0.3)
 
     ## openair defaults for plot
     levelplot.args <- list(x = myform, data = newdata, as.table = TRUE,
