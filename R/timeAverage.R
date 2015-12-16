@@ -183,7 +183,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
                         vector.ws = FALSE, fill = FALSE, ...) {
 
     ## get rid of R check annoyances
-    year = season = month = Uu = Vv = site = default = NULL
+    year = season = month = Uu = Vv = site = default = wd = ws = NULL
     
     ## extract variables of interest
     vars <- unique(c("date", names(mydata)))
@@ -464,7 +464,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
         if ("wd" %in% names(mydata)) {
             if (is.numeric(mydata$wd)) {
                 ## mean wd
-                dailymet <- within(dailymet, wd <- as.vector(atan2(Uu, Vv) * 360 / 2 / pi))
+                dailymet <- transform(dailymet, wd = as.vector(atan2(Uu, Vv) * 360 / 2 / pi))
                 
                 ## correct for negative wind directions
                 ids <- which(dailymet$wd < 0)  ## ids where wd < 0
@@ -472,7 +472,8 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
                 
                 ## vector average ws
                 if ("ws" %in% names(mydata)) {
-                    if (vector.ws) dailymet <- within(dailymet, ws <- (Uu ^ 2 + Vv ^ 2) ^ 0.5)
+                    if (vector.ws)
+                        dailymet <- transform(dailymet, ws = (Uu ^ 2 + Vv ^ 2) ^ 0.5)
                 }
                 
                 dailymet <- subset(dailymet, select = c(-Uu, -Vv))
