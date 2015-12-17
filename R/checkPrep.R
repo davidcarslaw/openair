@@ -11,7 +11,7 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
     ## existing conditioning variables that only depend on date (which is checked)
     conds <- c("default", "year", "hour", "month", "season", "weekday", "weekend", "monthyear", "gmtbst", "bstgmt", "dst", "daylight")
     all.vars <- unique(c(names(mydata), conds))
-
+    
     varNames <- c(Names, type) ## names we want to be there
     matching <- varNames %in% all.vars
 
@@ -53,7 +53,8 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
         if (length(ids) > 0) {
 
             mydata <- mydata[-ids, ]
-            warning(paste("Missing dates detected, removing", length(ids), "lines"), call. = FALSE)
+            warning(paste("Missing dates detected, removing",
+                          length(ids), "lines"), call. = FALSE)
         }
     }
 
@@ -81,7 +82,8 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
         if (wd %in% Names & is.numeric(mydata[, wd])) {
 
             ## check for wd <0 or > 360
-            if (any(sign(mydata[[wd]][!is.na(mydata[[wd]])]) == -1 | mydata[[wd]][!is.na(mydata[[wd]])] > 360)) {
+            if (any(sign(mydata[[wd]][!is.na(mydata[[wd]])]) == -1 |
+                    mydata[[wd]][!is.na(mydata[[wd]])] > 360)) {
 
                 warning("Wind direction < 0 or > 360; removing these data")
                 mydata[[wd]][mydata[[wd]] < 0] <- NA
@@ -139,21 +141,23 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
             ## special case: CET and WEST are the same indeed e.g. tz="Africa/Algiers"
             
             if (!zz[3] %in% c("WILDABBR", "   ") && zz[2] != zz[3] &&
-                            !(zz[2] == "CET" && zz[3] == "WEST"))   {
+                !(zz[2] == "CET" && zz[3] == "WEST"))   {
 
                 warning("Detected data with Daylight Saving Time, converting to UTC/GMT")
                 attr(mydata$date, "tzone") <- "GMT"
                 
             }
         }
-
-        if (strip.white) {
-            ## set panel strip to white
-            suppressWarnings(trellis.par.set(list(strip.background = list(col = "white"))))
-        }
-
+        
         
     }
+
+    if (strip.white) {
+        ## set panel strip to white
+        suppressWarnings(trellis.par.set(list(strip.background = list(col = "white"))))
+    }
+
+
     ## return data frame
     return(mydata)
 }

@@ -327,7 +327,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     } else {
         calm.col <- "forestgreen"
     }
-
+    
     ## set graphics
     current.strip <- trellis.par.get("strip.background")
     current.font <- trellis.par.get("fontsize")

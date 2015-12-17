@@ -2,6 +2,7 @@
 
 - Not all labels shown if >25 in `trendLevel`; make sure strip is white
 - correct bug in `timeVariation` (`vector.ws` did not work)
+- fix some cases where background strip was not white
 
 # Changes in openair 1.6.5 [2015-10-23]
 
