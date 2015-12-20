@@ -1,3 +1,7 @@
+# Changes in openair 1.6.7 [2015-12-20]
+
+- Allow `linearRelation` to use any arbitrary time averaging period.
+
 # Changes in openair 1.6.6 [2015-11-04]
 
 - Not all labels shown if >25 in `trendLevel`; make sure strip is white
