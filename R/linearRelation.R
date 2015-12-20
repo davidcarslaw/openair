@@ -69,16 +69,23 @@
 ##'     not very good for a particular period, setting
 ##'     \code{rsq.thresh} can help to remove those periods where the
 ##'     relationship is not strong. Any R2 values below
-##'     \code{rsq.thresh} will not be plotted. 
+##'     \code{rsq.thresh} will not be plotted.
 ##' @param ylab y-axis title, specified by the user.
 ##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
 ##'     \code{TRUE} titles and axis labels will automatically try and
 ##'     format pollutant names and units properly e.g.  by
 ##'     subscripting the \sQuote{2} in NO2.
 ##' @param cols Colour for the points and uncertainty intervals.
-##' @param ... Other graphical parameters. A useful one to remove
-##'     the strip with the date range on at the top of the plot is to
-##'     set \code{strip = FALSE}.
+##' @param date.breaks Number of major x-axis intervals to use. The
+##'     function will try and choose a sensible number of dates/times
+##'     as well as formatting the date/time appropriately to the range
+##'     being considered.  This does not always work as desired
+##'     automatically. The user can therefore increase or decrease the
+##'     number of intervals by adjusting the value of
+##'     \code{date.breaks} up or down.
+##' @param ... Other graphical parameters. A useful one to remove the
+##'     strip with the date range on at the top of the plot is to set
+##'     \code{strip = FALSE}.
 ##' @export
 ##' @return As well as generating the plot itself,
 ##'     \code{linearRelation} also returns an object of class
@@ -120,7 +127,7 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
                            period = "month", condition = FALSE,
                            n = 20, rsq.thresh = 0,
                            ylab = paste0("slope from ", y, " = m.", x, " + c"),
-                           auto.text = TRUE, cols = "grey30", ...) {
+                           auto.text = TRUE, cols = "grey30", date.breaks= 5, ...) {
 
     ## get rid of R check annoyances
     nox = ox = cond = rsquare = N = r.thresh = NULL
@@ -266,11 +273,11 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
         results <- subset(results, rsquare >= rsq.thresh & N >= n)
 
        ## date grid lines
-        dates <- dateBreaks(mydata$date, 5)$major ## for date scale
+        dates <- dateBreaks(mydata$date, date.breaks)$major ## for date scale
 
         ## date axis formating
         
-        formats <- dateBreaks(mydata$date, 5)$format
+        formats <- dateBreaks(mydata$date, date.breaks)$format
 
         scales <- list(x = list(at = dates, format = formats))
 
