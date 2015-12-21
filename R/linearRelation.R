@@ -155,26 +155,29 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
     }
 
 
-    ## extra.args setup
-    extra.args <- list(...)
+    ## Args setup
+    Args <- list(...)
 
     ## label controls
     ##  ylab handled in args because unique
     ## further xlab handled in code because mulitple outputs by period
-    extra.args$xlab <- if ("xlab" %in% names(extra.args))
-                           quickText(extra.args$xlab, auto.text) else NULL
+    Args$xlab <- if ("xlab" %in% names(Args))
+                           quickText(Args$xlab, auto.text) else NULL
 
-    extra.args$pch <- if ("pch" %in% names(extra.args))
-                          extra.args$pch else 16
+    xlim <- if ("xlim" %in% names(Args))
+        Args$xlim else  NULL
 
-    extra.args$cex <- if ("cex" %in% names(extra.args))
-                           extra.args$cex else 1
+    Args$pch <- if ("pch" %in% names(Args))
+                          Args$pch else 16
+
+    Args$cex <- if ("cex" %in% names(Args))
+                           Args$cex else 1
     
-    extra.args$main <- if ("main" %in% names(extra.args))
-                           quickText(extra.args$main, auto.text) else quickText("", auto.text)
+    Args$main <- if ("main" %in% names(Args))
+                           quickText(Args$main, auto.text) else quickText("", auto.text)
 
-    if ("fontsize" %in% names(extra.args))
-        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+    if ("fontsize" %in% names(Args))
+        trellis.par.set(fontsize = list(text = Args$fontsize))
 
 
     ## prepare data
@@ -218,8 +221,8 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
     if (period == "hour") {
 
         #xlab default
-        if(is.null(extra.args$xlab))
-            extra.args$xlab <- "hour"
+        if(is.null(Args$xlab))
+            Args$xlab <- "hour"
 
         models <- plyr::dlply(mydata,
                               .(cond, hour = as.numeric(format(date, "%H"))),
@@ -233,7 +236,7 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
 
         eq <- formula(slope ~ hour)
         if (condition) eq <- formula(slope ~ hour | cond)
-        if (!"ylim" %in% names(extra.args)) ylim <- rng(results)
+        if (!"ylim" %in% names(Args)) ylim <- rng(results)
 
         xyplot.args <- list(x = eq, data = results, as.table = TRUE,
                             ylab = quickText(ylab, auto.text),
@@ -242,15 +245,15 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
                             panel = function(x, y, pch, cex, subscripts, ...) {
                                 panel.grid(-1, 0)
                                 panel.abline(v = c(0, 6, 12, 18, 23), col = "grey85")
-                                panel.xyplot(x, y, col = data.col, pch = extra.args$pch, 
-                                             cex = extra.args$cex, ...)
+                                panel.xyplot(x, y, col = data.col, pch = Args$pch, 
+                                             cex = Args$cex, ...)
                                 panel.segments(x, y - results$seslope[subscripts], x,
                                                y + results$seslope[subscripts], col = data.col,
                                                lwd = 2)
                             })
 
-        #reset for extra.args
-        xyplot.args<- listUpdate(xyplot.args, extra.args)
+        #reset for Args
+        xyplot.args<- listUpdate(xyplot.args, Args)
 
         #plot
         plt <- do.call(xyplot, xyplot.args)
@@ -281,22 +284,27 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
 
         scales <- list(x = list(at = dates, format = formats))
 
-        if (!"ylim" %in% names(extra.args)) ylim <- rng(results)
+        ## allow reasonable gaps at ends, default has too much padding
+        gap <- difftime(max(mydata$date), min(mydata$date), units = "secs") / 80
+        if (is.null(xlim)) xlim <- range(mydata$date) + c(-1 * gap, gap)
+
+        if (!"ylim" %in% names(Args)) ylim <- rng(results)
         
         xyplot.args <- list(x = slope ~ date, data = results,
                             scales = scales,
+                            xlim = xlim, 
                             ylab = quickText(ylab, auto.text), ...,
                             panel = function(x, y, pch, cex, subscripts, ...) {
                                 panel.grid(-1, 0)
                                 panel.abline(v = dates, col = "grey90")
-                                panel.xyplot(x, y, col = data.col, pch = extra.args$pch,
-                                             cex = extra.args$cex, ...)
+                                panel.xyplot(x, y, col = data.col, pch = Args$pch,
+                                             cex = Args$cex, ...)
                                 panel.segments(x, y - results$seslope[subscripts], x,
                                                y + results$seslope[subscripts], col = data.col,
                                                lwd = 2)
                                })
-        ## reset for extra.args
-        xyplot.args<- listUpdate(xyplot.args, extra.args)
+        ## reset for Args
+        xyplot.args<- listUpdate(xyplot.args, Args)
 
         #plot
         plt <- do.call(xyplot, xyplot.args)
@@ -308,8 +316,8 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
     if (period == "weekday") {
 
         #xlab default
-        if(is.null(extra.args$xlab))
-            extra.args$xlab <- "weekday"
+        if(is.null(Args$xlab))
+            Args$xlab <- "weekday"
 
         models <- plyr::dlply(mydata, .(cond, weekday = format(date, "%a")), model)
         results <- plyr::ldply(models,
@@ -322,7 +330,7 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
 
         results$weekday <- ordered(results$weekday,
                                    levels = format(ISOdate(2000, 1, 3:9), "%a"))
-        if (!"ylim" %in% names(extra.args)) ylim <- rng(results)
+        if (!"ylim" %in% names(Args)) ylim <- rng(results)
 
 
         if (condition) {
@@ -337,15 +345,15 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
                             panel = function(x, y, pch, cex, subscripts, ...) {
                                 panel.grid(-1, 0)
                                 panel.abline(v = 1:7, col = "grey85")
-                                panel.xyplot(x, y, col = data.col, pch = extra.args$pch,
-                                             cex = extra.args$cex, ...)
+                                panel.xyplot(x, y, col = data.col, pch = Args$pch,
+                                             cex = Args$cex, ...)
                                 panel.segments(x, y - results$seslope[subscripts], x,
                                                y + results$seslope[subscripts], col = data.col,
                                                lwd = 2)
                             })
 c
-        #reset for extra.args
-        xyplot.args<- listUpdate(xyplot.args, extra.args)
+        #reset for Args
+        xyplot.args<- listUpdate(xyplot.args, Args)
 
         #plot
         plt <- do.call(xyplot, xyplot.args)
@@ -355,8 +363,8 @@ c
     if (period == "day.hour") {
 
         #xlab default
-        if(is.null(extra.args$xlab))
-            extra.args$xlab <- "hour"
+        if(is.null(Args$xlab))
+            Args$xlab <- "hour"
 
         models <- plyr::dlply(mydata, .(cond, weekday = format(date, "%A"),
                                   hour = as.numeric(format(date, "%H"))), model)
@@ -373,7 +381,7 @@ c
         eq <- formula(slope ~ hour | weekday)
         if (condition) eq <- formula(slope ~ hour | weekday * cond)
 
-        if (!"ylim" %in% names(extra.args)) ylim <- rng(results)
+        if (!"ylim" %in% names(Args)) ylim <- rng(results)
        
         xyplot.args <- list(x = eq, data = results,
                       as.table = TRUE,
@@ -383,8 +391,8 @@ c
                       panel = function(x, y, pch, cex, subscripts, ...) {
                           panel.grid(-1, 0)
                           panel.abline(v = c(0, 6, 12, 18, 23), col = "grey85")
-                          panel.xyplot(x, y, col = data.col, pch = extra.args$pch,
-                                       cex = extra.args$cex, ...)
+                          panel.xyplot(x, y, col = data.col, pch = Args$pch,
+                                       cex = Args$cex, ...)
                           panel.segments(x,
                                          y - results$seslope[subscripts],
                                          x,
@@ -392,8 +400,8 @@ c
                                          col = data.col, lwd = 2)
                       })
 
-        #reset for extra.args
-        xyplot.args<- listUpdate(xyplot.args, extra.args)
+        #reset for Args
+        xyplot.args<- listUpdate(xyplot.args, Args)
 
         #plot
         plt <- do.call(xyplot, xyplot.args)
