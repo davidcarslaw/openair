@@ -1,6 +1,7 @@
 # Changes in openair 1.6.7 [2015-12-20]
 
 - Allow `linearRelation` to use any arbitrary time averaging period.
+- don't add line to monthly plot in `timeVariation` when group = "season"
 
 # Changes in openair 1.6.6 [2015-11-04]
 

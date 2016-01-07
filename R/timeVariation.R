@@ -699,7 +699,8 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         extra.args$ylim <- ylim.list[[3]]
 
     ## plot
-    xy.args <- list(x = myform, data = data.month, groups = data.month$variable,
+    xy.args <-
+        list(x = myform, data = data.month, groups = data.month$variable,
                     as.table = TRUE,
                     xlab = xlab[3],
                     xlim = c(0.5, 12.5),
@@ -707,35 +708,40 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
                     strip = strip,
                     par.strip.text = list(cex = 0.8),
                     par.settings = simpleTheme(col = myColors, pch = 16),
-                    scales = list(x = list(at = 1:12, labels = substr(format(seq(as.Date("2000-01-01"),
-                                                          as.Date("2000-12-31"), "month"), "%B"), 1, 1))),
-                    panel = function(x, y, ...) {
-                        panel.grid(-1, 0)
-                        panel.abline(v = 1:12, col = "grey85")
-                        panel.superpose(x, y, ...,
-                                        panel.groups = function(x, y, col.line, type,
-                                            group.number, subscripts,...) {
+             scales = list(x = list(at = 1:12,
+                                    labels = substr(format(seq(as.Date("2000-01-01"),
+                                                               as.Date("2000-12-31"), "month"),
+                                                           "%B"), 1, 1))),
+             panel = function(x, y, ...) {
+                 panel.grid(-1, 0)
+                 panel.abline(v = 1:12, col = "grey85")
+                 panel.superpose(x, y, ...,
+                                 panel.groups = function(x, y, col.line, type,
+                                                         group.number, subscripts,...) {
 
-                                            if (difference) panel.abline(h = 0, lty = 5)
+                                     if (difference) panel.abline(h = 0, lty = 5)
 
-                                            ## a line won't work for a single point
-                                            pltType <- "l"
-                                            if (length(subscripts) == 1) pltType <- "p"
+                                     ## a line won't work for a single point
+                                     pltType <- "l"
+                                     if (length(subscripts) == 1) pltType <- "p"
+                                     
+                                     ## only plot median once if 2 conf.int
+                                     id <- which(data.month$ci[subscripts] == data.month$ci[1])
 
-                                            ## only plot median once if 2 conf.int
-                                            id <- which(data.month$ci[subscripts] == data.month$ci[1])
-                                            panel.xyplot(x[id], y[id], type = pltType,
-                                                         col.line = myColors[group.number],...)
+                                     ## lines not needed if split by season
+                                     if (group != "season")
+                                         panel.xyplot(x[id], y[id], type = pltType,
+                                                  col.line = myColors[group.number], ...)
 
-                                            if (ci) {mkrect(data.month[subscripts, ], x = "mnth",
-                                                            y = "Mean", group.number, myColors, alpha)}
-                                             ## refrence line(s)
-                                            if (!is.null(ref.y)) do.call(panel.abline, ref.y)
+                                     if (ci) {mkrect(data.month[subscripts, ], x = "mnth",
+                                                     y = "Mean", group.number, myColors, alpha)}
+                                     ## refrence line(s)
+                                     if (!is.null(ref.y)) do.call(panel.abline, ref.y)
 
-                                        }
-                                        )
-                    }
-                    )
+                                 }
+                                 )
+             }
+             )
 
     ## reset for extra.args
     xy.args <- listUpdate(xy.args, extra.args)
