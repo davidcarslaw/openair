@@ -727,11 +727,13 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
                                      
                                      ## only plot median once if 2 conf.int
                                      id <- which(data.month$ci[subscripts] == data.month$ci[1])
-
+                                     
                                      ## lines not needed if split by season
-                                     if (group != "season")
+                                     if (group != "season" || is.null(group)) {
+                                         
                                          panel.xyplot(x[id], y[id], type = pltType,
-                                                  col.line = myColors[group.number], ...)
+                                                      col.line = myColors[group.number], ...)
+                                     }
 
                                      if (ci) {mkrect(data.month[subscripts, ], x = "mnth",
                                                      y = "Mean", group.number, myColors, alpha)}
