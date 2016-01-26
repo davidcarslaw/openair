@@ -274,6 +274,7 @@ importADMSBgd <- function(file=file.choose()
   date <- as.POSIXct(strptime(date, format = "%Y-%j-%H"), "GMT")
   ans <- cbind(date = date, ans)
   if(length(variables) != ncol(ans) - 4){
+      
     warning("Variable data mismatch, taking shortest\n       [please contact if openair problems encountered]",
             call. = FALSE)
     variables <- variables[1: min(c(length(variables), ncol(ans) - 4), na.rm = TRUE)]
@@ -354,7 +355,9 @@ importADMSMet <- function (file = file.choose()
   met[] <- lapply(met, function(x) {
     replace(x, x == -999, NA)
   })
-  met <- met[, sapply(met, function(x) !all(is.na(x)))]
+
+  ## met <- met[, sapply(met, function(x) !all(is.na(x)))]
+  
   if(length(variables) != ncol(met)){
     warning("Variable data mismatch, taking shortest\n       [please contact if openair problems encountered]",
             call. = FALSE)
