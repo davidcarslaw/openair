@@ -331,7 +331,7 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all", hc = FALSE)
              fileName <- paste("http://uk-air.defra.gov.uk/openair/R_data/", x, ".RData", sep = "")
              con <- url(fileName)
              load(con, envir = .GlobalEnv)
-             close(con)
+             closeAllConnections() # CV: use closeAllConnections() rather than close(con)!
              
              x
              },
