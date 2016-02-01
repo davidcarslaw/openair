@@ -675,7 +675,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   names(mydata)[id] <- "MyGroupVar"
   
   ## for printing map at end, if necessary
-  groupMax <- length(unique(factor(mydata$MyGroupVar)))
+  groupMax <- length(unique(factor(na.omit(mydata$MyGroupVar))))
   
   plotType <- if (!Args$traj) c("p", "g") else "n"
   
@@ -750,15 +750,12 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                             if (Args$origin)
                                 lpoints(Args$receptor[1], Args$receptor[2], pch = 16,
                                         cex = 1.5, col = "black")
-
-
-
                           
                         }
                         
                         
                       }
-                      
+                 
                       ## add base map
                       if (map && group.number == groupMax)
                         add.map(Args, ...)

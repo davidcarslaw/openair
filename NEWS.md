@@ -2,6 +2,7 @@
 
 - Allow `linearRelation` to use any arbitrary time averaging period.
 - don't add line to monthly plot in `timeVariation` when group = "season"
+- fix `NA` factors in `trajPlot`
 
 # Changes in openair 1.6.6 [2015-11-04]
 
