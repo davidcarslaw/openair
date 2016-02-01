@@ -1414,7 +1414,7 @@ add.map <- function (Args, ...) {
                     parameters = Args$parameters, orientation = Args$orientation)
     mp <- maps::map.wrap(mp)
     
-    panel.polygon(mp$x, mp$y, col = Args$map.cols, border = "white",
+    panel.polygon(mp$x, mp$y, col = Args$map.cols, border = "black",
                   alpha = Args$map.alpha)
     
     
