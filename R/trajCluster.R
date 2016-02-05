@@ -176,9 +176,11 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5, plot = TRUE, typ
 
     if (plot) {
         ## calculate the mean trajectories by cluster
-        agg <- aggregate(traj[, c("lat", "lon", "date")], traj[, c("cluster", "hour.inc", type)] ,
-                         mean, na.rm = TRUE)
-        
+     
+        agg <- select_(traj, "lat", "lon", "date", "cluster", "hour.inc", type) %>% 
+          group_by_(., "cluster", "hour.inc", type) %>% 
+          summarise_each(funs(mean))
+     
         ## proportion of total clusters
         clusterProp <- 100 * round(prop.table(table(traj$cluster)), 3)
         clusters <- data.frame(clusterProp = clusterProp)
