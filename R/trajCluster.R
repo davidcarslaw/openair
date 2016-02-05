@@ -160,7 +160,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       dist.res <- as.dist(res)
       clusters <- pam(dist.res, n.cluster)
       cluster <- rep(clusters$clustering, each = n)
-      traj$cluster <- factor(paste("C", cluster, sep = ""))
+      traj$cluster <- as.character(paste("C", cluster, sep = ""))
       traj
       
     }
@@ -188,7 +188,8 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       
       ## proportion of total clusters
       clusterProp <- 100 * round(prop.table(table(traj$cluster)), 3)
-      clusters <- data.frame(clusterProp = clusterProp)
+      clusters <- data.frame(clusterProp = clusterProp, 
+                             stringsAsFactors = FALSE)
       names(clusters) <- c("cluster", "freq")
       
       ## make sure date is in correct format
