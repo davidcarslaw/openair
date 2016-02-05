@@ -598,8 +598,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                  y = list(log = nlog.y, relation = y.relation, rot = 0))
   
   ## don't need scales for trajectories
-  if (Args$traj | method %in% c("traj", "map"))  scales <- list(x = list(draw = FALSE),
-                                                                y = list(draw = FALSE))
+  if (Args$traj | method %in% c("traj", "map"))  
+    scales <- list(x = list(draw = FALSE), y = list(draw = FALSE))
   
   
   ## if logs are chosen, ensure data >0 for line fitting etc
@@ -768,17 +768,17 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     
     ## by default title if z set
     ## else none
-    default.main <- if(is.na(z)) "" else paste(x, "vs.", y, "by levels of", z)
+    default.main <- if (is.na(z)) "" else paste(x, "vs.", y, "by levels of", z)
     
-    Args$main <- if("main" %in% names(Args))
+    Args$main <- if ("main" %in% names(Args))
       quickText(Args$main, auto.text) else
         quickText(default.main, auto.text)
     
-    if(!"pch" %in% names(Args))
+    if (!"pch" %in% names(Args))
       Args$pch <- 1
     
     ## reset for Args
-    xy.args<- listUpdate(xy.args, Args)
+    xy.args <- listUpdate(xy.args, Args)
     
     ## plot
     plt <- do.call(xyplot, xy.args)
@@ -824,10 +824,10 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     )
     
     ## by default no title ever
-    Args$main <- if("main" %in% names(Args))
+    Args$main <- if ("main" %in% names(Args))
       quickText(Args$main, auto.text) else quickText("", auto.text)
     
-    if(!"pch" %in% names(Args))
+    if (!"pch" %in% names(Args))
       Args$pch <- 1
     
     ## reset for Args
@@ -856,7 +856,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       
       mydata <- select_(mydata, "xgrid", "ygrid", .dots = type, z) %>%
         group_by_(., "xgrid", "ygrid", .dots = type) %>%
-        summarise_(MN = interp(~ mean(var, na.rm = TRUE), var = as.name(z)))
+        summarise_(MN = interp(~mean(var, na.rm = TRUE), var = as.name(z)))
       
       names(mydata)[which(names(mydata) == "MN")] <- z
       
@@ -998,15 +998,15 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     )
     
     ## z must exist to get here
-    Args$main <- if("main" %in% names(Args))
+    Args$main <- if ("main" %in% names(Args))
       quickText(Args$main, auto.text) else
         quickText(paste(x, "vs.", y, "by levels of", z), auto.text)
     
-    if(!"pch" %in% names(Args))
+    if (!"pch" %in% names(Args))
       Args$pch <- 1
     
     ## reset for Args
-    levelplot.args<- listUpdate(levelplot.args, Args)
+    levelplot.args <- listUpdate(levelplot.args, Args)
     
     ## plot
     plt <- do.call(levelplot, levelplot.args)
