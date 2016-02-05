@@ -403,7 +403,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   Args$trans <- if ("trans" %in% names(Args)) Args$trans else function(x) log(x)
   Args$inv <- if ("inv" %in% names(Args)) Args$inv else function(x) exp(x)
   
-  ## For Log scaling (adapted from lattice book ####################################
+  # For Log scaling (adapted from lattice book ####################################
   if(log.x) nlog.x <- 10 else nlog.x <- FALSE
   if(log.y) nlog.y <- 10 else nlog.y <- FALSE
   
@@ -414,9 +414,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   if (avg.time != "default")  {
     
     ## can't have a type or group that is date-based
- #   if (group %in% dateTypes | type  %in% dateTypes)
-                                        #     stop ("Can't have an averging period set and a time-based 'type' or 'group'.")
-      mydata <- cutData(mydata, types)
+    #   if (group %in% dateTypes | type  %in% dateTypes)
+    #     stop ("Can't have an averging period set and a time-based 'type' or 'group'.")
+    mydata <- cutData(mydata, types)
     if ("default" %in% types) mydata$default <- 0 ## FIX ME
     
     mydata <- plyr::ddply(mydata, types, timeAverage, avg.time = avg.time,
@@ -476,7 +476,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   ## remove missing data except for time series where we want to show gaps
   ## this also removes missing factors
   if (class(mydata[[x]])[1] != "Date" & !"POSIXt" %in% class(mydata[ , x])) {
- ##   mydata <- na.omit(mydata)
+    ##   mydata <- na.omit(mydata)
   }
   
   ## if x is a factor/character, then rotate axis labels for clearer labels
@@ -486,7 +486,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     mydata[, x] <- factor(mydata[[x]])
   }
   
-  ## continuous colors ####################################################################
+  ## continuous colors ###################################################
   
   if (!is.na(z) & method == "scatter") {
     if (z %in% dateTypes)
@@ -579,7 +579,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   
   ## if no group to plot, then add a dummy one to make xyplot work
   if (is.na(group)) {mydata$MyGroupVar <- factor("MyGroupVar"); group <-  "MyGroupVar"}
-    
+  
   ## number of groups
   npol <- length(levels(as.factor(mydata[[group]])))
   
@@ -605,9 +605,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   ## if logs are chosen, ensure data >0 for line fitting etc
   if (log.x)  mydata <- mydata[mydata[ , x] > 0, ]
   if (log.y)  mydata <- mydata[mydata[ , y] > 0, ]
-    
+  
   pol.name <- sapply(levels(mydata[[group]]), function(x) quickText(x, auto.text))
-    
+  
   if (is.na(z)) { ## non-continuous key
     
     if (key & npol > 1) {
@@ -675,7 +675,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   id <- which(names(mydata) == group)
   names(mydata)[id] <- "MyGroupVar"
   
-
+  
   plotType <- if (!Args$traj) c("p", "g") else "n"
   
   if (method == "scatter") {
@@ -703,13 +703,13 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                             lty, lwd, group.number,
                                             subscripts, windflow, ...)
                     {
-                        
+                      
                       
                       ## maximum number of actual groups in this panel
                       groupMax <- 
                         length(unique(factor(mydata$MyGroupVar[subscripts])))
                       
-                      ## specific treatemt of trajectory lines
+                      ## specific treatment of trajectory lines
                       ## in order to avoid a line back to the origin, need to process
                       ## in batches
                       if (Args$traj) 
@@ -720,6 +720,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                       if (map && group.number == groupMax)
                         add.map(Args, ...)
                       
+                      ## add a windflow plot
                       if (!is.null(windflow)) {
                         list1 <- list(x, y, dat = mydata, subscripts)
                         list2 <- windflow
@@ -863,15 +864,15 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     smooth.grid <- function(mydata, z) {
       
       myform <- formula(paste(z, "~ s(xgrid, ygrid, k = ", k , ")", sep = ""))
-        res <- 101
-
-        mydata <- na.omit(mydata)
-        
+      res <- 101
+      
+      mydata <- na.omit(mydata)
+      
       Mgam <- gam(myform, data = mydata)
-        new.data <- expand.grid(xgrid = seq(min(mydata$xgrid, na.rm = TRUE),
-                                            max(mydata$xgrid, na.rm = TRUE), length = res),
-                                ygrid = seq(min(mydata$ygrid, na.rm = TRUE),
-                                            max(mydata$ygrid, na.rm = TRUE), length = res))
+      new.data <- expand.grid(xgrid = seq(min(mydata$xgrid, na.rm = TRUE),
+                                          max(mydata$xgrid, na.rm = TRUE), length = res),
+                              ygrid = seq(min(mydata$ygrid, na.rm = TRUE),
+                                          max(mydata$ygrid, na.rm = TRUE), length = res))
       
       pred <- predict.gam(Mgam, newdata = new.data)
       pred <- as.vector(pred)
@@ -880,10 +881,10 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       
       ## exlcude too far
       ## exclude predictions too far from data (from mgcv)
-        x <- seq(min(mydata$xgrid, na.rm = TRUE), max(mydata$xgrid, na.rm = TRUE),
-                 length = res)
-        y <- seq(min(mydata$ygrid, na.rm = TRUE), max(mydata$ygrid, na.rm = TRUE),
-                 length = res)
+      x <- seq(min(mydata$xgrid, na.rm = TRUE), max(mydata$xgrid, na.rm = TRUE),
+               length = res)
+      y <- seq(min(mydata$ygrid, na.rm = TRUE), max(mydata$ygrid, na.rm = TRUE),
+               length = res)
       
       wsp <- rep(x, res)
       wdp <- rep(y, rep(res, res))
@@ -1205,12 +1206,12 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                       
                       ## add base map
                       if (map)
-                          add.map(Args, ...)
+                        add.map(Args, ...)
                       
-                       ## add mark for receptor location
-                            if (Args$origin)
-                                lpoints(Args$receptor[1], Args$receptor[2], pch = 16,
-                                        cex = 1.5, col = "black")
+                      ## add mark for receptor location
+                      if (Args$origin)
+                        lpoints(Args$receptor[1], Args$receptor[2], pch = 16,
+                                cex = 1.5, col = "black")
                       
                       ## add reference lines
                       if (!is.null(ref.x)) do.call(panel.abline, ref.x)
@@ -1370,8 +1371,16 @@ add.map <- function (Args, ...) {
   
   if (Args$map.fill) {
     
-    mp <- maps::map(database = res, plot = FALSE, fill = TRUE, projection = Args$projection,
-                    parameters = Args$parameters, orientation = Args$orientation)
+    mp <-
+      maps::map(
+        database = res,
+        plot = FALSE,
+        fill = TRUE,
+        projection = Args$projection,
+        parameters = Args$parameters,
+        orientation = Args$orientation
+      )
+    
     mp <- maps::map.wrap(mp)
     
     panel.polygon(mp$x, mp$y, col = Args$map.cols, border = "black",
@@ -1486,11 +1495,14 @@ panel.linear <- function (x, y, form = y ~ x, method = "loess", x.nam, y.nam, ..
   }, error = function(x) return)
 }
 
-## trajectory handling
+
+# trajectory handling -------------------------------------------
+
+
 addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
                     group.number, lwd, groupMax)
 {
-
+  
   
   ## data of interest
   tmp <- split(mydata[subscripts, ],
