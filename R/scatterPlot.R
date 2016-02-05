@@ -674,9 +674,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   id <- which(names(mydata) == group)
   names(mydata)[id] <- "MyGroupVar"
   
-  ## for printing map at end, if necessary
-  groupMax <- length(unique(factor(na.omit(mydata$MyGroupVar))))
-  
+
   plotType <- if (!Args$traj) c("p", "g") else "n"
   
   if (method == "scatter") {
@@ -709,6 +707,10 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                       ## in order to avoid a line back to the origin, need to process
                       ## in batches
                       if (Args$traj) {
+                        
+                        ## maximum number of actual groups in this panel
+                        groupMax <- 
+                          length(unique(factor(mydata$MyGroupVar[subscripts])))
                         
                           ## data of interest
                         tmp <- split(mydata[subscripts, ],
