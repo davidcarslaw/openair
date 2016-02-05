@@ -397,6 +397,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   Args$grid.col <- if ("grid.col" %in% names(Args)) Args$grid.col else "deepskyblue"
   Args$npoints <- if ("npoints" %in% names(Args)) Args$npoints else 12
   Args$origin <- if ("origin" %in% names(Args)) Args$origin else TRUE
+  Args$clusters <- if ("clusters" %in% names(Args)) Args$clusters else NA
   
   ## transform hexbin by default
   Args$trans <- if ("trans" %in% names(Args)) Args$trans else function(x) log(x)
@@ -703,61 +704,18 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                                             subscripts, windflow, ...)
                     {
                         
+                      
+                      ## maximum number of actual groups in this panel
+                      groupMax <- 
+                        length(unique(factor(mydata$MyGroupVar[subscripts])))
+                      
                       ## specific treatemt of trajectory lines
                       ## in order to avoid a line back to the origin, need to process
                       ## in batches
-                      if (Args$traj) {
-                        
-                        ## maximum number of actual groups in this panel
-                        groupMax <- 
-                          length(unique(factor(mydata$MyGroupVar[subscripts])))
-                        
-                          ## data of interest
-                        tmp <- split(mydata[subscripts, ],
-                                     mydata[subscripts, "date"])
-                          
-                        if (!is.na(z)) {
-                          
-                          ## colour by 
-                          lapply(tmp, function (dat)
-                            llines(dat$lon, dat$lat, col.line = dat$col,
-                                   lwd = lwd, lty = lty))
-                          
-                          ## major npoints from trajPlot
-                          id <- seq(min(subscripts), max(subscripts),
-                                    by = Args$npoints)
-                          
-                          lapply(tmp, function (dat)
-                            lpoints(dat[id, "lon"], dat[id, "lat"],
-                                    col = dat$col, pch = 16))
-                            
-                           } else {
-                          
-                          ## colour by a z
-                          
-                          lapply(tmp, function (dat)
-                            llines(dat$lon, dat$lat,
-                                   col.line = myColors[group.number],
-                                   lwd = lwd, lty = lty))
-                          
-                          ## major npoints from trajPlot
-                          
-                          lapply(tmp, function (dat)
-                            lpoints(dat[seq(1, nrow(dat), Args$npoints), "lon"],
-                                    dat[seq(1, nrow(dat), Args$npoints), "lat"],
-                                    col = myColors[group.number],
-                                    pch = 16))
-
-                             ## add mark for receptor location
-                            if (Args$origin)
-                                lpoints(Args$receptor[1], Args$receptor[2], pch = 16,
-                                        cex = 1.5, col = "black")
-                          
-                        }
-                        
-                        
-                      }
-                 
+                      if (Args$traj) 
+                        addTraj(mydata, subscripts, Args, z, lty, myColors,
+                                group.number, lwd,groupMax)
+                      
                       ## add base map
                       if (map && group.number == groupMax)
                         add.map(Args, ...)
@@ -1526,6 +1484,76 @@ panel.linear <- function (x, y, form = y ~ x, method = "loess", x.nam, y.nam, ..
                                    sep = "")), cex = 0.7, pos = 4)
   
   }, error = function(x) return)
+}
+
+## trajectory handling
+addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
+                    group.number, lwd, groupMax)
+{
+
+  
+  ## data of interest
+  tmp <- split(mydata[subscripts, ],
+               mydata[subscripts, "date"])
+  
+  if (!is.na(z)) {
+    
+    ## colour by 
+    lapply(tmp, function (dat)
+      llines(dat$lon, dat$lat, col.line = dat$col,
+             lwd = lwd, lty = lty))
+    
+    ## major npoints from trajPlot
+    id <- seq(min(subscripts), max(subscripts),
+              by = Args$npoints)
+    
+    lapply(tmp, function (dat)
+      lpoints(dat[id, "lon"], dat[id, "lat"],
+              col = dat$col, pch = 16))
+    
+  } else {
+    
+    ## colour by a z
+    
+    lapply(tmp, function (dat)
+      llines(dat$lon, dat$lat,
+             col.line = myColors[group.number],
+             lwd = lwd, lty = lty))
+    
+    ## major npoints from trajPlot
+    
+    lapply(tmp, function (dat)
+      lpoints(dat[seq(1, nrow(dat), Args$npoints), "lon"],
+              dat[seq(1, nrow(dat), Args$npoints), "lat"],
+              col = myColors[group.number],
+              pch = 16))
+    
+    ## add mark for receptor location
+    if (Args$origin)
+      lpoints(Args$receptor[1], Args$receptor[2], pch = 16,
+              cex = 1.5, col = "black")
+    
+    ## add cluster proportions if available
+    
+    if (all(!is.na(Args$clusters$freq)) && group.number == 
+        length(levels(mydata$MyGroupVar))) 
+    {
+      
+      ## make sure we match clusters in case order mixed
+      points <- plyr::ddply(mydata, "MyGroupVar", head, 1)
+      points <- merge(points, Args$clusters, by.x = "MyGroupVar",
+                      by.y = "cluster")
+      
+      
+      ## clusterProp is from trajCluster
+      ltext(points$lon, points$lat, label = paste0(points$freq, "%"),
+            pos = 3)
+      
+    }
+    
+  }
+  
+  
 }
 
 

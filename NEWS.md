@@ -5,6 +5,7 @@
 - fix `NA` factors in `trajPlot`
 - make border black wwhen using maps for improved clarity
 - fix bug in `trajPlot` that sometimes failed to print map when grouping
+- add percentage total trajectories for `trajCluster`
 
 # Changes in openair 1.6.6 [2015-11-04]
 

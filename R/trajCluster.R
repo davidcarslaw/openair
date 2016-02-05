@@ -178,6 +178,11 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5, plot = TRUE, typ
         ## calculate the mean trajectories by cluster
         agg <- aggregate(traj[, c("lat", "lon", "date")], traj[, c("cluster", "hour.inc", type)] ,
                          mean, na.rm = TRUE)
+        
+        ## proportion of total clusters
+        clusterProp <- 100 * round(prop.table(table(traj$cluster)), 3)
+        clusters <- data.frame(clusterProp = clusterProp)
+        names(clusters) <- c("cluster", "freq")
 
         ## make sure date is in correct format
         class(agg$date) = class(traj$date)
@@ -209,7 +214,8 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5, plot = TRUE, typ
                           col = cols, type = type, map = TRUE, map.fill = map.fill,
                           map.cols = map.cols, map.alpha = map.alpha,
                           projection = projection, parameters = parameters,
-                          orientation = orientation, traj = TRUE, trajLims = trajLims)
+                          orientation = orientation, traj = TRUE, trajLims = trajLims,
+                          clusters = clusters)
 
          ## reset for Args
         plot.args <- listUpdate(plot.args, Args)
