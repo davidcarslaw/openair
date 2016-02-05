@@ -544,9 +544,11 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       }
       
       
-      thecol <- openColours(cols, 100)[cut(mydata[[z]],
-                                           breaks = seq(limits[1], limits[2],
-                                                        length.out = 100), label = FALSE)]
+      thecol <- openColours(
+        cols, 100)[cut(mydata[[z]], breaks = seq(limits[1], limits[2],
+                                                 length.out = 100),
+                       label = FALSE)]
+      
       mydata$col <- thecol
       
     }
@@ -556,7 +558,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       col <- openColours(cols, (nlev2 - 1))
       
       col.scale <- breaks
-      legend <- list(col = col, at = col.scale, labels = list(labels = labs, at = at),
+      legend <- list(col = col, at = col.scale, 
+                     labels = list(labels = labs, at = at),
                      space = key.position,
                      auto.text = auto.text, footer = Args$key.footer,
                      header = Args$key.header,
@@ -578,7 +581,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   
   
   ## if no group to plot, then add a dummy one to make xyplot work
-  if (is.na(group)) {mydata$MyGroupVar <- factor("MyGroupVar"); group <-  "MyGroupVar"}
+  if (is.na(group)) 
+    {mydata$MyGroupVar <- factor("MyGroupVar"); group <-  "MyGroupVar"}
   
   ## number of groups
   npol <- length(levels(as.factor(mydata[[group]])))
@@ -651,7 +655,10 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     ## starting point code as of ManKendall
     wds <-  c("NW", "N", "NE", "W", "E", "SW", "S", "SE")
     mydata$wd <- ordered(mydata$wd, levels = wds)
-    wd.ok <- sapply(wds, function (x) {if (x %in% unique(mydata$wd)) FALSE else TRUE })
+    
+    wd.ok <- sapply(wds, function (x) {
+      if (x %in% unique(mydata$wd)) FALSE else TRUE })
+    
     skip <- c(wd.ok[1:4], TRUE, wd.ok[5:8])
     mydata$wd <- factor(mydata$wd)
     Args$layout <- c(3, 3)
@@ -896,7 +903,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       
       
       ## data with gaps caused by min.bin
-      all.data <- na.omit(data.frame(xgrid = mydata$xgrid, ygrid = mydata$ygrid, z))
+      all.data <- na.omit(data.frame(xgrid = mydata$xgrid, 
+                                     ygrid = mydata$ygrid, z))
+      
       ind <- with(all.data, exclude.too.far(wsp, wdp, mydata$xgrid,
                                             mydata$ygrid, dist = dist))
       
@@ -958,7 +967,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     legend <- list(col = col, at = col.scale,
                    labels = list(labels = labs, at = at), space = key.position,
                    auto.text = auto.text, footer = Args$key.footer,
-                   header = Args$key.header, height = 0.8, width = 1.5, fit = "scale",
+                   header = Args$key.header, height = 0.8, width = 1.5, 
+                   fit = "scale",
                    plot.style = c("ticks", "border"))
     
     
@@ -1035,25 +1045,43 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                         y3 = ygrid + y.inc / 2, y4 = ygrid - y.inc / 2)
     
     ## find coordinates in appropriate map projection
-    coord1 <- mapproject(x = mydata$x1, y = mydata$y1, projection = Args$projection,
-                         parameters = Args$parameters, orientation = Args$orientation)
-    coord2 <- mapproject(x = mydata$x2, y = mydata$y2, projection = Args$projection,
-                         parameters = Args$parameters, orientation = Args$orientation)
-    coord3 <- mapproject(x = mydata$x3, y = mydata$y3, projection = Args$projection,
-                         parameters = Args$parameters, orientation = Args$orientation)
-    coord4 <- mapproject(x = mydata$x4, y = mydata$y4, projection = Args$projection,
-                         parameters = Args$parameters, orientation = Args$orientation)
-    coordGrid <- mapproject(x = mydata$xgrid, y = mydata$ygrid, projection = Args$projection,
-                            parameters = Args$parameters, orientation = Args$orientation)
+    coord1 <- mapproject(x = mydata$x1, y = mydata$y1, 
+                         projection = Args$projection,
+                         parameters = Args$parameters, 
+                         orientation = Args$orientation)
     
-    mydata <- transform(mydata, x1 = coord1$x, x2 = coord2$x, x3 = coord3$x, x4 = coord4$x,
-                        y1 = coord1$y, y2 = coord2$y, y3 = coord3$y, y4 = coord4$y,
+    coord2 <- mapproject(x = mydata$x2, y = mydata$y2, 
+                         projection = Args$projection,
+                         parameters = Args$parameters, 
+                         orientation = Args$orientation)
+    
+    coord3 <- mapproject(x = mydata$x3, y = mydata$y3, 
+                         projection = Args$projection,
+                         parameters = Args$parameters, 
+                         orientation = Args$orientation)
+    
+    coord4 <- mapproject(x = mydata$x4, y = mydata$y4, 
+                         projection = Args$projection,
+                         parameters = Args$parameters, 
+                         orientation = Args$orientation)
+    
+    coordGrid <- mapproject(x = mydata$xgrid, y = mydata$ygrid, 
+                            projection = Args$projection,
+                            parameters = Args$parameters, 
+                            orientation = Args$orientation)
+    
+    mydata <- transform(mydata, x1 = coord1$x, x2 = coord2$x, 
+                        x3 = coord3$x, x4 = coord4$x,
+                        y1 = coord1$y, y2 = coord2$y, y3 = coord3$y, 
+                        y4 = coord4$y,
                         xgrid = coordGrid$x, ygrid = coordGrid$y)
     
     
     smooth.grid <- function(mydata, z) {
       
-      myform <- formula(paste0(z, "^0.5 ~ s(xgrid, ygrid, k = ", k , ")", sep = ""))
+      myform <- 
+        formula(paste0(z, "^0.5 ~ s(xgrid, ygrid, k = ", k , ")", sep = ""))
+      
       res <- 101
       Mgam <- gam(myform, data = mydata)
       
@@ -1077,6 +1105,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       
       ## data with gaps caused by min.bin
       all.data <- na.omit(data.frame(xgrid = mydata$xgrid, ygrid = mydata$ygrid, z))
+      
       ind <- with(all.data, exclude.too.far(wsp, wdp, mydata$xgrid,
                                             mydata$ygrid, dist = dist))
       
@@ -1124,12 +1153,12 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       
     }
     
-    
     nlev2 <- length(breaks)
     
     if (missing(cols)) cols <- "default"
     
-    thecol <- openColours(cols, length(breaks) - 1)[cut(mydata[[z]], breaks, label = FALSE)]
+    thecol <- openColours(cols, length(breaks) - 1)[cut(mydata[[z]], 
+                                                        breaks, label = FALSE)]
     mydata$col <- thecol
     col <- thecol
     
@@ -1243,7 +1272,6 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     plt <- do.call(levelplot, lv.args)
     
   }
-  
   
   
   # kernel density ----------------------------------------------------------
@@ -1579,7 +1607,6 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
     }
     
   }
-  
   
 }
 

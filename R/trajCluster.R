@@ -101,17 +101,19 @@
 ##' ## use different distance matrix calculation, and calculate by season
 ##' traj <- trajCluster(traj, method = "Angle", type = "season", n.clusters = 4)
 ##' }
-trajCluster <- function(traj, method = "Euclid", n.cluster = 5, plot = TRUE, type = "default",
+trajCluster <- function(traj, method = "Euclid", n.cluster = 5, 
+                        plot = TRUE, type = "default",
                         cols = "Set1", split.after = FALSE, map.fill = TRUE,
                         map.cols = "grey40", map.alpha = 0.4,
                         projection = "lambert",
                         parameters = c(51, 51), orientation = c(90, 0, 0), ...) {
-
-    if (tolower(method) == "euclid")  method <- "distEuclid" else method <- "distAngle"
-
-
+  
+  if (tolower(method) == "euclid")  
+    method <- "distEuclid" else method <- "distAngle"
+    
+    
     Args <- list(...)
-
+    
     ## set graphics
     current.strip <- trellis.par.get("strip.background")
     current.font <- trellis.par.get("fontsize")
@@ -122,113 +124,116 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5, plot = TRUE, typ
     
     ## label controls
     Args$plot.type <- if ("plot.type" %in% names(Args))
-        Args$plot.type else Args$plot.type <- "l"
+      Args$plot.type else Args$plot.type <- "l"
     Args$lwd <- if ("lwd" %in% names(Args))
-       Args$lwd else Args$lwd <- 4
-
+      Args$lwd else Args$lwd <- 4
+    
     if ("fontsize" %in% names(Args))
-        trellis.par.set(fontsize = list(text = Args$fontsize))
-
+      trellis.par.set(fontsize = list(text = Args$fontsize))
+    
     calcTraj <- function(traj) {
-
-        ## make sure ordered correctly
-        traj <- traj[order(traj$date, traj$hour.inc), ]
-
-        ## length of back trajectories
-        traj$len <- ave(traj$lat, traj$date, FUN = length)
-
-        ## find length of back trajectories
-        ## 96-hour back trajectories with origin: length should be 97
-        n <- max(abs(traj$hour.inc)) + 1
-
-        traj <- subset(traj, len == n)
-        len <- nrow(traj) / n
-
-        ## lat/lon input matrices
-        x <- matrix(traj$lon, nrow = n)
-        y <- matrix(traj$lat, nrow = n)
-
-        z <- matrix(0, nrow = n, ncol = len)
-        res <- matrix(0, nrow = len, ncol = len)
-
-        res <- .Call(method, x, y, res)
-
-        res[is.na(res)] <- 0 ## possible for some to be NA if trajectory does not move between two hours?
-
-
-        dist.res <- as.dist(res)
-        clusters <- pam(dist.res, n.cluster)
-        cluster <- rep(clusters$clustering, each = n)
-        traj$cluster <- factor(paste("C", cluster, sep = ""))
-        traj
-
+      
+      ## make sure ordered correctly
+      traj <- traj[order(traj$date, traj$hour.inc), ]
+      
+      ## length of back trajectories
+      traj$len <- ave(traj$lat, traj$date, FUN = length)
+      
+      ## find length of back trajectories
+      ## 96-hour back trajectories with origin: length should be 97
+      n <- max(abs(traj$hour.inc)) + 1
+      
+      traj <- subset(traj, len == n)
+      len <- nrow(traj) / n
+      
+      ## lat/lon input matrices
+      x <- matrix(traj$lon, nrow = n)
+      y <- matrix(traj$lat, nrow = n)
+      
+      z <- matrix(0, nrow = n, ncol = len)
+      res <- matrix(0, nrow = len, ncol = len)
+      
+      res <- .Call(method, x, y, res)
+      
+      res[is.na(res)] <- 0 ## possible for some to be NA if trajectory does not move between two hours?
+      
+      dist.res <- as.dist(res)
+      clusters <- pam(dist.res, n.cluster)
+      cluster <- rep(clusters$clustering, each = n)
+      traj$cluster <- factor(paste("C", cluster, sep = ""))
+      traj
+      
     }
-
+    
     ## this bit decides whether to separately calculate trajectories for each level of type
-
+    
     if (split.after) {
-        traj <- plyr::ddply(traj, "default", calcTraj)
-        traj <- cutData(traj, type)
+      
+      traj <- plyr::ddply(traj, "default", calcTraj)
+      traj <- cutData(traj, type)
+      
     } else {
-        traj <- cutData(traj, type)
-        traj <- plyr::ddply(traj, type, calcTraj)
+      
+      traj <- cutData(traj, type)
+      traj <- plyr::ddply(traj, type, calcTraj)
+      
     }
-
+    
     if (plot) {
-        ## calculate the mean trajectories by cluster
-     
-        agg <- select_(traj, "lat", "lon", "date", "cluster", "hour.inc", type) %>% 
-          group_by_(., "cluster", "hour.inc", type) %>% 
-          summarise_each(funs(mean))
-     
-        ## proportion of total clusters
-        clusterProp <- 100 * round(prop.table(table(traj$cluster)), 3)
-        clusters <- data.frame(clusterProp = clusterProp)
-        names(clusters) <- c("cluster", "freq")
-
-        ## make sure date is in correct format
-        class(agg$date) = class(traj$date)
-        attr(agg$date, "tzone") <- "GMT"
-
-        ## xlim and ylim set by user
-        if (!"xlim" %in% names(Args))
-            Args$xlim <- range(agg$lon)
-
-        if (!"ylim" %in% names(Args))
-            Args$ylim <- range(agg$lat)
-
-        ## extent of data (or limits set by user) in degrees
-        trajLims <- c(Args$xlim, Args$ylim)
-        
-        ## need *outline* of boundary for map limits
-        Args <- setTrajLims(traj, Args, projection, parameters, orientation)
-
-        ## transform data for map projection
-        tmp <- mapproject(x = agg[["lon"]],
-                          y = agg[["lat"]],
-                          projection = projection,
-                          parameters = parameters,
-                          orientation = orientation)
-        agg[["lon"]] <- tmp$x
-        agg[["lat"]] <- tmp$y
-
-        plot.args <- list(agg, x = "lon", y ="lat", group = "cluster",
-                          col = cols, type = type, map = TRUE, map.fill = map.fill,
-                          map.cols = map.cols, map.alpha = map.alpha,
-                          projection = projection, parameters = parameters,
-                          orientation = orientation, traj = TRUE, trajLims = trajLims,
-                          clusters = clusters)
-
-         ## reset for Args
-        plot.args <- listUpdate(plot.args, Args)
-
-        ## plot
-        plt <- do.call(scatterPlot, plot.args)
-
+      ## calculate the mean trajectories by cluster
+      
+      agg <- select_(traj, "lat", "lon", "date", "cluster", "hour.inc", type) %>% 
+        group_by_(., "cluster", "hour.inc", type) %>% 
+        summarise_each(funs(mean))
+      
+      ## proportion of total clusters
+      clusterProp <- 100 * round(prop.table(table(traj$cluster)), 3)
+      clusters <- data.frame(clusterProp = clusterProp)
+      names(clusters) <- c("cluster", "freq")
+      
+      ## make sure date is in correct format
+      class(agg$date) = class(traj$date)
+      attr(agg$date, "tzone") <- "GMT"
+      
+      ## xlim and ylim set by user
+      if (!"xlim" %in% names(Args))
+        Args$xlim <- range(agg$lon)
+      
+      if (!"ylim" %in% names(Args))
+        Args$ylim <- range(agg$lat)
+      
+      ## extent of data (or limits set by user) in degrees
+      trajLims <- c(Args$xlim, Args$ylim)
+      
+      ## need *outline* of boundary for map limits
+      Args <- setTrajLims(traj, Args, projection, parameters, orientation)
+      
+      ## transform data for map projection
+      tmp <- mapproject(x = agg[["lon"]],
+                        y = agg[["lat"]],
+                        projection = projection,
+                        parameters = parameters,
+                        orientation = orientation)
+      agg[["lon"]] <- tmp$x
+      agg[["lat"]] <- tmp$y
+      
+      plot.args <- list(agg, x = "lon", y = "lat", group = "cluster",
+                        col = cols, type = type, map = TRUE, map.fill = map.fill,
+                        map.cols = map.cols, map.alpha = map.alpha,
+                        projection = projection, parameters = parameters,
+                        orientation = orientation, traj = TRUE, trajLims = trajLims,
+                        clusters = clusters)
+      
+      ## reset for Args
+      plot.args <- listUpdate(plot.args, Args)
+      
+      ## plot
+      plt <- do.call(scatterPlot, plot.args)
+      
     }
-
+    
     invisible(traj)
-
+    
 }
 
 
