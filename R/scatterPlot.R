@@ -723,7 +723,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         if (Args$traj) 
           addTraj(mydata, subscripts, Args, z, lty, myColors,
                   group.number, lwd,groupMax)
-        
+      
         ## add base map
         if (map && group.number == groupMax)
           add.map(Args, ...)
@@ -1589,8 +1589,8 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
               cex = 1.5, col = "black")
     
     ## add cluster proportions if available
-    
-    if (all(!is.na(Args$clusters$freq)) && group.number == 
+  
+    if (all(!is.na(Args$clusters)) && group.number == 
         length(levels(mydata$MyGroupVar))) 
     {
       
