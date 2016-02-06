@@ -359,11 +359,19 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   Args <- list(...)
   
   Args$xlab <- if ("xlab" %in% names(Args))
-    quickText(Args$xlab, auto.text) else quickText(x, auto.text)
+    quickText(Args$xlab, auto.text)
+  else
+    quickText(x, auto.text)
+  
   Args$ylab <- if ("ylab" %in% names(Args))
-    quickText(Args$ylab, auto.text) else quickText(y, auto.text)
+    quickText(Args$ylab, auto.text)
+  else
+    quickText(y, auto.text)
+  
   Args$key.footer <- if ("key.footer" %in% names(Args))
-    Args$key.footer else NULL
+    Args$key.footer
+  else
+    NULL
   
   if (!"aspect" %in% names(Args) && method == "hexbin")
     Args$aspect <- 1
@@ -386,18 +394,76 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   if ("fontsize" %in% names(Args))
     trellis.par.set(fontsize = list(text = Args$fontsize))
   
-  Args$map.cols <- if ("map.cols" %in% names(Args)) Args$map.cols else "grey20"
-  Args$map.alpha <- if ("map.alpha" %in% names(Args)) Args$map.alpha else 0.2
-  Args$map.fill <- if ("map.fill" %in% names(Args)) Args$map.fill else TRUE
-  Args$map.res <- if ("map.res" %in% names(Args)) Args$map.res else "default"
-  Args$traj <- if ("traj" %in% names(Args)) Args$traj else FALSE
-  Args$projection <- if ("projection" %in% names(Args)) Args$projection else "lambert"
-  Args$parameters <- if ("parameters" %in% names(Args)) Args$parameters else c(51, 51)
-  Args$orientation <- if ("orientation" %in% names(Args)) Args$orientation else c(90, 0, 0)
-  Args$grid.col <- if ("grid.col" %in% names(Args)) Args$grid.col else "deepskyblue"
-  Args$npoints <- if ("npoints" %in% names(Args)) Args$npoints else 12
-  Args$origin <- if ("origin" %in% names(Args)) Args$origin else TRUE
-  Args$clusters <- if ("clusters" %in% names(Args)) Args$clusters else NA
+  Args$map.cols <-
+    if ("map.cols" %in% names(Args))
+      Args$map.cols
+  else
+    "grey20"
+  
+  Args$map.alpha <-
+    if ("map.alpha" %in% names(Args))
+      Args$map.alpha
+  else
+    0.2
+  
+  Args$map.fill <-
+    if ("map.fill" %in% names(Args))
+      Args$map.fill
+  else
+    TRUE
+  
+  Args$map.res <-
+    if ("map.res" %in% names(Args))
+      Args$map.res
+  else
+    "default"
+  
+  Args$traj <- if ("traj" %in% names(Args))
+    Args$traj
+  else
+    FALSE
+  
+  Args$projection <-
+    if ("projection" %in% names(Args))
+      Args$projection
+  else
+    "lambert"
+  
+  Args$parameters <-
+    if ("parameters" %in% names(Args))
+      Args$parameters
+  else
+    c(51, 51)
+  
+  Args$orientation <-
+    if ("orientation" %in% names(Args))
+      Args$orientation
+  else
+    c(90, 0, 0)
+  
+  Args$grid.col <-
+    if ("grid.col" %in% names(Args))
+      Args$grid.col
+  else
+    "deepskyblue"
+  
+  Args$npoints <-
+    if ("npoints" %in% names(Args))
+      Args$npoints
+  else
+    12
+  
+  Args$origin <-
+    if ("origin" %in% names(Args))
+      Args$origin
+  else
+    TRUE
+  
+  Args$clusters <-
+    if ("clusters" %in% names(Args))
+      Args$clusters
+  else
+    NA
   
   ## transform hexbin by default
   Args$trans <- if ("trans" %in% names(Args)) Args$trans else function(x) log(x)
