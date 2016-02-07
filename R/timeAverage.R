@@ -488,7 +488,6 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       dailymet <- date.pad2(dailymet, interval = avg.time)
     }
     
-    
     dailymet
     
   }
