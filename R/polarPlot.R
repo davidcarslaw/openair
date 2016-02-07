@@ -522,7 +522,6 @@ polarPlot <-
   input.data <- expand.grid(u = seq(-upper, upper, length = int),
                             v = seq(-upper, upper, length = int))
   
-  
   if (statistic == "cpf") {
     ## can be interval of percentiles or a single (threshold)
     if (length(percentile) > 1) {
