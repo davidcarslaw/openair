@@ -398,7 +398,6 @@ polarPlot <-
                         "weighted.mean", "percentile", "cpf")) 
     stop (paste("statistic '", statistic, "' not recognised", sep = ""))
   
-  
   if (length(weights) != 3) stop ("weights should be of length 3.")
   
   if (missing(key.header)) key.header <- statistic
