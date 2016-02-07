@@ -360,14 +360,16 @@
 ##' \dontrun{polarPlot(mydata, pollutant = "so2", uncertainty = TRUE)}
 ##'
 ##'
-polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "default",
-                      statistic = "mean", resolution = "normal", limits = NA,
-                      exclude.missing = TRUE, uncertainty = FALSE, percentile = NA,
-                      cols = "default", weights = c(0.25, 0.5, 0.75), min.bin = 1,
-                      mis.col = "grey", upper = NA, angle.scale = 315,
-                      units = x, force.positive = TRUE, k = 100, normalise = FALSE,
-                      key.header = "", key.footer = pollutant, key.position = "right",
-                      key = TRUE, auto.text = TRUE, ...) {
+polarPlot <- 
+  function(mydata, pollutant = "nox", x = "ws", wd = "wd", 
+           type = "default", statistic = "mean", resolution = "normal", 
+           limits = NA, exclude.missing = TRUE, uncertainty = FALSE, 
+           percentile = NA, cols = "default", weights = c(0.25, 0.5, 0.75), 
+           min.bin = 1, mis.col = "grey", upper = NA, angle.scale = 315,
+           units = x, force.positive = TRUE, k = 100, normalise = FALSE,
+           key.header = "", key.footer = pollutant, key.position = "right", 
+           key = TRUE, auto.text = TRUE, ...)
+    {
   
   ## get rid of R check annoyances
   z = NULL
@@ -377,7 +379,7 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
     percentile <- 50
   }
   
-  ## initial checks ####################################################################
+
   if (length(type) > 2) {stop("Maximum number of types is 2.")}
   
   if (uncertainty) type <- "default" ## can't have conditioning here
@@ -386,9 +388,9 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
     stop("Can only have one pollutant when uncertainty = TRUE")
   
   if (!statistic %in% c("mean", "median", "frequency", "max", "stdev",
-                        "weighted.mean", "percentile", "cpf")) {
+                        "weighted.mean", "percentile", "cpf")) 
     stop (paste("statistic '", statistic, "' not recognised", sep = ""))
-  }
+  
   
   if (length(weights) != 3) stop ("weights should be of length 3.")
   
@@ -447,14 +449,16 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
   min.scale <- min(mydata[[x]], na.rm = TRUE)
   
   
-  ## scale data by subtracting the min value
-  ## this helps with dealing with negative data on radial axis (starts from zero, always postive)
+  # scale data by subtracting the min value this helps with dealing 
+  # with negative data on radial axis (starts from zero, always 
+  # postive)
   mydata[[x]] <- mydata[[x]] - min(mydata[[x]], na.rm = TRUE)
   
-  ## if more than one pollutant, need to stack the data and set type = "variable"
-  ## this case is most relevent for model-measurement compasrions where data are in columns
-  ## Can also do more than one pollutant and a single type that is not "default", in which
-  ## case pollutant becomes a conditioning variable
+  # if more than one pollutant, need to stack the data and set type =
+  # "variable" this case is most relevent for model-measurement
+  # compasrions where data are in columns Can also do more than one
+  # pollutant and a single type that is not "default", in which case
+  # pollutant becomes a conditioning variable
   if (length(pollutant) > 1) {
     
     if (length(type) > 1) {
@@ -473,12 +477,9 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
     }
   }
   
-  ## ####################################################################
-  
-  
+ 
   ## cutData depending on type
   mydata <- cutData(mydata, type, ...)
-  
   
   ## if upper ws not set, set it to the max to display all information
   max.ws <- max(mydata[[x]], na.rm = TRUE)
@@ -514,7 +515,7 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
   input.data <- expand.grid(u = seq(-upper, upper, length = int),
                             v = seq(-upper, upper, length = int))
   
-  ## ######################################################################
+  
   if (statistic == "cpf") {
     ## can be interval of percentiles or a single (threshold)
     if (length(percentile) > 1) {
@@ -555,7 +556,6 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
     sub <- NULL
   }
   
-  ## ######################################################################
   
   prepare.grid <- function(mydata) {
     
@@ -563,28 +563,37 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
     wd <- cut(wd.int * ceiling(mydata[[wd]] / wd.int - 0.5),
               breaks = seq(0, 360, wd.int), include.lowest = TRUE)
     
-    x <- cut(mydata[[x]], breaks = seq(0, max.ws, length = 31), include.lowest = TRUE)
+    x <- cut(mydata[[x]], breaks = seq(0, max.ws, length = 31), 
+             include.lowest = TRUE)
     
-    binned <- switch(statistic,
-                     frequency = tapply(mydata[[pollutant]], list(wd, x), function(x)
-                       length(na.omit(x))),
-                     mean =  tapply(mydata[[pollutant]], list(wd, x), function(x)
-                       mean(x, na.rm = TRUE)),
-                     median = tapply(mydata[[pollutant]], list(wd, x), function(x)
-                       median(x, na.rm = TRUE)),
-                     max = tapply(mydata[[pollutant]], list(wd, x), function(x)
-                       max(x, na.rm = TRUE)),
-                     stdev = tapply(mydata[[pollutant]], list(wd, x), function(x)
-                       sd(x, na.rm = TRUE)),
-                     cpf =  tapply(mydata[[pollutant]], list(wd, x),
-                                   function(x) (length(which(x > Pval)) / length(x))),
-                     cpfi =  tapply(mydata[[pollutant]], list(wd, x),
-                                    function(x) (length(which(x > Pval[1] & x <= Pval[2])) / length(x))),
-                     weighted.mean = tapply(mydata[[pollutant]], list(wd, x),
-                                            function(x) (mean(x) * length(x) / nrow(mydata))),
-                     percentile = tapply(mydata[[pollutant]], list(wd, x), function(x)
-                       quantile(x, probs = percentile / 100, na.rm = TRUE))
-                     
+    binned <- switch(
+      statistic,
+      frequency = tapply(mydata[[pollutant]], list(wd, x), function(x)
+        length(na.omit(x))),
+      mean =  tapply(mydata[[pollutant]], list(wd, x), function(x)
+        mean(x, na.rm = TRUE)),
+      median = tapply(mydata[[pollutant]], list(wd, x), function(x)
+        median(x, na.rm = TRUE)),
+      max = tapply(mydata[[pollutant]], list(wd, x), function(x)
+        max(x, na.rm = TRUE)),
+      stdev = tapply(mydata[[pollutant]], list(wd, x), function(x)
+        sd(x, na.rm = TRUE)),
+      cpf =  tapply(mydata[[pollutant]], list(wd, x),
+                    function(x)
+                      (length(which(
+                        x > Pval
+                      )) / length(x))),
+      cpfi =  tapply(mydata[[pollutant]], list(wd, x),
+                     function(x)
+                       (length(
+                         which(x > Pval[1] & x <= Pval[2])
+                       ) / length(x))),
+      weighted.mean = tapply(mydata[[pollutant]], list(wd, x),
+                             function(x)
+                               (mean(x) * length(x) / nrow(mydata))),
+      percentile = tapply(mydata[[pollutant]], list(wd, x), function(x)
+        quantile(x, probs = percentile / 100, na.rm = TRUE))
+      
     )
     
     binned <- as.vector(t(binned))
@@ -605,7 +614,7 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
     ## set missing to NA
     ids <- which(binned.len < min.bin)
     binned[ids] <- NA
-    ## ####################Smoothing#######################################
+   
     if (force.positive) n <- 0.5 else n <- 1
     
     ## no uncertainty to calculate
@@ -641,13 +650,15 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
       pred <- pred ^ (1 / n)
       
       n <- length(pred)
-      results <-  data.frame(u = rep(input.data$u, 3), v = rep(input.data$v, 3),
-                             z = c(pred, Lower, Upper),
-                             default = rep(c("prediction", "lower uncertainty",
-                                             "upper uncertainty"), each = n))
+      
+      results <-  
+        data.frame(u = rep(input.data$u, 3), v = rep(input.data$v, 3),
+                   z = c(pred, Lower, Upper),
+                   default = rep(c("prediction", "lower uncertainty",
+                                   "upper uncertainty"), each = n))
     }
     
-    ## ###########################################################################
+   
     ## function to remove points too far from original data
     exclude <- function(results) {
       
@@ -670,8 +681,6 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
     
     results
   }
-  
-  ## #################################################################
   
   ## if min.bin >1 show the missing data. Work this out by running twice:
   ## first time with no missings, second with min.bin.
@@ -704,7 +713,7 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
   ## remove wind speeds > upper to make a circle
   if (clip) res$z[(res$u ^ 2 + res$v ^ 2) ^ 0.5 > upper] <- NA
   
-  ## proper names of labelling ###################################################
+  ## proper names of labelling 
   strip.dat <- strip.fun(res, type, auto.text)
   strip <- strip.dat[[1]]
   strip.left <- strip.dat[[2]]
@@ -768,15 +777,15 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
     extra.args$layout <- c(3, 1)
   }
   
-  ## scale key setup ##############################################################
   
-  legend <- list(col = col, at = col.scale, labels = list(labels = labs, at = at),
+  legend <- list(col = col, at = col.scale, 
+                 labels = list(labels = labs, at = at),
                  space = key.position, auto.text = auto.text,
                  footer = key.footer, header = key.header,
                  height = 1, width = 1.5, fit = "all")
+  
   legend <- makeOpenKeyLegend(key, legend, "polarPlot")
   
-  ## ##############################################################################
   
   ## scaling
   ## scaling of 'zeroed' data
@@ -830,13 +839,15 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
                  
                  angles <- seq(0, 2 * pi, length = 360)
                  
-                 sapply(intervals, function(x) llines(x * sin(angles), x * cos(angles),
-                                                      col = "grey", lty = 5))
+                 sapply(intervals, function(x) 
+                   llines(x * sin(angles), x * cos(angles),
+                          col = "grey", lty = 5))
                  
                  
                  ltext(1.07 * intervals * sin(pi * angle.scale / 180),
                        1.07 * intervals * cos(pi * angle.scale / 180),
-                       sapply(paste(labels, c("", "", units, rep("", 7))), function(x)
+                       sapply(paste(labels, c("", "", units, rep("", 7))), 
+                              function(x)
                          quickText(x, auto.text)) , cex = 0.7, pos = 4)
                  
                  ## add axis line to central polarPlot
@@ -855,13 +866,12 @@ polarPlot <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", type = "de
   
   plt <- do.call(levelplot, Args)
   
-  ## output #######################################################################
   
-  
-  if (length(type) == 1) plot(plt) else plot(useOuterStrips(plt, strip = strip,
-                                                            strip.left = strip.left))
-  
-  
+  if (length(type) == 1)
+    plot(plt)
+  else
+    plot(useOuterStrips(plt, strip = strip,
+                        strip.left = strip.left))
   
   newdata <- res
   output <- list(plot = plt, data = newdata, call = match.call())
