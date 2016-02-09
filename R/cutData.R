@@ -159,23 +159,23 @@ cutData <- function(x, type = "default", hemisphere = "northern", n.levels = 4,
     ##       generic label shortening handled at end of section
     ##       format(date, "%?") outputs modified by is.axis are set using temp
     ##       declared at at start of associated type section - karl
+  
 
     makeCond <- function(x, type = "default") {
-        ## adds a column "cond"
         
-        ## if type is time based and already exists in data, remove it
-        ## because we need to calculate it based on the date
+      ## if type is time based and already exists in data, 
+      ## just return data
 
-        if (type %in% dateTypes & type %in% names(x))
-             x <- x[ , !(names(x) %in% type)]
-
-
-        conds <- c("default", "year", "hour", "month", "season", "weekday", "wd", "site",
-                   "weekend", "monthyear", "bstgmt", "gmtbst", "dst", "daylight")
+        if (type %in% dateTypes & type %in% names(x)) 
+          return(x)
+           
+        conds <- c("default", "year", "hour", "month", "season", 
+                   "weekday", "wd", "site", "weekend", "monthyear", 
+                   "bstgmt", "gmtbst", "dst", "daylight")
 
         ## if conditioning type already built in, is present in data frame and is a factor
         if (type %in% conds & type %in% names(x)) {
-
+    
             if (is.factor(x[[type]])) {
 
                 x[[type]] <- factor(x[[type]])  ## remove unused factor levels
