@@ -5,82 +5,85 @@
 \alias{cutDaylight}
 \title{Function to split data in different ways for conditioning}
 \usage{
-cutData(x, type = "default", hemisphere = "northern", n.levels = 4,
-start.day, is.axis = FALSE, local.tz = NULL, ...)
-
-cutDaylight(x, local.hour.offset = 0,
-                 latitude = 51.522393, longitude = -0.154700, ...)
+cutData(x, type = "default", hemisphere = "northern",
+  n.levels = 4, start.day, is.axis = FALSE, local.tz = NULL, ...)
+  
+  cutDaylight(x, local.hour.offset = 0, latitude = 51.522393,
+  longitude = -0.154700, ...)
 }
 \arguments{
 \item{x}{A data frame containing a field \code{date}.}
 
 \item{type}{A string giving the way in which the data frame should
-be split. Pre-defined values are: \dQuote{default}, \dQuote{year},
-\dQuote{hour}, \dQuote{month}, \dQuote{season}, \dQuote{weekday},
-\dQuote{site}, \dQuote{weekend}, \dQuote{monthyear},
-\dQuote{daylight}, \dQuote{dst} (daylight saving time).
+be split. Pre-defined values are: \dQuote{default},
+\dQuote{year}, \dQuote{hour}, \dQuote{month}, \dQuote{season},
+\dQuote{weekday}, \dQuote{site}, \dQuote{weekend},
+\dQuote{monthyear}, \dQuote{daylight}, \dQuote{dst} (daylight
+saving time).
 
-\code{type} can also be the name of a numeric or factor. If a numeric
-  column name is supplied \code{cutData} will split the data into four
-  quantiles. Factors levels will be used to split the data without any
-  adjustment.}
+\code{type} can also be the name of a numeric or factor. If a
+numeric column name is supplied \code{cutData} will split the
+data into four quantiles. Factors levels will be used to split
+the data without any adjustment.}
 
-\item{hemisphere}{Can be \code{"northern"} or \code{"southern"}, used to
-split data into seasons.}
+\item{hemisphere}{Can be \code{"northern"} or \code{"southern"},
+used to split data into seasons.}
 
 \item{n.levels}{Number of quantiles to split numeric data into.}
 
-\item{start.day}{What day of the week should the \code{type =
-"weekday"} start on?  The user can change the start day by
-supplying an integer between 0 and 6. Sunday = 0, Monday = 1,
-\ldots For example to start the weekday plots on a Saturday,
+\item{start.day}{What day of the week should the \code{type = 
+"weekday"} start on?  The user can change the start day by 
+supplying an integer between 0 and 6. Sunday = 0, Monday = 1, 
+\ldots For example to start the weekday plots on a Saturday, 
 choose \code{start.day = 6}.}
 
-\item{is.axis}{A logical (\code{TRUE}/\code{FALSE}), used to request
-shortened cut labels for axes.}
+\item{is.axis}{A logical (\code{TRUE}/\code{FALSE}), used to
+request shortened cut labels for axes.}
 
-\item{local.tz}{Used for identifying whether a date has daylight
-savings time (DST) applied or not. Examples include \code{local.tz
-= "Europe/London"}, \code{local.tz = "America/New_York"} i.e. time
-zones that assume
-DST. \url{http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones}
-shows time zones that should be valid for most systems. It is
-important that the original data are in GMT (UTC) or a fixed
-offset from GMT. See \code{import} and the openair manual for
+\item{local.tz}{Used for identifying whether a date has daylight 
+savings time (DST) applied or not. Examples include
+\code{local.tz = "Europe/London"}, \code{local.tz =
+"America/New_York"} i.e. time zones that assume DST.
+\url{http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones} 
+shows time zones that should be valid for most systems. It is 
+important that the original data are in GMT (UTC) or a fixed 
+offset from GMT. See \code{import} and the openair manual for 
 information on how to import data and ensure no DST is applied.}
 
-\item{...}{All additional parameters are passed on to next function(s).
-For example, with \code{cutData} all additional parameters are passed on
-to \code{cutDaylight} allowing direct access to \code{cutDaylight} via
-either \code{cutData} or any \code{openair} using \code{cutData} for
-\code{type} conditioning.}
+\item{...}{All additional parameters are passed on to next
+function(s). For example, with \code{cutData} all additional
+parameters are passed on to \code{cutDaylight} allowing direct
+access to \code{cutDaylight} via either \code{cutData} or any
+\code{openair} using \code{cutData} for \code{type}
+conditioning.}
 
-\item{local.hour.offset, latitude, longitude}{Parameters used by
-\code{cutDaylight} to estimate if the measurement was collected during
-daylight or nighttime hours.  \code{local.hour.offset} gives the
-measurement timezone and \code{latitude} and \code{longitude} give the
-measurement location. NOTE: The default settings for these three
-parameters are the London Marylebone Road AURN site associated with the
-\code{mydata} example data set. See \code{\dots{}} and Details below for
+\item{local.hour.offset, latitude, longitude}{Parameters used by 
+\code{cutDaylight} to estimate if the measurement was collected
+during daylight or nighttime hours.  \code{local.hour.offset}
+gives the measurement timezone and \code{latitude} and
+\code{longitude} give the measurement location. NOTE: The
+default settings for these three parameters are the London
+Marylebone Road AURN site associated with the \code{mydata}
+example data set. See \code{\dots{}} and Details below for 
 further information.}
 }
 \value{
-Returns a data frame with a column \code{cond} that is defined by
-  \code{type}.
+Returns a data frame with a column \code{cond} that is
+  defined by \code{type}.
 }
 \description{
-Utility function to split data frames up in various ways for conditioning
-plots. Users would generally not be expected to call this function
-directly.  Widely used by many \code{openair} functions usually through the
-option \code{type}.
+Utility function to split data frames up in various ways for
+conditioning plots. Users would generally not be expected to call
+this function directly.  Widely used by many \code{openair}
+functions usually through the option \code{type}.
 }
 \details{
-This section give a brief description of each of the define levels of
-\code{type}. Note that all time dependent types require a column
-\code{date}.
+This section give a brief description of each of the define levels
+of \code{type}. Note that all time dependent types require a
+column \code{date}.
 
-"default" does not split the data but will describe the levels as a date
-range in the format "day month year".
+"default" does not split the data but will describe the levels as
+a date range in the format "day month year".
 
 "year" splits the data by each year.
 
@@ -88,33 +91,38 @@ range in the format "day month year".
 
 "hour" splits the data by hour of the day.
 
-"monthyear" splits the data by year and month. It differs from month in
-that a level is defined for each month of the data set. This is useful
-sometimes to show an ordered sequence of months if the data set starts half
-way through a year; rather than starting in January.
+"monthyear" splits the data by year and month. It differs from
+month in that a level is defined for each month of the data set.
+This is useful sometimes to show an ordered sequence of months if
+the data set starts half way through a year; rather than starting
+in January.
 
 "weekend" splits the data by weekday and weekend.
 
-"weekday" splits the data by day of the week - ordered to start Monday.
+"weekday" splits the data by day of the week - ordered to start
+Monday.
 
-"season" splits data up by season. In the northern hemisphere winter =
-December, January, February; spring = March, April, May etc. These
-defintions will change of \code{hemisphere = "southern"}.
+"season" splits data up by season. In the northern hemisphere
+winter = December, January, February; spring = March, April, May
+etc. These defintions will change of \code{hemisphere =
+"southern"}.
 
-"daylight" splits the data relative to estimated sunrise and sunset to give
-either daylight or nighttime. The cut is made by \code{cutDaylight} but
-more conveniently accessed via \code{cutData}, e.g. \code{cutData(mydata,
-type = "daylight", latitude=my.latitude, longitude=my.longitude)}. The
-daylight estimation, which is valid for dates between 1901 and 2099, is
-made using the measurement location, date, time and astronomical algorithms
-to estimate the relative positions of the Sun and the measurement location
-on the Earth's surface, and is based on NOAA methods
-(\url{http://www.esrl.noaa.gov/gmd/grad/solcalc/}). The
-\code{local.hour.offset} is zero if you are working in UTC/GMT, otherwise
-see \url{http://www.srrb.noaa.gov/highlights/sunrise/timezone.html} for
-local time zones corrections. Measurement location should be set using
-\code{latitude} (+ to North; - to South) and \code{longitude} (+ to East; -
-to West).
+"daylight" splits the data relative to estimated sunrise and
+sunset to give either daylight or nighttime. The cut is made by
+\code{cutDaylight} but more conveniently accessed via
+\code{cutData}, e.g. \code{cutData(mydata, type = "daylight",
+latitude=my.latitude, longitude=my.longitude)}. The daylight
+estimation, which is valid for dates between 1901 and 2099, is 
+made using the measurement location, date, time and astronomical
+algorithms to estimate the relative positions of the Sun and the
+measurement location on the Earth's surface, and is based on NOAA
+methods (\url{http://www.esrl.noaa.gov/gmd/grad/solcalc/}). The 
+\code{local.hour.offset} is zero if you are working in UTC/GMT,
+otherwise see
+\url{http://www.srrb.noaa.gov/highlights/sunrise/timezone.html}
+for local time zones corrections. Measurement location should be
+set using \code{latitude} (+ to North; - to South) and
+\code{longitude} (+ to East; - to West).
 
 "dst" will split the data by hours that are in daylight saving
 time (DST) and hours that are not for appropriate time zones. The
@@ -136,16 +144,17 @@ option when used with \code{timeVariation} may help determine
 whether the variation in a pollutant is driven by man-made
 emissions or natural processes.
 
-"wd" splits the data by 8 wind sectors and requires a column \code{wd}:
-"NE", "E", "SE", "S", "SW", "W", "NW", "N".
+"wd" splits the data by 8 wind sectors and requires a column
+\code{wd}: "NE", "E", "SE", "S", "SW", "W", "NW", "N".
 
-"ws" splits the data by 8 quantiles of wind speed and requires a column
-\code{ws}.
+"ws" splits the data by 8 quantiles of wind speed and requires a
+column \code{ws}.
 
-"site" splits the data by site and therefore requires a column \code{site}.
+"site" splits the data by site and therefore requires a column
+\code{site}.
 
-Note that all the date-based types e.g. month/year are derived
-from a column \code{date}. If a user already has a column with a
+Note that all the date-based types e.g. month/year are derived 
+from a column \code{date}. If a user already has a column with a 
 name of one of the date-based types it will not be used.
 }
 \examples{
