@@ -1,4 +1,4 @@
-# Changes in openair 1.6.7 [2015-12-20]
+# Changes in openair 1.6.7 [2016-xx-xx]
 
 - Allow `linearRelation` to use any arbitrary time averaging period.
 - don't add line to monthly plot in `timeVariation` when group = "season"
@@ -7,6 +7,7 @@
 - fix bug in `trajPlot` that sometimes failed to print map when grouping
 - add percentage total trajectories for `trajCluster`
 - don't touch existing date-based types in `cutData`
+- refine date checks
 
 # Changes in openair 1.6.6 [2015-11-04]
 
