@@ -145,7 +145,8 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       traj <- traj[order(traj$date, traj$hour.inc), ]
       
       ## length of back trajectories
-      traj$len <- ave(traj$lat, traj$date, FUN = length)
+      traj <- group_by(traj, date) %>% 
+        mutate(len = length(date))
       
       ## find length of back trajectories
       ## 96-hour back trajectories with origin: length should be 97
