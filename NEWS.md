@@ -5,7 +5,7 @@
 - fix `NA` factors in `trajPlot`
 - make border black wwhen using maps for improved clarity
 - fix bug in `trajPlot` that sometimes failed to print map when grouping
-- add percentage total trajectories for `trajCluster`
+- add percentage total trajectories for `trajCluster` and option `by.type`
 - don't touch existing date-based types in `cutData`
 - refine date checks
 
