@@ -121,14 +121,18 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
         }
 
         ## try and work with a factor date - but probably a problem in original data
-        if (is.factor(mydata$date))  mydata$date <- as.POSIXct(mydata$date, "GMT")
+      if (is.factor(mydata$date))  {
+        
+        warning("date field is a factor, check date format")
+        mydata$date <- as.POSIXct(mydata$date, "GMT")
+        
+      }
 
         mydata <- mydata[order(mydata$date), ]
 
         ## make sure date is the first field
-        if (names(mydata)[1] != "date") {
-            mydata <- cbind(subset(mydata, select = date), subset(mydata,select = -date))
-        }
+        if (names(mydata)[1] != "date") 
+          mydata <- mydata[c("date", setdiff(names(mydata), "date"))]
 
         ## daylight saving time can cause terrible problems - best avoided!!
         z <- as.POSIXlt(mydata$date[1])
