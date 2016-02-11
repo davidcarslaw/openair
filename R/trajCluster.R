@@ -197,15 +197,14 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       
       ## proportion of total clusters
       
-      clusters <- as.data.frame(100 * round(prop.table(table(traj[[type]], 
-                                                             traj$cluster)), 3))
-      
-      names(clusters) <- c(type, "cluster", "freq")
+      clusters <- group_by_(traj, type, "cluster") %>% 
+        summarise(n = n()) %>% 
+        mutate(freq = round(100 * n / sum(n), 3))
       
       ## make each panel add up to 100
       if (by.type) {
         clusters <- group_by_(clusters, type) %>% 
-          mutate(., freq = 100 * freq / sum(freq)) 
+          mutate(freq = 100 * freq / sum(freq)) 
         
         clusters$freq <- round(clusters$freq, 1)
         
