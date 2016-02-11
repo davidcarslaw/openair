@@ -106,7 +106,7 @@
 ##'   use \code{year = c(1990, 1995, 2000)} for example.
 ##'
 ##' @param local File path to .RData trajectory files run by user and
-##' not stored on the KCL web server. These files would have been
+##' not stored on the Ricardo web server. These files would have been
 ##' generated from the Hysplit trajectory code shown in the appendix
 ##' of the openair manual. An example would be \code{local =
 ##' 'c:/users/david/TrajFiles/'}.
@@ -145,7 +145,7 @@ importTraj <- function(site = "london", year = 2009, local = NA) {
         tryCatch({
 
             if (is.na(local)) {
-                fileName <- paste("http://www.erg.kcl.ac.uk/downloads/Policy_Reports/Traj/", x, ".RData",
+                fileName <- paste("http://met-data.ricardo-aea.com/trajectories/", x, ".RData",
                                   sep = "")
 
                 con <- url(fileName)
