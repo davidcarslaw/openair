@@ -191,8 +191,8 @@ kernelExceed <- function(polar,
     if(nrow(subdata) == 0) stop(call. = FALSE, "No data above threshold to plot")
 
     prepare.grid <- function(subdata) {
-        x <- subdata[ , x]
-        y <- subdata[ , y]
+        x <- subdata[[x]]
+        y <- subdata[[y]]
 
         xy <- xy.coords(x, y, "xlab", "ylab")
         xlab <-  xy$xlab
