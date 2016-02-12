@@ -128,7 +128,8 @@
 ##'
 ##'
 modStats <- function(mydata,  mod = "mod", obs = "obs",
-                     statistic = c("n", "FAC2", "MB", "MGE", "NMB", "NMGE", "RMSE", "r", "COE", "IOA"),
+                     statistic = c("n", "FAC2", "MB", "MGE", "NMB", 
+                                   "NMGE", "RMSE", "r", "COE", "IOA"),
                      type = "default", rank.name = NULL, ...) {
     ## function to calculate model evaluation statistics
     ## the default is to use the entire data set.
@@ -139,7 +140,9 @@ modStats <- function(mydata,  mod = "mod", obs = "obs",
 
     if (any(type %in%  dateTypes)) vars <- c("date", vars)
 
-    theStats <- c("n", "FAC2", "MB", "MGE", "NMB", "NMGE", "RMSE", "r", "COE", "IOA")
+    theStats <- c("n", "FAC2", "MB", "MGE", "NMB", "NMGE", "RMSE", 
+                  "r", "COE", "IOA")
+    
     matching <- statistic %in% theStats
 
     if (any(!matching)) {
@@ -154,16 +157,37 @@ modStats <- function(mydata,  mod = "mod", obs = "obs",
     mydata <- cutData(mydata, type, ...)
 
     ## calculate the various statistics
-    if ("n" %in% statistic) res.n <- plyr::ddply(mydata, type, n, mod, obs) else res.n <- NULL
-    if ("FAC2" %in% statistic) res.FAC <- plyr::ddply(mydata, type, FAC2, mod, obs) else res.FAC <- NULL
-    if ("MB" %in% statistic) res.MB <- plyr::ddply(mydata, type, MB, mod, obs) else res.MB <- NULL
-    if ("MGE" %in% statistic) res.MGE <- plyr::ddply(mydata, type, MGE, mod, obs) else res.MGE <- NULL
-    if ("NMB" %in% statistic) res.NMB <- plyr::ddply(mydata, type, NMB, mod, obs) else res.NMB <- NULL
-    if ("NMGE" %in% statistic) res.NMGE <- plyr::ddply(mydata, type, NMGE, mod, obs) else res.NMGE <- NULL
-    if ("RMSE" %in% statistic) res.RMSE <- plyr::ddply(mydata, type, RMSE, mod, obs) else res.RMSE <- NULL
-    if ("r" %in% statistic) res.r <- plyr::ddply(mydata, type, r, mod, obs, ...) else res.r <- NULL
-    if ("COE" %in% statistic) res.COE <- plyr::ddply(mydata, type, COE, mod, obs) else res.COE <- NULL
-    if ("IOA" %in% statistic) res.IOA <- plyr::ddply(mydata, type, IOA, mod, obs) else res.IOA <- NULL
+
+    if ("n" %in% statistic) res.n <- group_by_(mydata, type) %>% 
+      do(n(., mod, obs)) else res.n <- NULL
+    
+    if ("FAC2" %in% statistic) res.FAC <- group_by_(mydata, type) %>% 
+      do(FAC2(., mod, obs)) else res.FAC <- NULL
+    
+    if ("MB" %in% statistic) res.MB <- group_by_(mydata, type) %>% 
+      do(MB(., mod, obs)) else res.MB <- NULL
+    
+    if ("MGE" %in% statistic) res.MGE <- group_by_(mydata, type) %>% 
+      do(MGE(., mod, obs)) else res.MGE <- NULL
+    
+    if ("MMB" %in% statistic) res.NMB <- group_by_(mydata, type) %>% 
+      do(NMB(., mod, obs)) else res.NMB <- NULL
+    
+    if ("NMGE" %in% statistic) res.NMGE <- group_by_(mydata, type) %>% 
+      do(NMGE(., mod, obs)) else res.NMGE <- NULL
+    
+    if ("RMSE" %in% statistic) res.RMSE <- group_by_(mydata, type) %>% 
+      do(RMSE(., mod, obs)) else res.RMSE <- NULL
+  
+    if ("r" %in% statistic) res.r <- group_by_(mydata, type) %>% 
+      do(r(., mod, obs)) else res.r <- NULL
+    
+    if ("COE" %in% statistic) res.COE <- group_by_(mydata, type) %>% 
+      do(COE(., mod, obs)) else res.COE <- NULL
+  
+    if ("IOA" %in% statistic) res.IOA <- group_by_(mydata, type) %>% 
+      do(IOA(., mod, obs)) else res.IOA <- NULL
+   
 
     ## merge them all into one data frame
     results <- list(res.n, res.FAC, res.MB, res.MGE, res.NMB, res.NMGE, res.RMSE, res.r,
@@ -225,7 +249,7 @@ n <- function(x, mod = "mod", obs = "obs") {
 ## fraction within a factor of two
 FAC2 <- function(x, mod = "mod", obs = "obs") {
     x <- na.omit(x[ , c(mod, obs)])
-    ratio <- x[, mod] / x[, obs]
+    ratio <- x[[mod]] / x[[obs]]
     ratio <- na.omit(ratio)
     len <- length(ratio)
     if (len > 0) {
@@ -239,35 +263,35 @@ FAC2 <- function(x, mod = "mod", obs = "obs") {
 ## mean bias
 MB <- function(x, mod = "mod", obs = "obs") {
     x <- na.omit(x[ , c(mod, obs)])
-    res <- mean(x[, mod] - x[, obs])
+    res <- mean(x[[mod]] - x[[obs]])
     data.frame(MB = res)
 }
 
 ## mean gross error
 MGE <- function(x, mod = "mod", obs = "obs") {
     x <- na.omit(x[ , c(mod, obs)])
-    res <- mean(abs(x[, mod] - x[, obs]))
+    res <- mean(abs(x[[mod]] - x[[obs]]))
     data.frame(MGE = res)
 }
 
 ## normalised mean bias
 NMB <- function(x, mod = "mod", obs = "obs") {
     x <- na.omit(x[ , c(mod, obs)])
-    res <- sum(x[, mod] - x[, obs]) / sum(x[, obs])
+    res <- sum(x[[mod]] - x[[obs]]) / sum(x[[obs]])
     data.frame(NMB = res)
 }
 
 ## normalised mean gross error
 NMGE <- function(x, mod = "mod", obs = "obs") {
     x <- na.omit(x[ , c(mod, obs)])
-    res <- sum(abs(x[, mod] - x[, obs])) / sum(x[, obs])
+    res <- sum(abs(x[[mod]] - x[[obs]])) / sum(x[[obs]])
     data.frame(NMGE = res)
 }
 
 ## root mean square error
 RMSE <- function(x, mod = "mod", obs = "obs") {
     x <- na.omit(x[ , c(mod, obs)])
-    res <- mean((x[, mod] - x[, obs]) ^ 2) ^ 0.5
+    res <- mean((x[[mod]] - x[[obs]]) ^ 2) ^ 0.5
     data.frame(RMSE = res)
 }
 
@@ -275,7 +299,7 @@ RMSE <- function(x, mod = "mod", obs = "obs") {
 r <- function(x, mod = "mod", obs = "obs", ...) {
 
     x <- na.omit(x[ , c(mod, obs)])
-    res <- suppressWarnings(cor(x[ , mod], x[ , obs], ...)) ## when SD=0; will return NA
+    res <- suppressWarnings(cor(x[[mod]], x[[obs]], ...)) ## when SD=0; will return NA
 
     data.frame(r = res)
 }
@@ -284,7 +308,7 @@ r <- function(x, mod = "mod", obs = "obs", ...) {
 COE <- function(x, mod = "mod", obs = "obs") {
     x <- na.omit(x[ , c(mod, obs)])
 
-    res <-  1 - sum(abs(x[, mod] - x[, obs])) / sum(abs(x[, obs] - mean(x[, obs])))
+    res <-  1 - sum(abs(x[[mod]] - x[[obs]])) / sum(abs(x[[obs]] - mean(x[[obs]])))
 
     data.frame(COE = res)
 }
@@ -293,8 +317,8 @@ COE <- function(x, mod = "mod", obs = "obs") {
 IOA <- function(x, mod = "mod", obs = "obs") {
     x <- na.omit(x[ , c(mod, obs)])
 
-    LHS <- sum(abs(x[, mod] - x[, obs]))
-    RHS <- 2 * sum(abs(x[, obs] - mean(x[, obs])))
+    LHS <- sum(abs(x[[mod]] - x[[obs]]))
+    RHS <- 2 * sum(abs(x[[obs]] - mean(x[[obs]])))
 
     if (LHS <= RHS) res <- 1 - LHS / RHS else res <- RHS / LHS - 1
 
