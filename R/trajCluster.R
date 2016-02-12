@@ -115,6 +115,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
                         projection = "lambert",
                         parameters = c(51, 51), orientation = c(90, 0, 0),
                         by.type = FALSE, ...) {
+  freq <- NULL
   
   if (tolower(method) == "euclid")  
     method <- "distEuclid" else method <- "distAngle"
