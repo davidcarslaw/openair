@@ -208,7 +208,8 @@ modStats <- function(mydata,  mod = "mod", obs = "obs",
             results <- rankModels(results, rank.name)
         } else {
 
-            results <- plyr::ddply(results, types, rankModels, rank.name = rank.name)
+            results <- group_by_(results, types) %>%
+              do(rankModels(., rank.name = rank.name))
         }
 
     }
