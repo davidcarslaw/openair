@@ -227,7 +227,8 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
             tmp <- timeAverage(mydata, avg.time)
             tmp$means <- tmp[[pollutant]]
 
-            values <- merge(values, tmp[c("date", "means")], by = "date", all = TRUE)
+            values <- merge(values, tmp[c("date", "means")], 
+                            by = "date", all = TRUE)
             values <- sortDataFrame(values, key = c(proportion, "date"))
         }
         
@@ -295,7 +296,10 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
 
     box.width <- box.width * fac * c(tmp, tmp[length(tmp)])
 
-    y.max <- max(tapply(results[["Var1"]], list(results[["date"]], results[[type]]), sum, na.rm = TRUE))
+    y.max <- max(tapply(results[["Var1"]], 
+                        list(results[["date"]], 
+                             results[[type]]), sum, na.rm = TRUE))
+    
     thedates <- sort(unique(results$date))
     gap <- difftime(thedates[2], thedates[1], units = "secs")
 
@@ -303,7 +307,8 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
 
     if (is.null(ylim)) ylim <- c(0, 1.04 * y.max)
 
-    if (normalise) ylab <- quickText(paste("% contribution to", pollutant), auto.text)
+    if (normalise) 
+      ylab <- quickText(paste("% contribution to", pollutant), auto.text)
 
     ## sub heading
     if (statistic == "frequency") {
@@ -337,13 +342,15 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
                   )
 
     ## update extra args; usual method does not seem to work...
-    plt <- modifyList(plt, list(ylab = ylab, xlab = xlab, x.limits = xlim, y.limits = ylim, main = main))
+    plt <- modifyList(plt, list(ylab = ylab, xlab = xlab, 
+                                x.limits = xlim, y.limits = ylim, main = main))
 
     print(plt)
 
     invisible(trellis.last.object())
 
-    output <- list(plot = list(plt, trellis.last.object()), data = results, call = match.call())
+    output <- list(plot = list(plt, trellis.last.object()), 
+                   data = results, call = match.call())
     class(output) <- "openair"
     invisible(output)
 }
