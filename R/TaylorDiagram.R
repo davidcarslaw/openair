@@ -395,12 +395,16 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
         res
     }
 
-    results <- plyr::ddply(mydata, c(group, type), calcStats, obs = obs, mod = mod[1])
+    
+    results <- group_by_(mydata, group, type) %>%
+      do(calcStats(., obs = obs, mod = mod[1]))
     
     results.new <- NULL
-    if (combine) results.new <- plyr::ddply(mydata, c(group, type), calcStats,
-                                      obs = obs, mod = mod[2])
-
+    
+    if (combine) 
+      results.new <- group_by_(mydata, group, type) %>%
+        do(calcStats(., obs = obs, mod = mod[2]))
+      
 
     ## if no group to plot, then add a dummy one to make xyplot work
     if (is.null(group)) {results$MyGroupVar <- factor("MyGroupVar"); group <-  "MyGroupVar"}

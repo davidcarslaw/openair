@@ -278,7 +278,6 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       ## make sure missing types are inserted
       mydata[[type]] <- mydata[[type]][1]
       
-      # mydata <- plyr::ddply(mydata, type, date.pad2, interval = interval)
       padded <- TRUE
     }
     
