@@ -124,8 +124,9 @@
 ##' timeProp(mydata, pollutant="so2", avg.time="month", proportion="wd")
 ##' }
 ##'
-timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time = "day",
-                     type = "default", statistic = "mean", normalise = FALSE, cols = "Set1", date.breaks = 7,
+timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", 
+                     avg.time = "day", type = "default", statistic = "mean",
+                     normalise = FALSE, cols = "Set1", date.breaks = 7,
                      date.format = NULL, box.width = 1, key.columns = 1,
                      key.position = "right", auto.text = TRUE, ...) {
 
@@ -251,8 +252,8 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time
         }
 
         ## normlaise to 100 if needed
-   
-        res <- group_by(res, date) %>%
+    if (normalise)
+      res <- group_by(res, date) %>%
           mutate(Var1 = Var1 * (100 / sum(Var1, na.rm = TRUE)))
 
         res
