@@ -380,9 +380,10 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
         if (length(percentile) > 1) {
 
-            mydata <- plyr::ddply(mydata, type, calcPercentile, pollutant = pollutant,
-                            avg.time = avg.time, data.thresh = data.thresh,
-                            percentile = percentile)
+           mydata <- group_by_(mydata, type) %>%
+             do(calcPercentile(., pollutant = pollutant, avg.time = avg.time, 
+                               data.thresh = data.thresh,
+                               percentile = percentile))
 
             pollutant <-  paste("percentile.", percentile,  sep = "")
 
@@ -390,9 +391,10 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
         } else {
             
-            mydata <- plyr::ddply(mydata, type, timeAverage, avg.time = avg.time,
-                            statistic = statistic, percentile = percentile,
-                            data.thresh = data.thresh)
+            mydata <- group_by_(mydata, type) %>%
+              do(timeAverage(., pollutant = pollutant, avg.time = avg.time, 
+                                data.thresh = data.thresh,
+                                percentile = percentile))
         }
     }
     
