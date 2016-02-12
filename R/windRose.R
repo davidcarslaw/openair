@@ -610,7 +610,8 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     }
 
     
-    results <- ddply(mydata, type, prepare.grid)
+    results <- group_by_(mydata, type) %>%
+      do(prepare.grid(.))
     
     ## format
     results$calm <- stat.labcalm(results$calm)

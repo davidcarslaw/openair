@@ -202,17 +202,22 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time
 
     ## remove missing
     mydata <- na.omit(mydata)
-    mydata <- plyr::ddply(mydata, c(proportion, type), fun.pad)
+    
+    mydata <- group_by_(mydata, c(proportion, type)) %>%
+      do(fun.pad(.))
+   
 
     procData <- function(mydata, avg.time, ...) {
 
         ## time frequencies
-        freqs <- plyr::ddply(mydata, proportion, timeAverage, avg.time = avg.time,
-                             statistic = "frequency")
+
+        freqs <- group_by_(mydata, proportion) %>%
+          do(timeAverage(., avg.time = avg.time, statistic = "frequency"))
         
         ## the values
-        values <- plyr::ddply(mydata, proportion, timeAverage, avg.time = avg.time,
-                              statistic = "mean")
+ 
+        values <- group_by_(mydata, proportion) %>%
+          do(timeAverage(., avg.time = avg.time, statistic = "mean"))
         
         ## do not weight by concentration if statistic = frequency, just repeat overall mean
         ## by proportion
@@ -233,25 +238,29 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", avg.time
 
         if (statistic == "mean") {
             ## weighted conc
-            res <- plyr::ddply(values, .(date), transform,
-                               Var1 = sums / sum(freq, na.rm = TRUE))
+      
+            res <- group_by(values, date) %>%
+              mutate(Var1 = sums / sum(freq, na.rm = TRUE))
             
         } else {
 
-            res <- plyr::ddply(values, .(date), transform,
-                               Var1 = means * freq / sum(freq, na.rm = TRUE))
+       
+          res <- group_by(values, date) %>%
+            mutate(Var1 = freq / sum(freq, na.rm = TRUE))
             
         }
 
         ## normlaise to 100 if needed
-        if (normalise) res <- plyr::ddply(res, .(date), transform,
-                                    Var1 = Var1 * (100 / sum(Var1, na.rm = TRUE)))
+   
+        res <- group_by(res, date) %>%
+          mutate(Var1 = Var1 * (100 / sum(Var1, na.rm = TRUE)))
 
         res
 
     }
 
-    results <- plyr::ddply(mydata, type, procData, avg.time)
+    results <- group_by_(mydata, type) %>%
+      do(procData(., avg.time = avg.time))
 
     ## proper names of labelling ###################################################
     strip.dat <- strip.fun(results, type, auto.text)

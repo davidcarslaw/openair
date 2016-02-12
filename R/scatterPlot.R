@@ -485,9 +485,11 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     mydata <- cutData(mydata, types)
     if ("default" %in% types) mydata$default <- 0 ## FIX ME
     
-    mydata <- plyr::ddply(mydata, types, timeAverage, avg.time = avg.time,
-                          statistic = statistic, percentile = percentile,
-                          data.thresh = data.thresh)
+   
+    mydata <- group_by_(mydata, types) %>%
+      do(timeAverage(., avg.time = avg.time,
+                     statistic = statistic, percentile = percentile,
+                     data.thresh = data.thresh))
     
   }
   
@@ -1665,7 +1667,9 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
     {
       
       ## make sure we match clusters in case order mixed
-      pnts <- plyr::ddply(mydata, c(type, "MyGroupVar"), head, 1)
+     
+      pnts <- group_by_(mydata, type, "MyGroupVar") %>%
+        do(head(., 1))
       
       pnts <- merge(pnts, Args$clusters, 
                       by.x = c(type, "MyGroupVar"),

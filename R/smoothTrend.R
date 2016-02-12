@@ -274,17 +274,20 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
     if (length(percentile) > 1) {
 
-        mydata <- plyr::ddply(mydata, c(type, "variable"), calcPercentile, pollutant = "value",
-                        avg.time = avg.time, percentile = percentile, data.thresh = data.thresh)
+        mydata <- group_by_(mydata, type, "variable") %>%
+          do(calcPercentile(., pollutant = "value",
+                            avg.time = avg.time, percentile = percentile, 
+                            data.thresh = data.thresh))
 
         mydata <- melt(subset(mydata, select = -variable), measure.vars = paste("percentile.",
                                                            percentile, sep = ""))
 
     } else {
 
-        mydata <- plyr::ddply(mydata, c(type, "variable"), timeAverage, avg.time = avg.time,
-                        statistic = statistic, percentile = percentile,
-                        data.thresh = data.thresh)
+        mydata <- group_by_(mydata, type, "variable") %>%
+          do(timeAverage(., avg.time = avg.time, percentile = percentile, 
+                            statistic = statistic,
+                            data.thresh = data.thresh))
     }
 
 
@@ -310,9 +313,9 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
         if (deseason) {
             ## interpolate missing data
-            mydata[, "value"] <- approx(mydata[, "value"], n = length(mydata$value))$y
+            mydata[["value"]] <- approx(mydata[["value"]], n = length(mydata$value))$y
 
-            myts <- ts(mydata[, "value"], start = c(start.year, start.month),
+            myts <- ts(mydata[["value"]], start = c(start.year, start.month),
                        end = c(end.year, end.month), frequency = 12)
 
             ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
@@ -324,7 +327,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
         } else {
 
-            results <- data.frame(date = mydata$date, conc = mydata[, "value"])
+            results <- data.frame(date = mydata$date, conc = mydata[["value"]])
 
         }
 
@@ -332,11 +335,14 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
     }
 
-    res <- plyr::ddply(mydata, c(type, "variable"),  process.cond)
+    res <- group_by_(mydata, type, "variable") %>%
+      do(process.cond(.))
 
     ## smooth fits so that they can be returned to the user
-    fit <- plyr::ddply(res, c(type, "variable"), fitGam, x = "date", y = "conc",
-                 k = k, ...)
+
+    fit <- group_by_(res, type, "variable") %>%
+      do(fitGam(., x = "date", y = "conc", k = k, ...))
+    
     class(fit$date) <- c("POSIXt", "POSIXct")
 
     ## special wd layout

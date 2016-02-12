@@ -326,7 +326,10 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
              res <- plyr::ldply(res, function (x) as.data.frame(table(x[, statistic])))
 
             ## calculate proportions by interval
-             res <- plyr::ddply(res, .(.id), transform, Freq = Freq / sum(Freq))
+            
+             res <- group_by(res, .id) %>%
+               mutate( Freq = Freq / sum(Freq)
+                       )
              res$statistic <- factor(statistic)
 
         } else {
@@ -342,7 +345,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
     if (other) {
 
-        clust.results <- plyr::ddply(mydata, type, procData, other = other, statistic = statistic)
+        clust.results <- group_by_(mydata, type) %>%
+          do(procData(., other = other, statistic = statistic))
 
         clust.results$.id <- as.numeric(clust.results$.id)
 
