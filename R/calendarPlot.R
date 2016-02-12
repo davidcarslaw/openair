@@ -342,14 +342,22 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12, t
 
     if (annotate == "wd") {
         baseData$wd <- baseData$wd * 2 * pi / 360
-        wd <- plyr::ddply(baseData, type, function(x) prepare.grid(x, "wd"))
+    
+        wd  <- group_by_(baseData, type) %>%
+          do(prepare.grid(., "wd"))
+        
         wd$value <- wd$conc.mat ## actual numerical value (retain for categorical scales)
     }
 
     if (annotate == "ws") {
         baseData$wd <- baseData$wd * 2 * pi / 360
-        wd <- plyr::ddply(baseData, type, function(x) prepare.grid(x, "wd"))
-        ws <- plyr::ddply(baseData, type, function(x) prepare.grid(x, "ws"))
+  
+        ws  <- group_by_(baseData, type) %>%
+          do(prepare.grid(., "ws"))
+        
+        wd  <- group_by_(baseData, type) %>%
+          do(prepare.grid(., "wd"))
+        
         ## normalise wind speeds to highest daily mean
         ws$conc.mat <- ws$conc.mat / max(ws$conc.mat, na.rm = TRUE)
         ws$value <- ws$conc.mat ## actual numerical value (retain for categorical scales)

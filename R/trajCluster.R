@@ -178,13 +178,16 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     
     if (split.after) {
       
-      traj <- plyr::ddply(traj, "default", calcTraj)
+      traj <- group_by_(traj, "default") %>%
+        do(calcTraj(.))
       traj <- cutData(traj, type)
       
     } else {
       
       traj <- cutData(traj, type)
-      traj <- plyr::ddply(traj, type, calcTraj)
+
+      traj <- group_by_(traj, type) %>%
+        do(calcTraj(.))
       
     }
     
