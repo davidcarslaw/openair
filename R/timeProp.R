@@ -318,9 +318,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   
   scales <- list(x = list(at = dates, format = formats))
   
-  y.max <- max(tapply(results[["Var1"]], 
-                      list(results[["date"]], 
-                           results[[type]]), sum, na.rm = TRUE))
+  y.max <- max(results$var2)
   
   thedates <- sort(unique(results$date))
   gap <- difftime(thedates[2], thedates[1], units = "secs")
