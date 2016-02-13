@@ -235,6 +235,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
       
       values <- merge(values, tmp[c("date", "means")], 
                       by = "date", all = TRUE)
+      
       values <- sortDataFrame(values, key = c(proportion, "date"))
     }
     
@@ -275,18 +276,18 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   strip.left <- strip.dat[[2]]
   pol.name <- strip.dat[[3]]
   
-  ## work out time gap to get box.width
-  tmp <- diff(sort(unique(results$date)))
-  if (attr(tmp, "units") == "weeks") fac <- 7 * 24 * 3600
-  if (attr(tmp, "units") == "days") fac <- 24 * 3600
-  if (attr(tmp, "units") == "hours") fac <- 3600
+  ## work out width of each bar
+  nProp <- length(levels(results[[proportion]]))
   
-  box.width <- box.width * fac * c(tmp, tmp[length(tmp)])
+  theDates <- c(sort(unique(results$date)), max(mydata$date))
+  xleft <- theDates[1:length(theDates) - 1]
+  xright <- theDates[2:length(theDates)]
   
-  results[["width"]] <- rep(box.width, length(levels(results[[proportion]])))
+  results$xleft <- rep(xleft, nProp)
+  results$xright <- rep(xright, nProp)
   
   # the few colours used for scaling
-  scaleCol <- openColours(cols, length(levels(results[[proportion]])))
+  scaleCol <- openColours(cols, nProp)
   
   # add colour directly to data frame for easy reference
   cols <- data.frame(cols = scaleCol, stringsAsFactors = FALSE)
@@ -320,10 +321,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   
   y.max <- max(results$var2)
   
-  thedates <- sort(unique(results$date))
-  gap <- difftime(thedates[2], thedates[1], units = "secs")
-  
-  if (is.null(xlim)) xlim <- range(results$date) + c(-1 * gap, gap)
+  if (is.null(xlim)) xlim <- range(results$date)
   
   if (normalise) pad <- 1 else pad <- 1.04
   if (is.null(ylim)) ylim <- c(0, pad * y.max)
@@ -384,10 +382,10 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
 
 panelBar <- function(dat) {
   
-  xleft = rep(unclass(dat$date[1] - dat$width[1] / 2), nrow(dat))
+  xleft <- unclass(dat$xleft)
   ybottom = c(0, dat$var2[1:nrow(dat) - 1])
-  xright = rep(unclass(dat$date[1] + dat$width[1] / 2), nrow(dat))
-  ytop = dat$var2
+  xright <- unclass(dat$xright)
+  ytop <- dat$var2
   
   lrect(xleft = xleft,
         ybottom = ybottom,
