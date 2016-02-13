@@ -8,6 +8,8 @@
 - add percentage total trajectories for `trajCluster` and option `by.type`
 - don't touch existing date-based types in `cutData`
 - refine date checks
+- speed up `timeAverage`
+- fix slow `timeProp` (lattice `panel.barchart` is very slow)
 
 # Changes in openair 1.6.6 [2015-11-04]
 
