@@ -165,12 +165,16 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   
   main <- if ("main" %in% names(extra.args))
     quickText(extra.args$main, auto.text) else quickText("", auto.text)
+  
   xlab <- if ("xlab" %in% names(extra.args))
     quickText(extra.args$xlab, auto.text) else "date"
+  
   ylab <- if ("ylab" %in% names(extra.args))
     quickText(extra.args$ylab, auto.text) else quickText(pollutant, auto.text)
+  
   xlim <- if ("xlim" %in% names(extra.args))
     xlim else NULL
+  
   ylim <- if ("ylim" %in% names(extra.args))
     ylim else NULL
   
@@ -185,8 +189,9 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   ## check the data
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
   
-  ## need to make sure there are full time series for each proportion
-  ## necessary when avg.time is something like "3 month" and time series is non-regular
+  ## need to make sure there are full time series for each proportion 
+  ## necessary when avg.time is something like "3 month" and time
+  ## series is non-regular
   
   mydata <- date.pad(mydata)
   
@@ -220,8 +225,9 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
     values <- group_by_(mydata, proportion) %>%
       do(timeAverage(., avg.time = avg.time, statistic = "mean"))
     
-    ## do not weight by concentration if statistic = frequency, just repeat overall mean
-    ## by proportion
+    # do not weight by concentration if statistic = frequency, 
+    # just repeat overall mean by proportion
+    
     if (statistic == "frequency") {
       ## scales frequencies by daily mean
       tmp <- timeAverage(mydata, avg.time)
@@ -245,7 +251,6 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
         mutate(Var1 = sums / sum(freq, na.rm = TRUE))
       
     } else {
-      
       
       res <- group_by(values, date) %>%
         mutate(Var1 = freq / sum(freq, na.rm = TRUE))
@@ -280,12 +285,14 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   
   results[["width"]] <- rep(box.width, length(levels(results[[proportion]])))
   
+  # the few colours used for scaling
   scaleCol <- openColours(cols, length(levels(results[[proportion]])))
   
+  # add colour directly to data frame for easy reference
   cols <- data.frame(cols = scaleCol, stringsAsFactors = FALSE)
-  
   cols[[proportion]] <- as.character(levels(results[[proportion]]))
   
+  # need to merge based on character, not factor
   results[[proportion]] <- as.character(results[[proportion]])
   
   results <- merge(results, cols, by = proportion, all = TRUE)
@@ -370,7 +377,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   invisible(output)
 }
 
-# plot individual rectanges as panel.barchar is *very* slow
+# plot individual rectangles as lattice panel.barchar is *very* slow
 
 panelBar <- function(dat) {
   
