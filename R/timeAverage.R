@@ -426,36 +426,62 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       
       if (avg.time != "season") mydata$cuts <- cut(mydata$date, avg.time)
       
-      dailymet <- select(mydata, -date) %>%
-        group_by_(., .dots = vars) %>%
-        summarise_each(
-          funs(
-            if (sum(is.na(.)) / length(.) <= 1 - data.thresh)
-              FUN(.)
-            else NA
+      if (statistic == "mean") {## faster for some reason?
+        
+        avmet <- select(mydata, -date) %>%
+          group_by_(., .dots = vars) %>%
+          summarise_each(
+            funs(
+              if (sum(is.na(.)) / length(.) <= 1 - data.thresh)
+                mean(., na.rm = TRUE)
+              else NA
+            )
           )
-        )
+        
+      } else {
+        
+        avmet <- select(mydata, -date) %>%
+          group_by_(., .dots = vars) %>%
+          summarise_each(
+            funs(
+              if (sum(is.na(.)) / length(.) <= 1 - data.thresh)
+                FUN(.)
+              else NA
+            )
+          )
+        
+      }
       
     } else {
       
       ## faster if do not need data capture
-      if (avg.time != "season") mydata$cuts <- cut(mydata$date, avg.time)
+      if (avg.time != "season")
+        mydata$cuts <- cut(mydata$date, avg.time)
       
-      dailymet <- select(mydata, -date) %>%
-        group_by_(., .dots = vars) %>%
-        summarise_each(funs(FUN(.)))            
+      avmet <- select(mydata, -date) %>%
+        group_by_(., .dots = vars) # %>%
+      
+      # This is much faster for some reason
+      if (statistic == "mean") {
+        avmet <- avmet %>% summarise_each(funs(mean(., na.rm = TRUE)))
+        
+      } else {
+        
+        avmet <- avmet %>% summarise_each(funs(FUN(.)))
+      }
+      
     }
     
-    dailymet <- rename_(dailymet, date = "cuts")
+    avmet <- rename_(avmet, date = "cuts")
     
     ## return same date class as went in...
     if (class(mydata$date)[1] == "Date") {
-      dailymet$date <- as.Date(dailymet$date)
+      avmet$date <- as.Date(avmet$date)
       
     } else {
       
       ## return the same TZ that we started with
-      dailymet$date <- as.POSIXct(format(dailymet$date), tz = TZ)
+      avmet$date <- as.POSIXct(format(avmet$date), tz = TZ)
       
     }
     
@@ -464,30 +490,30 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       if (is.numeric(mydata$wd)) {
         
         ## mean wd
-        dailymet <- transform(dailymet, 
-                              wd = as.vector(atan2(Uu, Vv) * 360 / 2 / pi))
+        avmet <- transform(avmet, 
+                           wd = as.vector(atan2(Uu, Vv) * 360 / 2 / pi))
         
         ## correct for negative wind directions
-        ids <- which(dailymet$wd < 0)  ## ids where wd < 0
-        dailymet$wd[ids] <- dailymet$wd[ids] + 360
+        ids <- which(avmet$wd < 0)  ## ids where wd < 0
+        avmet$wd[ids] <- avmet$wd[ids] + 360
         
         ## vector average ws
         if ("ws" %in% names(mydata)) {
           if (vector.ws)
-            dailymet <- transform(dailymet, ws = (Uu ^ 2 + Vv ^ 2) ^ 0.5)
+            avmet <- transform(avmet, ws = (Uu ^ 2 + Vv ^ 2) ^ 0.5)
         }
         
-        dailymet <- subset(dailymet, select = c(-Uu, -Vv))
+        avmet <- subset(avmet, select = c(-Uu, -Vv))
       }
     }
     
     ## fill missing gaps
     if (avg.time != "season") {
       
-      dailymet <- date.pad2(dailymet, interval = avg.time)
+      avmet <- date.pad2(avmet, interval = avg.time)
     }
     
-    dailymet
+    avmet
     
   }
   
