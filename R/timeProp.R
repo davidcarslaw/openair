@@ -129,229 +129,259 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
                      normalise = FALSE, cols = "Set1", date.breaks = 7,
                      date.format = NULL, box.width = 1, key.columns = 1,
                      key.position = "right", auto.text = TRUE, ...) {
-
-    ## keep check happy
-    sums <- NULL; freq <- NULL; Var1 <- NULL; means <- NULL
-
-    ## greyscale handling
-    if (length(cols) == 1 && cols == "greyscale") {
-
-        trellis.par.set(list(strip.background = list(col = "white")))
-    }
-
-    if (length(type) > 1) stop ("'type' can only be of length 1.")
-
-    ## if proportion is not categorical then make it so
-    if (!class(mydata[[proportion]]) %in% c("factor")) {
-
-        mydata <- cutData(mydata, proportion)
-    }
-
-    if (!statistic %in% c("mean", "frequency"))
-        stop ("statisic should be 'mean' or 'frequency'.")
-
-    ## extra.args setup
-    extra.args <- list(...)
-
-    ## set graphaics
-    current.strip <- trellis.par.get("strip.background")
-    current.font <- trellis.par.get("fontsize")
+  
+  ## keep check happy
+  sums <- NULL; freq <- NULL; Var1 <- NULL; means <- NULL
+  
+  ## greyscale handling
+  if (length(cols) == 1 && cols == "greyscale") {
     
-    ## reset graphic parameters
-    on.exit(trellis.par.set(strip.background = current.strip,
-                            fontsize = current.font))
-
-    ## label controls
-
-    main <- if ("main" %in% names(extra.args))
-        quickText(extra.args$main, auto.text) else quickText("", auto.text)
-    xlab <- if ("xlab" %in% names(extra.args))
-        quickText(extra.args$xlab, auto.text) else "date"
-    ylab <- if ("ylab" %in% names(extra.args))
-        quickText(extra.args$ylab, auto.text) else quickText(pollutant, auto.text)
-    xlim <- if ("xlim" %in% names(extra.args))
-        xlim else NULL
-    ylim <- if ("ylim" %in% names(extra.args))
-        ylim else NULL
-
-    if ("fontsize" %in% names(extra.args))
-        trellis.par.set(fontsize = list(text = extra.args$fontsize))
-
-    ## variables needed
-    vars <- c("date", pollutant, proportion)
-
-    if (any(type %in% dateTypes)) vars <- unique(c("date", vars))
-
-    ## check the data
-    mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
-
-    ## need to make sure there are full time series for each proportion
-    ## necessary when avg.time is something like "3 month" and time series is non-regular
-
-    mydata <- date.pad(mydata)
-
-    fun.pad <- function (x) {
-        the.level <- x[[proportion]][1]
-        the.type <- x[[type]][1]
-        mydata <-select(mydata, date) %>% full_join(x, by = "date") 
-        mydata[[proportion]] <- the.level
-        mydata[[type]] <- the.type
-        mydata
-    }
-
-    mydata <- cutData(mydata, type)
-
-    ## remove missing
-    mydata <- na.omit(mydata)
+    trellis.par.set(list(strip.background = list(col = "white")))
+  }
+  
+  if (length(type) > 1) stop ("'type' can only be of length 1.")
+  
+  ## if proportion is not categorical then make it so
+  if (!class(mydata[[proportion]]) %in% c("factor")) {
     
-    mydata <- group_by_(mydata, proportion, type) %>%
-      do(fun.pad(.))
-   
-
-    procData <- function(mydata, avg.time, ...) {
-
-        ## time frequencies
-
-        freqs <- group_by_(mydata, proportion) %>%
-          do(timeAverage(., avg.time = avg.time, statistic = "frequency"))
-        
-        ## the values
- 
-        values <- group_by_(mydata, proportion) %>%
-          do(timeAverage(., avg.time = avg.time, statistic = "mean"))
-        
-        ## do not weight by concentration if statistic = frequency, just repeat overall mean
-        ## by proportion
-        if (statistic == "frequency") {
-            ## scales frequencies by daily mean
-            tmp <- timeAverage(mydata, avg.time)
-            tmp$means <- tmp[[pollutant]]
-
-            values <- merge(values, tmp[c("date", "means")], 
-                            by = "date", all = TRUE)
-            values <- sortDataFrame(values, key = c(proportion, "date"))
-        }
-        
-        ## add frequencies
-        values$freq <- freqs[[pollutant]]
-
-        ## conc * freq weighting
-        values$sums <- freqs[[pollutant]] * values[[pollutant]]
-
-        if (statistic == "mean") {
-            ## weighted conc
+    mydata <- cutData(mydata, proportion)
+  }
+  
+  if (!statistic %in% c("mean", "frequency"))
+    stop ("statisic should be 'mean' or 'frequency'.")
+  
+  ## extra.args setup
+  extra.args <- list(...)
+  
+  ## set graphaics
+  current.strip <- trellis.par.get("strip.background")
+  current.font <- trellis.par.get("fontsize")
+  
+  ## reset graphic parameters
+  on.exit(trellis.par.set(strip.background = current.strip,
+                          fontsize = current.font))
+  
+  ## label controls
+  
+  main <- if ("main" %in% names(extra.args))
+    quickText(extra.args$main, auto.text) else quickText("", auto.text)
+  xlab <- if ("xlab" %in% names(extra.args))
+    quickText(extra.args$xlab, auto.text) else "date"
+  ylab <- if ("ylab" %in% names(extra.args))
+    quickText(extra.args$ylab, auto.text) else quickText(pollutant, auto.text)
+  xlim <- if ("xlim" %in% names(extra.args))
+    xlim else NULL
+  ylim <- if ("ylim" %in% names(extra.args))
+    ylim else NULL
+  
+  if ("fontsize" %in% names(extra.args))
+    trellis.par.set(fontsize = list(text = extra.args$fontsize))
+  
+  ## variables needed
+  vars <- c("date", pollutant, proportion)
+  
+  if (any(type %in% dateTypes)) vars <- unique(c("date", vars))
+  
+  ## check the data
+  mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
+  
+  ## need to make sure there are full time series for each proportion
+  ## necessary when avg.time is something like "3 month" and time series is non-regular
+  
+  mydata <- date.pad(mydata)
+  
+  fun.pad <- function (x) {
+    the.level <- x[[proportion]][1]
+    the.type <- x[[type]][1]
+    mydata <-select(mydata, date) %>% full_join(x, by = "date") 
+    mydata[[proportion]] <- the.level
+    mydata[[type]] <- the.type
+    mydata
+  }
+  
+  mydata <- cutData(mydata, type)
+  
+  ## remove missing
+  mydata <- na.omit(mydata)
+  
+  mydata <- group_by_(mydata, proportion, type) %>%
+    do(fun.pad(.))
+  
+  
+  procData <- function(mydata, avg.time, ...) {
+    
+    ## time frequencies
+    
+    freqs <- group_by_(mydata, proportion) %>%
+      do(timeAverage(., avg.time = avg.time, statistic = "frequency"))
+    
+    ## the values
+    
+    values <- group_by_(mydata, proportion) %>%
+      do(timeAverage(., avg.time = avg.time, statistic = "mean"))
+    
+    ## do not weight by concentration if statistic = frequency, just repeat overall mean
+    ## by proportion
+    if (statistic == "frequency") {
+      ## scales frequencies by daily mean
+      tmp <- timeAverage(mydata, avg.time)
+      tmp$means <- tmp[[pollutant]]
       
-            res <- group_by(values, date) %>%
-              mutate(Var1 = sums / sum(freq, na.rm = TRUE))
-            
-        } else {
-
-       
-          res <- group_by(values, date) %>%
-            mutate(Var1 = freq / sum(freq, na.rm = TRUE))
-            
-        }
-
-        ## normlaise to 100 if needed
+      values <- merge(values, tmp[c("date", "means")], 
+                      by = "date", all = TRUE)
+      values <- sortDataFrame(values, key = c(proportion, "date"))
+    }
+    
+    ## add frequencies
+    values$freq <- freqs[[pollutant]]
+    
+    ## conc * freq weighting
+    values$sums <- freqs[[pollutant]] * values[[pollutant]]
+    
+    if (statistic == "mean") {
+      ## weighted conc
+      
+      res <- group_by(values, date) %>%
+        mutate(Var1 = sums / sum(freq, na.rm = TRUE))
+      
+    } else {
+      
+      
+      res <- group_by(values, date) %>%
+        mutate(Var1 = freq / sum(freq, na.rm = TRUE))
+      
+    }
+    
+    ## normlaise to 100 if needed
     if (normalise)
       res <- group_by(res, date) %>%
-          mutate(Var1 = Var1 * (100 / sum(Var1, na.rm = TRUE)))
-
-        res
-
-    }
-
-    results <- group_by_(mydata, type) %>%
-      do(procData(., avg.time = avg.time))
-
-    ## proper names of labelling ###################################################
-    strip.dat <- strip.fun(results, type, auto.text)
-    strip <- strip.dat[[1]]
-    strip.left <- strip.dat[[2]]
-    pol.name <- strip.dat[[3]]
-
-
-    ## ###################################################################################
-
-    cols <-  openColours(cols, length(levels(results[[proportion]])))
-
-    myform <- formula(paste("Var1 ~ date | ", type, sep = ""))
-
-    dates <- dateBreaks(results$date, date.breaks)$major ## for date scale
-
-    ## date axis formating
-    if (is.null(date.format)) {
-        formats <- dateBreaks(results$date, date.breaks)$format
-    } else {
-        formats <- date.format
-    }
-
-    scales <- list(x = list(at = dates, format = formats))
-
-    ## work out time gap to get box.width
-    tmp <- diff(unique(results$date))
-    if (attr(tmp, "units") == "weeks") fac <- 7 * 24 * 3600
-    if (attr(tmp, "units") == "days") fac <- 24 * 3600
-    if (attr(tmp, "units") == "hours") fac <- 3600
-
-    box.width <- box.width * fac * c(tmp, tmp[length(tmp)])
-
-    y.max <- max(tapply(results[["Var1"]], 
-                        list(results[["date"]], 
-                             results[[type]]), sum, na.rm = TRUE))
+      mutate(Var1 = Var1 * (100 / sum(Var1, na.rm = TRUE)))
     
-    thedates <- sort(unique(results$date))
-    gap <- difftime(thedates[2], thedates[1], units = "secs")
+    res
+    
+  }
+  
+  results <- group_by_(mydata, type) %>%
+    do(procData(., avg.time = avg.time))
+  
+  ## proper names of labelling ###################################################
+  strip.dat <- strip.fun(results, type, auto.text)
+  strip <- strip.dat[[1]]
+  strip.left <- strip.dat[[2]]
+  pol.name <- strip.dat[[3]]
+  
+  ## work out time gap to get box.width
+  tmp <- diff(sort(unique(results$date)))
+  if (attr(tmp, "units") == "weeks") fac <- 7 * 24 * 3600
+  if (attr(tmp, "units") == "days") fac <- 24 * 3600
+  if (attr(tmp, "units") == "hours") fac <- 3600
+  
+  box.width <- box.width * fac * c(tmp, tmp[length(tmp)])
+  
+  results[["width"]] <- rep(box.width, length(levels(results[[proportion]])))
+  
+  scaleCol <- openColours(cols, length(levels(results[[proportion]])))
+  
+  cols <- data.frame(cols = scaleCol, stringsAsFactors = FALSE)
+  
+  cols[[proportion]] <- as.character(levels(results[[proportion]]))
+  
+  results[[proportion]] <- as.character(results[[proportion]])
+  
+  results <- merge(results, cols, by = proportion, all = TRUE)
+  
+  results[[proportion]] <- factor(results[[proportion]])
+  
+  results <- na.omit(results)
+  
+  # y values for plotting rectangles
+  results <- group_by_(results, type, "date") %>%
+    mutate(var2 = cumsum(Var1))
+  
+  myform <- formula(paste("Var1 ~ date | ", type, sep = ""))
+  
+  dates <- dateBreaks(results$date, date.breaks)$major ## for date scale
+  
+  ## date axis formating
+  if (is.null(date.format)) {
+    formats <- dateBreaks(results$date, date.breaks)$format
+  } else {
+    formats <- date.format
+  }
+  
+  scales <- list(x = list(at = dates, format = formats))
+  
+  y.max <- max(tapply(results[["Var1"]], 
+                      list(results[["date"]], 
+                           results[[type]]), sum, na.rm = TRUE))
+  
+  thedates <- sort(unique(results$date))
+  gap <- difftime(thedates[2], thedates[1], units = "secs")
+  
+  if (is.null(xlim)) xlim <- range(results$date) + c(-1 * gap, gap)
+  
+  if (is.null(ylim)) ylim <- c(0, 1.04 * y.max)
+  
+  if (normalise) 
+    ylab <- quickText(paste("% contribution to", pollutant), auto.text)
+  
+  ## sub heading
+  if (statistic == "frequency") {
+    sub <- "contribution weighted by frequency"
+  } else {
+    sub <- "contribution weighted by mean"
+  }
+  
+  plt <- xyplot(myform, data = results,
+                as.table = TRUE,
+                strip = strip,
+                strip.left = strip.left,
+                groups = get(proportion),
+                stack = TRUE,
+                sub = sub,
+                scales = scales,
+                col = scaleCol,
+                border = NA,
+                key = list(rectangles = list(col = scaleCol, border = NA),
+                           text = list(levels(results[[proportion]])), 
+                           space = key.position,
+                           title = proportion, cex.title = 1, columns = key.columns),
+                par.strip.text = list(cex = 0.8),...,
+                panel = function (..., col) {
+                  
+                  panel.grid(-1, 0)
+                  panel.abline(v = dates, col = "grey95", ...)
+                  plyr::d_ply(results, "date", panelBar)
+                 
+                }
+  )
+  
+  ## update extra args; usual method does not seem to work...
+  plt <- modifyList(plt, list(ylab = ylab, xlab = xlab, 
+                              x.limits = xlim, y.limits = ylim, main = main))
+  
+  print(plt)
+  
+  invisible(trellis.last.object())
+  
+  output <- list(plot = list(plt, trellis.last.object()), 
+                 data = results, call = match.call())
+  class(output) <- "openair"
+  invisible(output)
+}
 
-    if (is.null(xlim)) xlim <- range(results$date) + c(-1 * gap, gap)
+# plot individual rectanges as panel.barchar is *very* slow
 
-    if (is.null(ylim)) ylim <- c(0, 1.04 * y.max)
-
-    if (normalise) 
-      ylab <- quickText(paste("% contribution to", pollutant), auto.text)
-
-    ## sub heading
-    if (statistic == "frequency") {
-        sub <- "contribution weighted by frequency"
-    } else {
-         sub <- "contribution weighted by mean"
-    }
-
-    plt <- xyplot(myform, data = results,
-                  as.table = TRUE,
-                  strip = strip,
-                  strip.left = strip.left,
-                  groups = get(proportion),
-                  stack = TRUE,
-                  sub = sub,
-                  scales = scales,
-                  col = cols,
-                  border = NA,
-                  drop.unused.levels = FALSE,
-                  horizontal = FALSE,
-                  key = list(rectangles = list(col = cols, border = NA),
-                  text = list(levels(results[[proportion]])), space = key.position,
-                  title = proportion, cex.title = 1, columns = key.columns),
-                  par.strip.text = list(cex = 0.8),...,
-                  panel = function (..., col) {
-
-                      panel.grid(-1, 0)
-                      panel.abline(v = dates, col = "grey95", ...)
-                      panel.barchart(..., col = cols, box.width = box.width)
-                  }
-                  )
-
-    ## update extra args; usual method does not seem to work...
-    plt <- modifyList(plt, list(ylab = ylab, xlab = xlab, 
-                                x.limits = xlim, y.limits = ylim, main = main))
-
-    print(plt)
-
-    invisible(trellis.last.object())
-
-    output <- list(plot = list(plt, trellis.last.object()), 
-                   data = results, call = match.call())
-    class(output) <- "openair"
-    invisible(output)
+panelBar <- function(dat) {
+  
+  xleft = rep(unclass(dat$date[1] - dat$width[1] / 2), nrow(dat))
+  ybottom = c(0, dat$var2[1:nrow(dat) - 1])
+  xright = rep(unclass(dat$date[1] + dat$width[1] / 2), nrow(dat))
+  ytop = dat$var2
+  
+  lrect(xleft = xleft,
+        ybottom = ybottom,
+        xright = xright,
+        ytop = ytop, fill = dat$cols, border = NA)
 }
 
