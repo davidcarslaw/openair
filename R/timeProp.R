@@ -337,6 +337,9 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
     sub <- "contribution weighted by mean"
   }
   
+  labs <- sapply(levels(results[[proportion]]), 
+                 function (x) quickText(x, auto.text))
+ 
   plt <- xyplot(myform, data = results,
                 as.table = TRUE,
                 strip = strip,
@@ -348,9 +351,10 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
                 col = scaleCol,
                 border = NA,
                 key = list(rectangles = list(col = scaleCol, border = NA),
-                           text = list(levels(results[[proportion]])), 
+                           text = list(labs), 
                            space = key.position,
-                           title = proportion, cex.title = 1, columns = key.columns),
+                           title = quickText(proportion, auto.text), 
+                           cex.title = 1, columns = key.columns),
                 par.strip.text = list(cex = 0.8),...,
                 panel = function (..., col) {
                   
