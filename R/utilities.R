@@ -75,7 +75,7 @@ date.pad2 <- function(mydata, type = "default", interval = "month") {
         end.date <- max(mydata$date, na.rm = TRUE)
         
         all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
-        mydata <- merge(mydata, all.dates, all = TRUE)
+        mydata <- mydata %>% full_join(all.dates, by = "date")
 
 
         if (type == "site") mydata$site <- site
@@ -140,7 +140,7 @@ date.pad <- function(mydata, print.int = FALSE) {
         if (length(unique(diff(mydata$date))) != 1L) {
             
             all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
-            mydata <- merge(mydata, all.dates, all = TRUE)
+            mydata <- mydata %>% full_join(all.dates, by = "date")
 
             ## check to see if padding data introduces blank site names
             if ("site" %in% names(mydata)) {

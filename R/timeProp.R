@@ -193,7 +193,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
     fun.pad <- function (x) {
         the.level <- x[[proportion]][1]
         the.type <- x[[type]][1]
-        mydata <- merge(subset(mydata, select = date), x, all = TRUE)
+        mydata <-select(mydata, date) %>% full_join(x, by = "date") 
         mydata[[proportion]] <- the.level
         mydata[[type]] <- the.type
         mydata
@@ -204,7 +204,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
     ## remove missing
     mydata <- na.omit(mydata)
     
-    mydata <- group_by_(mydata, c(proportion, type)) %>%
+    mydata <- group_by_(mydata, proportion, type) %>%
       do(fun.pad(.))
    
 
