@@ -325,7 +325,8 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   
   if (is.null(xlim)) xlim <- range(results$date) + c(-1 * gap, gap)
   
-  if (is.null(ylim)) ylim <- c(0, 1.04 * y.max)
+  if (normalise) pad <- 1 else pad <- 1.04
+  if (is.null(ylim)) ylim <- c(0, pad * y.max)
   
   if (normalise) 
     ylab <- quickText(paste("% contribution to", pollutant), auto.text)
