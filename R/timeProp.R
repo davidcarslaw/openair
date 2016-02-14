@@ -195,10 +195,13 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   
   mydata <- date.pad(mydata)
   
+  # just need dates for full merging
+  justDates <- select(mydata, date)
+  
   fun.pad <- function (x) {
     the.level <- x[[proportion]][1]
     the.type <- x[[type]][1]
-    mydata <-select(mydata, date) %>% full_join(x, by = "date") 
+    mydata <-justDates  %>% full_join(x, by = "date") 
     mydata[[proportion]] <- the.level
     mydata[[type]] <- the.type
     mydata
@@ -211,7 +214,6 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   
   mydata <- group_by_(mydata, proportion, type) %>%
     do(fun.pad(.))
-  
   
   procData <- function(mydata, avg.time, ...) {
     
@@ -279,12 +281,19 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   ## work out width of each bar
   nProp <- length(levels(results[[proportion]]))
   
+  # labelling on plot
+  labs <- sapply(levels(results[[proportion]]), 
+                 function (x) quickText(x, auto.text))
+  
+  # make sure we know order of data frame for adding other dates
+  results <- sortDataFrame(results, c("date", "Var1"))
+  
   theDates <- c(sort(unique(results$date)), max(mydata$date))
   xleft <- theDates[1:length(theDates) - 1]
   xright <- theDates[2:length(theDates)]
   
-  results$xleft <- rep(xleft, nProp)
-  results$xright <- rep(xright, nProp)
+  results$xleft <- rep(xleft, each = nProp)
+  results$xright <- rep(xright, each = nProp)
   
   # the few colours used for scaling
   scaleCol <- openColours(cols, nProp)
@@ -335,9 +344,6 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   } else {
     sub <- "contribution weighted by mean"
   }
-  
-  labs <- sapply(levels(results[[proportion]]), 
-                 function (x) quickText(x, auto.text))
  
   plt <- xyplot(myform, data = results,
                 as.table = TRUE,
