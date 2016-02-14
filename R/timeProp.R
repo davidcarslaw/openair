@@ -256,7 +256,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
     } else {
       
       res <- group_by(values, date) %>%
-        mutate(Var1 = freq / sum(freq, na.rm = TRUE))
+        mutate(Var1 = means * freq / sum(freq, na.rm = TRUE))
       
     }
     
