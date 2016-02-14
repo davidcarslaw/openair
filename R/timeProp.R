@@ -289,6 +289,9 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   results <- sortDataFrame(results, c("date", "Var1"))
   
   theDates <- c(sort(unique(results$date)), max(mydata$date))
+  
+  # make sure dates have right time zone
+  attr(theDates, "tzone") <- attr(mydata$date, "tzone")
   xleft <- theDates[1:length(theDates) - 1]
   xright <- theDates[2:length(theDates)]
   
