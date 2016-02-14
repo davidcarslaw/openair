@@ -144,7 +144,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   ## if proportion is not categorical then make it so
   if (!class(mydata[[proportion]]) %in% c("factor")) {
     
-    mydata <- cutData(mydata, proportion)
+    mydata <- cutData(mydata, proportion, ...)
   }
   
   if (!statistic %in% c("mean", "frequency"))
