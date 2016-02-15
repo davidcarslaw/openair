@@ -8,7 +8,7 @@ timeProp(mydata, pollutant = "nox", proportion = "cluster",
   avg.time = "day", type = "default", statistic = "mean",
   normalise = FALSE, cols = "Set1", date.breaks = 7, date.format = NULL,
   box.width = 1, key.columns = 1, key.position = "right",
-  auto.text = TRUE, ...)
+  key.title = proportion, auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing the fields \code{date}, 
@@ -99,6 +99,8 @@ user can thus choose to use several columns by setting
 \item{key.position}{Location where the scale key is to plotted. 
 Allowed arguments currently include \dQuote{top},
 \dQuote{right}, \dQuote{bottom} and \dQuote{left}.}
+
+\item{key.title}{The title of the key.}
 
 \item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If 
 \code{TRUE} titles and axis labels etc. will automatically try

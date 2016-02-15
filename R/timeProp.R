@@ -96,6 +96,7 @@
 ##' @param key.position Location where the scale key is to plotted. 
 ##'   Allowed arguments currently include \dQuote{top},
 ##'   \dQuote{right}, \dQuote{bottom} and \dQuote{left}.
+##' @param key.title The title of the key.
 ##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If 
 ##'   \code{TRUE} titles and axis labels etc. will automatically try
 ##'   and format pollutant names and units properly e.g.  by
@@ -128,7 +129,8 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
                      avg.time = "day", type = "default", statistic = "mean",
                      normalise = FALSE, cols = "Set1", date.breaks = 7,
                      date.format = NULL, box.width = 1, key.columns = 1,
-                     key.position = "right", auto.text = TRUE, ...) {
+                     key.position = "right", key.title = proportion, 
+                     auto.text = TRUE, ...) {
   
   ## keep check happy
   sums <- NULL; freq <- NULL; Var1 <- NULL; means <- NULL
@@ -282,7 +284,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   nProp <- length(levels(results[[proportion]]))
   
   # labelling on plot
-  labs <- sapply(levels(results[[proportion]]), 
+  labs <- sapply(rev(levels(results[[proportion]])), 
                  function (x) quickText(x, auto.text))
   
   # make sure we know order of data frame for adding other dates
@@ -358,10 +360,10 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
                 scales = scales,
                 col = scaleCol,
                 border = NA,
-                key = list(rectangles = list(col = scaleCol, border = NA),
+                key = list(rectangles = list(col = rev(scaleCol), border = NA),
                            text = list(labs), 
                            space = key.position,
-                           title = quickText(proportion, auto.text), 
+                           title = quickText(key.title, auto.text), 
                            cex.title = 1, columns = key.columns),
                 par.strip.text = list(cex = 0.8),...,
                 panel = function (..., col) {
