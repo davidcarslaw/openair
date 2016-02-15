@@ -173,10 +173,10 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
     quickText(extra.args$ylab, auto.text) else quickText(pollutant, auto.text)
   
   xlim <- if ("xlim" %in% names(extra.args))
-    xlim else NULL
+    extra.args$xlim else NULL
   
   ylim <- if ("ylim" %in% names(extra.args))
-    ylim else NULL
+    extra.args$ylim else NULL
   
   if ("fontsize" %in% names(extra.args))
     trellis.par.set(fontsize = list(text = extra.args$fontsize))
