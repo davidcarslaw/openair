@@ -522,8 +522,8 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
   
   ## ids of numeric columns, type and date
   ids <- c(which(names(mydata) %in% c("date", type)),
-           which(sapply(mydata, is.numeric)))
-  mydata <- mydata[, ids]
+           which(sapply(mydata, function(x) !is.factor(x) && !is.character(x))))
+  mydata <- mydata[, unique(ids)]
   
   
   ## some LAQN data seem to have the odd missing site name
