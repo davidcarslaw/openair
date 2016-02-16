@@ -133,7 +133,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
                      auto.text = TRUE, ...) {
   
   ## keep check happy
-  sums <- NULL; freq <- NULL; Var1 <- NULL; means <- NULL
+  sums <- NULL; freq <- NULL; Var1 <- NULL; means <- NULL; date2 <- NULL
   
   ## greyscale handling
   if (length(cols) == 1 && cols == "greyscale") {
@@ -191,88 +191,81 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   ## check the data
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
   
-  ## need to make sure there are full time series for each proportion 
-  ## necessary when avg.time is something like "3 month" and time
-  ## series is non-regular
+  # time zone of input data
+  tzone <- attr(mydata$date, "tzone")
   
+  # make sure we have a full time series
   mydata <- date.pad(mydata)
   
-  # just need dates for full merging
-  justDates <- select(mydata, date)
+  # cut data
+  mydata <- cutData(mydata, c(type, proportion))
   
-  fun.pad <- function (x) {
-    the.level <- x[[proportion]][1]
-    the.type <- x[[type]][1]
-    mydata <-justDates  %>% full_join(x, by = "date") 
-    mydata[[proportion]] <- the.level
-    mydata[[type]] <- the.type
-    mydata
-  }
+  # overall averages by time interval
+  aves <- timeAverage(select_(mydata, "date", type, pollutant), 
+                      avg.time, type = type)
   
-  mydata <- cutData(mydata, type)
+  # timeAverage drops type if default
+  if (type == "default") aves$default <- mydata$default[1]
   
-  ## remove missing
-  mydata <- na.omit(mydata)
+  # date 2 is the end date of each interval
+  aves <- group_by_(aves, type) %>% 
+    mutate(date2 = lead(date))
   
-  mydata <- group_by_(mydata, proportion, type) %>%
-    do(fun.pad(.))
+  # this leaves NA at the end, add the time interval based on data
+  add <- median(difftime(head(aves$date2), head(aves$date), units = "secs"))
+  id <- which(is.na(aves$date2))
+  aves$date2[id] <- aves$date[id] + add
   
-  procData <- function(mydata, avg.time, ...) {
+  # cut data by time interval
+  mydata$date <- cut(mydata$date, avg.time)
+  
+  # calculate the mean and frequency by time interval, type, proportion
+  values <- group_by_(mydata, type, "date", proportion) %>% 
+    summarise_(mean = interp(~mean(var, na.rm = TRUE), var = as.name(pollutant)),
+               freq = interp(~length(na.omit(var)), var = as.name(pollutant)))
+  
+  # do not weight by concentration if statistic = frequency, 
+ 
+  if (statistic == "frequency") {
+    ## scales frequencies by daily mean
+    aves2 <- aves
+    aves2$date <- factor(aves2$date)
+  
+    values <- merge(values, aves2[c("date", type, pollutant)], 
+                    by = c(type, "date"), all = TRUE)
     
-    ## time frequencies
-    
-    freqs <- group_by_(mydata, proportion) %>%
-      do(timeAverage(., avg.time = avg.time, statistic = "frequency"))
-    
-    ## the values
-    
-    values <- group_by_(mydata, proportion) %>%
-      do(timeAverage(., avg.time = avg.time, statistic = "mean"))
-    
-    # do not weight by concentration if statistic = frequency, 
-    # just repeat overall mean by proportion
-    
-    if (statistic == "frequency") {
-      ## scales frequencies by daily mean
-      tmp <- timeAverage(mydata, avg.time)
-      tmp$means <- tmp[[pollutant]]
-      
-      values <- merge(values, tmp[c("date", "means")], 
-                      by = "date", all = TRUE)
-      
-      values <- sortDataFrame(values, key = c(proportion, "date"))
-    }
-    
-    ## add frequencies
-    values$freq <- freqs[[pollutant]]
-    
-    ## conc * freq weighting
-    values$sums <- freqs[[pollutant]] * values[[pollutant]]
-    
-    if (statistic == "mean") {
-      ## weighted conc
-      
-      res <- group_by(values, date) %>%
-        mutate(Var1 = sums / sum(freq, na.rm = TRUE))
-      
-    } else {
-      
-      res <- group_by(values, date) %>%
-        mutate(Var1 = means * freq / sum(freq, na.rm = TRUE))
-      
-    }
-    
-    ## normlaise to 100 if needed
-    if (normalise)
-      res <- group_by(res, date) %>%
-      mutate(Var1 = Var1 * (100 / sum(Var1, na.rm = TRUE)))
-    
-    res
+    # rename to make it easier to refer to later
+    values <- rename_(values, means = pollutant)
     
   }
   
-  results <- group_by_(mydata, type) %>%
-    do(procData(., avg.time = avg.time))
+  # mean * frequency
+  values <- mutate(values, sums = freq * mean)
+  
+  if (statistic == "mean") {
+    ## weighted conc
+    
+    results <- group_by_(values, type, "date") %>%
+      mutate(Var1 = sums / sum(freq, na.rm = TRUE))
+    
+  } else {
+    
+    results <- group_by_(values, type, "date") %>%
+      mutate(Var1 = means * freq / sum(freq, na.rm = TRUE))
+    
+  }
+  
+  ## normlaise to 100 if needed
+  if (normalise)
+    results <- group_by_(results, type, "date") %>%
+    mutate(Var1 = Var1 * (100 / sum(Var1, na.rm = TRUE)))
+  
+  # put date back into POSIXct format
+  results$date <- as.POSIXct(results$date, tz = tzone)
+  attr(results$date, "tzone") <- tzone
+  
+  # join with aves to get date2
+  results <- left_join(results, select(aves, date, date2), by = c(type, "date"))
   
   ## proper names of labelling ###################################################
   strip.dat <- strip.fun(results, type, auto.text)
@@ -288,17 +281,13 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
                  function (x) quickText(x, auto.text))
   
   # make sure we know order of data frame for adding other dates
-  results <- sortDataFrame(results, c("date", "Var1"))
+  results <- sortDataFrame(results, c(type, "date", proportion))
   
-  theDates <- c(sort(unique(results$date)), max(mydata$date))
-  
-  # make sure dates have right time zone
-  attr(theDates, "tzone") <- attr(mydata$date, "tzone")
-  xleft <- theDates[1:length(theDates) - 1]
-  xright <- theDates[2:length(theDates)]
-  
-  results$xleft <- rep(xleft, each = nProp)
-  results$xright <- rep(xright, each = nProp)
+  # xleft, xright used by plot function
+  results$xleft <- results$date
+  results$xright <- results$date2
+  ## don't need date2
+  results <- select(results, -date2)
   
   # the few colours used for scaling
   scaleCol <- openColours(cols, nProp)
@@ -314,6 +303,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   
   results[[proportion]] <- factor(results[[proportion]])
   
+  # remove missing so we can do a cumsum
   results <- na.omit(results)
   
   # y values for plotting rectangles
@@ -325,12 +315,11 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   dates <- dateBreaks(results$date, date.breaks)$major ## for date scale
   
   ## date axis formating
-  if (is.null(date.format)) {
+  if (is.null(date.format)) 
     formats <- dateBreaks(results$date, date.breaks)$format
-  } else {
+  else
     formats <- date.format
-  }
-  
+    
   scales <- list(x = list(at = dates, format = formats))
   
   y.max <- max(results$var2)
@@ -344,12 +333,11 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
     ylab <- quickText(paste("% contribution to", pollutant), auto.text)
   
   ## sub heading
-  if (statistic == "frequency") {
+  if (statistic == "frequency") 
     sub <- "contribution weighted by frequency"
-  } else {
+  else 
     sub <- "contribution weighted by mean"
-  }
- 
+  
   plt <- xyplot(myform, data = results,
                 as.table = TRUE,
                 strip = strip,
@@ -366,12 +354,12 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
                            title = quickText(key.title, auto.text), 
                            cex.title = 1, columns = key.columns),
                 par.strip.text = list(cex = 0.8),...,
-                panel = function (..., col) {
-                  
+                panel = function (..., col, subscripts) {
+        
                   panel.grid(-1, 0)
                   panel.abline(v = dates, col = "grey95", ...)
-                  plyr::d_ply(results, "date", panelBar)
-                 
+                  plyr::d_ply(results[subscripts, ], "date", panelBar)
+                  
                 }
   )
   
