@@ -394,7 +394,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
 panelBar <- function(dat) {
   
   xleft <- unclass(dat$xleft)
-  ybottom = c(0, dat$var2[1:nrow(dat) - 1])
+  ybottom = lag(dat$var2, default = 0)
   xright <- unclass(dat$xright)
   ytop <- dat$var2
   
