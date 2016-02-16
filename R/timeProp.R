@@ -202,7 +202,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   
   # overall averages by time interval
   aves <- timeAverage(select_(mydata, "date", type, pollutant), 
-                      avg.time, type = type)
+                      avg.time, type = type, start.date = min(mydata$date))
   
   # timeAverage drops type if default
   if (type == "default") aves$default <- mydata$default[1]
@@ -213,7 +213,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   
   # this leaves NA at the end, add the time interval based on data
   add <- median(difftime(head(aves$date2), head(aves$date), units = "secs"))
-  id <- which(is.na(aves$date2))
+  id <- tapply(aves$date, aves[[type]], which.max)
   aves$date2[id] <- aves$date[id] + add
   
   # cut data by time interval
