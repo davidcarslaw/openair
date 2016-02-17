@@ -324,7 +324,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   
   y.max <- max(results$var2)
   
-  if (is.null(xlim)) xlim <- range(results$date)
+  if (is.null(xlim)) xlim <- range(c(results$xleft, results$xright))
   
   if (normalise) pad <- 1 else pad <- 1.04
   if (is.null(ylim)) ylim <- c(0, pad * y.max)
