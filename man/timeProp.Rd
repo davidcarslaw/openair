@@ -142,8 +142,8 @@ for any time interval.
 ## See manual for more examples e.g. related to clustering
 
 
-## monthly plot of NOx showing the contribution by wind sector
-timeProp(mydata, pollutant="so2", avg.time="month", proportion="wd")
+## monthly plot of SO2 showing the contribution by wind sector
+timeProp(mydata, pollutant = "so2", avg.time = "month", proportion = "wd")
 
 
 }
