@@ -422,7 +422,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       ## need to make sure all data are present..
       ## print out time interval assumed for input time series
       ## useful for debugging
-      if (!padded) mydata <- date.pad(mydata, ...)
+      if (!padded) mydata <- date.pad(mydata)
       
       if (avg.time != "season") mydata$cuts <- cut(mydata$date, avg.time)
       
