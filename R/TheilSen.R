@@ -377,7 +377,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
         } else {
 
             ## assume annual
-            all.results <- data.frame(date = as.Date(mydata$date), conc = mydata[ , pollutant])
+            all.results <- data.frame(date = as.Date(mydata$date), conc = mydata[[pollutant]])
             results <- na.omit(all.results)
         }
 
