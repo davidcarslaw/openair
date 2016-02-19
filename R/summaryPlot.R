@@ -289,7 +289,7 @@ summaryPlot <- function(mydata,
     ## find time interval of data and pad any missing times
     interval <- find.time.interval(mydata$date)
     all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
-    mydata <- merge(mydata, all.dates, all = TRUE)
+    mydata <- inner_join(mydata, all.dates, by = "date")
 
     ## means for trend line
 
