@@ -19,6 +19,7 @@ Imports:
     mgcv,
     lattice,
     latticeExtra,
+    lubridate,
     cluster,
     RColorBrewer,
     mapproj,
