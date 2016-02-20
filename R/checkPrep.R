@@ -128,7 +128,7 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
         
       }
 
-        mydata <- mydata[order(mydata$date), ]
+        mydata <- arrange(mydata, date)
 
         ## make sure date is the first field
         if (names(mydata)[1] != "date") 
