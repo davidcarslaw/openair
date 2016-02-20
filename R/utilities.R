@@ -439,6 +439,7 @@ one more label than date")
 ##' Friday) and \dQuote{weekend} for convenience.
 ##' @param hour An hour or hours to select from 0-23 e.g. \code{hour = 0:12} to
 ##'   select hours 0 to 12 inclusive.
+##' @import lubridate
 ##' @export
 ##' @author David Carslaw
 ##' @keywords methods
@@ -463,7 +464,8 @@ one more label than date")
 ##' sub.data <- selectByDate(mydata, day = "weekend", hour = 7:19, month =
 ##' c("dec", "jan", "feb"))
 ##'
-selectByDate <- function (mydata, start = "1/1/2008", end = "31/12/2008", year = 2008,
+selectByDate <- function (mydata, start = "1/1/2008", 
+                          end = "31/12/2008", year = 2008,
     month = 1, day = "weekday", hour = 1)
 
 {
@@ -471,7 +473,8 @@ selectByDate <- function (mydata, start = "1/1/2008", end = "31/12/2008", year =
     vars <- names(mydata)
 
     ## check data - mostly date format
-    mydata <- checkPrep(mydata, vars, "default", remove.calm = FALSE, strip.white = FALSE)
+    mydata <- checkPrep(mydata, vars, "default", remove.calm = FALSE, 
+                        strip.white = FALSE)
 
     weekday.names <- format(ISOdate(2000, 1, 3:9), "%A")
 
@@ -493,15 +496,20 @@ selectByDate <- function (mydata, start = "1/1/2008", end = "31/12/2008", year =
         mydata <- subset(mydata, as.Date(date) >= start & as.Date(date) <= end)
 
     }
-    if (!missing(year)) {
-        mydata <- mydata[as.numeric(format(mydata$date, "%Y")) %in%  year, ]
-    }
+    
+    if (!missing(year)) 
+      mydata <- mydata[which(year(mydata$date) %in% year), ]
+        
 
     if (!missing(month)) {
         if (is.numeric(month)) {
-            if (any(month < 1 | month > 12)) stop ("Month must be between 1 to 12.")
-            mydata <- mydata[as.numeric(format(mydata$date, "%m")) %in% month, ]
+            if (any(month < 1 | month > 12)) 
+              stop ("Month must be between 1 to 12.")
+            
+          mydata <- mydata[which(month(mydata$date) %in% month), ]
+           
         }
+      
         else {
             mydata <- subset(mydata, substr(tolower(format(date,
                 "%B")), 1, 3) %in% substr(tolower(month), 1, 3))
@@ -509,7 +517,9 @@ selectByDate <- function (mydata, start = "1/1/2008", end = "31/12/2008", year =
     }
     if (!missing(hour)) {
         if (any(hour < 0 | hour > 23)) stop ("Hour must be between 0 to 23.")
-        mydata <- mydata[as.numeric(format(mydata$date, "%H")) %in% hour, ]
+      
+      mydata <- mydata[which(hour(mydata$date) %in% hour), ]
+       
     }
 
     if (!missing(day)) {
