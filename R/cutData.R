@@ -234,7 +234,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
         x[[type]] <- factor(paste(format(min(x$date), "%d %B %Y"), " to ",
                                   format(max(x$date), "%d %B %Y"), sep = ""))
         ## order the data by date
-        x <- x[order(x$date), ]
+        x <- arrange(x, date)
         
       } else {
         x[[type]] <- factor("all data")
