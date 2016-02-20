@@ -527,8 +527,9 @@ selectByDate <- function (mydata, start = "1/1/2008",
 
         if (is.numeric(day)) {
 
-            if (any(day < 1 | day > 31)) stop ("Day must be between 1 to 31.")
-            mydata <- mydata[as.numeric(format(mydata$date, "%d")) %in% day, ]
+            if (any(day < 1 | day > 31)) 
+              stop ("Day must be between 1 to 31.")
+          mydata <- mydata[which(day(mydata$date) %in% day), ]
 
         } else {
 
