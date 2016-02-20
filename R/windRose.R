@@ -220,6 +220,8 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##' \code{quickText} to handle routine formatting.
 ##'
 ##' @export windRose pollutionRose
+##' @import dplyr
+##' @import lazyeval
 ##' @importFrom plyr ddply ldply dlply llply numcolwise . 
 ##' @importFrom graphics abline
 ##' @importFrom grDevices col2rgb colorRampPalette grey rgb xy.coords
