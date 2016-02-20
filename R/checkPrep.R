@@ -135,25 +135,13 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
           mydata <- mydata[c("date", setdiff(names(mydata), "date"))]
 
         ## daylight saving time can cause terrible problems - best avoided!!
-        z <- as.POSIXlt(mydata$date[1])
-        zz <- attr(z, "tzone")
-
-        if (length(zz) == 3L) {
-
-            ## strings meaning that no DST occurs
-            ## check if winter and summer time are really different
-            ## special case: CET and WEST are the same indeed e.g. tz="Africa/Algiers"
-            
-            if (!zz[3] %in% c("WILDABBR", "   ") && zz[2] != zz[3] &&
-                !(zz[2] == "CET" && zz[3] == "WEST"))   {
-
-                warning("Detected data with Daylight Saving Time, converting to UTC/GMT")
-                attr(mydata$date, "tzone") <- "GMT"
-                
-            }
+        
+        if (any(dst(mydata$date))) {
+          warning("Detected data with Daylight Saving Time, converting to UTC/GMT")
+          mydata$date <- force_tz(mydata$date, "GMT") 
+          
         }
-        
-        
+     
     }
 
     if (strip.white) {
