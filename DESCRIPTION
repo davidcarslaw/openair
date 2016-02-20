@@ -9,12 +9,12 @@ Authors@R: c(person("David", "Carslaw", role = c("aut", "cre"), email =
 ByteCompile: true
 Depends:
     R (>= 2.15.1),
-    lazyeval,
-    dplyr,
     maps,
 Imports:
     grid,
     plyr,
+    lazyeval,
+    dplyr,
     reshape2,
     mgcv,
     lattice,
