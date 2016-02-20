@@ -281,7 +281,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
                  function (x) quickText(x, auto.text))
   
   # make sure we know order of data frame for adding other dates
-  results <- sortDataFrame(results, c(type, "date", proportion))
+  results <- arrange_(results, type, "date", proportion)
   
   # xleft, xright used by plot function
   results$xleft <- results$date
