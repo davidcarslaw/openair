@@ -523,7 +523,6 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
             
             all <- stat.fun(mydata[[wd]])
             calm <- mydata[mydata[[wd]] == -999, ][[pollutant]]
-            mydata <- mydata[mydata[[wd]] != -999, ]
 
             calm <- stat.fun(calm)
 
