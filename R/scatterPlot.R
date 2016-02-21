@@ -1640,7 +1640,7 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
               by = Args$npoints)
     
     lapply(tmp, function (dat)
-      lpoints(dat[id, "lon"], dat[id, "lat"],
+      lpoints(dat[id, ][["lon"]], dat[id,][["lat"]],
               col = dat$col, pch = 16))
     
   } else {
