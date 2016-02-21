@@ -470,8 +470,13 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     mydata <- cutData(mydata, type, ...)
 
     mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE, remove.neg = rm.neg)
-
-    mydata <- na.omit(mydata)
+  
+    # remove lines where ws is missing
+    # wd can be NA and ws 0 (calm)
+    id <- which(is.na(mydata[[ws]]))
+    
+    if (length(id) > 0)
+    mydata <- mydata[-id, ]
 
     if (is.null(pollutant)) pollutant <- ws
 

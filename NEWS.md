@@ -10,6 +10,7 @@
 - refine date checks
 - speed up `timeAverage`
 - fix slow `timeProp` (lattice `panel.barchart` is very slow)
+- only remove missing wind speed in `windRose` (wd can be `NA` and ws zero i.e. calm)
 
 # Changes in openair 1.6.6 [2015-11-04]
 
