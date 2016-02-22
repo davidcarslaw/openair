@@ -342,7 +342,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       allData <- data.frame(date = seq(min(allDates), max(allDates), avg.time))
       
       ## merge with orginal data, which leaves gaps to fill
-      mydata <- inner_join(mydata, allData, by = "date")
+      mydata <- full_join(mydata, allData, by = "date")
       
       if (fill) {
         

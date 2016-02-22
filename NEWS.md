@@ -1,5 +1,7 @@
 # Changes in openair 1.7-99
 
+- Fix regression in `timeAverage` when expanding time series 
+
 # Changes in openair 1.7 [2016-02-22]
 
 - Allow `linearRelation` to use any arbitrary time averaging period.
