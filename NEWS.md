@@ -3,12 +3,13 @@
 - Allow `linearRelation` to use any arbitrary time averaging period.
 - don't add line to monthly plot in `timeVariation` when group = "season"
 - fix `NA` factors in `trajPlot`
-- make border black wwhen using maps for improved clarity
+- make border black when using maps for improved clarity
 - fix bug in `trajPlot` that sometimes failed to print map when grouping
 - add percentage total trajectories for `trajCluster` and option `by.type`
 - don't touch existing date-based types in `cutData`
 - refine date checks
 - speed up `timeAverage`
+- new dependent package `lubridate` for easier / faster date-time manipulations
 - fix slow `timeProp` (lattice `panel.barchart` is very slow)
 - only remove missing wind speed in `windRose` (wd can be `NA` and ws zero i.e. calm)
 - correct order of labels in `timeVariation` when `difference = TRUE` for some factor levels (were in alphabetical) 
