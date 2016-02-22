@@ -11,6 +11,7 @@
 - speed up `timeAverage`
 - fix slow `timeProp` (lattice `panel.barchart` is very slow)
 - only remove missing wind speed in `windRose` (wd can be `NA` and ws zero i.e. calm)
+- correct order of labels in `timeVariation` when `difference = TRUE` for some factor levels (were in alphabetical) 
 
 # Changes in openair 1.6.6 [2015-11-04]
 

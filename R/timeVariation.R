@@ -859,8 +859,10 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     
     main.plot <- function(...) {
         if (type == "default") {
-            print(update(day.hour, key = list(rectangles = list(col = myColors[1:npol], border = NA),
-                                       text = list(lab = mylab), space = "bottom", columns = key.columns,
+            print(update(day.hour, 
+                         key = list(rectangles = list(col = myColors[1:npol], border = NA),
+                                       text = list(lab = mylab), space = "bottom", 
+                                    columns = key.columns,
                                        title = "", lines.title = 1)
                          ), position = c(0, 0.5, 1, y.upp), more = TRUE)
         } else {
@@ -999,7 +1001,10 @@ errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
     ## warnings from dplyr seem harmless FIXME
     res <- suppressWarnings(group_by_(mydata, .dots = splits) %>%
       do(bootMeanDiff(., x = poll1, y = poll2, B = B)))
-  
+    
+    # make sure we keep the order correct
+    res$variable <- ordered(res$variable, levels = res$variable[1:3])
+    
     res$ci <- conf.int[1]
     res
 }
