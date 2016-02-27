@@ -296,7 +296,8 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
       )
     }
 
-
+    # timeAverage drops type if default
+    if (type == "default") mydata$default <- "default"
     process.cond <- function(mydata) {
 
         ## return if nothing to analyse

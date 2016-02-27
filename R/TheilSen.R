@@ -322,9 +322,13 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   start.month <-  startMonth(mydata$date)
   end.month <-   endMonth(mydata$date)
   
-  mydata <- timeAverage(mydata, avg.time = avg.time, statistic = statistic, 
+  mydata <- timeAverage(mydata, avg.time = avg.time, 
+                        statistic = statistic, 
                         percentile = percentile,
                         data.thresh = data.thresh)
+  
+  # timeAverage drops type if default
+  if (type == "default") mydata$default <- "default"
   
   
   process.cond <- function(mydata) {
