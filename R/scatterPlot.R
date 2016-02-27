@@ -486,11 +486,10 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     if ("default" %in% types) mydata$default <- 0 ## FIX ME
     
    
-    mydata <- group_by_(mydata, .dots = types) %>%
-      do(timeAverage(., avg.time = avg.time,
+    mydata <- timeAverage(mydata, type = types, avg.time = avg.time,
                      statistic = statistic, percentile = percentile,
-                     data.thresh = data.thresh))
-    
+                     data.thresh = data.thresh)
+  
   }
   
   ## the following makes sure all variables are present, which depends on 'group'

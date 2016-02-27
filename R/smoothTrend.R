@@ -244,7 +244,8 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
         percentile <- percentile[1]
     }
 
-    if (!avg.time %in% c("year", "season", "month")) stop("Averaging period must be 'month' or 'year'.")
+    if (!avg.time %in% c("year", "season", "month")) 
+      stop("Averaging period must be 'month' or 'year'.")
 
     ## if data clearly annual, then assume annual
     interval <- find.time.interval(mydata$date)
@@ -279,15 +280,20 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
                             avg.time = avg.time, percentile = percentile, 
                             data.thresh = data.thresh))
 
-        mydata <- melt(subset(mydata, select = -variable), measure.vars = paste("percentile.",
-                                                           percentile, sep = ""))
+        mydata <- melt(subset(mydata, select = -variable), 
+                       measure.vars = paste("percentile.",
+                                            percentile, sep = ""))
 
     } else {
 
-        mydata <- group_by_(mydata, type, "variable") %>%
-          do(timeAverage(., avg.time = avg.time, percentile = percentile, 
-                            statistic = statistic,
-                            data.thresh = data.thresh))
+      mydata <- timeAverage(
+        mydata,
+        type = c(type, "variable"),
+        avg.time = avg.time,
+        percentile = percentile,
+        statistic = statistic,
+        data.thresh = data.thresh
+      )
     }
 
 
@@ -323,11 +329,13 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
             deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
             deseas <- as.vector(deseas)
 
-            results <- data.frame(date = mydata$date, conc = as.vector(deseas))
+            results <- data.frame(date = mydata$date, conc = as.vector(deseas),
+                                  stringsAsFactors = FALSE)
 
         } else {
 
-            results <- data.frame(date = mydata$date, conc = mydata[["value"]])
+            results <- data.frame(date = mydata$date, conc = mydata[["value"]],
+                                  stringsAsFactors = FALSE)
 
         }
 

@@ -238,7 +238,8 @@
 ##' \dontrun{TheilSen(selectByDate(mydata, year = 2000:2005), pollutant = "o3", ylab = "o3 (ppb)")}
 ##'
 ##'
-TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "default", avg.time = "month",
+TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, 
+                     type = "default", avg.time = "month",
                      statistic = "mean", percentile = NA, data.thresh = 0, alpha = 0.05,
                      dec.place = 2, xlab = "year", lab.frac = 0.99, lab.cex = 0.8,
                      x.relation = "same", y.relation = "same", data.col = "cornflowerblue",
@@ -246,371 +247,392 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE, type = "defaul
                      text.col = "darkgreen", slope.text = NULL, cols = NULL, 
                      shade = "grey95", auto.text = TRUE,
                      autocor = FALSE, slope.percent = FALSE, date.breaks = 7,...)  {
-
-    ## get rid of R check annoyances
-    a = b = lower.a = lower.b = upper.a = upper.b = slope.start = date.end = intercept.start = date.start = lower.start = intercept.lower.start = upper.start = intercept.upper.start = NULL
-
-    ## set graphics
-    current.strip <- trellis.par.get("strip.background")
-    current.font <- trellis.par.get("fontsize")
+  
+  ## get rid of R check annoyances
+  a = b = lower.a = lower.b = upper.a = upper.b = slope.start = date.end = intercept.start = date.start = lower.start = intercept.lower.start = upper.start = intercept.upper.start = NULL
+  
+  ## set graphics
+  current.strip <- trellis.par.get("strip.background")
+  current.font <- trellis.par.get("fontsize")
+  
+  ## reset graphic parameters
+  on.exit(trellis.par.set(strip.background = current.strip,
+                          fontsize = current.font))
+  
+  ## greyscale handling
+  if (length(cols) == 1 && cols == "greyscale") {
     
-    ## reset graphic parameters
-    on.exit(trellis.par.set(strip.background = current.strip,
-                            fontsize = current.font))
-
-    ## greyscale handling
-    if (length(cols) == 1 && cols == "greyscale") {
-
-        trellis.par.set(list(strip.background = list(col = "white")))
-        ## other local colours
-        trend$col <- c("black", "black")
-        data.col <- "darkgrey"
-        text.col <- "black"
-    } else {
-       
-        data.col <- data.col
-        text.col <- text.col
-    }
-
-    ## extra.args setup
-    extra.args <- list(...)
-
-    ## label controls
-    ## (xlab currently handled in plot because unqiue action)
-    extra.args$ylab <- if ("ylab" %in% names(extra.args))
-        quickText(extra.args$ylab, auto.text) else quickText(pollutant, auto.text)
-
-    extra.args$main <- if ("main" %in% names(extra.args))
-                           quickText(extra.args$main, auto.text) else quickText("", auto.text)
-
-    if ("fontsize" %in% names(extra.args))
-        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+    trellis.par.set(list(strip.background = list(col = "white")))
+    ## other local colours
+    trend$col <- c("black", "black")
+    data.col <- "darkgrey"
+    text.col <- "black"
+  } else {
     
-    xlim <- if ("xlim" %in% names(extra.args))
-      extra.args$xlim else  NULL
-
-    ## layout default
-    if(!"layout" %in% names(extra.args))
-        extra.args$layout <- NULL
-
-    vars <- c("date", pollutant)
-
-
-    if (!avg.time %in% c("year", "month", "season")) 
-      stop ("avg.time can only be 'month', 'season' or 'year'.")
-
-    ## if data clearly annual, then assume annual
-    interval <- find.time.interval(mydata$date)
-    interval <- as.numeric(strsplit(interval, split = " ")[[1]][1])   
-    if (round(interval / 8760) == 3600) avg.time <- "year"
-
-    ## data checks
-    mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
-
-     ## date formatting for plot
-    date.at <- as.Date(dateBreaks(mydata$date, date.breaks)$major)
-    date.format <- dateBreaks(mydata$date)$format
-
-
-    ## cutData depending on type
-    mydata <- cutData(mydata, type, ...)
-
-    ## for overall data and graph plotting
-    start.year <- startYear(mydata$date)
+    data.col <- data.col
+    text.col <- text.col
+  }
+  
+  ## extra.args setup
+  extra.args <- list(...)
+  
+  ## label controls
+  ## (xlab currently handled in plot because unqiue action)
+  extra.args$ylab <- if ("ylab" %in% names(extra.args))
+    quickText(extra.args$ylab, auto.text) else quickText(pollutant, auto.text)
+  
+  extra.args$main <- if ("main" %in% names(extra.args))
+    quickText(extra.args$main, auto.text) else quickText("", auto.text)
+  
+  if ("fontsize" %in% names(extra.args))
+    trellis.par.set(fontsize = list(text = extra.args$fontsize))
+  
+  xlim <- if ("xlim" %in% names(extra.args))
+    extra.args$xlim else  NULL
+  
+  ## layout default
+  if(!"layout" %in% names(extra.args))
+    extra.args$layout <- NULL
+  
+  vars <- c("date", pollutant)
+  
+  
+  if (!avg.time %in% c("year", "month", "season")) 
+    stop ("avg.time can only be 'month', 'season' or 'year'.")
+  
+  ## if data clearly annual, then assume annual
+  interval <- find.time.interval(mydata$date)
+  interval <- as.numeric(strsplit(interval, split = " ")[[1]][1])   
+  if (round(interval / 8760) == 3600) avg.time <- "year"
+  
+  ## data checks
+  mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
+  
+  ## date formatting for plot
+  date.at <- as.Date(dateBreaks(mydata$date, date.breaks)$major)
+  date.format <- dateBreaks(mydata$date)$format
+  
+  
+  ## cutData depending on type
+  mydata <- cutData(mydata, type, ...)
+  
+  ## for overall data and graph plotting
+  start.year <- startYear(mydata$date)
+  end.year <-   endYear(mydata$date)
+  start.month <-  startMonth(mydata$date)
+  end.month <-   endMonth(mydata$date)
+  
+  mydata <- timeAverage(mydata, avg.time = avg.time, statistic = statistic, 
+                        percentile = percentile,
+                        data.thresh = data.thresh)
+  
+  
+  process.cond <- function(mydata) {
+    
+    if (all(is.na(mydata[[pollutant]]))) return()       
+    
+    ## sometimes data have long trailing NAs, so start and end at
+    ## first and last data
+    min.idx <- min(which(!is.na(mydata[, pollutant])))
+    max.idx <- max(which(!is.na(mydata[, pollutant])))
+    mydata <- mydata[min.idx:max.idx, ]
+    
+    ## these subsets may have different dates to overall
+    start.year <-  startYear(mydata$date)
     end.year <-   endYear(mydata$date)
     start.month <-  startMonth(mydata$date)
     end.month <-   endMonth(mydata$date)
-
-
-    mydata <- group_by_(mydata, type) %>%
-      do(timeAverage(., avg.time = avg.time, statistic = statistic, 
-                     percentile = percentile,
-                     data.thresh = data.thresh))
     
-
-    process.cond <- function(mydata) {
-
-        if (all(is.na(mydata[[pollutant]]))) return()       
-
-        ## sometimes data have long trailing NAs, so start and end at
-        ## first and last data
-        min.idx <- min(which(!is.na(mydata[, pollutant])))
-        max.idx <- max(which(!is.na(mydata[, pollutant])))
-        mydata <- mydata[min.idx:max.idx, ]
-
-        ## these subsets may have different dates to overall
-        start.year <-  startYear(mydata$date)
-        end.year <-   endYear(mydata$date)
-        start.month <-  startMonth(mydata$date)
-        end.month <-   endMonth(mydata$date)
+    if (avg.time == "month") {
+      
+      mydata$date <- as.Date(mydata$date)
+      
+      deseas <- mydata[[pollutant]]
+      
+      ## can't deseason less than 2 years of data
+      if (nrow(mydata) <= 24) deseason <- FALSE
+      
+      if (deseason) {
+        ## interpolate missing data
+        mydata[[pollutant]] <- approx(mydata[[pollutant]], n = length(mydata[[pollutant]]))$y
         
-        if (avg.time == "month") {
-
-            mydata$date <- as.Date(mydata$date)
-
-            deseas <- mydata[[pollutant]]
-
-            ## can't deseason less than 2 years of data
-            if (nrow(mydata) <= 24) deseason <- FALSE
-
-            if (deseason) {
-                ## interpolate missing data
-                mydata[[pollutant]] <- approx(mydata[[pollutant]], n = length(mydata[[pollutant]]))$y
-
-                myts <- ts(mydata[[pollutant]], start = c(start.year, start.month),
-                           end = c(end.year, end.month), frequency = 12)
-                ## key thing is to allow the seanonal cycle to vary, hence
-                ## s.window should not be "periodic"; set quite high to avoid
-                ## overly fitted seasonal cycle
-                ## robustness also makes sense for sometimes noisy data
-                ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
-
-                deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
-
-                deseas <- as.vector(deseas)
-            }
-
-            all.results <- data.frame(date = mydata$date, conc = deseas)
-            results <- na.omit(all.results)
-
-
-        } else {
-
-            ## assume annual
-            all.results <- data.frame(date = as.Date(mydata$date), conc = mydata[[pollutant]])
-            results <- na.omit(all.results)
-        }
-
-        ## now calculate trend, uncertainties etc ###########################
-        if (nrow(results) < 6) return() ## need enough data to calculate trend
-        MKresults <- MKstats(results$date, results$conc, alpha, autocor)
-
-        ## make sure missing data are put back in for plotting
-        results <- suppressWarnings(merge(all.results, MKresults, by = "date", all = TRUE))
-        results
+        myts <- ts(mydata[[pollutant]], start = c(start.year, start.month),
+                   end = c(end.year, end.month), frequency = 12)
+        ## key thing is to allow the seanonal cycle to vary, hence
+        ## s.window should not be "periodic"; set quite high to avoid
+        ## overly fitted seasonal cycle
+        ## robustness also makes sense for sometimes noisy data
+        ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
+        
+        deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
+        
+        deseas <- as.vector(deseas)
+      }
+      
+      all.results <- data.frame(date = mydata$date, conc = deseas,
+                                stringsAsFactors = FALSE)
+      results <- na.omit(all.results)
+      
+      
+    } else {
+      
+      ## assume annual
+      all.results <- data.frame(date = as.Date(mydata$date), 
+                                conc = mydata[[pollutant]],
+                                stringsAsFactors = FALSE)
+      results <- na.omit(all.results)
     }
     
-
-    split.data <- group_by_(mydata, type) %>%
-      do(process.cond(.))
+    ## now calculate trend, uncertainties etc ###########################
+    if (nrow(results) < 6) return() ## need enough data to calculate trend
+    MKresults <- MKstats(results$date, results$conc, alpha, autocor)
     
+    ## make sure missing data are put back in for plotting
+    results <- merge(all.results, MKresults, by = "date", all = TRUE)
     
-    if (nrow(split.data) < 2) return()
-
-
-    ## special wd layout
-                                        #(type field in results.grid called type not wd)
-    if (length(type) == 1 & type[1] == "wd" & is.null(extra.args$layout)) {
-        ## re-order to make sensible layout
-        ## starting point code as of ManKendall
-        wds <-  c("NW", "N", "NE", "W", "E", "SW", "S", "SE")
-        split.data$wd <- ordered(split.data$wd, levels = wds)
-        wd.ok <- sapply(wds, function (x) {if (x %in% unique(split.data$wd)) FALSE else TRUE })
-        skip <- c(wd.ok[1:4], TRUE, wd.ok[5:8])
-        split.data$wd <- factor(split.data$wd)
-        extra.args$layout <- c(3, 3)
-        if(!"skip" %in% names(extra.args))
-            extra.args$skip <- skip
-    }
+    results
+  }
+  
+  
+  split.data <- group_by_(mydata, type) %>%
+    do(process.cond(.))
+  
+  
+  if (nrow(split.data) < 2) return()
+  
+  
+  ## special wd layout
+  #(type field in results.grid called type not wd)
+  if (length(type) == 1 & type[1] == "wd" & is.null(extra.args$layout)) {
+    ## re-order to make sensible layout
+    ## starting point code as of ManKendall
+    wds <-  c("NW", "N", "NE", "W", "E", "SW", "S", "SE")
+    split.data$wd <- ordered(split.data$wd, levels = wds)
+    wd.ok <- sapply(wds, function (x) {if (x %in% unique(split.data$wd)) FALSE else TRUE })
+    skip <- c(wd.ok[1:4], TRUE, wd.ok[5:8])
+    split.data$wd <- factor(split.data$wd)
+    extra.args$layout <- c(3, 3)
     if(!"skip" %in% names(extra.args))
-        extra.args$skip <- FALSE
-
-    ## proper names of labelling ###################################################
-    strip.dat <- strip.fun(split.data, type, auto.text)
-    strip <- strip.dat[[1]]
-    strip.left <- strip.dat[[2]]
-    pol.name <- strip.dat[[3]]
-
-#### calculate slopes etc ###############################################################################
-
-    split.data <- transform(split.data, slope = 365 * b, intercept = a,
-                            intercept.lower = lower.a, intercept.upper = upper.a,
-                            lower = 365 * lower.b, upper = 365 * upper.b)
-
-    ## aggregated results
-
-    res2 <- group_by_(split.data, type, "p.stars") %>% 
-      summarise_each(funs(mean(., na.rm = TRUE)))
-
-    ## calculate percentage changes in slope and uncertainties
-    ## need start and end dates (in days) to work out concentrations at those points
-    ## percentage change defind as 100.(C.end/C.start -1) / duration
-
-    
-    start <- group_by_(split.data, type) %>% 
-      do(head(., 1))
-    
-    end <- group_by_(split.data, type) %>% 
-      do(tail(., 1))
-    
-    percent.change <- merge(start, end, by = type, suffixes = c(".start", ".end"))
-
-    percent.change <- transform(percent.change, slope.percent = 100 * 365 *
-                                ((slope.start * as.numeric(date.end) / 365 + intercept.start) /
-                                 (slope.start * as.numeric(date.start) / 365 + intercept.start) - 1) /
-                                (as.numeric(date.end) - as.numeric(date.start)))
-    ## got upper/lower intercepts mixed up To FIX?
-    percent.change <- transform(percent.change, lower.percent = 100 * 365 *
-                                ((lower.start * as.numeric(date.end) / 365 + intercept.lower.start) /
-                                 (lower.start * as.numeric(date.start) / 365 + intercept.lower.start) - 1) /
-                                (as.numeric(date.end) - as.numeric(date.start)))
-
-    percent.change <- transform(percent.change, upper.percent = 100 * 365 *
-                                ((upper.start * as.numeric(date.end) / 365 + intercept.upper.start) /
-                                 (upper.start * as.numeric(date.start) / 365 + intercept.upper.start) - 1) /
-                                (as.numeric(date.end) - as.numeric(date.start)))
-
-    percent.change <- percent.change[ ,  c(type, "slope.percent", "lower.percent", "upper.percent")]
-
-
-    split.data <- merge(split.data, percent.change, by = type)
-
-    res2 <- merge(res2, percent.change, by = type)
-## #######################################################################################
-
-
-    temp <- paste(type, collapse = "+")
-    myform <- formula(paste("conc ~ date| ", temp, sep = ""))
-
-    gap <- (max(split.data$date) - min(split.data$date)) / 80
-    if (is.null(xlim)) xlim <- range(split.data$date) + c(-1 * gap, gap)
-
-    xyplot.args <- list(x = myform, data = split.data,
-                        xlab = quickText(xlab, auto.text),
-                        par.strip.text = list(cex = 0.8),
-                        as.table = TRUE,
-                        xlim = xlim,
-                        strip = strip,
-                        strip.left = strip.left,
-                        scales = list(x = list(at = date.at, format = date.format,
-                                          relation = x.relation),
-                            y = list(relation = y.relation, rot = 0)),
-
-                        panel = function(x, y, subscripts,...){
-                            ## year shading
-                            panel.shade(split.data, start.year, end.year,
-                                        ylim = current.panel.limits()$ylim, shade)
-                            panel.grid(-1, 0)
-
-                            panel.xyplot(x, y, type = "b", col = data.col, ...)
-
-                                        # sub.dat <- na.omit(split.data[subscripts, ])
-                            sub.dat <- split.data[subscripts, ]
-
-                            if (nrow(sub.dat) > 0) {
-                                panel.abline(a = sub.dat[1, "intercept"],
-                                             b = sub.dat[1, "slope"] / 365,
-                                             col = trend$col[1], lwd = trend$lwd[1],
-                                             lty = trend$lty[1])
-                                panel.abline(a = sub.dat[1, "intercept.lower"],
-                                             b = sub.dat[1, "lower"] / 365,
-                                             col = trend$col[2], lwd = trend$lwd[2],
-                                             lty = trend$lty[2])
-                                panel.abline(a = sub.dat[1, "intercept.upper"],
-                                             b = sub.dat[1, "upper"] / 365,
-                                             col = trend$col[2], lwd = trend$lwd[2],
-                                             lty = trend$lty[2])
-
-                                ## for text on plot - % trend or not?
-                                slope <- "slope"
-                                lower <- "lower"
-                                upper <- "upper"
-                                units <- "units"
-
-                                if (slope.percent) {
-                                    slope <- "slope.percent"
-                                    lower <- "lower.percent"
-                                    upper <- "upper.percent"
-                                    units <- "%"
-                                }
-
-                                ## allow user defined slope text
-                                if (!is.null(slope.text)) {
-
-                                    slope.text <- slope.text
-                                    
-                                } else {
-
-                                    slope.text <- paste0(units, "/year")
-                                    
-                                }
-
-                                ## plot top, middle
-                                panel.text(mean(c(current.panel.limits()$xlim[2], current.panel.limits()$xlim[1])),
-                                           current.panel.limits()$ylim[1] + lab.frac *
-                                           (current.panel.limits()$ylim[2] - current.panel.limits()$ylim[1]),
-                                           paste(round(sub.dat[1, slope], dec.place), " ", "[",
-                                                 round(sub.dat[1, lower], dec.place), ", ",
-                                                 round(sub.dat[1, upper], dec.place), "] ",
-                                                 slope.text, " ", sub.dat[1, "p.stars"], sep = ""),
-                                           cex = lab.cex, adj = c(0.5, 1), col = text.col, font = 2)
-                            }
-                        })
-
-                                        #reset for extra.args
-    xyplot.args<- listUpdate(xyplot.args, extra.args)
-
-                                        #plot
-    plt <- do.call(xyplot, xyplot.args)
-
-
-    ## output ######################################################################################
-
-    if (length(type) == 1) plot(plt) else plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
-    newdata <- list(main.data = split.data, res2 = res2, subsets = c("main.data", "res2"))
-    output <- list(plot = plt, data = newdata, call = match.call())
-    class(output) <- "openair"
-
-    invisible(output)
-
+      extra.args$skip <- skip
+  }
+  if(!"skip" %in% names(extra.args))
+    extra.args$skip <- FALSE
+  
+  ## proper names of labelling ###################################################
+  strip.dat <- strip.fun(split.data, type, auto.text)
+  strip <- strip.dat[[1]]
+  strip.left <- strip.dat[[2]]
+  pol.name <- strip.dat[[3]]
+  
+  #### calculate slopes etc ###############################################################################
+  
+  split.data <- transform(split.data, slope = 365 * b, intercept = a,
+                          intercept.lower = lower.a, intercept.upper = upper.a,
+                          lower = 365 * lower.b, upper = 365 * upper.b)
+  
+  ## aggregated results
+  
+  res2 <- group_by_(split.data, type, "p.stars") %>% 
+    summarise_each(funs(mean(., na.rm = TRUE)))
+  
+  ## calculate percentage changes in slope and uncertainties
+  ## need start and end dates (in days) to work out concentrations at those points
+  ## percentage change defind as 100.(C.end/C.start -1) / duration
+  
+  
+  start <- group_by_(split.data, type) %>% 
+    do(head(., 1))
+  
+  end <- group_by_(split.data, type) %>% 
+    do(tail(., 1))
+  
+  percent.change <- merge(start, end, by = type, suffixes = c(".start", ".end"))
+  
+  percent.change <-
+    transform(percent.change,
+              slope.percent = 100 * 365 *
+                ((slope.start * as.numeric(date.end) / 365 + intercept.start) /
+                   (slope.start * as.numeric(date.start) / 365 + intercept.start) - 1
+                ) /
+                (as.numeric(date.end) - as.numeric(date.start)))
+  ## got upper/lower intercepts mixed up To FIX?
+  percent.change <-
+    transform(percent.change,
+              lower.percent = 100 * 365 *
+                ((lower.start * as.numeric(date.end) / 365 + intercept.lower.start) /
+                   (
+                     lower.start * as.numeric(date.start) / 365 + intercept.lower.start
+                   ) - 1
+                ) /
+                (as.numeric(date.end) - as.numeric(date.start)))
+  
+  percent.change <-
+    transform(percent.change,
+              upper.percent = 100 * 365 *
+                ((upper.start * as.numeric(date.end) / 365 + intercept.upper.start) /
+                   (
+                     upper.start * as.numeric(date.start) / 365 + intercept.upper.start
+                   ) - 1
+                ) /
+                (as.numeric(date.end) - as.numeric(date.start)))
+  
+  percent.change <- percent.change[ ,  c(type, "slope.percent", 
+                                         "lower.percent", "upper.percent")]
+  
+  split.data <- merge(split.data, percent.change, by = type)
+  
+  res2 <- merge(res2, percent.change, by = type)
+  ## #######################################################################################
+  
+  
+  temp <- paste(type, collapse = "+")
+  myform <- formula(paste("conc ~ date| ", temp, sep = ""))
+  
+  gap <- (max(split.data$date) - min(split.data$date)) / 80
+  if (is.null(xlim)) xlim <- range(split.data$date) + c(-1 * gap, gap)
+  
+  xyplot.args <- list(x = myform, data = split.data,
+                      xlab = quickText(xlab, auto.text),
+                      par.strip.text = list(cex = 0.8),
+                      as.table = TRUE,
+                      xlim = xlim,
+                      strip = strip,
+                      strip.left = strip.left,
+                      scales = list(x = list(at = date.at, format = date.format,
+                                             relation = x.relation),
+                                    y = list(relation = y.relation, rot = 0)),
+                      
+                      panel = function(x, y, subscripts,...){
+                        ## year shading
+                        panel.shade(split.data, start.year, end.year,
+                                    ylim = current.panel.limits()$ylim, shade)
+                        panel.grid(-1, 0)
+                        
+                        panel.xyplot(x, y, type = "b", col = data.col, ...)
+                        
+                        # sub.dat <- na.omit(split.data[subscripts, ])
+                        sub.dat <- split.data[subscripts, ]
+                        
+                        if (nrow(sub.dat) > 0) {
+                          panel.abline(a = sub.dat[1, "intercept"],
+                                       b = sub.dat[1, "slope"] / 365,
+                                       col = trend$col[1], lwd = trend$lwd[1],
+                                       lty = trend$lty[1])
+                          panel.abline(a = sub.dat[1, "intercept.lower"],
+                                       b = sub.dat[1, "lower"] / 365,
+                                       col = trend$col[2], lwd = trend$lwd[2],
+                                       lty = trend$lty[2])
+                          panel.abline(a = sub.dat[1, "intercept.upper"],
+                                       b = sub.dat[1, "upper"] / 365,
+                                       col = trend$col[2], lwd = trend$lwd[2],
+                                       lty = trend$lty[2])
+                          
+                          ## for text on plot - % trend or not?
+                          slope <- "slope"
+                          lower <- "lower"
+                          upper <- "upper"
+                          units <- "units"
+                          
+                          if (slope.percent) {
+                            slope <- "slope.percent"
+                            lower <- "lower.percent"
+                            upper <- "upper.percent"
+                            units <- "%"
+                          }
+                          
+                          ## allow user defined slope text
+                          if (!is.null(slope.text)) {
+                            
+                            slope.text <- slope.text
+                            
+                          } else {
+                            
+                            slope.text <- paste0(units, "/year")
+                            
+                          }
+                          
+                          ## plot top, middle
+                          panel.text(mean(c(current.panel.limits()$xlim[2], 
+                                            current.panel.limits()$xlim[1])),
+                                     current.panel.limits()$ylim[1] + lab.frac *
+                                       (current.panel.limits()$ylim[2] - 
+                                          current.panel.limits()$ylim[1]),
+                                     paste(round(sub.dat[1, slope], dec.place), " ", "[",
+                                           round(sub.dat[1, lower], dec.place), ", ",
+                                           round(sub.dat[1, upper], dec.place), "] ",
+                                           slope.text, " ", sub.dat[1, "p.stars"], sep = ""),
+                                     cex = lab.cex, adj = c(0.5, 1), col = text.col, font = 2)
+                        }
+                      })
+  
+  #reset for extra.args
+  xyplot.args<- listUpdate(xyplot.args, extra.args)
+  
+  #plot
+  plt <- do.call(xyplot, xyplot.args)
+  
+  
+  ## output ######################################################################################
+  
+  if (length(type) == 1) plot(plt) else 
+    plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+  
+  newdata <- list(main.data = split.data, res2 = res2, 
+                  subsets = c("main.data", "res2"))
+  output <- list(plot = plt, data = newdata, call = match.call())
+  class(output) <- "openair"
+  
+  invisible(output)
+  
 }
 
 
 
 panel.shade <- function(split.data, start.year, end.year, ylim, shade = "grey95") {
-
-     x1 <- as.POSIXct(seq(ISOdate(start.year - 6, 1, 1),
-                         ISOdate(end.year + 5, 1, 1), by = "2 years"), "GMT")
-    x2 <- as.POSIXct(seq(ISOdate(start.year + 1 - 6, 1, 1),
-                         ISOdate(end.year + 5, 1, 1), by = "2 years"), "GMT")
-
-
-    if (class(split.data$date)[1]  == "Date") {x1 <- as.Date(x1)
-                                               x2 <- as.Date(x2)
-                                           }
-
-    rng <- range(split.data$conc, na.rm = TRUE) ## range of data
-    y1 <- min(split.data$conc, na.rm = TRUE) - 0.1 * abs(rng[2] - rng[1])
-    y2 <- max(split.data$conc, na.rm = TRUE) + 0.1 * abs(rng[2] - rng[1])
-
-    ## if user selects specific limits
-
-    if (!missing(ylim)) {
-        y1 <- ylim[1] - 0.1 * abs(ylim[2] - ylim[1])
-        y2 <- ylim[2] + 0.1 * abs(ylim[2] - ylim[1])
-    }
-
-    sapply(seq_along(x1), function(x) lpolygon(c(x1[x], x1[x], x2[x], x2[x]),
-                                               c(y1, y2, y2, y1),
-                                               col = shade, border = "grey95"))
+  
+  x1 <- as.POSIXct(seq(ISOdate(start.year - 6, 1, 1),
+                       ISOdate(end.year + 5, 1, 1), by = "2 years"), "GMT")
+  x2 <- as.POSIXct(seq(ISOdate(start.year + 1 - 6, 1, 1),
+                       ISOdate(end.year + 5, 1, 1), by = "2 years"), "GMT")
+  
+  
+  if (class(split.data$date)[1]  == "Date") {x1 <- as.Date(x1)
+  x2 <- as.Date(x2)
+  }
+  
+  rng <- range(split.data$conc, na.rm = TRUE) ## range of data
+  y1 <- min(split.data$conc, na.rm = TRUE) - 0.1 * abs(rng[2] - rng[1])
+  y2 <- max(split.data$conc, na.rm = TRUE) + 0.1 * abs(rng[2] - rng[1])
+  
+  ## if user selects specific limits
+  
+  if (!missing(ylim)) {
+    y1 <- ylim[1] - 0.1 * abs(ylim[2] - ylim[1])
+    y2 <- ylim[2] + 0.1 * abs(ylim[2] - ylim[1])
+  }
+  
+  sapply(seq_along(x1), function(x) lpolygon(c(x1[x], x1[x], x2[x], x2[x]),
+                                             c(y1, y2, y2, y1),
+                                             col = shade, border = "grey95"))
 }
 
 MKstats <- function(x, y, alpha, autocor) {
-
-    estimates <- regci(as.numeric(x), y, alpha = alpha, autocor = autocor)$regci
-
-    p <- estimates[2, 5]
-
-    if (p >= 0.1) stars <- ""
-    if (p < 0.1 & p >= 0.05) stars <- "+"
-    if (p < 0.05 & p >= 0.01) stars <- "*"
-    if (p < 0.01 & p >= 0.001) stars <- "**"
-    if (p < 0.001) stars <- "***"
-
-    results <- suppressWarnings(data.frame(date = x, a = estimates[1, 3], b = estimates[2, 3],
-                                           upper.a = estimates[1, 1],
-                                           upper.b = estimates[2, 2],
-                                           lower.a = estimates[1, 2],
-                                           lower.b = estimates[2, 1],  p = p, p.stars = stars))
-    results
+  
+  estimates <- regci(as.numeric(x), y, alpha = alpha, autocor = autocor)$regci
+  
+  p <- estimates[2, 5]
+  
+  if (p >= 0.1) stars <- ""
+  if (p < 0.1 & p >= 0.05) stars <- "+"
+  if (p < 0.05 & p >= 0.01) stars <- "*"
+  if (p < 0.01 & p >= 0.001) stars <- "**"
+  if (p < 0.001) stars <- "***"
+  
+  results <- suppressWarnings(data.frame(date = x, a = estimates[1, 3], b = estimates[2, 3],
+                                         upper.a = estimates[1, 1],
+                                         upper.b = estimates[2, 2],
+                                         lower.a = estimates[1, 2],
+                                         lower.b = estimates[2, 1],  p = p, p.stars = stars,
+                                         stringsAsFactors = FALSE))
+  results
 }
