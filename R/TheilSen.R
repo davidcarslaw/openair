@@ -366,7 +366,8 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
       
       if (deseason) {
         ## interpolate missing data
-        mydata[[pollutant]] <- approx(mydata[[pollutant]], n = length(mydata[[pollutant]]))$y
+        mydata[[pollutant]] <- approx(mydata[[pollutant]], 
+                                      n = length(mydata[[pollutant]]))$y
         
         myts <- ts(mydata[[pollutant]], start = c(start.year, start.month),
                    end = c(end.year, end.month), frequency = 12)
@@ -415,28 +416,35 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   
   ## special wd layout
   #(type field in results.grid called type not wd)
-  if (length(type) == 1 & type[1] == "wd" & is.null(extra.args$layout)) {
+  if (length(type) == 1 &
+      type[1] == "wd" & is.null(extra.args$layout)) {
     ## re-order to make sensible layout
     ## starting point code as of ManKendall
     wds <-  c("NW", "N", "NE", "W", "E", "SW", "S", "SE")
     split.data$wd <- ordered(split.data$wd, levels = wds)
-    wd.ok <- sapply(wds, function (x) {if (x %in% unique(split.data$wd)) FALSE else TRUE })
+    wd.ok <-
+      sapply(wds, function (x) {
+        if (x %in% unique(split.data$wd))
+          FALSE
+        else
+          TRUE
+      })
     skip <- c(wd.ok[1:4], TRUE, wd.ok[5:8])
     split.data$wd <- factor(split.data$wd)
     extra.args$layout <- c(3, 3)
-    if(!"skip" %in% names(extra.args))
+    if (!"skip" %in% names(extra.args))
       extra.args$skip <- skip
   }
   if(!"skip" %in% names(extra.args))
     extra.args$skip <- FALSE
   
-  ## proper names of labelling ###################################################
+  ## proper names of labelling #######################################
   strip.dat <- strip.fun(split.data, type, auto.text)
   strip <- strip.dat[[1]]
   strip.left <- strip.dat[[2]]
   pol.name <- strip.dat[[3]]
   
-  #### calculate slopes etc ###############################################################################
+  #### calculate slopes etc ###########################################
   
   split.data <- transform(split.data, slope = 365 * b, intercept = a,
                           intercept.lower = lower.a, intercept.upper = upper.a,
@@ -447,10 +455,10 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   res2 <- group_by_(split.data, type, "p.stars") %>% 
     summarise_each(funs(mean(., na.rm = TRUE)))
   
-  ## calculate percentage changes in slope and uncertainties
-  ## need start and end dates (in days) to work out concentrations at those points
-  ## percentage change defind as 100.(C.end/C.start -1) / duration
-  
+  ## calculate percentage changes in slope and uncertainties need
+  ## start and end dates (in days) to work out concentrations at those
+  ## points percentage change defind as 100.(C.end/C.start -1) /
+  ## duration
   
   start <- group_by_(split.data, type) %>% 
     do(head(., 1))
@@ -494,7 +502,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   split.data <- merge(split.data, percent.change, by = type)
   
   res2 <- merge(res2, percent.change, by = type)
-  ## #######################################################################################
+  ## #################################################################
   
   
   temp <- paste(type, collapse = "+")
@@ -584,7 +592,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   plt <- do.call(xyplot, xyplot.args)
   
   
-  ## output ######################################################################################
+  ## output ##########################################################
   
   if (length(type) == 1) plot(plt) else 
     plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
@@ -600,7 +608,8 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
 
 
 
-panel.shade <- function(split.data, start.year, end.year, ylim, shade = "grey95") {
+panel.shade <- function(split.data, start.year, end.year, ylim, 
+                        shade = "grey95") {
   
   x1 <- as.POSIXct(seq(ISOdate(start.year - 6, 1, 1),
                        ISOdate(end.year + 5, 1, 1), by = "2 years"), "GMT")
@@ -640,11 +649,18 @@ MKstats <- function(x, y, alpha, autocor) {
   if (p < 0.01 & p >= 0.001) stars <- "**"
   if (p < 0.001) stars <- "***"
   
-  results <- suppressWarnings(data.frame(date = x, a = estimates[1, 3], b = estimates[2, 3],
-                                         upper.a = estimates[1, 1],
-                                         upper.b = estimates[2, 2],
-                                         lower.a = estimates[1, 2],
-                                         lower.b = estimates[2, 1],  p = p, p.stars = stars,
-                                         stringsAsFactors = FALSE))
+  results <-
+    data.frame(
+      date = x,
+      a = estimates[1, 3],
+      b = estimates[2, 3],
+      upper.a = estimates[1, 1],
+      upper.b = estimates[2, 2],
+      lower.a = estimates[1, 2],
+      lower.b = estimates[2, 1],
+      p = p,
+      p.stars = stars,
+      stringsAsFactors = FALSE
+    )
   results
 }
