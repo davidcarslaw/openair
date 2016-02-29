@@ -93,8 +93,7 @@ axis and title labelling options (such as \code{xlab},
 \code{quickText} to handle routine formatting.}
 }
 \value{
-Returns original data frame with a new (factor) variable 
-  \code{cluster} giving the calculated cluster.
+Returns clusters in a data frame.
 }
 \description{
 This function carries out cluster analysis of HYSPLIT back 

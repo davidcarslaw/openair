@@ -88,8 +88,7 @@
 ##' @export
 ##' @useDynLib openair
 ##' @import cluster
-##' @return Returns original data frame with a new (factor) variable 
-##'   \code{cluster} giving the calculated cluster.
+##' @return Returns clusters in a data frame.
 ##' @seealso \code{\link{importTraj}}, \code{\link{trajPlot}},
 ##'   \code{\link{trajLevel}}
 ##' @author David Carslaw
@@ -269,7 +268,10 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       
     }
     
-    invisible(traj)
+    
+    output <- list(plot = plt, data = agg, call = match.call())
+    class(output) <- "openair"
+    invisible(output)
     
 }
 

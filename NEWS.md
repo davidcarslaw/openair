@@ -6,6 +6,7 @@
 - add origin marker to `trajCluster`
 - better date padding when >1 type
 - fix some `dplyr` bugs where some functions would fail with two types
+- retrun data frame of cluster information in `trajCluster`
 
 # Changes in openair 1.7 [2016-02-22]
 
