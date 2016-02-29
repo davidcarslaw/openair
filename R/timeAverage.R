@@ -93,8 +93,10 @@
 ##' @param type \code{type} allows \code{timeAverage} to be applied to
 ##'   cases where there are groups of data that need to be split and
 ##'   the function applied to each group. The most common example is
-##'   data with mutiple sites identified with a column represeneting
-##'   site name e.g. \code{type = "site"}.
+##'   data with mutiple sites identified with a column representing
+##'   site name e.g. \code{type = "site"}. More genearlly, \code{type}
+##'   should be used where the date repeats for a particular grouping
+##'   variable.
 ##' @param percentile The percentile level in \% used when 
 ##'   \code{statistic = "percentile"}. The default is 95.
 ##' @param start.date A string giving a start date to use. This is 
