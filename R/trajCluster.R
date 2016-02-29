@@ -211,6 +211,9 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
         group_by_(., "cluster", "hour.inc", type) %>% 
         summarise_each(funs(mean))
       
+      # the data frame we want to return before it is transformed
+      resRtn <- agg
+      
       ## proportion of total clusters
       
       clusters <- group_by_(traj, type, "cluster") %>% 
@@ -269,7 +272,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     }
     
     
-    output <- list(plot = plt, data = agg, call = match.call())
+    output <- list(plot = plt, data = resRtn, call = match.call())
     class(output) <- "openair"
     invisible(output)
     
