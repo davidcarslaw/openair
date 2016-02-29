@@ -3,6 +3,7 @@
 - Fix regression in `timeAverage` when expanding time series 
 - Remove `dplyr` warnings in `TheilSen`
 - Keep season order correct when averaging time is season and `type = "season"` in `TheilSen` and `smoothTrend`
+- add origin marker to `trajCluster`
 
 # Changes in openair 1.7 [2016-02-22]
 

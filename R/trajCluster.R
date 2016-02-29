@@ -82,6 +82,8 @@
 ##'   \code{lattice:levelplot} and \code{cutData}. Similarly, common 
 ##'   axis and title labelling options (such as \code{xlab}, 
 ##'   \code{ylab}, \code{main}) are passed to \code{levelplot} via 
+##' @param origin If true a filled circle dot is shown to mark the
+##'     receptor point.
 ##'   \code{quickText} to handle routine formatting.
 ##' @export
 ##' @useDynLib openair
@@ -114,7 +116,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
                         map.cols = "grey40", map.alpha = 0.4,
                         projection = "lambert",
                         parameters = c(51, 51), orientation = c(90, 0, 0),
-                        by.type = FALSE, ...) {
+                        by.type = FALSE, origin = TRUE, ...) {
   freq <- NULL
   
   if (tolower(method) == "euclid")  
@@ -192,6 +194,15 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       
     }
     
+    # trajectory origin
+    origin_xy <- head(subset(traj, hour.inc == 0), 1) ## origin
+    tmp <- mapproject(x = origin_xy[["lon"]][1],
+                      y = origin_xy[["lat"]][1],
+                      projection = projection,
+                      parameters = parameters,
+                      orientation = orientation)
+    receptor <- c(tmp$x, tmp$y)
+    
     if (plot) {
       ## calculate the mean trajectories by cluster
       
@@ -245,7 +256,8 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
                         map.cols = map.cols, map.alpha = map.alpha,
                         projection = projection, parameters = parameters,
                         orientation = orientation, traj = TRUE, trajLims = trajLims,
-                        clusters = clusters)
+                        clusters = clusters, receptor = receptor, 
+                        origin = origin)
       
       ## reset for Args
       plot.args <- listUpdate(plot.args, Args)
