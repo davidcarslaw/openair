@@ -616,7 +616,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     }
 
     
-    results <- group_by_(mydata, type) %>%
+    results <- group_by_(mydata, .dots = type) %>%
       do(prepare.grid(.))
     
     ## format

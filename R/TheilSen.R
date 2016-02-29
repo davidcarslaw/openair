@@ -399,18 +399,18 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
     ## now calculate trend, uncertainties etc ###########################
     if (nrow(results) < 6) return() ## need enough data to calculate trend
     MKresults <- MKstats(results$date, results$conc, alpha, autocor)
-    
+   
     ## make sure missing data are put back in for plotting
     results <- merge(all.results, MKresults, by = "date", all = TRUE)
-    
+   
     results
   }
   
   
-  split.data <- group_by_(mydata, type) %>%
+  split.data <- group_by_(mydata, .dots = type) %>%
     do(process.cond(.))
   
-  
+
   if (nrow(split.data) < 2) return()
   
   

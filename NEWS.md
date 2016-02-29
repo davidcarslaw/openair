@@ -4,6 +4,8 @@
 - Remove `dplyr` warnings in `TheilSen`
 - Keep season order correct when averaging time is season and `type = "season"` in `TheilSen` and `smoothTrend`
 - add origin marker to `trajCluster`
+- better date padding when >1 type
+- fix some `dplyr` bugs where some functions would fail with two types
 
 # Changes in openair 1.7 [2016-02-22]
 

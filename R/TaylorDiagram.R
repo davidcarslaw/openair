@@ -396,13 +396,13 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
     }
 
     
-    results <- group_by_(mydata, group, type) %>%
+    results <- group_by_(mydata, .dots = c(group, type)) %>%
       do(calcStats(., obs = obs, mod = mod[1]))
     
     results.new <- NULL
     
     if (combine) 
-      results.new <- group_by_(mydata, group, type) %>%
+      results.new <- group_by_(mydata, .dots = c(group, type)) %>%
         do(calcStats(., obs = obs, mod = mod[2]))
       
 

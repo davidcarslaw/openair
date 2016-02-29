@@ -538,7 +538,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     vars <- unique(c(vars, "wd", "ws"))
   
   if (!is.na(z)) vars <- c(vars, z)
-  mydata <- checkPrep(mydata, vars, type)
+  mydata <- checkPrep(mydata, unique(vars), type)
   
   ## remove missing data except for time series where we want to show gaps
   ## this also removes missing factors

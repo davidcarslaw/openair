@@ -370,7 +370,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
     theStrip <- strip
 
-    if (date.pad) mydata <- date.pad(mydata)
+    if (date.pad) mydata <- date.pad(mydata, type = type)
 
     mydata <- cutData(mydata, type, ...)
 
@@ -391,12 +391,16 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
         } else {
             
-            mydata <- group_by_(mydata, type) %>%
-              do(timeAverage(., pollutant = pollutant, avg.time = avg.time, 
+            mydata <- timeAverage(mydata, pollutant = pollutant, 
+                                  type = type,
+                                  avg.time = avg.time, 
                                 data.thresh = data.thresh,
-                                percentile = percentile))
+                                percentile = percentile)
         }
     }
+    
+    # timeAverage drops type if default
+    if (type == "default") mydata$default <- "default"
     
     if (!is.null(windflow)) {
         

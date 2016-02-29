@@ -273,7 +273,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     if (!is.na(interval)) {
       
       mydata <- group_by_(mydata, .dots = type) %>%
-        do(date.pad2(., interval = interval))
+        do(date.pad2(., type = type, interval = interval))
       
       ## make sure missing types are inserted
       mydata[[type]] <- mydata[[type]][1]
@@ -422,7 +422,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       ## need to make sure all data are present..
       ## print out time interval assumed for input time series
       ## useful for debugging
-      if (!padded) mydata <- date.pad(mydata)
+      if (!padded) mydata <- date.pad(mydata, type = type)
       
       if (avg.time != "season") mydata$cuts <- cut(mydata$date, avg.time)
       
@@ -510,7 +510,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     ## fill missing gaps
     if (avg.time != "season") {
       
-      avmet <- date.pad2(avmet, interval = avg.time)
+      avmet <- date.pad2(avmet, type = type, interval = avg.time)
     }
     
     avmet

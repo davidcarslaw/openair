@@ -59,122 +59,93 @@ find.time.interval <- function(dates) {
     seconds
 }
 
-###############################################################################
-## when interval is known
-date.pad2 <- function(mydata, type = "default", interval = "month") {
-    
-    site <- NULL
-
-    date.pad.site <- function(mydata, type = type, interval = interval) {
-        ## function to fill missing data gaps
-        ## assume no missing data to begin with
-        if (type == "site" ) site <- mydata$site[1]
-
-        ## pad out missing data for better looking plot
-        start.date <- min(mydata$date, na.rm = TRUE)
-        end.date <- max(mydata$date, na.rm = TRUE)
-        
-        all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
-        mydata <- mydata %>% full_join(all.dates, by = "date")
 
 
-        if (type == "site") mydata$site <- site
-        mydata
-    }
-
-    if (type == "site") {
-        
-        mydata <- group_by(mydata, site) %>%
-          do(date.pad.site(., interval = interval))
-        
-    } else {
-        
-        mydata <- date.pad.site(mydata, type, interval)
-        
-    }
-    mydata
+date.pad2 <-  function(mydata, type = "default", interval = "month") {
+  
+  # assume by the time we get here the data have been split into types
+  # This means we just need to pad out the missing types based on first
+  # line.
+ 
+  start.date <- min(mydata$date, na.rm = TRUE)
+  end.date <- max(mydata$date, na.rm = TRUE)
+  
+  all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
+  mydata <- mydata %>% full_join(all.dates, by = "date")
+  
+  # add in missing types if gaps are made
+  mydata[type] <- mydata[1, type]
+  
+  # make sure order is correct
+  mydata <- arrange(mydata, date)
+  
+  return(mydata)
+  
 }
-## #################################################################
-## Function to pad out missing time data, optionally dealing with
-## conditioning variable "site"
-date.pad <- function(mydata, print.int = FALSE) {
-    site <- NULL
 
-    ## time zone of data
+
+## #################################################################
+# Function to pad out missing time data
+# assumes data have already been split by type, so just take first
+# tries to work out time interval of input based on most common gap
+# can print assumed gap to screen
+
+date.pad <- function(mydata, type = type, print.int = FALSE) {
+ 
+  ## time zone of data
   TZ <- attr(mydata$date, "tzone")
   if (is.null(TZ)) TZ <- "GMT" ## as it is on Windows for BST
+  
+  ## function to fill missing data gaps
+  ## assume no missing data to begin with
+  
+  
+  ## pad out missing data
+  start.date <- min(mydata$date, na.rm = TRUE)
+  end.date <- max(mydata$date, na.rm = TRUE)
+  
+  ## interval in seconds
+  interval <- find.time.interval(mydata$date)
+  
+  ## equivalent number of days, used to refine interval for month/year
+  days <- as.numeric(strsplit(interval, split = " ")[[1]][1]) /
+    24 / 3600
+  
+  ## find time interval of data
+  if (class(mydata$date)[1] == "Date") {
     
-    date.pad.site <- function(mydata, print.int) {
-        ## function to fill missing data gaps
-        ## assume no missing data to begin with
-
-        if ("site" %in% names(mydata)) siteName <- mydata$site[1]
-
-        ## pad out missing data
-        start.date <- min(mydata$date, na.rm = TRUE)
-        end.date <- max(mydata$date, na.rm = TRUE)
-
-        ## interval in seconds
-        interval <- find.time.interval(mydata$date)
-
-        ## equivalent number of days, used to refine interval for month/year
-        days <- as.numeric(strsplit(interval, split = " ")[[1]][1]) /
-            24 / 3600
-
-        ## find time interval of data
-        if (class(mydata$date)[1] == "Date") {
-
-            interval <- paste(days, "day")
-
-        } else {
-            ## this will be in seconds
-            interval <- find.time.interval(mydata$date)
-
-        }
-
-        ## better interval, most common interval in a year
-        if (days == 31) interval <- "month"
-        if (days %in% c(365, 366)) interval <- "year"
-
-        ## only pad if there are missing data
-        if (length(unique(diff(mydata$date))) != 1L) {
-            
-            all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
-            mydata <- mydata %>% full_join(all.dates, by = "date")
-
-            ## check to see if padding data introduces blank site names
-            if ("site" %in% names(mydata)) {
-                if (any(is.na(mydata$site))) {
-
-                    id <- which(is.na(mydata$site))
-                    mydata$site[id] <- siteName
-                }
-            }
-        }
-        
-        ## return the same TZ that we started with
-        attr(mydata$date, "tzone") <- TZ
-
-                
-        if (print.int) print(paste0("Input data time interval assumed is ", interval))
-
-        ## make sure no gaps in site name are left
-        if ("code" %in% names(mydata)) mydata$code[1]
-
-        mydata
-    }
-
-    if ("site" %in% names(mydata)) {
-
-           mydata <- group_by(mydata, site) %>%
-            do(date.pad.site(., print.int))
-
-    } else {
-        mydata <- date.pad.site(mydata, print.int)
-    }
-
+    interval <- paste(days, "day")
     
-    mydata
+  } else {
+    ## this will be in seconds
+    interval <- find.time.interval(mydata$date)
+    
+  }
+  
+  ## better interval, most common interval in a year
+  if (days == 31) interval <- "month"
+  if (days %in% c(365, 366)) interval <- "year"
+  
+  ## only pad if there are missing data
+  if (length(unique(diff(mydata$date))) != 1L) {
+    
+    all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
+    mydata <- mydata %>% full_join(all.dates, by = "date")
+    
+    # add missing types
+    mydata[type] <- mydata[1, type]
+  
+  }
+  
+  ## return the same TZ that we started with
+  attr(mydata$date, "tzone") <- TZ
+  
+  if (print.int) print(paste0("Input data time interval assumed is ", interval))
+  
+  # make sure date-sorted
+  mydata <- arrange(mydata, date)
+  
+  mydata
 }
 #############################################################################################
 

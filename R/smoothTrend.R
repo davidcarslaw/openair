@@ -289,7 +289,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
   
   if (length(percentile) > 1) {
     
-    mydata <- group_by_(mydata, type, "variable") %>%
+    mydata <- group_by_(mydata, .dots = c(type, "variable")) %>%
       do(calcPercentile(., pollutant = "value",
                         avg.time = avg.time, percentile = percentile, 
                         data.thresh = data.thresh))
@@ -311,7 +311,9 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
   }
   
   # timeAverage drops type if default
-  if (type == "default") mydata$default <- "default"
+  if (length(type) == 1 && type[1] == "default") 
+    mydata$default <- "default"
+  
   process.cond <- function(mydata) {
     
     ## return if nothing to analyse
@@ -335,7 +337,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     if (deseason) {
       ## interpolate missing data
       mydata[["value"]] <- approx(mydata[["value"]], n = length(mydata$value))$y
-      
+    
       myts <- ts(mydata[["value"]], start = c(start.year, start.month),
                  end = c(end.year, end.month), frequency = 12)
       
@@ -343,7 +345,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
       
       deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
       deseas <- as.vector(deseas)
-      
+   
       results <- data.frame(date = mydata$date, conc = as.vector(deseas),
                             stringsAsFactors = FALSE)
       
@@ -351,19 +353,19 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
       
       results <- data.frame(date = mydata$date, conc = mydata[["value"]],
                             stringsAsFactors = FALSE)
-      
+    
     }
     
     results
     
   }
   
-  res <- group_by_(mydata, type, "variable") %>%
+  res <- group_by_(mydata, .dots = c(type, "variable")) %>%
     do(process.cond(.))
   
   ## smooth fits so that they can be returned to the user
   
-  fit <- group_by_(res, type, "variable") %>%
+  fit <- group_by_(res, .dots = c(type, "variable")) %>%
     do(fitGam(., x = "date", y = "conc", k = k, ...))
   
   class(fit$date) <- c("POSIXt", "POSIXct")

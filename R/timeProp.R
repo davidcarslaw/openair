@@ -195,14 +195,15 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   tzone <- attr(mydata$date, "tzone")
   
   # make sure we have a full time series
-  mydata <- date.pad(mydata)
+  mydata <- date.pad(mydata, type = type)
   
   # cut data
   mydata <- cutData(mydata, c(type, proportion))
   
   # overall averages by time interval
   aves <- timeAverage(select_(mydata, "date", type, pollutant), 
-                      avg.time, type = type, start.date = min(mydata$date))
+                      avg.time = avg.time, type = type, 
+                      start.date = min(mydata$date))
   
   # timeAverage drops type if default
   if (type == "default") aves$default <- mydata$default[1]

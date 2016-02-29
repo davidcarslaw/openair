@@ -158,34 +158,34 @@ modStats <- function(mydata,  mod = "mod", obs = "obs",
 
     ## calculate the various statistics
 
-    if ("n" %in% statistic) res.n <- group_by_(mydata, type) %>% 
+    if ("n" %in% statistic) res.n <- group_by_(mydata, .dots = type) %>% 
       do(n(., mod, obs)) else res.n <- NULL
     
-    if ("FAC2" %in% statistic) res.FAC <- group_by_(mydata, type) %>% 
+    if ("FAC2" %in% statistic) res.FAC <- group_by_(mydata, .dots = type) %>% 
       do(FAC2(., mod, obs)) else res.FAC <- NULL
     
-    if ("MB" %in% statistic) res.MB <- group_by_(mydata, type) %>% 
+    if ("MB" %in% statistic) res.MB <- group_by_(mydata, .dots = type) %>% 
       do(MB(., mod, obs)) else res.MB <- NULL
     
-    if ("MGE" %in% statistic) res.MGE <- group_by_(mydata, type) %>% 
+    if ("MGE" %in% statistic) res.MGE <- group_by_(mydata, .dots = type) %>% 
       do(MGE(., mod, obs)) else res.MGE <- NULL
     
-    if ("MMB" %in% statistic) res.NMB <- group_by_(mydata, type) %>% 
+    if ("MMB" %in% statistic) res.NMB <- group_by_(mydata, .dots = type) %>% 
       do(NMB(., mod, obs)) else res.NMB <- NULL
     
-    if ("NMGE" %in% statistic) res.NMGE <- group_by_(mydata, type) %>% 
+    if ("NMGE" %in% statistic) res.NMGE <- group_by_(mydata, .dots = type) %>% 
       do(NMGE(., mod, obs)) else res.NMGE <- NULL
     
-    if ("RMSE" %in% statistic) res.RMSE <- group_by_(mydata, type) %>% 
+    if ("RMSE" %in% statistic) res.RMSE <- group_by_(mydata, .dots = type) %>% 
       do(RMSE(., mod, obs)) else res.RMSE <- NULL
   
-    if ("r" %in% statistic) res.r <- group_by_(mydata, type) %>% 
+    if ("r" %in% statistic) res.r <- group_by_(mydata, .dots = type) %>% 
       do(r(., mod, obs)) else res.r <- NULL
     
-    if ("COE" %in% statistic) res.COE <- group_by_(mydata, type) %>% 
+    if ("COE" %in% statistic) res.COE <- group_by_(mydata, .dots = type) %>% 
       do(COE(., mod, obs)) else res.COE <- NULL
   
-    if ("IOA" %in% statistic) res.IOA <- group_by_(mydata, type) %>% 
+    if ("IOA" %in% statistic) res.IOA <- group_by_(mydata, .dots = type) %>% 
       do(IOA(., mod, obs)) else res.IOA <- NULL
    
 
