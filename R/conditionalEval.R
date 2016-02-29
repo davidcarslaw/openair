@@ -282,13 +282,14 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
     ## function to process ordinary statistics using bootstrap confidence intervals
 
-    procData <- function(mydata, statistic = statistic, var.obs = var.obs, var.mod = var.mod, ...) {
+    procData <- function(mydata, statistic = statistic, var.obs = var.obs, 
+                         var.mod = var.mod, ...) {
         ## only numerics if not clustering
         if (!other) mydata <- mydata[ , sapply(mydata, class) %in% c("numeric", "integer"),
                                        drop = FALSE]
 
-        obs <- mydata[ , obs]
-        pred <- mydata[ , mod]
+        obs <- mydata[[obs]]
+        pred <- mydata[[mod]]
         min.d <- min(c(obs, pred))
         max.d <- max(c(obs, pred))
         bins <- seq(floor(min.d), ceiling(max.d), length = bins)
@@ -304,8 +305,6 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
         res <- split(mydata, pred.cut)
 
         statFun <- function(x, ...) {
-
-            x <- as.matrix(x)
 
             tmpFun <- function(i, x, ...) {
                 x <- x[sample(1:nrow(x), nrow(x), replace = TRUE), ]
@@ -350,7 +349,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
         clust.results$.id <- as.numeric(clust.results$.id)
 
-        pol.name <- sapply(levels(clust.results[ , "statistic"]), function(x) quickText(x, auto.text))
+        pol.name <- sapply(levels(clust.results[["statistic"]]), function(x) quickText(x, auto.text))
         strip <- strip.custom(factor.levels = pol.name)
 
         if (type == "default") {
