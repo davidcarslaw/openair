@@ -392,7 +392,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
         } else {
             
             mydata <- timeAverage(mydata, pollutant = pollutant, 
-                                  type = type,
+                                  type = type, statistic = statistic,
                                   avg.time = avg.time, 
                                 data.thresh = data.thresh,
                                 percentile = percentile)
