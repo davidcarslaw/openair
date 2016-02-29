@@ -78,12 +78,12 @@
 ##' @param by.type The percentage of the total number of trajectories
 ##'   is given for all data by default. Setting \code{by.type = TRUE}
 ##'   will make each panel add up to 100.
+##' @param origin If \code{TRUE} a filled circle dot is shown to mark the
+##'     receptor point.   
 ##' @param ... Other graphical parameters passed onto 
 ##'   \code{lattice:levelplot} and \code{cutData}. Similarly, common 
 ##'   axis and title labelling options (such as \code{xlab}, 
 ##'   \code{ylab}, \code{main}) are passed to \code{levelplot} via 
-##' @param origin If true a filled circle dot is shown to mark the
-##'     receptor point.
 ##'   \code{quickText} to handle routine formatting.
 ##' @export
 ##' @useDynLib openair
@@ -117,7 +117,9 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
                         projection = "lambert",
                         parameters = c(51, 51), orientation = c(90, 0, 0),
                         by.type = FALSE, origin = TRUE, ...) {
-  freq <- NULL
+  
+  # silence R check
+  freq <- hour.inc <- NULL
   
   if (tolower(method) == "euclid")  
     method <- "distEuclid" else method <- "distAngle"

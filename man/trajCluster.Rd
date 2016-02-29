@@ -7,7 +7,8 @@
 trajCluster(traj, method = "Euclid", n.cluster = 5, plot = TRUE,
   type = "default", cols = "Set1", split.after = FALSE, map.fill = TRUE,
   map.cols = "grey40", map.alpha = 0.4, projection = "lambert",
-  parameters = c(51, 51), orientation = c(90, 0, 0), by.type = FALSE, ...)
+  parameters = c(51, 51), orientation = c(90, 0, 0), by.type = FALSE,
+  origin = TRUE, ...)
 }
 \arguments{
 \item{traj}{An openair trajectory data frame resulting from the 
@@ -81,6 +82,9 @@ longitude coordinates in the map.}
 \item{by.type}{The percentage of the total number of trajectories
 is given for all data by default. Setting \code{by.type = TRUE}
 will make each panel add up to 100.}
+
+\item{origin}{If \code{TRUE} a filled circle dot is shown to mark the
+receptor point.}
 
 \item{...}{Other graphical parameters passed onto 
 \code{lattice:levelplot} and \code{cutData}. Similarly, common 
