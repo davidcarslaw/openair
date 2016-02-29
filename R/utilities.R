@@ -61,7 +61,7 @@ find.time.interval <- function(dates) {
 
 
 
-date.pad2 <-  function(mydata, type = "default", interval = "month") {
+date.pad2 <-  function(mydata, type = NULL, interval = "month") {
   
   # assume by the time we get here the data have been split into types
   # This means we just need to pad out the missing types based on first
@@ -74,7 +74,8 @@ date.pad2 <-  function(mydata, type = "default", interval = "month") {
   mydata <- mydata %>% full_join(all.dates, by = "date")
   
   # add in missing types if gaps are made
-  mydata[type] <- mydata[1, type]
+  if (!is.null(type))
+    mydata[type] <- mydata[1, type]
   
   # make sure order is correct
   mydata <- arrange(mydata, date)
@@ -90,7 +91,7 @@ date.pad2 <-  function(mydata, type = "default", interval = "month") {
 # tries to work out time interval of input based on most common gap
 # can print assumed gap to screen
 
-date.pad <- function(mydata, type = type, print.int = FALSE) {
+date.pad <- function(mydata, type = NULL, print.int = FALSE) {
  
   ## time zone of data
   TZ <- attr(mydata$date, "tzone")
@@ -132,8 +133,9 @@ date.pad <- function(mydata, type = type, print.int = FALSE) {
     all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
     mydata <- mydata %>% full_join(all.dates, by = "date")
     
-    # add missing types
-    mydata[type] <- mydata[1, type]
+    # add missing types - if type is present
+    if (!is.null(type))
+      mydata[type] <- mydata[1, type]
   
   }
   
