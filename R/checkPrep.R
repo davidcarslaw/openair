@@ -128,7 +128,8 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
     
     if (any(dst(mydata$date))) {
       warning("Detected data with Daylight Saving Time, converting to UTC/GMT")
-      mydata$date <- force_tz(mydata$date, "GMT") 
+      attr(mydata$date, "tzone") <- "GMT"
+     
       
     }
     
