@@ -93,7 +93,10 @@ axis and title labelling options (such as \code{xlab},
 \code{quickText} to handle routine formatting.}
 }
 \value{
-Returns clusters in a data frame.
+Returns a list with two data components. The first
+  (\code{data}) contains the orginal data with the cluster
+  identified. The second (\code{results}) contains the data used
+  to plot the clustered trajectories.
 }
 \description{
 This function carries out cluster analysis of HYSPLIT back 

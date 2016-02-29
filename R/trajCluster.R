@@ -88,7 +88,10 @@
 ##' @export
 ##' @useDynLib openair
 ##' @import cluster
-##' @return Returns clusters in a data frame.
+##' @return Returns a list with two data components. The first
+##'   (\code{data}) contains the orginal data with the cluster
+##'   identified. The second (\code{results}) contains the data used
+##'   to plot the clustered trajectories.
 ##' @seealso \code{\link{importTraj}}, \code{\link{trajPlot}},
 ##'   \code{\link{trajLevel}}
 ##' @author David Carslaw
@@ -272,7 +275,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     }
     
     
-    output <- list(plot = plt, data = resRtn, call = match.call())
+    output <- list(plot = plt, data = traj, results = resRtn, call = match.call())
     class(output) <- "openair"
     invisible(output)
     
