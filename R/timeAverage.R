@@ -91,12 +91,14 @@
 ##'   option --- see below. Not used if \code{avg.time = "default"}.
 ##'   
 ##' @param type \code{type} allows \code{timeAverage} to be applied to
-##'   cases where there are groups of data that need to be split and
-##'   the function applied to each group. The most common example is
-##'   data with mutiple sites identified with a column representing
-##'   site name e.g. \code{type = "site"}. More genearlly, \code{type}
-##'   should be used where the date repeats for a particular grouping
-##'   variable.
+##'   cases where there are groups of data that need to be split and 
+##'   the function applied to each group. The most common example is 
+##'   data with multiple sites identified with a column representing 
+##'   site name e.g. \code{type = "site"}. More generally, \code{type}
+##'   should be used where the date repeats for a particular grouping 
+##'   variable. However, if type is not supplied the data will still
+##'   be averaged but the grouping variables (character or factor)
+##'   will be dropped.
 ##' @param percentile The percentile level in \% used when 
 ##'   \code{statistic = "percentile"}. The default is 95.
 ##' @param start.date A string giving a start date to use. This is 
@@ -176,7 +178,17 @@
 ##' min15 <-  timeAverage(mydata, avg.time = "15 min", fill = TRUE)
 ##' }
 ##' 
+##' # average by grouping variable
+##' \dontrun{
+##' dat <- importAURN(c("kc1", "my1"), year = 2011:2013)
+##' timeAverage(dat, avg.time = "year", type = "site")
 ##' 
+##' # can also retain site code
+##' timeAverage(dat, avg.time = "year", type = c("site", "code"))
+##' 
+##' # or just average all the data, dropping site/code
+##' timeAverage(dat, avg.time = "year")
+##' }
 timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
                         statistic = "mean", type = "default", percentile = NA,
                         start.date = NA, end.date = NA, interval = NA,
