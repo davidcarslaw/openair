@@ -379,6 +379,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   if (!"lwd" %in% names(Args))
     Args$lwd <- 1
   
+  if (!"fill" %in% names(Args))
+    Args$fill <- "transparent"
+  
   if (!"lty" %in% names(Args))
     Args$lty <- 1
   
@@ -683,7 +686,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     
     if (key & npol > 1) {
       if (plot.type == "p") {
-        key <- list(points = list(col = myColors[1:npol]),
+        key <- list(points = list(col = myColors[1:npol], fill = Args$fill,
+                                  cex = Args$cex),
                     pch = if("pch" %in% names(Args)) Args$pch else 1,
                     text = list(lab = pol.name, cex = 0.8),
                     space = key.position, columns = key.columns,

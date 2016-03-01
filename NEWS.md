@@ -1,5 +1,7 @@
 # Changes in openair 1.7-99
 
+- Allow `scatterPlot` to have control over plot symbol fill and colour (for symbols 21 to 25). Use `cols` and `fill` to control.
+
 # Changes to openair 1.7.3 [2016-03-01]
 
 - Fix regression in `timeAverage` when expanding time series 
