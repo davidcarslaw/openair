@@ -418,7 +418,7 @@ GoogleMapsPlot <- function(mydata,
         cex <- if(is.numeric(cex.range)) mean(cex.range) else 1
     } else {
        if(is.character(cex)){
-           cex <- as.numeric(mydata[, cex[1]])
+           cex <- as.numeric(mydata[[cex[1]]])
            temp <- range(cex, na.rm = TRUE, finite = TRUE)
            my.range <- if(length(na.omit(temp)) < 2)
                            FALSE else temp
