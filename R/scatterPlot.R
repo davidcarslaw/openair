@@ -385,6 +385,9 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
   if (!"lty" %in% names(Args))
     Args$lty <- 1
   
+  if (!"cex" %in% names(Args))
+    Args$cex <- 1
+  
   if (!"layout" %in% names(Args))
     Args$layout <- NULL
   
@@ -786,7 +789,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                               subscripts, windflow, ...)
       {
         
-        
+       
         ## maximum number of actual groups in this panel
         groupMax <- 
           length(unique(factor(mydata$MyGroupVar[subscripts])))
