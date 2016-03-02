@@ -826,11 +826,19 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                        col.line = myColors[group.number],
                        lty = lty, lwd = lwd,
                        as.table = TRUE,...)
+     
+        # check if grouping variable to use correct name in equation
+        y.nam <-
+          if (group == "MyGroupVar")
+            y.nam
+        else
+          mydata[["MyGroupVar"]][subscripts[1]]
         
-        if (linear & npol == 1)
+        if (linear)
           panel.linear(x, y, col = "black", myColors[group.number],
                        lwd = 1, lty = 5, x.nam = x.nam,
-                       y.nam = y.nam, se = ci,  ...)
+                       y.nam = y.nam, 
+                       se = ci,  group.number = group.number, ...)
         
         
         if (smooth)
@@ -1605,7 +1613,7 @@ panel.linear <- function (x, y, form = y ~ x, method = "loess", x.nam, y.nam, ..
   
   x <- current.panel.limits()$xlim[1]
   
-  y <- 0.95 * current.panel.limits()$ylim[2]
+  y <- (1 - group.number / 20) * current.panel.limits()$ylim[2]
   
   r.sq <- summary(mod)$r.squared
   slope <- coef(mod)[2]
