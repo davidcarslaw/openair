@@ -835,7 +835,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
           mydata[["MyGroupVar"]][subscripts[1]]
         
         if (linear)
-          panel.linear(x, y, col = "black", myColors[group.number],
+          panel.linear(x, y, col = "black", myColors = Args$fill,
                        lwd = 1, lty = 5, x.nam = x.nam,
                        y.nam = y.nam, 
                        se = ci,  group.number = group.number, ...)
@@ -1579,7 +1579,8 @@ panel.linear <- function (x, y, form = y ~ x, method = "loess", x.nam, y.nam, ..
                           se = TRUE, level = 0.95, n = 100, col = plot.line$col,
                           col.se = col, lty = plot.line$lty, lwd = plot.line$lwd,
                           alpha = plot.line$alpha, alpha.se = 0.25, border = NA,
-                          subscripts, group.number, group.value, type, col.line,
+                          subscripts, group.number, myColors = myColors,
+                          group.value, type, col.line,
                           col.symbol, fill, pch, cex, font, fontface, fontfamily)
 {
   ## get rid of R check annoyances
@@ -1588,6 +1589,9 @@ panel.linear <- function (x, y, form = y ~ x, method = "loess", x.nam, y.nam, ..
   
   thedata <- data.frame(x = x, y = y)
   thedata <- na.omit(thedata)
+  
+  # make sure equation is shown
+  if (length(myColors) == 1) myColors <- "black"
   
   tryCatch({mod <- lm(y ~ x, data = thedata)
   
@@ -1624,7 +1628,8 @@ panel.linear <- function (x, y, form = y ~ x, method = "loess", x.nam, y.nam, ..
                                    "[", x.nam, "]", symb,
                                    format(intercept, digits = 2),
                                    " R2=",  format(r.sq, digits = 2),
-                                   sep = "")), cex = 0.7, pos = 4)
+                                   sep = "")), cex = 0.7, pos = 4,
+             col = myColors[group.number])
   
   }, error = function(x) return)
 }
