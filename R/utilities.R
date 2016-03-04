@@ -1001,3 +1001,21 @@ round_any <- function(x, accuracy, f = round) {
 prettyGap <- function(x, n = 100) {
     return(diff(pretty(x, n))[1])
 }
+
+# function to check variables are numeric, if not force with warning
+checkNum <- function(mydata, vars) {
+ 
+  for (i in seq_along(vars)) {
+    
+    if (!is.numeric(mydata[[vars[i]]])) {
+     
+      mydata[[vars[i]]] <- as.numeric(as.character(mydata[[vars[i]]]))
+     
+      warning(paste(vars[i], "is not numeric, forcing to numeric..."),
+              call. = FALSE)
+    }
+  }
+  
+  return(mydata)
+}
+
