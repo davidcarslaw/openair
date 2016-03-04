@@ -375,6 +375,9 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
     ## data checks, for base and new data if necessary
     
     mydata <- checkPrep(mydata, vars, type)
+    
+    # check mod and obs are numbers
+    mydata <- checkNum(mydata, vars = c(obs, mod))
 
     ## remove missing data
     mydata <- na.omit(mydata)
