@@ -176,8 +176,10 @@ cutData <- function(x, type = "default", hemisphere = "northern",
     ## if type is time based and already exists in data, 
     ## just return data
     
-    if (type %in% dateTypes & type %in% names(x)) 
+    if (type %in% dateTypes & type %in% names(x)) {
+      message(paste("Using", type, "in data frame and not date-based openair version."))
       return(x)
+    }
     
     conds <- c("default", "year", "hour", "month", "season", 
                "weekday", "wd", "site", "weekend", "monthyear", 
