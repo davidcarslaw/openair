@@ -3,6 +3,7 @@
 - Allow `scatterPlot` to have control over plot symbol fill and colour (for symbols 21 to 25). Use `cols` and `fill` to control.
 - `scatterPlot` can now fit more than one linear equation when there is a grouping variable
 - give message when using a users' own `type` such as month, year etc.
+- fix ordering of bars on `timeProp`, remove `box.width` option
 
 # Changes to openair 1.7.3 [2016-03-01]
 
