@@ -64,6 +64,10 @@ quickText <- function(text, auto.text = TRUE){
     ans <- gsub("pm10", "' 'PM' [10] * '", ans)
     ans <- gsub("pm1", "' 'PM' [1] * '", ans)
     ans <- gsub("PM1", "' 'PM' [1] * '", ans)
+    ans <- gsub("PM4", "' 'PM' [4] * '", ans)
+    ans <- gsub("pm4", "' 'PM' [4] * '", ans)
+    ans <- gsub("PMtot", "' 'PM' [total] * '", ans)
+    ans <- gsub("pmtot", "' 'PM' [total] * '", ans)
     ans <- gsub("pmc", "' 'PM' [coarse] * '", ans)
     
     ans <- gsub("pmcoarse", "' 'PM' [coarse] * '", ans)
