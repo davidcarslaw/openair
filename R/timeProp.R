@@ -87,8 +87,6 @@
 ##'   have more control. For format types see \code{strptime}. For 
 ##'   example, to format the date like \dQuote{Jan-2012} set 
 ##'   \code{date.format = "\%b-\%Y"}.
-##' @param box.width The width of the boxes for \code{panel.boxplot}.
-##'   A value of 1 means that there is no gap between the boxes.
 ##' @param key.columns Number of columns to be used in the key. With 
 ##'   many pollutants a single column can make to key too wide. The
 ##'   user can thus choose to use several columns by setting
@@ -128,7 +126,7 @@
 timeProp <- function(mydata, pollutant = "nox", proportion = "cluster", 
                      avg.time = "day", type = "default", statistic = "mean",
                      normalise = FALSE, cols = "Set1", date.breaks = 7,
-                     date.format = NULL, box.width = 1, key.columns = 1,
+                     date.format = NULL, key.columns = 1,
                      key.position = "right", key.title = proportion, 
                      auto.text = TRUE, ...) {
   
@@ -282,7 +280,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
                  function (x) quickText(x, auto.text))
   
   # make sure we know order of data frame for adding other dates
-  results <- arrange_(results, type, "date", proportion)
+  results <- arrange_(results, type, "date")
   
   # xleft, xright used by plot function
   results$xleft <- results$date
@@ -293,6 +291,9 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   # the few colours used for scaling
   scaleCol <- openColours(cols, nProp)
   
+  # levels of proportion
+  thelevels <- levels(results[[proportion]])
+  
   # add colour directly to data frame for easy reference
   cols <- data.frame(cols = scaleCol, stringsAsFactors = FALSE)
   cols[[proportion]] <- as.character(levels(results[[proportion]]))
@@ -300,9 +301,9 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   # need to merge based on character, not factor
   results[[proportion]] <- as.character(results[[proportion]])
   
-  results <- merge(results, cols, by = proportion, all = TRUE)
+  results <- full_join(results, cols, by = proportion)
   
-  results[[proportion]] <- factor(results[[proportion]])
+  results[[proportion]] <- factor(results[[proportion]], levels = thelevels)
   
   # remove missing so we can do a cumsum
   results <- na.omit(results)

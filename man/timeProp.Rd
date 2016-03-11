@@ -7,8 +7,8 @@
 timeProp(mydata, pollutant = "nox", proportion = "cluster",
   avg.time = "day", type = "default", statistic = "mean",
   normalise = FALSE, cols = "Set1", date.breaks = 7, date.format = NULL,
-  box.width = 1, key.columns = 1, key.position = "right",
-  key.title = proportion, auto.text = TRUE, ...)
+  key.columns = 1, key.position = "right", key.title = proportion,
+  auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing the fields \code{date}, 
@@ -87,9 +87,6 @@ sensibly there can be some situations where the user wishes to
 have more control. For format types see \code{strptime}. For 
 example, to format the date like \dQuote{Jan-2012} set 
 \code{date.format = "\%b-\%Y"}.}
-
-\item{box.width}{The width of the boxes for \code{panel.boxplot}.
-A value of 1 means that there is no gap between the boxes.}
 
 \item{key.columns}{Number of columns to be used in the key. With 
 many pollutants a single column can make to key too wide. The
