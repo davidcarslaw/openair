@@ -760,6 +760,11 @@ polarPlot <-
     if (missing(key.footer)) key.footer <- "normalised \nlevel"
   }
   
+  # correlation notation
+  if (statistic == "r")
+    if (missing(key.footer)) key.footer <- 
+    paste0("corr(", pollutant[1], ", ", pollutant[2], ")")
+  
   
   ## auto-scaling
   nlev <- 200  ## preferred number of intervals
