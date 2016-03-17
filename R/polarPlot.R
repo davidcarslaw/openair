@@ -917,6 +917,9 @@ calCor <- function(data, mydata, x = "ws", y = "wd", pol_1 = "nox",
   # function to work out weighted correlation between two surfaces
   # uses Gaussian kernel smoothing to weight wd/ws
   
+  #silence R check
+  wd <- NULL
+  
   ws1 <- data[[1]] # centre of ws
   wd1 <- data[[2]] # centre of wd
   
@@ -945,7 +948,7 @@ calCor <- function(data, mydata, x = "ws", y = "wd", pol_1 = "nox",
   
   #  scatterPlot(mydata, x= "ws", y = "wd", z = "weight", method = "level", col = "jet")
   
-  r <- boot::corr(cbind(thedata[[pol_1]], thedata[[pol_2]]), 
+  r <- corr(cbind(thedata[[pol_1]], thedata[[pol_2]]), 
                   w = thedata$weight)
   
   result <- data.frame(ws1, wd1, r)
@@ -954,3 +957,14 @@ calCor <- function(data, mydata, x = "ws", y = "wd", pol_1 = "nox",
   
 }
 
+
+# taken directly from the boot package to save importing
+corr <- function(d, w = rep(1, nrow(d)) / nrow(d))
+{
+  s <- sum(w)
+  m1 <- sum(d[, 1L] * w) / s
+  m2 <- sum(d[, 2L] * w) / s
+  (sum(d[, 1L] * d[, 2L] * w) / s - m1 * m2) / 
+    sqrt((sum(d[, 1L] ^ 2 * w) / s - m1 ^ 2) * 
+           (sum(d[, 2L] ^ 2 * w) / s - m2 ^ 2))
+}
