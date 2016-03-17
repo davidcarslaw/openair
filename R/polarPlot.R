@@ -386,6 +386,9 @@ polarPlot <-
     percentile <- 50
   }
   
+  if (statistic == "r" && length(pollutant) != 2)
+    stop("Correlation statistic requires two pollutants.")
+  
   # names of variables for use later
   nam.x <- x
   nam.wd <- wd
@@ -612,7 +615,7 @@ polarPlot <-
     
     # statistic is the weighted correlation coefficient
     } else {
-    
+
       binned <- rowwise(ws.wd) %>% 
         do(calCor(., mydata, x = nam.x, y = nam.wd, 
                   pol_1 = pollutant[1], pol_2 = pollutant[2]))
@@ -917,8 +920,6 @@ calCor <- function(data, mydata, x = "ws", y = "wd", pol_1 = "nox",
   # function to work out weighted correlation between two surfaces
   # uses Gaussian kernel smoothing to weight wd/ws
   
-  #silence R check
-  wd <- NULL
   
   ws1 <- data[[1]] # centre of ws
   wd1 <- data[[2]] # centre of wd
@@ -931,7 +932,7 @@ calCor <- function(data, mydata, x = "ws", y = "wd", pol_1 = "nox",
   mydata$ws.scale <-  (2 * pi) ^ -0.5 * exp(-0.5 * mydata$ws.scale ^ 2)
   
   # wd direction scaling, use Gaussian kernel
-  mydata$wd.scale <- mydata[[wd]] - wd1
+  mydata$wd.scale <- mydata[[y]] - wd1
   id <- which(mydata$wd.scale < 0)
   if (length(id) > 0) mydata$wd.scale[id] <- mydata$wd.scale[id] + 360
   id <- which(mydata$wd.scale > 180)
