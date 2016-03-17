@@ -635,7 +635,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
         if (length(id > 0)) tmp[id] <- 360
         tmp <- table(tmp) ## number of sectors spanned
         vars <- grep("Interval[1-9]", names(results)) ## the frequencies
-        results[, vars] <- results[, vars] * mean(tmp) /tmp
+        results[-1, vars] <- results[-1, vars] * mean(tmp) /tmp
     }
 
     ## proper names of labelling###########################################

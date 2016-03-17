@@ -4,6 +4,7 @@
 - `scatterPlot` can now fit more than one linear equation when there is a grouping variable
 - give message when using a users' own `type` such as month, year etc.
 - fix ordering of bars on `timeProp`, remove `box.width` option
+- fix bug introduced in 1.7-4 that affected `windRose` bias correction (thanks to Eric Christensen)
 
 # Changes to openair 1.7.3 [2016-03-01]
 
