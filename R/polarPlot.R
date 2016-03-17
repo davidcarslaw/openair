@@ -386,6 +386,9 @@ polarPlot <-
     percentile <- 50
   }
   
+  # names of variables for use later
+  nam.x <- x
+  nam.wd <- wd
 
   if (length(type) > 2) {stop("Maximum number of types is 2.")}
   
@@ -395,7 +398,7 @@ polarPlot <-
     stop("Can only have one pollutant when uncertainty = TRUE")
   
   if (!statistic %in% c("mean", "median", "frequency", "max", "stdev",
-                        "weighted.mean", "percentile", "cpf")) 
+                        "weighted.mean", "percentile", "cpf", "r")) 
     stop (paste("statistic '", statistic, "' not recognised", sep = ""))
   
   if (length(weights) != 3) stop ("weights should be of length 3.")
@@ -465,7 +468,9 @@ polarPlot <-
   # compasrions where data are in columns Can also do more than one
   # pollutant and a single type that is not "default", in which case
   # pollutant becomes a conditioning variable
-  if (length(pollutant) > 1) {
+  
+  # if statistic is 'r' we need the data for two pollutants in columns
+  if (length(pollutant) > 1 && statistic != "r") {
     
     if (length(type) > 1) {
       warning(paste("Only type = '", type[1], "' will be used", sep = ""))
@@ -571,6 +576,8 @@ polarPlot <-
     x <- cut(mydata[[x]], breaks = seq(0, max.ws, length = 31), 
              include.lowest = TRUE)
     
+    if (statistic != "r") {
+    
     binned <- switch(
       statistic,
       frequency = tapply(mydata[[pollutant]], list(wd, x), function(x)
@@ -600,11 +607,25 @@ polarPlot <-
         quantile(x, probs = percentile / 100, na.rm = TRUE))
       
     )
-    
+  
     binned <- as.vector(t(binned))
     
+    # statistic is the weighted correlation coefficient
+    } else {
+    
+      binned <- rowwise(ws.wd) %>% 
+        do(calCor(., mydata, x = nam.x, y = nam.wd, 
+                  pol_1 = pollutant[1], pol_2 = pollutant[2]))
+      
+     binned <- binned$r
+      
+      
+    }
+    
+   
+    
     ## frequency - remove points with freq < min.bin
-    bin.len <- tapply(mydata[[pollutant]], list(x, wd), length)
+    bin.len <- tapply(mydata[[pollutant[1]]], list(x, wd), length)
     binned.len <- as.vector(bin.len)
     
     ## apply weights
@@ -618,6 +639,9 @@ polarPlot <-
     
     ## set missing to NA
     ids <- which(binned.len < min.bin)
+    binned[ids] <- NA
+    
+    ids <- which(is.na(binned.len))
     binned[ids] <- NA
    
     if (force.positive) n <- 0.5 else n <- 1
@@ -883,6 +907,50 @@ polarPlot <-
   class(output) <- "openair"
   
   invisible(output)
+  
+  }
+
+
+calCor <- function(data, mydata, x = "ws", y = "wd", pol_1 = "nox", 
+                   pol_2 = "pm10") {
+  
+  # function to work out weighted correlation between two surfaces
+  # uses Gaussian kernel smoothing to weight wd/ws
+  
+  ws1 <- data[[1]] # centre of ws
+  wd1 <- data[[2]] # centre of wd
+  
+  # scale ws
+  mydata$ws.scale <- 20 * (mydata[[x]] - ws1) / 
+    (max(mydata[[x]], na.rm = TRUE) - min(mydata[[x]], na.rm = TRUE))
+  
+  # Gaussian kernel
+  mydata$ws.scale <-  (2 * pi) ^ -0.5 * exp(-0.5 * mydata$ws.scale ^ 2)
+  
+  # wd direction scaling, use Gaussian kernel
+  mydata$wd.scale <- mydata[[wd]] - wd1
+  id <- which(mydata$wd.scale < 0)
+  if (length(id) > 0) mydata$wd.scale[id] <- mydata$wd.scale[id] + 360
+  id <- which(mydata$wd.scale > 180)
+  if (length(id) > 0)  mydata$wd.scale[id] <- abs(mydata$wd.scale[id] - 360)
+  
+  mydata$wd.scale <- 3 * mydata$wd.scale * 2 * pi / 360
+  mydata$wd.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * mydata$wd.scale ^ 2)
+  
+  mydata$weight <- mydata$ws.scale * mydata$wd.scale
+  mydata$weight <- mydata$weight / max(mydata$weight, na.rm = TRUE)
+  
+  thedata <- select_(mydata, pol_1, pol_2, "weight")
+  thedata <- na.omit(thedata)
+  
+  #  scatterPlot(mydata, x= "ws", y = "wd", z = "weight", method = "level", col = "jet")
+  
+  r <- boot::corr(cbind(thedata[[pol_1]], thedata[[pol_2]]), 
+                  w = thedata$weight)
+  
+  result <- data.frame(ws1, wd1, r)
+  
+  return(result)
   
 }
 
