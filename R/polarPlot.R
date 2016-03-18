@@ -772,9 +772,20 @@ polarPlot <-
   }
   
   # correlation notation
-  if (statistic == "r")
-    if (missing(key.footer)) key.footer <- 
-    paste0("corr(", pollutant[1], ", ", pollutant[2], ")")
+  if (statistic == "r") {
+    if (missing(key.footer)) 
+      key.footer <- 
+        paste0("corr(", pollutant[1], ", ", pollutant[2], ")")
+    
+    # make sure smoothing does not results in r>1 or <-1
+    # sometimes happens with little data at edges
+    id <- which(res$z > 1)
+    if (length(id) > 0) res$z[id] <- 1
+    
+    id <- which(res$z < -1)
+    if (length(id) > 0) res$z[id] <- -1
+    
+  }
   
   
   ## auto-scaling
