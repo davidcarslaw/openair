@@ -106,29 +106,40 @@
 ##'   columns and the second the rows.
 ##' @param statistic The statistic that should be applied to each wind
 ##'   speed/direction bin. Can be \dQuote{mean} (default), 
-##'   \dQuote{median}, \dQuote{max} (maximum), \dQuote{frequency}.
-##'   \dQuote{stdev} (standard deviation), \dQuote{weighted.mean} or
-##'   \dQuote{cpf} (Conditional Probability Function). Because of the
-##'   smoothing involved, the colour scale for some of these
-##'   statistics is only to provide an indication of overall pattern
-##'   and should not be interpreted in concentration units e.g. for
-##'   \code{statistic = "weighted.mean"} where the bin mean is
-##'   multiplied by the bin frequency and divided by the total 
-##'   frequency. In many cases using \code{polarFreq} will be better.
-##'   Setting \code{statistic = "weighted.mean"} can be useful because
-##'   it provides an indication of the concentration * frequency of
-##'   occurrence and will highlight the wind speed/direction 
-##'   conditions that dominate the overall mean.
+##'   \dQuote{median}, \dQuote{max} (maximum), \dQuote{frequency}. 
+##'   \dQuote{stdev} (standard deviation), \dQuote{weighted.mean}, 
+##'   \dQuote{cpf} (Conditional Probability Function) or \dQuote{r}
+##'   (correlation coefficient). Because of the smoothing involved,
+##'   the colour scale for some of these statistics is only to provide
+##'   an indication of overall pattern and should not be interpreted
+##'   in concentration units e.g. for \code{statistic =
+##'   "weighted.mean"} where the bin mean is multiplied by the bin
+##'   frequency and divided by the total frequency. In many cases
+##'   using \code{polarFreq} will be better. Setting \code{statistic =
+##'   "weighted.mean"} can be useful because it provides an indication
+##'   of the concentration * frequency of occurrence and will
+##'   highlight the wind speed/direction conditions that dominate the
+##'   overall mean.
 ##'   
-##'   When \code{statistic = "cpf"} the conditional probability
+##'   When \code{statistic = "cpf"} the conditional probability 
 ##'   function (CPF) is plotted and a single (usually high) percentile
-##'   level is supplied. The CPF is defined as CPF = my/ny, where my
-##'   is the number of samples in the y bin (by default a wind
-##'   direction, wind speed interval) with mixing ratios greater than
+##'   level is supplied. The CPF is defined as CPF = my/ny, where my 
+##'   is the number of samples in the y bin (by default a wind 
+##'   direction, wind speed interval) with mixing ratios greater than 
 ##'   the \emph{overall} percentile concentration, and ny is the total
-##'   number of samples in the same wind sector (see Ashbaugh et al.,
-##'   1985). Note that percentile intervals can also be considered;
+##'   number of samples in the same wind sector (see Ashbaugh et al., 
+##'   1985). Note that percentile intervals can also be considered; 
 ##'   see \code{percentile} for details.
+##'   
+##'   When \code{statistic = "r"}, the Pearson correlation coefficient
+##'   is calculated for \emph{two} pollutants. The calculation
+##'   involves a weighted Pearson correlation coefficient, which is
+##'   weighted by Gaussian kernels for wind direction an the radial
+##'   variable (by default wind speed). More weight is assigned to
+##'   values close to a wind speed-direction interval. Kernel
+##'   weighting is used to ensure that all data are used rather than
+##'   relying on the potentially small number of values in a wind
+##'   speed-direction interval.
 ##' @param resolution Two plot resolutions can be set: \dQuote{normal}
 ##'   (the default) and \dQuote{fine}, for a smoother plot. It should
 ##'   be noted that plots with a \dQuote{fine} resolution can take
@@ -386,6 +397,12 @@ polarPlot <-
     percentile <- 50
   }
   
+  if (statistic == "r" && length(pollutant) != 2)
+    stop("Correlation statistic requires two pollutants.")
+  
+  # names of variables for use later
+  nam.x <- x
+  nam.wd <- wd
 
   if (length(type) > 2) {stop("Maximum number of types is 2.")}
   
@@ -395,7 +412,7 @@ polarPlot <-
     stop("Can only have one pollutant when uncertainty = TRUE")
   
   if (!statistic %in% c("mean", "median", "frequency", "max", "stdev",
-                        "weighted.mean", "percentile", "cpf")) 
+                        "weighted.mean", "percentile", "cpf", "r")) 
     stop (paste("statistic '", statistic, "' not recognised", sep = ""))
   
   if (length(weights) != 3) stop ("weights should be of length 3.")
@@ -465,7 +482,9 @@ polarPlot <-
   # compasrions where data are in columns Can also do more than one
   # pollutant and a single type that is not "default", in which case
   # pollutant becomes a conditioning variable
-  if (length(pollutant) > 1) {
+  
+  # if statistic is 'r' we need the data for two pollutants in columns
+  if (length(pollutant) > 1 && statistic != "r") {
     
     if (length(type) > 1) {
       warning(paste("Only type = '", type[1], "' will be used", sep = ""))
@@ -571,6 +590,8 @@ polarPlot <-
     x <- cut(mydata[[x]], breaks = seq(0, max.ws, length = 31), 
              include.lowest = TRUE)
     
+    if (statistic != "r") {
+    
     binned <- switch(
       statistic,
       frequency = tapply(mydata[[pollutant]], list(wd, x), function(x)
@@ -600,11 +621,25 @@ polarPlot <-
         quantile(x, probs = percentile / 100, na.rm = TRUE))
       
     )
-    
+  
     binned <- as.vector(t(binned))
     
+    # statistic is the weighted correlation coefficient
+    } else {
+
+      binned <- rowwise(ws.wd) %>% 
+        do(calCor(., mydata, x = nam.x, y = nam.wd, 
+                  pol_1 = pollutant[1], pol_2 = pollutant[2]))
+      
+     binned <- binned$r
+      
+      
+    }
+    
+   
+    
     ## frequency - remove points with freq < min.bin
-    bin.len <- tapply(mydata[[pollutant]], list(x, wd), length)
+    bin.len <- tapply(mydata[[pollutant[1]]], list(x, wd), length)
     binned.len <- as.vector(bin.len)
     
     ## apply weights
@@ -619,8 +654,11 @@ polarPlot <-
     ## set missing to NA
     ids <- which(binned.len < min.bin)
     binned[ids] <- NA
-   
-    if (force.positive) n <- 0.5 else n <- 1
+    
+    # for removing missing data later
+    binned.len[ids] <- NA
+    
+     if (force.positive) n <- 0.5 else n <- 1
     
     ## no uncertainty to calculate
     if (!uncertainty) {
@@ -675,7 +713,7 @@ polarPlot <-
       wdp <- rep(y, rep(res, res))
       
       ## data with gaps caused by min.bin
-      all.data <- na.omit(data.frame(u, v, binned))
+      all.data <- na.omit(data.frame(u, v, binned.len))
       ind <- with(all.data, exclude.too.far(wsp, wdp, u, v, dist = 0.05))
       
       results$z[ind] <- NA
@@ -731,6 +769,22 @@ polarPlot <-
     res <- mutate(res, z = z / mean(z, na.rm = TRUE))
     
     if (missing(key.footer)) key.footer <- "normalised \nlevel"
+  }
+  
+  # correlation notation
+  if (statistic == "r") {
+    if (missing(key.footer)) 
+      key.footer <- 
+        paste0("corr(", pollutant[1], ", ", pollutant[2], ")")
+    
+    # make sure smoothing does not results in r>1 or <-1
+    # sometimes happens with little data at edges
+    id <- which(res$z > 1)
+    if (length(id) > 0) res$z[id] <- 1
+    
+    id <- which(res$z < -1)
+    if (length(id) > 0) res$z[id] <- -1
+    
   }
   
   
@@ -884,5 +938,61 @@ polarPlot <-
   
   invisible(output)
   
+  }
+
+
+calCor <- function(data, mydata, x = "ws", y = "wd", pol_1 = "nox", 
+                   pol_2 = "pm10") {
+  
+  # function to work out weighted correlation between two surfaces
+  # uses Gaussian kernel smoothing to weight wd/ws
+  
+  
+  ws1 <- data[[1]] # centre of ws
+  wd1 <- data[[2]] # centre of wd
+  
+  # scale ws
+  mydata$ws.scale <- 20 * (mydata[[x]] - ws1) / 
+    (max(mydata[[x]], na.rm = TRUE) - min(mydata[[x]], na.rm = TRUE))
+  
+  # Gaussian kernel
+  mydata$ws.scale <-  (2 * pi) ^ -0.5 * exp(-0.5 * mydata$ws.scale ^ 2)
+  
+  # wd direction scaling, use Gaussian kernel
+  mydata$wd.scale <- mydata[[y]] - wd1
+  id <- which(mydata$wd.scale < 0)
+  if (length(id) > 0) mydata$wd.scale[id] <- mydata$wd.scale[id] + 360
+  id <- which(mydata$wd.scale > 180)
+  if (length(id) > 0)  mydata$wd.scale[id] <- abs(mydata$wd.scale[id] - 360)
+  
+  mydata$wd.scale <- 3 * mydata$wd.scale * 2 * pi / 360
+  mydata$wd.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * mydata$wd.scale ^ 2)
+  
+  mydata$weight <- mydata$ws.scale * mydata$wd.scale
+  mydata$weight <- mydata$weight / max(mydata$weight, na.rm = TRUE)
+  
+  thedata <- select_(mydata, pol_1, pol_2, "weight")
+  thedata <- na.omit(thedata)
+  
+  #  scatterPlot(mydata, x= "ws", y = "wd", z = "weight", method = "level", col = "jet")
+  
+  r <- corr(cbind(thedata[[pol_1]], thedata[[pol_2]]), 
+                  w = thedata$weight)
+  
+  result <- data.frame(ws1, wd1, r)
+  
+  return(result)
+  
 }
 
+
+# taken directly from the boot package to save importing
+corr <- function(d, w = rep(1, nrow(d)) / nrow(d))
+{
+  s <- sum(w)
+  m1 <- sum(d[, 1L] * w) / s
+  m2 <- sum(d[, 2L] * w) / s
+  (sum(d[, 1L] * d[, 2L] * w) / s - m1 * m2) / 
+    sqrt((sum(d[, 1L] ^ 2 * w) / s - m1 ^ 2) * 
+           (sum(d[, 2L] ^ 2 * w) / s - m2 ^ 2))
+}
