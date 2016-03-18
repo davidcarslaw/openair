@@ -655,10 +655,10 @@ polarPlot <-
     ids <- which(binned.len < min.bin)
     binned[ids] <- NA
     
-    ids <- which(is.na(binned.len))
-    binned[ids] <- NA
-   
-    if (force.positive) n <- 0.5 else n <- 1
+    # for removing missing data later
+    binned.len[ids] <- NA
+    
+     if (force.positive) n <- 0.5 else n <- 1
     
     ## no uncertainty to calculate
     if (!uncertainty) {
@@ -713,7 +713,7 @@ polarPlot <-
       wdp <- rep(y, rep(res, res))
       
       ## data with gaps caused by min.bin
-      all.data <- na.omit(data.frame(u, v, binned))
+      all.data <- na.omit(data.frame(u, v, binned.len))
       ind <- with(all.data, exclude.too.far(wsp, wdp, u, v, dist = 0.05))
       
       results$z[ind] <- NA
