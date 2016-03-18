@@ -124,15 +124,6 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
     if (names(mydata)[1] != "date") 
       mydata <- mydata[c("date", setdiff(names(mydata), "date"))]
     
-    ## daylight saving time can cause terrible problems - best avoided!!
-    
-    if (any(dst(mydata$date))) {
-      warning("Detected data with Daylight Saving Time, converting to UTC/GMT")
-      attr(mydata$date, "tzone") <- "GMT"
-     
-      
-    }
-    
     ## check to see if there are any missing dates, stop if there are
     ids <- which(is.na(mydata$date))
     if (length(ids) > 0) {
@@ -140,6 +131,14 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
       mydata <- mydata[-ids, ]
       warning(paste("Missing dates detected, removing",
                     length(ids), "lines"), call. = FALSE)
+    }
+    
+    ## daylight saving time can cause terrible problems - best avoided!!
+    
+    if (any(dst(mydata$date))) {
+      warning("Detected data with Daylight Saving Time, converting to UTC/GMT")
+      attr(mydata$date, "tzone") <- "GMT"
+     
     }
     
   }
