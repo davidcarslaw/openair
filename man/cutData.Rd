@@ -2,30 +2,28 @@
 % Please edit documentation in R/cutData.R
 \name{cutData}
 \alias{cutData}
-\alias{cutDaylight}
 \title{Function to split data in different ways for conditioning}
 \usage{
-cutData(x, type = "default", hemisphere = "northern",
-  n.levels = 4, start.day, is.axis = FALSE, local.tz = NULL, ...)
-  
-  cutDaylight(x, latitude = 51.522393, longitude = -0.154700, ...)
+cutData(x, type = "default", hemisphere = "northern", n.levels = 4,
+  start.day = 1, is.axis = FALSE, local.tz = NULL, latitude = 51,
+  longitude = -0.5, ...)
 }
 \arguments{
 \item{x}{A data frame containing a field \code{date}.}
 
 \item{type}{A string giving the way in which the data frame should
-be split. Pre-defined values are: \dQuote{default},
-\dQuote{year}, \dQuote{hour}, \dQuote{month}, \dQuote{season},
-\dQuote{weekday}, \dQuote{site}, \dQuote{weekend},
-\dQuote{monthyear}, \dQuote{daylight}, \dQuote{dst} (daylight
+be split. Pre-defined values are: \dQuote{default}, 
+\dQuote{year}, \dQuote{hour}, \dQuote{month}, \dQuote{season}, 
+\dQuote{weekday}, \dQuote{site}, \dQuote{weekend}, 
+\dQuote{monthyear}, \dQuote{daylight}, \dQuote{dst} (daylight 
 saving time).
 
-\code{type} can also be the name of a numeric or factor. If a
-numeric column name is supplied \code{cutData} will split the
-data into four quantiles. Factors levels will be used to split
+\code{type} can also be the name of a numeric or factor. If a 
+numeric column name is supplied \code{cutData} will split the 
+data into four quantiles. Factors levels will be used to split 
 the data without any adjustment.}
 
-\item{hemisphere}{Can be \code{"northern"} or \code{"southern"},
+\item{hemisphere}{Can be \code{"northern"} or \code{"southern"}, 
 used to split data into seasons.}
 
 \item{n.levels}{Number of quantiles to split numeric data into.}
@@ -36,28 +34,30 @@ supplying an integer between 0 and 6. Sunday = 0, Monday = 1,
 \ldots For example to start the weekday plots on a Saturday, 
 choose \code{start.day = 6}.}
 
-\item{is.axis}{A logical (\code{TRUE}/\code{FALSE}), used to
+\item{is.axis}{A logical (\code{TRUE}/\code{FALSE}), used to 
 request shortened cut labels for axes.}
 
 \item{local.tz}{Used for identifying whether a date has daylight 
-savings time (DST) applied or not. Examples include
-\code{local.tz = "Europe/London"}, \code{local.tz =
-"America/New_York"} i.e. time zones that assume DST.
+savings time (DST) applied or not. Examples include 
+\code{local.tz = "Europe/London"}, \code{local.tz = 
+"America/New_York"} i.e. time zones that assume DST. 
 \url{http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones} 
 shows time zones that should be valid for most systems. It is 
 important that the original data are in GMT (UTC) or a fixed 
 offset from GMT. See \code{import} and the openair manual for 
 information on how to import data and ensure no DST is applied.}
 
-\item{...}{All additional parameters are passed on to next
-function(s). For example, with \code{cutData} all additional
-parameters are passed on to \code{cutDaylight} allowing direct
-access to \code{cutDaylight} via either \code{cutData} or any
-\code{openair} using \code{cutData} for \code{type}
-conditioning.}
+\item{latitude}{The decimal latitude used in \code{type =
+"daylight"}.}
+
+\item{longitude}{The decimal longitude. Note that locations west
+of Greenwich are negative.}
+
+\item{...}{All additional parameters are passed on to next 
+function(s).}
 }
 \value{
-Returns a data frame with a column \code{cond} that is
+Returns a data frame with a column \code{cond} that is 
   defined by \code{type}.
 }
 \description{
@@ -100,7 +100,7 @@ etc. These defintions will change of \code{hemisphere =
 sunset to give either daylight or nighttime. The cut is made by
 \code{cutDaylight} but more conveniently accessed via
 \code{cutData}, e.g. \code{cutData(mydata, type = "daylight",
-latitude=my.latitude, longitude=my.longitude)}. The daylight
+latitude = my.latitude, longitude = my.longitude)}. The daylight
 estimation, which is valid for dates between 1901 and 2099, is 
 made using the measurement location, date, time and astronomical
 algorithms to estimate the relative positions of the Sun and the

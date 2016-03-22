@@ -1,13 +1,3 @@
-#######################
-#file contains
-#scripts for:
-#######################
-#function: cutData
-#function: cutDaylight
-#
-
-
-
 ##' Function to split data in different ways for conditioning
 ##' 
 ##' Utility function to split data frames up in various ways for
@@ -48,7 +38,7 @@
 ##' sunset to give either daylight or nighttime. The cut is made by
 ##' \code{cutDaylight} but more conveniently accessed via
 ##' \code{cutData}, e.g. \code{cutData(mydata, type = "daylight",
-##' latitude=my.latitude, longitude=my.longitude)}. The daylight
+##' latitude = my.latitude, longitude = my.longitude)}. The daylight
 ##' estimation, which is valid for dates between 1901 and 2099, is 
 ##' made using the measurement location, date, time and astronomical
 ##' algorithms to estimate the relative positions of the Sun and the
@@ -91,24 +81,19 @@
 ##' from a column \code{date}. If a user already has a column with a 
 ##' name of one of the date-based types it will not be used.
 ##' 
-##' @aliases cutData cutDaylight
-##' @usage cutData(x, type = "default", hemisphere = "northern",
-##'   n.levels = 4, start.day, is.axis = FALSE, local.tz = NULL, ...)
-##'   
-##'   cutDaylight(x, latitude = 51.522393, longitude = -0.154700, ...)
 ##' @param x A data frame containing a field \code{date}.
 ##' @param type A string giving the way in which the data frame should
-##'   be split. Pre-defined values are: \dQuote{default},
-##'   \dQuote{year}, \dQuote{hour}, \dQuote{month}, \dQuote{season},
-##'   \dQuote{weekday}, \dQuote{site}, \dQuote{weekend},
-##'   \dQuote{monthyear}, \dQuote{daylight}, \dQuote{dst} (daylight
+##'   be split. Pre-defined values are: \dQuote{default}, 
+##'   \dQuote{year}, \dQuote{hour}, \dQuote{month}, \dQuote{season}, 
+##'   \dQuote{weekday}, \dQuote{site}, \dQuote{weekend}, 
+##'   \dQuote{monthyear}, \dQuote{daylight}, \dQuote{dst} (daylight 
 ##'   saving time).
 ##'   
-##'   \code{type} can also be the name of a numeric or factor. If a
-##'   numeric column name is supplied \code{cutData} will split the
-##'   data into four quantiles. Factors levels will be used to split
+##'   \code{type} can also be the name of a numeric or factor. If a 
+##'   numeric column name is supplied \code{cutData} will split the 
+##'   data into four quantiles. Factors levels will be used to split 
 ##'   the data without any adjustment.
-##' @param hemisphere Can be \code{"northern"} or \code{"southern"},
+##' @param hemisphere Can be \code{"northern"} or \code{"southern"}, 
 ##'   used to split data into seasons.
 ##' @param n.levels Number of quantiles to split numeric data into.
 ##' @param start.day What day of the week should the \code{type = 
@@ -116,25 +101,25 @@
 ##'   supplying an integer between 0 and 6. Sunday = 0, Monday = 1, 
 ##'   \ldots For example to start the weekday plots on a Saturday, 
 ##'   choose \code{start.day = 6}.
-##' @param is.axis A logical (\code{TRUE}/\code{FALSE}), used to
+##' @param is.axis A logical (\code{TRUE}/\code{FALSE}), used to 
 ##'   request shortened cut labels for axes.
 ##' @param local.tz Used for identifying whether a date has daylight 
-##'   savings time (DST) applied or not. Examples include
-##'   \code{local.tz = "Europe/London"}, \code{local.tz =
-##'   "America/New_York"} i.e. time zones that assume DST.
+##'   savings time (DST) applied or not. Examples include 
+##'   \code{local.tz = "Europe/London"}, \code{local.tz = 
+##'   "America/New_York"} i.e. time zones that assume DST. 
 ##'   \url{http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones} 
 ##'   shows time zones that should be valid for most systems. It is 
 ##'   important that the original data are in GMT (UTC) or a fixed 
 ##'   offset from GMT. See \code{import} and the openair manual for 
 ##'   information on how to import data and ensure no DST is applied.
-##' @param ... All additional parameters are passed on to next
-##'   function(s). For example, with \code{cutData} all additional
-##'   parameters are passed on to \code{cutDaylight} allowing direct
-##'   access to \code{cutDaylight} via either \code{cutData} or any
-##'   \code{openair} using \code{cutData} for \code{type}
-##'   conditioning.
+##' @param latitude The decimal latitude used in \code{type =
+##'   "daylight"}.
+##' @param longitude The decimal longitude. Note that locations west
+##'   of Greenwich are negative.
+##' @param ... All additional parameters are passed on to next 
+##'   function(s).
 ##' @export
-##' @return Returns a data frame with a column \code{cond} that is
+##' @return Returns a data frame with a column \code{cond} that is 
 ##'   defined by \code{type}.
 ##' @author David Carslaw (cutData) and Karl Ropkins (cutDaylight)
 ##' @keywords methods
@@ -146,7 +131,8 @@
 ##'
 cutData <- function(x, type = "default", hemisphere = "northern", 
                     n.levels = 4, start.day = 1, is.axis = FALSE, 
-                    local.tz = NULL, ...) {
+                    local.tz = NULL, latitude = 51, longitude = -0.5,
+                    ...) {
   
   ## function to cutData depending on choice of variable
   ## pre-defined types and user-defined types
@@ -386,7 +372,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
     }
     
     if (type == "daylight") {
-      x <- cutDaylight(x, ...)
+      x <- cutDaylight(x, latitude, longitude, ...)
     }
     
     x
@@ -401,8 +387,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
 
 ###########################################################################################
 #cutDaylight function
-cutDaylight <- function(x, latitude = 51.522393, longitude = -0.154700, ...)
-  {
+cutDaylight <- function(x, latitude = 51.522393, longitude = -0.154700, ...){
   
   ##long, hour.off
   
@@ -441,8 +426,9 @@ cutDaylight <- function(x, latitude = 51.522393, longitude = -0.154700, ...)
   if(!"POSIXt" %in% class(x$date))
     stop("required field 'date' missing or not POSIXt\n", call. = FALSE)
   
-  # loacl hour offset
-  local.hour.offset <- as.numeric(lubridate::force_tz(x$date[1], "GMT") - x$date[1])
+  # local hour offset
+  
+  local.hour.offset <- as.numeric(lubridate::force_tz(x$date[1], "UTC") - x$date[1])
   
   ###################
   #temp functions
