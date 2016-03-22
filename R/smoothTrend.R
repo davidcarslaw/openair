@@ -368,7 +368,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
   fit <- group_by_(res, .dots = c(type, "variable")) %>%
     do(fitGam(., x = "date", y = "conc", k = k, ...))
   
-  class(fit$date) <- c("POSIXt", "POSIXct")
+  class(fit$date) <- c("POSIXct", "POSIXt")
   
   ## special wd layout
   #(type field in results.grid called type not wd)
