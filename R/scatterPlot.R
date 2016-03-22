@@ -892,12 +892,12 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       yscale.components = yscale.components.log10ticks,
       xscale.components = xscale.components.log10ticks,
       par.strip.text = list(cex = 0.8),
-      colorkey = TRUE,
+      colorkey = TRUE, cex.labels = 0.8, cex.title = 1,
       colramp = function(n) {openColours(method.col, n)},
-      ...,
-      panel = function(x, lty, lwd, ...) {
+      ..., 
+      panel = function(x, ...) {
         if (!Args$traj) panel.grid(-1, -1)
-        panel.hexbinplot(x,...)
+        panel.hexbinplot(x, ...)
         
         if (mod.line)
           panel.modline(log.x, log.y)
