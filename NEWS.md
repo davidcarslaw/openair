@@ -6,6 +6,7 @@
 - fix ordering of bars on `timeProp`, remove `box.width` option
 - fix bug introduced in 1.7-4 that affected `windRose` bias correction (thanks to Eric Christensen)
 - Add option for `statistic = "r"` in `polarPlot` for comparing polar plot correlation surfaces between two pollutants using Gaussian kernel weighting.
+- fix bug in `type = "daylight"` when time zone not UTC.
 
 # Changes to openair 1.7.3 [2016-03-01]
 
