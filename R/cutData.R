@@ -53,11 +53,8 @@
 ##' made using the measurement location, date, time and astronomical
 ##' algorithms to estimate the relative positions of the Sun and the
 ##' measurement location on the Earth's surface, and is based on NOAA
-##' methods (\url{http://www.esrl.noaa.gov/gmd/grad/solcalc/}). The 
-##' \code{local.hour.offset} is zero if you are working in UTC/GMT,
-##' otherwise see
-##' \url{http://www.srrb.noaa.gov/highlights/sunrise/timezone.html}
-##' for local time zones corrections. Measurement location should be
+##' methods (\url{http://www.esrl.noaa.gov/gmd/grad/solcalc/}). 
+##' Measurement location should be
 ##' set using \code{latitude} (+ to North; - to South) and
 ##' \code{longitude} (+ to East; - to West).
 ##' 
@@ -98,8 +95,7 @@
 ##' @usage cutData(x, type = "default", hemisphere = "northern",
 ##'   n.levels = 4, start.day, is.axis = FALSE, local.tz = NULL, ...)
 ##'   
-##'   cutDaylight(x, local.hour.offset = 0, latitude = 51.522393,
-##'   longitude = -0.154700, ...)
+##'   cutDaylight(x, latitude = 51.522393, longitude = -0.154700, ...)
 ##' @param x A data frame containing a field \code{date}.
 ##' @param type A string giving the way in which the data frame should
 ##'   be split. Pre-defined values are: \dQuote{default},
@@ -137,15 +133,6 @@
 ##'   access to \code{cutDaylight} via either \code{cutData} or any
 ##'   \code{openair} using \code{cutData} for \code{type}
 ##'   conditioning.
-##' @param local.hour.offset,latitude,longitude Parameters used by 
-##'   \code{cutDaylight} to estimate if the measurement was collected
-##'   during daylight or nighttime hours.  \code{local.hour.offset}
-##'   gives the measurement timezone and \code{latitude} and
-##'   \code{longitude} give the measurement location. NOTE: The
-##'   default settings for these three parameters are the London
-##'   Marylebone Road AURN site associated with the \code{mydata}
-##'   example data set. See \code{\dots{}} and Details below for 
-##'   further information.
 ##' @export
 ##' @return Returns a data frame with a column \code{cond} that is
 ##'   defined by \code{type}.
