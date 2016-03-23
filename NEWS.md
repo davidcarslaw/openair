@@ -1,4 +1,6 @@
-# Changes in openair 1.7-99
+# Changes in openair 1.9-99
+
+# Changes in openair 1.8-0
 
 - Allow `scatterPlot` to have control over plot symbol fill and colour (for symbols 21 to 25). Use `cols` and `fill` to control.
 - `scatterPlot` can now fit more than one linear equation when there is a grouping variable

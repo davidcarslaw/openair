@@ -43,7 +43,7 @@
 ##' made using the measurement location, date, time and astronomical
 ##' algorithms to estimate the relative positions of the Sun and the
 ##' measurement location on the Earth's surface, and is based on NOAA
-##' methods (\url{http://www.esrl.noaa.gov/gmd/grad/solcalc/}). 
+##' methods. 
 ##' Measurement location should be
 ##' set using \code{latitude} (+ to North; - to South) and
 ##' \code{longitude} (+ to East; - to West).
