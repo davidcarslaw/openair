@@ -8,165 +8,177 @@ calendarPlot(mydata, pollutant = "nox", year = 2003, month = 1:12,
   type = "default", annotate = "date", statistic = "mean",
   cols = "heat", limits = c(0, 100), lim = NULL, col.lim = c("grey30",
   "black"), font.lim = c(1, 2), cex.lim = c(0.6, 1), digits = 0,
-  data.thresh = 0, labels = NA, breaks = NA, main = paste(pollutant,
-  "in", year), key.header = "", key.footer = "", key.position = "right",
-  key = TRUE, auto.text = TRUE, ...)
+  data.thresh = 0, labels = NA, breaks = NA, w.shift = 0,
+  main = paste(pollutant, "in", year), key.header = "", key.footer = "",
+  key.position = "right", key = TRUE, auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{date} and at
-least one other numeric variable. The date should be in either
+least one other numeric variable. The date should be in either 
 \code{Date} format or class \code{POSIXct}.}
 
-\item{pollutant}{Mandatory. A pollutant name corresponding to a variable in
-a data frame should be supplied e.g. \code{pollutant = "nox". }}
+\item{pollutant}{Mandatory. A pollutant name corresponding to a
+variable in a data frame should be supplied e.g. \code{pollutant
+= "nox". }}
 
 \item{year}{Year to plot e.g. \code{year = 2003}.}
 
-\item{month}{If only certain month are required. By default the
+\item{month}{If only certain month are required. By default the 
 function will plot an entire year even if months are missing. To
 only plot certain months use the \code{month} option where month
-is a numeric 1:12 e.g. \code{month = c(1, 12)} to only plot
+is a numeric 1:12 e.g. \code{month = c(1, 12)} to only plot 
 January and December.}
 
 \item{type}{Not yet implemented.}
 
-\item{annotate}{This option controls what appears on each day of
-the calendar. Can be: \dQuote{date} --- shows day of the month;
-\dQuote{wd} --- shows vector-averaged wind direction, or
-\dQuote{ws} --- shows vector-averaged wind direction scaled by
-wind speed. Finally it can be \dQuote{value} which shows the daily
-mean value.}
+\item{annotate}{This option controls what appears on each day of 
+the calendar. Can be: \dQuote{date} --- shows day of the month; 
+\dQuote{wd} --- shows vector-averaged wind direction, or 
+\dQuote{ws} --- shows vector-averaged wind direction scaled by 
+wind speed. Finally it can be \dQuote{value} which shows the
+daily mean value.}
 
 \item{statistic}{Statistic passed to \code{timeAverage}.}
 
-\item{cols}{Colours to be used for plotting. Options include
-\dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet}
-and \code{RColorBrewer} colours --- see the \code{openair}
-\code{openColours} function for more details. For user defined the
-user can supply a list of colour names recognised by R (type
-\code{colours()} to see the full list). An example would be
-\code{cols = c("yellow", "green", "blue")}}
+\item{cols}{Colours to be used for plotting. Options include 
+\dQuote{default}, \dQuote{increment}, \dQuote{heat},
+\dQuote{jet} and \code{RColorBrewer} colours --- see the
+\code{openair} \code{openColours} function for more details. For
+user defined the user can supply a list of colour names
+recognised by R (type \code{colours()} to see the full list). An
+example would be \code{cols = c("yellow", "green", "blue")}}
 
-\item{limits}{Use this option to manually set the colour scale
-limits. This is useful in the case when there is a need for two or
-more plots and a consistent scale is needed on each. Set the
+\item{limits}{Use this option to manually set the colour scale 
+limits. This is useful in the case when there is a need for two
+or more plots and a consistent scale is needed on each. Set the 
 limits to cover the maximimum range of the data for all plots of
-interest. For example, if one plot had data covering 0--60 and
-another 0--100, then set \code{limits = c(0, 100)}. Note that data
-will be ignored if outside the limits range.}
+interest. For example, if one plot had data covering 0--60 and 
+another 0--100, then set \code{limits = c(0, 100)}. Note that
+data will be ignored if outside the limits range.}
 
-\item{lim}{A threshold value to help differentiate values above
-and below \code{lim}. It is used when \code{annotate =
-"value"}. See next few options for control over the labels used.}
+\item{lim}{A threshold value to help differentiate values above 
+and below \code{lim}. It is used when \code{annotate = "value"}.
+See next few options for control over the labels used.}
 
-\item{col.lim}{For the annotation of concentration labels on each
-day. The first sets the colour of the text below \code{lim} and
+\item{col.lim}{For the annotation of concentration labels on each 
+day. The first sets the colour of the text below \code{lim} and 
 the second sets the colour of the text above \code{lim}.}
 
 \item{font.lim}{For the annotation of concentration labels on each
-day. The first sets the font of the text below \code{lim} and the
-second sets the font of the text above \code{lim}. Note that font
-= 1 is normal text and font = 2 is bold text.}
+day. The first sets the font of the text below \code{lim} and
+the second sets the font of the text above \code{lim}. Note that
+font = 1 is normal text and font = 2 is bold text.}
 
-\item{cex.lim}{For the annotation of concentration labels on each
-day. The first sets the size of the text below \code{lim} and
+\item{cex.lim}{For the annotation of concentration labels on each 
+day. The first sets the size of the text below \code{lim} and 
 the second sets the size of the text above \code{lim}.}
 
-\item{digits}{The number of digits used to display concentration
+\item{digits}{The number of digits used to display concentration 
 values when \code{annotate = "value"}.}
 
-\item{data.thresh}{Data capture threshold passed to
-\code{timeAverage}. For example, \code{data.thresh = 75} means
-that at least 75\% of the data must be available in a day for the
-value to be calculate, else the data is removed.}
+\item{data.thresh}{Data capture threshold passed to 
+\code{timeAverage}. For example, \code{data.thresh = 75} means 
+that at least 75\% of the data must be available in a day for
+the value to be calculate, else the data is removed.}
 
 \item{labels}{If a categorical scale is required then these labels
-will be used. Note there is one less label than break. For
-example, \code{labels = c("good", "bad", "very
-bad")}. \code{breaks} must also be supplied if labels are given.}
+will be used. Note there is one less label than break. For 
+example, \code{labels = c("good", "bad", "very bad")}.
+\code{breaks} must also be supplied if labels are given.}
 
 \item{breaks}{If a categorical scale is required then these breaks
-will be used. For example, \code{breaks = c(0, 50, 100, 1000)}. In
-this case \dQuote{good} corresponds to values berween 0 and 50 and
-so on. Users should set the maximum value of \code{breaks} to
-exceed the maximum data value to ensure it is within the maximum
-final range e.g. 100--1000 in this case.}
+will be used. For example, \code{breaks = c(0, 50, 100, 1000)}.
+In this case \dQuote{good} corresponds to values berween 0 and
+50 and so on. Users should set the maximum value of
+\code{breaks} to exceed the maximum data value to ensure it is
+within the maximum final range e.g. 100--1000 in this case.}
+
+\item{w.shift}{Controls the order of the days of the week. By
+default the plot shows Saturday first (\code{w.shift = 0}). To
+change this so that it starts on a Monday for example, set
+\code{w.shift = 2}, and so on.}
 
 \item{main}{The plot title; default is pollutant and year.}
 
 \item{key.header}{Adds additional text/labels to the scale key.
-For example, passing \code{calendarPlot(mydata, key.header = "header",
-key.footer = "footer")} adds addition text above and below the scale key.
-These arguments are passed to \code{drawOpenKey} via \code{quickText},
-applying the \code{auto.text} argument, to handle formatting.}
+For example, passing \code{calendarPlot(mydata, key.header =
+"header", key.footer = "footer")} adds addition text above and
+below the scale key. These arguments are passed to
+\code{drawOpenKey} via \code{quickText}, applying the
+\code{auto.text} argument, to handle formatting.}
 
 \item{key.footer}{see \code{key.header}.}
 
-\item{key.position}{Location where the scale key is to plotted.  Allowed
-arguments currently include \code{"top"}, \code{"right"}, \code{"bottom"}
-and \code{"left"}.}
+\item{key.position}{Location where the scale key is to plotted. 
+Allowed arguments currently include \code{"top"},
+\code{"right"}, \code{"bottom"} and \code{"left"}.}
 
-\item{key}{Fine control of the scale key via \code{drawOpenKey}. See
-\code{drawOpenKey} for further details.}
+\item{key}{Fine control of the scale key via \code{drawOpenKey}.
+See \code{drawOpenKey} for further details.}
 
-\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
-\code{TRUE} titles and axis labels will automatically try and format
-pollutant names and units properly e.g.  by subscripting the `2' in NO2.}
+\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If 
+\code{TRUE} titles and axis labels will automatically try and
+format pollutant names and units properly e.g.  by subscripting
+the `2' in NO2.}
 
-\item{...}{Other graphical parameters are passed onto the \code{lattice}
-function \code{lattice:levelplot}, with common axis and title labelling
-options (such as \code{xlab}, \code{ylab}, \code{main}) being passed to
-via \code{quickText} to handle routine formatting.}
+\item{...}{Other graphical parameters are passed onto the
+\code{lattice} function \code{lattice:levelplot}, with common
+axis and title labelling options (such as \code{xlab},
+\code{ylab}, \code{main}) being passed to via \code{quickText}
+to handle routine formatting.}
 }
 \value{
-As well as generating the plot itself, \code{calendarPlot} also
-  returns an object of class ``openair''. The object includes three main
-  components: \code{call}, the command used to generate the plot;
-  \code{data}, the data frame of summarised information used to make the
-  plot; and \code{plot}, the plot itself. If retained, e.g. using
-  \code{output <- calendarPlot(mydata, "nox")}, this output can be used to
-  recover the data, reproduce or rework the original plot or undertake
-  further analysis.
-
-An openair output can be manipulated using a number of generic operations,
-  including \code{print}, \code{plot} and \code{summary}.
+As well as generating the plot itself, \code{calendarPlot}
+  also returns an object of class ``openair''. The object includes
+  three main components: \code{call}, the command used to generate
+  the plot; \code{data}, the data frame of summarised information
+  used to make the plot; and \code{plot}, the plot itself. If
+  retained, e.g. using \code{output <- calendarPlot(mydata,
+  "nox")}, this output can be used to recover the data, reproduce
+  or rework the original plot or undertake further analysis.
+  
+  An openair output can be manipulated using a number of generic
+  operations, including \code{print}, \code{plot} and
+  \code{summary}.
 }
 \description{
-This function will plot one year of data by month laid out in a
-conventional calendar format. The main purpose is to help rapidly visualise
-potentially complex data in a familiar way. Users can also choose to show
-daily mean wind vectors if wind speed and direction are available.
+This function will plot one year of data by month laid out in a 
+conventional calendar format. The main purpose is to help rapidly
+visualise potentially complex data in a familiar way. Users can
+also choose to show daily mean wind vectors if wind speed and
+direction are available.
 }
 \details{
-\code{calendarPlot} will plot one year of data in a conventional
-calendar format i.e. by month and day of the week. The main
+\code{calendarPlot} will plot one year of data in a conventional 
+calendar format i.e. by month and day of the week. The main 
 purpose of this function is to make it easy to visualise data in a
-familiar way. Daily statistics are calculated using
-\code{\link{timeAverage}}, which by default will calculate the
+familiar way. Daily statistics are calculated using 
+\code{\link{timeAverage}}, which by default will calculate the 
 daily mean concentration.
 
-If wind direction is available it is then possible to plot the wind
-direction vector on each day. This is very useful for getting a feel for
-the meteorological conditions that affect pollutant concentrations. Note
-that if hourly or higher time resolution are supplied, then
-\code{calendarPlot} will calculate daily averages using
-\code{\link{timeAverage}}, which ensures that wind directions are
-vector-averaged.
+If wind direction is available it is then possible to plot the
+wind direction vector on each day. This is very useful for getting
+a feel for the meteorological conditions that affect pollutant
+concentrations. Note that if hourly or higher time resolution are
+supplied, then \code{calendarPlot} will calculate daily averages
+using \code{\link{timeAverage}}, which ensures that wind
+directions are vector-averaged.
 
-If wind speed is also available, then setting the option \code{annotate =
-"ws"} will plot the wind vectors whose length is scaled to the wind speed.
-Thus information on the daily mean wind speed and direction are available.
+If wind speed is also available, then setting the option
+\code{annotate = "ws"} will plot the wind vectors whose length is
+scaled to the wind speed. Thus information on the daily mean wind
+speed and direction are available.
 
-It is also possible to plot categorical scales. This is useful
+It is also possible to plot categorical scales. This is useful 
 where, for example, an air quality index defines concentrations as
 bands e.g. \dQuote{good}, \dQuote{poor}. In these cases users must
 supply \code{labels} and corresponding \code{breaks}.
 
-Note that is is possible to pre-calculate concentrations in some
-way before passing the data to \code{calendarPlot}. For example
-\code{\link{rollingMean}} could be used to calculate rolling
-8-hour mean concentrations. The data can then be passed to
-\code{calendarPlot} and \code{statistic = "max"} chosen, which
+Note that is is possible to pre-calculate concentrations in some 
+way before passing the data to \code{calendarPlot}. For example 
+\code{\link{rollingMean}} could be used to calculate rolling 
+8-hour mean concentrations. The data can then be passed to 
+\code{calendarPlot} and \code{statistic = "max"} chosen, which 
 will plot maximum daily 8-hour mean concentrations.
 }
 \examples{
