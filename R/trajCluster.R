@@ -107,8 +107,8 @@
 ##' ## import trajectories
 ##' traj <- importTraj(site = "london", year = 2009)
 ##' ## calculate clusters
-##' traj <- trajCluster(traj, n.clusters = 5)
-##' head(traj) ## note new variable 'cluster'
+##' clust <- trajCluster(traj, n.clusters = 5)
+##' head(clust$data) ## note new variable 'cluster'
 ##' ## use different distance matrix calculation, and calculate by season
 ##' traj <- trajCluster(traj, method = "Angle", type = "season", n.clusters = 4)
 ##' }
