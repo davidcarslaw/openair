@@ -1,7 +1,7 @@
 # openair
 
 [![Travis-CI Build Status](https://travis-ci.org/davidcarslaw/openair.svg?branch=master)](https://travis-ci.org/davidcarslaw/openair)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/openair)](https://cran.rstudio.com/web/packages/openair/index.html)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/openair)]( http://cran.rstudio.com/package=openair)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/openair)
 [![Downloads from the RStudio CRAN mirror](http://cranlogs.r-pkg.org/badges/openair)](http://cran.rstudio.com/package=openair)
 
