@@ -52,14 +52,16 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
   ## make sure all infinite values are set to NA
   mydata[] <- lapply(mydata, function(x){replace(x, x == Inf | x == -Inf, NA)})
   
-  if ("ws" %in% Names & is.numeric(mydata$ws)) {
-    
-    ## check for negative wind speeds
-    if (any(sign(mydata$ws[!is.na(mydata$ws)]) == -1)) {
+  if ("ws" %in% Names) {
+    if ("ws" %in% Names & is.numeric(mydata$ws)) {
       
-      if (remove.neg) { ## remove negative ws only if TRUE
-        warning("Wind speed <0; removing negative data")
-        mydata$ws[mydata$ws < 0] <- NA
+      ## check for negative wind speeds
+      if (any(sign(mydata$ws[!is.na(mydata$ws)]) == -1)) {
+        
+        if (remove.neg) { ## remove negative ws only if TRUE
+          warning("Wind speed <0; removing negative data")
+          mydata$ws[mydata$ws < 0] <- NA
+        }
       }
     }
   }

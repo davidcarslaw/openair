@@ -1,5 +1,7 @@
 # Changes in openair 1.9-99
 
+- fixes for new version of `dplyr`
+
 # Changes in openair 1.8-0
 
 - Allow `scatterPlot` to have control over plot symbol fill and colour (for symbols 21 to 25). Use `cols` and `fill` to control.

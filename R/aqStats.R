@@ -300,8 +300,8 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
     
 
     ## order sensible
-    results <- cbind(subset(results, select = c(site, pollutant)), subset(results,
-                                         select = -c(site, pollutant)))
+    results <- results[c("site", "pollutant", setdiff(names(results), c("site", "pollutant")))]
+                                      
     class(results$year) <- "integer"
 
     ## transpose if requested
