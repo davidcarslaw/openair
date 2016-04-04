@@ -265,7 +265,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
     ## ordinary conditional quantile plot
     pltCondQ <- conditionalQuantile(mydata, obs = obs, mod = mod, type = type, bins = bins,
-                                    key.position = "left", key.columns = 1, layout = c(1, NA), ...)$plot
+                                    key.position = "bottom", key.columns = 1, layout = c(1, NA), ...)$plot
 
     if (any(type %in% dateTypes)) vars <- c("date", vars)
 
@@ -383,7 +383,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
                             drop.unused.levels = FALSE,
                             horizontal = FALSE,
                             key = list(rectangles = list(col = cols, border = NA),
-                            text = list(levels(clust.results$Var1)), space = "right",
+                            text = list(levels(clust.results$Var1)), space = "bottom",
                             title = statistic, cex.title = 1),
                             par.strip.text = list(cex = 0.8),
 
@@ -432,7 +432,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
         key <- list(lines = list(col = myColors[1:length(var.obs)], lty = extra.args$lty, lwd = 2),
                     text = list(lab = sapply(var.names, function(x) quickText(x, auto.text)), cex = 1),
-                    space = "right", columns = 1,
+                    space = "bottom", columns = 2,
                     title = quickText("variable", auto.text), cex.title = 1)
 
         temp <- "statistic"

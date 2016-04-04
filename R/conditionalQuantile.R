@@ -357,10 +357,10 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
                        )
 
     ## supress scaling warnings
-    thePlot <- suppressWarnings(doubleYScale(scatter, histo, add.ylab2 = TRUE))
+    thePlot <- latticeExtra::doubleYScale(scatter, histo, add.ylab2 = TRUE)
     thePlot <- update(thePlot, par.settings = simpleTheme(col = c("black", "black")))
 
-    if (length(type) == 1) plot(thePlot) else plot(useOuterStrips(thePlot, strip = strip,
+    if (length(type) == 1) plot(thePlot) else plot(latticeExtra::useOuterStrips(thePlot, strip = strip,
               strip.left = strip.left))
 
     invisible(trellis.last.object())
