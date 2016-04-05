@@ -969,14 +969,18 @@ calCor <- function(data, mydata, x = "ws", y = "wd", pol_1 = "nox",
   mydata$wd.scale <- 4 * mydata$wd.scale * 2 * pi / 360
   mydata$wd.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * mydata$wd.scale ^ 2)
   
+  # final weighting multiplies two kernels for ws and wd
   mydata$weight <- mydata$ws.scale * mydata$wd.scale
   mydata$weight <- mydata$weight / max(mydata$weight, na.rm = TRUE)
   
+  # the data we need
   thedata <- select_(mydata, pol_1, pol_2, "weight")
   thedata <- na.omit(thedata)
   
+  # useful for showing what the weighting looks like as a surface
   #  scatterPlot(mydata, x= "ws", y = "wd", z = "weight", method = "level", col = "jet")
   
+  # call weighted Pearson correlation
   r <- corr(cbind(thedata[[pol_1]], thedata[[pol_2]]), 
                   w = thedata$weight)
   
