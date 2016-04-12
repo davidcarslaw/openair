@@ -334,22 +334,21 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all", hc = FALSE)
              
              close(con)
              
-             x
+             dat <- get(x)
+             
+             return(dat)
              },
                   error = function(ex) {cat(x, "does not exist - ignoring that one.\n")})
 
      }
 
-    thedata <- lapply(files, loadData)
+
+    thedata <- plyr::ldply(files, loadData)
     
-    theObjs <- unlist(thedata)
-    ## note unlist will drop NULLs from non-existant sites/years
-    mylist <- lapply(theObjs, get)
-    
-    if (length(mylist) == 0) return() ## no data
+    if (nrow(thedata) == 0) return() ## no data
 
     ## suppress warnings for now - unequal factors, harmless
-    thedata <- suppressWarnings(do.call(bind_rows, mylist))
+ 
     if (is.null(thedata)) stop("No data to import - check site codes and year.", call. = FALSE)
 
     thedata$site <- factor(thedata$site, levels = unique(thedata$site))
@@ -376,7 +375,6 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all", hc = FALSE)
      ## if particular pollutants have been selected
     if (pollutant != "all") thedata <- thedata[, c("date", pollutant, "site", "code")]
 
-    rm(list = theObjs, pos = 1)
 
     ## warning about recent, possibly unratified data
     timeDiff <- difftime(Sys.time(),  max(thedata$date), units='days')
