@@ -2,6 +2,7 @@
 
 - fixes for new version of `dplyr`
 - adjust legends in `conditionalEval` to avoid plot error.
+- fix problem on linux and simplify `importAURN`
 
 # Changes in openair 1.8-0
 
