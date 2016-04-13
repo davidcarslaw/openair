@@ -150,7 +150,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
     ## just return data
     
     if (type %in% dateTypes & type %in% names(x)) {
-      message(paste("Using", type, "in data frame and not date-based openair version."))
+      message(paste0("\nUsing ", "'", type, "'", " in data frame and not date-based openair version. \nThis may result in different behaviour compared with openair calculations."))
       return(x)
     }
     
