@@ -1,5 +1,7 @@
 # Changes in openair 1.9-99
 
+# Changes in openair 1.8-2
+
 - fixes for new version of `dplyr`
 - adjust legends in `conditionalEval` to avoid plot error.
 - fix problem on linux and simplify `importAURN`
