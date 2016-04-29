@@ -49,6 +49,7 @@
 ##' ## make a GoogleMapsPlot
 ##' GoogleMapsPlot(annual, pollutant = "no2")
 ##' }
+
 importMeta <- function(source = "aurn", all = FALSE) {
 
     ## get rid of R check annoyances
@@ -64,7 +65,8 @@ importMeta <- function(source = "aurn", all = FALSE) {
     if (!source %in% meta.source) stop ("Meta data sources are 'aurn', 'kcl' and 'saqn.")
 
     if (source == "aurn") {
-        con <- url("http://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData")
+        con <- url("http://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData", 
+                   method = "libcurl")
         meta <- get(load(con))
         close(con)
         ## only extract one line per site to make it easier to use file
@@ -80,7 +82,8 @@ importMeta <- function(source = "aurn", all = FALSE) {
     }
 
     if (source == "saqn") {
-        con <- url("http://www.scottishairquality.co.uk/openair/R_data/SCOT_metadata.RData")
+        con <- url("http://www.scottishairquality.co.uk/openair/R_data/SCOT_metadata.RData",
+                   method = "libcurl")
         meta <- get(load(con))
         close(con)
         ## only extract one line per site to make it easier to use file
