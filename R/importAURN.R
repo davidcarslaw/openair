@@ -478,6 +478,9 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all", hc = FALSE)
 
      ## make sure it is in GMT
     attr(thedata$date, "tzone") <- "GMT"
+    
+    # make sure class is correct for lubridate
+    class(thedata$date) <- c("POSIXct" , "POSIXt")
 
     thedata
 }
