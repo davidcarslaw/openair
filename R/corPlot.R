@@ -320,7 +320,12 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
               par.strip.text = list(cex = 0.8),
               scales = list(x = list(rot = 90, labels = labels, at = 1 : npol),
               y = list(labels = labels, at = 1 : npol), relation = "free"),
-              panel = panel.corrgram,  text.col = text.col, r.thresh = r.thresh, label = TRUE)
+              text.col = text.col, r.thresh = r.thresh, label = TRUE,
+              panel = function (x, y, z, ...) {
+                panel.abline(v = 1:sqrt(length(z)), col = "grey95")
+                panel.abline(h = 1:sqrt(length(z)), col = "grey95")
+                panel.corrgram(x, y, z, ...)
+              })
 
     #reset for extra.args
     levelplot.args <- listUpdate(levelplot.args, extra.args)
@@ -360,16 +365,22 @@ panel.corrgram <- function(x, y, z, subscripts, at, level = 0.9, text.col,
     z <- as.numeric(z)[subscripts]
 
     zcol <- level.colors(z, at = at, ...)
-    for (i in seq(along = z)) {
-        ell <- ellipse(z[i], level = level, npoints = 50, scale = c(.2, .2),
-                       centre = c(x[i], y[i]))
-        panel.polygon(ell, col = zcol[i], border = zcol[i],...)
+    
+    # just do lower triangle
+    len <- length(z)
+    tmp <- matrix(seq_along(z), nrow = len ^ (1 / 2))
+    id <- which(lower.tri(tmp, diag = TRUE))
+    
+    for (i in seq(along = id)) {
+        ell <- ellipse(z[id[i]], level = level, npoints = 50, scale = c(.2, .2),
+                       centre = c(x[id[i]], y[id[i]]))
+        panel.polygon(ell, col = zcol[id[i]], border = zcol[id[i]],...)
 
     }
     if (label)
-        panel.text(x = x, y = y, lab = 100 * round(z, 2),
-                   cex = 0.8, col = ifelse(z < 0, text.col[1], text.col[2]),
-                   font = ifelse(z < r.thresh, 1, 2))
+        panel.text(x = x[id], y = y[id], lab = 100 * round(z[id], 2),
+                   cex = 0.8, col = ifelse(z[id] < 0, text.col[1], text.col[2]),
+                   font = ifelse(z[id] < r.thresh, 1, 2))
 }
 
 

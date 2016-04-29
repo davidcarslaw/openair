@@ -1,5 +1,7 @@
 # Changes in openair 1.9-99
 
+- Only plot lower triangle for `corPlot`
+
 # Changes in openair 1.8-2
 
 - fixes for new version of `dplyr`
