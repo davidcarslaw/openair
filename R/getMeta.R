@@ -67,7 +67,8 @@ importMeta <- function(source = "aurn", all = FALSE) {
     if (source == "aurn") {
         con <- url("http://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData", 
                    method = "libcurl")
-        meta <- get(load(con))
+        meta <- load(con)
+        meta <- AURN_metadata
         close(con)
         ## only extract one line per site to make it easier to use file
         ## mostly interested in coordinates
