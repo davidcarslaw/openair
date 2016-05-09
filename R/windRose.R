@@ -727,6 +727,8 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                                                   col = "grey85", lwd = 1))
 
                         dat <- results[subscripts, ] ## subset of data
+                        dat <- filter(dat, wd <= 360)
+                        
                         upper <- max.freq + off.set
 
                         ## add axis lines

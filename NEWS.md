@@ -3,6 +3,7 @@
 - Only plot lower triangle for `corPlot`
 - make sure date class is POSIXct, POSIXt in `importAURN`
 - fix problem in `importMeta` for AURN - change in database source format
+- fix `pollutionRose` plot warning
 
 # Changes in openair 1.8-2
 
