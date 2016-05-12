@@ -170,7 +170,7 @@ modStats <- function(mydata,  mod = "mod", obs = "obs",
     if ("MGE" %in% statistic) res.MGE <- group_by_(mydata, .dots = type) %>% 
       do(MGE(., mod, obs)) else res.MGE <- NULL
     
-    if ("MMB" %in% statistic) res.NMB <- group_by_(mydata, .dots = type) %>% 
+    if ("NMB" %in% statistic) res.NMB <- group_by_(mydata, .dots = type) %>% 
       do(NMB(., mod, obs)) else res.NMB <- NULL
     
     if ("NMGE" %in% statistic) res.NMGE <- group_by_(mydata, .dots = type) %>% 
