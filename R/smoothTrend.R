@@ -260,6 +260,11 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     stop("Averaging period must be 'month' or 'year'.")
   
   ## find time interval
+  # need this because if user has a data capture threshold, need to know 
+  # original time interval
+  # Working this out for unique dates for all data is what is done here.
+  # More reliable than trying to work it out after conditioning where there
+  # may be too few data for the calculation to be reliable
   interval <- find.time.interval(mydata$date)
   
   ## equivalent number of days, used to refine interval for month/year

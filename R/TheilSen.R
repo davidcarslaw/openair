@@ -307,10 +307,21 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   if (!avg.time %in% c("year", "month", "season")) 
     stop ("avg.time can only be 'month', 'season' or 'year'.")
   
-  ## if data clearly annual, then assume annual
+  ## find time interval
+  # need this because if user has a data capture threshold, need to know 
+  # original time interval
+  # Working this out for unique dates for all data is what is done here.
+  # More reliable than trying to work it out after conditioning where there
+  # may be too few data for the calculation to be reliable
   interval <- find.time.interval(mydata$date)
-  interval <- as.numeric(strsplit(interval, split = " ")[[1]][1])   
-  if (round(interval / 8760) == 3600) avg.time <- "year"
+  
+  ## equivalent number of days, used to refine interval for month/year
+  days <- as.numeric(strsplit(interval, split = " ")[[1]][1]) /
+    24 / 3600
+  
+  ## better interval, most common interval in a year
+  if (days == 31) interval <- "month"
+  if (days %in% c(365, 366)) interval <- "year"
   
   ## data checks
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
@@ -333,7 +344,8 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
                         avg.time = avg.time, 
                         statistic = statistic, 
                         percentile = percentile,
-                        data.thresh = data.thresh)
+                        data.thresh = data.thresh,
+                        interval = interval)
   
   # timeAverage drops type if default
   if (type == "default") mydata$default <- "default"
@@ -397,7 +409,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
     }
     
     ## now calculate trend, uncertainties etc ###########################
-    if (nrow(results) < 6) return() ## need enough data to calculate trend
+    if (nrow(results) < 6) return(results) ## need enough data to calculate trend
     MKresults <- MKstats(results$date, results$conc, alpha, autocor)
    
     ## make sure missing data are put back in for plotting
@@ -406,9 +418,8 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
     results
   }
   
-  
-  split.data <- group_by_(mydata, .dots = type) %>%
-    do(process.cond(.))
+  # need to work out how to use dplyr if it does not return a data frame due to too few data
+  split.data <- plyr::ddply(mydata, type, process.cond)
   
 
   if (nrow(split.data) < 2) return()
@@ -532,8 +543,9 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
                         
                         # sub.dat <- na.omit(split.data[subscripts, ])
                         sub.dat <- split.data[subscripts, ]
-                        
-                        if (nrow(sub.dat) > 0) {
+                      
+                        # need some data to plot, check if enough information to show trend
+                        if (nrow(sub.dat) > 0  && !all(is.na(sub.dat$slope))) {
                           panel.abline(a = sub.dat[1, "intercept"],
                                        b = sub.dat[1, "slope"] / 365,
                                        col = trend$col[1], lwd = trend$lwd[1],

@@ -5,6 +5,7 @@
 - fix problem in `importMeta` for AURN - change in database source format
 - fix `pollutionRose` plot warning
 - fix NMB in `modStats`
+- fix bug in `timeAverage` where estimating the time interval in input data could be unreliable due to low data availability
 
 # Changes in openair 1.8-2
 

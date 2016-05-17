@@ -41,11 +41,7 @@ find.time.interval <- function(dates) {
     ## find the most common time gap in all the data
     dates <- unique(dates)  ## make sure they are unique
 
-    len <- length(dates)
-
-    ## sample only 100 rather than everything
-    len <- min(c(100, len))
-
+    # work out the most common time gap of unique, ordered dates
     id <- which.max(table(diff(as.numeric(unique(dates[order(dates)])))))
     seconds <- as.numeric(names(id))
 
