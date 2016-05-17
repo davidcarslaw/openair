@@ -290,7 +290,8 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
         do(date.pad2(., type = type, interval = interval))
       
       ## make sure missing types are inserted
-      mydata[[type]] <- mydata[[type]][1]
+    #  mydata[[type]] <- mydata[[type]][1]
+      mydata[type] <- mydata[1, type]
       
       padded <- TRUE
     }

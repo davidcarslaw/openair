@@ -259,10 +259,16 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
   if (!avg.time %in% c("year", "season", "month")) 
     stop("Averaging period must be 'month' or 'year'.")
   
-  ## if data clearly annual, then assume annual
+  ## find time interval
   interval <- find.time.interval(mydata$date)
-  interval <- as.numeric(strsplit(interval, split = " ")[[1]][1])
-  if (round(interval / 8760) == 3600) avg.time <- "year"
+  
+  ## equivalent number of days, used to refine interval for month/year
+  days <- as.numeric(strsplit(interval, split = " ")[[1]][1]) /
+    24 / 3600
+  
+  ## better interval, most common interval in a year
+  if (days == 31) interval <- "month"
+  if (days %in% c(365, 366)) interval <- "year"
   
   ## for overall data and graph plotting
   start.year <- startYear(mydata$date)
@@ -306,7 +312,8 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
       avg.time = avg.time,
       percentile = percentile,
       statistic = statistic,
-      data.thresh = data.thresh
+      data.thresh = data.thresh,
+      interval = interval
     )
   }
   

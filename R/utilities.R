@@ -46,7 +46,7 @@ find.time.interval <- function(dates) {
     ## sample only 100 rather than everything
     len <- min(c(100, len))
 
-    id <- which.max(table(diff(as.numeric(dates[order(dates[1 : len])]))))
+    id <- which.max(table(diff(as.numeric(unique(dates[order(dates)])))))
     seconds <- as.numeric(names(id))
 
     if ("POSIXt" %in% class(dates)) seconds <- paste(seconds, "sec")
