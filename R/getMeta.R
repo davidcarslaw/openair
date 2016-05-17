@@ -51,6 +51,9 @@
 ##' }
 
 importMeta <- function(source = "aurn", all = FALSE) {
+  
+  # keep R check quiet
+  AURN_metadata <- NULL
 
     ## get rid of R check annoyances
     site = code = latitude = longitude = site.type = site_name = site_id = NULL
