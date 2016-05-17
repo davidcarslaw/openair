@@ -689,6 +689,9 @@ fitGam <- function (thedata, x = "date", y = "conc", form = y ~ x, k = k,
     names(thedata)[id] <- "x"
     id <- which(names(thedata) == y)
     names(thedata)[id] <- "y"
+    
+    # can only fit numeric, so convert back after fitting
+    class_x <- class(thedata$x)
 
     thedata$x <- as.numeric(thedata$x)
 
@@ -761,6 +764,9 @@ fitGam <- function (thedata, x = "date", y = "conc", form = y ~ x, k = k,
                                            lower = percentiles[1, ], upper = percentiles[2, ]))
 
         }
+      
+      # convert class back to orginal
+      class(results$x) <- class_x
         results
     }, error = function(x) {data.orig})
 }
