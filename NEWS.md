@@ -4,6 +4,7 @@
 - make sure date class is POSIXct, POSIXt in `importAURN`
 - fix problem in `importMeta` for AURN - change in database source format
 - fix `pollutionRose` plot warning
+- fix NMB in `modStats`
 
 # Changes in openair 1.8-2
 
