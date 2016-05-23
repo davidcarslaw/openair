@@ -147,6 +147,7 @@ different date values. A summary of in-built values of type are:
   saving time (see manual for more details)
 * "wd" if wind direction (`wd`) is available `type = "wd"` will split
   the data up into 8 sectors: N, NE, E, SE, S, SW, W, NW.
+* "seasonyear (or "yearseason") will split the data into year-season intervals, keeping the months of a season together. For example, December 2010 is considered as part of winter 2011 (with January and February 2011). This makes it easier to consider contiguous seasons. In contrast, `type = "season"` will just split the data into four seasons regardless of the year.
 
 If a categorical variable is present in a data frame e.g. `site` then
 that variables can be used directly e.g. `type = "site"`.
