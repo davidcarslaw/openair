@@ -33,7 +33,14 @@
 ##' winter = December, January, February; spring = March, April, May
 ##' etc. These defintions will change of \code{hemisphere =
 ##' "southern"}.
-##'
+##' 
+##' "seasonyear (or "yearseason") will split the data into year-season
+##' intervals, keeping the months of a season together. For example,
+##' December 2010 is considered as part of winter 2011 (with January
+##' and February 2011). This makes it easier to consider contiguous
+##' seasons. In contrast, \code{type = "season"} will just split the
+##' data into four seasons regardless of the year.
+##' 
 ##' "daylight" splits the data relative to estimated sunrise and
 ##' sunset to give either daylight or nighttime. The cut is made by
 ##' \code{cutDaylight} but more conveniently accessed via
@@ -156,7 +163,8 @@ cutData <- function(x, type = "default", hemisphere = "northern",
     
     conds <- c("default", "year", "hour", "month", "season", 
                "weekday", "wd", "site", "weekend", "monthyear", 
-               "bstgmt", "gmtbst", "dst", "daylight")
+               "bstgmt", "gmtbst", "dst", "daylight", "seasonyear",
+               "yearseason")
     
     ## if conditioning type already built in, is present in data frame and is a factor
     if (type %in% conds & type %in% names(x)) {
@@ -284,6 +292,30 @@ cutData <- function(x, type = "default", hemisphere = "northern",
                              levels = c("spring (SON)", "summer (DJF)",
                                         "autumn (MAM)", "winter (JJA)"))
       }
+    }
+    
+    if (type %in% c("seasonyear", "yearseason")) {
+      
+      # this cuts data to ensure that a season spans two years to keep it together
+      # For example, winter 2015 is considered  Dec. 2014 and Jan. Feb, 2015
+      
+      x <- cutData(x, type = "season")
+      ## remove any missing seasons e.g. through type = "season"
+      x <- x[!is.na(x$season), ]
+      
+      ## calculate year
+      x <- mutate(x, year = lubridate::year(date),
+                       month = lubridate::month(date))
+      
+      ## ids where month = 12, make December part of following year's season
+      ids <- which(x$month == 12)
+      x$year[ids] <- x$year[ids] + 1
+      
+      labels <- paste(x$season, "-", x$year)
+      x[[type]] <- labels
+      x[[type]] <- ordered(x[[type]], levels = unique(x[[type]]))
+      
+      
     }
     
     if (type == "weekend") {

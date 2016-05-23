@@ -11,8 +11,9 @@ startMonth <- function(dat) as.numeric(format(min(dat[order(dat)]), "%m"))
 endMonth <- function(dat) as.numeric(format(max(dat[order(dat)]), "%m"))
 
 ## these are pre-defined type that need a field "date"; used by cutData
-dateTypes <- c("year", "hour", "month", "season", "weekday", "weekend", "monthyear",
-                   "gmtbst", "bstgmt", "dst", "daylight")
+dateTypes <- c("year", "hour", "month", "season", "weekday", "weekend",
+               "monthyear", "gmtbst", "bstgmt", "dst", "daylight",
+               "seasonyear", "yearseason")
 
 ## sets up how openair graphics look by default and resets on exit
 

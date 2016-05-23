@@ -96,6 +96,13 @@ winter = December, January, February; spring = March, April, May
 etc. These defintions will change of \code{hemisphere =
 "southern"}.
 
+"seasonyear (or "yearseason") will split the data into year-season
+intervals, keeping the months of a season together. For example,
+December 2010 is considered as part of winter 2011 (with January
+and February 2011). This makes it easier to consider contiguous
+seasons. In contrast, \code{type = "season"} will just split the
+data into four seasons regardless of the year.
+
 "daylight" splits the data relative to estimated sunrise and
 sunset to give either daylight or nighttime. The cut is made by
 \code{cutDaylight} but more conveniently accessed via
