@@ -8,6 +8,7 @@
 - fix bug in `timeAverage` where estimating the time interval in input data could be unreliable due to low data availability
 - fix time expansion bug in `timeAverage`
 - add new `type` "yearseason" (or "seasonyear"). This will split data by every year / season combination, making sure the seasons are contiguous. For example, in winter in teh northern hemisphere December 2010 will be considered part of winter 2011, rather than winter 2010. Thanks to Ralf Weisse for the suggestion.
+- fix download issues with `importAURN` and `importMeta` when users are within an organisational network. Problems likley due to move from http to https and SSL Certificates.
 
 # Changes in openair 1.8-2
 

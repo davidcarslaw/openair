@@ -68,11 +68,14 @@ importMeta <- function(source = "aurn", all = FALSE) {
     if (!source %in% meta.source) stop ("Meta data sources are 'aurn', 'kcl' and 'saqn.")
 
     if (source == "aurn") {
-        con <- url("http://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData", 
-                   method = "libcurl")
-        meta <- load(con)
+        
+        tmp <- tempfile()
+        
+        fileName <- "http://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData"
+        download.file(fileName, method = "libcurl", destfile = tmp)
+        load(tmp)
+        
         meta <- AURN_metadata
-        close(con)
         ## only extract one line per site to make it easier to use file
         ## mostly interested in coordinates
 
@@ -86,10 +89,15 @@ importMeta <- function(source = "aurn", all = FALSE) {
     }
 
     if (source == "saqn") {
-        con <- url("http://www.scottishairquality.co.uk/openair/R_data/SCOT_metadata.RData",
-                   method = "libcurl")
-        meta <- get(load(con))
-        close(con)
+        
+        tmp <- tempfile()
+        
+        fileName <- "http://www.scottishairquality.co.uk/openair/R_data/SCOT_metadata.RData"
+        download.file(fileName, method = "libcurl", destfile = tmp)
+        load(tmp)
+        
+        meta <- SCOT_metadata
+        
         ## only extract one line per site to make it easier to use file
         ## mostly interested in coordinates
 
