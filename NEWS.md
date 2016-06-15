@@ -1,5 +1,7 @@
 # Changes in openair 1.8-99
 
+- correct citation information
+
 # Changes in openair 1.8-6
 
 - Only plot lower triangle for `corPlot`
