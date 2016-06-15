@@ -348,7 +348,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
                         interval = interval)
   
   # timeAverage drops type if default
-  if (type == "default") mydata$default <- "default"
+  if ("default" %in% type) mydata$default <- "default"
   
   
   process.cond <- function(mydata) {
@@ -463,7 +463,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   
   ## aggregated results
   
-  res2 <- group_by_(split.data, type, "p.stars") %>% 
+  res2 <- group_by_(split.data, .dots = type, "p.stars") %>% 
     summarise_each(funs(mean(., na.rm = TRUE)))
   
   ## calculate percentage changes in slope and uncertainties need
@@ -471,10 +471,10 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   ## points percentage change defind as 100.(C.end/C.start -1) /
   ## duration
   
-  start <- group_by_(split.data, type) %>% 
+  start <- group_by_(split.data, .dots = type) %>% 
     do(head(., 1))
   
-  end <- group_by_(split.data, type) %>% 
+  end <- group_by_(split.data, .dots = type) %>% 
     do(tail(., 1))
   
   percent.change <- merge(start, end, by = type, suffixes = c(".start", ".end"))
