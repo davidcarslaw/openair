@@ -1,4 +1,6 @@
-# Changes in openair 1.9-99
+# Changes in openair 1.8-99
+
+# Changes in openair 1.8-6
 
 - Only plot lower triangle for `corPlot`
 - make sure date class is POSIXct, POSIXt in `importAURN`
