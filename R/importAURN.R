@@ -378,6 +378,7 @@
 ##'   is however not to as most users will not be interested in using
 ##'   hydrocarbon data and the resulting data frames are considerably larger.
 ##' @export
+##' @importFrom utils download.file
 ##' @return Returns a data frame of hourly mean values with date in POSIXct
 ##'   class and time zone GMT.
 ##' @author David Carslaw
