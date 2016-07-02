@@ -1,6 +1,7 @@
 # Changes in openair 1.8-99
 
 - correct citation information
+- Now depends on R version of >= 3.2.0 so that `download.file` can use 'libcurl' for access to https (used in `importAURN`)
 
 # Changes in openair 1.8-6
 
@@ -11,8 +12,8 @@
 - fix NMB in `modStats`
 - fix bug in `timeAverage` where estimating the time interval in input data could be unreliable due to low data availability
 - fix time expansion bug in `timeAverage`
-- add new `type` "yearseason" (or "seasonyear"). This will split data by every year / season combination, making sure the seasons are contiguous. For example, in winter in teh northern hemisphere December 2010 will be considered part of winter 2011, rather than winter 2010. Thanks to Ralf Weisse for the suggestion.
-- fix download issues with `importAURN` and `importMeta` when users are within an organisational network. Problems likley due to move from http to https and SSL Certificates.
+- add new `type` "yearseason" (or "seasonyear"). This will split data by every year / season combination, making sure the seasons are contiguous. For example, in winter in the northern hemisphere December 2010 will be considered part of winter 2011, rather than winter 2010. Thanks to Ralf Weisse for the suggestion.
+- fix download issues with `importAURN` and `importMeta` when users are within an organisational network. Problems likely due to move from http to https and SSL Certificates.
 - fix `TheilSen` bug when two types.
 
 # Changes in openair 1.8-2

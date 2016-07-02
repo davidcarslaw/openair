@@ -8,7 +8,7 @@ Authors@R: c(person("David", "Carslaw", role = c("aut", "cre"), email =
     "aut", email = "K.Ropkins@its.leeds.ac.uk"))
 ByteCompile: true
 Depends:
-    R (>= 2.15.1),
+    R (>= 3.2.0),
     maps,
 Imports:
     grid,
