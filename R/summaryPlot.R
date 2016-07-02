@@ -79,7 +79,7 @@
 ##'   flexibility a number can precede these options followed by a
 ##'   space. For example, a timeAverage of 2 months would be
 ##'   \code{avg.time = "2 month"}.
-##' @param print.datacap Should the data capture % be shown for each period?
+##' @param print.datacap Should the data capture \% be shown for each period?
 ##' @param breaks Number of histogram bins. Sometime useful but not 
 ##'   easy to set a single value for a range of very different 
 ##'   variables.
