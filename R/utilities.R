@@ -499,7 +499,7 @@ selectByDate <- function (mydata, start = "1/1/2008",
 
             if (any(day < 1 | day > 31)) 
               stop ("Day must be between 1 to 31.")
-          mydata <- mydata[which(lubridate::day(mydata$date) %in% day), ]
+          mydata <- mydata[which(mday(mydata$date) %in% day), ]
 
         } else {
 
