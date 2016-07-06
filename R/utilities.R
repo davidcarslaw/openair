@@ -409,7 +409,7 @@ one more label than date")
 ##' Friday) and \dQuote{weekend} for convenience.
 ##' @param hour An hour or hours to select from 0-23 e.g. \code{hour = 0:12} to
 ##'   select hours 0 to 12 inclusive.
-##' @importFrom lubridate dst year month hour force_tz
+##' @importFrom lubridate dst year month hour force_tz day
 ##' @export
 ##' @author David Carslaw
 ##' @keywords methods
@@ -499,7 +499,7 @@ selectByDate <- function (mydata, start = "1/1/2008",
 
             if (any(day < 1 | day > 31)) 
               stop ("Day must be between 1 to 31.")
-          mydata <- mydata[which(lubridate::mday(mydata$date) %in% day), ]
+          mydata <- mydata[which(day(mydata$date) %in% day), ]
 
         } else {
 
