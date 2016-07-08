@@ -4,6 +4,7 @@
 - Now depends on R version of >= 3.2.0 so that `download.file` can use 'libcurl' for access to https (used in `importAURN`)
 - add `avg.time` option to `summaryPlot` to control the averaging times of the time series lines and `print.datacap` to control whether the data capture % is shown for each interval.
 - fix bug in `selectByDate` where a day number would not work
+- remove arrows in `windRose`, `polarPlot` to avoid ambiguous interpretation of wind direction
 
 # Changes in openair 1.8-6
 
