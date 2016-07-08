@@ -6,6 +6,7 @@
 - fix bug in `selectByDate` where a day number would not work
 - remove arrows in `windRose`, `polarPlot` to avoid ambiguous interpretation of wind direction
 
+
 # Changes in openair 1.8-6
 
 - Only plot lower triangle for `corPlot`
