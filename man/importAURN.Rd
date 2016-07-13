@@ -94,304 +94,208 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 
 While the function is being developed, the following site codes should help
 with selection.
-
 \tabular{lllrrlll}{
-CODE \tab SITE NAME \tab SITE TYPE \tab LATITUDE \tab LONGITUDE \tab REGION \tab START DATE \tab END DATE \cr
-ABD  \tab Aberdeen                          \tab urban_background \tab -
-  2.094278 \tab 57.15736 \tab North East Scotland     \tab 1999 - 09 - 18 \tab NA\cr
-ABD7 \tab Aberdeen Union Street Roadside    \tab roadside         \tab -
-  2.106472 \tab 57.14455 \tab North East Scotland     \tab 2008 - 01 - 01 \tab NA\cr
-ABD8 \tab Aberdeen Wellington Road          \tab urban            \tab -
-  2.094198 \tab 57.13389 \tab North East Scotland     \tab 2016 - 02 - 09 \tab NA\cr
-ARM6 \tab Armagh Roadside                   \tab roadside         \tab -
-  6.654558 \tab 54.35373 \tab Northern Ireland        \tab 2009 - 01 - 01 \tab NA\cr
-BALM \tab Ballymena Ballykeel               \tab urban_background \tab -
-  6.250873 \tab 54.86160 \tab Northern Ireland        \tab 2010 - 01 - 01 \tab NA\cr
-BAR2 \tab Barnsley 12                       \tab urban_background \tab -
-  1.485153 \tab 53.55593 \tab Yorkshire &
-  Humberside  \tab 1994 - 03 - 21 \tab 2012 - 07 - 17\cr
-BAR3 \tab Barnsley Gawber                   \tab urban_background \tab -
-  1.510436 \tab 53.56292 \tab Yorkshire &
-  Humberside  \tab 1997 - 07 - 07 \tab NA\cr
-BPLE \tab Barnstaple A39                    \tab NA               \tab -
-  4.041924 \tab 51.07479 \tab South West              \tab 2013 - 11 - 14 \tab NA\cr
-BATH \tab Bath Roadside                     \tab roadside         \tab -
-  2.354155 \tab 51.39113 \tab South West              \tab 1996 - 11 - 18 \tab NA\cr
-BEL2 \tab Belfast Centre                    \tab urban_centre     \tab -
-  5.928833 \tab 54.59965 \tab Northern Ireland        \tab 1992 - 03 - 08 \tab NA\cr
-BEL4 \tab Belfast Clara St                  \tab suburban         \tab -
-  5.895460 \tab 54.59126 \tab Northern Ireland        \tab 1998 - 06 - 01 \tab 2007 -
-  09 - 30\cr
-BEL  \tab Belfast East                      \tab urban_background \tab -
-  5.901667 \tab 54.59653 \tab Northern Ireland        \tab 1989 - 09 - 06 \tab 2007 -
-  09 - 30\cr
-BEL1 \tab Belfast Stockman's Lane           \tab roadside         \tab -5.974944 \tab 54.57259 \tab Northern Ireland        \tab 2014-06-07 \tab NA\cr
-BIL  \tab Billingham                        \tab urban_industrial \tab -1.275039 \tab 54.60537 \tab North East              \tab 1987-01-01 \tab NA\cr
-AGRN \tab Birmingham Acocks Green           \tab urban_background \tab -1.829999 \tab 52.43717 \tab West Midlands           \tab 2011-03-18 \tab NA\cr
-BIRM \tab Birmingham Centre                 \tab urban_centre     \tab -1.908078 \tab 52.47972 \tab West Midlands           \tab 1992-03-18 \tab 2009-01-14\cr
-BIR2 \tab Birmingham East                   \tab urban_background \tab -1.831498 \tab 52.49763 \tab West Midlands           \tab 1993-12-01 \tab 2004-08-04\cr
-BIR1 \tab Birmingham Tyburn                 \tab urban_background \tab -1.830583 \tab 52.51172 \tab West Midlands           \tab 2004-08-16 \tab 2007-09-30\cr
-BIRT \tab Birmingham Tyburn Roadside        \tab roadside         \tab -1.830861 \tab 52.51219 \tab West Midlands           \tab 2009-02-11 \tab NA\cr
-BLAR \tab Blackburn Accrington Road         \tab NA               \tab -2.452724 \tab 53.74775 \tab North West & Merseyside \tab 2014-05-12 \tab NA\cr
-BLCB \tab Blackburn Darwen Roadside         \tab roadside         \tab -2.483815 \tab 53.71550 \tab North West & Merseyside \tab 2009-06-15 \tab 2014-03-17\cr
-BLAC \tab Blackpool                         \tab urban_background \tab -3.029283 \tab 53.79046 \tab North West & Merseyside \tab 2000-08-08 \tab 2004-11-11\cr
-BLC2 \tab Blackpool Marton                  \tab urban_background \tab -3.007175 \tab 53.80489 \tab North West & Merseyside \tab 2005-06-14 \tab 2007-09-30\cr
-BOLT \tab Bolton                            \tab urban_background \tab -2.439583 \tab 53.57232 \tab North West & Merseyside \tab 1997-02-03 \tab 2008-06-30\cr
-BORN \tab Bournemouth                       \tab urban_background \tab -1.826744 \tab 50.73957 \tab South West              \tab 2001-03-05 \tab NA\cr
-BRAD \tab Bradford Centre                   \tab urban_centre     \tab -1.748694 \tab 53.79339 \tab Yorkshire & Humberside  \tab 1997-11-28 \tab 2007-09-30\cr
-BDMA \tab Bradford Mayo Avenue              \tab urban            \tab -1.759774 \tab 53.77125 \tab Yorkshire & Humberside  \tab 2015-04-24 \tab NA\cr
-BRN  \tab Brentford Roadside                \tab roadside         \tab -0.310121 \tab 51.48945 \tab Greater London          \tab 2003-06-20 \tab 2007-09-30\cr
-BRT3 \tab Brighton Preston Park             \tab urban_background \tab -0.147572 \tab 50.84084 \tab South East              \tab 2004-11-03 \tab NA\cr
-BRIT \tab Brighton Roadside                 \tab roadside         \tab -0.137281 \tab 50.82354 \tab South East              \tab 1998-02-10 \tab 2010-12-31\cr
-BRT2 \tab Brighton Roadside PM10            \tab roadside         \tab -0.136924 \tab 50.82350 \tab South East              \tab 2003-02-28 \tab 2008-05-29\cr
-BRIS \tab Bristol Centre                    \tab urban_centre     \tab -2.585622 \tab 51.45718 \tab South West              \tab 1993-01-04 \tab 2005-09-15\cr
-BRS2 \tab Bristol Old Market                \tab roadside         \tab -2.583519 \tab 51.45603 \tab South West              \tab 1996-07-01 \tab 2012-08-31\cr
-BRS8 \tab Bristol St Paul's                 \tab urban_background \tab -
-  2.584482 \tab 51.46284 \tab South West              \tab 2006 - 06 - 15 \tab NA\cr
-BY1  \tab Bromley Roadside                  \tab roadside         \tab  0.020128 \tab 51.40710 \tab Greater London          \tab 1997 -
-  05 - 02 \tab 1998 - 07 - 06\cr
-BURY \tab Bury Roadside                     \tab roadside         \tab -
-  2.289611 \tab 53.53911 \tab North West &
-  Merseyside \tab 1997 - 01 - 20 \tab 2007 - 09 - 30\cr
-BURW \tab Bury Whitefield Roadside          \tab NA               \tab -
-  2.293772 \tab 53.55903 \tab North West &
-  Merseyside \tab 2015 - 01 - 01 \tab 2015 - 01 - 01\cr
-CAM  \tab Cambridge Roadside                \tab roadside         \tab  0.124456 \tab 52.20237 \tab Eastern                 \tab 1999 -
-  06 - 26 \tab NA\cr
-CA1  \tab Camden Kerbside                   \tab kerbside         \tab -
-  0.175269 \tab 51.54421 \tab Greater London          \tab 1996 - 05 - 16 \tab NA\cr
-CANR \tab Cannock Watling Street            \tab roadside         \tab -
-  2.030882 \tab 52.67477 \tab West Midlands           \tab 2014 - 12 - 01 \tab 2014 -
-  12 - 01\cr
-CANT \tab Canterbury                        \tab urban_background \tab  1.098061 \tab 51.27399 \tab South East              \tab 2001 -
-  02 - 01 \tab NA\cr
-CARD \tab Cardiff Centre                    \tab urban_centre     \tab -
-  3.176250 \tab 51.48178 \tab South Wales             \tab 1992 - 05 - 12 \tab NA\cr
-CARL \tab Carlisle Roadside                 \tab roadside         \tab -
-  2.945307 \tab 54.89483 \tab North West &
-  Merseyside \tab 2008 - 02 - 14 \tab NA\cr
-CHAT \tab Chatham Roadside                  \tab roadside         \tab  0.547970 \tab 51.37426 \tab South East              \tab 2010 -
-  07 - 01 \tab NA\cr
-CHP  \tab Chepstow A48                      \tab roadside         \tab -
-  2.678731 \tab 51.63809 \tab South Wales             \tab 2008 - 01 - 01 \tab NA\cr
-CHS6 \tab Chesterfield                      \tab urban_background \tab -
-  1.433611 \tab 53.23058 \tab East Midlands           \tab 2008 - 03 - 13 \tab 2014 -
-  05 - 20\cr
-CHLG \tab Chesterfield Loundsley Green      \tab urban            \tab -
-  1.454946 \tab 53.24413 \tab East Midlands           \tab 2015 - 03 - 01 \tab NA\cr
-CHS7 \tab Chesterfield Roadside             \tab roadside         \tab -
-  1.456944 \tab 53.23172 \tab East Midlands           \tab 2008 - 03 - 11 \tab NA\cr
-COAL \tab Coventry Allesley                 \tab NA               \tab -
-  1.560228 \tab 52.41156 \tab West Midlands           \tab 2014 - 06 - 17 \tab NA\cr
-COV2 \tab Coventry Centre                   \tab urban_centre     \tab -
-  1.522133 \tab 52.41345 \tab West Midlands           \tab 1997 - 02 - 18 \tab 2000 -
-  12 - 31\cr
-COV3 \tab Coventry Memorial Park            \tab urban_background \tab -
-  1.519612 \tab 52.39440 \tab West Midlands           \tab 2001 - 02 - 26 \tab 2014 -
-  06 - 10\cr
-CWMB \tab Cwmbran                           \tab urban_background \tab -
-  3.006953 \tab 51.65380 \tab South Wales             \tab 2001 - 07 - 20 \tab NA\cr
-DERY \tab Derry                             \tab urban_background \tab -
-  7.329115 \tab 55.00122 \tab Northern Ireland        \tab 1997 - 04 - 29 \tab 2016 -
-  02 - 29\cr
-DERR \tab Derry Rosemount                   \tab urban_background \tab -
-  7.331179 \tab 55.00282 \tab Northern Ireland        \tab 2016 - 03 - 21 \tab NA\cr
-DCST \tab Doncaster A630 Cleveland Street   \tab urban            \tab -
-  1.138073 \tab 53.51887 \tab Yorkshire &
-  Humberside  \tab 2015 - 05 - 07 \tab NA\cr
-DUMB \tab Dumbarton Roadside                \tab roadside         \tab -
-  4.559730 \tab 55.94320 \tab Central Scotland        \tab 2010 - 09 - 01 \tab NA\cr
-DUMF \tab Dumfries                          \tab roadside         \tab -
-  3.614233 \tab 55.07003 \tab Scottish Borders        \tab 2001 - 03 - 01 \tab NA\cr
-EA8  \tab Ealing Horn Lane                  \tab NA               \tab -
-  0.265617 \tab 51.51895 \tab Greater London          \tab 2014 - 05 - 21 \tab NA\cr
-EB   \tab Eastbourne                        \tab urban_background \tab  0.271611 \tab 50.80578 \tab South East              \tab 2009 -
-  07 - 01 \tab NA\cr
-ED   \tab Edinburgh Centre                  \tab urban_centre     \tab -
-  3.195775 \tab 55.95197 \tab Central Scotland        \tab 1992 - 10 - 04 \tab 2003 -
-  10 - 13\cr
-ED3  \tab Edinburgh St Leonards             \tab urban_background \tab -
-  3.182186 \tab 55.94559 \tab Central Scotland        \tab 2003 - 11 - 24 \tab NA\cr
-EX   \tab Exeter Roadside                   \tab roadside         \tab -
-  3.532465 \tab 50.72508 \tab South West              \tab 1996 - 07 - 02 \tab NA\cr
-FW   \tab Fort William                      \tab suburban         \tab -
-  5.101102 \tab 56.82266 \tab Highland                \tab 2006 - 06 - 22 \tab NA\cr
-GLA3 \tab Glasgow Centre                    \tab urban_centre     \tab -
-  4.255161 \tab 55.85773 \tab Central Scotland        \tab 1996 - 07 - 26 \tab 2012 -
-  08 - 16\cr
-GLA  \tab Glasgow City Chambers             \tab urban_background \tab -
-  4.245959 \tab 55.86041 \tab Central Scotland        \tab 1987 - 01 - 06 \tab 2011 -
-  03 - 16\cr
-GGWR \tab Glasgow Great Western Road        \tab NA               \tab -
-  4.270936 \tab 55.87204 \tab Central Scotland        \tab 2014 - 06 - 05 \tab NA\cr
-GHSR \tab Glasgow High Street               \tab roadside         \tab -
-  4.238214 \tab 55.86094 \tab Central Scotland        \tab 2015 - 01 - 27 \tab NA\cr
-GLA4 \tab Glasgow Kerbside                  \tab kerbside         \tab -
-  4.258889 \tab 55.85917 \tab Central Scotland        \tab 1997 - 03 - 10 \tab NA\cr
-GLKP \tab Glasgow Townhead                  \tab NA               \tab -
-  4.243631 \tab 55.86578 \tab Central Scotland        \tab 2013 - 10 - 07 \tab NA\cr
-GRAN \tab Grangemouth                       \tab urban_industrial \tab -
-  3.704399 \tab 56.01032 \tab Central Scotland        \tab 2001 - 01 - 01 \tab NA\cr
-GRA2 \tab Grangemouth Moray                 \tab urban_background \tab -
-  3.710833 \tab 56.01314 \tab Central Scotland        \tab 2009 - 06 - 01 \tab NA\cr
-CAE6 \tab Hafod - yr - ynys Roadside            \tab NA               \tab -
-  3.133508 \tab 51.68058 \tab South Wales             \tab 2014 - 10 - 14 \tab NA\cr
-HG1  \tab Haringey Roadside                 \tab roadside         \tab -
-  0.068218 \tab 51.59930 \tab Greater London          \tab 1996 - 05 - 16 \tab NA\cr
-HONI \tab Honiton                           \tab urban_background \tab -
-  3.196702 \tab 50.79229 \tab South West              \tab 2012 - 06 - 21 \tab NA\cr
-HORE \tab Horley                            \tab urban_background \tab -
-  0.167734 \tab 51.16586 \tab South East              \tab 2007 - 11 - 21 \tab NA\cr
-HS1  \tab Hounslow Roadside                 \tab roadside         \tab -
-  0.308975 \tab 51.48965 \tab Greater London          \tab 1997 - 09 - 16 \tab 2002 -
-  11 - 16\cr
-HOVE \tab Hove Roadside                     \tab roadside         \tab -
-  0.170294 \tab 50.82778 \tab South East              \tab 1997 - 09 - 16 \tab 2007 -
-  09 - 30\cr
-HULL \tab Hull Centre                       \tab urban_centre     \tab -
-  0.338322 \tab 53.74479 \tab Yorkshire &
-  Humberside  \tab 1994 - 01 - 04 \tab 2002 - 01 - 17\cr
-HUL2 \tab Hull Freetown                     \tab urban_centre     \tab -
-  0.341222 \tab 53.74878 \tab Yorkshire &
-  Humberside  \tab 2002 - 11 - 06 \tab 2012 - 09 - 17\cr
-HULR \tab Hull Holderness Road              \tab urban            \tab -
-  0.305749 \tab 53.75897 \tab Yorkshire &
-  Humberside  \tab 2015 - 01 - 15 \tab NA\cr
-INV2 \tab Inverness                         \tab roadside         \tab -
-  4.241451 \tab 57.48131 \tab Highland                \tab 2001 - 07 - 17 \tab NA\cr
-LEAM \tab Leamington Spa                    \tab urban_background \tab -
-  1.533119 \tab 52.28881 \tab West Midlands           \tab 1996 - 07 - 26 \tab NA\cr
-LEAR \tab Leamington Spa Rugby Road         \tab roadside         \tab -
-  1.542911 \tab 52.29488 \tab West Midlands           \tab 2012 - 06 - 01 \tab NA\cr
-LEED \tab Leeds Centre                      \tab urban_centre     \tab -
-  1.546472 \tab 53.80378 \tab Yorkshire &
-  Humberside  \tab 1993 - 01 - 04 \tab NA\cr
-LED6 \tab Leeds Headingley Kerbside         \tab kerbside         \tab -
-  1.576361 \tab 53.81997 \tab Yorkshire &
-  Humberside  \tab 2008 - 02 - 17 \tab NA\cr
-LEIR \tab Leicester A594 Roadside           \tab urban            \tab -
-  1.124228 \tab 52.63868 \tab East Midlands           \tab 2015 - 05 - 01 \tab NA\cr
-LEIC \tab Leicester Centre                  \tab urban_centre     \tab -
-  1.133006 \tab 52.63135 \tab East Midlands           \tab 1994 - 01 - 04 \tab 2013 -
-  09 - 23\cr
-LECU \tab Leicester University              \tab NA               \tab -
-  1.127311 \tab 52.61982 \tab East Midlands           \tab 2013 - 10 - 01 \tab NA\cr
-LEOM \tab Leominster                        \tab suburban         \tab -
-  2.736665 \tab 52.22174 \tab West Midlands           \tab 2005 - 07 - 18 \tab NA\cr
-LIN3 \tab Lincoln Canwick Rd.               \tab roadside         \tab -
-  0.534189 \tab 53.22137 \tab East Midlands           \tab 2011 - 07 - 27 \tab NA\cr
-LINC \tab Lincoln Roadside                  \tab roadside         \tab -
-  0.537895 \tab 53.22889 \tab East Midlands           \tab 1997 - 05 - 06 \tab 1999 -
-  12 - 22\cr
-LIVR \tab Liverpool Centre                  \tab urban_centre     \tab -
-  2.980249 \tab 53.40845 \tab North West &
-  Merseyside \tab 1993 - 04 - 23 \tab 2002 - 09 - 23\cr
-LV6  \tab Liverpool Queen's Drive Roadside  \tab roadside         \tab -2.962500 \tab 53.44694 \tab North West & Merseyside \tab 2008-01-01 \tab NA\cr
-LVP  \tab Liverpool Speke                   \tab urban_background \tab -2.844333 \tab 53.34633 \tab North West & Merseyside \tab 2003-05-21 \tab 2012-08-21\cr
-A3   \tab London A3 Roadside                \tab roadside         \tab -0.291853 \tab 51.37348 \tab Greater London          \tab 1997-03-20 \tab 2007-09-30\cr
-BEX  \tab London Bexley                     \tab suburban         \tab  0.184806 \tab 51.46603 \tab Greater London          \tab 1994-05-01 \tab 2007-09-30\cr
-CLL2 \tab London Bloomsbury                 \tab urban_centre     \tab -0.125889 \tab 51.52229 \tab Greater London          \tab 1992-01-23 \tab NA\cr
-BREN \tab London Brent                      \tab urban_background \tab -0.276223 \tab 51.58977 \tab Greater London          \tab 1996-01-26 \tab 2007-09-30\cr
-BRI  \tab London Bridge Place               \tab urban_background \tab -0.141655 \tab 51.49521 \tab Greater London          \tab 1990-07-03 \tab 1999-11-30\cr
-BY2  \tab London Bromley                    \tab roadside         \tab  0.018869 \tab 51.40555 \tab Greater London          \tab 1998-08-11 \tab 2007-09-30\cr
-CRD  \tab London Cromwell Road              \tab kerbside         \tab -0.180564 \tab 51.49492 \tab Greater London          \tab 1973-02-22 \tab 1974-07-11\cr
-CRD2 \tab London Cromwell Road 2            \tab roadside         \tab -0.178709 \tab 51.49548 \tab Greater London          \tab 1998-05-20 \tab 2012-10-03\cr
-LON6 \tab London Eltham                     \tab suburban         \tab  0.070766 \tab 51.45258 \tab Greater London          \tab 1996-04-01 \tab NA\cr
-HK4  \tab London Hackney                    \tab urban_centre     \tab -0.056592 \tab 51.55877 \tab Greater London          \tab 1997-01-06 \tab 2007-09-30\cr
-HG2  \tab London Haringey                   \tab urban_centre     \tab -0.126486 \tab 51.58603 \tab Greater London          \tab 1996-05-16 \tab 2012-11-09\cr
-HG4  \tab London Haringey Priory Park South \tab urban_centre     \tab -0.125254 \tab 51.58413 \tab Greater London          \tab 2012-10-26 \tab NA\cr
-HRL  \tab London Harlington                 \tab airport          \tab -0.441614 \tab 51.48879 \tab Greater London          \tab 2004-01-01 \tab NA\cr
-HR3  \tab London Harrow Stanmore            \tab urban_background \tab -0.298777 \tab 51.61733 \tab Greater London          \tab 2008-12-16 \tab NA\cr
-HIL  \tab London Hillingdon                 \tab urban_background \tab -0.460861 \tab 51.49633 \tab Greater London          \tab 1996-08-02 \tab NA\cr
-LW1  \tab London Lewisham                   \tab urban_centre     \tab -0.020139 \tab 51.44541 \tab Greater London          \tab 1997-04-16 \tab 2007-09-30\cr
-MY1  \tab London Marylebone Road            \tab kerbside         \tab -0.154611 \tab 51.52253 \tab Greater London          \tab 1997-07-17 \tab NA\cr
-KC1  \tab London N. Kensington              \tab urban_background \tab -0.213492 \tab 51.52105 \tab Greater London          \tab 1996-04-01 \tab NA\cr
-SK1  \tab London Southwark                  \tab urban_centre     \tab -0.096667 \tab 51.49055 \tab Greater London          \tab 1997-02-28 \tab 2007-09-30\cr
-SUT3 \tab London Sutton                     \tab suburban         \tab -0.165489 \tab 51.36789 \tab Greater London          \tab 1996-04-01 \tab 2002-05-02\cr
-TED2 \tab London Teddington Bushy Park      \tab NA               \tab -0.345606 \tab 51.42529 \tab Greater London          \tab 2013-08-09 \tab NA\cr
-WA2  \tab London Wandsworth                 \tab urban_centre     \tab -0.191164 \tab 51.45696 \tab Greater London          \tab 1996-04-01 \tab 2007-09-30\cr
-HORS \tab London Westminster                \tab urban_background \tab -0.131931 \tab 51.49467 \tab Greater London          \tab 2001-07-17 \tab 2013-12-31\cr
-LUTR \tab Luton A505 Roadside               \tab urban            \tab -0.462110 \tab 51.89229 \tab Eastern                 \tab 2015-03-01 \tab NA\cr
-MAN3 \tab Manchester Piccadilly             \tab urban_centre     \tab -2.237881 \tab 53.48152 \tab North West & Merseyside \tab 1995-12-18 \tab NA\cr
-MAHG \tab Manchester Sharston               \tab suburban         \tab -2.239218 \tab 53.37131 \tab North West & Merseyside \tab 2016-01-27 \tab NA\cr
-MAN4 \tab Manchester South                  \tab suburban         \tab -2.243280 \tab 53.36903 \tab North West & Merseyside \tab 1996-12-06 \tab 2016-01-25\cr
-MAN  \tab Manchester Town Hall              \tab urban_background \tab -2.244800 \tab 53.47850 \tab North West & Merseyside \tab 1987-01-22 \tab 2007-09-30\cr
-MID  \tab Middlesbrough                     \tab urban_background \tab -1.220874 \tab 54.56930 \tab North East              \tab 1995-04-21 \tab NA\cr
-MOLD \tab Mold                              \tab suburban         \tab -3.144889 \tab 53.16231 \tab North Wales             \tab 2009-12-02 \tab 2013-12-31\cr
-NEWC \tab Newcastle Centre                  \tab urban_centre     \tab -1.610528 \tab 54.97825 \tab North East              \tab 1992-03-08 \tab NA\cr
-NCA3 \tab Newcastle Cradlewell Roadside     \tab roadside         \tab -1.595362 \tab 54.98640 \tab North East              \tab 2008-03-10 \tab NA\cr
-NPT3 \tab Newport                           \tab urban_background \tab -2.977281 \tab 51.60120 \tab South Wales             \tab 2008-01-01 \tab NA\cr
-NTON \tab Northampton                       \tab urban_background \tab -0.885933 \tab 52.27349 \tab East Midlands           \tab 2001-05-23 \tab 2012-07-09\cr
-NTN3 \tab Northampton Kingsthorpe           \tab urban_background \tab -0.879898 \tab 52.27189 \tab East Midlands           \tab 2012-07-09 \tab NA\cr
-NTO2 \tab Northampton PM10                  \tab urban_background \tab -0.885933 \tab 52.27349 \tab East Midlands           \tab 2001-04-05 \tab 2007-09-30\cr
-NOR2 \tab Norwich Centre                    \tab urban_centre     \tab  1.295019 \tab 52.63203 \tab Eastern                 \tab 1997-07-24 \tab 2008-05-13\cr
-NO10 \tab Norwich Forum Roadside            \tab roadside         \tab  1.291714 \tab 52.62817 \tab Eastern                 \tab 2005-04-08 \tab 2007-09-30\cr
-NO12 \tab Norwich Lakenfields               \tab urban_background \tab  1.301976 \tab 52.61419 \tab Eastern                 \tab 2009-09-01 \tab NA\cr
-NOR1 \tab Norwich Roadside                  \tab roadside         \tab  1.299064 \tab 52.62200 \tab Eastern                 \tab 1997-06-21 \tab 2005-02-14\cr
-NOTT \tab Nottingham Centre                 \tab urban_centre     \tab -1.146447 \tab 52.95473 \tab East Midlands           \tab 1996-09-02 \tab NA\cr
-NWBV \tab Nottingham Western Boulevard      \tab NA               \tab -1.188851 \tab 52.96938 \tab East Midlands           \tab 2016-03-01 \tab NA\cr
-BOLD \tab Oldbury Birmingham Road           \tab kerbside         \tab -2.003497 \tab 52.50244 \tab West Midlands           \tab 2014-09-01 \tab NA\cr
-OX   \tab Oxford Centre Roadside            \tab roadside         \tab -1.257463 \tab 51.75174 \tab South East              \tab 1996-04-15 \tab NA\cr
-OX8  \tab Oxford St Ebbes                   \tab urban_background \tab -1.260278 \tab 51.74481 \tab South East              \tab 2008-01-01 \tab NA\cr
-PEEB \tab Peebles                           \tab urban_background \tab -3.196527 \tab 55.65747 \tab Scottish Borders        \tab 2009-11-06 \tab NA\cr
-PLYM \tab Plymouth Centre                   \tab urban_centre     \tab -4.142361 \tab 50.37167 \tab South West              \tab 1997-09-29 \tab NA\cr
-PMTH \tab Portsmouth                        \tab urban_background \tab -1.068583 \tab 50.82881 \tab South East              \tab 2001-01-01 \tab NA\cr
-PT   \tab Port Talbot                       \tab urban_industrial \tab -3.761690 \tab 51.57980 \tab South Wales             \tab 1997-01-09 \tab 2007-07-24\cr
-PT4  \tab Port Talbot Margam                \tab urban_industrial \tab -3.770822 \tab 51.58395 \tab South Wales             \tab 2007-07-24 \tab NA\cr
-PRES \tab Preston                           \tab urban_background \tab -2.680353 \tab 53.76559 \tab North West & Merseyside \tab 2000-06-06 \tab NA\cr
-READ \tab Reading                           \tab urban_background \tab -0.955180 \tab 51.45352 \tab South East              \tab 1997-07-17 \tab 2003-02-06\cr
-REA5 \tab Reading London Rd.                \tab NA               \tab -0.940382 \tab 51.45490 \tab South East              \tab 2016-03-04 \tab NA\cr
-REA1 \tab Reading New Town                  \tab urban_background \tab -0.944067 \tab 51.45309 \tab South East              \tab 2003-10-17 \tab 2007-09-30\cr
-REDC \tab Redcar                            \tab suburban         \tab -1.073300 \tab 54.61073 \tab North East              \tab 1997-06-25 \tab 2007-09-30\cr
-ROTH \tab Rotherham Centre                  \tab urban_centre     \tab -1.354444 \tab 53.43186 \tab Yorkshire & Humberside  \tab 1997-06-20 \tab 2007-09-30\cr
-ECCL \tab Salford Eccles                    \tab urban_industrial \tab -2.334139 \tab 53.48481 \tab North West & Merseyside \tab 1997-03-20 \tab 2013-12-31\cr
-SASH \tab Saltash Callington Road           \tab NA               \tab -4.227678 \tab 50.41146 \tab South West              \tab 2013-01-01 \tab NA\cr
-SALT \tab Saltash Roadside                  \tab roadside         \tab -4.230300 \tab 50.41310 \tab South West              \tab 2008-07-30 \tab 2010-08-31\cr
-OLDB \tab Sandwell Oldbury                  \tab urban_background \tab -2.017629 \tab 52.50431 \tab West Midlands           \tab 1997-06-27 \tab 1998-09-21\cr
-WBRO \tab Sandwell West Bromwich            \tab urban_background \tab -1.995556 \tab 52.52062 \tab West Midlands           \tab 1998-11-04 \tab 2011-12-31\cr
-SDY  \tab Sandy Roadside                    \tab roadside         \tab -0.300306 \tab 52.13242 \tab Eastern                 \tab 2008-07-28 \tab NA\cr
-SCUN \tab Scunthorpe                        \tab urban_industrial \tab -0.633015 \tab 53.58499 \tab Yorkshire & Humberside  \tab 1997-12-15 \tab 2004-03-18\cr
-SCN2 \tab Scunthorpe Town                   \tab urban_industrial \tab -0.636811 \tab 53.58634 \tab Yorkshire & Humberside  \tab 2004-06-06 \tab NA\cr
-CW   \tab Shaw Crompton Way                 \tab NA               \tab -2.093786 \tab 53.57928 \tab North West & Merseyside \tab 2014-04-01 \tab NA\cr
-SHE2 \tab Sheffield Centre                  \tab urban_centre     \tab -1.473306 \tab 53.37772 \tab Yorkshire & Humberside  \tab 1995-12-22 \tab 2013-08-30\cr
-SHDG \tab Sheffield Devonshire Green        \tab NA               \tab -1.478096 \tab 53.37862 \tab Yorkshire & Humberside  \tab 2013-10-31 \tab NA\cr
-SHE  \tab Sheffield Tinsley                 \tab urban_background \tab -1.396139 \tab 53.41058 \tab Yorkshire & Humberside  \tab 1990-11-28 \tab NA\cr
-SA33 \tab Southampton A33                   \tab NA               \tab -1.463484 \tab 50.92027 \tab South East              \tab 2016-01-01 \tab NA\cr
-SOUT \tab Southampton Centre                \tab urban_centre     \tab -1.395778 \tab 50.90814 \tab South East              \tab 1994-01-04 \tab NA\cr
-SEND \tab Southend-on-Sea                   \tab urban_background \tab  0.678408 \tab 51.54421 \tab Eastern                 \tab 2000-07-24 \tab NA\cr
-SK5  \tab Southwark A2 Old Kent Road        \tab roadside         \tab -0.059550 \tab 51.48050 \tab Greater London          \tab 2011-01-01 \tab NA\cr
-SK2  \tab Southwark Roadside                \tab roadside         \tab -0.062300 \tab 51.48199 \tab Greater London          \tab 1997-04-01 \tab 2006-02-21\cr
-HOPE \tab Stanford-le-Hope Roadside         \tab roadside         \tab  0.439548 \tab 51.51817 \tab Eastern                 \tab 2008-01-22 \tab 2012-12-31\cr
-STEW \tab Stewartby                         \tab urban_industrial \tab -0.511111 \tab 52.07194 \tab Eastern                 \tab 2007-11-26 \tab 2008-12-31\cr
-STOC \tab Stockport                         \tab urban_background \tab -2.158200 \tab 53.40994 \tab North West & Merseyside \tab 1996-11-25 \tab 2002-10-03\cr
-STK4 \tab Stockport Shaw Heath              \tab urban_background \tab -2.161111 \tab 53.40306 \tab North West & Merseyside \tab 2002-10-09 \tab 2007-09-30\cr
-SOTR \tab Stockton-on-Tees A1305 Roadside   \tab roadside         \tab -1.315900 \tab 54.56582 \tab North East              \tab 2015-01-01 \tab NA\cr
-EAGL \tab Stockton-on-Tees Eaglescliffe     \tab roadside         \tab -1.358547 \tab 54.51667 \tab North East              \tab 2009-01-21 \tab NA\cr
-YARM \tab Stockton-on-Tees Yarm             \tab roadside         \tab -1.354319 \tab 54.50918 \tab North East              \tab 2001-01-01 \tab 2008-09-02\cr
-STKR \tab Stoke-on-Trent A50 Roadside       \tab roadside         \tab -2.111898 \tab 52.98044 \tab West Midlands           \tab 2015-05-22 \tab NA\cr
-STOK \tab Stoke-on-Trent Centre             \tab urban_centre     \tab -2.175133 \tab 53.02821 \tab West Midlands           \tab 1997-03-11 \tab NA\cr
-STOR \tab Storrington Roadside              \tab roadside         \tab -0.449548 \tab 50.91693 \tab South East              \tab 2009-08-01 \tab NA\cr
-SUND \tab Sunderland                        \tab urban_background \tab -1.380081 \tab 54.90611 \tab North East              \tab 1992-10-06 \tab 2007-09-30\cr
-SUN2 \tab Sunderland Silksworth             \tab urban_background \tab -1.406878 \tab 54.88361 \tab North East              \tab 2004-12-09 \tab NA\cr
-SUNR \tab Sunderland Wessington Way         \tab urban            \tab -1.408391 \tab 54.91839 \tab North East              \tab 2015-01-01 \tab NA\cr
-SUT1 \tab Sutton Roadside                   \tab roadside         \tab -0.182789 \tab 51.36636 \tab Greater London          \tab 1996-04-01 \tab 2002-05-02\cr
-SWAN \tab Swansea                           \tab urban_centre     \tab -3.943329 \tab 51.62114 \tab South Wales             \tab 1994-12-01 \tab 2006-08-07\cr
-SWA1 \tab Swansea Roadside                  \tab roadside         \tab -3.947374 \tab 51.63270 \tab South Wales             \tab 2006-09-20 \tab 2007-09-30\cr
-THUR \tab Thurrock                          \tab urban_background \tab  0.317969 \tab 51.47707 \tab Eastern                 \tab 1996-09-01 \tab NA\cr
-TH2  \tab Tower Hamlets Roadside            \tab roadside         \tab -0.042155 \tab 51.52253 \tab Greater London          \tab 1996-04-01 \tab NA\cr
-WAL  \tab Walsall Alumwell                  \tab urban_background \tab -2.010483 \tab 52.58167 \tab West Midlands           \tab 1987-03-05 \tab 2007-09-30\cr
-WAL2 \tab Walsall Willenhall                \tab urban_background \tab -2.033144 \tab 52.60821 \tab West Midlands           \tab 1997-04-29 \tab 2010-02-03\cr
-WAL4 \tab Walsall Woodlands                 \tab urban_background \tab -2.030523 \tab 52.60562 \tab West Midlands           \tab 2012-06-19 \tab NA\cr
-WAR  \tab Warrington                        \tab urban_background \tab -2.615358 \tab 53.38928 \tab North West & Merseyside \tab 2008-10-21 \tab NA\cr
-WL   \tab West London                       \tab urban_background \tab -0.200361 \tab 51.49380 \tab Greater London          \tab 1987-01-01 \tab 2007-09-30\cr
-WSMR \tab Widnes Milton Road                \tab roadside         \tab -2.731680 \tab 53.36539 \tab North West & Merseyside \tab 2015-01-01 \tab NA\cr
-WIG5 \tab Wigan Centre                      \tab urban_background \tab -2.638139 \tab 53.54914 \tab North West & Merseyside \tab 2004-10-08 \tab 2007-09-30\cr
-WIG3 \tab Wigan Leigh                       \tab urban_background \tab -2.506899 \tab 53.49422 \tab North West & Merseyside \tab 2001-01-01 \tab 2004-09-28\cr
-TRAN \tab Wirral Tranmere                   \tab urban_background \tab -3.022722 \tab 53.37287 \tab North West & Merseyside \tab 2000-05-14 \tab NA\cr
-WOLV \tab Wolverhampton Centre              \tab urban_centre     \tab -2.129008 \tab 52.58818 \tab West Midlands           \tab 1995-12-19 \tab 2007-09-30\cr
-WREX \tab Wrexham                           \tab roadside         \tab -3.002778 \tab 53.04222 \tab North Wales             \tab 2002-03-01 \tab NA\cr
-YK10 \tab York Bootham                      \tab urban_background \tab -1.086514 \tab 53.96751 \tab Yorkshire & Humberside  \tab 2008-01-01 \tab NA\cr
-YK11 \tab York Fishergate                   \tab roadside         \tab -1.075861 \tab 53.95189 \tab Yorkshire & Humberside  \tab 2008-01-01 \tab NA
+A3   \tab London A3 Roadside               \tab Urban traffic       \tab -0.291853 \tab 51.37348 \tab Kingston upon Thames London Boro        \tab 20/03/1997 \tab 30/09/2007\cr
+ABD  \tab Aberdeen                         \tab Urban Background    \tab -2.094278 \tab 57.15736 \tab Aberdeen City                           \tab 18/09/1999 \tab 30/09/2007\cr
+ABD7 \tab Aberdeen Union Street Roadside   \tab Urban traffic       \tab -2.106472 \tab 57.14455 \tab Aberdeenshire                           \tab 01/01/2008 \tab NA        \cr
+ACTH \tab Auchencorth Moss                 \tab Rural Background    \tab -3.242900 \tab 55.79216 \tab Midlothian                              \tab 04/09/2006 \tab NA        \cr
+AH   \tab Aston Hill                       \tab Rural Background    \tab -3.034178 \tab 52.50385 \tab Powys - Powys                           \tab 21/10/2003 \tab NA        \cr
+ARM6 \tab Armagh Roadside                  \tab Urban traffic       \tab -6.654528 \tab 54.35352 \tab Armagh City and District Council        \tab 01/01/2009 \tab NA        \cr
+BALM \tab Ballymena                        \tab Urban Background    \tab -6.258275 \tab 54.85864 \tab Ballymena Borough Council               \tab 01/01/2010 \tab NA        \cr
+BAR2 \tab Barnsley 12                      \tab Urban Background    \tab -1.485153 \tab 53.55593 \tab Barnsley District                       \tab 21/03/1994 \tab NA        \cr
+BAR3 \tab Barnsley Gawber                  \tab Urban Background    \tab -1.510436 \tab 53.56292 \tab Barnsley District                       \tab 08/07/2002 \tab 30/09/2007\cr
+BARN \tab Barnsley                         \tab Urban Background    \tab -1.473611 \tab 53.57972 \tab Barnsley District                       \tab 14/03/1991 \tab 21/03/1994\cr
+BATH \tab Bath Roadside                    \tab Urban traffic       \tab -2.354155 \tab 51.39113 \tab Bath and North East Somerset            \tab 18/11/1996 \tab 30/09/2007\cr
+BEL  \tab Belfast East                     \tab Urban Background    \tab -5.901667 \tab 54.59653 \tab Belfast City Council                    \tab 06/09/1989 \tab 30/09/2007\cr
+BEL2 \tab Belfast Centre                   \tab Urban Background    \tab -5.928833 \tab 54.59965 \tab Belfast City Council                    \tab 08/03/1992 \tab NA        \cr
+BEL4 \tab Belfast Clara St                 \tab Suburban Background \tab -5.895460 \tab 54.59126 \tab Belfast City Council                    \tab 01/06/1998 \tab 30/09/2007\cr
+BEX  \tab London Bexley                    \tab Suburban Background \tab  0.184806 \tab 51.46603 \tab London Borough of Bexley                \tab 01/05/1994 \tab NA        \cr
+BHAM \tab Birmingham Kerbside              \tab Urban traffic       \tab -1.906111 \tab 52.32778 \tab Bromsgrove District                     \tab 13/03/1974 \tab 17/01/1978\cr
+BIL  \tab Billingham                       \tab Urban Industrial    \tab -1.275039 \tab 54.60537 \tab Stockton-on-Tees                        \tab 01/01/1987 \tab NA        \cr
+BIR  \tab Bircotes                         \tab Urban Background    \tab -0.202500 \tab 51.88667 \tab Bassetlaw District                      \tab 14/09/1989 \tab 11/03/1991\cr
+BIR1 \tab Birmingham Tyburn                \tab Urban Background    \tab -1.830583 \tab 52.51172 \tab Birmingham District                     \tab 23/01/2009 \tab NA        \cr
+BIR2 \tab Birmingham East                  \tab Urban Background    \tab -1.831498 \tab 52.49763 \tab Birmingham District                     \tab 04/08/1993 \tab 31/12/2000\cr
+BIRM \tab Birmingham Centre                \tab Urban Background    \tab -1.908078 \tab 52.47972 \tab Birmingham District                     \tab 18/03/1992 \tab 30/09/2007\cr
+BIRT \tab Birmingham Tyburn Roadside       \tab Urban traffic       \tab -1.830861 \tab 52.51219 \tab Birmingham District                     \tab 11/02/2009 \tab NA        \cr
+BLAC \tab Blackpool                        \tab Urban Background    \tab -3.029283 \tab 53.79046 \tab Blackpool                               \tab 08/08/2000 \tab 11/11/2004\cr
+BLC2 \tab Blackpool Marton                 \tab Urban Background    \tab -3.007175 \tab 53.80489 \tab Blackpool                               \tab 05/06/2007 \tab 28/01/2009\cr
+BLCB \tab Blackburn Darwen Roadside        \tab Urban traffic       \tab -2.483815 \tab 53.71550 \tab Blackburn with Darwen                   \tab 15/06/2009 \tab NA        \cr
+BOLT \tab Bolton                           \tab Urban Background    \tab -2.439583 \tab 53.57232 \tab Bolton District                         \tab 03/02/1997 \tab 30/09/2007\cr
+BORN \tab Bournemouth                      \tab Urban Background    \tab -1.826744 \tab 50.73957 \tab Bournemouth                             \tab 19/07/2002 \tab 30/09/2007\cr
+BOT  \tab Bottesford                       \tab Rural Background    \tab -0.814722 \tab 52.93028 \tab Melton District                         \tab 01/10/1977 \tab NA        \cr
+BRAD \tab Bradford Centre                  \tab Urban Background    \tab -1.748694 \tab 53.79339 \tab Bradford District                       \tab 28/11/1997 \tab 30/09/2007\cr
+BREN \tab London Brent                     \tab Urban Background    \tab -0.276223 \tab 51.58977 \tab London Borough of Brent                 \tab 10/04/1996 \tab 30/09/2007\cr
+BRI  \tab London Bridge Place              \tab Urban Background    \tab -0.141655 \tab 51.49521 \tab City of Westminster                     \tab 20/08/1990 \tab 30/11/1999\cr
+BRIS \tab Bristol Centre                   \tab Urban Background    \tab -2.585622 \tab 51.45718 \tab Bristol City Council                    \tab 04/01/1993 \tab 15/09/2005\cr
+BRIT \tab Brighton Roadside                \tab Urban traffic       \tab -0.137281 \tab 50.82354 \tab Brighton & Hove                         \tab 10/02/1998 \tab 30/09/2007\cr
+BRN  \tab Brentford Roadside               \tab Urban traffic       \tab -0.310121 \tab 51.48945 \tab London Borough of Hounslow              \tab 20/06/2003 \tab 30/09/2007\cr
+BRS2 \tab Bristol Old Market               \tab Urban traffic       \tab -2.583519 \tab 51.45603 \tab Bristol City Council                    \tab 01/07/1996 \tab NA        \cr
+BRS8 \tab Bristol St Paul's                \tab Urban Background    \tab -2.584482 \tab 51.46284 \tab Bristol City Council                    \tab 15/06/2006 \tab NA        \cr
+BRT3 \tab Brighton Preston Park            \tab Urban Background    \tab -0.147572 \tab 50.84084 \tab Brighton & Hove                         \tab 03/11/2004 \tab NA        \cr
+BURY \tab Bury Roadside                    \tab Urban traffic       \tab -2.289611 \tab 53.53911 \tab Bury District                           \tab 20/01/1997 \tab NA        \cr
+BUSH \tab Bush Estate                      \tab Rural Background    \tab -3.205782 \tab 55.86228 \tab Midlothian                              \tab 09/10/2003 \tab NA        \cr
+BY1  \tab Bromley Roadside                 \tab Urban traffic       \tab  0.020128 \tab 51.40710 \tab London Borough of Bromley               \tab 02/05/1997 \tab 06/07/1998\cr
+BY2  \tab London Bromley                   \tab Urban traffic       \tab  0.075527 \tab 51.42468 \tab London Borough of Bromley               \tab 11/08/1998 \tab 20/06/2005\cr
+CA1  \tab Camden Kerbside                  \tab Urban traffic       \tab -0.175269 \tab 51.54421 \tab London Borough of Camden                \tab 19/02/2009 \tab NA        \cr
+CAM  \tab Cambridge Roadside               \tab Urban traffic       \tab  0.124456 \tab 52.20237 \tab Cambridge District                      \tab 26/06/1999 \tab NA        \cr
+CAMB \tab Cambridge                        \tab Urban traffic       \tab  0.041111 \tab 51.99528 \tab North Hertfordshire District            \tab 01/11/1974 \tab 01/03/1978\cr
+CAN  \tab London Canvey                    \tab Urban Industrial    \tab  0.571944 \tab 51.53250 \tab Castle Point District                   \tab 11/10/1977 \tab 25/02/1980\cr
+CANT \tab Canterbury                       \tab Urban Background    \tab  1.098061 \tab 51.27399 \tab Canterbury District                     \tab 01/02/2001 \tab NA        \cr
+CAR  \tab Cardiff Kerbside                 \tab Urban traffic       \tab -3.177778 \tab 51.48194 \tab Cardiff County Council                  \tab 28/07/1973 \tab 23/11/1976\cr
+CARD \tab Cardiff Centre                   \tab Urban Background    \tab -3.176250 \tab 51.48178 \tab Cardiff County Council                  \tab 05/09/2002 \tab 10/09/2007\cr
+CARL \tab Carlisle Roadside                \tab Urban traffic       \tab -2.945861 \tab 54.89472 \tab Carlisle City Council                   \tab 17/03/2009 \tab NA        \cr
+CHAT \tab Chatham Roadside                 \tab Urban traffic       \tab  0.548668 \tab 51.37384 \tab Medway                                  \tab 01/07/2010 \tab NA        \cr
+CHIL \tab Chilworth                        \tab Suburban Background \tab -1.422778 \tab 50.96222 \tab Southampton City Council                \tab 18/04/1975 \tab 10/10/1975\cr
+CHP  \tab Chepstow A48                     \tab Urban traffic       \tab -2.678731 \tab 51.63809 \tab Monmouthshire County                    \tab 01/01/2008 \tab NA        \cr
+CHS6 \tab Chesterfield                     \tab Urban Background    \tab -1.433611 \tab 53.23058 \tab Chesterfield District                   \tab 13/03/2008 \tab NA        \cr
+CHS7 \tab Chesterfield Roadside            \tab Urban traffic       \tab -1.456944 \tab 53.23172 \tab Chesterfield District                   \tab 11/03/2008 \tab NA        \cr
+CLL  \tab Central London                   \tab Urban Background    \tab -0.138333 \tab 51.49472 \tab City of Westminster                     \tab 01/07/1972 \tab 06/08/1990\cr
+CLL2 \tab London Bloomsbury                \tab Urban Background    \tab -0.125889 \tab 51.52229 \tab London Borough of Camden                \tab 23/01/1992 \tab NA        \cr
+COV2 \tab Coventry Centre                  \tab Urban Background    \tab -1.522133 \tab 52.41345 \tab Coventry City Council                   \tab 18/02/1997 \tab 31/12/2000\cr
+COV3 \tab Coventry Memorial Park           \tab Urban Background    \tab -1.519612 \tab 52.39440 \tab Coventry City Council                   \tab 16/12/2008 \tab NA        \cr
+CRD  \tab London Cromwell Road             \tab Urban traffic       \tab -0.180564 \tab 51.49492 \tab Royal Borough of Kensington and Chelsea \tab 22/02/1973 \tab 12/09/1996\cr
+CRD2 \tab London Cromwell Road 2           \tab Urban traffic       \tab -0.178709 \tab 51.49548 \tab Royal Borough of Kensington and Chelsea \tab 20/05/1998 \tab NA        \cr
+CWMB \tab Cwmbran                          \tab Urban Background    \tab -3.006953 \tab 51.65380 \tab Tor-Faen - Torfaen                      \tab 12/03/2002 \tab 30/09/2007\cr
+DERY \tab Derry                            \tab Urban Background    \tab -7.329115 \tab 55.00122 \tab Derry City Council                      \tab 29/04/1997 \tab 30/09/2007\cr
+DUMB \tab Dumbarton Roadside               \tab Urban traffic       \tab -4.558333 \tab 55.94333 \tab West Dunbartonshire                     \tab 01/09/2010 \tab NA        \cr
+DUMF \tab Dumfries                         \tab Urban traffic       \tab -3.614233 \tab 55.07003 \tab Dumfries and Galloway                   \tab 17/07/2001 \tab 30/09/2007\cr
+EAGL \tab Stockton-on-Tees Eaglescliffe    \tab Urban traffic       \tab -1.358547 \tab 54.51667 \tab Stockton-on-Tees                        \tab 21/01/2009 \tab NA        \cr
+EB   \tab Eastbourne                       \tab Urban Background    \tab  0.271611 \tab 50.80578 \tab Eastbourne District                     \tab 01/11/2010 \tab NA        \cr
+ECCL \tab Salford Eccles                   \tab Urban Industrial    \tab -2.334139 \tab 53.48481 \tab Salford City Council                    \tab 20/03/1997 \tab NA        \cr
+ED   \tab Edinburgh Centre                 \tab Urban Background    \tab -3.195775 \tab 55.95197 \tab City of Edinburgh                       \tab 04/10/1992 \tab 13/10/2003\cr
+ED3  \tab Edinburgh St Leonards            \tab Urban Background    \tab -3.182186 \tab 55.94559 \tab City of Edinburgh                       \tab 24/11/2003 \tab NA        \cr
+EK   \tab East Kilbride                    \tab Suburban Background \tab -4.173056 \tab 55.75472 \tab South Lanarkshire                       \tab 08/05/1975 \tab 09/10/1975\cr
+ESK  \tab Eskdalemuir                      \tab Rural Background    \tab -3.206111 \tab 55.31531 \tab Dumfries and Galloway                   \tab 09/12/2004 \tab NA        \cr
+EX   \tab Exeter Roadside                  \tab Urban traffic       \tab -3.532465 \tab 50.72508 \tab Exeter District                         \tab 02/07/1996 \tab NA        \cr
+FEA  \tab Featherstone                     \tab Urban Background    \tab -1.352500 \tab 53.68056 \tab Wakefield District                      \tab 14/09/1989 \tab 13/03/1991\cr
+FW   \tab Fort William                     \tab Suburban Background \tab -5.101102 \tab 56.82266 \tab West Lothian                            \tab 22/06/2006 \tab NA        \cr
+GDF  \tab Great Dun Fell                   \tab Rural Background    \tab -2.450799 \tab 54.68423 \tab Eden District                           \tab 09/05/1986 \tab NA        \cr
+GLA  \tab Glasgow City Chambers            \tab Urban Background    \tab -4.245959 \tab 55.86041 \tab City of Glasgow                         \tab 28/07/1989 \tab 30/09/2007\cr
+GLA3 \tab Glasgow Centre                   \tab Urban Background    \tab -4.255161 \tab 55.85773 \tab City of Glasgow                         \tab 26/07/1996 \tab NA        \cr
+GLA4 \tab Glasgow Kerbside                 \tab Urban traffic       \tab -4.258889 \tab 55.85917 \tab City of Glasgow                         \tab 01/08/2002 \tab 31/12/2010\cr
+GLAS \tab Glasgow Hope St                  \tab Urban traffic       \tab -4.257778 \tab 55.85833 \tab City of Glasgow                         \tab 27/06/1973 \tab 28/10/1982\cr
+GLAZ \tab Glazebury                        \tab Rural Background    \tab -2.472056 \tab 53.46008 \tab Salford City Council                    \tab 26/01/2004 \tab NA        \cr
+GRA2 \tab Grangemouth Moray                \tab Rural Background    \tab -3.710833 \tab 56.01314 \tab Falkirk                                 \tab 01/06/2009 \tab NA        \cr
+GRAN \tab Grangemouth                      \tab Urban Industrial    \tab -3.704399 \tab 56.01032 \tab Falkirk                                 \tab 17/01/2003 \tab 30/09/2007\cr
+HAR  \tab Harwell                          \tab Rural Background    \tab -1.325283 \tab 51.57108 \tab Vale of White Horse District            \tab 14/08/1998 \tab NA        \cr
+HARR \tab London Harrow                    \tab Suburban Background \tab -0.348889 \tab 51.57333 \tab London Borough of Harrow                \tab 24/08/1979 \tab 03/10/1980\cr
+HG1  \tab Haringey Roadside                \tab Urban traffic       \tab -0.068225 \tab 51.59930 \tab London Borough of Haringey              \tab 16/05/1996 \tab NA        \cr
+HG2  \tab London Haringey                  \tab Urban Background    \tab -0.126439 \tab 51.58605 \tab London Borough of Haringey              \tab 29/11/2007 \tab NA        \cr
+HIL  \tab London Hillingdon                \tab Urban Background    \tab -0.460861 \tab 51.49633 \tab London Borough of Hillingdon            \tab 02/08/1996 \tab 30/09/2007\cr
+HK4  \tab London Hackney                   \tab Urban Background    \tab -0.056592 \tab 51.55877 \tab London Borough of Hackney               \tab 06/01/1997 \tab 30/09/2007\cr
+HM   \tab High Muffles                     \tab Rural Background    \tab -0.808550 \tab 54.33494 \tab Ryedale District                        \tab 20/10/2003 \tab NA        \cr
+HOPE \tab Stanford-le-Hope Roadside        \tab Urban traffic       \tab  0.439556 \tab 51.51817 \tab Thurrock                                \tab 22/01/2008 \tab NA        \cr
+HORE \tab Horley                           \tab Suburban Background \tab -0.167741 \tab 51.16586 \tab Reigate and Banstead District           \tab 21/11/2007 \tab NA        \cr
+HORS \tab London Westminster               \tab Urban Background    \tab -0.131931 \tab 51.49467 \tab City of Westminster                     \tab 17/07/2001 \tab NA        \cr
+HOVE \tab Hove Roadside                    \tab Urban traffic       \tab -0.170294 \tab 50.82778 \tab Brighton & Hove                         \tab 15/10/1997 \tab 30/09/2007\cr
+HR3  \tab London Harrow Stanmore           \tab Urban Background    \tab -0.298777 \tab 51.61733 \tab London Borough of Harrow                \tab 16/12/2008 \tab NA        \cr
+HRL  \tab London Harlington                \tab Urban Industrial    \tab -0.441614 \tab 51.48879 \tab London Borough of Hillingdon            \tab 01/01/2004 \tab 03/03/2008\cr
+HS1  \tab Hounslow Roadside                \tab Urban traffic       \tab -0.308975 \tab 51.48965 \tab London Borough of Hounslow              \tab 16/09/1997 \tab 16/11/2002\cr
+HUL2 \tab Hull Freetown                    \tab Urban Background    \tab -0.341222 \tab 53.74878 \tab Kingston-upon-hull City Council         \tab 06/11/2002 \tab NA        \cr
+HULL \tab Hull Centre                      \tab Urban Background    \tab -0.338322 \tab 53.74479 \tab Kingston-upon-hull City Council         \tab 04/01/1994 \tab 17/01/2002\cr
+INV2 \tab Inverness                        \tab Urban traffic       \tab -4.241039 \tab 57.48120 \tab Highland                                \tab 17/07/2001 \tab 30/09/2007\cr
+ISL  \tab London Islington                 \tab Urban Background    \tab -0.093611 \tab 51.53083 \tab London Borough of Islington             \tab 09/07/1976 \tab 11/10/1978\cr
+KC1  \tab London N. Kensington             \tab Urban Background    \tab -0.213431 \tab 51.52106 \tab Royal Borough of Kensington and Chelsea \tab 31/03/2009 \tab NA        \cr
+LB   \tab Ladybower                        \tab Rural Background    \tab -1.752006 \tab 53.40337 \tab High Peak District                      \tab 27/10/1988 \tab NA        \cr
+LDS  \tab Leeds Potternewton               \tab Urban Background    \tab -1.535098 \tab 53.82568 \tab Leeds City Council                      \tab 01/01/1995 \tab 31/12/2000\cr
+LEAM \tab Leamington Spa                   \tab Urban Background    \tab -1.533119 \tab 52.28881 \tab Warwick District                        \tab 26/07/1996 \tab 30/09/2007\cr
+LED6 \tab Leeds Headingley Kerbside        \tab Urban traffic       \tab -1.576361 \tab 53.81997 \tab Leeds City Council                      \tab 02/04/2009 \tab NA        \cr
+LEED \tab Leeds Centre                     \tab Urban Background    \tab -1.546472 \tab 53.80378 \tab Leeds City Council                      \tab 04/01/1993 \tab NA        \cr
+LEIC \tab Leicester Centre                 \tab Urban Background    \tab -1.133006 \tab 52.63135 \tab Leicester City Council                  \tab 04/01/1994 \tab NA        \cr
+LEOM \tab Leominster                       \tab Suburban Background \tab -2.736665 \tab 52.22174 \tab Herefordshire Council                   \tab 18/07/2005 \tab NA        \cr
+LERW \tab Lerwick                          \tab Suburban Background \tab -1.185319 \tab 60.13922 \tab Shetland Islands                        \tab 25/05/2005 \tab NA        \cr
+LH   \tab Lullington Heath                 \tab Rural Background    \tab  0.181250 \tab 50.79370 \tab Wealden District                        \tab 29/09/1988 \tab NA        \cr
+LINC \tab Lincoln Roadside                 \tab Urban traffic       \tab -0.537895 \tab 53.22889 \tab Lincoln City Council                    \tab 06/05/1997 \tab 22/12/1999\cr
+LIVR \tab Liverpool Centre                 \tab Urban Background    \tab -2.980249 \tab 53.40845 \tab Liverpool City Council                  \tab 23/04/1993 \tab 23/09/2002\cr
+LN   \tab Lough Navar                      \tab Rural Background    \tab -7.900328 \tab 54.43951 \tab Fermanagh District Council              \tab 02/10/1996 \tab NA        \cr
+LON6 \tab London Eltham                    \tab Suburban Background \tab  0.070842 \tab 51.45266 \tab London Borough of Greenwich             \tab 08/10/1993 \tab 31/12/2000\cr
+LON7 \tab London Eltham (HC)               \tab Urban Background    \tab  0.070842 \tab 51.45266 \tab London Borough of Greenwich             \tab 17/10/2003 \tab NA        \cr
+LV6  \tab Liverpool Queen's Drive Roadside \tab Urban traffic       \tab -2.962500 \tab 53.44694 \tab Liverpool City Council                  \tab 01/01/2008 \tab NA        \cr
+LVP  \tab Liverpool Speke                  \tab Urban Background    \tab -2.844333 \tab 53.34633 \tab Liverpool City Council                  \tab 24/11/1995 \tab 31/12/2000\cr
+LW1  \tab London Lewisham                  \tab Urban Background    \tab -0.020139 \tab 51.44541 \tab London Borough of Lewisham              \tab 16/04/1997 \tab 30/09/2007\cr
+MACK \tab Charlton Mackrell                \tab Rural Background    \tab -2.683450 \tab 51.05625 \tab South Somerset District                 \tab 03/09/2008 \tab NA        \cr
+MAN  \tab Manchester Town Hall             \tab Urban Background    \tab -2.244800 \tab 53.47850 \tab Manchester City Council                 \tab 08/08/1991 \tab 30/09/2007\cr
+MAN3 \tab Manchester Piccadilly            \tab Urban Background    \tab -2.237881 \tab 53.48152 \tab Manchester City Council                 \tab 18/12/1995 \tab 30/09/2007\cr
+MAN4 \tab Manchester South                 \tab Suburban Background \tab -2.243280 \tab 53.36903 \tab Manchester City Council                 \tab 06/12/1996 \tab NA        \cr
+MH   \tab Mace Head                        \tab Rural Background    \tab -9.903917 \tab 53.32644 \tab Unknown                                 \tab 03/04/1987 \tab NA        \cr
+MID  \tab Middlesbrough                    \tab Urban Background    \tab -1.220874 \tab 54.56930 \tab Middlesbrough                           \tab 01/01/1993 \tab 31/12/2000\cr
+MKTH \tab Market Harborough                \tab Rural Background    \tab -0.772222 \tab 52.55444 \tab Harborough District                     \tab 10/12/2003 \tab NA        \cr
+MOLD \tab Mold                             \tab Suburban Background \tab -3.144889 \tab 53.16231 \tab Flintshire County                       \tab 02/12/2009 \tab NA        \cr
+MY1  \tab London Marylebone Road           \tab Urban traffic       \tab -0.154611 \tab 51.52253 \tab City of Westminster                     \tab 01/04/1998 \tab NA        \cr
+NCA3 \tab Newcastle Cradlewell Roadside    \tab Urban traffic       \tab -1.598611 \tab 54.98639 \tab Newcastle City Council                  \tab 10/03/2008 \tab NA        \cr
+NEWC \tab Newcastle Centre                 \tab Urban Background    \tab -1.610528 \tab 54.97825 \tab Newcastle City Council                  \tab 08/03/1992 \tab NA        \cr
+NO10 \tab Norwich Forum Roadside           \tab Urban traffic       \tab  1.291714 \tab 52.62817 \tab Norwich City Council                    \tab 08/04/2005 \tab 30/09/2007\cr
+NO12 \tab Norwich Lakenfields              \tab Urban Background    \tab  1.301976 \tab 52.61419 \tab Norwich City Council                    \tab 01/09/2009 \tab NA        \cr
+NOR1 \tab Norwich Roadside                 \tab Urban traffic       \tab  1.299064 \tab 52.62200 \tab Norwich City Council                    \tab 21/06/1997 \tab 14/02/2005\cr
+NOR2 \tab Norwich Centre                   \tab Urban Background    \tab  1.295019 \tab 52.63203 \tab Norwich City Council                    \tab 24/07/1997 \tab 30/09/2007\cr
+NOTT \tab Nottingham Centre                \tab Urban Background    \tab -1.146447 \tab 52.95473 \tab Nottingham City Council                 \tab 02/09/1996 \tab 30/09/2007\cr
+NPT3 \tab Newport                          \tab Urban Background    \tab -2.977281 \tab 51.60120 \tab Newport County Borough                  \tab 01/01/2008 \tab NA        \cr
+NTON \tab Northampton                      \tab Urban Background    \tab -0.885933 \tab 52.27349 \tab Northampton District                    \tab 12/03/2002 \tab 30/09/2007\cr
+OLDB \tab Sandwell Oldbury                 \tab Urban Background    \tab -2.017629 \tab 52.50431 \tab Sandwell District                       \tab 27/06/1997 \tab 21/09/1998\cr
+OSY  \tab St Osyth                         \tab Rural Background    \tab  1.049031 \tab 51.77798 \tab Tendring District                       \tab 11/05/2002 \tab 31/12/2009\cr
+OX   \tab Oxford Centre Roadside           \tab Urban traffic       \tab -1.257581 \tab 51.75181 \tab Oxford City Council                     \tab 15/04/1996 \tab 30/09/2007\cr
+OX8  \tab Oxford St Ebbes                  \tab Urban Background    \tab -1.260278 \tab 51.74481 \tab Oxford City Council                     \tab 18/12/2008 \tab NA        \cr
+PEEB \tab Peebles                          \tab Urban Background    \tab -3.196527 \tab 55.65747 \tab Scottish Borders                        \tab 06/11/2009 \tab NA        \cr
+PEMB \tab Narberth                         \tab Rural Background    \tab -4.691462 \tab 51.78178 \tab Pembrokshire County                     \tab 20/01/1997 \tab NA        \cr
+PLYM \tab Plymouth Centre                  \tab Urban Background    \tab -4.142361 \tab 50.37167 \tab Plymouth City Council                   \tab 29/09/1997 \tab 30/09/2007\cr
+PMTH \tab Portsmouth                       \tab Urban Background    \tab -1.068583 \tab 50.82881 \tab Portsmouth City Council                 \tab 21/03/2002 \tab 30/09/2007\cr
+PRES \tab Preston                          \tab Urban Background    \tab -2.680353 \tab 53.76559 \tab Preston District                        \tab 06/06/2000 \tab 30/09/2007\cr
+PT   \tab Port Talbot                      \tab Urban Industrial    \tab -3.761690 \tab 51.57980 \tab Neath Port Talbot County Borough        \tab 09/01/1997 \tab 24/07/2007\cr
+PT4  \tab Port Talbot Margam               \tab Urban Industrial    \tab -3.770822 \tab 51.58395 \tab Neath Port Talbot County Borough        \tab 23/04/2008 \tab NA        \cr
+REA1 \tab Reading New Town                 \tab Urban Background    \tab -0.944067 \tab 51.45309 \tab Reading                                 \tab 17/10/2003 \tab 30/09/2007\cr
+READ \tab Reading                          \tab Urban Background    \tab -0.955180 \tab 51.45352 \tab Reading                                 \tab 17/07/1997 \tab 06/02/2003\cr
+REDC \tab Redcar                           \tab Suburban Background \tab -1.073300 \tab 54.61073 \tab Redcar and Cleveland                    \tab 25/06/1997 \tab 30/09/2007\cr
+ROCH \tab Rochester Stoke                  \tab Rural Background    \tab  0.634889 \tab 51.45617 \tab Medway                                  \tab 26/01/1996 \tab NA        \cr
+ROTH \tab Rotherham Centre                 \tab Urban Background    \tab -1.354444 \tab 53.43186 \tab Rotherham District                      \tab 20/06/1997 \tab 30/09/2007\cr
+RUGE \tab Rugeley                          \tab Urban Background    \tab -1.936111 \tab 52.75306 \tab Cannock Chase District                  \tab 21/03/1991 \tab 17/09/1992\cr
+SALT \tab Saltash Roadside                 \tab Urban traffic       \tab -4.230300 \tab 50.41310 \tab Caradon District                        \tab 23/02/2010 \tab 31/08/2010\cr
+SCN2 \tab Scunthorpe Town                  \tab Urban Industrial    \tab -0.636811 \tab 53.58634 \tab North Lincolnshire                      \tab 10/01/2008 \tab NA        \cr
+SCUN \tab Scunthorpe                       \tab Urban Industrial    \tab -0.633015 \tab 53.58499 \tab North Lincolnshire                      \tab 15/12/1997 \tab 18/03/2004\cr
+SDY  \tab Sandy Roadside                   \tab Urban traffic       \tab -0.300306 \tab 52.13242 \tab Mid Bedfordshire District               \tab 28/07/2008 \tab NA        \cr
+SEND \tab Southend-on-Sea                  \tab Urban Background    \tab  0.678408 \tab 51.54421 \tab Southend-on-Sea                         \tab 24/07/2000 \tab 30/01/2009\cr
+SHE  \tab Sheffield Tinsley                \tab Urban Background    \tab -1.396139 \tab 53.41058 \tab Sheffield City Council                  \tab 08/08/1991 \tab 30/09/2007\cr
+SHE2 \tab Sheffield Centre                 \tab Urban Background    \tab -1.473306 \tab 53.37772 \tab Sheffield City Council                  \tab 19/06/2007 \tab NA        \cr
+SIB  \tab Sibton                           \tab Rural Background    \tab  1.463497 \tab 52.29440 \tab Suffolk Coastal District                \tab 10/05/1977 \tab 31/03/1989\cr
+SK1  \tab London Southwark                 \tab Urban Background    \tab -0.096667 \tab 51.49055 \tab London Borough of Southwark             \tab 28/02/1997 \tab 30/09/2007\cr
+SK2  \tab Southwark Roadside               \tab Urban traffic       \tab -0.062300 \tab 51.48199 \tab London Borough of Southwark             \tab 01/04/1997 \tab 09/02/2006\cr
+SK5  \tab Southwark A2 Old Kent Road       \tab Urban traffic       \tab -0.059550 \tab 51.48050 \tab London Borough of Southwark             \tab 24/10/2010 \tab NA        \cr
+SOM  \tab Somerton                         \tab Rural Background    \tab -2.735253 \tab 51.03572 \tab South Somerset District                 \tab 28/04/2003 \tab 05/03/2008\cr
+SOUT \tab Southampton Centre               \tab Urban Background    \tab -1.395778 \tab 50.90814 \tab Southampton City Council                \tab 04/01/1994 \tab NA        \cr
+STE  \tab Stevenage                        \tab Suburban Background \tab -0.200833 \tab 51.88694 \tab Stevenage District                      \tab 01/04/1977 \tab 29/04/1994\cr
+STEW \tab Stewartby                        \tab Urban Industrial    \tab -0.511111 \tab 52.07194 \tab Bedford District                        \tab 26/11/2007 \tab 31/12/2008\cr
+STK4 \tab Stockport Shaw Heath             \tab Urban Background    \tab -2.161111 \tab 53.40306 \tab Stockport District                      \tab 09/10/2002 \tab 30/09/2007\cr
+STOC \tab Stockport                        \tab Urban Background    \tab -2.158200 \tab 53.40994 \tab Stockport District                      \tab 25/11/1996 \tab 03/10/2002\cr
+STOK \tab Stoke-on-Trent Centre            \tab Urban Background    \tab -2.175133 \tab 53.02821 \tab Stoke-on-trent City Council             \tab 12/06/2007 \tab NA        \cr
+STOR \tab Storrington Roadside             \tab Urban traffic       \tab -0.450878 \tab 50.91742 \tab Horsham District                        \tab 01/08/2009 \tab NA        \cr
+SUN2 \tab Sunderland Silksworth            \tab Urban Background    \tab -1.406878 \tab 54.88361 \tab Sunderland District                     \tab 09/12/2004 \tab NA        \cr
+SUND \tab Sunderland                       \tab Urban Background    \tab -1.380081 \tab 54.90611 \tab Sunderland District                     \tab 06/10/1992 \tab 30/09/2007\cr
+SUT1 \tab Sutton Roadside                  \tab Urban traffic       \tab -0.182789 \tab 51.36636 \tab London Borough of Sutton                \tab 01/04/1996 \tab 02/05/2002\cr
+SUT3 \tab London Sutton                    \tab Suburban Background \tab -0.165489 \tab 51.36789 \tab London Borough of Sutton                \tab 01/04/1996 \tab 02/05/2002\cr
+SV   \tab Strath Vaich                     \tab Rural Background    \tab -4.776583 \tab 57.73446 \tab Highland                                \tab 21/10/1990 \tab 14/03/1997\cr
+SWA1 \tab Swansea Roadside                 \tab Urban traffic       \tab -3.947374 \tab 51.63270 \tab City and County of Swansea              \tab 20/09/2006 \tab 30/09/2007\cr
+SWAN \tab Swansea                          \tab Urban Background    \tab -3.943329 \tab 51.62114 \tab City and County of Swansea              \tab 01/12/1994 \tab 07/08/2006\cr
+TED  \tab London Teddington                \tab Urban Background    \tab -0.339647 \tab 51.42099 \tab London Borough of Richmond Upon Thames  \tab 08/08/1996 \tab NA        \cr
+TH2  \tab Tower Hamlets Roadside           \tab Urban traffic       \tab -0.042164 \tab 51.52256 \tab London Borough of Tower Hamlets         \tab 01/04/1996 \tab NA        \cr
+THUR \tab Thurrock                         \tab Urban Background    \tab  0.317969 \tab 51.47707 \tab Thurrock                                \tab 20/03/2009 \tab NA        \cr
+TRAN \tab Wirral Tranmere                  \tab Urban Background    \tab -3.022722 \tab 53.37287 \tab Wirral District                         \tab 14/05/2000 \tab 30/09/2007\cr
+WA2  \tab London Wandsworth                \tab Urban Background    \tab -0.191164 \tab 51.45696 \tab London Borough of Wandsworth            \tab 01/04/1996 \tab 30/09/2007\cr
+WAL  \tab Walsall Alumwell                 \tab Urban Background    \tab -2.010483 \tab 52.58167 \tab Walsall District                        \tab 05/03/1987 \tab 30/09/2007\cr
+WAL2 \tab Walsall Willenhall               \tab Urban Background    \tab -2.033144 \tab 52.60821 \tab Walsall District                        \tab 29/04/1997 \tab 03/02/2010\cr
+WAR  \tab Warrington                       \tab Urban Background    \tab -2.615358 \tab 53.38928 \tab Warrington                              \tab 21/10/2008 \tab NA        \cr
+WBRO \tab Sandwell West Bromwich           \tab Urban Background    \tab -1.995556 \tab 52.52062 \tab Sandwell District                       \tab 04/11/1998 \tab 30/09/2007\cr
+WC   \tab Wharleycroft                     \tab Rural Background    \tab -2.469167 \tab 54.61655 \tab Eden District                           \tab 08/05/1985 \tab 28/11/1995\cr
+WEYB \tab Weybourne                        \tab Rural Background    \tab  1.122017 \tab 52.95049 \tab North Norfolk District                  \tab 30/05/2001 \tab NA        \cr
+WFEN \tab Wicken Fen                       \tab Rural Background    \tab  0.290917 \tab 52.29850 \tab East Cambridgeshire District            \tab 12/11/1997 \tab NA        \cr
+WIG3 \tab Wigan Leigh                      \tab Urban Background    \tab -2.506899 \tab 53.49422 \tab Wigan District                          \tab 15/05/2002 \tab 28/09/2004\cr
+WIG5 \tab Wigan Centre                     \tab Urban Background    \tab -2.638139 \tab 53.54914 \tab Wigan District                          \tab 08/10/2004 \tab NA        \cr
+WL   \tab West London                      \tab Urban Background    \tab -0.200361 \tab 51.49380 \tab Royal Borough of Kensington and Chelsea \tab 14/08/1989 \tab 30/09/2007\cr
+WOLV \tab Wolverhampton Centre             \tab Urban Background    \tab -2.129008 \tab 52.58818 \tab Wolverhampton MBC                       \tab 13/06/2007 \tab 30/09/2007\cr
+WRAY \tab Wray                             \tab Rural Background    \tab -2.583333 \tab 54.10444 \tab Lancaster City Council                  \tab 01/04/1985 \tab 29/02/1988\cr
+WREX \tab Wrexham                          \tab Urban traffic       \tab -3.002778 \tab 53.04222 \tab Wrecsam - Wrexham                       \tab 06/03/2002 \tab 30/09/2007\cr
+YARM \tab Stockton-on-Tees Yarm            \tab Urban traffic       \tab -1.354319 \tab 54.50918 \tab Stockton-on-Tees                        \tab 13/08/2002 \tab 30/09/2007\cr
+YK10 \tab York Bootham                     \tab Urban Background    \tab -1.086514 \tab 53.96751 \tab City of York                            \tab 10/02/2009 \tab NA        \cr
+YK11 \tab York Fishergate                  \tab Urban traffic       \tab -1.075861 \tab 53.95189 \tab City of York                            \tab 01/01/2008 \tab NA        \cr
+YW   \tab Yarner Wood                      \tab Rural Background    \tab -3.716510 \tab 50.59760 \tab Teignbridge District                    \tab 15/09/2003 \tab NA        
 }
 }
 \examples{
