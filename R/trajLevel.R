@@ -460,6 +460,11 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
     ## plot
     do.call(scatterPlot, scatterPlot.args)
+    
+    output <- list(data = mydata, call = match.call())
+    class(output) <- "openair"
+    
+    invisible(output)
 
 }
 
