@@ -838,7 +838,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
           panel.linear(x, y, col = "black", myColors = Args$fill,
                        lwd = 1, lty = 5, x.nam = x.nam,
                        y.nam = y.nam, 
-                       se = ci,  group.number = group.number, ...)
+                       se = ci,  group.number = group.number)
         
         
         if (smooth)
@@ -893,19 +893,19 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       xscale.components = xscale.components.log10ticks,
       par.strip.text = list(cex = 0.8),
       colorkey = TRUE, cex.labels = 0.8, cex.title = 1,
-      colramp = function(n) {openColours(method.col, n)},
+      colramp = function(n) {openColours(method.col, n)}, 
       ..., 
-      panel = function(x, ...) {
+      panel = function(x, subscripts, ...) {
         if (!Args$traj) panel.grid(-1, -1)
         panel.hexbinplot(x, ...)
         
         if (mod.line)
           panel.modline(log.x, log.y)
         
-        if (linear & npol == 1)
-          panel.linear(x, y, col = "black", myColors[group.number],
-                       lwd = 1, lty = 5, x.nam = x.nam,
-                       y.nam = y.nam, se = ci,  ...)
+      if (linear & npol == 1)
+        panel.linear(x, mydata[[y]][subscripts], x.nam = x.nam,
+                     y.nam = y.nam, TRUE, col = "black", myColors = Args$fill,
+                     lwd = 1, lty = 5, se = ci, group.number = 1)
         
         ## base map
         if (map)
@@ -1575,16 +1575,18 @@ panel.modline <- function (log.x = FALSE, log.y = FALSE) {
 
 
 
-panel.linear <- function (x, y, form = y ~ x, method = "loess", x.nam, y.nam, ...,
-                          se = TRUE, level = 0.95, n = 100, col = plot.line$col,
-                          col.se = col, lty = plot.line$lty, lwd = plot.line$lwd,
-                          alpha = plot.line$alpha, alpha.se = 0.25, border = NA,
-                          subscripts, group.number, myColors = myColors,
+panel.linear <- function (x, y,  x.nam = "x", y.nam = "y", 
+                          se = TRUE,  col = plot.line$col,
+                          col.se = "black", lty = 1, lwd = 1,
+                          alpha.se = 0.25, border = NA,
+                          group.number, myColors = myColors,
                           group.value, type, col.line,
                           col.symbol, fill, pch, cex, font, fontface, fontfamily)
 {
   ## get rid of R check annoyances
   plot.line = NULL
+  
+  n <- 100
   
   
   thedata <- data.frame(x = x, y = y)
@@ -1607,13 +1609,12 @@ panel.linear <- function (x, y, form = y ~ x, method = "loess", x.nam, y.nam, ..
   if (se) {
     ## predicts 95% CI by default
     panel.polygon(x = c(xseq, rev(xseq)), y = c(pred[, 2], rev(pred[, 3])),
-                  col = col.se,  alpha = alpha.se, border = border)
+                  col = col.se, alpha = alpha.se, border = border)
   }
   
   pred <- pred[, 1]
   
-  panel.lines(xseq, pred, col = col, alpha = alpha, lty = lty,
-              lwd = lwd)
+  panel.lines(xseq, pred, lty = 1, lwd = 1)
   
   x <- current.panel.limits()$xlim[1]
   
