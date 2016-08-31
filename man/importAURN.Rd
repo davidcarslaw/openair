@@ -4,7 +4,8 @@
 \alias{importAURN}
 \title{Import data from the UK Automatic Urban and Rural Network (AURN)}
 \usage{
-importAURN(site = "my1", year = 2009, pollutant = "all", hc = FALSE)
+importAURN(site = "my1", year = 2009, pollutant = "all", hc = FALSE,
+  verbose = TRUE)
 }
 \arguments{
 \item{site}{Site code of the AURN site to import e.g. "my1" is Marylebone
@@ -23,6 +24,9 @@ pollutants ffrom a site. To import only NOx and NO2 for example use
 \code{hc = TRUE} will ensure hydrocarbon data are imported. The default
 is however not to as most users will not be interested in using
 hydrocarbon data and the resulting data frames are considerably larger.}
+
+\item{verbose}{Should the function give messages when downloading files? 
+Default is \code{TRUE}.}
 }
 \value{
 Returns a data frame of hourly mean values with date in POSIXct
@@ -89,7 +93,7 @@ data record over the operational period of the network, however there may
 be some discontinuity in the time series associated with instrument
 changes.
 
-No corrections have been made to teh PM2.5 data. The volatile component of
+No corrections have been made to the PM2.5 data. The volatile component of
 FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 
 While the function is being developed, the following site codes should help
