@@ -5,6 +5,7 @@
 - add `avg.time` option to `summaryPlot` to control the averaging times of the time series lines and `print.datacap` to control whether the data capture % is shown for each interval.
 - fix bug in `selectByDate` where a day number would not work
 - remove arrows in `windRose`, `polarPlot` to avoid ambiguous interpretation of wind direction
+- add `key.position` option to `timePlot` to control the location of the key.
 
 
 # Changes in openair 1.8-6
