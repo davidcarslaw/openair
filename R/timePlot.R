@@ -334,8 +334,10 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
                            quickText(Args$xlab, auto.text) else quickText("", auto.text)
     Args$ylab <- if ("ylab" %in% names(Args))
                            quickText(Args$ylab, auto.text) else NULL
-    Args$main <- if ("main" %in% names(Args))
-                           quickText(Args$main, auto.text) else quickText("", auto.text)
+    
+    if ("main" %in% names(Args)) 
+      if (!is.list(Args$main)) Args$main <- quickText(Args$main, auto.text) 
+    
 
     if ("fontsize" %in% names(Args))
         trellis.par.set(fontsize = list(text = Args$fontsize))
