@@ -6,6 +6,7 @@
 - fix bug in `selectByDate` where a day number would not work
 - remove arrows in `windRose`, `polarPlot` to avoid ambiguous interpretation of wind direction
 - add `key.position` option to `timePlot` to control the location of the key.
+- fix labels in `timeVariation` when data for some types is missing.
 
 
 # Changes in openair 1.8-6

@@ -546,7 +546,7 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
 
     ## proper names of labelling ##########################################################
     if (type != "default") {
-        stripName <- sapply(levels(mydata[ , type]), function(x) quickText(x, auto.text))
+        stripName <- sapply(levels(factor(data.hour[[type]])), function(x) quickText(x, auto.text))
         strip <- strip.custom(factor.levels =  stripName)
     } else {
         strip <- FALSE
@@ -783,7 +783,7 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
 
     } else { ## two conditioning variables
 
-        stripName <- sapply(levels(mydata[ , type]), function(x) quickText(x, auto.text))
+      stripName <- sapply(levels(factor(data.day.hour[[type]])), function(x) quickText(x, auto.text))
         strip.left <- strip.custom(factor.levels =  stripName)
         layout <- NULL
     }
