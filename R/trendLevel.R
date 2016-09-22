@@ -392,7 +392,7 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
     ## ##########################
 
     calc.stat <- function(...)
-        tapply(newdata[, pollutant], newdata[c(x, y, type)], stat.fun, ...)
+        tapply(newdata[[pollutant]], newdata[c(x, y, type)], stat.fun, ...)
 
 
     if (is.null(stat.args)) {

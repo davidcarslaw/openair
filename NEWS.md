@@ -7,6 +7,7 @@
 - remove arrows in `windRose`, `polarPlot` to avoid ambiguous interpretation of wind direction
 - add `key.position` option to `timePlot` to control the location of the key.
 - fix labels in `timeVariation` when data for some types is missing.
+- fix `trendLevel` issue due to `dplyr`
 
 
 # Changes in openair 1.8-6
