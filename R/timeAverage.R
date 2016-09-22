@@ -419,7 +419,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       mydata$year[ids] <- mydata$year[ids] + 1
       
       ## find mean date in year-season
-      mydata <- transform(mydata, cuts = ave(date, list(year, season), 
+      mydata <- transform(mydata, date = ave(date, list(year, season), 
                                              FUN = mean))
       
       mydata <- subset(mydata, select = -c(year, month))
@@ -429,7 +429,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     ## Aggregate data
     
     ## variables to split by
-    vars <- c(type,  "cuts")
+    vars <- c(type,  "date")
     
     if (avg.time == "season") vars <- c(vars, "season")
     
@@ -440,12 +440,11 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       ## useful for debugging
       if (!padded) mydata <- date.pad(mydata, type = type)
       
-      if (avg.time != "season") mydata$cuts <- cut(mydata$date, avg.time)
+      if (avg.time != "season") mydata$date <- lubridate::floor_date(mydata$date, avg.time)
       
       if (statistic == "mean") {## faster for some reason?
         
-        avmet <- select(mydata, -date) %>%
-          group_by_(., .dots = vars) %>%
+        avmet <- group_by_(mydata, .dots = vars) %>%
           summarise_each(
             funs(
               if (sum(is.na(.)) / length(.) <= 1 - data.thresh)
@@ -456,8 +455,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
         
       } else {
         
-        avmet <- select(mydata, -date) %>%
-          group_by_(., .dots = vars) %>%
+        avmet <- group_by_(mydata, .dots = vars) %>%
           summarise_each(
             funs(
               if (sum(is.na(.)) / length(.) <= 1 - data.thresh)
@@ -472,10 +470,10 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       
       ## faster if do not need data capture
       if (avg.time != "season")
-        mydata$cuts <- cut(mydata$date, avg.time)
+        mydata$date <- lubridate::floor_date(mydata$date, avg.time)
       
-      avmet <- select(mydata, -date) %>%
-        group_by_(., .dots = vars) # %>%
+      avmet <- #select(mydata, -date) %>%
+        group_by_(mydata, .dots = vars) # %>%
       
       # This is much faster for some reason
       if (statistic == "mean") {
@@ -488,19 +486,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       
     }
     
-    avmet <- rename_(avmet, date = "cuts")
-    
-    ## return same date class as went in...
-    if (class(mydata$date)[1] == "Date") {
-      avmet$date <- as.Date(avmet$date)
-      
-    } else {
-      
-      ## return the same TZ that we started with
-      avmet$date <- as.POSIXct(format(avmet$date), tz = TZ)
-      
-    }
-    
+
     if ("wd" %in% names(mydata)) {
       
       if (is.numeric(mydata$wd)) {
