@@ -310,7 +310,7 @@ summaryPlot <- function(mydata,
     mydata <- melt(mydata, id.var = "date")
 
     plot.missing <- function(mydata, na.len, col = "red") {
-        dat <- ifelse(is.na(mydata[, "value"]), 1, 0)
+        dat <- ifelse(is.na(mydata[["value"]]), 1, 0)
         rle.seq = rle(dat)
         cumsum.seq <- cumsum(rle.seq$lengths)
         myruns <- which(rle.seq$values == 1 & rle.seq$lengths >= na.len)

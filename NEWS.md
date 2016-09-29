@@ -9,6 +9,7 @@
 - fix labels in `timeVariation` when data for some types is missing.
 - fix `trendLevel` issue due to `dplyr`
 - use `lubridate` package in `timeAverage`
+- fix bug in `summaryPlot` related to `dplyr` use (would not plot missings correctly)
 
 
 # Changes in openair 1.8-6
