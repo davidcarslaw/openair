@@ -385,7 +385,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
             stat.unit <- "%"
             stat.scale <- "all"
             stat.lab <- "Frequency of counts by wind direction (%)"
-            stat.fun2 <- function(x) signif(mean(x, na.rm = TRUE), 3)
+            stat.fun2 <- function(x) format(mean(x, na.rm = TRUE), digits = 5)
             stat.lab2 <- "mean"
             stat.labcalm <- function(x) round(x, 1)
         }
@@ -395,7 +395,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
             stat.unit <- "%"
             stat.scale <- "panel"
             stat.lab <- "Proportion contribution to the mean (%)"
-            stat.fun2 <- function(x) signif(mean(x, na.rm = TRUE), 3)
+            stat.fun2 <- function(x) format(mean(x, na.rm = TRUE), digits = 5)
             stat.lab2 <- "mean"
             stat.labcalm <- function(x) round(x, 1)
         }

@@ -10,6 +10,7 @@
 - fix `trendLevel` issue due to `dplyr`
 - use `lubridate` package in `timeAverage`
 - fix bug in `summaryPlot` related to `dplyr` use (would not plot missings correctly)
+- better handling of precision in `windRose` mean and statistics returned in data (thanks to Dr. Ulrich Quass)
 
 
 # Changes in openair 1.8-6
