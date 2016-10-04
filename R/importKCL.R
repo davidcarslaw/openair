@@ -553,7 +553,7 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
                 x <- plyr::rbind.fill(x1, x)
             }
             
-             x <- date.pad(x) ## pad out missing dates
+             x <- date.pad(x, type = "site") ## pad out missing dates
              x
              },
                   error = function(ex) {cat(x, "does not exist - ignoring that one.\n")})

@@ -11,6 +11,7 @@
 - use `lubridate` package in `timeAverage`
 - fix bug in `summaryPlot` related to `dplyr` use (would not plot missings correctly)
 - better handling of precision in `windRose` mean and statistics returned in data (thanks to Dr. Ulrich Quass)
+- fix bug in `importKCL` when incomplete time series (would drop site code and site name)
 
 
 # Changes in openair 1.8-6
