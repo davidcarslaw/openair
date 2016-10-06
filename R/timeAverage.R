@@ -445,7 +445,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       if (statistic == "mean") {## faster for some reason?
         
         avmet <- group_by_(mydata, .dots = vars) %>%
-          summarise_each(
+          summarise_all(
             funs(
               if (sum(is.na(.)) / length(.) <= 1 - data.thresh)
                 mean(., na.rm = TRUE)
@@ -456,7 +456,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       } else {
         
         avmet <- group_by_(mydata, .dots = vars) %>%
-          summarise_each(
+          summarise_all(
             funs(
               if (sum(is.na(.)) / length(.) <= 1 - data.thresh)
                 FUN(.)
@@ -477,11 +477,11 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       
       # This is much faster for some reason
       if (statistic == "mean") {
-        avmet <- avmet %>% summarise_each(funs(mean(., na.rm = TRUE)))
+        avmet <- avmet %>% summarise_all(funs(mean(., na.rm = TRUE)))
         
       } else {
         
-        avmet <- avmet %>% summarise_each(funs(FUN(.)))
+        avmet <- avmet %>% summarise_all(funs(FUN(.)))
       }
       
     }
