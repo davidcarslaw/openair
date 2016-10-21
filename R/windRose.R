@@ -673,9 +673,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     }
     
     if (is.null(max.freq)) {
-        max.freq <- max(results[, (length(type) + 1):(length(labs) +
-                                                             length(type))],
-                        na.rm = TRUE)
+        max.freq <- max(results[results$wd != -999, grep("Interval", names(results))])
     } else {
         max.freq <- max.freq
     }
@@ -704,12 +702,12 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
     if (annotate) sub <- stat.lab else sub <- NULL
 
-    
+    results2 <- filter(results, wd != -999)
 
     xy.args <- list(x = myform,
                     xlim = 1.03 * c(-max.freq - off.set, max.freq + off.set),
                     ylim = 1.03 * c(-max.freq - off.set, max.freq + off.set),
-                    data = results,
+                    data = results2,
                     type = "n",
                     sub = sub,
                     strip = strip,
