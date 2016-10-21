@@ -702,12 +702,10 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
     if (annotate) sub <- stat.lab else sub <- NULL
 
-    results2 <- filter(results, wd != -999)
-
     xy.args <- list(x = myform,
                     xlim = 1.03 * c(-max.freq - off.set, max.freq + off.set),
                     ylim = 1.03 * c(-max.freq - off.set, max.freq + off.set),
-                    data = results2,
+                    data = results,
                     type = "n",
                     sub = sub,
                     strip = strip,
@@ -725,7 +723,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                                                   col = "grey85", lwd = 1))
 
                         dat <- results[subscripts, ] ## subset of data
-                        dat <- filter(dat, wd <= 360)
+                        dat <- filter(dat, wd <= 360, wd >= 0)
                         
                         upper <- max.freq + off.set
 
