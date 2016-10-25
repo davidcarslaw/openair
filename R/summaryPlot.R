@@ -232,6 +232,7 @@ summaryPlot <- function(mydata,
     if (any(is.na(mydata$date))) {
         stop (cat("There are some missing dates on line(s)", which(is.na(mydata$date))),"\n")
     }
+    
 
     ## for plot
     dateBreaks <- dateBreaks(mydata$date, date.breaks)$major
@@ -279,10 +280,7 @@ summaryPlot <- function(mydata,
 
     ## remove variables where all are NA
     mydata <- mydata[ , sapply(mydata, function(x) !all(is.na(x)))]
-
-    ## make sure data are ordered
-    mydata <- mydata[order(mydata$date), ]
-
+    
     ## force to be date/time class, even if orginally Date class
     mydata$date <- as.POSIXct(mydata$date, "GMT")
 
@@ -299,7 +297,9 @@ summaryPlot <- function(mydata,
     ## find time interval of data and pad any missing times
     interval <- find.time.interval(mydata$date)
     all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
-    mydata <- full_join(mydata, all.dates, by = "date")
+    mydata <- full_join(mydata, all.dates, by = "date") %>%
+      arrange(date)
+    
 
     ## means for trend line
 

@@ -14,6 +14,7 @@
 - fix bug in `importKCL` when incomplete time series (would drop site code and site name)
 - fix bug in `pollutionRose` due to issue with calms
 - fix bug in `smoothTrend` where model uncertainties were not returned
+- fix bug in `summaryPlot` where missings would not be shown correctly when date was not ordered in sequence
 
 # Changes in openair 1.8-6
 
