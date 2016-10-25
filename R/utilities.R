@@ -763,8 +763,8 @@ fitGam <- function (thedata, x = "date", y = "conc", form = y ~ x, k = k,
         }
       
       # convert class back to orginal
-      class(results$x) <- class_x
-        results
+      class(results[[x]]) <- class_x
+        return(results)
     }, error = function(x) {data.orig})
 }
 

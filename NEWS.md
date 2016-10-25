@@ -13,6 +13,7 @@
 - better handling of precision in `windRose` mean and statistics returned in data (thanks to Dr. Ulrich Quass)
 - fix bug in `importKCL` when incomplete time series (would drop site code and site name)
 - fix bug in `pollutionRose` due to issue with calms
+- fix bug in `smoothTrend` where model uncertainties were not returned
 
 # Changes in openair 1.8-6
 
