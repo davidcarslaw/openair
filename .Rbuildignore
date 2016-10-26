@@ -1,5 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-NEWS\.md
 ^\.travis\.yml$
+^inst/web$
+^docs$
+^_pkgdown\.yml$
+NEWS\.md
 ^data-raw$
