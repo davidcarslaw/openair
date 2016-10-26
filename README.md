@@ -1,13 +1,4 @@
 
--   [openair: open source tools for air quality data analysis](#openair-open-source-tools-for-air-quality-data-analysis)
-    -   [Installation](#installation)
-    -   [Description](#description)
-    -   [Brief examples](#brief-examples)
-        -   [Import data from the UK Automatic Urban and Rural Network](#import-data-from-the-uk-automatic-urban-and-rural-network)
-        -   [Utility functions](#utility-functions)
-        -   [The `type` option](#the-type-option)
-        -   [Wind roses and pollution roses](#wind-roses-and-pollution-roses)
-
 <!-- Edit the README.Rmd only!!! The README.md is generated automatically from README.Rmd. -->
 openair: open source tools for air quality data analysis
 ========================================================
@@ -18,7 +9,7 @@ For the main **openair** website, see <http://davidcarslaw.github.io/openair/>.
 
 <img src="inst/plume.png" alt="openair logo" width="35%" />
 
-openair is an R package developed for the purpose of analysing air quality data - or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council ([NERC](http://www.nerc.ac.uk/)), with additional funds from Defra. The most up to date information on openair can be found in the package itself and the [manual](https://www.dropbox.com/s/2n7wdyursdul8dk/openairManual.pdf?dl=0) which provides an introduction to R with a focus on air quality data as well as extensive reproducible examples. An archive of newsletters in also available at the same location.
+**openair** is an R package developed for the purpose of analysing air quality data - or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council ([NERC](http://www.nerc.ac.uk/)), with additional funds from Defra. The most up to date information on openair can be found in the package itself and the [manual](https://www.dropbox.com/s/2n7wdyursdul8dk/openairManual.pdf?dl=0) which provides an introduction to R with a focus on air quality data as well as extensive reproducible examples. An archive of newsletters in also available at the same location.
 
 The current newsletter (Issue 18) summarises some of the recent changes to the package and is available [here](http://rpubs.com/carslaw/newsletter18).
 

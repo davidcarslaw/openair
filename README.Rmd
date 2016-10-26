@@ -1,7 +1,7 @@
 ---
 output: 
   github_document: 
-    toc: TRUE
+    toc: FALSE
 ---
 
 <!-- Edit the README.Rmd only!!! The README.md is generated automatically from README.Rmd. -->
@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 
 <img src="inst/plume.png" alt="openair logo" width="35%" />
 
-openair is an R package developed for the purpose of analysing air
+**openair** is an R package developed for the purpose of analysing air
 quality data - or more generally atmospheric composition data. The
 package is extensively used in academia, the public and private
 sectors. The project was initially funded by the UK Natural
