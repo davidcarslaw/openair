@@ -9,6 +9,8 @@ output:
 openair: open source tools for air quality data analysis
 ========================================================
 
+For the main **openair** website, see <http://davidcarslaw.github.io/openair/>.
+
 ```{r echo=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -19,7 +21,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-# openair
 
 [![Travis-CI Build Status](https://travis-ci.org/davidcarslaw/openair.svg?branch=master)](https://travis-ci.org/davidcarslaw/openair)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/openair)

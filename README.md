@@ -1,6 +1,5 @@
 
 -   [openair: open source tools for air quality data analysis](#openair-open-source-tools-for-air-quality-data-analysis)
--   [openair](#openair)
     -   [Installation](#installation)
     -   [Description](#description)
     -   [Brief examples](#brief-examples)
@@ -13,8 +12,7 @@
 openair: open source tools for air quality data analysis
 ========================================================
 
-openair
-=======
+For the main **openair** website, see <http://davidcarslaw.github.io/openair/>.
 
 [![Travis-CI Build Status](https://travis-ci.org/davidcarslaw/openair.svg?branch=master)](https://travis-ci.org/davidcarslaw/openair) ![](http://cranlogs.r-pkg.org/badges/grand-total/openair)
 
