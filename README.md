@@ -9,7 +9,7 @@ For the main **openair** website, see <http://davidcarslaw.github.io/openair/>.
 
 <img src="inst/plume.png" alt="openair logo" width="35%" />
 
-**openair** is an R package developed for the purpose of analysing air quality data - or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council ([NERC](http://www.nerc.ac.uk/)), with additional funds from Defra. The most up to date information on openair can be found in the package itself and the [manual](https://www.dropbox.com/s/2n7wdyursdul8dk/openairManual.pdf?dl=0) which provides an introduction to R with a focus on air quality data as well as extensive reproducible examples. An archive of newsletters in also available at the same location.
+**openair** is an R package developed for the purpose of analysing air quality data --- or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council ([NERC](http://www.nerc.ac.uk/)), with additional funds from Defra. The most up to date information on openair can be found in the package itself and the [manual](https://www.dropbox.com/s/2n7wdyursdul8dk/openairManual.pdf?dl=0) which provides an introduction to R with a focus on air quality data as well as extensive reproducible examples. An archive of newsletters in also available at the same location.
 
 The current newsletter (Issue 18) summarises some of the recent changes to the package and is available [here](http://rpubs.com/carslaw/newsletter18).
 
@@ -28,7 +28,7 @@ I also try to keep up to date versions of the package [here](https://www.dropbox
 Description
 -----------
 
-openair has developed over several years to help analyse atmospheric composition data; initially focused on air quality data.
+**openair** has developed over several years to help analyse atmospheric composition data; initially focused on air quality data.
 
 This package continues to develop and input from other developers would be welcome. A summary of some of the features are:
 
@@ -117,7 +117,7 @@ If a categorical variable is present in a data frame e.g. `site` then that varia
 
 ### Wind roses and pollution roses
 
-openair can plot basic wind roses very easily provided the variables `ws` (wind speed) and `wd` (wind direction) are available.
+**openair** can plot basic wind roses very easily provided the variables `ws` (wind speed) and `wd` (wind direction) are available.
 
 ``` r
 windRose(mydata)

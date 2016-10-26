@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 <img src="inst/plume.png" alt="openair logo" width="35%" />
 
 **openair** is an R package developed for the purpose of analysing air
-quality data - or more generally atmospheric composition data. The
+quality data --- or more generally atmospheric composition data. The
 package is extensively used in academia, the public and private
 sectors. The project was initially funded by the UK Natural
 Environment Research Council ([NERC](http://www.nerc.ac.uk/)), with
@@ -61,7 +61,7 @@ if you can't build the package yourself.
 
 ## Description
 
-openair has developed over several years to help analyse atmospheric composition data; initially focused on air quality data. 
+**openair** has developed over several years to help analyse atmospheric composition data; initially focused on air quality data. 
 
 This package continues to develop and input from other developers would be welcome. A summary of some of the features are:
 
@@ -155,10 +155,10 @@ option `n.levels` to indicate how many quantiles to use.
 
 ### Wind roses and pollution roses
 
-openair can plot basic wind roses very easily provided the variables
+**openair** can plot basic wind roses very easily provided the variables
 `ws` (wind speed) and `wd` (wind direction) are available.
 
-```{r,eval=TRUE}
+```{r,eval=TRUE,fig.width=4,fig.height=4.5}
 windRose(mydata)
 ```
 
