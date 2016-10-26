@@ -3,6 +3,6 @@
 ^\.travis\.yml$
 ^inst/web$
 ^docs$
-^_pkgdown\.yml$
+^_openair\.yml$
 NEWS\.md
 ^data-raw$
