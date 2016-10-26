@@ -45,7 +45,7 @@
 <p>For the main <strong>openair</strong> website, see <a href="http://davidcarslaw.github.io/openair/" class="uri">http://davidcarslaw.github.io/openair/</a>.</p>
 <p><a href="https://travis-ci.org/davidcarslaw/openair"><img src="https://travis-ci.org/davidcarslaw/openair.svg?branch=master" alt="Travis-CI Build Status"></a> <img src="http://cranlogs.r-pkg.org/badges/grand-total/openair"></p>
 <p><img src="inst/plume.png" alt="openair logo" width="35%"></p>
-<p><strong>openair</strong> is an R package developed for the purpose of analysing air quality data - or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council (<a href="http://www.nerc.ac.uk/">NERC</a>), with additional funds from Defra. The most up to date information on openair can be found in the package itself and the <a href="https://www.dropbox.com/s/2n7wdyursdul8dk/openairManual.pdf?dl=0">manual</a> which provides an introduction to R with a focus on air quality data as well as extensive reproducible examples. An archive of newsletters in also available at the same location.</p>
+<p><strong>openair</strong> is an R package developed for the purpose of analysing air quality data &mdash; or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council (<a href="http://www.nerc.ac.uk/">NERC</a>), with additional funds from Defra. The most up to date information on openair can be found in the package itself and the <a href="https://www.dropbox.com/s/2n7wdyursdul8dk/openairManual.pdf?dl=0">manual</a> which provides an introduction to R with a focus on air quality data as well as extensive reproducible examples. An archive of newsletters in also available at the same location.</p>
 <p>The current newsletter (Issue 18) summarises some of the recent changes to the package and is available <a href="http://rpubs.com/carslaw/newsletter18">here</a>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor"><a href="#installation" class="anchor"></a>Installation</h2>
@@ -56,7 +56,7 @@
 </div>
 <div id="description" class="section level2">
 <h2 class="hasAnchor"><a href="#description" class="anchor"></a>Description</h2>
-<p>openair has developed over several years to help analyse atmospheric composition data; initially focused on air quality data.</p>
+<p><strong>openair</strong> has developed over several years to help analyse atmospheric composition data; initially focused on air quality data.</p>
 <p>This package continues to develop and input from other developers would be welcome. A summary of some of the features are:</p>
 <ul><li><strong>Access to data</strong> from several hundred UK air pollution monitoring sites through the <code>importAURN</code> and <code>importKCL</code> functions as well as archive data from the EEA (European Environment Agency) <a href="http://www.eea.europa.eu/themes/air/air-quality/map/airbase">Airbase</a> database.</li>
 <li><strong>Utility functions</strong> such as <code>timeAverage</code> and <code>selectByDate</code> to make it easier to manipulate atmospheric composition data.</li>
@@ -129,9 +129,9 @@ kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN
 </div>
 <div id="wind-roses-and-pollution-roses" class="section level3">
 <h3 class="hasAnchor"><a href="#wind-roses-and-pollution-roses" class="anchor"></a>Wind roses and pollution roses</h3>
-<p>openair can plot basic wind roses very easily provided the variables <code>ws</code> (wind speed) and <code>wd</code> (wind direction) are available.</p>
+<p><strong>openair</strong> can plot basic wind roses very easily provided the variables <code>ws</code> (wind speed) and <code>wd</code> (wind direction) are available.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/windRose.html">windRose</a></span>(mydata)</code></pre></div>
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="384"></p>
 <p>However, the real flexibility comes from being able to use the <code>type</code> option.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/windRose.html">windRose</a></span>(mydata, <span class="dt">type =</span> <span class="st">"year"</span>, <span class="dt">layout =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>))</code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
