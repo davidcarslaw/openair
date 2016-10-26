@@ -3,6 +3,9 @@
 ^\.travis\.yml$
 ^inst/web$
 ^docs$
-^_openair\.yml$
+^_pkgdown\.yml$
 NEWS\.md
 ^data-raw$
+README_files
+README_cache
+^README\.Rmd$
