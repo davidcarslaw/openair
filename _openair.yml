@@ -6,7 +6,7 @@ navbar:
   title: openair
   type: default
   left:
-  - text: Reference
+  - text: Functions
     href: reference/index.html
   - text: News
     href: news/index.html
