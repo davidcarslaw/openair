@@ -27,8 +27,7 @@
 ##' @author David Carslaw
 ##' @seealso \code{\link{importAURN}}, \code{\link{importKCL}} and
 ##' \code{\link{importSAQN}} for importing air quality data from each
-##' network, and \code{\link{GoogleMapsPlot}} for plotting
-##' concentrations on a map.
+##' network.
 ##' @keywords methods
 ##' @export
 ##' @examples
@@ -46,8 +45,6 @@
 ##' ## calculate annual means
 ##' annual <- timeAverage(aq, avg.time = "year", type = "site")
 ##' annual <- merge(annual, meta, by = "site")
-##' ## make a GoogleMapsPlot
-##' GoogleMapsPlot(annual, pollutant = "no2")
 ##' }
 
 importMeta <- function(source = "aurn", all = FALSE) {

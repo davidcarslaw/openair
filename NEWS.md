@@ -18,6 +18,7 @@
 - fix bug in `smoothTrend` where model uncertainties were not returned
 - fix bug in `summaryPlot` where missings would not be shown correctly when date was not ordered in sequence
 - fix annotation in `windRose` when comparing two data sets
+- `GoogleMapsPlot` is deprecated and will be replaced with a better function.
 
 # openair 1.8-6
 
