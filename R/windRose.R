@@ -518,7 +518,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
         ## these are all calms...
         if (all(is.na(mydata$x))) {
             
-            weights <- data.frame(Interval1 = NA, wd = NA,
+            weights <- data_frame(Interval1 = NA, wd = NA,
                                   calm = 100, panel.fun = NA, mean.wd = NA, freqs = NA)
             
         } else {
