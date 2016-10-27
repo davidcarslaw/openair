@@ -32,7 +32,6 @@ Imports:
     stats,
     utils
 Suggests:
-    png,
     KernSmooth
 LinkingTo: Rcpp
 Maintainer: David Carslaw <david.carslaw@york.ac.uk>
