@@ -15,6 +15,7 @@
 - fix bug in `pollutionRose` due to issue with calms
 - fix bug in `smoothTrend` where model uncertainties were not returned
 - fix bug in `summaryPlot` where missings would not be shown correctly when date was not ordered in sequence
+- fix annotation in `windRose` when comparing two data sets
 
 # Changes in openair 1.8-6
 

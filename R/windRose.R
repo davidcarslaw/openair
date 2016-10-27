@@ -532,6 +532,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
             weights <- tapply(mydata[[pollutant]], list(mydata[[wd]], mydata$x),
                               stat.fun)
+            
             freqs <- tapply(mydata[[pollutant]], mydata[[wd]], length)
 
             ## scaling
@@ -557,8 +558,8 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
             panel.fun <- stat.fun2(mydata[[pollutant]])
 
             ## calculate mean wd - useful for cases comparing two met data sets
-            u <- mean(sin(2 * pi * mydata[[wd]] / 360))
-            v <- mean(cos(2 * pi * mydata[[wd]] / 360))
+            u <- mean(sin(2 * pi * mydata[[wd]] / 360), na.rm = TRUE)
+            v <- mean(cos(2 * pi * mydata[[wd]] / 360), na.rm = TRUE)
             mean.wd <- atan2(u, v) * 360 / 2 / pi
 
             if (all(is.na(mean.wd))) {
@@ -621,7 +622,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     
     results <- group_by_(mydata, .dots = type) %>%
       do(prepare.grid(.))
-    
+   
     ## format
     results$calm <- stat.labcalm(results$calm)
     results$mean.wd <- stat.labcalm(results$mean.wd)
@@ -770,10 +771,11 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                                           dat$calm[1], stat.unit, sep = ""),
                                       adj = c(1, 0), cex = 0.7, col = calm.col)
                             }
+                        
                         if (diff) { ## when two data sets are present
                             ltext(max.freq + off.set, -max.freq - off.set,
                                   label = paste("mean ws = ",
-                                      round(dat$panel.fun[1], 1),
+                                      round(as.numeric(dat$panel.fun[1]), 1),
                                       "\nmean wd = ", round(dat$mean.wd[1], 1),
                                       sep = ""), adj = c(1, 0), cex = 0.7, col = calm.col)
                         }
