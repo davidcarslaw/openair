@@ -264,6 +264,8 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   attr(results$date, "tzone") <- tzone
   
   # join with aves to get date2
+  id <- which(is.na(results$wd))
+  if (length(id) > 0) results <- results[-id, ]
   results <- left_join(results, select_(aves, type, "date", "date2"), by = c(type, "date"))
   
   ## proper names of labelling ###################################################
