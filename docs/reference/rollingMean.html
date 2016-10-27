@@ -10,10 +10,9 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -49,7 +49,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -84,10 +84,7 @@
     <pre><span class='fu'>rollingMean</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>new.name</span> <span class='kw'>=</span> <span class='st'>"rolling"</span>,
   <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"centre"</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments">
-      <a class="anchor" href="#arguments"></a>
-      Arguments
-    </h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>mydata</dt>
       <dd>A data frame containing a <code>date</code>
@@ -143,8 +140,7 @@ supplied.</p>
 <span class='no'>mydata</span> <span class='kw'>&lt;-</span> <span class='fu'>rollingMean</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>new.name</span> <span class='kw'>=</span>
 <span class='st'>"rollingo3"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"right"</span>)</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs">
-    <div id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -158,7 +154,6 @@ supplied.</p>
     
 David Carslaw
 
-    </div>
   </div>
 </div>
 

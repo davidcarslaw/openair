@@ -10,10 +10,9 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -49,7 +49,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -92,10 +92,7 @@ pollutant across many sites.</p>
   <span class='kw'>col.mis</span> <span class='kw'>=</span> <span class='fu'>rgb</span>(<span class='fl'>0.65</span>, <span class='fl'>0.04</span>, <span class='fl'>0.07</span>), <span class='kw'>col.hist</span> <span class='kw'>=</span> <span class='st'>"forestgreen"</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments">
-      <a class="anchor" href="#arguments"></a>
-      Arguments
-    </h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>mydata</dt>
       <dd>A data frame to be summarised. Must contain a 
@@ -249,8 +246,7 @@ data are imported as expected.</b></p>
 <span class='co'># show density plot line in black</span>
 <span class='co'>## Not run: summaryPlot(mydata, col.dens = &amp;quot;black&amp;quot;)</span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs">
-    <div id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -264,7 +260,6 @@ data are imported as expected.</b></p>
     
 David Carslaw
 
-    </div>
   </div>
 </div>
 

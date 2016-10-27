@@ -10,10 +10,9 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -49,7 +49,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -72,336 +72,237 @@
       </header>
 
       <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-9">
     <div class="page-header">
-      <h1>Function reference <small>version&nbsp;1.8-13</small></h1>
+      <h1>Function reference</h1>
+      <h4>version&nbsp;1.8-13</h4>
     </div>
-  </div>
-  <div class="col-md-12 side-by-side">
 
-    <div class="section ">
-      <h2>All functions</h2>
+    <div class="contents">
+      <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
       <p class="section-desc"></p>
 
-      <div class="topic">
-        <p><a href="airbaseFindCode.html">Helper function to find EEA airbase site codes</a></p>
-        <ul>
-          <li><code><a href="airbaseFindCode.html">airbaseFindCode</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="airbaseInfo.html">Get information about airbase sites and instruments</a></p>
-        <ul>
-          <li><code><a href="airbaseInfo.html">airbaseInfo</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="airbaseSplice.html">Function to simplify and combine airbase data imports</a></p>
-        <ul>
-          <li><code><a href="airbaseSplice.html">airbaseSplice</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="airbaseStats.html">Import pre-calculated airbase statistics</a></p>
-        <ul>
-          <li><code><a href="airbaseStats.html">airbaseStats</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="aqStats.html">Calculate summary statistics for air pollution data by year</a></p>
-        <ul>
-          <li><code><a href="aqStats.html">aqStats</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="calcFno2.html">Estimate NO2/NOX emission ratios from monitoring data</a></p>
-        <ul>
-          <li><code><a href="calcFno2.html">calcFno2</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="calcPercentile.html">Calculate percentile values from a time series</a></p>
-        <ul>
-          <li><code><a href="calcPercentile.html">calcPercentile</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="calendarPlot.html">Plot time series values in convential calendar format</a></p>
-        <ul>
-          <li><code><a href="calendarPlot.html">calendarPlot</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="conditionalEval.html">Conditional quantile estimates with additional variables for model evaluation</a></p>
-        <ul>
-          <li><code><a href="conditionalEval.html">conditionalEval</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="conditionalQuantile.html">Conditional quantile estimates for model evaluation</a></p>
-        <ul>
-          <li><code><a href="conditionalQuantile.html">conditionalQuantile</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="corPlot.html">corrgram plot with conditioning</a></p>
-        <ul>
-          <li><code><a href="corPlot.html">corPlot</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="cutData.html">Function to split data in different ways for conditioning</a></p>
-        <ul>
-          <li><code><a href="cutData.html">cutData</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="drawOpenKey.html">Scale key handling for openair</a></p>
-        <ul>
-          <li><code><a href="drawOpenKey.html">drawOpenKey</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="GoogleMapsPlot.html">GoogleMapsPlot</a></p>
-        <ul>
-          <li><code><a href="GoogleMapsPlot.html">GoogleMapsPlot</a></code></li><li><code><a href="GoogleMapsPlot.html">panel.GoogleMaps</a></code></li><li><code><a href="GoogleMapsPlot.html">panel.GoogleMapsRaster</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="import.html">Generic data import for openair</a></p>
-        <ul>
-          <li><code><a href="import.html">import</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="importADMS.html">CERC Atmospheric Dispersion Modelling System (ADMS) data import function(s) for openair</a></p>
-        <ul>
-          <li><code><a href="importADMS.html">importADMS</a></code></li><li><code><a href="importADMS.html">importADMSBgd</a></code></li><li><code><a href="importADMS.html">importADMSMet</a></code></li><li><code><a href="importADMS.html">importADMSMop</a></code></li><li><code><a href="importADMS.html">importADMSPst</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="importAirbase.html">Import hourly data from the European Environment Agency airbase database</a></p>
-        <ul>
-          <li><code><a href="importAirbase.html">importAirbase</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="importAURN.html">Import data from the UK Automatic Urban and Rural Network (AURN)</a></p>
-        <ul>
-          <li><code><a href="importAURN.html">importAURN</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="importAURNCsv.html">AURN csv file data import for openair</a></p>
-        <ul>
-          <li><code><a href="importAURNCsv.html">importAURNCsv</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="importKCL.html">Import data from King's College London networks</a></p>
-        <ul>
-          <li><code><a href="importKCL.html">importKCL</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="importMeta.html">Import monitoring site meta data for the AURN, KCL and SAQN networks</a></p>
-        <ul>
-          <li><code><a href="importMeta.html">importMeta</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="importSAQN.html">Scottish Air Quality Network data import for openair</a></p>
-        <ul>
-          <li><code><a href="importSAQN.html">importSAQN</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="importTraj.html">Import pre-calculated HYSPLIT 96-hour back trajectories</a></p>
-        <ul>
-          <li><code><a href="importTraj.html">importTraj</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="kernelExceed.html">Kernel density plot for daily mean exceedance statistics</a></p>
-        <ul>
-          <li><code><a href="kernelExceed.html">kernelExceed</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="linearRelation.html">Linear relations between pollutants</a></p>
-        <ul>
-          <li><code><a href="linearRelation.html">linearRelation</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="modStats.html">Calculate common model evaluation statistics</a></p>
-        <ul>
-          <li><code><a href="modStats.html">modStats</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="mydata.html">Example data for openair</a></p>
-        <ul>
-          <li><code><a href="mydata.html">mydata</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="openair.html">Tools for the analysis of air pollution data</a></p>
-        <ul>
-          <li><code><a href="openair.html">openair</a></code></li><li><code><a href="openair.html">openair-package</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="openColours.html">openair colours</a></p>
-        <ul>
-          <li><code><a href="openColours.html">openColours</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="percentileRose.html">Function to plot percentiles by wind direction</a></p>
-        <ul>
-          <li><code><a href="percentileRose.html">percentileRose</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="polarAnnulus.html">Bivariate polarAnnulus plot</a></p>
-        <ul>
-          <li><code><a href="polarAnnulus.html">polarAnnulus</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="polarCluster.html">K-means clustering of bivariate polar plots</a></p>
-        <ul>
-          <li><code><a href="polarCluster.html">polarCluster</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="polarFreq.html">Function to plot wind speed/direction frequencies and other statistics</a></p>
-        <ul>
-          <li><code><a href="polarFreq.html">polarFreq</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="polarPlot.html">Bivariate polar plot with smoothing</a></p>
-        <ul>
-          <li><code><a href="polarPlot.html">polarPlot</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="quickText.html">Automatic text formatting for openair</a></p>
-        <ul>
-          <li><code><a href="quickText.html">quickText</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="rollingMean.html">Calculate rollingMean values</a></p>
-        <ul>
-          <li><code><a href="rollingMean.html">rollingMean</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="scatterPlot.html">Flexible scatter plots</a></p>
-        <ul>
-          <li><code><a href="scatterPlot.html">scatterPlot</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="selectByDate.html">Subset a data frame based on date</a></p>
-        <ul>
-          <li><code><a href="selectByDate.html">selectByDate</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="selectRunning.html">Function to extract run lengths greater than a threshold</a></p>
-        <ul>
-          <li><code><a href="selectRunning.html">selectRunning</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="smoothTrend.html">Calculate nonparametric smooth trends</a></p>
-        <ul>
-          <li><code><a href="smoothTrend.html">smoothTrend</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="splitByDate.html">Divide up a data frame by time</a></p>
-        <ul>
-          <li><code><a href="splitByDate.html">splitByDate</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="summaryPlot.html">Function to rapidly provide an overview of air quality data</a></p>
-        <ul>
-          <li><code><a href="summaryPlot.html">summaryPlot</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="TaylorDiagram.html">Taylor Diagram for model evaluation with conditioning</a></p>
-        <ul>
-          <li><code><a href="TaylorDiagram.html">TaylorDiagram</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="TheilSen.html">Tests for trends using Theil-Sen estimates</a></p>
-        <ul>
-          <li><code><a href="TheilSen.html">TheilSen</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="timeAverage.html">Function to calculate time averages for data frames</a></p>
-        <ul>
-          <li><code><a href="timeAverage.html">timeAverage</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="timePlot.html">Plot time series</a></p>
-        <ul>
-          <li><code><a href="timePlot.html">timePlot</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="timeProp.html">Time series plot with categories shown as a stacked bar chart</a></p>
-        <ul>
-          <li><code><a href="timeProp.html">timeProp</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="timeVariation.html">Diurnal, day of the week and monthly variation</a></p>
-        <ul>
-          <li><code><a href="timeVariation.html">timeVariation</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="trajCluster.html">Calculate clusters for back tracectories</a></p>
-        <ul>
-          <li><code><a href="trajCluster.html">trajCluster</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="trajLevel.html">Trajectory level plots with conditioning</a></p>
-        <ul>
-          <li><code><a href="trajLevel.html">trajLevel</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="trajPlot.html">Trajectory line plots with conditioning</a></p>
-        <ul>
-          <li><code><a href="trajPlot.html">trajPlot</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="trendLevel.html">trendLevel</a></p>
-        <ul>
-          <li><code><a href="trendLevel.html">trendLevel</a></code></li>
-        </ul>
-      </div>
-      <div class="topic">
-        <p><a href="windRose.html">Traditional wind rose plot and pollution rose variation</a></p>
-        <ul>
-          <li><code><a href="windRose.html">pollutionRose</a></code></li><li><code><a href="windRose.html">windRose</a></code></li>
-        </ul>
-      </div>
+      <p><a href="airbaseFindCode.html">Helper function to find EEA airbase site codes</a></p>
+      <ul>
+        <li><code><a href="airbaseFindCode.html">airbaseFindCode</a></code></li>
+      </ul>
+      <p><a href="airbaseInfo.html">Get information about airbase sites and instruments</a></p>
+      <ul>
+        <li><code><a href="airbaseInfo.html">airbaseInfo</a></code></li>
+      </ul>
+      <p><a href="airbaseSplice.html">Function to simplify and combine airbase data imports</a></p>
+      <ul>
+        <li><code><a href="airbaseSplice.html">airbaseSplice</a></code></li>
+      </ul>
+      <p><a href="airbaseStats.html">Import pre-calculated airbase statistics</a></p>
+      <ul>
+        <li><code><a href="airbaseStats.html">airbaseStats</a></code></li>
+      </ul>
+      <p><a href="aqStats.html">Calculate summary statistics for air pollution data by year</a></p>
+      <ul>
+        <li><code><a href="aqStats.html">aqStats</a></code></li>
+      </ul>
+      <p><a href="calcFno2.html">Estimate NO2/NOX emission ratios from monitoring data</a></p>
+      <ul>
+        <li><code><a href="calcFno2.html">calcFno2</a></code></li>
+      </ul>
+      <p><a href="calcPercentile.html">Calculate percentile values from a time series</a></p>
+      <ul>
+        <li><code><a href="calcPercentile.html">calcPercentile</a></code></li>
+      </ul>
+      <p><a href="calendarPlot.html">Plot time series values in convential calendar format</a></p>
+      <ul>
+        <li><code><a href="calendarPlot.html">calendarPlot</a></code></li>
+      </ul>
+      <p><a href="conditionalEval.html">Conditional quantile estimates with additional variables for model evaluation</a></p>
+      <ul>
+        <li><code><a href="conditionalEval.html">conditionalEval</a></code></li>
+      </ul>
+      <p><a href="conditionalQuantile.html">Conditional quantile estimates for model evaluation</a></p>
+      <ul>
+        <li><code><a href="conditionalQuantile.html">conditionalQuantile</a></code></li>
+      </ul>
+      <p><a href="corPlot.html">corrgram plot with conditioning</a></p>
+      <ul>
+        <li><code><a href="corPlot.html">corPlot</a></code></li>
+      </ul>
+      <p><a href="cutData.html">Function to split data in different ways for conditioning</a></p>
+      <ul>
+        <li><code><a href="cutData.html">cutData</a></code></li>
+      </ul>
+      <p><a href="drawOpenKey.html">Scale key handling for openair</a></p>
+      <ul>
+        <li><code><a href="drawOpenKey.html">drawOpenKey</a></code></li>
+      </ul>
+      <p><a href="GoogleMapsPlot.html">GoogleMapsPlot</a></p>
+      <ul>
+        <li><code><a href="GoogleMapsPlot.html">GoogleMapsPlot</a></code></li><li><code><a href="GoogleMapsPlot.html">panel.GoogleMaps</a></code></li><li><code><a href="GoogleMapsPlot.html">panel.GoogleMapsRaster</a></code></li>
+      </ul>
+      <p><a href="import.html">Generic data import for openair</a></p>
+      <ul>
+        <li><code><a href="import.html">import</a></code></li>
+      </ul>
+      <p><a href="importADMS.html">CERC Atmospheric Dispersion Modelling System (ADMS) data import function(s) for openair</a></p>
+      <ul>
+        <li><code><a href="importADMS.html">importADMS</a></code></li><li><code><a href="importADMS.html">importADMSBgd</a></code></li><li><code><a href="importADMS.html">importADMSMet</a></code></li><li><code><a href="importADMS.html">importADMSMop</a></code></li><li><code><a href="importADMS.html">importADMSPst</a></code></li>
+      </ul>
+      <p><a href="importAirbase.html">Import hourly data from the European Environment Agency airbase database</a></p>
+      <ul>
+        <li><code><a href="importAirbase.html">importAirbase</a></code></li>
+      </ul>
+      <p><a href="importAURN.html">Import data from the UK Automatic Urban and Rural Network (AURN)</a></p>
+      <ul>
+        <li><code><a href="importAURN.html">importAURN</a></code></li>
+      </ul>
+      <p><a href="importAURNCsv.html">AURN csv file data import for openair</a></p>
+      <ul>
+        <li><code><a href="importAURNCsv.html">importAURNCsv</a></code></li>
+      </ul>
+      <p><a href="importKCL.html">Import data from King's College London networks</a></p>
+      <ul>
+        <li><code><a href="importKCL.html">importKCL</a></code></li>
+      </ul>
+      <p><a href="importMeta.html">Import monitoring site meta data for the AURN, KCL and SAQN networks</a></p>
+      <ul>
+        <li><code><a href="importMeta.html">importMeta</a></code></li>
+      </ul>
+      <p><a href="importSAQN.html">Scottish Air Quality Network data import for openair</a></p>
+      <ul>
+        <li><code><a href="importSAQN.html">importSAQN</a></code></li>
+      </ul>
+      <p><a href="importTraj.html">Import pre-calculated HYSPLIT 96-hour back trajectories</a></p>
+      <ul>
+        <li><code><a href="importTraj.html">importTraj</a></code></li>
+      </ul>
+      <p><a href="kernelExceed.html">Kernel density plot for daily mean exceedance statistics</a></p>
+      <ul>
+        <li><code><a href="kernelExceed.html">kernelExceed</a></code></li>
+      </ul>
+      <p><a href="linearRelation.html">Linear relations between pollutants</a></p>
+      <ul>
+        <li><code><a href="linearRelation.html">linearRelation</a></code></li>
+      </ul>
+      <p><a href="modStats.html">Calculate common model evaluation statistics</a></p>
+      <ul>
+        <li><code><a href="modStats.html">modStats</a></code></li>
+      </ul>
+      <p><a href="mydata.html">Example data for openair</a></p>
+      <ul>
+        <li><code><a href="mydata.html">mydata</a></code></li>
+      </ul>
+      <p><a href="openair.html">Tools for the analysis of air pollution data</a></p>
+      <ul>
+        <li><code><a href="openair.html">openair</a></code></li><li><code><a href="openair.html">openair-package</a></code></li>
+      </ul>
+      <p><a href="openColours.html">openair colours</a></p>
+      <ul>
+        <li><code><a href="openColours.html">openColours</a></code></li>
+      </ul>
+      <p><a href="percentileRose.html">Function to plot percentiles by wind direction</a></p>
+      <ul>
+        <li><code><a href="percentileRose.html">percentileRose</a></code></li>
+      </ul>
+      <p><a href="polarAnnulus.html">Bivariate polarAnnulus plot</a></p>
+      <ul>
+        <li><code><a href="polarAnnulus.html">polarAnnulus</a></code></li>
+      </ul>
+      <p><a href="polarCluster.html">K-means clustering of bivariate polar plots</a></p>
+      <ul>
+        <li><code><a href="polarCluster.html">polarCluster</a></code></li>
+      </ul>
+      <p><a href="polarFreq.html">Function to plot wind speed/direction frequencies and other statistics</a></p>
+      <ul>
+        <li><code><a href="polarFreq.html">polarFreq</a></code></li>
+      </ul>
+      <p><a href="polarPlot.html">Bivariate polar plot with smoothing</a></p>
+      <ul>
+        <li><code><a href="polarPlot.html">polarPlot</a></code></li>
+      </ul>
+      <p><a href="quickText.html">Automatic text formatting for openair</a></p>
+      <ul>
+        <li><code><a href="quickText.html">quickText</a></code></li>
+      </ul>
+      <p><a href="rollingMean.html">Calculate rollingMean values</a></p>
+      <ul>
+        <li><code><a href="rollingMean.html">rollingMean</a></code></li>
+      </ul>
+      <p><a href="scatterPlot.html">Flexible scatter plots</a></p>
+      <ul>
+        <li><code><a href="scatterPlot.html">scatterPlot</a></code></li>
+      </ul>
+      <p><a href="selectByDate.html">Subset a data frame based on date</a></p>
+      <ul>
+        <li><code><a href="selectByDate.html">selectByDate</a></code></li>
+      </ul>
+      <p><a href="selectRunning.html">Function to extract run lengths greater than a threshold</a></p>
+      <ul>
+        <li><code><a href="selectRunning.html">selectRunning</a></code></li>
+      </ul>
+      <p><a href="smoothTrend.html">Calculate nonparametric smooth trends</a></p>
+      <ul>
+        <li><code><a href="smoothTrend.html">smoothTrend</a></code></li>
+      </ul>
+      <p><a href="splitByDate.html">Divide up a data frame by time</a></p>
+      <ul>
+        <li><code><a href="splitByDate.html">splitByDate</a></code></li>
+      </ul>
+      <p><a href="summaryPlot.html">Function to rapidly provide an overview of air quality data</a></p>
+      <ul>
+        <li><code><a href="summaryPlot.html">summaryPlot</a></code></li>
+      </ul>
+      <p><a href="TaylorDiagram.html">Taylor Diagram for model evaluation with conditioning</a></p>
+      <ul>
+        <li><code><a href="TaylorDiagram.html">TaylorDiagram</a></code></li>
+      </ul>
+      <p><a href="TheilSen.html">Tests for trends using Theil-Sen estimates</a></p>
+      <ul>
+        <li><code><a href="TheilSen.html">TheilSen</a></code></li>
+      </ul>
+      <p><a href="timeAverage.html">Function to calculate time averages for data frames</a></p>
+      <ul>
+        <li><code><a href="timeAverage.html">timeAverage</a></code></li>
+      </ul>
+      <p><a href="timePlot.html">Plot time series</a></p>
+      <ul>
+        <li><code><a href="timePlot.html">timePlot</a></code></li>
+      </ul>
+      <p><a href="timeProp.html">Time series plot with categories shown as a stacked bar chart</a></p>
+      <ul>
+        <li><code><a href="timeProp.html">timeProp</a></code></li>
+      </ul>
+      <p><a href="timeVariation.html">Diurnal, day of the week and monthly variation</a></p>
+      <ul>
+        <li><code><a href="timeVariation.html">timeVariation</a></code></li>
+      </ul>
+      <p><a href="trajCluster.html">Calculate clusters for back tracectories</a></p>
+      <ul>
+        <li><code><a href="trajCluster.html">trajCluster</a></code></li>
+      </ul>
+      <p><a href="trajLevel.html">Trajectory level plots with conditioning</a></p>
+      <ul>
+        <li><code><a href="trajLevel.html">trajLevel</a></code></li>
+      </ul>
+      <p><a href="trajPlot.html">Trajectory line plots with conditioning</a></p>
+      <ul>
+        <li><code><a href="trajPlot.html">trajPlot</a></code></li>
+      </ul>
+      <p><a href="trendLevel.html">trendLevel</a></p>
+      <ul>
+        <li><code><a href="trendLevel.html">trendLevel</a></code></li>
+      </ul>
+      <p><a href="windRose.html">Traditional wind rose plot and pollution rose variation</a></p>
+      <ul>
+        <li><code><a href="windRose.html">pollutionRose</a></code></li><li><code><a href="windRose.html">windRose</a></code></li>
+      </ul>
+    
     </div>
+  </div>
+
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#section-all-functions">All functions</a></li>
+    </ul>
   </div>
 </div>
 

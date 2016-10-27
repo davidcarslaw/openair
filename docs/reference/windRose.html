@@ -10,10 +10,9 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -49,7 +49,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -97,10 +97,7 @@ wind speed.</p>
        <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>paddle</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
 <span class='kw'>seg</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments">
-      <a class="anchor" href="#arguments"></a>
-      Arguments
-    </h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>mydata</dt>
       <dd>A data frame containing fields <code>ws</code> and <code>wd</code></dd>
@@ -345,15 +342,14 @@ Modeling, Journal of the Air &amp; Waste Management Association, 58:7, 913-918.<
 <span class='co'># basic plot</span>
 <span class='fu'>windRose</span>(<span class='no'>mydata</span>)</div><img src='windRose-2.png' alt='' width='540' height='400' /><div class='input'>
 <span class='co'># one windRose for each year</span>
-<span class='fu'>windRose</span>(<span class='no'>mydata</span>,<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>)</div><div class='output'><strong class='text-warning'>Warning message:
-Unequal factor levels: coercing to character</strong></div><img src='windRose-5.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>windRose</span>(<span class='no'>mydata</span>,<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>)</div><img src='windRose-4.png' alt='' width='540' height='400' /><div class='input'>
 <span class='co'># windRose in 10 degree intervals with gridlines and width adjusted</span>
 <span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># windRose(mydata, angle = 10, width = 0.2, grid.line = 1)</span>
 <span class='co'>## ---------------------------------------------</span>
 
 <span class='co'># pollutionRose of nox</span>
-<span class='fu'>pollutionRose</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><img src='windRose-7.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>pollutionRose</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><img src='windRose-6.png' alt='' width='540' height='400' /><div class='input'>
 <span class='co'>## source apportionment plot - contribution to mean</span>
 <span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># pollutionRose(mydata, pollutant = "pm10", type = "year", statistic = "prop.mean")</span>
@@ -369,10 +365,9 @@ Unequal factor levels: coercing to character</strong></div><img src='windRose-5.
 <span class='no'>mydata</span>$<span class='no'>wd2</span>[<span class='no'>id</span>] <span class='kw'>&lt;-</span> <span class='no'>mydata</span>$<span class='no'>wd2</span>[<span class='no'>id</span>] + <span class='fl'>360</span>
 
 <span class='co'>## results show postive bias in wd and ws</span>
-<span class='fu'>pollutionRose</span>(<span class='no'>mydata</span>, <span class='kw'>ws</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>wd</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>ws2</span> <span class='kw'>=</span> <span class='st'>"ws2"</span>, <span class='kw'>wd2</span> <span class='kw'>=</span> <span class='st'>"wd2"</span>)</div><img src='windRose-9.png' alt='' width='540' height='400' /></pre>
+<span class='fu'>pollutionRose</span>(<span class='no'>mydata</span>, <span class='kw'>ws</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>wd</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>ws2</span> <span class='kw'>=</span> <span class='st'>"ws2"</span>, <span class='kw'>wd2</span> <span class='kw'>=</span> <span class='st'>"wd2"</span>)</div><img src='windRose-8.png' alt='' width='540' height='400' /></pre>
   </div>
-  <div class="col-md-3 hidden-xs">
-    <div id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -394,7 +389,6 @@ Unequal factor levels: coercing to character</strong></div><img src='windRose-5.
     
 David Carslaw (with some additional contributions by Karl Ropkins)
 
-    </div>
   </div>
 </div>
 

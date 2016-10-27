@@ -16,7 +16,7 @@ The current newsletter (Issue 18) summarises some of the recent changes to the p
 Installation
 ------------
 
-Installation of openair from GitHub is easy using the devtools package. Note, because openair contains C++ code a compiler is also needed. For Windows - for example, [Rtools](http://cran.r-project.org/bin/windows/Rtools/) is needed.
+Installation of openair from GitHub is easy using the devtools package. Note, because openair contains C++ code a compiler is also needed. For Windows - for example, [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is needed.
 
 ``` r
 require(devtools)

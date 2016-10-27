@@ -10,10 +10,9 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -49,7 +49,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -86,10 +86,7 @@ College London that provides air quality data files as R data objects.</p>
     <pre><span class='fu'>importKCL</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>met</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"mass"</span>, <span class='kw'>extra</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments">
-      <a class="anchor" href="#arguments"></a>
-      Arguments
-    </h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>site</dt>
       <dd>Site code of the network site to import e.g. &quot;my1&quot; is
@@ -1041,8 +1038,7 @@ Place | Roadside </li>
 <span class='co'># </span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs">
-    <div id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
@@ -1060,7 +1056,6 @@ Place | Roadside </li>
     
 David Carslaw and Ben Barratt
 
-    </div>
   </div>
 </div>
 
