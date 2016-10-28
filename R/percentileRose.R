@@ -298,6 +298,7 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
                              method = "natural")
 
         pred <- data.frame(percentile = i, wd = 0:360, pollutant = spline.res$y)
+        names(pred)[2] <- wd
 
         ## don't let interpolated percentile be lower than data
         pred$pollutant[pred$pollutant < min.dat] <- min.dat
