@@ -442,8 +442,8 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
         vars <- c(vars, ws2, wd2)
         diff <- TRUE
         rm.neg <- FALSE
-        mydata$ws <- mydata[, ws2] - mydata[, ws]
-        mydata$wd <- mydata[, wd2] - mydata[[wd]]
+        mydata$ws <- mydata[[ws2]] - mydata[[ws]]
+        mydata$wd <- mydata[[wd2]] - mydata[[wd]]
 
         ## fix negative wd
         id <- which(mydata$wd < 0)
