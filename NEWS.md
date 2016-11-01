@@ -2,6 +2,8 @@
 
 ## Main changes
 
+- silence download progress by default in `importAURN`
+
 
 # openair 1.9-90
 
