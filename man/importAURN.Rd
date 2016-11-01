@@ -5,7 +5,7 @@
 \title{Import data from the UK Automatic Urban and Rural Network (AURN)}
 \usage{
 importAURN(site = "my1", year = 2009, pollutant = "all", hc = FALSE,
-  verbose = TRUE)
+  verbose = FALSE)
 }
 \arguments{
 \item{site}{Site code of the AURN site to import e.g. "my1" is Marylebone
@@ -26,7 +26,7 @@ is however not to as most users will not be interested in using
 hydrocarbon data and the resulting data frames are considerably larger.}
 
 \item{verbose}{Should the function give messages when downloading files? 
-Default is \code{TRUE}.}
+Default is \code{FALSE}.}
 }
 \value{
 Returns a data frame of hourly mean values with date in POSIXct
