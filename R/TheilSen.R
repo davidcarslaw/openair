@@ -419,7 +419,8 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   }
   
   # need to work out how to use dplyr if it does not return a data frame due to too few data
-  split.data <- plyr::ddply(mydata, type, process.cond)
+  split.data <- group_by_(mydata, .dots = type)%>%
+    do(process.cond(.))
   
 
   if (nrow(split.data) < 2) return()
