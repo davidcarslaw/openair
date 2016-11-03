@@ -523,6 +523,9 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
 
         extra.args$main <- overall.main
     }
+    
+    # data frame of confidence intervals
+    conf_int <- data.frame(ci = conf.int)
 
 
     ## hour ############################################################################
@@ -534,8 +537,9 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         
     } else {
 
-        data.hour <- plyr::ldply(conf.int, proc, mydata, vars = "hour", pollutant, type, B = B,
-                           statistic = statistic)
+        data.hour <- group_by(conf_int, ci) %>% 
+          do(proc(.$ci, mydata, vars = "hour", pollutant, type, B = B,
+                  statistic = statistic))
     }
 
 
@@ -609,8 +613,10 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         data.weekday <- errorDiff(mydata, vars = "wkday", type = type, poll1 =poll1,
                                   poll2 = poll2, B = B, conf.int = conf.int)
     } else {
-        data.weekday <- plyr::ldply(conf.int, proc, mydata, vars = "wkday", pollutant, type, B = B,
-                              statistic = statistic)
+      
+        data.weekday <- group_by(conf_int, ci) %>% 
+          do(proc(.$ci, mydata, vars = "wkday", pollutant, type, B = B,
+                  statistic = statistic))
     }
 
     if (normalise) data.weekday <-  group_by(data.weekday, variable) %>%
@@ -677,8 +683,9 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         data.month <- errorDiff(mydata, vars = "mnth", type = type, poll1 = poll1,
                                 poll2 = poll2, B = B, conf.int = conf.int)
     } else {
-        data.month <- plyr::ldply(conf.int, proc, mydata, vars = "mnth", pollutant, type, B = B,
-                            statistic = statistic)
+        data.month <- group_by(conf_int, ci) %>% 
+          do(proc(.$ci, mydata, vars = "mnth", pollutant, type, B = B,
+                  statistic = statistic))
     }
 
     if (normalise) data.month <-  group_by(data.month, variable) %>%
@@ -757,8 +764,10 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         data.day.hour <- errorDiff(mydata, vars = "day.hour", type = type, poll1 = poll1,
                                    poll2 = poll2, B = B, conf.int = conf.int)
     } else {
-        data.day.hour <- plyr::ldply(conf.int, proc, mydata, vars = "day.hour", pollutant,
-                                     type, B = B, statistic = statistic)
+      
+        data.day.hour <- group_by(conf_int, ci) %>% 
+          do(proc(.$ci, mydata, vars = "day.hour", pollutant, type, B = B,
+                  statistic = statistic))
     }
 
     if (normalise) data.day.hour <-  group_by(data.day.hour, variable) %>%
