@@ -562,7 +562,7 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
 
     thedata <- lapply(files, loadData)
 
-    thedata <- plyr::ldply(thedata, bind_rows)
+    thedata <- do.call(bind_rows, thedata)
     
     if (is.null(thedata)) {
 
