@@ -327,18 +327,14 @@ Sciences 53, 386-392, 521-525, 1397-1412.</p>
   probably better for exploring the shape of trends.</p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
 <span class='co'># load example data from package</span>
 <span class='fu'>data</span>(<span class='no'>mydata</span>)
 
 <span class='co'># trend plot for nox</span>
-<span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; [1] &quot;Taking bootstrap samples. Please wait.&quot;
-#&gt; </div><img src='TheilSen-3.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; [1] &quot;Taking bootstrap samples. Please wait.&quot;</div><img src='TheilSen-3.png' alt='' width='540' height='400' /><div class='input'>
 <span class='co'># trend plot for ozone with p=0.01 i.e. uncertainty in slope shown at</span>
 <span class='co'># 99 % confidence interval</span>
 

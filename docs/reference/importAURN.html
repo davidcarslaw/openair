@@ -85,7 +85,7 @@ provides air quality data files as R data objects.</p>
     
 
     <pre><span class='fu'>importAURN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -108,7 +108,7 @@ is however not to as most users will not be interested in using
 hydrocarbon data and the resulting data frames are considerably larger.</dd>
       <dt>verbose</dt>
       <dd>Should the function give messages when downloading files? 
-Default is <code>TRUE</code>.</dd>
+Default is <code>FALSE</code>.</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -1982,10 +1982,7 @@ A3   </td>
   <code><a href='importSAQN.html'>importSAQN</a></code></p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
 <span class='co'>## import all pollutants from Marylebone Rd from 1990:2009</span>

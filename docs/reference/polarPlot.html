@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bivariate polar plot with smoothing — polarPlot â€¢ openair</title>
+<title>Function for plotting bivariate polar plots with smoothing. — polarPlot â€¢ openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -74,7 +74,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Bivariate polar plot with smoothing</h1>
+    <h1>Function for plotting bivariate polar plots with smoothing.</h1>
     </div>
 
     
@@ -87,13 +87,14 @@ is carried out using <code>mgcv</code>.</p>
     
 
     <pre><span class='fu'>polarPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>wd</span> <span class='kw'>=</span> <span class='st'>"wd"</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>resolution</span> <span class='kw'>=</span> <span class='st'>"normal"</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>resolution</span> <span class='kw'>=</span> <span class='st'>"fine"</span>,
   <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>exclude.missing</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>uncertainty</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>),
   <span class='kw'>min.bin</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mis.col</span> <span class='kw'>=</span> <span class='st'>"grey"</span>, <span class='kw'>upper</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>angle.scale</span> <span class='kw'>=</span> <span class='fl'>315</span>,
   <span class='kw'>units</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>force.positive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>key.header</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>key.footer</span> <span class='kw'>=</span> <span class='no'>pollutant</span>, <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ws_spread</span> <span class='kw'>=</span> <span class='fl'>15</span>, <span class='kw'>wd_spread</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>, <span class='kw'>tau</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -112,7 +113,11 @@ would be expected to have similar concentrations. This saves the
 user stacking the data and it is possible to work with columns
 of data directly. A typical use would be <code>pollutant =
 c(&quot;obs&quot;, &quot;mod&quot;)</code> to compare two columns &#8220;obs&#8221; (the
-observations) and &#8220;mod&#8221; (modelled values).</dd>
+observations) and &#8220;mod&#8221; (modelled values). When pair-wise 
+statistics such as Pearson correlation and regression techniques 
+are to be plotted, <code>pollutant</code> takes two elements too. For example, 
+<code>pollutant = c(&quot;bc&quot;, &quot;pm25&quot;)</code> where <code>&quot;bc&quot;</code> is a function of 
+<code>&quot;pm25&quot;</code>.</dd>
       <dt>x</dt>
       <dd>Name of variable to plot against wind direction in polar 
 coordinates, the default is wind speed, &#8220;ws&#8221;.</dd>
@@ -140,48 +145,57 @@ Type can be up length two e.g. <code>type = c(&quot;season&quot;,
 the week. Note, when two types are provided the first forms the 
 columns and the second the rows.</dd>
       <dt>statistic</dt>
-      <dd>The statistic that should be applied to each wind
-speed/direction bin. Can be &#8220;mean&#8221; (default), 
-&#8220;median&#8221;, &#8220;max&#8221; (maximum), &#8220;frequency&#8221;. 
-&#8220;stdev&#8221; (standard deviation), &#8220;weighted.mean&#8221;, 
-&#8220;cpf&#8221; (Conditional Probability Function) or &#8220;r&#8221;
-(correlation coefficient). Because of the smoothing involved,
-the colour scale for some of these statistics is only to provide
-an indication of overall pattern and should not be interpreted
-in concentration units e.g. for <code>statistic =
-&quot;weighted.mean&quot;</code> where the bin mean is multiplied by the bin
-frequency and divided by the total frequency. In many cases
-using <code>polarFreq</code> will be better. Setting <code>statistic =
-&quot;weighted.mean&quot;</code> can be useful because it provides an indication
-of the concentration * frequency of occurrence and will
-highlight the wind speed/direction conditions that dominate the
-overall mean.
+      <dd>The statistic that should be applied to each wind 
+speed/direction bin. Because of the smoothing involved, the
+colour scale for some of these statistics is only to provide an
+indication of overall pattern and should not be interpreted in
+concentration units e.g. for <code>statistic = &quot;weighted.mean&quot;</code>
+where the bin mean is multiplied by the bin frequency and divided
+by the total frequency. In many cases using <code>polarFreq</code> will
+be better. Setting <code>statistic = &quot;weighted.mean&quot;</code> can be
+useful because it provides an indication of the concentration *
+frequency of occurrence and will highlight the wind
+speed/direction conditions that dominate the overall mean.Can be:
 
-When <code>statistic = &quot;cpf&quot;</code> the conditional probability 
-function (CPF) is plotted and a single (usually high) percentile
-level is supplied. The CPF is defined as CPF = my/ny, where my 
-is the number of samples in the y bin (by default a wind 
-direction, wind speed interval) with mixing ratios greater than 
-the <em>overall</em> percentile concentration, and ny is the total
+<ul>
+<li>  &#8220;mean&#8221; (default), &#8220;median&#8221;,
+&#8220;max&#8221; (maximum), &#8220;frequency&#8221;. &#8220;stdev&#8221;
+(standard deviation), &#8220;weighted.mean&#8221;
+
+</li>
+<li> <code>statistic = &quot;cpf&quot;</code> the conditional probability 
+function (CPF) is plotted and a single (usually high) percentile 
+level is supplied. The CPF is defined as CPF = my/ny, where my is
+the number of samples in the y bin (by default a wind direction,
+wind speed interval) with mixing ratios greater than the
+<em>overall</em> percentile concentration, and ny is the total 
 number of samples in the same wind sector (see Ashbaugh et al., 
-1985). Note that percentile intervals can also be considered; 
-see <code>percentile</code> for details.
+1985). Note that percentile intervals can also be considered; see
+<code>percentile</code> for details.
 
-When <code>statistic = &quot;r&quot;</code>, the Pearson correlation coefficient
-is calculated for <em>two</em> pollutants. The calculation
-involves a weighted Pearson correlation coefficient, which is
-weighted by Gaussian kernels for wind direction an the radial
-variable (by default wind speed). More weight is assigned to
-values close to a wind speed-direction interval. Kernel
+</li>
+<li> When <code>statistic = &quot;r&quot;</code>, the Pearson correlation
+coefficient is calculated for <em>two</em> pollutants. The
+calculation involves a weighted Pearson correlation coefficient,
+which is weighted by Gaussian kernels for wind direction an the
+radial variable (by default wind speed). More weight is assigned
+to values close to a wind speed-direction interval. Kernel
 weighting is used to ensure that all data are used rather than
 relying on the potentially small number of values in a wind
-speed-direction interval.</dd>
+speed-direction interval.
+
+</li>
+<li> <code>&quot;robust.slope&quot;</code> is another option for pair-wise
+statisitics and <code>&quot;quantile.slope&quot;</code>, which uses quantile
+regression to estimate the slope for a particular quantile level
+(see also <code>tau</code> for setting the quantile level). </li>
+</ul>
+</dd>
       <dt>resolution</dt>
-      <dd>Two plot resolutions can be set: &#8220;normal&#8221;
-(the default) and &#8220;fine&#8221;, for a smoother plot. It should
+      <dd>Two plot resolutions can be set: &#8220;normal&#8221; 
+and &#8220;fine&#8221; (the default), for a smoother plot. It should
 be noted that plots with a &#8220;fine&#8221; resolution can take
-longer to render and the default option should be sufficient or
-most circumstances.</dd>
+longer to render.</dd>
       <dt>limits</dt>
       <dd>The function does its best to choose sensible limits
 automatically. However, there are circumstances when the user
@@ -242,7 +256,10 @@ directly.</dd>
 <code>openair</code> <code>openColours</code> function for more details. For
 user defined the user can supply a list of colour names
 recognised by R (type <code>colours()</code> to see the full list). An
-example would be <code>cols = c(&quot;yellow&quot;, &quot;green&quot;, &quot;blue&quot;)</code></dd>
+example would be <code>cols = c(&quot;yellow&quot;, &quot;green&quot;, &quot;blue&quot;)</code>. <code>cols</code> 
+can also take the values <code>&quot;viridis&quot;</code>, <code>&quot;magma&quot;</code>, <code>&quot;inferno&quot;</code>, 
+or <code>&quot;plasma&quot;</code> which are the viridis colour maps ported from Python&#39;s
+Matplotlib library.</dd>
       <dt>weights</dt>
       <dd>At the edges of the plot there may only be a few 
 data points in each wind speed-direction interval, which could
@@ -340,6 +357,22 @@ See <code>drawOpenKey</code> for further details.</dd>
 <code>TRUE</code> titles and axis labels will automatically try and 
 format pollutant names and units properly e.g.  by subscripting 
 the `2&#39; in NO2.</dd>
+      <dt>ws_spread</dt>
+      <dd>An integer used for the weighting kernel spread for wind
+speed when correlation or regression techniques are used. Default is 
+<code>15</code>.</dd>
+      <dt>wd_spread</dt>
+      <dd>An integer used for the weighting kernel spread for wind
+direction when correlation or regression techniques are used. Default is
+<code>4</code>.</dd>
+      <dt>kernel</dt>
+      <dd>Type of kernel used for the weighting procedure for when 
+correlation or regression techniques are used. Only <code>&quot;gaussian&quot;</code> is 
+supported but this may be enhanced in the future.</dd>
+      <dt>tau</dt>
+      <dd>The quantile to be estimated when <code>statistic</code> is set to 
+<code>&quot;quantile.slope&quot;</code>. Default is <code>0.5</code> which is equal to the median
+and will be ignored if <code>&quot;quantile.slope&quot;</code> is not used.</dd>
       <dt>...</dt>
       <dd>Other graphical parameters passed onto 
 <code>lattice:levelplot</code> and <code>cutData</code>. For example, 
@@ -407,8 +440,13 @@ users may wish to modify the code and adopt other smoothing
 approaches.</p>
     <p>Various statistics are possible to consider e.g. mean, maximum, 
 median. <code>statistic = &quot;max&quot;</code> is often useful for revealing 
-sources.</p>
-    <p>Wind direction is split up into 10 degree intervals and the other 
+sources. Pair-wise statistics between two pollutants can also be 
+calculated.</p>
+    <p>The function can also be used to compare two pollutant species
+through a range of pair-wise statistics (see help on
+<code>statistic</code>) and Grange et al. (2016) (open-access publication
+link below).</p>
+    <p>Wind direction is split up into 10 degree intervals and the other
 variable (e.g. wind speed) 30 intervals. These 2D bins are then 
 used to calculate the statistics.</p>
     <p>These plots often show interesting features at higher wind speeds 
@@ -416,7 +454,7 @@ used to calculate the statistics.</p>
 measurements and therefore greater uncertainty in the calculation 
 of the surface. There are several ways in which this issue can be 
 tackled. First, it is possible to avoid smoothing altogether and 
-use <code><a href='polarFreq.html'>polarFreq</a></code>. Second, the effect of setting a 
+use <code>polarFreq</code> in the package <code>openair</code>. Second, the effect of setting a 
 minimum number of measurements in each wind speed-direction bin 
 can be examined through <code>min.bin</code>. It is possible that a 
 single point at high wind speed conditions can strongly affect the
@@ -447,6 +485,9 @@ k-means clustering. Environmental Modelling &amp; Software, 40,
 sources of air pollution by nonparametric regression of 
 atmospheric concentrations on wind direction. Atmospheric 
 Environment 36 (13), 2237-2244.</p>
+    <p>Uria-Tellaetxe, I. and D.C. Carslaw (2014). Source identification 
+using a conditional bivariate Probability function.  
+Environmental Modelling &amp; Software, Vol. 59, 1-9.</p>
     <p>Westmoreland, E.J., N. Carslaw, D.C. Carslaw, A. Gillah and E.
 Bates (2007).  Analysis of air quality within a street canyon 
 using statistical and dispersion modelling techniques. Atmospheric
@@ -455,39 +496,48 @@ Environment. Vol.  41(39), pp. 9195-9205.</p>
 the impact of large urban airports on local air quality by
 nonparametric regression. Atmospheric Environment 38 (27),
 4501-4507.</p>
+    <p>Grange, S. K., Carslaw, D. C., &amp; Lewis, A. C. 2016. Source apportionment 
+advances with bivariate polar plots, correlation, and regression techniques.
+Atmospheric Environment. 145, 128-134. <a href = 'http://www.sciencedirect.com/science/article/pii/S1352231016307166'>http://www.sciencedirect.com/science/article/pii/S1352231016307166</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='polarCluster.html'>polarCluster</a></code> for identifying features in 
-  bivairate polar plots and for post processing and 
-  <code><a href='polarAnnulus.html'>polarAnnulus</a></code>, <code><a href='polarFreq.html'>polarFreq</a></code>, 
-  <code><a href='percentileRose.html'>percentileRose</a></code> for other ways of plotting
-  directional data.</p>
+    <p>The openair package for many more functions for analysing air pollution data.</p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-
-<span class='co'># load example data from package</span>
-<span class='fu'>data</span>(<span class='no'>mydata</span>)
+<span class='co'># Use openair 'mydata'</span>
 
 <span class='co'># basic plot</span>
-<span class='fu'>polarPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><img src='polarPlot-2.png' alt='' width='540' height='400' /><div class='input'>
-<span class='co'># polarPlots by year on same scale</span>
-<span class='co'>## Not run: polarPlot(mydata, pollutant = &amp;quot;so2&amp;quot;, type = &amp;quot;year&amp;quot;, main = &amp;quot;polarPlot of so2&amp;quot;)</span>
-
-<span class='co'># set minimum number of bins to be used to see if pattern remains similar</span>
-<span class='co'>## Not run: polarPlot(mydata, pollutant = &amp;quot;nox&amp;quot;, min.bin = 3)</span>
-
-<span class='co'># plot by day of the week</span>
-
-<span class='co'>## Not run: polarPlot(mydata, pollutant = &amp;quot;pm10&amp;quot;, type = &amp;quot;weekday&amp;quot;)</span>
-
-<span class='co'># show the 95% confidence intervals in the surface fitting</span>
-<span class='co'>## Not run: polarPlot(mydata, pollutant = &amp;quot;so2&amp;quot;, uncertainty = TRUE)</span></div></pre>
+<span class='fu'>polarPlot</span>(<span class='kw'>openair</span><span class='kw'>::</span><span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; |======================================================|100% ~0 s remaining     </div><img src='polarPlot-3.png' alt='' width='540' height='400' /><div class='input'>
+<span class='co'>## Not run: ------------------------------------</span>
+<span class='co'># </span>
+<span class='co'># # polarPlots by year on same scale</span>
+<span class='co'># polarPlot(mydata, pollutant = "so2", type = "year", main = "polarPlot of so2")</span>
+<span class='co'># </span>
+<span class='co'># # set minimum number of bins to be used to see if pattern remains similar</span>
+<span class='co'># polarPlot(mydata, pollutant = "nox", min.bin = 3)</span>
+<span class='co'># </span>
+<span class='co'># # plot by day of the week</span>
+<span class='co'># polarPlot(mydata, pollutant = "pm10", type = "weekday")</span>
+<span class='co'># </span>
+<span class='co'># # show the 95% confidence intervals in the surface fitting</span>
+<span class='co'># polarPlot(mydata, pollutant = "so2", uncertainty = TRUE)</span>
+<span class='co'># </span>
+<span class='co'># </span>
+<span class='co'># # Pair-wise statistics</span>
+<span class='co'># # Pearson correlation</span>
+<span class='co'># polarPlot(mydata, pollutant = c("pm25", "pm10"), statistic = "r")</span>
+<span class='co'># </span>
+<span class='co'># # Robust regression slope, takes a bit of time</span>
+<span class='co'># polarPlot(mydata, pollutant = c("pm25", "pm10"), statistic = "robust.slope")</span>
+<span class='co'># </span>
+<span class='co'># # Least squares regression works too but it is not recommended, use robust</span>
+<span class='co'># # regression</span>
+<span class='co'># # polarPlot(mydata, pollutant = c("pm25", "pm10"), statistic = "slope")</span>
+<span class='co'># </span>
+<span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

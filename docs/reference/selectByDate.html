@@ -133,10 +133,7 @@ format as a string i.e. &quot;YYYY-mm-dd&quot;, so <code>start =
 dates</p>
     
 
-    <h2 class="hasAnchor" id="examples">
-      <a class="anchor" href="#examples"></a>
-      Examples
-    </h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## select all of 1999</span>
 <span class='no'>data.1999</span> <span class='kw'>&lt;-</span> <span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1/1/1999"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"31/12/1999"</span>)
@@ -146,15 +143,13 @@ dates</p>
 #&gt; 8763 1999-01-01 02:00:00 4.80 160 168  40  4   17 6.513333 2.866667    8
 #&gt; 8764 1999-01-01 03:00:00 4.92 150  85  36  3   15 4.180000 1.625000   10
 #&gt; 8765 1999-01-01 04:00:00 4.68 150  93  37  3   16 4.250000 1.025000   11
-#&gt; 8766 1999-01-01 05:00:00 3.96 160  74  29  5   14 3.882500 0.725000   NA
-#&gt; </div><div class='input'><span class='fu'>tail</span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt;                      date   ws  wd nox no2 o3 pm10    so2    co pm25
+#&gt; 8766 1999-01-01 05:00:00 3.96 160  74  29  5   14 3.882500 0.725000   NA</div><div class='input'><span class='fu'>tail</span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt;                      date   ws  wd nox no2 o3 pm10    so2    co pm25
 #&gt; 17515 1999-12-31 18:00:00 4.68 190 226  39 NA   29 5.4550 2.375   23
 #&gt; 17516 1999-12-31 19:00:00 3.96 180 202  37 NA   27 4.7850 2.150   23
 #&gt; 17517 1999-12-31 20:00:00 3.36 190 246  44 NA   30 5.8750 2.450   23
 #&gt; 17518 1999-12-31 21:00:00 3.72 220 231  35 NA   28 5.2800 2.225   23
 #&gt; 17519 1999-12-31 22:00:00 4.08 200 217  41 NA   31 4.7875 2.175   26
-#&gt; 17520 1999-12-31 23:00:00 3.24 200 181  37 NA   28 3.4825 1.775   22
-#&gt; </div><div class='input'>
+#&gt; 17520 1999-12-31 23:00:00 3.24 200 181  37 NA   28 3.4825 1.775   22</div><div class='input'>
 <span class='co'># or...</span>
 <span class='no'>data.1999</span> <span class='kw'>&lt;-</span> <span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1999-01-01"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1999-12-31"</span>)
 
