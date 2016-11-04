@@ -673,7 +673,8 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     }
     
     if (is.null(max.freq)) {
-        max.freq <- max(results[results$wd != -999, grep("Interval", names(results))])
+        max.freq <- max(results[results$wd != -999, grep("Interval", names(results))],
+                        na.rm = TRUE)
     } else {
         max.freq <- max.freq
     }

@@ -5,6 +5,7 @@
 - silence download progress by default in `importAURN`
 - update `polarPlot` to work with pairwise statistics to compare two pollutants. The function can consider Pearson correlation and slopes from ordinary linear regression, robust regression (using **MASS** function `rlm`) and quantile regression (requires the **quantreg** package to be installed). See [open access version](http://www.sciencedirect.com/science/article/pii/S1352231016307166) of the paper.
 - change default `polarPlot` plot resolution to "fine".
+- fix `windRose` problem with some data due to missings
 
 # openair 1.9-9
 
