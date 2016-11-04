@@ -2,16 +2,17 @@
 % Please edit documentation in R/polarPlot.R
 \name{polarPlot}
 \alias{polarPlot}
-\title{Bivariate polar plot with smoothing}
+\title{Function for plotting bivariate polar plots with smoothing.}
 \usage{
 polarPlot(mydata, pollutant = "nox", x = "ws", wd = "wd",
-  type = "default", statistic = "mean", resolution = "normal",
+  type = "default", statistic = "mean", resolution = "fine",
   limits = NA, exclude.missing = TRUE, uncertainty = FALSE,
   percentile = NA, cols = "default", weights = c(0.25, 0.5, 0.75),
   min.bin = 1, mis.col = "grey", upper = NA, angle.scale = 315,
   units = x, force.positive = TRUE, k = 100, normalise = FALSE,
   key.header = "", key.footer = pollutant, key.position = "right",
-  key = TRUE, auto.text = TRUE, ...)
+  key = TRUE, auto.text = TRUE, ws_spread = 15, wd_spread = 4,
+  kernel = "gaussian", tau = 0.5, ...)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{wd}, another
@@ -28,7 +29,11 @@ would be expected to have similar concentrations. This saves the
 user stacking the data and it is possible to work with columns
 of data directly. A typical use would be \code{pollutant =
 c("obs", "mod")} to compare two columns \dQuote{obs} (the
-observations) and \dQuote{mod} (modelled values).}
+observations) and \dQuote{mod} (modelled values). When pair-wise 
+statistics such as Pearson correlation and regression techniques 
+are to be plotted, \code{pollutant} takes two elements too. For example, 
+\code{pollutant = c("bc", "pm25")} where \code{"bc"} is a function of 
+\code{"pm25"}.}
 
 \item{x}{Name of variable to plot against wind direction in polar 
 coordinates, the default is wind speed, \dQuote{ws}.}
@@ -56,48 +61,51 @@ Type can be up length two e.g. \code{type = c("season",
 the week. Note, when two types are provided the first forms the 
 columns and the second the rows.}
 
-\item{statistic}{The statistic that should be applied to each wind
-speed/direction bin. Can be \dQuote{mean} (default), 
-\dQuote{median}, \dQuote{max} (maximum), \dQuote{frequency}. 
-\dQuote{stdev} (standard deviation), \dQuote{weighted.mean}, 
-\dQuote{cpf} (Conditional Probability Function) or \dQuote{r}
-(correlation coefficient). Because of the smoothing involved,
-the colour scale for some of these statistics is only to provide
-an indication of overall pattern and should not be interpreted
-in concentration units e.g. for \code{statistic =
-"weighted.mean"} where the bin mean is multiplied by the bin
-frequency and divided by the total frequency. In many cases
-using \code{polarFreq} will be better. Setting \code{statistic =
-"weighted.mean"} can be useful because it provides an indication
-of the concentration * frequency of occurrence and will
-highlight the wind speed/direction conditions that dominate the
-overall mean.
+\item{statistic}{The statistic that should be applied to each wind 
+speed/direction bin. Because of the smoothing involved, the
+colour scale for some of these statistics is only to provide an
+indication of overall pattern and should not be interpreted in
+concentration units e.g. for \code{statistic = "weighted.mean"}
+where the bin mean is multiplied by the bin frequency and divided
+by the total frequency. In many cases using \code{polarFreq} will
+be better. Setting \code{statistic = "weighted.mean"} can be
+useful because it provides an indication of the concentration *
+frequency of occurrence and will highlight the wind
+speed/direction conditions that dominate the overall mean.Can be:
 
-When \code{statistic = "cpf"} the conditional probability 
-function (CPF) is plotted and a single (usually high) percentile
-level is supplied. The CPF is defined as CPF = my/ny, where my 
-is the number of samples in the y bin (by default a wind 
-direction, wind speed interval) with mixing ratios greater than 
-the \emph{overall} percentile concentration, and ny is the total
+\itemize{ \item  \dQuote{mean} (default), \dQuote{median},
+\dQuote{max} (maximum), \dQuote{frequency}. \dQuote{stdev}
+(standard deviation), \dQuote{weighted.mean}
+
+\item \code{statistic = "cpf"} the conditional probability 
+function (CPF) is plotted and a single (usually high) percentile 
+level is supplied. The CPF is defined as CPF = my/ny, where my is
+the number of samples in the y bin (by default a wind direction,
+wind speed interval) with mixing ratios greater than the
+\emph{overall} percentile concentration, and ny is the total 
 number of samples in the same wind sector (see Ashbaugh et al., 
-1985). Note that percentile intervals can also be considered; 
-see \code{percentile} for details.
+1985). Note that percentile intervals can also be considered; see
+\code{percentile} for details.
 
-When \code{statistic = "r"}, the Pearson correlation coefficient
-is calculated for \emph{two} pollutants. The calculation
-involves a weighted Pearson correlation coefficient, which is
-weighted by Gaussian kernels for wind direction an the radial
-variable (by default wind speed). More weight is assigned to
-values close to a wind speed-direction interval. Kernel
+\item When \code{statistic = "r"}, the Pearson correlation
+coefficient is calculated for \emph{two} pollutants. The
+calculation involves a weighted Pearson correlation coefficient,
+which is weighted by Gaussian kernels for wind direction an the
+radial variable (by default wind speed). More weight is assigned
+to values close to a wind speed-direction interval. Kernel
 weighting is used to ensure that all data are used rather than
 relying on the potentially small number of values in a wind
-speed-direction interval.}
+speed-direction interval.
 
-\item{resolution}{Two plot resolutions can be set: \dQuote{normal}
-(the default) and \dQuote{fine}, for a smoother plot. It should
+\item \code{"robust.slope"} is another option for pair-wise
+statisitics and \code{"quantile.slope"}, which uses quantile
+regression to estimate the slope for a particular quantile level
+(see also \code{tau} for setting the quantile level). }}
+
+\item{resolution}{Two plot resolutions can be set: \dQuote{normal} 
+and \dQuote{fine} (the default), for a smoother plot. It should
 be noted that plots with a \dQuote{fine} resolution can take
-longer to render and the default option should be sufficient or
-most circumstances.}
+longer to render.}
 
 \item{limits}{The function does its best to choose sensible limits
 automatically. However, there are circumstances when the user
@@ -158,7 +166,10 @@ directly.}
 \code{openair} \code{openColours} function for more details. For
 user defined the user can supply a list of colour names
 recognised by R (type \code{colours()} to see the full list). An
-example would be \code{cols = c("yellow", "green", "blue")}}
+example would be \code{cols = c("yellow", "green", "blue")}. \code{cols} 
+can also take the values \code{"viridis"}, \code{"magma"}, \code{"inferno"}, 
+or \code{"plasma"} which are the viridis colour maps ported from Python's
+Matplotlib library.}
 
 \item{weights}{At the edges of the plot there may only be a few 
 data points in each wind speed-direction interval, which could
@@ -257,6 +268,22 @@ See \code{drawOpenKey} for further details.}
 format pollutant names and units properly e.g.  by subscripting 
 the `2' in NO2.}
 
+\item{ws_spread}{An integer used for the weighting kernel spread for wind
+speed when correlation or regression techniques are used. Default is 
+\code{15}.}
+
+\item{wd_spread}{An integer used for the weighting kernel spread for wind
+direction when correlation or regression techniques are used. Default is
+\code{4}.}
+
+\item{kernel}{Type of kernel used for the weighting procedure for when 
+correlation or regression techniques are used. Only \code{"gaussian"} is 
+supported but this may be enhanced in the future.}
+
+\item{tau}{The quantile to be estimated when \code{statistic} is set to 
+\code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
+and will be ignored if \code{"quantile.slope"} is not used.}
+
 \item{...}{Other graphical parameters passed onto 
 \code{lattice:levelplot} and \code{cutData}. For example, 
 \code{polarPlot} passes the option \code{hemisphere =
@@ -333,9 +360,15 @@ approaches.
 
 Various statistics are possible to consider e.g. mean, maximum, 
 median. \code{statistic = "max"} is often useful for revealing 
-sources.
+sources. Pair-wise statistics between two pollutants can also be 
+calculated.
 
-Wind direction is split up into 10 degree intervals and the other 
+The function can also be used to compare two pollutant species
+through a range of pair-wise statistics (see help on
+\code{statistic}) and Grange et al. (2016) (open-access publication
+link below).
+
+Wind direction is split up into 10 degree intervals and the other
 variable (e.g. wind speed) 30 intervals. These 2D bins are then 
 used to calculate the statistics.
 
@@ -344,7 +377,7 @@ These plots often show interesting features at higher wind speeds
 measurements and therefore greater uncertainty in the calculation 
 of the surface. There are several ways in which this issue can be 
 tackled. First, it is possible to avoid smoothing altogether and 
-use \code{\link{polarFreq}}. Second, the effect of setting a 
+use \code{polarFreq} in the package \code{openair}. Second, the effect of setting a 
 minimum number of measurements in each wind speed-direction bin 
 can be examined through \code{min.bin}. It is possible that a 
 single point at high wind speed conditions can strongly affect the
@@ -360,26 +393,38 @@ Variants on \code{polarPlot} include \code{polarAnnulus} and
 }
 \examples{
 
-
-# load example data from package
-data(mydata)
+# Use openair 'mydata'
 
 # basic plot
-polarPlot(mydata, pollutant = "nox")
+polarPlot(openair::mydata, pollutant = "nox")
+
+\dontrun{
 
 # polarPlots by year on same scale
-\dontrun{polarPlot(mydata, pollutant = "so2", type = "year", main = "polarPlot of so2")}
+polarPlot(mydata, pollutant = "so2", type = "year", main = "polarPlot of so2")
 
 # set minimum number of bins to be used to see if pattern remains similar
-\dontrun{polarPlot(mydata, pollutant = "nox", min.bin = 3)}
+polarPlot(mydata, pollutant = "nox", min.bin = 3)
 
 # plot by day of the week
-
-\dontrun{polarPlot(mydata, pollutant = "pm10", type = "weekday")}
+polarPlot(mydata, pollutant = "pm10", type = "weekday")
 
 # show the 95\% confidence intervals in the surface fitting
-\dontrun{polarPlot(mydata, pollutant = "so2", uncertainty = TRUE)}
+polarPlot(mydata, pollutant = "so2", uncertainty = TRUE)
 
+
+# Pair-wise statistics
+# Pearson correlation
+polarPlot(mydata, pollutant = c("pm25", "pm10"), statistic = "r")
+
+# Robust regression slope, takes a bit of time
+polarPlot(mydata, pollutant = c("pm25", "pm10"), statistic = "robust.slope")
+
+# Least squares regression works too but it is not recommended, use robust
+# regression
+# polarPlot(mydata, pollutant = c("pm25", "pm10"), statistic = "slope")
+
+}
 
 }
 \author{
@@ -406,6 +451,10 @@ sources of air pollution by nonparametric regression of
 atmospheric concentrations on wind direction. Atmospheric 
 Environment 36 (13), 2237-2244.
 
+Uria-Tellaetxe, I. and D.C. Carslaw (2014). Source identification 
+using a conditional bivariate Probability function.  
+Environmental Modelling & Software, Vol. 59, 1-9. 
+
 Westmoreland, E.J., N. Carslaw, D.C. Carslaw, A. Gillah and E.
 Bates (2007).  Analysis of air quality within a street canyon 
 using statistical and dispersion modelling techniques. Atmospheric
@@ -415,13 +464,13 @@ Yu, K.N., Cheung, Y.P., Cheung, T., Henry, R.C., 2004. Identifying
 the impact of large urban airports on local air quality by
 nonparametric regression. Atmospheric Environment 38 (27),
 4501-4507.
+
+Grange, S. K., Carslaw, D. C., & Lewis, A. C. 2016. Source apportionment 
+advances with bivariate polar plots, correlation, and regression techniques.
+Atmospheric Environment. 145, 128-134. \url{http://www.sciencedirect.com/science/article/pii/S1352231016307166}
 }
 \seealso{
-\code{\link{polarCluster}} for identifying features in 
-  bivairate polar plots and for post processing and 
-  \code{\link{polarAnnulus}}, \code{\link{polarFreq}}, 
-  \code{\link{percentileRose}} for other ways of plotting
-  directional data.
+The openair package for many more functions for analysing air pollution data.
 }
 \keyword{methods}
 
