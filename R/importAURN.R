@@ -267,6 +267,7 @@
 ##' YK11 \tab York Fishergate                  \tab Urban traffic       \tab -1.075861 \tab 53.95189 \tab City of York                            \tab 01/01/2008 \tab NA        \cr
 ##' YW   \tab Yarner Wood                      \tab Rural Background    \tab -3.716510 \tab 50.59760 \tab Teignbridge District                    \tab 15/09/2003 \tab NA        
 ##' }
+##'
 ##' @param site Site code of the AURN site to import e.g. "my1" is Marylebone
 ##'   Road. Several sites can be imported with \code{site = c("my1", "nott")}
 ##'   --- to import Marylebone Road and Nottingham for example.
@@ -280,6 +281,7 @@
 ##'   \code{hc = TRUE} will ensure hydrocarbon data are imported. The default
 ##'   is however not to as most users will not be interested in using
 ##'   hydrocarbon data and the resulting data frames are considerably larger.
+##' @param meta Should meta data be returned? If \code{TRUE} the site type, latitude and longitude are returned.
 ##' @param verbose Should the function give messages when downloading files? 
 ##'   Default is \code{FALSE}. 
 ##'   
@@ -319,7 +321,8 @@
 ##' }
 ##'
 ##'
-importAURN <- function(site = "my1", year = 2009, pollutant = "all", hc = FALSE,
+importAURN <- function(site = "my1", year = 2009, pollutant = "all", 
+                       hc = FALSE, meta = FALSE,
                        verbose = FALSE) {
   
     # For file name matching, needs to be exact
@@ -383,6 +386,12 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all", hc = FALSE,
     
     # make sure class is correct for lubridate
     class(thedata$date) <- c("POSIXct" , "POSIXt")
+    
+    if (meta) {
+      meta <- importMeta(source = "aurn")
+      # suppress warnings about factors
+      thedata <- suppressWarnings(inner_join(thedata, meta, by = c("code", "site")))
+    }
     
     thedata
 }
