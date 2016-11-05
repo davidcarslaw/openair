@@ -5,7 +5,7 @@
 \title{Import data from the UK Automatic Urban and Rural Network (AURN)}
 \usage{
 importAURN(site = "my1", year = 2009, pollutant = "all", hc = FALSE,
-  verbose = FALSE)
+  meta = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{site}{Site code of the AURN site to import e.g. "my1" is Marylebone
@@ -24,6 +24,8 @@ pollutants ffrom a site. To import only NOx and NO2 for example use
 \code{hc = TRUE} will ensure hydrocarbon data are imported. The default
 is however not to as most users will not be interested in using
 hydrocarbon data and the resulting data frames are considerably larger.}
+
+\item{meta}{Should meta data be returned? If \code{TRUE} the site type, latitude and longitude are returned.}
 
 \item{verbose}{Should the function give messages when downloading files? 
 Default is \code{FALSE}.}
