@@ -24,7 +24,6 @@ Imports:
     RColorBrewer,
     mapproj,
     hexbin,
-    mapdata,
     Rcpp,
     grDevices,
     graphics,
@@ -34,6 +33,7 @@ Imports:
     utils
 Suggests:
     KernSmooth,
+    mapdata,
     quantreg
 LinkingTo: Rcpp
 Maintainer: David Carslaw <david.carslaw@york.ac.uk>
