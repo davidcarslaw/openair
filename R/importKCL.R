@@ -481,6 +481,7 @@
 ##'   PM2.5 have no correction applied. See details below concerning PM10
 ##'   concentrations.
 ##' @param extra Not currently used.
+##' @param meta Should meta data be returned? If \code{TRUE} the site type, latitude and longitude are returned.
 ##' @export
 ##' @return Returns a data frame of hourly mean values with date in POSIXct
 ##'   class and time zone GMT.
@@ -516,7 +517,7 @@
 ##'
 ##'
 importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
-                      units = "mass", extra = FALSE) {
+                      units = "mass", extra = FALSE, meta = FALSE) {
 
     ## get rid of R check annoyances
     sites <- NULL; v10 <- NULL; v2.5 <- NULL
@@ -650,7 +651,14 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
 
     cat(unitMessage)
 
-    thedata
+    # add meta data
+    if (meta) {
+      meta <- importMeta(source = "kcl")
+      # suppress warnings about factors
+      thedata <- suppressWarnings(inner_join(thedata, meta, by = c("code", "site")))
+    }
+      
+    return(thedata)
 }
 
 

@@ -7,7 +7,7 @@
 - change default `polarPlot` plot resolution to "fine".
 - fix `windRose` problem with some data due to missings
 - move `mapdata` package to Suggests
-- add option to return meta data (site type, lat, lon) from `importAURN`.
+- add option to return meta data (site type, lat, lon) from `importAURN` and `importKCL`.
 
 # openair 1.9-9
 

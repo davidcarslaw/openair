@@ -5,7 +5,7 @@
 \title{Import data from King's College London networks}
 \usage{
 importKCL(site = "my1", year = 2009, pollutant = "all", met = FALSE,
-  units = "mass", extra = FALSE)
+  units = "mass", extra = FALSE, meta = FALSE)
 }
 \arguments{
 \item{site}{Site code of the network site to import e.g. "my1" is
@@ -34,6 +34,8 @@ PM2.5 have no correction applied. See details below concerning PM10
 concentrations.}
 
 \item{extra}{Not currently used.}
+
+\item{meta}{Should meta data be returned? If \code{TRUE} the site type, latitude and longitude are returned.}
 }
 \value{
 Returns a data frame of hourly mean values with date in POSIXct
