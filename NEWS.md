@@ -8,6 +8,8 @@
 - fix `windRose` problem with some data due to missings
 - move `mapdata` package to Suggests
 - add option to return meta data (site type, lat, lon) from `importAURN` and `importKCL`.
+- fix statistic = "weighted.mean" issue in `polarPlot`.
+- make sure `y.relation` is used when there is no grouping in `timePlot`.
 
 # openair 1.9-9
 

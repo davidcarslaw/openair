@@ -505,13 +505,13 @@ polarPlot <-
       stop("Can only have one pollutant when uncertainty = TRUE")
     
     if (!statistic %in% c("mean", "median", "frequency", "max", "stdev",
-                          "weighted.mean", "percentile", "cpf", correlation_stats)) 
+                          "weighted_mean", "percentile", "cpf", correlation_stats)) 
       stop (paste0("statistic '", statistic, "' not recognised."), call. = FALSE)
     
     if (length(weights) != 3) stop("weights should be of length 3.")
     
     if (missing(key.header)) key.header <- statistic
-    if (key.header == "weighted.mean") key.header <- "weighted\nmean"
+    if (key.header == "weighted_mean") key.header <- "weighted\nmean"
     if (key.header == "percentile")
       key.header <- c(paste(percentile, "th", sep = ""), "percentile")
     
@@ -727,7 +727,7 @@ polarPlot <-
                            (length(
                              which(x > Pval[1] & x <= Pval[2])
                            ) / length(x))),
-          weighted.mean = tapply(mydata[[pollutant]], list(wd, x),
+          weighted_mean = tapply(mydata[[pollutant]], list(wd, x),
                                  function(x)
                                    (mean(x) * length(x) / nrow(mydata))),
           percentile = tapply(mydata[[pollutant]], list(wd, x), function(x)

@@ -534,8 +534,9 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
                                        factor.levels = mylab)
         }
 
-        scales <- list(x = list(at = dates, format = formats), y = list(relation = "free",
-                                                               rot = 0, log = nlog))
+        scales <- list(x = list(at = dates, format = formats), 
+                       y = list(relation = y.relation,
+                                rot = 0, log = nlog))
 
         if (is.null(Args$lty)) Args$lty <- 1 ## don't need different line types here
     }
