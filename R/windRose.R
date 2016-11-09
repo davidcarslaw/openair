@@ -627,16 +627,28 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     results$calm <- stat.labcalm(results$calm)
     results$mean.wd <- stat.labcalm(results$mean.wd)
 
+    # function to correct bias
+    corr_bias <- function(results) {
+      
+      wds <- seq(10, 360, 10)
+      tmp <- angle * ceiling(wds / angle - 0.5)
+      id <- which(tmp == 0)
+      if (length(id > 0)) tmp[id] <- 360
+      tmp <- table(tmp) ## number of sectors spanned
+      vars <- grep("Interval[1-9]", names(results)) ## the frequencies, without any calms
+      results[results[[wd]] != -999, vars] <- 
+        results[results[[wd]] != -999, vars] * mean(tmp) / tmp
+      return(results)
+      
+    }
+    
     ## correction for bias when angle does not divide exactly into 360
     if (bias.corr & rounded) {
-        wd <- seq(10, 360, 10)
-        tmp <- angle * ceiling(wd / angle - 0.5)
-        id <- which(tmp == 0)
-        if (length(id > 0)) tmp[id] <- 360
-        tmp <- table(tmp) ## number of sectors spanned
-        vars <- grep("Interval[1-9]", names(results)) ## the frequencies
-        results[-1, vars] <- results[-1, vars] * mean(tmp) /tmp
+        results <- group_by_(results, .dots = type) %>%
+          do(corr_bias(.))
     }
+    
+    
 
     ## proper names of labelling###########################################
     strip.dat <- strip.fun(results, type, auto.text)
