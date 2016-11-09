@@ -192,10 +192,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   # time zone of input data
   tzone <- attr(mydata$date, "tzone")
   
-  # make sure we have a full time series
-  mydata <- date.pad(mydata, type = type)
-  
-  # cut data
+   # cut data
   mydata <- cutData(mydata, c(type, proportion))
   
   # overall averages by time interval
