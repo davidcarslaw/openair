@@ -641,7 +641,8 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
                             }
 
                             panel.xyplot(x, y, type = plot.type, lty = lty, lwd = lwd, pch = pch,
-                                         col.line = myColors[group.number],...)
+                                         col.line = myColors[group.number],
+                                         col.symbol = myColors[group.number],...)
                             ## deal with points separately - useful if missing data where line
                             ## does not join consequtive points
                             if (any(!is.na(Args$pch))) {

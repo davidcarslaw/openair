@@ -12,6 +12,7 @@
 - make sure `y.relation` is used when there is no grouping in `timePlot`.
 - fix issue with `type` when used with `timeProp`
 - fix bias correction when not default type in `windRose`
+- fix pch colour bug in `timePlot`
 
 # openair 1.9-9
 
