@@ -190,8 +190,8 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
   if (length(ids) > 0 & smooth != TRUE) {
 
     extra <- mydata[rep(1, length(ids)), ]
-    extra[, wd] <- seq(10, 360, by = 10)[ids]
-    extra[, pollutant] <- NA
+    extra[[wd]] <- seq(10, 360, by = 10)[ids]
+    extra[[pollutant]] <- NA
     mydata <- rbind(mydata, extra)
   }
 
@@ -294,7 +294,7 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
           min.dat <- min(thedata)
 
         ## fit a spline through the data; making sure it goes through each wd value
-        spline.res <- spline(x = thedata[ , wd], y = thedata[, pollutant], n = 361,
+        spline.res <- spline(x = thedata[[wd]], y = thedata[[pollutant]], n = 361,
                              method = "natural")
 
         pred <- data.frame(percentile = i, wd = 0:360, pollutant = spline.res$y)
@@ -304,29 +304,29 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
         pred$pollutant[pred$pollutant < min.dat] <- min.dat
 
         ## only plot where there are valid wd
-        wds <- unique(percentiles[, wd])
+        wds <- unique(percentiles[[wd]])
         ids <- lapply(wds, function(x) seq(from = x - 5, to = x + 5))
         ids <- unique(do.call(c, ids))
         ids[ids < 0] <- ids[ids < 0] + 360
-        pred$pollutant[-ids] <- min(c(0, min(percentiles[ , pollutant], na.rm = TRUE)))
+        pred$pollutant[-ids] <- min(c(0, min(percentiles[[pollutant]], na.rm = TRUE)))
 
       } else {
 
         ## do not smooth
           dat1 <- thedata
           dat2 <- thedata
-        dat1[, wd] <- thedata[, wd] - 5
-        dat2[, wd] <- thedata[, wd] + 5
+        dat1[[wd]] <- thedata[[wd]] - 5
+        dat2[[wd]] <- thedata[[wd]] + 5
         dat1$id <- 2 * 1:nrow(dat1) - 1
         dat2$id <- 2 * 1:nrow(dat2)
         thedata <- rbind(dat1, dat2)
         id <- which(thedata[, wd] == -5)
-        thedata[, wd][id] <- 0
+        thedata[[wd]][id] <- 0
         id <- which(thedata[, wd] == 365)
-        thedata[, wd][id] <- 0
+        thedata[[wd]][id] <- 0
 
         thedata <- thedata[order(thedata$id), ]
-        thedata$pollutant <- thedata[, eval(pollutant)]
+        thedata$pollutant <- thedata[[eval(pollutant)]]
           pred <- thedata
 
       }
@@ -378,8 +378,8 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
   mydata <- cutData(mydata, type, ...)
 
   ## overall.lower and overall.upper are the OVERALL upper/lower percentiles
-  overall.lower <-  quantile(mydata[, pollutant], probs = min(percentile) / 100, na.rm = TRUE)
-  overall.upper =  quantile(mydata[, pollutant], probs = max(percentile) / 100, na.rm = TRUE)
+  overall.lower <-  quantile(mydata[[pollutant]], probs = min(percentile) / 100, na.rm = TRUE)
+  overall.upper =  quantile(mydata[[pollutant]], probs = max(percentile) / 100, na.rm = TRUE)
 
   results.grid <- plyr::ddply(mydata, type, prepare.grid, stat = "percentile",
                         overall.lower, overall.upper)
@@ -388,7 +388,7 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
     ## useful labelling
     sub <- paste("CPF at the ", max(percentile),
                  "th percentile (=",
-                 round(max(quantile(mydata[, pollutant], probs = percentile / 100,
+                 round(max(quantile(mydata[[pollutant]], probs = percentile / 100,
                                     na.rm = TRUE)), 1), ")", sep = "")
   }
 
