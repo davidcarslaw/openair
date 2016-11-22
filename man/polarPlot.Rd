@@ -8,11 +8,11 @@ polarPlot(mydata, pollutant = "nox", x = "ws", wd = "wd",
   type = "default", statistic = "mean", resolution = "fine",
   limits = NA, exclude.missing = TRUE, uncertainty = FALSE,
   percentile = NA, cols = "default", weights = c(0.25, 0.5, 0.75),
-  min.bin = 1, mis.col = "grey", upper = NA, angle.scale = 315,
-  units = x, force.positive = TRUE, k = 100, normalise = FALSE,
-  key.header = "", key.footer = pollutant, key.position = "right",
-  key = TRUE, auto.text = TRUE, ws_spread = 15, wd_spread = 4,
-  kernel = "gaussian", tau = 0.5, ...)
+  min.bin = 1, mis.col = "grey", alpha = 1, upper = NA,
+  angle.scale = 315, units = x, force.positive = TRUE, k = 100,
+  normalise = FALSE, key.header = "", key.footer = pollutant,
+  key.position = "right", key = TRUE, auto.text = TRUE, ws_spread = 15,
+  wd_spread = 4, kernel = "gaussian", tau = 0.5, ...)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{wd}, another 
@@ -196,6 +196,11 @@ where data are removed on the plots. This is done by shading the
 missing data in \code{mis.col}. To not highlight missing data 
 when \code{min.bin} > 1 choose \code{mis.col = "transparent"}.}
 
+\item{alpha}{The alpha transparency to use for the plotting surface
+(a value between 0 and 1 with zero being fully transparent and 1
+fully opaque). Setting a value below 1 can be useful when
+plotting surfaces on a map using the package \code{openairmapss}.}
+
 \item{upper}{This sets the upper limit wind speed to be used. Often
 there are only a relatively few data points at very high wind 
 speeds and plotting all of them can reduce the useful information
@@ -292,11 +297,6 @@ Similarly, common axis and title labelling options (such as
 \code{xlab}, \code{ylab}, \code{main}) are passed to 
 \code{levelplot} via \code{quickText} to handle routine 
 formatting.}
-
-\item{alpha}{The alpha transparency to use for the plotting surface
-(a value between 0 and 1 with zero being fully transparent and 1
-fully opaque). Setting a value below 1 can be useful when
-plotting surfaces on a map using the package \code{openairmapss}.}
 }
 \value{
 As well as generating the plot itself, \code{polarPlot} 
