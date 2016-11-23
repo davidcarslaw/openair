@@ -85,7 +85,7 @@ provides air quality data files as R data objects.</p>
     
 
     <pre><span class='fu'>importAURN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -106,6 +106,8 @@ pollutants ffrom a site. To import only NOx and NO2 for example use
 <code>hc = TRUE</code> will ensure hydrocarbon data are imported. The default
 is however not to as most users will not be interested in using
 hydrocarbon data and the resulting data frames are considerably larger.</dd>
+      <dt>meta</dt>
+      <dd>Should meta data be returned? If <code>TRUE</code> the site type, latitude and longitude are returned.</dd>
       <dt>verbose</dt>
       <dd>Should the function give messages when downloading files? 
 Default is <code>FALSE</code>.</dd>

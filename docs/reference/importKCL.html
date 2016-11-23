@@ -84,7 +84,7 @@ College London that provides air quality data files as R data objects.</p>
     
 
     <pre><span class='fu'>importKCL</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>met</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"mass"</span>, <span class='kw'>extra</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"mass"</span>, <span class='kw'>extra</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -115,6 +115,8 @@ PM2.5 have no correction applied. See details below concerning PM10
 concentrations.</dd>
       <dt>extra</dt>
       <dd>Not currently used.</dd>
+      <dt>meta</dt>
+      <dd>Should meta data be returned? If <code>TRUE</code> the site type, latitude and longitude are returned.</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
