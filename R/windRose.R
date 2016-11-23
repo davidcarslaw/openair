@@ -35,276 +35,295 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 
 
 ##' Traditional wind rose plot and pollution rose variation
-##'
-##' The traditional wind rose plot that plots wind speed and wind direction by
-##' different intervals. The pollution rose applies the same plot structure but
-##' substitutes other measurements, most commonly a pollutant time series, for
-##' wind speed.
-##'
-##' For \code{windRose} data are summarised by direction, typically by 45 or 30
-##' (or 10) degrees and by different wind speed categories. Typically, wind
-##' speeds are represented by different width "paddles". The plots show the
-##' proportion (here represented as a percentage) of time that the wind is from
-##' a certain angle and wind speed range.
-##'
-##' By default \code{windRose} will plot a windRose in using "paddle" style
-##' segments and placing the scale key below the plot.
-##'
+##' 
+##' The traditional wind rose plot that plots wind speed and wind 
+##' direction by different intervals. The pollution rose applies the 
+##' same plot structure but substitutes other measurements, most 
+##' commonly a pollutant time series, for wind speed.
+##' 
+##' For \code{windRose} data are summarised by direction, typically by
+##' 45 or 30 (or 10) degrees and by different wind speed categories. 
+##' Typically, wind speeds are represented by different width 
+##' "paddles". The plots show the proportion (here represented as a 
+##' percentage) of time that the wind is from a certain angle and wind
+##' speed range.
+##' 
+##' By default \code{windRose} will plot a windRose in using "paddle" 
+##' style segments and placing the scale key below the plot.
+##' 
 ##' The argument \code{pollutant} uses the same plotting structure but
-##' substitutes another data series, defined by \code{pollutant}, for wind
-##' speed.
-##'
-##' The option \code{statistic = "prop.mean"} provides a measure of the
-##' relative contribution of each bin to the panel mean, and is intended for
-##' use with \code{pollutionRose}.
-##'
-##' \code{pollutionRose} is a \code{windRose} wrapper which brings
-##' \code{pollutant} forward in the argument list, and attempts to sensibly
-##' rescale break points based on the \code{pollutant} data range by by-passing
-##' \code{ws.int}.
-##'
-##' By default, \code{pollutionRose} will plot a pollution rose of \code{nox}
-##' using "wedge" style segments and placing the scale key to the right of the
-##' plot.
-##'
+##' substitutes another data series, defined by \code{pollutant}, for 
+##' wind speed.
+##' 
+##' The option \code{statistic = "prop.mean"} provides a measure of 
+##' the relative contribution of each bin to the panel mean, and is 
+##' intended for use with \code{pollutionRose}.
+##' 
+##' \code{pollutionRose} is a \code{windRose} wrapper which brings 
+##' \code{pollutant} forward in the argument list, and attempts to 
+##' sensibly rescale break points based on the \code{pollutant} data 
+##' range by by-passing \code{ws.int}.
+##' 
+##' By default, \code{pollutionRose} will plot a pollution rose of 
+##' \code{nox} using "wedge" style segments and placing the scale key 
+##' to the right of the plot.
+##' 
 ##' It is possible to compare two wind speed-direction data sets using
-##' \code{pollutionRose}. There are many reasons for doing so e.g. to
+##' \code{pollutionRose}. There are many reasons for doing so e.g. to 
 ##' see how one site compares with another or for meteorological model
-##' evaluation. In this case, \code{ws} and \code{wd} are considered
-##' to the the reference data sets with which a second set of wind
-##' speed and wind directions are to be compared (\code{ws2} and
+##' evaluation. In this case, \code{ws} and \code{wd} are considered 
+##' to the the reference data sets with which a second set of wind 
+##' speed and wind directions are to be compared (\code{ws2} and 
 ##' \code{wd2}). The first set of values is subtracted from the second
-##' and the differences compared. If for example, \code{wd2} was
-##' biased positive compared with \code{wd} then \code{pollutionRose}
-##' will show the bias in polar coordinates. In its default use, wind
+##' and the differences compared. If for example, \code{wd2} was 
+##' biased positive compared with \code{wd} then \code{pollutionRose} 
+##' will show the bias in polar coordinates. In its default use, wind 
 ##' direction bias is colour-coded to show negative bias in one colour
 ##' and positive bias in another.
-##'
-##' @usage windRose(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
-##' ws.int = 2, angle = 30, type = "default", bias.corr = TRUE, cols = "default",
-##' grid.line = NULL, width = 1, seg = NULL, auto.text = TRUE, breaks
-##' = 4, offset = 10, normalise = FALSE, max.freq = NULL, paddle = TRUE, key.header =
-##' NULL, key.footer = "(m/s)", key.position = "bottom", key = TRUE,
-##' dig.lab = 5, statistic = "prop.count", pollutant = NULL, annotate
-##' = TRUE, angle.scale = 315, border = NA, ...)
-##'
-##'
-##'     pollutionRose(mydata, pollutant = "nox", key.footer = pollutant,
-##'        key.position = "right", key = TRUE, breaks = 6, paddle = FALSE,
-##' seg = 0.9, normalise = FALSE, ...)
-##'
-##'
+##' 
+##' @usage windRose(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA, 
+##'   ws.int = 2, angle = 30, type = "default", bias.corr = TRUE, cols
+##'   = "default", grid.line = NULL, width = 1, seg = NULL, auto.text 
+##'   = TRUE, breaks = 4, offset = 10, normalise = FALSE, max.freq = 
+##'   NULL, paddle = TRUE, key.header = NULL, key.footer = "(m/s)", 
+##'   key.position = "bottom", key = TRUE, dig.lab = 5, statistic = 
+##'   "prop.count", pollutant = NULL, annotate = TRUE, angle.scale = 
+##'   315, border = NA, ...)
+##'   
+##'   
+##'   pollutionRose(mydata, pollutant = "nox", key.footer = pollutant,
+##'   key.position = "right", key = TRUE, breaks = 6, paddle = FALSE, 
+##'   seg = 0.9, normalise = FALSE, ...)
+##'   
+##'   
 ##' @aliases windRose pollutionRose
-##' @param mydata A data frame containing fields \code{ws} and \code{wd}
+##' @param mydata A data frame containing fields \code{ws} and 
+##'   \code{wd}
 ##' @param ws Name of the column representing wind speed.
 ##' @param wd Name of the column representing wind direction.
 ##' @param ws2 The user can supply a second set of wind speed and wind
-##' direction values with which the first can be compared. See details
-##' below for full explanation.
+##'   direction values with which the first can be compared. See 
+##'   details below for full explanation.
 ##' @param wd2 see \code{ws2}.
-##' @param ws.int The Wind speed interval. Default is 2 m/s but for low met
-##'   masts with low mean wind speeds a value of 1 or 0.5 m/s may be better.
-##'   Note, this argument is superseded in \code{pollutionRose}. See
-##'   \code{breaks} below.
-##' @param angle Default angle of \dQuote{spokes} is 30. Other potentially useful
-##'   angles are 45 and 10. Note that the width of the wind speed interval may
-##'   need adjusting using \code{width}.
-##' @param type \code{type} determines how the data are split
-##' i.e. conditioned, and then plotted. The default is will produce a
-##' single plot using the entire data. Type can be one of the built-in
-##' types as detailed in \code{cutData} e.g. \dQuote{season},
-##' \dQuote{year}, \dQuote{weekday} and so on. For example, \code{type
-##' = "season"} will produce four plots --- one for each season.
-##'
-##' It is also possible to choose \code{type} as another variable in the data
-##'   frame. If that variable is numeric, then the data will be split into four
-##'   quantiles (if possible) and labelled accordingly. If type is an existing
-##'   character or factor variable, then those categories/levels will be used
-##'   directly. This offers great flexibility for understanding the variation
-##'   of different variables and how they depend on one another.
-##'
-##' Type can be up length two e.g. \code{type = c("season", "weekday")} will
-##'   produce a 2x2 plot split by season and day of the week. Note, when two
-##'   types are provided the first forms the columns and the second the rows.
-##' @param bias.corr When \code{angle} does not divide exactly into
-##' 360 a bias is introduced in the frequencies when the wind
-##' direction is already supplied rounded to the nearest 10 degrees,
-##' as is often the case. For example, if \code{angle = 22.5}, N, E,
-##' S, W will include 3 wind sectors and all other angles will be
-##' two. A bias correction can made to correct for this problem. A
-##' simple method according to Applequist (2012) is used to adjust the
-##' frequencies.
-##' @param cols Colours to be used for plotting. Options include
-##' \dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet},
-##' \dQuote{hue} and user defined. For user defined the user can
-##' supply a list of colour names recognised by R (type
-##' \code{colours()} to see the full list). An example would be
-##' \code{cols = c("yellow", "green", "blue", "black")}.
-##' @param grid.line Grid line interval to use. If \code{NULL}, as in default,
-##'   this is assigned by \code{windRose} based on the available data range.
-##'   However, it can also be forced to a specific value, e.g.
-##'   \code{grid.line = 10}.
-##' @param width For \code{paddle = TRUE}, the adjustment factor for width of
-##'   wind speed intervals. For example, \code{width = 1.5} will make the
-##'   paddle width 1.5 times wider.
-##' @param seg For \code{pollutionRose} \code{seg} determines with
-##' width of the segments. For example, \code{seg = 0.5} will produce
-##' segments 0.5 * \code{angle}.
-##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
-##' \code{TRUE} titles and axis labels will automatically try and
-##' format pollutant names and units properly e.g.  by subscripting
-##' the \sQuote{2} in NO2.
-##' @param breaks Most commonly, the number of break points for wind
-##' speed in \code{windRose} or pollutant in \code{pollutionRose}. For
-##' \code{windRose} and the \code{ws.int} default of 2 m/s, the
-##' default, 4, generates the break points 2, 4, 6, 8 m/s. For
-##' \code{pollutionRose}, the default, 6, attempts to breaks the
-##' supplied data at approximately 6 sensible break points. However,
-##' \code{breaks} can also be used to set specific break points. For
-##' example, the argument \code{breaks = c(0, 1, 10, 100)} breaks the
-##' data into segments <1, 1-10, 10-100, >100.
-##' @param offset The size of the 'hole' in the middle of the plot, expressed
-##'   as a percentage of the polar axis scale, default 10.
-##' @param normalise If \code{TRUE} each wind direction segment of a
-##' pollution rose is normalised to equal one. This is useful for
-##' showing how the concentrations (or other parameters) contribute to
-##' each wind sector when the proprtion of time the wind is from that
-##' direction is low. A line showing the probability that the wind
-##' directions is from a particular wind sector is also shown.
-##' @param max.freq Controls the scaling used by setting the maximum
-##' value for the radial limits. This is useful to ensure several
-##' plots use the same radial limits.
-##' @param paddle Either \code{TRUE} (default) or \code{FALSE}. If \code{TRUE}
-##'   plots rose using `paddle' style spokes. If \code{FALSE} plots rose using
-##'   `wedge' style spokes.
-##' @param key.header Adds additional text/labels above and/or below
-##' the scale key, respectively. For example, passing
-##' \code{windRose(mydata, key.header = "ws")} adds the addition text
-##' as a scale header. Note: This argument is passed to
-##' \code{drawOpenKey} via \code{quickText}, applying the auto.text
-##' argument, to handle formatting.
+##' @param ws.int The Wind speed interval. Default is 2 m/s but for 
+##'   low met masts with low mean wind speeds a value of 1 or 0.5 m/s 
+##'   may be better. Note, this argument is superseded in 
+##'   \code{pollutionRose}. See \code{breaks} below.
+##' @param angle Default angle of \dQuote{spokes} is 30. Other 
+##'   potentially useful angles are 45 and 10. Note that the width of 
+##'   the wind speed interval may need adjusting using \code{width}.
+##' @param type \code{type} determines how the data are split i.e. 
+##'   conditioned, and then plotted. The default is will produce a 
+##'   single plot using the entire data. Type can be one of the 
+##'   built-in types as detailed in \code{cutData} e.g. 
+##'   \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so on. For 
+##'   example, \code{type = "season"} will produce four plots --- one 
+##'   for each season.
+##'   
+##'   It is also possible to choose \code{type} as another variable in
+##'   the data frame. If that variable is numeric, then the data will 
+##'   be split into four quantiles (if possible) and labelled 
+##'   accordingly. If type is an existing character or factor 
+##'   variable, then those categories/levels will be used directly. 
+##'   This offers great flexibility for understanding the variation of
+##'   different variables and how they depend on one another.
+##'   
+##'   Type can be up length two e.g. \code{type = c("season", 
+##'   "weekday")} will produce a 2x2 plot split by season and day of 
+##'   the week. Note, when two types are provided the first forms the 
+##'   columns and the second the rows.
+##' @param bias.corr When \code{angle} does not divide exactly into 
+##'   360 a bias is introduced in the frequencies when the wind 
+##'   direction is already supplied rounded to the nearest 10 degrees,
+##'   as is often the case. For example, if \code{angle = 22.5}, N, E,
+##'   S, W will include 3 wind sectors and all other angles will be 
+##'   two. A bias correction can made to correct for this problem. A 
+##'   simple method according to Applequist (2012) is used to adjust 
+##'   the frequencies.
+##' @param cols Colours to be used for plotting. Options include 
+##'   \dQuote{default}, \dQuote{increment}, \dQuote{heat}, 
+##'   \dQuote{jet}, \dQuote{hue} and user defined. For user defined 
+##'   the user can supply a list of colour names recognised by R (type
+##'   \code{colours()} to see the full list). An example would be 
+##'   \code{cols = c("yellow", "green", "blue", "black")}.
+##' @param grid.line Grid line interval to use. If \code{NULL}, as in 
+##'   default, this is assigned by \code{windRose} based on the 
+##'   available data range. However, it can also be forced to a 
+##'   specific value, e.g. \code{grid.line = 10}. \code{grid.line} can
+##'   also be a list to control the interval, line type and colour.
+##'   For example \code{grid.line = list(value = 10, lty = 5, col =
+##'   "purple)}.
+##' @param width For \code{paddle = TRUE}, the adjustment factor for 
+##'   width of wind speed intervals. For example, \code{width = 1.5} 
+##'   will make the paddle width 1.5 times wider.
+##' @param seg For \code{pollutionRose} \code{seg} determines with 
+##'   width of the segments. For example, \code{seg = 0.5} will 
+##'   produce segments 0.5 * \code{angle}.
+##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If 
+##'   \code{TRUE} titles and axis labels will automatically try and 
+##'   format pollutant names and units properly e.g.  by subscripting 
+##'   the \sQuote{2} in NO2.
+##' @param breaks Most commonly, the number of break points for wind 
+##'   speed in \code{windRose} or pollutant in \code{pollutionRose}. 
+##'   For \code{windRose} and the \code{ws.int} default of 2 m/s, the 
+##'   default, 4, generates the break points 2, 4, 6, 8 m/s. For 
+##'   \code{pollutionRose}, the default, 6, attempts to breaks the 
+##'   supplied data at approximately 6 sensible break points. However,
+##'   \code{breaks} can also be used to set specific break points. For
+##'   example, the argument \code{breaks = c(0, 1, 10, 100)} breaks 
+##'   the data into segments <1, 1-10, 10-100, >100.
+##' @param offset The size of the 'hole' in the middle of the plot, 
+##'   expressed as a percentage of the polar axis scale, default 10.
+##' @param normalise If \code{TRUE} each wind direction segment of a 
+##'   pollution rose is normalised to equal one. This is useful for 
+##'   showing how the concentrations (or other parameters) contribute 
+##'   to each wind sector when the proprtion of time the wind is from 
+##'   that direction is low. A line showing the probability that the 
+##'   wind directions is from a particular wind sector is also shown.
+##' @param max.freq Controls the scaling used by setting the maximum 
+##'   value for the radial limits. This is useful to ensure several 
+##'   plots use the same radial limits.
+##' @param paddle Either \code{TRUE} (default) or \code{FALSE}. If 
+##'   \code{TRUE} plots rose using `paddle' style spokes. If 
+##'   \code{FALSE} plots rose using `wedge' style spokes.
+##' @param key.header Adds additional text/labels above and/or below 
+##'   the scale key, respectively. For example, passing 
+##'   \code{windRose(mydata, key.header = "ws")} adds the addition 
+##'   text as a scale header. Note: This argument is passed to 
+##'   \code{drawOpenKey} via \code{quickText}, applying the auto.text 
+##'   argument, to handle formatting.
 ##' @param key.footer see \code{key.footer}.
-##' @param key.position Location where the scale key is to plotted.
-##' Allowed arguments currently include \dQuote{top},
-##' \dQuote{right}, \dQuote{bottom} and \dQuote{left}.
-##' @param key Fine control of the scale key via \code{drawOpenKey}. See
-##'   \code{drawOpenKey} for further details.
-##' @param dig.lab The number of signficant figures at which scientific number
-##'   formatting is used in break point and key labelling. Default 5.
-##' @param statistic The \code{statistic} to be applied to each data
-##' bin in the plot. Options currently include \dQuote{prop.count},
-##' \dQuote{prop.mean} and \dQuote{abs.count}. The default
-##' \dQuote{prop.count} sizes bins according to the proportion of
-##' the frequency of measurements.  Similarly, \dQuote{prop.mean} sizes
-##' bins according to their relative contribution to the
-##' mean. \dQuote{abs.count} provides the absolute count of
-##' measurements in each bin.
-##' @param pollutant Alternative data series to be sampled instead of wind
-##'   speed. The \code{windRose} default NULL is equivalent to \code{pollutant
-##'   = "ws"}.
-##' @param annotate If \code{TRUE} then the percentage calm and mean
-##' values are printed in each panel together with a description of
-##' the statistic below the plot.
-##' @param angle.scale The wind speed scale is by default shown at a
-##' 315 degree angle. Sometimes the placement of the scale may
-##' interfere with an interesting feature. The user can therefore set
-##' \code{angle.scale} to another value (between 0 and 360 degrees) to
-##' mitigate such problems. For example \code{angle.scale = 45} will
-##' draw the scale heading in a NE direction.
-##' @param border Border colour for shaded areas. Default is no border.
-##' @param ... For \code{pollutionRose} other parameters that are
-##' passed on to \code{windRose}. For \code{windRose} other parameters
-##' that are passed on to \code{drawOpenKey}, \code{lattice:xyplot}
-##' and \code{cutData}. Axis and title labelling options (\code{xlab},
-##' \code{ylab}, \code{main}) are passed to \code{xyplot} via
-##' \code{quickText} to handle routine formatting.
-##'
+##' @param key.position Location where the scale key is to plotted. 
+##'   Allowed arguments currently include \dQuote{top}, 
+##'   \dQuote{right}, \dQuote{bottom} and \dQuote{left}.
+##' @param key Fine control of the scale key via \code{drawOpenKey}. 
+##'   See \code{drawOpenKey} for further details.
+##' @param dig.lab The number of signficant figures at which 
+##'   scientific number formatting is used in break point and key 
+##'   labelling. Default 5.
+##' @param statistic The \code{statistic} to be applied to each data 
+##'   bin in the plot. Options currently include \dQuote{prop.count}, 
+##'   \dQuote{prop.mean} and \dQuote{abs.count}. The default 
+##'   \dQuote{prop.count} sizes bins according to the proportion of 
+##'   the frequency of measurements.  Similarly, \dQuote{prop.mean} 
+##'   sizes bins according to their relative contribution to the mean.
+##'   \dQuote{abs.count} provides the absolute count of measurements 
+##'   in each bin.
+##' @param pollutant Alternative data series to be sampled instead of 
+##'   wind speed. The \code{windRose} default NULL is equivalent to 
+##'   \code{pollutant = "ws"}.
+##' @param annotate If \code{TRUE} then the percentage calm and mean 
+##'   values are printed in each panel together with a description of 
+##'   the statistic below the plot.
+##' @param angle.scale The wind speed scale is by default shown at a 
+##'   315 degree angle. Sometimes the placement of the scale may 
+##'   interfere with an interesting feature. The user can therefore 
+##'   set \code{angle.scale} to another value (between 0 and 360 
+##'   degrees) to mitigate such problems. For example 
+##'   \code{angle.scale = 45} will draw the scale heading in a NE 
+##'   direction.
+##' @param border Border colour for shaded areas. Default is no 
+##'   border.
+##' @param ... For \code{pollutionRose} other parameters that are 
+##'   passed on to \code{windRose}. For \code{windRose} other 
+##'   parameters that are passed on to \code{drawOpenKey}, 
+##'   \code{lattice:xyplot} and \code{cutData}. Axis and title 
+##'   labelling options (\code{xlab}, \code{ylab}, \code{main}) are 
+##'   passed to \code{xyplot} via \code{quickText} to handle routine 
+##'   formatting.
+##'   
 ##' @export windRose pollutionRose
 ##' @import dplyr
 ##' @import lazyeval
-##' @importFrom plyr ddply ldply dlply llply numcolwise . 
+##' @importFrom plyr ddply ldply dlply llply numcolwise .
 ##' @importFrom graphics abline
 ##' @importFrom grDevices col2rgb colorRampPalette grey rgb xy.coords
 ##' @importFrom methods is
-##' @importFrom stats aggregate approx as.dendrogram as.dist
-##' ave coef cor dist formula hclust lm median
-##' na.omit optimize order.dendrogram predict qchisq qnorm
-##' qt quantile reshape sd smooth.spline spline stl ts
-##' update var
-##' @importFrom utils compareVersion modifyList packageDescription
-##' read.csv read.table
-##' @return As well as generating the plot itself, \code{windRose} and 
-##'   \code{pollutionRose} also return an object of class \dQuote{openair}. The
-##'   object includes three main components: \code{call}, the command used to
-##'   generate the plot; \code{data}, the data frame of summarised information
-##'   used to make the plot; and \code{plot}, the plot itself. If retained, e.g.
-##'   using \code{output <- windRose(mydata)}, this output can be used to
-##' recover the data, reproduce or rework the original plot or
-##' undertake further analysis.
-##'
-##' An openair output can be manipulated using a number of generic operations,
-##'   including \code{print}, \code{plot} and \code{summarise}.
-##'
-##' Summarised proportions can also be extracted directly using the
-##'   \code{$data} operator, e.g.  \code{object$data} for \code{output <-
-##'   windRose(mydata)}. This returns a data frame with three set columns:
-##'   \code{cond}, conditioning based on \code{type}; \code{wd}, the wind
-##'   direction; and \code{calm}, the \code{statistic} for the proportion of
-##'   data unattributed to any specific wind direction because it was collected
-##'   under calm conditions; and then several (one for each range binned for
-##'   the plot) columns giving proportions of measurements associated with each
-##'   \code{ws} or \code{pollutant} range plotted as a discrete panel.
-##' @note \code{windRose} and \code{pollutionRose} both use \link{drawOpenKey}
-##'   to produce scale keys.
-##' @author David Carslaw (with some additional contributions by Karl Ropkins)
-##' @seealso See \code{\link{drawOpenKey}} for fine control of the scale key.
-##'
-##' See \code{\link{polarFreq}} for a more flexible version that considers
-##'   other statistics and pollutant concentrations.
+##' @importFrom stats aggregate approx as.dendrogram as.dist ave coef 
+##'   cor dist formula hclust lm median na.omit optimize 
+##'   order.dendrogram predict qchisq qnorm qt quantile reshape sd 
+##'   smooth.spline spline stl ts update var
+##' @importFrom utils compareVersion modifyList packageDescription 
+##'   read.csv read.table
+##' @return As well as generating the plot itself, \code{windRose} and
+##'   \code{pollutionRose} also return an object of class 
+##'   \dQuote{openair}. The object includes three main components: 
+##'   \code{call}, the command used to generate the plot; \code{data},
+##'   the data frame of summarised information used to make the plot; 
+##'   and \code{plot}, the plot itself. If retained, e.g. using 
+##'   \code{output <- windRose(mydata)}, this output can be used to 
+##'   recover the data, reproduce or rework the original plot or 
+##'   undertake further analysis.
+##'   
+##'   An openair output can be manipulated using a number of generic 
+##'   operations, including \code{print}, \code{plot} and 
+##'   \code{summarise}.
+##'   
+##'   Summarised proportions can also be extracted directly using the 
+##'   \code{$data} operator, e.g.  \code{object$data} for \code{output
+##'   <- windRose(mydata)}. This returns a data frame with three set 
+##'   columns: \code{cond}, conditioning based on \code{type}; 
+##'   \code{wd}, the wind direction; and \code{calm}, the 
+##'   \code{statistic} for the proportion of data unattributed to any 
+##'   specific wind direction because it was collected under calm 
+##'   conditions; and then several (one for each range binned for the 
+##'   plot) columns giving proportions of measurements associated with
+##'   each \code{ws} or \code{pollutant} range plotted as a discrete 
+##'   panel.
+##' @note \code{windRose} and \code{pollutionRose} both use 
+##'   \link{drawOpenKey} to produce scale keys.
+##' @author David Carslaw (with some additional contributions by Karl 
+##'   Ropkins)
+##' @seealso See \code{\link{drawOpenKey}} for fine control of the 
+##'   scale key.
+##'   
+##'   See \code{\link{polarFreq}} for a more flexible version that 
+##'   considers other statistics and pollutant concentrations.
 ##' @keywords methods
 ##' @references
-##'
-##' Applequist, S, 2012: Wind Rose Bias
-##' Correction. J. Appl. Meteor. Climatol., 51, 1305-1309.
-##'
+##' 
+##' Applequist, S, 2012: Wind Rose Bias Correction. J. Appl. Meteor. 
+##' Climatol., 51, 1305-1309.
+##' 
 ##' This paper seems to be the original?
-##'
-##' Droppo,  J.G. and B.A. Napier (2008) Wind Direction Bias in
-##' Generating Wind Roses and Conducting Sector-Based Air Dispersion
-##' Modeling, Journal of the Air & Waste Management Association, 58:7, 913-918.
-##'
+##' 
+##' Droppo,  J.G. and B.A. Napier (2008) Wind Direction Bias in 
+##' Generating Wind Roses and Conducting Sector-Based Air Dispersion 
+##' Modeling, Journal of the Air & Waste Management Association, 58:7,
+##' 913-918.
+##' 
 ##' @examples
-##'
+##' 
 ##' # load example data from package data(mydata)
-##'
+##' 
 ##' # basic plot
 ##' windRose(mydata)
-##'
+##' 
 ##' # one windRose for each year
 ##' windRose(mydata,type = "year")
-##'
+##' 
 ##' # windRose in 10 degree intervals with gridlines and width adjusted
 ##' \dontrun{
 ##' windRose(mydata, angle = 10, width = 0.2, grid.line = 1)
 ##' }
-##'
+##' 
 ##' # pollutionRose of nox
 ##' pollutionRose(mydata, pollutant = "nox")
-##'
+##' 
 ##' ## source apportionment plot - contribution to mean
 ##' \dontrun{
 ##' pollutionRose(mydata, pollutant = "pm10", type = "year", statistic = "prop.mean")
 ##' }
-##'
+##' 
 ##' ## example of comparing 2 met sites
 ##' ## first we will make some new ws/wd data with a postive bias
 ##' mydata$ws2 = mydata$ws + 2 * rnorm(nrow(mydata)) + 1
 ##' mydata$wd2 = mydata$wd + 30 * rnorm(nrow(mydata)) + 30
-##'
+##' 
 ##' ## need to correct negative wd
 ##' id <- which(mydata$wd2 < 0)
 ##' mydata$wd2[id] <- mydata$wd2[id] + 360
-##'
+##' 
 ##' ## results show postive bias in wd and ws
 ##' pollutionRose(mydata, ws = "ws", wd = "wd", ws2 = "ws2", wd2 = "wd2")
 windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
@@ -709,7 +728,30 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     myform <- formula(paste("Interval1 ~ wd | ", temp, sep = ""))
 
     mymax <- 2 * max.freq
-    myby <- if (is.null(grid.line)) pretty(c(0, mymax), 10)[2] else grid.line
+    
+    # check to see if grid.line is a list or not and set grid line properties
+    grid.value <- NULL
+    
+    if (is.list(grid.line)) 
+    {
+      if (is.null(grid.line[["value"]])) 
+        grid.value <- NULL else grid.value <- grid.line[["value"]]
+        
+        if (is.null(grid.line[["lty"]])) 
+          grid.lty <- 1 else grid.lty <- grid.line[["lty"]]
+          
+          if (is.null(grid.line[["col"]])) 
+            grid.col <- "grey85" else grid.col <- grid.line[["col"]]
+            
+    } else {
+      
+      grid.value <- grid.line
+      grid.lty <- 1 
+      grid.col <- "grey85"
+      
+    }
+    
+    myby <- if (is.null(grid.value)) pretty(c(0, mymax), 10)[2] else grid.value
 
     if (myby / mymax > 0.9) myby <- mymax * 0.9
 
@@ -733,7 +775,8 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                         angles <- seq(0, 2 * pi, length = 360)
                         sapply(seq(off.set, mymax, by = myby),
                                function(x) llines(x * sin(angles), x * cos(angles),
-                                                  col = "grey85", lwd = 1))
+                                                  col = grid.col, lwd = 1,
+                                                  lty = grid.lty))
 
                         dat <- results[subscripts, ] ## subset of data
                         dat <- filter(dat, wd <= 360, wd >= 0)
