@@ -14,6 +14,7 @@
 - fix bias correction when not default type in `windRose`
 - fix pch colour bug in `timePlot`
 - add option `alpha` to `polarPlot` to control transparency of plotted surface. Mostly useful for overlaying polar plots on leaflet maps (see [openairmaps](https://github.com/davidcarslaw/openairmaps) package)
+- enhance `grid.line` option in `windRose` so that users can control grid spacing, line type and line colour
 
 # openair 1.9-9
 

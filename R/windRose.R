@@ -152,7 +152,7 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##'   specific value, e.g. \code{grid.line = 10}. \code{grid.line} can
 ##'   also be a list to control the interval, line type and colour.
 ##'   For example \code{grid.line = list(value = 10, lty = 5, col =
-##'   "purple)}.
+##'   "purple")}.
 ##' @param width For \code{paddle = TRUE}, the adjustment factor for 
 ##'   width of wind speed intervals. For example, \code{width = 1.5} 
 ##'   will make the paddle width 1.5 times wider.
