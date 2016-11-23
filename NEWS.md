@@ -1,4 +1,4 @@
-# openair 1.9-99
+# openair 2.0-0
 
 ## Main changes
 
@@ -9,7 +9,7 @@
 - move `mapdata` package to Suggests
 - add option to return meta data (site type, lat, lon) from `importAURN` and `importKCL`.
 - fix statistic = "weighted.mean" issue in `polarPlot`.
-- make sure `y.relation` is used when there is no grouping in `timePlot`.
+- make sure `y.relation` is used when there is no grouping in `timePlot`. To retain the behaviour of earlier versions use `relation = "free"`
 - fix issue with `type` when used with `timeProp`
 - fix bias correction when not default type in `windRose`
 - fix pch colour bug in `timePlot`
