@@ -195,10 +195,26 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
   vars <- c(wd, pollutant)
   if (any(type %in%  dateTypes)) vars <- c(vars, "date")
 
+  # check to see if ws is in the data and is calm (need to remove as no wd)
+  if ("ws" %in% names(mydata)) {
+    
+    id <- which(mydata$ws == 0 & mydata[[wd]] == 0)
+    if (length(id) > 0)
+      mydata <- mydata[-id, ]
+    
+  }
+  
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE, wd = wd)
   
   ## round wd
   mydata[, wd] <- angle * ceiling(mydata[, wd] / angle - 0.5)
+  
+  # when it generates angle at 0 and 360, make all 360
+  if (0 %in% mydata$wd) {
+    
+    id <- which(mydata[[wd]] == 0)
+    mydata[[wd]][id] <- 360
+  }
 
   ## make sure all wds are present
   ids <- which(!seq(angle, 360, by = angle) %in% unique(mydata[, wd]))
