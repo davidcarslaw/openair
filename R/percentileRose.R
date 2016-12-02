@@ -197,8 +197,6 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
 
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE, wd = wd)
   
-  if (smooth) angle <- 10
-  
   ## round wd
   mydata[, wd] <- angle * ceiling(mydata[, wd] / angle - 0.5)
 
@@ -322,7 +320,7 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
 
         ## only plot where there are valid wd
         wds <- unique(percentiles[[wd]])
-        ids <- lapply(wds, function(x) seq(from = x - 5, to = x + 5))
+        ids <- lapply(wds, function(x) seq(from = x - angle / 2, to = x +  angle / 2))
         ids <- unique(do.call(c, ids))
         ids[ids < 0] <- ids[ids < 0] + 360
         pred$pollutant[-ids] <- min(c(0, min(percentiles[[pollutant]], na.rm = TRUE)))
@@ -332,14 +330,14 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
         ## do not smooth
           dat1 <- thedata
           dat2 <- thedata
-        dat1[[wd]] <- thedata[[wd]] - 5
-        dat2[[wd]] <- thedata[[wd]] + 5
+        dat1[[wd]] <- thedata[[wd]] -  angle / 2
+        dat2[[wd]] <- thedata[[wd]] +  angle / 2
         dat1$id <- 2 * 1:nrow(dat1) - 1
         dat2$id <- 2 * 1:nrow(dat2)
         thedata <- rbind(dat1, dat2)
-        id <- which(thedata[, wd] == -5)
+        id <- which(thedata[, wd] == -angle / 2)
         thedata[[wd]][id] <- 0
-        id <- which(thedata[, wd] == 365)
+        id <- which(thedata[, wd] == 360 + angle / 2)
         thedata[[wd]][id] <- 0
 
         thedata <- thedata[order(thedata$id), ]
