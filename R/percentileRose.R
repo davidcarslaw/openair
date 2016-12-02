@@ -335,11 +335,7 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
         dat1$id <- 2 * 1:nrow(dat1) - 1
         dat2$id <- 2 * 1:nrow(dat2)
         thedata <- rbind(dat1, dat2)
-        id <- which(thedata[, wd] == -angle / 2)
-        thedata[[wd]][id] <- 0
-        id <- which(thedata[, wd] == 360 + angle / 2)
-        thedata[[wd]][id] <- 0
-
+   
         thedata <- thedata[order(thedata$id), ]
         thedata$pollutant <- thedata[[eval(pollutant)]]
           pred <- thedata
