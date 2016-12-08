@@ -106,13 +106,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
         mydata <- mydata[c("date", pollutant, "site")]
 
         ## file any missing hours
-        start.date <- as.POSIXct(dateTrunc(min(mydata$date), "year"))
-        end.date <- as.POSIXct(dateCeil(max(mydata$date), "year") - 3600)
-
-        ## find time interval of data and pad any missing times
-        interval <- find.time.interval(mydata$date)
-        all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
-        mydata <- merge(mydata, all.dates, all = TRUE)
+        mydata <- date.pad(mydata, type = "site")
         mydata$year <- format(mydata$date, "%Y")
         
         
