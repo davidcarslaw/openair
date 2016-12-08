@@ -102,6 +102,9 @@ date.pad2 <-  function(mydata, type = NULL, interval = "month") {
 
 date.pad <- function(mydata, type = NULL, print.int = FALSE) {
  
+  # if one line, just return
+  if (nrow(mydata) < 2) return(mydata)
+  
   ## time zone of data
   TZ <- attr(mydata$date, "tzone")
   if (is.null(TZ)) TZ <- "GMT" ## as it is on Windows for BST

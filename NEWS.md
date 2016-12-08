@@ -1,6 +1,7 @@
 # openair 2.0-99
 
 - add `angle` option to `percentileRose` to allow wind direction averages for sectors >10 degrees.
+- fix bug in `aqStats` if only a few lines of data
 
 # openair 2.0-0
 
