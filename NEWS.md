@@ -2,6 +2,7 @@
 
 - add `angle` option to `percentileRose` to allow wind direction averages for sectors >10 degrees.
 - fix bug in `aqStats` if only a few lines of data
+- allow `statistic` to equal "mean", "median" or "frequency" in `scatterPlot`, when `method = "level"`
 
 # openair 2.0-0
 
