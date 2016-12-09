@@ -974,7 +974,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     
     smooth.grid <- function(mydata, z) {
       
-      myform <- formula(paste(z, "~ ti(xgrid, ygrid, k = ", k , ")", sep = ""))
+      myform <- formula(paste(z, "~ ti(xgrid, k = ", k, ") + ti(ygrid, k = ", k, ") + ti(xgrid, ygrid, k = ", k , ")", sep = ""))
       res <- 101
       
       mydata <- na.omit(mydata)
