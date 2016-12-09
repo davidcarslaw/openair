@@ -322,7 +322,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                         key.columns = 1, key.position = "right", strip = TRUE,
                         log.x = FALSE, log.y = FALSE, x.inc = NULL, y.inc = NULL,
                         limits = NULL, windflow = NULL, y.relation = "same", x.relation = "same",
-                        ref.x = NULL, ref.y = NULL, k = c(10, 10), dist = 0.1, 
+                        ref.x = NULL, ref.y = NULL, k = NA, dist = 0.1, 
                         map = FALSE, auto.text = TRUE, ...)   {
   
   ## basic function to plot single/multiple time series in flexible waysproduce scatterPlot
