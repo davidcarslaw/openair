@@ -565,6 +565,10 @@ polarPlot <-
     ## this is used later for the 'x' scale
     min.scale <- min(mydata[[x]], na.rm = TRUE)
     
+    # check to see if a high proportion of the data is negative
+    if (length(which(mydata[pollutant] < 0)) / nrow(mydata) > 0.1 && force.positive)
+      warning(">10% negative data detected, set force.positive = FALSE?")
+    
     
     # scale data by subtracting the min value this helps with dealing 
     # with negative data on radial axis (starts from zero, always 
