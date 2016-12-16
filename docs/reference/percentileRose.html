@@ -78,73 +78,79 @@
     </div>
 
     
-    <p><code>percentileRose</code> plots percentiles by wind direction with flexible
-conditioning. The plot can display mutiple percentile lines or filled
-areas.</p>
+    <p><code>percentileRose</code> plots percentiles by wind direction with
+flexible conditioning. The plot can display mutiple percentile
+lines or filled areas.</p>
     
 
     <pre><span class='fu'>percentileRose</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>wd</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
   <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>25</span>, <span class='fl'>50</span>, <span class='fl'>75</span>, <span class='fl'>90</span>, <span class='fl'>95</span>), <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mean.lty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mean.lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>mean.col</span> <span class='kw'>=</span> <span class='st'>"grey"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>intervals</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>angle.scale</span> <span class='kw'>=</span> <span class='fl'>45</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>key.header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key.footer</span> <span class='kw'>=</span> <span class='st'>"percentile"</span>,
-  <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mean.lty</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>mean.lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>mean.col</span> <span class='kw'>=</span> <span class='st'>"grey"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>intervals</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>angle.scale</span> <span class='kw'>=</span> <span class='fl'>45</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>key.header</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>key.footer</span> <span class='kw'>=</span> <span class='st'>"percentile"</span>, <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>mydata</dt>
-      <dd>A data frame minimally containing <code>wd</code> and a numeric
-field to plot --- <code>pollutant</code>.</dd>
+      <dd>A data frame minimally containing <code>wd</code> and a
+numeric field to plot --- <code>pollutant</code>.</dd>
       <dt>pollutant</dt>
-      <dd>Mandatory. A pollutant name corresponding to a variable in
-a data frame should be supplied e.g. <code>pollutant = &quot;nox&quot;</code>. More than
-one pollutant can be supplied e.g. <code>pollutant = c(&quot;no2&quot;, &quot;o3&quot;)</code>
-provided there is only one <code>type</code>.</dd>
+      <dd>Mandatory. A pollutant name corresponding to a
+variable in a data frame should be supplied e.g. <code>pollutant
+= &quot;nox&quot;</code>. More than one pollutant can be supplied e.g.
+<code>pollutant = c(&quot;no2&quot;, &quot;o3&quot;)</code> provided there is only one
+<code>type</code>.</dd>
       <dt>wd</dt>
       <dd>Name of the wind direction field.</dd>
       <dt>type</dt>
-      <dd><code>type</code> determines how the data are split
-i.e. conditioned, and then plotted. The default is will produce a
-single plot using the entire data. Type can be one of the built-in
-types as detailed in <code>cutData</code> e.g. &#8220;season&#8221;,
-&#8220;year&#8221;, &#8220;weekday&#8221; and so on. For example, <code>type
-= &quot;season&quot;</code> will produce four plots --- one for each season.
+      <dd><code>type</code> determines how the data are split i.e.
+conditioned, and then plotted. The default is will produce a 
+single plot using the entire data. Type can be one of the
+built-in types as detailed in <code>cutData</code> e.g.
+&#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For
+example, <code>type = &quot;season&quot;</code> will produce four plots --- one
+for each season.
 
 It is also possible to choose <code>type</code> as another variable in
-the data frame. If that variable is numeric, then the data will be
-split into four quantiles (if possible) and labelled
-accordingly. If type is an existing character or factor variable,
-then those categories/levels will be used directly. This offers
-great flexibility for understanding the variation of different
-variables and how they depend on one another.
+the data frame. If that variable is numeric, then the data will
+be split into four quantiles (if possible) and labelled 
+accordingly. If type is an existing character or factor
+variable, then those categories/levels will be used directly.
+This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.
 
-Type can be up length two e.g. <code>type = c(&quot;season&quot;, &quot;weekday&quot;)</code> will
-  produce a 2x2 plot split by season and day of the week. Note, when two
-  types are provided the first forms the columns and the second the rows.</dd>
+Type can be up length two e.g. <code>type = c(&quot;season&quot;,
+&quot;weekday&quot;)</code> will produce a 2x2 plot split by season and day of
+the week. Note, when two types are provided the first forms the
+columns and the second the rows.</dd>
       <dt>percentile</dt>
       <dd>The percentile value(s) to plot. Must be between
-0--100. If <code>percentile = NA</code> then only a mean line will be
+0--100. If <code>percentile = NA</code> then only a mean line will be 
 shown.</dd>
       <dt>smooth</dt>
-      <dd>Should the wind direction data be smoothed using a
+      <dd>Should the wind direction data be smoothed using a 
 cyclic spline?</dd>
       <dt>method</dt>
-      <dd>When <code>method = &quot;default&quot;</code> the supplied
-percentiles by wind direction are calculated. When <code>method =
-&quot;cpf&quot;</code> the conditional probability function (CPF) is plotted and a
-single (usually high) percentile level is supplied. The CPF is
-defined as CPF = my/ny, where my is the number of samples in the
-wind sector y with mixing ratios greater than the <em>overall</em>
-percentile concentration, and ny is the total number of samples in
-the same wind sector (see Ashbaugh et al., 1985).</dd>
+      <dd>When <code>method = &quot;default&quot;</code> the supplied 
+percentiles by wind direction are calculated. When <code>method
+= &quot;cpf&quot;</code> the conditional probability function (CPF) is plotted
+and a single (usually high) percentile level is supplied. The
+CPF is defined as CPF = my/ny, where my is the number of samples
+in the wind sector y with mixing ratios greater than the
+<em>overall</em> percentile concentration, and ny is the total
+number of samples in the same wind sector (see Ashbaugh et al.,
+1985).</dd>
       <dt>cols</dt>
-      <dd>Colours to be used for plotting. Options include
-&#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;, &#8220;jet&#8221;
-and <code>RColorBrewer</code> colours --- see the <code>openair</code>
-<code>openColours</code> function for more details. For user defined the
-user can supply a list of colour names recognised by R (type
-<code>colours()</code> to see the full list). An example would be
-<code>cols = c(&quot;yellow&quot;, &quot;green&quot;, &quot;blue&quot;)</code></dd>
+      <dd>Colours to be used for plotting. Options include 
+&#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;,
+&#8220;jet&#8221; and <code>RColorBrewer</code> colours --- see the
+<code>openair</code> <code>openColours</code> function for more details. For
+user defined the user can supply a list of colour names
+recognised by R (type <code>colours()</code> to see the full list). An
+example would be <code>cols = c(&quot;yellow&quot;, &quot;green&quot;, &quot;blue&quot;)</code></dd>
+      <dt>angle</dt>
+      <dd>Default angle of &#8220;spokes&#8221; is when <code>smooth = FALSE</code>.</dd>
       <dt>mean</dt>
       <dd>Show the mean by wind direction as a line?</dd>
       <dt>mean.lty</dt>
@@ -154,98 +160,108 @@ user can supply a list of colour names recognised by R (type
       <dt>mean.col</dt>
       <dd>Line colour for mean line.</dd>
       <dt>fill</dt>
-      <dd>Should the percentile intervals be filled (default) or should
-lines be drawn (<code>fill = FALSE</code>).</dd>
+      <dd>Should the percentile intervals be filled (default) or
+should lines be drawn (<code>fill = FALSE</code>).</dd>
       <dt>intervals</dt>
-      <dd>User-supplied intervals for the scale
-e.g. <code>intervals = c(0, 10, 30, 50)</code></dd>
+      <dd>User-supplied intervals for the scale e.g.
+<code>intervals = c(0, 10, 30, 50)</code></dd>
       <dt>angle.scale</dt>
-      <dd>The pollutant scale is by default shown at a 45 degree
-angle. Sometimes the placement of the scale may interfere with an
-interesting feature. The user can therefore set <code>angle.scale</code> to
-another value (between 0 and 360 degrees) to mitigate such problems. For
-example <code>angle.scale = 315</code> will draw the scale heading in a NW
-direction.</dd>
+      <dd>The pollutant scale is by default shown at a 45
+degree angle. Sometimes the placement of the scale may interfere
+with an interesting feature. The user can therefore set
+<code>angle.scale</code> to another value (between 0 and 360 degrees)
+to mitigate such problems. For example <code>angle.scale = 315</code>
+will draw the scale heading in a NW direction.</dd>
       <dt>auto.text</dt>
-      <dd>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
-<code>TRUE</code> titles and axis labels will automatically try and format
-pollutant names and units properly e.g.  by subscripting the &#8216;2&#8217;
-in NO2.</dd>
+      <dd>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
+<code>TRUE</code> titles and axis labels will automatically try and
+format pollutant names and units properly e.g.  by subscripting
+the &#8216;2&#8217; in NO2.</dd>
       <dt>key.header</dt>
-      <dd>Adds additional text/labels to the scale key.
-For example, passing options <code>key.header = &quot;header&quot;, key.footer =
-&quot;footer&quot;</code> adds addition text above and below the scale key. These
-arguments are passed to <code>drawOpenKey</code> via <code>quickText</code>, applying
-the <code>auto.text</code> argument, to handle formatting.</dd>
+      <dd>Adds additional text/labels to the scale key. 
+For example, passing options <code>key.header = &quot;header&quot;,
+key.footer = &quot;footer&quot;</code> adds addition text above and below the
+scale key. These arguments are passed to <code>drawOpenKey</code> via
+<code>quickText</code>, applying the <code>auto.text</code> argument, to
+handle formatting.</dd>
       <dt>key.footer</dt>
       <dd><code>key.header</code>.</dd>
       <dt>key.position</dt>
-      <dd>Location where the scale key is to plotted.  Allowed
-arguments currently include <code>&quot;top&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;bottom&quot;</code>
-and <code>&quot;left&quot;</code>.</dd>
+      <dd>Location where the scale key is to plotted. 
+Allowed arguments currently include <code>&quot;top&quot;</code>,
+<code>&quot;right&quot;</code>, <code>&quot;bottom&quot;</code> and <code>&quot;left&quot;</code>.</dd>
       <dt>key</dt>
-      <dd>Fine control of the scale key via <code>drawOpenKey</code>. See
-<code>drawOpenKey</code> for further details.</dd>
+      <dd>Fine control of the scale key via <code>drawOpenKey</code>.
+See <code>drawOpenKey</code> for further details.</dd>
       <dt>...</dt>
-      <dd>Other graphical parameters are passed onto <code>cutData</code> and
-<code>lattice:xyplot</code>. For example, <code>percentileRose</code> passes the option
-<code>hemisphere = &quot;southern&quot;</code> on to <code>cutData</code> to provide southern
-(rather than default northern) hemisphere handling of <code>type = &quot;season&quot;</code>.
-Similarly, common graphical arguments, such as <code>xlim</code> and <code>ylim</code>
-for plotting ranges and <code>lwd</code> for line thickness when using
-<code>fill = FALSE</code>, are passed on <code>xyplot</code>, although some local
-modifications may be applied by openair. For example, axis and title
-labelling options (such as <code>xlab</code>, <code>ylab</code> and <code>main</code>)
-are passed to <code>xyplot</code> via <code>quickText</code> to handle routine formatting.</dd>
+      <dd>Other graphical parameters are passed onto
+<code>cutData</code> and <code>lattice:xyplot</code>. For example,
+<code>percentileRose</code> passes the option <code>hemisphere =
+&quot;southern&quot;</code> on to <code>cutData</code> to provide southern (rather
+than default northern) hemisphere handling of <code>type =
+&quot;season&quot;</code>. Similarly, common graphical arguments, such as
+<code>xlim</code> and <code>ylim</code> for plotting ranges and <code>lwd</code>
+for line thickness when using <code>fill = FALSE</code>, are passed on
+<code>xyplot</code>, although some local modifications may be applied
+by openair. For example, axis and title labelling options (such
+as <code>xlab</code>, <code>ylab</code> and <code>main</code>) are passed to
+<code>xyplot</code> via <code>quickText</code> to handle routine formatting.</dd>
     </dl>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>As well as generating the plot itself, <code>percentileRose</code> also
-  returns an object of class &#8220;openair&#8221;. The object includes three main
-  components: <code>call</code>, the command used to generate the plot;
-  <code>data</code>, the data frame of summarised information used to make the
-  plot; and <code>plot</code>, the plot itself. If retained, e.g. using
-  <code>output &lt;- percentileRose(mydata, &quot;nox&quot;)</code>, this output can be used
-  to recover the data, reproduce or rework the original plot or undertake
-  further analysis.</p>
-    <p>An openair output can be manipulated using a number of generic operations,
-  including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
+    <p>As well as generating the plot itself,
+  <code>percentileRose</code> also returns an object of class
+  &#8220;openair&#8221;. The object includes three main components:
+  <code>call</code>, the command used to generate the plot; <code>data</code>,
+  the data frame of summarised information used to make the plot;
+  and <code>plot</code>, the plot itself. If retained, e.g. using 
+  <code>output &lt;- percentileRose(mydata, &quot;nox&quot;)</code>, this output can
+  be used to recover the data, reproduce or rework the original
+  plot or undertake further analysis.</p>
+    <p>An openair output can be manipulated using a number of generic
+  operations, including <code>print</code>, <code>plot</code> and
+  <code>summary</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>percentileRose</code> calculates percentile levels of a pollutant and plots
-them by wind direction. One or more percentile levels can be calculated and
-these are displayed as either filled areas or as lines.</p>
-    <p>The wind directions are rounded to the nearest 10 degrees,
-consistent with surface data from the UK Met Office before a
-smooth is fitted. The levels by wind direction are optionally
-calculated using a cyclic smooth cubic spline using the option
+    <p><code>percentileRose</code> calculates percentile levels of a pollutant
+and plots them by wind direction. One or more percentile levels
+can be calculated and these are displayed as either filled areas
+or as lines.</p>
+    <p>The wind directions are rounded to the nearest 10 degrees, 
+consistent with surface data from the UK Met Office before a 
+smooth is fitted. The levels by wind direction are optionally 
+calculated using a cyclic smooth cubic spline using the option 
 <code>smooth</code>. If <code>smooth = FALSE</code> then the data are shown in
 10 degree sectors.</p>
-    <p>The <code>percentileRose</code> function compliments other similar functions
-including <code><a href='windRose.html'>windRose</a></code>, <code><a href='windRose.html'>pollutionRose</a></code>,
-<code><a href='polarFreq.html'>polarFreq</a></code> or <code><a href='polarPlot.html'>polarPlot</a></code>. It is most useful for
-showing the distribution of concentrations by wind direction and often can
-reveal different sources e.g. those that only affect high percentile
-concentrations such as a chimney stack.</p>
-    <p>Similar to other functions, flexible conditioning is available through the
-<code>type</code> option. It is easy for example to consider multiple percentile
-values for a pollutant by season, year and so on. See examples below.</p>
-    <p><code>percentileRose</code> also offers great flexibility with the scale used and
-the user has fine control over both the range, interval and colour.</p>
+    <p>The <code>percentileRose</code> function compliments other similar
+functions including <code><a href='windRose.html'>windRose</a></code>,
+<code><a href='windRose.html'>pollutionRose</a></code>, <code><a href='polarFreq.html'>polarFreq</a></code> or
+<code><a href='polarPlot.html'>polarPlot</a></code>. It is most useful for showing the
+distribution of concentrations by wind direction and often can 
+reveal different sources e.g. those that only affect high
+percentile concentrations such as a chimney stack.</p>
+    <p>Similar to other functions, flexible conditioning is available
+through the <code>type</code> option. It is easy for example to consider
+multiple percentile values for a pollutant by season, year and so
+on. See examples below.</p>
+    <p><code>percentileRose</code> also offers great flexibility with the scale
+used and the user has fine control over both the range, interval
+and colour.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A
-residence time probability analysis of sulfur concentrations at
-ground canyon national park. Atmospheric Environment 19 (8),
+    <p>Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A 
+residence time probability analysis of sulfur concentrations at 
+ground canyon national park. Atmospheric Environment 19 (8), 
 1263-1270.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>See Also as <code><a href='windRose.html'>windRose</a></code>, <code><a href='windRose.html'>pollutionRose</a></code>,
-  <code><a href='polarFreq.html'>polarFreq</a></code>, <code><a href='polarPlot.html'>polarPlot</a></code></p>
+    <p>See Also as <code><a href='windRose.html'>windRose</a></code>,
+  <code><a href='windRose.html'>pollutionRose</a></code>, <code><a href='polarFreq.html'>polarFreq</a></code>,
+  <code><a href='polarPlot.html'>polarPlot</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
