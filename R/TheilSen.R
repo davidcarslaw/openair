@@ -458,6 +458,13 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   
   #### calculate slopes etc ###########################################
   
+  # don't have trend information if <6 rows
+  if (nrow(split.data) < 6)
+    split.data <- mutate(split.data, b = NA, a = NA,
+                         lower.a = NA, upper.a = NA,
+                         lower.b = NA, upper.b = NA,
+                         p.stars = NA)
+  
   split.data <- transform(split.data, slope = 365 * b, intercept = a,
                           intercept.lower = lower.a, intercept.upper = upper.a,
                           lower = 365 * lower.b, upper = 365 * upper.b)

@@ -6,6 +6,7 @@
 - change smoothing in `scatterPlot` when `method = "level"` to use tensor interaction to allow for better smoothing when x and y are on different scales.
 - warn when >10% negative data detected in `polarPlot` and suggest setting `force.postive = FALSE`
 - make `maps` Suggests rather than Depends
+- still plot data when <6 points in `TheilSen` and when no trend information is given
 
 # openair 2.0-0
 
