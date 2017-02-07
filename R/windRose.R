@@ -384,8 +384,6 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     if ("fontsize" %in% names(extra))
         trellis.par.set(fontsize = list(text = extra$fontsize))
     
-    rounded <- FALSE ## is the wd already rounded to 10 degrees, if so need to correct bias later
-    if (all(mydata[[wd]] %% 10 == 0, na.rm = TRUE)) rounded <- TRUE
     
     ## preset statitistics
 
@@ -493,6 +491,9 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     
 
     mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE, remove.neg = rm.neg)
+    
+    # original data to use later
+    mydata_orig <- mydata
   
     # remove lines where ws is missing
     # wd can be NA and ws 0 (calm)
@@ -649,6 +650,10 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     # function to correct bias
     corr_bias <- function(results) {
       
+      # check to see if orginal data for this type is rounded to 10, if so bias adjust
+      wd_select <- mydata_orig[mydata_orig[[type]] == results[[type]][1] , wd]
+      if (!all(wd_select %% 10 == 0, na.rm = TRUE)) return(results)
+      
       wds <- seq(10, 360, 10)
       tmp <- angle * ceiling(wds / angle - 0.5)
       id <- which(tmp == 0)
@@ -662,7 +667,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     }
     
     ## correction for bias when angle does not divide exactly into 360
-    if (bias.corr & rounded) {
+    if (bias.corr) {
         results <- group_by_(results, .dots = type) %>%
           do(corr_bias(.))
     }
