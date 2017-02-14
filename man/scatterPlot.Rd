@@ -365,13 +365,12 @@ x.inc = 10, y.inc = 2, smooth = TRUE)
 
 
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{linearRelation}}, \code{\link{timePlot}} and
   \code{\link{timeAverage}} for details on selecting averaging times and
   other statistics in a flexible way
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

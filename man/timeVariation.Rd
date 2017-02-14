@@ -304,11 +304,10 @@ col = "firebrick")
 }
 
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{polarPlot}}, \code{\link{linearRelation}}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

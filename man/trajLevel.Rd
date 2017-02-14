@@ -239,9 +239,6 @@ trajLevel(subset(lond, lat > 40 & lat < 70 & lon >-20 & lon <20), pollutant = "p
 statistic = "pscf", type = "season")
 }
 }
-\author{
-David Carslaw
-}
 \references{
 Pekney, N. J., Davidson, C. I., Zhou, L., & Hopke,
 P. K. (2006). Application of PSCF and CPF to PMF-Modeled Sources
@@ -262,4 +259,6 @@ emissions in Houston, Texas. Atmospheric Environment, 41(28),
 \code{\link{importTraj}} to import trajectory data from the King's
 College server and \code{\link{trajPlot}} for plotting back trajectory lines.
 }
-
+\author{
+David Carslaw
+}

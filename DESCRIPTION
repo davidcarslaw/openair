@@ -47,4 +47,4 @@ URL: http://www.openair-project.org/, https://github.com/davidcarslaw/openair
 BugReports: https://github.com/davidcarslaw/openair/issues
 LazyLoad: yes
 LazyData: yes
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

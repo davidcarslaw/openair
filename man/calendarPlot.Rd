@@ -209,11 +209,10 @@ cols = c("lightblue", "green", "yellow",  "red"), statistic = "max")
 }
 
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{timePlot}}, \code{\link{timeVariation}}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

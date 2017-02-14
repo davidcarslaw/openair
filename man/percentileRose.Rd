@@ -194,9 +194,6 @@ percentileRose(mydata, type = c("season", "daylight"), pollutant = "o3", col = "
 
 
 }
-\author{
-David Carslaw
-}
 \references{
 Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A 
 residence time probability analysis of sulfur concentrations at 
@@ -208,5 +205,7 @@ See Also as \code{\link{windRose}},
   \code{\link{pollutionRose}}, \code{\link{polarFreq}},
   \code{\link{polarPlot}}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

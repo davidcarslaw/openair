@@ -429,9 +429,6 @@ polarPlot(mydata, pollutant = c("pm25", "pm10"), statistic = "robust.slope")
 }
 
 }
-\author{
-David Carslaw
-}
 \references{
 Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A residence time 
 probability analysis of sulfur concentrations at ground canyon 
@@ -476,5 +473,7 @@ regression techniques. Atmospheric Environment. 145, 128-134.
 The openair package for many more functions for analysing 
   air pollution data.
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

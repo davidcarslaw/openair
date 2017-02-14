@@ -333,12 +333,11 @@ thedata <- dcast(thedata, ... ~ variable + site + code)
 
 
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{importKCL}}, \code{\link{importADMS}},
   \code{\link{importSAQN}}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

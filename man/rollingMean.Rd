@@ -65,4 +65,3 @@ mydata <- rollingMean(mydata, pollutant = "o3", width = 8, new.name =
 David Carslaw
 }
 \keyword{methods}
-

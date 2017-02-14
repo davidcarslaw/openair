@@ -54,13 +54,12 @@ annual <- timeAverage(aq, avg.time = "year", type = "site")
 annual <- merge(annual, meta, by = "site")
 }
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{importAURN}}, \code{\link{importKCL}} and
 \code{\link{importSAQN}} for importing air quality data from each
 network.
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

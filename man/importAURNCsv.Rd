@@ -169,14 +169,13 @@ argument modification.
 
 
 }
-\author{
-Karl Ropkins
-}
 \seealso{
 Generic import function \code{\link{import}}, or direct (on-line)
   data import function \code{\link{importAURN}}. Other dedicated import
   functions available for other file types, e.g.: \code{\link{importKCL}},
   \code{\link{importADMS}}, etc.
 }
+\author{
+Karl Ropkins
+}
 \keyword{methods}
-

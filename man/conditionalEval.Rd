@@ -184,9 +184,6 @@ See Wilks (2005) for more details of conditional quantile plots.
 ## Examples to follow, or will be shown in the openair manual
 
 }
-\author{
-David Carslaw
-}
 \references{
 Wilks, D. S., 2005. Statistical Methods in the Atmospheric
   Sciences, Volume 91, Second Edition (International Geophysics), 2nd
@@ -198,5 +195,7 @@ quantiles, \code{\link{modStats}} for model evaluation statistics
 and the package \code{verification} for comprehensive functions
 for forecast verification.
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

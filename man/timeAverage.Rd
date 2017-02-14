@@ -206,12 +206,11 @@ timeAverage(dat, avg.time = "year", type = c("site", "code"))
 timeAverage(dat, avg.time = "year")
 }
 }
-\author{
-David Carslaw
-}
 \seealso{
 See \code{\link{timePlot}} that plots time series data
   and uses \code{timeAverage} to aggregate data where necessary.
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

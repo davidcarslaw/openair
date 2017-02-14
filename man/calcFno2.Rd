@@ -70,9 +70,6 @@ Test data is provided at \url{http://www.openair-project.org}.
 ## to use this function.
 
 }
-\author{
-David Carslaw
-}
 \references{
 Clapp, L.J., Jenkin, M.E., 2001. Analysis of the relationship
   between ambient levels of O3, NO2 and NO as a function of NOX in the UK.
@@ -110,5 +107,7 @@ Carslaw, D. C. and S. D. Beevers (2004). New Directions: Should road
 \code{\link{linearRelation}} if you have roadside ozone
   measurements.
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

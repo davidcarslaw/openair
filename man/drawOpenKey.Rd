@@ -167,12 +167,6 @@ windRose(mydata,
 
 
 }
-\author{
-\code{draw.colorkey} is part of the \code{lattice} package,
-  developed by Deepayan Sarkar.
-
-Additional modifications by Karl Ropkins.
-}
 \references{
 Deepayan Sarkar (2010). lattice: Lattice Graphics. R package
   version 0.18-5.  http://r-forge.r-project.org/projects/lattice/
@@ -183,5 +177,10 @@ Functions using \code{drawOpenKey} currently include
 
 For details of the original function, see \code{\link{draw.colorkey}}
 }
-\keyword{methods}
+\author{
+\code{draw.colorkey} is part of the \code{lattice} package,
+  developed by Deepayan Sarkar.
 
+Additional modifications by Karl Ropkins.
+}
+\keyword{methods}

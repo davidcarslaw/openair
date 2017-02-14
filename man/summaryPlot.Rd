@@ -174,4 +174,3 @@ data(mydata)
 David Carslaw
 }
 \keyword{methods}
-

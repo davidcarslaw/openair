@@ -133,9 +133,6 @@ modStats(mydata, mod = "no2", obs = "nox", type = "season")
 
 
 }
-\author{
-David Carslaw
-}
 \references{
 Legates DR, McCabe GJ. (1999). Evaluating the use of goodness-of-fit
 measures in hydrologic and hydroclimatic model validation. Water
@@ -148,5 +145,7 @@ Willmott, C.J., Robeson, S.M., Matsuura, K., 2011. A
 refined index of model performance. International Journal of
 Climatology.
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

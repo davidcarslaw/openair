@@ -249,9 +249,6 @@ TheilSen(mydata, pollutant = "nox")
 
 
 }
-\author{
-David Carslaw with some trend code from Rand Wilcox
-}
 \references{
 Helsel, D., Hirsch, R., 2002. Statistical methods in water resources. US
   Geological Survey.  \url{http://pubs.usgs.gov/twri/twri4a3/}. Note that
@@ -284,5 +281,7 @@ See \code{\link{smoothTrend}} for a flexible approach to
   function is suitable for cases where trends are not monotonic and is
   probably better for exploring the shape of trends.
 }
+\author{
+David Carslaw with some trend code from Rand Wilcox
+}
 \keyword{methods}
-

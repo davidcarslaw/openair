@@ -76,9 +76,6 @@ windRose(mydata)
 \dontrun{polarPlot(mydata, pollutant = "nox")}
 
 }
-\author{
-David Carslaw with initial support from Karl Ropkins
-}
 \references{
 Most reference details are given under the specific functions. The
 principal reference is below but users may also wish to cite the manual
@@ -92,5 +89,7 @@ Carslaw, D.C. and K. Ropkins, (2012) openair --- an R package for air
 See \url{http://www.openair-project.org} for up to date information on
   the project.
 }
+\author{
+David Carslaw with initial support from Karl Ropkins
+}
 \keyword{methods}
-

@@ -203,12 +203,11 @@ cols = c("forestgreen", "yellow", "red"))
 
 
 }
-\author{
-Karl Ropkins and David Carslaw
-}
 \seealso{
 \code{\link{openColours}} and \code{\link{drawOpenKey}} for more
   detailed plot control.
 }
+\author{
+Karl Ropkins and David Carslaw
+}
 \keyword{methods}
-

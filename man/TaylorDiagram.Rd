@@ -263,9 +263,6 @@ TaylorDiagram(mod.dat, obs = "obs", mod = "mod", group = c("model", "month"))
 
 
 }
-\author{
-David Carslaw
-}
 \references{
 Taylor, K.E.: Summarizing multiple aspects of model performance in a single
   diagram. J.  Geophys. Res., 106, 7183-7192, 2001 (also see PCMDI Report
@@ -282,5 +279,7 @@ IPCC, 2001: Climate Change 2001: The Scientific Basis, Contribution of
 \code{taylor.diagram} from the \code{plotrix} package from which
   some of the annotation code was used.
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

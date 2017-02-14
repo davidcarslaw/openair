@@ -150,14 +150,13 @@ new.name
 
 
 }
-\author{
-Karl Ropkins, David Carslaw and Matthew Williams (CERC).
-}
 \seealso{
 Generic import function \code{\link{import}}, for possible
   alternative import methods.  Other dedicated import functions available
   for other file types, including \code{\link{importKCL}},
   \code{\link{importAURN}}, etc.
 }
+\author{
+Karl Ropkins, David Carslaw and Matthew Williams (CERC).
+}
 \keyword{methods}
-

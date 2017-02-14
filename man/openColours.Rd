@@ -81,11 +81,10 @@ cols
 
 
 }
-\author{
-David Carslaw
-}
 \references{
 \url{http://colorbrewer2.org}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

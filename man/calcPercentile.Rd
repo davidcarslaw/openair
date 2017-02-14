@@ -58,11 +58,10 @@ head(percentiles)
 }
 
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{timePlot}}, \code{\link{timeAverage}}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

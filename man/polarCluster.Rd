@@ -161,9 +161,6 @@ group = "cluster", col = openColours("Paired", 6)[c(3, 4)])
 }
 
 }
-\author{
-David Carslaw
-}
 \references{
 Carslaw, D.C., Beevers, S.D, Ropkins, K and M.C. Bell (2006).
 Detecting and quantifying aircraft and other on-airport
@@ -179,4 +176,6 @@ k-means clustering. Environmental Modelling & Software, 40,
 \seealso{
 \code{\link{polarPlot}}
 }
-
+\author{
+David Carslaw
+}

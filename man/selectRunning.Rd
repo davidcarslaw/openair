@@ -56,4 +56,3 @@ mydata <- selectRunning(mydata, run.len = 5, threshold = 500)
 David Carslaw
 }
 \keyword{methods}
-

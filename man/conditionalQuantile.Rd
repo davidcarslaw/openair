@@ -149,9 +149,6 @@ conditionalQuantile(mydata, obs = "nox", mod = "mod")
 
 
 }
-\author{
-David Carslaw
-}
 \references{
 Murphy, A. H., B.G. Brown and Y. Chen. (1989) Diagnostic
 Verification of Temperature Forecasts, Weather and Forecasting,
@@ -166,5 +163,7 @@ See \code{\link{modStats}} for model evaluation statistics and the
   package \code{verification} for comprehensive functions for forecast
   verification.
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

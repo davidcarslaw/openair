@@ -73,11 +73,10 @@ will combine pollutants once imported using \code{importAirbase}.
 NOTE! This function should be considered as provisional and the
 author would appreciate any feedback on its use.
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{airbaseSplice}},
 \code{\link{airbaseFindCode}}, \code{\link{airbaseStats}}, \code{\link{airbaseInfo}}
 }
-
+\author{
+David Carslaw
+}

@@ -144,11 +144,10 @@ linearRelation(mydata, x = "nox", y = "so2")
 
 
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{calcFno2}}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

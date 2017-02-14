@@ -226,12 +226,11 @@ percentile = 95)}
 percentile = c(5, 50, 95), lwd = c(1, 2, 1), lty = c(5, 1, 5))}
 
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{TheilSen}} for an alternative method of
   calculating trends.
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

@@ -144,14 +144,13 @@ timeProp(mydata, pollutant = "so2", avg.time = "month", proportion = "wd")
 
 
 }
-\author{
-David Carslaw
-}
 \seealso{
 See \code{\link{timePlot}} for time series plotting, 
   \code{\link{polarCluster}} for cluster analysis of bivariate
   polar plots and \code{\link{trajCluster}} for cluster analysis
   of HYSPLIT back trajectories.
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

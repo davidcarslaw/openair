@@ -32,11 +32,10 @@ More comprehensive information is returned if \code{instrument =
 TRUE}. In this case the species measured at the site together with
 the instruments used will be returned.
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{importAirbase}},
 \code{\link{airbaseFindCode}}, \code{\link{airbaseStats}}
 }
-
+\author{
+David Carslaw
+}

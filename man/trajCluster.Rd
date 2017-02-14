@@ -131,9 +131,6 @@ head(clust$data) ## note new variable 'cluster'
 traj <- trajCluster(traj, method = "Angle", type = "season", n.clusters = 4)
 }
 }
-\author{
-David Carslaw
-}
 \references{
 Sirois, A. and Bottenheim, J.W., 1995. Use of backward
 trajectories to interpret the 5-year record of PAN and O3 ambient
@@ -144,5 +141,7 @@ Scotia. Journal of Geophysical Research, 100: 2867-2881.
 \code{\link{importTraj}}, \code{\link{trajPlot}},
   \code{\link{trajLevel}}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

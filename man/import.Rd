@@ -113,13 +113,12 @@ spring and duplicated in autumn.
 
 Examples of use are given in the openair manual.
 }
-\author{
-David Carslaw
-}
 \seealso{
 Dedicated import functions available for selected file types, e.g.
   : \code{\link{importAURN}}, \code{\link{importAURNCsv}},
   \code{\link{importKCL}}, \code{\link{importADMS}}, etc.
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

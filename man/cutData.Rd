@@ -161,4 +161,3 @@ mydata <- cutData(mydata, type = "weekday")
 David Carslaw (cutData) and Karl Ropkins (cutDaylight)
 }
 \keyword{methods}
-

@@ -526,12 +526,11 @@ thedata <- dcast(thedata, ... ~ site + code + variable)
 
 
 }
-\author{
-David Carslaw and Ben Barratt
-}
 \seealso{
 \code{\link{importAURN}}, \code{\link{importADMS}},
   \code{\link{importSAQN}}
 }
+\author{
+David Carslaw and Ben Barratt
+}
 \keyword{methods}
-

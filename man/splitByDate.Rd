@@ -42,4 +42,3 @@ labels = c("before", "during", "after"))
 David Carslaw
 }
 \keyword{methods}
-

@@ -51,4 +51,3 @@ head(mydata)
 
 }
 \keyword{datasets}
-

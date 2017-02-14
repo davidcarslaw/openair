@@ -145,12 +145,11 @@ kernelExceed(mydata, pollutant = "pm10")
 
 
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{polarAnnulus}}, \code{\link{polarFreq}},
   \code{\link{polarPlot}}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

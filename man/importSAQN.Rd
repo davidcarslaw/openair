@@ -170,13 +170,12 @@ Whitburn | URBAN BACKGROUND | }
 
 
 }
-\author{
-David Carslaw and Trevor Davies (AEA)
-}
 \seealso{
 See \code{\link{importAURN}} for data elsewhere in the UK and
   \code{\link{importKCL}} for importing comprehensive data in and around
   London.
 }
+\author{
+David Carslaw and Trevor Davies (AEA)
+}
 \keyword{methods}
-

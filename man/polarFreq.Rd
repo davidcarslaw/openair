@@ -206,14 +206,13 @@ type = "year", cols = "jet")}
 ="weighted.mean", offset = 50, ws.int = 25, trans = FALSE) }
 
 }
-\author{
-David Carslaw
-}
 \references{
 ~put references to the literature/web site here ~
 }
 \seealso{
 See Also as \code{\link{windRose}}, \code{\link{polarPlot}}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

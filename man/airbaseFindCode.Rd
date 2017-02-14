@@ -76,12 +76,11 @@ site code, city, site name and latitude/longitude ranges.
 ## traffic sites in Germany and the UK
 sites <- airbaseFindCode(country = c("DE", "GB"), site.type = "traffic")}
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{importAirbase}},
 \code{\link{airbaseFindCode}}, \code{\link{airbaseStats}} and
 \code{\link{airbaseInfo}}
 }
-
+\author{
+David Carslaw
+}

@@ -137,10 +137,6 @@ corPlot(hc)
 
 
 }
-\author{
-David Carslaw --- but mostly based on code contained in Sarkar
-  (2007)
-}
 \references{
 Sarkar, D. (2007). Lattice Multivariate Data Visualization with
   R. New York: Springer.
@@ -152,5 +148,8 @@ Friendly, M. (2002). Corrgrams : Exploratory displays for correlation
 \code{taylor.diagram} from the \code{plotrix} package from which
   some of the annotation code was used.
 }
+\author{
+David Carslaw --- but mostly based on code contained in Sarkar
+  (2007)
+}
 \keyword{methods}
-

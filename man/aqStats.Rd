@@ -97,4 +97,3 @@ aqStats(selectByDate(mydata, year = 2004), pollutant = "no2")
 David Carslaw
 }
 \keyword{methods}
-

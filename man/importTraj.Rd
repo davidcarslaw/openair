@@ -140,13 +140,12 @@ large and care should be exercised when importing several years and/or sites.
 \dontrun{theData <- importAURN(site = "kc1", year = 2009)
 mytraj <- merge(mytraj, theData, by = "date")}
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{trajPlot}}, \code{\link{importAURN}},
 \code{\link{importKCL}},\code{\link{importADMS}},
 \code{\link{importSAQN}}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

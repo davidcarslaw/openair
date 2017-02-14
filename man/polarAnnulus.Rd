@@ -256,12 +256,11 @@ main = "trend in pmc at Marylebone Road")}
 
 
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{polarPlot}}, \code{\link{polarFreq}},
   \code{\link{pollutionRose}} and \code{\link{percentileRose}}
 }
+\author{
+David Carslaw
+}
 \keyword{methods}
-

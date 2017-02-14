@@ -165,12 +165,11 @@ group = "day", col = "jet", lwd = 2, key.pos = "right", key.col = 1)
 # more examples to follow linking with concentration measurements...
 
 }
-\author{
-David Carslaw
-}
 \seealso{
 \code{\link{importTraj}} to import trajectory data from
     the King's College server and \code{\link{trajLevel}} for
     trajectory binning functions.
 }
-
+\author{
+David Carslaw
+}
