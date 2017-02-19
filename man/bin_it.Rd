@@ -43,7 +43,7 @@ binning intervals.
 results <- bin_it(mydata, bin = "ws", uncer = "nox")
 
 # easy to plot this using ggplot2
-\\donotrun{
+\dontrun{
 library(ggplot2)
 ggplot(results, aes(ws, mean, ymin = min, ymax = max)) + 
 geom_pointrange()
