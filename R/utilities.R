@@ -1037,3 +1037,76 @@ checkNum <- function(mydata, vars) {
   return(mydata)
 }
 
+
+bootMeanDF <- function (x) {
+  res <- bootMean(x)
+  data.frame(mean = res[1], min = res[2], max = res[3], n = length(na.omit(x)))
+}
+
+#' Bin data, calculate mean and bootstrap 95\% confidence interval in the mean
+#' 
+#' Bin a variable and calculate mean an uncertainties in mean
+#' 
+#' This function summarises data by intervals and calculates the mean and
+#' bootstrap 95\% confidence intervals in the mean of a chosen variable in a data
+#' frame. Any other numeric variables are summarised by their mean intervals.
+#' 
+#' There are three options for binning. The default is to bon \code{bin} into 40
+#' intervals. Second, the user can choose an binning interval e.g.
+#' \code{interval = 5}. Third, the user can supply their own breaks to use as
+#' binning intervals.
+#' 
+#' @param mydata Name of the data frame to process.
+#' @param bin The name of the column to divide into intervals
+#' @param uncer The name of the column for which the mean, lower and upper
+#'   uncertainties should be calculated for each interval of \code{bin}.
+#' @param n The number of intervals to split \code{bin} into.
+#' @param interval The interval to be used for binning the data.
+#' @param breaks User specified breaks to use for binning.
+#'   
+#' @return Retruns a summarised data frame with new columns for the mean and
+#'   upper / lower 95\% confidence intervals in the mean.
+#' @export
+#' 
+#' @examples
+#' # how does nox vary by intervals of wind speed?
+#' results <- bin_it(mydata, bin = "ws", uncer = "nox")
+#' 
+#' # easy to plot this using ggplot2
+#' \donotrun{
+#' library(ggplot2)
+#' ggplot(results, aes(ws, mean, ymin = min, ymax = max)) + 
+#' geom_pointrange()
+#' 
+#' }
+bin_it <- function(mydata, bin = "nox", uncer = "no2", n = 40, interval = NA,
+                   breaks = NA) {
+  
+  if (!is.na(interval)) {
+    
+    mydata$interval <- cut(mydata[[bin]], sort(unique(round_any(mydata[[bin]], interval))),
+                            include.lowest = TRUE)
+    
+  }  else if (!anyNA(breaks)) {
+    
+    mydata$interval <- cut(mydata[[bin]], breaks = breaks, include.lowest = TRUE)   
+    
+  } else {
+    
+    mydata$interval <- cut(mydata[[bin]], breaks = n) 
+    
+  }
+  
+  # calculate 95% CI in mean
+  uncert <- group_by(mydata, interval) %>%
+    do(bootMeanDF(.[[uncer]]))
+  
+  mydata <- group_by(mydata, interval) %>% 
+    summarise_if(is.numeric, mean, na.rm = TRUE) 
+  
+  mydata <- inner_join(mydata, uncert, by = "interval")
+  
+  mydata
+}
+
+

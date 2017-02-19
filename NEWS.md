@@ -8,6 +8,7 @@
 - make `maps` Suggests rather than Depends
 - refine check on whether bias correction is needed in `windRose`
 - still plot data when <6 points in `TheilSen` and when no trend information is given
+- New function `bin_it` to easily summarise mean and 95% confidence intervals for intervals of a variable
 
 # openair 2.0-0
 
