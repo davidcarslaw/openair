@@ -1079,7 +1079,7 @@ bootMeanDF <- function (x) {
 #' geom_pointrange()
 #' 
 #' }
-bin_it <- function(mydata, bin = "nox", uncer = "no2", n = 40, interval = NA,
+binData <- function(mydata, bin = "nox", uncer = "no2", n = 40, interval = NA,
                    breaks = NA) {
   
   if (!is.na(interval)) {
