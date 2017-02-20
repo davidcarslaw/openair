@@ -1070,7 +1070,7 @@ bootMeanDF <- function (x) {
 #' 
 #' @examples
 #' # how does nox vary by intervals of wind speed?
-#' results <- bin_it(mydata, bin = "ws", uncer = "nox")
+#' results <- binData(mydata, bin = "ws", uncer = "nox")
 #' 
 #' # easy to plot this using ggplot2
 #' \dontrun{
