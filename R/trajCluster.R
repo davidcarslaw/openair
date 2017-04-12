@@ -86,7 +86,7 @@
 ##'   \code{ylab}, \code{main}) are passed to \code{levelplot} via 
 ##'   \code{quickText} to handle routine formatting.
 ##' @export
-##' @useDynLib openair
+##' @useDynLib openair, .registration = TRUE
 ##' @import cluster
 ##' @return Returns a list with two data components. The first
 ##'   (\code{data}) contains the orginal data with the cluster
