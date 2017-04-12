@@ -123,7 +123,7 @@ If a categorical variable is present in a data frame e.g. `site` then that varia
 windRose(mydata)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](tools/unnamed-chunk-6-1.png)
 
 However, the real flexibility comes from being able to use the `type` option.
 
@@ -131,4 +131,4 @@ However, the real flexibility comes from being able to use the `type` option.
 windRose(mydata, type = "year", layout = c(4, 2))
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](tools/unnamed-chunk-7-1.png)

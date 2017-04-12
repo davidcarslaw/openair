@@ -805,10 +805,10 @@ errorInMean <- function (x, mult = qt((1 + conf.int)/2, n - 1), conf.int = 0.95,
 }
 
 ## bootsrap confidence intervals in the mean from Hmisc
-bootMean <- function (x, conf.int = 0.95, B = 1000, na.rm = TRUE, reps = FALSE, ...)
+bootMean <- function (x, conf.int = 0.95, B = 1000, ...)
 {
-    if (na.rm)
-        x <- x[!is.na(x)]
+    
+    x <- x[!is.na(x)] # remove missings
     n <- length(x)
     xbar <- mean(x)
     if (n < 2)
@@ -818,12 +818,36 @@ bootMean <- function (x, conf.int = 0.95, B = 1000, na.rm = TRUE, reps = FALSE, 
     quant <- quantile(z, c((1 - conf.int) / 2, (1 + conf.int) / 2))
     names(quant) <- NULL
     res <- c(Mean = xbar, Lower = quant[1], Upper = quant[2])
-    if (reps)
-        attr(res, "reps") <- z
+  
     res
 }
 
-bootMeanDiff <- function (mydata, x = "x", y = "y", conf.int = 0.95, B = 1000, na.rm = TRUE, reps = TRUE)
+
+#' Bootsrap confidence intervals in the mean
+#' 
+#' A utility function to calculation the uncertainty intervals in the mean of a
+#' vector. The function removes any missing data before the calculation.
+#' 
+#' @param x A vector from which the mean and bootstrap confidence intervals in
+#'   the mean are to be calculated
+#' @param conf.int The confidence interval; default = 0.95.
+#' @param B The number of bootstrap simulations
+#'   
+#' @return Returns a data frame with the mean, lower uncertainty, upper
+#'   uncertainty and number of values used in the calculation
+#' @export
+#'
+#' @examples
+#' test <- rnorm(20, mean = 10)
+#' bootMeanDF(test)
+bootMeanDF <- function (x, conf.int = 0.95, B = 1000) {
+  res <- bootMean(x = x, conf.int = conf.int, B = B)
+  res <- data.frame(mean = res[1], min = res[2], max = res[3], n = length(na.omit(x)))
+  res <- return(res)
+}
+
+
+bootMeanDiff <- function (mydata, x = "x", y = "y", conf.int = 0.95, B = 1000)
 {
 
     ## calculates bootstrap mean differences
@@ -845,8 +869,8 @@ bootMeanDiff <- function (mydata, x = "x", y = "y", conf.int = 0.95, B = 1000, n
 
     }
 
-    x <- attr(bootMean(x,  B = B, reps = TRUE), 'reps')
-    y <- attr(bootMean(y,  B = B, reps = TRUE), 'reps')
+    x <- bootMean(x,  B = B)
+    y <- bootMean(y,  B = B)
     quant1 <- quantile(x, c((1 - conf.int) / 2, (1 + conf.int) / 2))
     quant2 <- quantile(y, c((1 - conf.int) / 2, (1 + conf.int) / 2))
     quant <- quantile(y - x, c((1 - conf.int) / 2, (1 + conf.int) / 2))
@@ -1038,10 +1062,6 @@ checkNum <- function(mydata, vars) {
 }
 
 
-bootMeanDF <- function (x) {
-  res <- bootMean(x)
-  data.frame(mean = res[1], min = res[2], max = res[3], n = length(na.omit(x)))
-}
 
 #' Bin data, calculate mean and bootstrap 95\% confidence interval in the mean
 #' 

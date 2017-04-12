@@ -19,6 +19,10 @@ knitr::opts_chunk$set(
   eval = FALSE,
   cache = TRUE
 )
+knitr::opts_chunk$set(
+  fig.path = "tools/"
+)
+
 ```
 
 
