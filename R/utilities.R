@@ -841,6 +841,10 @@ bootMean <- function (x, conf.int = 0.95, B = 1000, ...)
 #' test <- rnorm(20, mean = 10)
 #' bootMeanDF(test)
 bootMeanDF <- function (x, conf.int = 0.95, B = 1000) {
+  
+  if (!is.vector(x))
+    stop("x should be a vector.")
+  
   res <- bootMean(x = x, conf.int = conf.int, B = B)
   res <- data.frame(mean = res[1], min = res[2], max = res[3], n = length(na.omit(x)))
   res <- return(res)
