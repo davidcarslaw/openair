@@ -204,7 +204,8 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
     if(!"layout" %in% names(extra.args))
         extra.args$layout <- NULL
 
-    results.grid <- polarPlot(mydata, pollutant = pollutant, x = x, ...)$data
+    results.grid <- polarPlot(mydata, pollutant = pollutant, x = x, 
+                              resolution = "normal", ...)$data
 
     ## remove missing because we don't want to find clusters for those points
     ## saves a lot on computation

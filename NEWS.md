@@ -1,3 +1,9 @@
+# openair 2.1-99
+
+## Main changes
+
+- change `polarCluster` resolution to "normal" rather than "fine" to speed up.
+
 # openair 2.1-0
 
 ## Main changes
