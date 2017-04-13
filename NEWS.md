@@ -3,6 +3,7 @@
 ## Main changes
 
 - change `polarCluster` resolution to "normal" rather than "fine" to speed up.
+- fix regression when fitting smooth using `trajLevel`
 
 # openair 2.1-0
 

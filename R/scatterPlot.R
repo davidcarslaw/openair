@@ -1180,7 +1180,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     
     
     smooth.grid <- function(mydata, z) {
-      
+    
       myform <- 
         formula(paste0(z, "^0.5 ~ s(xgrid, ygrid, k = ", k , ")", sep = ""))
       

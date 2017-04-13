@@ -444,7 +444,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     lon <- "xgrid"
     lat <- "ygrid"
     
-    ## the plot
+    ## the plot, note k is the smoothing parameter when suface smooth fitted
     scatterPlot.args <- list(mydata, x = lon, y = lat, z = pollutant,
                              type = type, method = method, smooth = smooth,
                              map = map, x.inc = lon.inc, y.inc = lat.inc,
@@ -453,7 +453,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
                              projection = projection,
                              parameters = parameters, orientation = orientation,
                              grid.col = grid.col, trajLims = trajLims,
-                             receptor = receptor, origin = origin)
+                             receptor = receptor, origin = origin, dist = 0.05, k = 50)
 
     ## reset for Args
     scatterPlot.args <- listUpdate(scatterPlot.args, Args)
