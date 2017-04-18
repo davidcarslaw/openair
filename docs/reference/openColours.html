@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -81,43 +83,44 @@
     <p>Pre-defined openair colours and definition of user-defined colours</p>
     
 
-    <pre><span class='fu'>openColours</span>(<span class='kw'>scheme</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>)</pre>
+    <pre class="usage"><span class='fu'>openColours</span>(<span class='kw'>scheme</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>scheme</dt>
-      <dd>The pre-defined schemes are &quot;increment&quot;, &quot;default&quot;,
-&quot;brewer1&quot;, &quot;heat&quot;, &quot;jet&quot;, &quot;hue&quot;, &quot;greyscale&quot;, or a vector of R
-colour names e.g. c(&quot;green&quot;, &quot;blue&quot;). It is also possible to
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>scheme</th>
+      <td><p>The pre-defined schemes are "increment", "default",
+"brewer1", "heat", "jet", "hue", "greyscale", or a vector of R
+colour names e.g. c("green", "blue"). It is also possible to
 supply colour schemes from the <code>RColorBrewer</code> package. This
 package defines three types of colour schemes: sequential,
 diverging or qualitative. See <a href = 'http://colorbrewer2.org'>http://colorbrewer2.org</a> for
-more details concerning the orginal work on which this is based.
-
-Sequential colours are useful for ordered data where there is a
+more details concerning the orginal work on which this is based.</p>
+<p>Sequential colours are useful for ordered data where there is a
 need to show a difference between low and high values with colours
 going from light to dark. The pre-defined colours that can be
-supplied are: &quot;Blues&quot;, &quot;BuGn&quot;, &quot;BuPu&quot;, &quot;GnBu&quot;, &quot;Greens&quot;, &quot;Greys&quot;,
-&quot;Oranges&quot;, &quot;OrRd&quot;, &quot;PuBu&quot;, &quot;PuBuGn&quot;, &quot;PuRd&quot;, &quot;Purples&quot;, &quot;RdPu&quot;,
-&quot;Reds&quot;, &quot;YlGn&quot;, &quot;YlGnBu&quot;, &quot;YlOrBr&quot;, &quot;YlOrRd&quot;.
-
- Diverging palettes put equal emphasis on mid-range critical
+supplied are: "Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys",
+"Oranges", "OrRd", "PuBu", "PuBuGn", "PuRd", "Purples", "RdPu",
+"Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd".</p>
+<p>Diverging palettes put equal emphasis on mid-range critical
 values and extremes at both ends of the data range. Pre-defined
-values are: &quot;BrBG&quot;, &quot;PiYG&quot;, &quot;PRGn&quot;, &quot;PuOr&quot;, &quot;RdBu&quot;, &quot;RdGy&quot;,
-&quot;RdYlBu&quot;, &quot;RdYlGn&quot;, &quot;Spectral&quot;.
-
-Qualitative palettes are useful for differentiating between
-categorical data types. The pre-defined schemes are &quot;Accent&quot;,
-&quot;Dark2&quot;, &quot;Paired&quot;, &quot;Pastel1&quot;, &quot;Pastel2&quot;, &quot;Set1&quot;, &quot;Set2&quot;, &quot;Set3&quot;.
-
-Note that because of the way these schemes have been developed
+values are: "BrBG", "PiYG", "PRGn", "PuOr", "RdBu", "RdGy",
+"RdYlBu", "RdYlGn", "Spectral".</p>
+<p>Qualitative palettes are useful for differentiating between
+categorical data types. The pre-defined schemes are "Accent",
+"Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3".</p>
+<p>Note that because of the way these schemes have been developed
 they only exist over certain number of colour gradations
 (typically 3--10) --- see ?<code>brewer.pal</code> for actual
 details. If less than or more than the required number of colours
-is supplied then <code>openair</code> will interpolate the colours.</dd>
-      <dt>n</dt>
-      <dd>number of colours required.</dd>
-    </dl>
+is supplied then <code>openair</code> will interpolate the colours.</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>number of colours required.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -128,19 +131,19 @@ is supplied then <code>openair</code> will interpolate the colours.</dd>
     <p>This in primarily an internal openair function to make it easy for users to
 select particular colour schemes, or define their own range of colours of a
 user-defined length.</p>
-    <p>Each of the pre-defined schemes have merits and their use will
+<p>Each of the pre-defined schemes have merits and their use will
 depend on a particular situation. For showing incrementing
 concentrations e.g. high concentrations emphasised, then
-&quot;default&quot;, &quot;heat&quot;, &quot;jet&quot; and &quot;increment&quot; are very useful. See also
+"default", "heat", "jet" and "increment" are very useful. See also
 the description of <code>RColorBrewer</code> schemes for the option
 <code>scheme</code>.</p>
-    <p>To colour-code categorical-type problems e.g. colours for different
-pollutants, &quot;hue&quot; and &quot;brewer1&quot; are useful.</p>
-    <p>When publishing in black and white, &quot;greyscale&quot; is often convenient.  With
+<p>To colour-code categorical-type problems e.g. colours for different
+pollutants, "hue" and "brewer1" are useful.</p>
+<p>When publishing in black and white, "greyscale" is often convenient.  With
 most openair functions, as well as generating a greyscale colour gradient,
 it also resets strip background and other coloured text and lines to
 greyscale values.</p>
-    <p>Failing that, the user can define their own schemes based on R colour
+<p>Failing that, the user can define their own schemes based on R colour
 names. To see the full list of names, type <code>colors()</code> into R.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -152,12 +155,12 @@ names. To see the full list of names, type <code>colors()</code> into R.</p>
     <pre class="examples"><div class='input'>
 <span class='co'># to return 5 colours from the "jet" scheme:</span>
 <span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'>openColours</span>(<span class='st'>"jet"</span>, <span class='fl'>5</span>)
-<span class='no'>cols</span></div><div class='output co'>#&gt; [1] &quot;#00007F&quot; &quot;#007FFF&quot; &quot;#7FFF7F&quot; &quot;#FF7F00&quot; &quot;#7F0000&quot;</div><div class='input'>
+<span class='no'>cols</span></div><div class='output co'>#&gt; [1] "#00007F" "#007FFF" "#7FFF7F" "#FF7F00" "#7F0000"</div><div class='input'>
 <span class='co'># to interpolate between named colours e.g. 10 colours from yellow to</span>
 <span class='co'>#  green to red:</span>
 <span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'>openColours</span>(<span class='fu'>c</span>(<span class='st'>"yellow"</span>, <span class='st'>"green"</span>, <span class='st'>"red"</span>), <span class='fl'>10</span>)
-<span class='no'>cols</span></div><div class='output co'>#&gt;  [1] &quot;#FFFF00&quot; &quot;#C6FF00&quot; &quot;#8DFF00&quot; &quot;#55FF00&quot; &quot;#1CFF00&quot; &quot;#1CE200&quot; &quot;#54AA00&quot;
-#&gt;  [8] &quot;#8D7100&quot; &quot;#C63800&quot; &quot;#FF0000&quot;</div><div class='input'>
+<span class='no'>cols</span></div><div class='output co'>#&gt;  [1] "#FFFF00" "#C6FF00" "#8DFF00" "#55FF00" "#1CFF00" "#1CE200" "#54AA00"
+#&gt;  [8] "#8D7100" "#C63800" "#FF0000"</div><div class='input'>
 
 </div></pre>
   </div>

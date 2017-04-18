@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -85,76 +87,103 @@ threshold. Kernel density estimates are calculated and plotted to highlight
 those conditions.</p>
     
 
-    <pre><span class='fu'>kernelExceed</span>(<span class='no'>polar</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>,
+    <pre class="usage"><span class='fu'>kernelExceed</span>(<span class='no'>polar</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"day"</span>, <span class='st'>"dayhour"</span>, <span class='st'>"all"</span>), <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>more.than</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>nbin</span> <span class='kw'>=</span> <span class='fl'>256</span>,
   <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>polar</dt>
-      <dd>A data frame minimally containing <code>date</code> and at least
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>polar</th>
+      <td><p>A data frame minimally containing <code>date</code> and at least
 three other numeric variables, typically <code>ws</code>, <code>wd</code> and a
-<code>pollutant</code>.</dd>
-      <dt>x</dt>
-      <dd>x-axis variable. Mandatory.</dd>
-      <dt>y</dt>
-      <dd>y-axis variable. Mandatory</dd>
-      <dt>pollutant</dt>
-      <dd>Mandatory. A pollutant name corresponding to a variable in
-a data frame should be supplied e.g. <code>pollutant = &quot;nox&quot;</code></dd>
-      <dt>type</dt>
-      <dd>The type of analysis to be done. The default is will produce a
-single plot using the entire data. Other types include &quot;hour&quot; (for hour
-of the day), &quot;weekday&quot; (for day of the week) and &quot;month&quot; (for month of
-the year), &quot;year&quot; for a polarPlot for each year. It is also possible to
+<code>pollutant</code>.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>x-axis variable. Mandatory.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>y-axis variable. Mandatory</p></td>
+    </tr>
+    <tr>
+      <th>pollutant</th>
+      <td><p>Mandatory. A pollutant name corresponding to a variable in
+a data frame should be supplied e.g. <code>pollutant = "nox"</code></p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>The type of analysis to be done. The default is will produce a
+single plot using the entire data. Other types include "hour" (for hour
+of the day), "weekday" (for day of the week) and "month" (for month of
+the year), "year" for a polarPlot for each year. It is also possible to
 choose <code>type</code> as another variable in the data frame. For example,
-<code>type = &quot;o3&quot;</code> will plot four kernel exceedance plots for different
+<code>type = "o3"</code> will plot four kernel exceedance plots for different
 levels of ozone, split into four quantiles (approximately equal numbers
 of counts in each of the four splits). This offers great flexibility for
 understanding the variation of different variables dependent on another.
-See function <code>cutData</code> for further details.</dd>
-      <dt>by</dt>
-      <dd><code>by</code> determines how data above the <code>limit</code> are
-selected. <code>by = &quot;day&quot;</code> will select <em>all</em> data (typically hours)
+See function <code>cutData</code> for further details.</p></td>
+    </tr>
+    <tr>
+      <th>by</th>
+      <td><p><code>by</code> determines how data above the <code>limit</code> are
+selected. <code>by = "day"</code> will select <em>all</em> data (typically hours)
 on days where the daily mean value is above <code>limit</code>. <code>by =
-&quot;dayhour&quot;</code> will select only those data above <code>limit</code> on days where
-the daily mean value is above <code>limit</code>. <code>by = &quot;hour&quot;</code> will
-select all data above <code>limit</code>.</dd>
-      <dt>limit</dt>
-      <dd>The threshold above which the <code>pollutant</code> concentration
-will be considered.</dd>
-      <dt>data.thresh</dt>
-      <dd>The data capture threshold to use (<!-- %) when aggregating -->
+"dayhour"</code> will select only those data above <code>limit</code> on days where
+the daily mean value is above <code>limit</code>. <code>by = "hour"</code> will
+select all data above <code>limit</code>.</p></td>
+    </tr>
+    <tr>
+      <th>limit</th>
+      <td><p>The threshold above which the <code>pollutant</code> concentration
+will be considered.</p></td>
+    </tr>
+    <tr>
+      <th>data.thresh</th>
+      <td><p>The data capture threshold to use (<!-- %) when aggregating -->
 the data using <code>timeAverage</code> to daily means. A value of zero means
 that all available data will be used in a particular period regardless if
 of the number of values available. Conversely, a value of 100 will mean
 that all data will need to be present for the average to be calculated,
-else it is recorded as <code>NA</code>.</dd>
-      <dt>more.than</dt>
-      <dd>If <code>TRUE</code> data will be selected that are greater than
+else it is recorded as <code>NA</code>.</p></td>
+    </tr>
+    <tr>
+      <th>more.than</th>
+      <td><p>If <code>TRUE</code> data will be selected that are greater than
 <code>limit</code>. If <code>FALSE</code> data will be selected that less than
-<code>limit</code>.</dd>
-      <dt>cols</dt>
-      <dd>Colours to be used for plotting. Options include &quot;default&quot;,
-&quot;increment&quot;, &quot;heat&quot;, &quot;spectral&quot;, &quot;hue&quot;, &quot;brewer1&quot; and user defined (see
+<code>limit</code>.</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>Colours to be used for plotting. Options include "default",
+"increment", "heat", "spectral", "hue", "brewer1" and user defined (see
 manual for more details). The same line colour can be set for all
-pollutant e.g. <code>cols = &quot;black&quot;</code>.</dd>
-      <dt>nbin</dt>
-      <dd>number of bins to be used for the kernel density estimate.</dd>
-      <dt>auto.text</dt>
-      <dd>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
+pollutant e.g. <code>cols = "black"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>nbin</th>
+      <td><p>number of bins to be used for the kernel density estimate.</p></td>
+    </tr>
+    <tr>
+      <th>auto.text</th>
+      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and format
-pollutant names and units properly e.g.  by subscripting the `2&#39; in NO2.</dd>
-      <dt>&amp;#8230;</dt>
-      <dd>Other graphical parameters passed onto <code>lattice:levelplot</code>
+pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></td>
+    </tr>
+    <tr>
+      <th>&#8230;</th>
+      <td><p>Other graphical parameters passed onto <code>lattice:levelplot</code>
 and <code>cutData</code>. For example, <code>kernelExceed</code> passes the option
-<code>hemisphere = &quot;southern&quot;</code> on to <code>cutData</code> to provide southern
-(rather than default northern) hemisphere handling of <code>type = &quot;season&quot;</code>.
+<code>hemisphere = "southern"</code> on to <code>cutData</code> to provide southern
+(rather than default northern) hemisphere handling of <code>type = "season"</code>.
 Similarly, common axis and title labelling options (such as <code>xlab</code>,
 <code>ylab</code>, <code>main</code>) are passed to <code>levelplot</code> via <code>quickText</code>
-to handle routine formatting.</dd>
-    </dl>
+to handle routine formatting.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -168,30 +197,30 @@ the daily mean (European) Limit Value for PM10 of 50~ug/m3 not to be
 exceeded on more than 35 days. However, the function is sufficiently
 flexible to consider other limits e.g. could be used to explore days where
 the daily mean are greater than 100~ug/m3.</p>
-    <p>By default the function will plot the kernel density estimate of wind speed
+<p>By default the function will plot the kernel density estimate of wind speed
 and wind directions for all days where the concentration of
 <code>pollutant</code> is greater than <code>limit</code>. Understanding the conditions
 where exceedances occur can help with source identification.</p>
-    <p>The function offers different ways of selecting the data on days where the
+<p>The function offers different ways of selecting the data on days where the
 <code>pollutant</code> are greater than <code>limit</code> through setting <code>by</code>.
 By default it will select all data on days where <code>pollutant</code> is
 greater than <code>limit</code>. With the default setting of <code>by</code> it will
 select all data on those days where <code>pollutant</code> is greater than
 <code>limit</code>, even if individual data (e.g. hours) are less than
-<code>limit</code>. Setting <code>by = &quot;dayhour&quot;</code> will additionally ensure that
+<code>limit</code>. Setting <code>by = "dayhour"</code> will additionally ensure that
 all data on the those dates are also greater than <code>limit</code>. Finally,
-<code>by = &quot;all&quot;</code> will select all values of <code>pollutant</code> above limit,
+<code>by = "all"</code> will select all values of <code>pollutant</code> above limit,
 regardless of when they occur.</p>
-    <p>The usefulness of the function is greatly enhanced through using
+<p>The usefulness of the function is greatly enhanced through using
 <code>type</code>, which conditions the data according to the level of another
-variable. For example, <code>type = &quot;season&quot;</code> will show the kernel density
-estimate by spring, summer, autumn and winter and <code>type = &quot;so2&quot;</code> will
+variable. For example, <code>type = "season"</code> will show the kernel density
+estimate by spring, summer, autumn and winter and <code>type = "so2"</code> will
 attempt to show the kernel density estimates by quantiles of SO2
 concentration. By considering different values of <code>type</code> it is
 possible to develop a good understanding of the conditions under which
 exceedances occur.</p>
-    <p>To aid interpretation the plot will also show the <em>estimated</em> number
-of days or hours where exeedances occur. For <code>type = &quot;default&quot;</code> the
+<p>To aid interpretation the plot will also show the <em>estimated</em> number
+of days or hours where exeedances occur. For <code>type = "default"</code> the
 number of days should exactly correspond to the actual number of exceedance
 days. However, with different values of <code>type</code> the number of days is
 an estimate. It is an estimate because conditioning breaks up individual
@@ -219,9 +248,9 @@ each level of <code>type</code>.</p>
     <pre class="examples"><div class='input'>
 <span class='co'># Note! the manual contains other examples that are more illuminating</span>
 <span class='co'># basic plot</span>
-<span class='fu'>kernelExceed</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>)</div><div class='output co'>#&gt; <span class='message'>(loaded the KernSmooth namespace)</span></div><img src='kernelExceed-3.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>kernelExceed</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>)</div><img src='kernelExceed-2.png' alt='' width='540' height='400' /><div class='input'>
 <span class='co'># condition by NOx concentrations</span>
-<span class='co'>## Not run: kernelExceed(mydata, pollutant = &amp;quot;pm10&amp;quot;, type = &amp;quot;nox&amp;quot;)</span></div></pre>
+<span class='co'>## Not run: kernelExceed(mydata, pollutant = "pm10", type = "nox")</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

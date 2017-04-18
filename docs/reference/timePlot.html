@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -82,7 +84,7 @@
 or in separate panels.</p>
     
 
-    <pre><span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>date.pad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>, <span class='kw'>plot.type</span> <span class='kw'>=</span> <span class='st'>"l"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -92,55 +94,71 @@ or in separate panels.</p>
   <span class='kw'>date.format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>mydata</dt>
-      <dd>A data frame of time series. Must include a
-<code>date</code> field and at least one variable to plot.</dd>
-      <dt>pollutant</dt>
-      <dd>Name of variable to plot. Two or more pollutants
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>mydata</th>
+      <td><p>A data frame of time series. Must include a
+<code>date</code> field and at least one variable to plot.</p></td>
+    </tr>
+    <tr>
+      <th>pollutant</th>
+      <td><p>Name of variable to plot. Two or more pollutants
 can be plotted, in which case a form like <code>pollutant =
-c(&quot;nox&quot;, &quot;co&quot;)</code> should be used.</dd>
-      <dt>group</dt>
-      <dd>If more than one pollutant is chosen, should they all
+c("nox", "co")</code> should be used.</p></td>
+    </tr>
+    <tr>
+      <th>group</th>
+      <td><p>If more than one pollutant is chosen, should they all
 be plotted on the same graph together? The default is
 <code>FALSE</code>, which means they are plotted in separate panels
 with their own scaled. If <code>TRUE</code> then they are plotted on
-the same plot with the same scale.</dd>
-      <dt>stack</dt>
-      <dd>If <code>TRUE</code> the time series will be stacked by
+the same plot with the same scale.</p></td>
+    </tr>
+    <tr>
+      <th>stack</th>
+      <td><p>If <code>TRUE</code> the time series will be stacked by
 year. This option can be useful if there are several years worth
 of data making it difficult to see much detail when plotted on a
-single plot.</dd>
-      <dt>normalise</dt>
-      <dd>Should variables be normalised? The default is is
+single plot.</p></td>
+    </tr>
+    <tr>
+      <th>normalise</th>
+      <td><p>Should variables be normalised? The default is is
 not to normalise the data. <code>normalise</code> can take two values,
 either &#8220;mean&#8221; or a string representing a date in UK
-format e.g. &quot;1/1/1998&quot; (in the format dd/mm/YYYY). If
-<code>normalise = &quot;mean&quot;</code> then each time series is divided by
+format e.g. "1/1/1998" (in the format dd/mm/YYYY). If
+<code>normalise = "mean"</code> then each time series is divided by
 its mean value.  If a date is chosen, then values at that date
 are set to 100 and the rest of the data scaled accordingly.
 Choosing a date (say at the beginning of a time series) is very
 useful for showing how trends diverge over time. Setting
 <code>group = TRUE</code> is often useful too to show all time series
-together in one panel.</dd>
-      <dt>avg.time</dt>
-      <dd>This defines the time period to average to. Can be
+together in one panel.</p></td>
+    </tr>
+    <tr>
+      <th>avg.time</th>
+      <td><p>This defines the time period to average to. Can be
 &#8220;sec&#8221;, &#8220;min&#8221;, &#8220;hour&#8221;, &#8220;day&#8221;, 
 &#8220;DSTday&#8221;, &#8220;week&#8221;, &#8220;month&#8221;, &#8220;quarter&#8221;
 or &#8220;year&#8221;. For much increased flexibility a number can 
 precede these options followed by a space. For example, a 
-timeAverage of 2 months would be <code>period = &quot;2 month&quot;</code>. See 
-function <code>timeAverage</code> for further details on this.</dd>
-      <dt>data.thresh</dt>
-      <dd>The data capture threshold to use (%) when
+timeAverage of 2 months would be <code>period = "2 month"</code>. See 
+function <code>timeAverage</code> for further details on this.</p></td>
+    </tr>
+    <tr>
+      <th>data.thresh</th>
+      <td><p>The data capture threshold to use (%) when
 aggregating the data using <code>avg.time</code>. A value of zero
 means that all available data will be used in a particular
 period regardless if of the number of values available.
 Conversely, a value of 100 will mean that all data will need to
 be present for the average to be calculated, else it is recorded
-as <code>NA</code>. Not used if <code>avg.time = &quot;default&quot;</code>.</dd>
-      <dt>statistic</dt>
-      <dd>The statistic to apply when aggregating the data;
+as <code>NA</code>. Not used if <code>avg.time = "default"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>statistic</th>
+      <td><p>The statistic to apply when aggregating the data;
 default is the mean. Can be one of &#8220;mean&#8221;, &#8220;max&#8221;, 
 &#8220;min&#8221;, &#8220;median&#8221;, &#8220;frequency&#8221;, &#8220;sd&#8221;, 
 &#8220;percentile&#8221;. Note that &#8220;sd&#8221; is the standard 
@@ -148,144 +166,180 @@ deviation and &#8220;frequency&#8221; is the number (frequency) of
 valid records in the period.  &#8220;percentile&#8221; is the 
 percentile level (%) between 0-100, which can be set using the 
 &#8220;percentile&#8221; option - see below. Not used if
-<code>avg.time = &quot;default&quot;</code>.</dd>
-      <dt>percentile</dt>
-      <dd>The percentile level in % used when
-<code>statistic = &quot;percentile&quot;</code> and when aggregating the data
+<code>avg.time = "default"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>percentile</th>
+      <td><p>The percentile level in % used when
+<code>statistic = "percentile"</code> and when aggregating the data
 with <code>avg.time</code>. More than one percentile level is allowed
-for <code>type = &quot;default&quot;</code> e.g. <code>percentile = c(50, 95)</code>.
-Not used if <code>avg.time = &quot;default&quot;</code>.</dd>
-      <dt>date.pad</dt>
-      <dd>Should missing data be padded-out? This is useful
-where a data frame consists of two or more &quot;chunks&quot; of data with
+for <code>type = "default"</code> e.g. <code>percentile = c(50, 95)</code>.
+Not used if <code>avg.time = "default"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>date.pad</th>
+      <td><p>Should missing data be padded-out? This is useful
+where a data frame consists of two or more "chunks" of data with
 time gaps between them. By setting <code>date.pad = TRUE</code> the
 time gaps between the chunks are shown properly, rather than
 with a line connecting each chunk. For irregular data, set to
 <code>FALSE</code>. Note, this should not be set for <code>type</code> other
-than <code>default</code>.</dd>
-      <dt>type</dt>
-      <dd><code>type</code> determines how the data are split i.e.
+than <code>default</code>.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p><code>type</code> determines how the data are split i.e.
 conditioned, and then plotted. The default is will produce a 
 single plot using the entire data. Type can be one of the
 built-in types as detailed in <code>cutData</code> e.g.
 &#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For
-example, <code>type = &quot;season&quot;</code> will produce four plots --- one
-for each season.
-
-It is also possible to choose <code>type</code> as another variable in
+example, <code>type = "season"</code> will produce four plots --- one
+for each season.</p>
+<p>It is also possible to choose <code>type</code> as another variable in
 the data frame. If that variable is numeric, then the data will
 be split into four quantiles (if possible) and labelled
 accordingly. If type is an existing character or factor
 variable, then those categories/levels will be used directly.
 This offers great flexibility for understanding the variation of
-different variables and how they depend on one another.
-
-Only one <code>type</code> is currently allowed in <code>timePlot</code>.</dd>
-      <dt>cols</dt>
-      <dd>Colours to be used for plotting. Options include 
+different variables and how they depend on one another.</p>
+<p>Only one <code>type</code> is currently allowed in <code>timePlot</code>.</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>Colours to be used for plotting. Options include 
 &#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;,
 &#8220;jet&#8221; and <code>RColorBrewer</code> colours --- see the
 <code>openair</code> <code>openColours</code> function for more details. For
 user defined the user can supply a list of colour names
 recognised by R (type <code>colours()</code> to see the full list). An
-example would be <code>cols = c(&quot;yellow&quot;, &quot;green&quot;, &quot;blue&quot;)</code></dd>
-      <dt>plot.type</dt>
-      <dd>The <code>lattice</code> plot type, which is a line 
-(<code>plot.type = &quot;l&quot;</code>) by default. Another useful option is 
-<code>plot.type = &quot;h&quot;</code>, which draws vertical lines.</dd>
-      <dt>key</dt>
-      <dd>Should a key be drawn? The default is <code>TRUE</code>.</dd>
-      <dt>log</dt>
-      <dd>Should the y-axis appear on a log scale? The default is
+example would be <code>cols = c("yellow", "green", "blue")</code></p></td>
+    </tr>
+    <tr>
+      <th>plot.type</th>
+      <td><p>The <code>lattice</code> plot type, which is a line 
+(<code>plot.type = "l"</code>) by default. Another useful option is 
+<code>plot.type = "h"</code>, which draws vertical lines.</p></td>
+    </tr>
+    <tr>
+      <th>key</th>
+      <td><p>Should a key be drawn? The default is <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>log</th>
+      <td><p>Should the y-axis appear on a log scale? The default is
 <code>FALSE</code>. If <code>TRUE</code> a well-formatted log10 scale is
 used. This can be useful for plotting data for several different
 pollutants that exist on very different scales. It is therefore
 useful to use <code>log = TRUE</code> together with <code>group =
-TRUE</code>.</dd>
-      <dt>windflow</dt>
-      <dd>This option allows a scatter plot to show the wind
+TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>windflow</th>
+      <td><p>This option allows a scatter plot to show the wind
 speed/direction as an arrow. The option is a list e.g.
-<code>windflow = list(col = &quot;grey&quot;, lwd = 2, scale = 0.1)</code>. This
+<code>windflow = list(col = "grey", lwd = 2, scale = 0.1)</code>. This
 option requires wind speed (<code>ws</code>) and wind direction
-(<code>wd</code>) to be available.
-
-The maximum length of the arrow plotted is a fraction of the
+(<code>wd</code>) to be available.</p>
+<p>The maximum length of the arrow plotted is a fraction of the
 plot dimension with the longest arrow being <code>scale</code> of the
 plot x-y dimension. Note, if the plot size is adjusted manually
 by the user it should be re-plotted to ensure the correct wind
 angle. The list may contain other options to <code>panel.arrows</code>
 in the <code>lattice</code> package. Other useful options include 
 <code>length</code>, which controls the length of the arrow head and 
-<code>angle</code>, which controls the angle of the arrow head.
-
-This option works best where there are not too many data to
-ensure over-plotting does not become a problem.</dd>
-      <dt>smooth</dt>
-      <dd>Should a smooth line be applied to the data? The
-default is <code>FALSE</code>.</dd>
-      <dt>ci</dt>
-      <dd>If a smooth fit line is applied, then <code>ci</code>
-determines whether the 95% confidence intervals are shown.</dd>
-      <dt>y.relation</dt>
-      <dd>This determines how the y-axis scale is plotted.
-&quot;same&quot; ensures all panels use the same scale and &quot;free&quot; will use
+<code>angle</code>, which controls the angle of the arrow head.</p>
+<p>This option works best where there are not too many data to
+ensure over-plotting does not become a problem.</p></td>
+    </tr>
+    <tr>
+      <th>smooth</th>
+      <td><p>Should a smooth line be applied to the data? The
+default is <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>ci</th>
+      <td><p>If a smooth fit line is applied, then <code>ci</code>
+determines whether the 95% confidence intervals are shown.</p></td>
+    </tr>
+    <tr>
+      <th>y.relation</th>
+      <td><p>This determines how the y-axis scale is plotted.
+"same" ensures all panels use the same scale and "free" will use
 panel-specific scales. The latter is a useful setting when
-plotting data with very different values.</dd>
-      <dt>ref.x</dt>
-      <dd>See <code>ref.y</code> for details. In this case the 
+plotting data with very different values.</p></td>
+    </tr>
+    <tr>
+      <th>ref.x</th>
+      <td><p>See <code>ref.y</code> for details. In this case the 
 correct date format should be used for a vertical line e.g. 
-<code>ref.x = list(v = as.POSIXct(&quot;2000-06-15&quot;), lty = 5)</code>.</dd>
-      <dt>ref.y</dt>
-      <dd>A list with details of the horizontal lines to be 
+<code>ref.x = list(v = as.POSIXct("2000-06-15"), lty = 5)</code>.</p></td>
+    </tr>
+    <tr>
+      <th>ref.y</th>
+      <td><p>A list with details of the horizontal lines to be 
 added representing reference line(s). For example, <code>ref.y =
 list(h = 50, lty = 5)</code> will add a dashed horizontal line at 50.
 Several lines can be plotted e.g. <code>ref.y = list(h = c(50, 
-100), lty = c(1, 5), col = c(&quot;green&quot;, &quot;blue&quot;))</code>. See 
+100), lty = c(1, 5), col = c("green", "blue"))</code>. See 
 <code>panel.abline</code> in the <code>lattice</code> package for more
-details on adding/controlling lines.</dd>
-      <dt>key.columns</dt>
-      <dd>Number of columns to be used in the key. With
+details on adding/controlling lines.</p></td>
+    </tr>
+    <tr>
+      <th>key.columns</th>
+      <td><p>Number of columns to be used in the key. With
 many pollutants a single column can make to key too wide. The
 user can thus choose to use several columns by setting
-<code>columns</code> to be less than the number of pollutants.</dd>
-      <dt>key.position</dt>
-      <dd>Location where the scale key is to plotted.
+<code>columns</code> to be less than the number of pollutants.</p></td>
+    </tr>
+    <tr>
+      <th>key.position</th>
+      <td><p>Location where the scale key is to plotted.
 Can include &#8220;top&#8221;, &#8220;bottom&#8221;, &#8220;right&#8221; and
-&#8220;left&#8221;.</dd>
-      <dt>name.pol</dt>
-      <dd>This option can be used to give alternative names 
+&#8220;left&#8221;.</p></td>
+    </tr>
+    <tr>
+      <th>name.pol</th>
+      <td><p>This option can be used to give alternative names 
 for the variables plotted. Instead of taking the column headings
 as names, the user can supply replacements. For example, if a 
 column had the name &#8220;nox&#8221; and the user wanted a different
-description, then setting <code>name.pol = &quot;nox before change&quot;</code> 
+description, then setting <code>name.pol = "nox before change"</code> 
 can be used. If more than one pollutant is plotted then use 
-<code>c</code> e.g. <code>name.pol = c(&quot;nox here&quot;, &quot;o3 there&quot;)</code>.</dd>
-      <dt>date.breaks</dt>
-      <dd>Number of major x-axis intervals to use. The
+<code>c</code> e.g. <code>name.pol = c("nox here", "o3 there")</code>.</p></td>
+    </tr>
+    <tr>
+      <th>date.breaks</th>
+      <td><p>Number of major x-axis intervals to use. The
 function will try and choose a sensible number of dates/times as
 well as formatting the date/time appropriately to the range
 being considered. This does not always work as desired
 automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of <code>date.breaks</code>
-up or down.</dd>
-      <dt>date.format</dt>
-      <dd>This option controls the date format on the 
+up or down.</p></td>
+    </tr>
+    <tr>
+      <th>date.format</th>
+      <td><p>This option controls the date format on the 
 x-axis. While <code>timePlot</code> generally sets the date format 
 sensibly there can be some situations where the user wishes to 
 have more control. For format types see <code>strptime</code>. For 
 example, to format the date like &#8220;Jan-2012&#8221; set 
-<code>date.format = &quot;%b-%Y&quot;</code>.</dd>
-      <dt>auto.text</dt>
-      <dd>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
+<code>date.format = "%b-%Y"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>auto.text</th>
+      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
 <code>TRUE</code> titles and axis labels will automatically try and 
 format pollutant names and units properly e.g.  by subscripting 
-the &#8216;2&#8217; in NO2.</dd>
-      <dt>...</dt>
-      <dd>Other graphical parameters are passed onto
+the &#8216;2&#8217; in NO2.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other graphical parameters are passed onto
 <code>cutData</code> and <code>lattice:xyplot</code>. For example,
-<code>timePlot</code> passes the option <code>hemisphere = &quot;southern&quot;</code>
+<code>timePlot</code> passes the option <code>hemisphere = "southern"</code>
 on to <code>cutData</code> to provide southern (rather than default
-northern) hemisphere handling of <code>type = &quot;season&quot;</code>. 
+northern) hemisphere handling of <code>type = "season"</code>. 
 Similarly, most common plotting parameters, such as
 <code>layout</code> for panel arrangement and <code>pch</code> and
 <code>cex</code> for plot symbol type and size and <code>lty</code> and
@@ -293,20 +347,22 @@ Similarly, most common plotting parameters, such as
 although some maybe locally managed by <code>openair</code> on route,
 e.g. axis and title labelling options (such as <code>xlab</code>, 
 <code>ylab</code>, <code>main</code>) are passed via <code>quickText</code> to
-handle routine formatting. See examples below.</dd>
-    </dl>
+handle routine formatting. See examples below.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>As well as generating the plot itself, <code>timePlot</code>
-  also returns an object of class ``openair&#39;&#39;. The object includes
+  also returns an object of class ``openair''. The object includes
   three main components: <code>call</code>, the command used to generate
   the plot; <code>data</code>, the data frame of summarised information
   used to make the plot; and <code>plot</code>, the plot itself. If
-  retained, e.g. using <code>output &lt;- timePlot(mydata, &quot;nox&quot;)</code>,
+  retained, e.g. using <code>output &lt;- timePlot(mydata, "nox")</code>,
   this output can be used to recover the data, reproduce or rework
-  the original plot or undertake further analysis.</p>
-    <p>An openair output can be manipulated using a number of generic
+  the original plot or undertake further analysis.
+  
+  An openair output can be manipulated using a number of generic
   operations, including <code>print</code>, <code>plot</code> and
   <code>summary</code>.</p>
     
@@ -317,24 +373,24 @@ handle routine formatting. See examples below.</dd>
 time series for pollutants and other variables. The other purpose
 is to plot potentially many variables together in as compact a way
 as possible.</p>
-    <p>The function is flexible enough to plot more than one variable at
+<p>The function is flexible enough to plot more than one variable at
 once. If more than one variable is chosen plots it can either show
 all variables on the same plot (with different line types)
 <em>on the same scale</em>, or (if <code>group = FALSE</code>) each
 variable in its own panels with its own scale.</p>
-    <p>The general preference is not to plot two variables on the same
+<p>The general preference is not to plot two variables on the same
 graph with two different y-scales. It can be misleading to do so
 and difficult with more than two variables. If there is in
 interest in plotting several variables together that have very
 different scales, then it can be useful to normalise the data
 first, which can be down be setting the <code>normalise</code> option.</p>
-    <p>The user has fine control over the choice of colours, line width
+<p>The user has fine control over the choice of colours, line width
 and line types used. This is useful for example, to emphasise a
-particular variable with a specific line type/colour/width.</p>
-    <p><code>timePlot</code> works very well with <code><a href='selectByDate.html'>selectByDate</a></code>,
+particular variable with a specific line type/colour/width.
+    <code>timePlot</code> works very well with <code><a href='selectByDate.html'>selectByDate</a></code>,
 which is used for selecting particular date ranges quickly and
 easily. See examples below.</p>
-    <p>By default plots are shown with a colour key at the bottom and in
+<p>By default plots are shown with a colour key at the bottom and in
 the case of multiple pollutants or sites, strips on the left of
 each plot. Sometimes this may be overkill and the user can opt to
 remove the key and/or the strip by setting <code>key</code> and/or
@@ -355,50 +411,50 @@ the plotting area and therefore the information shown.</p>
 <span class='co'># basic use, single pollutant</span>
 <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><img src='timePlot-2.png' alt='' width='540' height='400' /><div class='input'>
 <span class='co'># two pollutants in separate panels</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = c(&amp;quot;nox&amp;quot;, &amp;quot;no2&amp;quot;))</span>
+<span class='co'>## Not run: timePlot(mydata, pollutant = c("nox", "no2"))</span>
 
 <span class='co'># two pollutants in the same panel with the same scale</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = c(&amp;quot;nox&amp;quot;, &amp;quot;no2&amp;quot;), group = TRUE)</span>
+<span class='co'>## Not run: timePlot(mydata, pollutant = c("nox", "no2"), group = TRUE)</span>
 
 <span class='co'># alternative by normalising concentrations and plotting on the same</span>
   <span class='no'>scale</span></div><div class='output co'>#&gt; function (x, center = TRUE, scale = TRUE) 
-#&gt; UseMethod(&quot;scale&quot;)
+#&gt; UseMethod("scale")
 #&gt; &lt;bytecode: 0x0000000022309d30&gt;
-#&gt; &lt;environment: namespace:base&gt;</div><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># timePlot(mydata, pollutant = c("nox", "co", "pm10", "so2"), group = TRUE, avg.time =</span>
-<span class='co'>#   "year", normalise = "1/1/1998", lwd = 3, lty = 1)</span>
-<span class='co'>## ---------------------------------------------</span>
+#&gt; &lt;environment: namespace:base&gt;</div><div class='input'><span class='fu'>not_run</span>({
+  <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"co"</span>, <span class='st'>"pm10"</span>, <span class='st'>"so2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span>
+    <span class='st'>"year"</span>, <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='st'>"1/1/1998"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+})
 
 <span class='co'># examples of selecting by date</span>
 
 <span class='co'># plot for nox in 1999</span>
-<span class='co'>## Not run: timePlot(selectByDate(mydata, year = 1999), pollutant = &amp;quot;nox&amp;quot;)</span>
+<span class='co'>## Not run: timePlot(selectByDate(mydata, year = 1999), pollutant = "nox")</span>
 
 <span class='co'># select specific date range for two pollutants</span>
-<span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># timePlot(selectByDate(mydata, start = "6/8/2003", end = "13/8/2003"),</span>
-<span class='co'># pollutant = c("no2", "o3"))</span>
-<span class='co'>## ---------------------------------------------</span>
+<span class='fu'>not_run</span>({
+  <span class='fu'>timePlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"6/8/2003"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"13/8/2003"</span>),
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"no2"</span>, <span class='st'>"o3"</span>))
+})
 
 <span class='co'># choose different line styles etc</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = c(&amp;quot;nox&amp;quot;, &amp;quot;no2&amp;quot;), lty = 1)</span>
+<span class='co'>## Not run: timePlot(mydata, pollutant = c("nox", "no2"), lty = 1)</span>
 
 <span class='co'># choose different line styles etc</span>
-<span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># timePlot(selectByDate(mydata, year = 2004, month = 6), pollutant =</span>
-<span class='co'># c("nox", "no2"), lwd = c(1, 2), col = "black")</span>
-<span class='co'>## ---------------------------------------------</span>
+<span class='fu'>not_run</span>({
+  <span class='fu'>timePlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2004</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fl'>6</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span>
+  <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>)
+})
 
 <span class='co'># different averaging times</span>
 
 <span class='co'>#daily mean O3</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = &amp;quot;o3&amp;quot;, avg.time = &amp;quot;day&amp;quot;)</span>
+<span class='co'>## Not run: timePlot(mydata, pollutant = "o3", avg.time = "day")</span>
 
 <span class='co'># daily mean O3 ensuring each day has data capture of at least 75%</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = &amp;quot;o3&amp;quot;, avg.time = &amp;quot;day&amp;quot;, data.thresh = 75)</span>
+<span class='co'>## Not run: timePlot(mydata, pollutant = "o3", avg.time = "day", data.thresh = 75)</span>
 
 <span class='co'># 2-week average of O3 concentrations</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = &amp;quot;o3&amp;quot;, avg.time = &amp;quot;2 week&amp;quot;)</span></div></pre>
+<span class='co'>## Not run: timePlot(mydata, pollutant = "o3", avg.time = "2 week")</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

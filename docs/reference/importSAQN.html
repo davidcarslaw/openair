@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -84,23 +86,30 @@ imported from a remote server operated by AEA that provides air quality
 data files as R data objects.</p>
     
 
-    <pre><span class='fu'>importSAQN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"gla4"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</pre>
+    <pre class="usage"><span class='fu'>importSAQN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"gla4"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>site</dt>
-      <dd>Site code of the SAQN site to import e.g. &quot;gla4&quot; is Glasgow
-Kerbside. Several sites can be imported with <code>site = c(&quot;gla4&quot;,
-&quot;ed&quot;)</code> --- to import Glasgow Kerbside and Edinbrugh Centre for example.</dd>
-      <dt>year</dt>
-      <dd>Year or years to import. To import a sequence of years from
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>site</th>
+      <td><p>Site code of the SAQN site to import e.g. "gla4" is Glasgow
+Kerbside. Several sites can be imported with <code>site = c("gla4",
+"ed")</code> --- to import Glasgow Kerbside and Edinbrugh Centre for example.</p></td>
+    </tr>
+    <tr>
+      <th>year</th>
+      <td><p>Year or years to import. To import a sequence of years from
 1990 to 2000 use <code>year = 1990:2000</code>. To import several specfic years
-use <code>year = c(1990, 1995, 2000)</code> for example.</dd>
-      <dt>pollutant</dt>
-      <dd>Pollutants to import. If omitted will import all
+use <code>year = c(1990, 1995, 2000)</code> for example.</p></td>
+    </tr>
+    <tr>
+      <th>pollutant</th>
+      <td><p>Pollutants to import. If omitted will import all
 pollutants ffrom a site. To import only NOx and NO2 for example use
-<code>pollutant = c(&quot;nox&quot;, &quot;no2&quot;)</code>.</dd>
-    </dl>
+<code>pollutant = c("nox", "no2")</code>.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -115,7 +124,7 @@ data from the Scottish Air Quality Network (SAQN) ---
 .RData files (R workspaces) of all individual sites and years for the SAQN.
 These files are updated on a daily basis. This approach requires a link to
 the Internet to work.</p>
-    <p>There are several advantages over the web portal approach where .csv files
+<p>There are several advantages over the web portal approach where .csv files
 are downloaded. First, it is quick to select a range of sites, pollutants
 and periods (see examples below). Second, storing the data as .RData
 objects is very efficient as they are about four times smaller than .csv
@@ -126,14 +135,14 @@ years of data beyond the current limit of about 64,000 lines. The final
 point makes it possible to download several long time series in one go. The
 function also has the advantage that the proper site name is imported and
 used in <code>openair</code> functions.</p>
-    <p>The site codes and pollutant names can be upper or lower case. The function
+<p>The site codes and pollutant names can be upper or lower case. The function
 will issue a warning when data less than six months old is downloaded,
 which may not be ratified.</p>
-    <p>The data are imported by stacking sites on top of one another and will have
+<p>The data are imported by stacking sites on top of one another and will have
 field names <code>site</code>, <code>code</code> (the site code) and <code>pollutant</code>.
 Sometimes it is useful to have columns of site data. This can be done using
 the <code>reshape</code> function --- see examples below.</p>
-    <p>All units are expressed in mass terms for gaseous species (ug/m3 for NO,
+<p>All units are expressed in mass terms for gaseous species (ug/m3 for NO,
 NO2, NOx (as NO2), SO2; and mg/m3 for CO). PM10 concentrations are provided
 in gravimetric units of ug/m3 or scaled to be comparable with these units.
 Over the years a variety of instruments have been used to measure
@@ -141,12 +150,12 @@ particulate matter and the technical issues of measuring PM10 are complex.
 In recent years the measurements rely on FDMS (Filter Dynamics Measurement
 System), which is able to measure the volatile component of PM. In cases
 where the FDMS system is in use there will be a separate volatile component
-recorded as &#39;v10&#39;, which is already included in the absolute PM10
+recorded as 'v10', which is already included in the absolute PM10
 measurement. Prior to the use of FDMS the measurements used TEOM (Tapered
 Element Oscillating. Microbalance) and these concentrations have been
 multiplied by 1.3 to provide an estimate of the total mass including the
 volatile fraction.</p>
-    <p>The few BAM (Beta-Attenuation Monitor) instruments that have been
+<p>The few BAM (Beta-Attenuation Monitor) instruments that have been
 incorporated into the network throughout its history have been scaled by
 1.3 if they have a heated inlet (to account for loss of volatile particles)
 and 0.83 if they do not have a heated inlet. The few TEOM instruments in
@@ -157,173 +166,160 @@ between data sets and with the reference method and to produce a consistent
 data record over the operational period of the network, however there may
 be some discontinuity in the time series associated with instrument
 changes.</p>
-    <p>No corrections have been made to teh PM2.5 data. The volatile component of
-FDMS PM2.5 (where available) is shown in the &#39;v2.5&#39; column.</p>
-    <p>While the function is being developed, the following site codes should help
-with selection. <ul>
-<li> | ABD | Aberdeen Errol Place | URBAN
-BACKGROUND | </li>
-<li> | ABD0 | Aberdeen Market Street 2 | ROADSIDE | </li>
-<li> |
-ABD1 | Aberdeen Anderson Dr | ROADSIDE | </li>
-<li> | ABD2 | Aberdeen Market St
-| ROADSIDE | </li>
-<li> | ABD3 | Aberdeen Union Street Roadside | ROADSIDE |
-</li>
-<li> | ABD8 | Aberdeen Wellington Road | ROADSIDE | </li>
-<li> | ACTH |
-Auchencorth Moss | RURAL | </li>
-<li> | AD1 | Aberdeen King Street | ROADSIDE |
-</li>
-<li> | ALOA | Alloa | ROADSIDE | </li>
-<li> | AYR | South Ayrshire Ayr High St
-| ROADSIDE | </li>
-<li> | BRX | West Lothian Broxburn | ROADSIDE | </li>
-<li> | BUSH
-| Bush Estate | RURAL | </li>
-<li> | CUMN | East Ayrshire New Cumnock | URBAN
-BACKGROUND | </li>
-<li> | CUPA | Fife Cupar | ROADSIDE | </li>
-<li> | DUMF | Dumfries
-| ROADSIDE | </li>
-<li> | DUN1 | Dundee Mains Loan | URBAN BACKGROUND | </li>
-<li> |
-DUN3 | Dundee Union Street | URBAN CENTRE | </li>
-<li> | DUN4 | Dundee Broughty
-Ferry Road | URBAN INDUSTRIAL | </li>
-<li> | DUN5 | Dundee Seagate | KERBSIDE |
-</li>
-<li> | DUN6 | Dundee Lochee Road | KERBSIDE | </li>
-<li> | DUN7 | Dundee
-Whitehall Street | ROADSIDE | </li>
-<li> | DUNF | Fife Dunfermline | ROADSIDE |
-</li>
-<li> | ED | Edinburgh Centre | URBAN CENTRE | </li>
-<li> | ED1 | Edinburgh St
-John&#39;s Road | KERBSIDE | </li>
-<li> | ED2 | Edinburgh Med. Sch. | URBAN
-BACKGROUND | </li>
-<li> | ED3 | Edinburgh St Leonards | URBAN BACKGROUND | </li>
-<li>
-| ED4 | Edinburgh Roseburn | ROADSIDE | </li>
-<li> | ED5 | Edinburgh Gorgie Road
-| ROADSIDE | </li>
-<li> | ED6 | Edinburgh Haymarket | ROADSIDE | </li>
-<li> | ED7 |
-Edinburgh Queen Street | ROADSIDE | </li>
-<li> | ED8 | Edinburgh Salamander St |
-ROADSIDE | </li>
-<li> | EDB1 | East Dunbartonshire Bishopbriggs | ROADSIDE |
-</li>
-<li> | EDB2 | East Dunbartonshire Bearsden | ROADSIDE | </li>
-<li> | EDB3 |
-East Dunbartonshire Kirkintilloch | ROADSIDE | </li>
-<li> | EK | East Kilbride |
-SUBURBAN | </li>
-<li> | EK0 | South Lanarkshire East Kilbride | ROADSIDE | </li>
-<li>
-| ESK | Eskdalemuir | RURAL | </li>
-<li> | FAL2 | Falkirk Park St | ROADSIDE |
-</li>
-<li> | FAL3 | Falkirk Hope St | ROADSIDE | </li>
-<li> | FAL5 | Falkirk Haggs |
-ROADSIDE | </li>
-<li> | FAL6 | Falkirk West Bridge Street | ROADSIDE | </li>
-<li> |
-FALK | Falkirk Grangemouth MC | URBAN BACKGROUND | </li>
-<li> | FFAR | Angus
-Forfar | ROADSIDE | </li>
-<li> | FINI | East Ayrshire Kilmarnock John Finnie St
-| ROADSIDE | </li>
-<li> | FW | Fort William | SUBURBAN | </li>
-<li> | GL1 | Glasgow
-Abercromby Street | ROADSIDE | </li>
-<li> | GL2 | Glasgow Nithsdale Road |
-ROADSIDE | </li>
-<li> | GL3 | Glasgow Broomhill | ROADSIDE | </li>
-<li> | GLA |
-Glasgow City Chambers | URBAN BACKGROUND | </li>
-<li> | GLA3 | Glasgow Centre |
-URBAN CENTRE | </li>
-<li> | GLA4 | Glasgow Kerbside | KERBSIDE | </li>
-<li> | GLA5 |
-Glasgow Anderston | URBAN BACKGROUND | </li>
-<li> | GLA6 | Glasgow Byres Road |
-ROADSIDE | </li>
-<li> | GLA7 | Glasgow Waulkmillglen Reservoir | RURAL | </li>
-<li> |
-GLA8 | Glasgow Battlefield Road | ROADSIDE | </li>
-<li> | GLAS | Glasgow Hope St
-| KERBSIDE | </li>
-<li> | GRA2 | Grangemouth Moray | URBAN BACKGROUND | </li>
-<li> |
-GRAN | Grangemouth | URBAN INDUSTRIAL | </li>
-<li> | INV2 | Inverness | ROADSIDE
-| </li>
-<li> | IRV | North Ayrshire Irvine High St | KERBSIDE | </li>
-<li> | KILM |
-East Ayrshire Kilmarnock | URBAN BACKGROUND | </li>
-<li> | KINC | Fife
-Kincardine | ROADSIDE | </li>
-<li> | KIR | Fife Kirkcaldy | ROADSIDE | </li>
-<li> |
-LER3 | Lerwick Staney Hill | URBAN BACKGROUND | </li>
-<li> | LERW | Lerwick |
-RURAL | </li>
-<li> | LING | West Lothian Linlithgow High Street | ROADSIDE |
-</li>
-<li> | MID1 | Midlothian Pathhead | KERBSIDE | </li>
-<li> | MID2 | Midlothian
-Dalkeith | ROADSIDE | </li>
-<li> | MUSS | East Lothian Musselburgh N High St |
-ROADSIDE | </li>
-<li> | NL1 | N Lanarkshire Coatbridge Whifflet | URBAN
-BACKGROUND | </li>
-<li> | NL2 | N Lanarkshire Coatbridge Ellis St | ROADSIDE |
-</li>
-<li> | NL3 | N Lanarkshire Chapelhall | ROADSIDE | </li>
-<li> | NL4 | N
-Lanarkshire Croy | ROADSIDE | </li>
-<li> | NL5 | N Lanarkshire Harthill |
-ROADSIDE | </li>
-<li> | NL6 | N Lanarkshire Motherwell | ROADSIDE | </li>
-<li> | NL7
-| N Lanarkshire Shawhead Coatbridge | ROADSIDE | </li>
-<li> | NL8 | N
-Lanarkshire Harthill West | URBAN BACKGROUND | </li>
-<li> | NL9 | N Lanarkshire
-Moodiesburn | ROADSIDE | </li>
-<li> | PAI2 | Paisley Glasgow Airport | AIRPORT |
-</li>
-<li> | PAI3 | Paisley Gordon Street | ROADSIDE | </li>
-<li> | PAIS | Paisley
-Central Road | ROADSIDE | </li>
-<li> | PEEB | Peebles | SUBURBAN | </li>
-<li> | PET1
-| Perth Crieff | ROADSIDE | </li>
-<li> | PET2 | Perth Atholl Street | ROADSIDE |
-</li>
-<li> | PETH | Perth High Street | ROADSIDE | </li>
-<li> | ROSY | Fife Rosyth |
-ROADSIDE | </li>
-<li> | SHED | East Renfrewshire Sheddens | ROADSIDE | </li>
-<li> |
-STRL | Stirling Craig&#39;s Roundabout | ROADSIDE | </li>
-<li> | SV | Strath Vaich |
-RURAL | </li>
-<li> | TARB | South Ayrshire Tarbolton | ROADSIDE | </li>
-<li> | UPH |
-West Lothian Uphall | ROADSIDE | </li>
-<li> | WDB1 | West Dunbartonshire John
-Knox St | AIRPORT | </li>
-<li> | WDB2 | West Dunbartonshire Balloch | ROADSIDE |
-</li>
-<li> | WDB3 | West Dunbartonshire Clydebank | ROADSIDE | </li>
-<li> | WDB4 |
-West Dunbartonshire Glasgow Road | ROADSIDE | </li>
-<li> | WHIT | West Lothian
-Whitburn | URBAN BACKGROUND | </li>
-</ul></p>
+<p>No corrections have been made to teh PM2.5 data. The volatile component of
+FDMS PM2.5 (where available) is shown in the 'v2.5' column.</p>
+<p>While the function is being developed, the following site codes should help
+with selection.</p><ul>
+<li><p>| ABD | Aberdeen Errol Place | URBAN
+BACKGROUND |</p></li>
+<li><p>| ABD0 | Aberdeen Market Street 2 | ROADSIDE |</p></li>
+<li><p>|
+ABD1 | Aberdeen Anderson Dr | ROADSIDE |</p></li>
+<li><p>| ABD2 | Aberdeen Market St
+| ROADSIDE |</p></li>
+<li><p>| ABD3 | Aberdeen Union Street Roadside | ROADSIDE |</p></li>
+<li><p>| ABD8 | Aberdeen Wellington Road | ROADSIDE |</p></li>
+<li><p>| ACTH |
+Auchencorth Moss | RURAL |</p></li>
+<li><p>| AD1 | Aberdeen King Street | ROADSIDE |</p></li>
+<li><p>| ALOA | Alloa | ROADSIDE |</p></li>
+<li><p>| AYR | South Ayrshire Ayr High St
+| ROADSIDE |</p></li>
+<li><p>| BRX | West Lothian Broxburn | ROADSIDE |</p></li>
+<li><p>| BUSH
+| Bush Estate | RURAL |</p></li>
+<li><p>| CUMN | East Ayrshire New Cumnock | URBAN
+BACKGROUND |</p></li>
+<li><p>| CUPA | Fife Cupar | ROADSIDE |</p></li>
+<li><p>| DUMF | Dumfries
+| ROADSIDE |</p></li>
+<li><p>| DUN1 | Dundee Mains Loan | URBAN BACKGROUND |</p></li>
+<li><p>|
+DUN3 | Dundee Union Street | URBAN CENTRE |</p></li>
+<li><p>| DUN4 | Dundee Broughty
+Ferry Road | URBAN INDUSTRIAL |</p></li>
+<li><p>| DUN5 | Dundee Seagate | KERBSIDE |</p></li>
+<li><p>| DUN6 | Dundee Lochee Road | KERBSIDE |</p></li>
+<li><p>| DUN7 | Dundee
+Whitehall Street | ROADSIDE |</p></li>
+<li><p>| DUNF | Fife Dunfermline | ROADSIDE |</p></li>
+<li><p>| ED | Edinburgh Centre | URBAN CENTRE |</p></li>
+<li><p>| ED1 | Edinburgh St
+John's Road | KERBSIDE |</p></li>
+<li><p>| ED2 | Edinburgh Med. Sch. | URBAN
+BACKGROUND |</p></li>
+<li><p>| ED3 | Edinburgh St Leonards | URBAN BACKGROUND |</p></li>
+<li><p>| ED4 | Edinburgh Roseburn | ROADSIDE |</p></li>
+<li><p>| ED5 | Edinburgh Gorgie Road
+| ROADSIDE |</p></li>
+<li><p>| ED6 | Edinburgh Haymarket | ROADSIDE |</p></li>
+<li><p>| ED7 |
+Edinburgh Queen Street | ROADSIDE |</p></li>
+<li><p>| ED8 | Edinburgh Salamander St |
+ROADSIDE |</p></li>
+<li><p>| EDB1 | East Dunbartonshire Bishopbriggs | ROADSIDE |</p></li>
+<li><p>| EDB2 | East Dunbartonshire Bearsden | ROADSIDE |</p></li>
+<li><p>| EDB3 |
+East Dunbartonshire Kirkintilloch | ROADSIDE |</p></li>
+<li><p>| EK | East Kilbride |
+SUBURBAN |</p></li>
+<li><p>| EK0 | South Lanarkshire East Kilbride | ROADSIDE |</p></li>
+<li><p>| ESK | Eskdalemuir | RURAL |</p></li>
+<li><p>| FAL2 | Falkirk Park St | ROADSIDE |</p></li>
+<li><p>| FAL3 | Falkirk Hope St | ROADSIDE |</p></li>
+<li><p>| FAL5 | Falkirk Haggs |
+ROADSIDE |</p></li>
+<li><p>| FAL6 | Falkirk West Bridge Street | ROADSIDE |</p></li>
+<li><p>|
+FALK | Falkirk Grangemouth MC | URBAN BACKGROUND |</p></li>
+<li><p>| FFAR | Angus
+Forfar | ROADSIDE |</p></li>
+<li><p>| FINI | East Ayrshire Kilmarnock John Finnie St
+| ROADSIDE |</p></li>
+<li><p>| FW | Fort William | SUBURBAN |</p></li>
+<li><p>| GL1 | Glasgow
+Abercromby Street | ROADSIDE |</p></li>
+<li><p>| GL2 | Glasgow Nithsdale Road |
+ROADSIDE |</p></li>
+<li><p>| GL3 | Glasgow Broomhill | ROADSIDE |</p></li>
+<li><p>| GLA |
+Glasgow City Chambers | URBAN BACKGROUND |</p></li>
+<li><p>| GLA3 | Glasgow Centre |
+URBAN CENTRE |</p></li>
+<li><p>| GLA4 | Glasgow Kerbside | KERBSIDE |</p></li>
+<li><p>| GLA5 |
+Glasgow Anderston | URBAN BACKGROUND |</p></li>
+<li><p>| GLA6 | Glasgow Byres Road |
+ROADSIDE |</p></li>
+<li><p>| GLA7 | Glasgow Waulkmillglen Reservoir | RURAL |</p></li>
+<li><p>|
+GLA8 | Glasgow Battlefield Road | ROADSIDE |</p></li>
+<li><p>| GLAS | Glasgow Hope St
+| KERBSIDE |</p></li>
+<li><p>| GRA2 | Grangemouth Moray | URBAN BACKGROUND |</p></li>
+<li><p>|
+GRAN | Grangemouth | URBAN INDUSTRIAL |</p></li>
+<li><p>| INV2 | Inverness | ROADSIDE
+|</p></li>
+<li><p>| IRV | North Ayrshire Irvine High St | KERBSIDE |</p></li>
+<li><p>| KILM |
+East Ayrshire Kilmarnock | URBAN BACKGROUND |</p></li>
+<li><p>| KINC | Fife
+Kincardine | ROADSIDE |</p></li>
+<li><p>| KIR | Fife Kirkcaldy | ROADSIDE |</p></li>
+<li><p>|
+LER3 | Lerwick Staney Hill | URBAN BACKGROUND |</p></li>
+<li><p>| LERW | Lerwick |
+RURAL |</p></li>
+<li><p>| LING | West Lothian Linlithgow High Street | ROADSIDE |</p></li>
+<li><p>| MID1 | Midlothian Pathhead | KERBSIDE |</p></li>
+<li><p>| MID2 | Midlothian
+Dalkeith | ROADSIDE |</p></li>
+<li><p>| MUSS | East Lothian Musselburgh N High St |
+ROADSIDE |</p></li>
+<li><p>| NL1 | N Lanarkshire Coatbridge Whifflet | URBAN
+BACKGROUND |</p></li>
+<li><p>| NL2 | N Lanarkshire Coatbridge Ellis St | ROADSIDE |</p></li>
+<li><p>| NL3 | N Lanarkshire Chapelhall | ROADSIDE |</p></li>
+<li><p>| NL4 | N
+Lanarkshire Croy | ROADSIDE |</p></li>
+<li><p>| NL5 | N Lanarkshire Harthill |
+ROADSIDE |</p></li>
+<li><p>| NL6 | N Lanarkshire Motherwell | ROADSIDE |</p></li>
+<li><p>| NL7
+| N Lanarkshire Shawhead Coatbridge | ROADSIDE |</p></li>
+<li><p>| NL8 | N
+Lanarkshire Harthill West | URBAN BACKGROUND |</p></li>
+<li><p>| NL9 | N Lanarkshire
+Moodiesburn | ROADSIDE |</p></li>
+<li><p>| PAI2 | Paisley Glasgow Airport | AIRPORT |</p></li>
+<li><p>| PAI3 | Paisley Gordon Street | ROADSIDE |</p></li>
+<li><p>| PAIS | Paisley
+Central Road | ROADSIDE |</p></li>
+<li><p>| PEEB | Peebles | SUBURBAN |</p></li>
+<li><p>| PET1
+| Perth Crieff | ROADSIDE |</p></li>
+<li><p>| PET2 | Perth Atholl Street | ROADSIDE |</p></li>
+<li><p>| PETH | Perth High Street | ROADSIDE |</p></li>
+<li><p>| ROSY | Fife Rosyth |
+ROADSIDE |</p></li>
+<li><p>| SHED | East Renfrewshire Sheddens | ROADSIDE |</p></li>
+<li><p>|
+STRL | Stirling Craig's Roundabout | ROADSIDE |</p></li>
+<li><p>| SV | Strath Vaich |
+RURAL |</p></li>
+<li><p>| TARB | South Ayrshire Tarbolton | ROADSIDE |</p></li>
+<li><p>| UPH |
+West Lothian Uphall | ROADSIDE |</p></li>
+<li><p>| WDB1 | West Dunbartonshire John
+Knox St | AIRPORT |</p></li>
+<li><p>| WDB2 | West Dunbartonshire Balloch | ROADSIDE |</p></li>
+<li><p>| WDB3 | West Dunbartonshire Clydebank | ROADSIDE |</p></li>
+<li><p>| WDB4 |
+West Dunbartonshire Glasgow Road | ROADSIDE |</p></li>
+<li><p>| WHIT | West Lothian
+Whitburn | URBAN BACKGROUND |</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -336,13 +332,13 @@ Whitburn | URBAN BACKGROUND | </li>
     <pre class="examples"><div class='input'>
 
 <span class='co'>## import all pollutants from Glasgow Roadside</span>
-<span class='co'>## Not run: glas &amp;lt;- importSAQN(site = &amp;quot;gla4&amp;quot;, year = 2000:2009)</span>
+<span class='co'>## Not run: glas &amp;lt;- importSAQN(site = "gla4", year = 2000:2009)</span>
 
 <span class='co'>## import all pollutants from Lerwick rural site (O3)</span>
-<span class='co'>## Not run: ler &amp;lt;- importSAQN(site = &amp;quot;lerw&amp;quot;, year = 2005:2010)</span>
+<span class='co'>## Not run: ler &amp;lt;- importSAQN(site = "lerw", year = 2005:2010)</span>
 
 <span class='co'>## import all pollutants from Glasgow/Dundee Centre for 2009</span>
-<span class='co'>## Not run: all &amp;lt;- importSAQN(site = c(&amp;quot;gla3&amp;quot;, &amp;quot;dun3&amp;quot;), year = 2009)</span></div></pre>
+<span class='co'>## Not run: all &amp;lt;- importSAQN(site = c("gla3", "dun3"), year = 2009)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

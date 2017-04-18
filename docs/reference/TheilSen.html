@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -81,7 +83,7 @@
     <p>Theil-Sen slope estimates and tests for trend.</p>
     
 
-    <pre><span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>deseason</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
+    <pre class="usage"><span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>deseason</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
   <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>dec.place</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"year"</span>,
   <span class='kw'>lab.frac</span> <span class='kw'>=</span> <span class='fl'>0.99</span>, <span class='kw'>lab.cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>x.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
@@ -91,174 +93,226 @@
   <span class='kw'>autocor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>slope.percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>mydata</dt>
-      <dd>A data frame containing the field <code>date</code> and at
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>mydata</th>
+      <td><p>A data frame containing the field <code>date</code> and at
 least one other parameter for which a trend test is required;
-typically (but not necessarily) a pollutant.</dd>
-      <dt>pollutant</dt>
-      <dd>The parameter for which a trend test is required.
-Mandatory.</dd>
-      <dt>deseason</dt>
-      <dd>Should the data be de-deasonalized first? If 
+typically (but not necessarily) a pollutant.</p></td>
+    </tr>
+    <tr>
+      <th>pollutant</th>
+      <td><p>The parameter for which a trend test is required.
+Mandatory.</p></td>
+    </tr>
+    <tr>
+      <th>deseason</th>
+      <td><p>Should the data be de-deasonalized first? If 
 <code>TRUE</code> the function <code>stl</code> is used (seasonal trend 
 decomposition using loess). Note that if <code>TRUE</code> missing
 data are first linearly interpolated because <code>stl</code> cannot
-handle missing data.</dd>
-      <dt>type</dt>
-      <dd><code>type</code> determines how the data are split i.e.
+handle missing data.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p><code>type</code> determines how the data are split i.e.
 conditioned, and then plotted. The default is will produce a 
 single plot using the entire data. Type can be one of the
 built-in types as detailed in <code>cutData</code> e.g.
 &#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For
-example, <code>type = &quot;season&quot;</code> will produce four plots --- one
-for each season.
-
-It is also possible to choose <code>type</code> as another variable in
+example, <code>type = "season"</code> will produce four plots --- one
+for each season.</p>
+<p>It is also possible to choose <code>type</code> as another variable in
 the data frame. If that variable is numeric, then the data will
 be split into four quantiles (if possible) and labelled 
 accordingly. If type is an existing character or factor
 variable, then those categories/levels will be used directly.
 This offers great flexibility for understanding the variation of
-different variables and how they depend on one another.
-
-Type can be up length two e.g. <code>type = c(&quot;season&quot;, 
-&quot;weekday&quot;)</code> will produce a 2x2 plot split by season and day of
+different variables and how they depend on one another.</p>
+<p>Type can be up length two e.g. <code>type = c("season", 
+"weekday")</code> will produce a 2x2 plot split by season and day of
 the week. Note, when two types are provided the first forms the 
-columns and the second the rows.</dd>
-      <dt>avg.time</dt>
-      <dd>Can be &#8220;month&#8221; (the default), 
+columns and the second the rows.</p></td>
+    </tr>
+    <tr>
+      <th>avg.time</th>
+      <td><p>Can be &#8220;month&#8221; (the default), 
 &#8220;season&#8221; or &#8220;year&#8221;. Determines the time over which
 data should be averaged. Note that for &#8220;year&#8221;, six or
 more years are required. For &#8220;season&#8221; the data are split
 up into spring: March, April, May etc. Note that December is
-considered as belonging to winter of the following year.</dd>
-      <dt>statistic</dt>
-      <dd>Statistic used for calculating monthly values.
+considered as belonging to winter of the following year.</p></td>
+    </tr>
+    <tr>
+      <th>statistic</th>
+      <td><p>Statistic used for calculating monthly values.
 Default is &#8220;mean&#8221;, but can also be &#8220;percentile&#8221;.
-See <code>timeAverage</code> for more details.</dd>
-      <dt>percentile</dt>
-      <dd>Single percentile value to use if 
-<code>statistic = &quot;percentile&quot;</code> is chosen.</dd>
-      <dt>data.thresh</dt>
-      <dd>The data capture threshold to use (<!-- %) when  -->
+See <code>timeAverage</code> for more details.</p></td>
+    </tr>
+    <tr>
+      <th>percentile</th>
+      <td><p>Single percentile value to use if 
+<code>statistic = "percentile"</code> is chosen.</p></td>
+    </tr>
+    <tr>
+      <th>data.thresh</th>
+      <td><p>The data capture threshold to use (<!-- %) when  -->
 aggregating the data using <code>avg.time</code>. A value of zero
 means that all available data will be used in a particular
 period regardless if of the number of values available.
 Conversely, a value of 100 will mean that all data will need to
 be present for the average to be calculated, else it is recorded
-as <code>NA</code>.</dd>
-      <dt>alpha</dt>
-      <dd>For the confidence interval calculations of the
+as <code>NA</code>.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>For the confidence interval calculations of the
 slope. The default is 0.05. To show 99% confidence intervals
-for the value of the trend, choose alpha = 0.01 etc.</dd>
-      <dt>dec.place</dt>
-      <dd>The number of decimal places to display the trend
-estimate at. The default is 2.</dd>
-      <dt>xlab</dt>
-      <dd>x-axis label, by default <code>&quot;year&quot;</code>.</dd>
-      <dt>lab.frac</dt>
-      <dd>Fraction along the y-axis that the trend
-information should be printed at, default 0.99.</dd>
-      <dt>lab.cex</dt>
-      <dd>Size of text for trend information.</dd>
-      <dt>x.relation</dt>
-      <dd>This determines how the x-axis scale is plotted.
+for the value of the trend, choose alpha = 0.01 etc.</p></td>
+    </tr>
+    <tr>
+      <th>dec.place</th>
+      <td><p>The number of decimal places to display the trend
+estimate at. The default is 2.</p></td>
+    </tr>
+    <tr>
+      <th>xlab</th>
+      <td><p>x-axis label, by default <code>"year"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>lab.frac</th>
+      <td><p>Fraction along the y-axis that the trend
+information should be printed at, default 0.99.</p></td>
+    </tr>
+    <tr>
+      <th>lab.cex</th>
+      <td><p>Size of text for trend information.</p></td>
+    </tr>
+    <tr>
+      <th>x.relation</th>
+      <td><p>This determines how the x-axis scale is plotted.
 &#8220;same&#8221; ensures all panels use the same scale and 
 &#8220;free&#8221; will use panel-specfic scales. The latter is a 
-useful setting when plotting data with very different values.</dd>
-      <dt>y.relation</dt>
-      <dd>This determines how the y-axis scale is plotted.
+useful setting when plotting data with very different values.</p></td>
+    </tr>
+    <tr>
+      <th>y.relation</th>
+      <td><p>This determines how the y-axis scale is plotted.
 &#8220;same&#8221; ensures all panels use the same scale and 
 &#8220;free&#8221; will use panel-specfic scales. The latter is a 
-useful setting when plotting data with very different values.</dd>
-      <dt>data.col</dt>
-      <dd>Colour name for the data</dd>
-      <dt>trend</dt>
-      <dd>list containing information on the line width, line 
+useful setting when plotting data with very different values.</p></td>
+    </tr>
+    <tr>
+      <th>data.col</th>
+      <td><p>Colour name for the data</p></td>
+    </tr>
+    <tr>
+      <th>trend</th>
+      <td><p>list containing information on the line width, line 
 type and line colour for the main trend line and confidence 
-intervals respectively.</dd>
-      <dt>text.col</dt>
-      <dd>Colour name for the slope/uncertainty numeric
-estimates</dd>
-      <dt>slope.text</dt>
-      <dd>The text shown for the slope (default is
-&#8216;units/year&#8217;).</dd>
-      <dt>cols</dt>
-      <dd>Predefined colour scheme, currently only enabled for 
-<code>&quot;greyscale&quot;</code>.</dd>
-      <dt>shade</dt>
-      <dd>The colour used for marking alternate years. Use 
-&#8220;white&#8221; or &#8220;transparent&#8221; to remove shading.</dd>
-      <dt>auto.text</dt>
-      <dd>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
+intervals respectively.</p></td>
+    </tr>
+    <tr>
+      <th>text.col</th>
+      <td><p>Colour name for the slope/uncertainty numeric
+estimates</p></td>
+    </tr>
+    <tr>
+      <th>slope.text</th>
+      <td><p>The text shown for the slope (default is
+&#8216;units/year&#8217;).</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>Predefined colour scheme, currently only enabled for 
+<code>"greyscale"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>shade</th>
+      <td><p>The colour used for marking alternate years. Use 
+&#8220;white&#8221; or &#8220;transparent&#8221; to remove shading.</p></td>
+    </tr>
+    <tr>
+      <th>auto.text</th>
+      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
 <code>TRUE</code> titles and axis labels will automatically try and
 format pollutant names and units properly e.g.  by subscripting
-the &#8216;2&#8217; in NO2.</dd>
-      <dt>autocor</dt>
-      <dd>Should autocorrelation be considered in the trend 
+the &#8216;2&#8217; in NO2.</p></td>
+    </tr>
+    <tr>
+      <th>autocor</th>
+      <td><p>Should autocorrelation be considered in the trend 
 uncertainty estimates? The default is <code>FALSE</code>. Generally,
 accounting for autocorrelation increases the uncertainty of the
-trend estimate --- sometimes by a large amount.</dd>
-      <dt>slope.percent</dt>
-      <dd>Should the slope and the slope uncertainties 
+trend estimate --- sometimes by a large amount.</p></td>
+    </tr>
+    <tr>
+      <th>slope.percent</th>
+      <td><p>Should the slope and the slope uncertainties 
 be expressed as a percentage change per year? The default is 
 <code>FALSE</code> and the slope is expressed as an average units/year
 change e.g. ppb.  Percentage changes can often be confusing and 
 should be clearly defined.  Here the percentage change is 
 expressed as 100 * (C.end/C.start - 1) / (end.year - 
 start.year). Where C.start is the concentration at the start 
-date and C.end is the concentration at the end date.
-
-For <code>avg.time = &quot;year&quot;</code> (end.year - start.year) will be the
+date and C.end is the concentration at the end date.</p>
+<p>For <code>avg.time = "year"</code> (end.year - start.year) will be the
 total number of years - 1. For example, given a concentration in
 year 1 of 100 units and a percentage reduction of 5<!-- %/yr, after 5 -->
 years there will be 75 units but the actual time span will be 6 
 years i.e. year 1 is used as a reference year. Things are
 slightly different for monthly values e.g.  <code>avg.time =
-&quot;month&quot;</code>, which will use the total number of months as a basis
+"month"</code>, which will use the total number of months as a basis
 of the time span and is therefore able to deal with partial
 years.  There can be slight differences in the <!-- %/yr trend -->
 estimate therefore, depending on whether monthly or annual
-values are considered.</dd>
-      <dt>date.breaks</dt>
-      <dd>Number of major x-axis intervals to use. The 
+values are considered.</p></td>
+    </tr>
+    <tr>
+      <th>date.breaks</th>
+      <td><p>Number of major x-axis intervals to use. The 
 function will try and choose a sensible number of dates/times as
 well as formatting the date/time appropriately to the range 
 being considered. This does not always work as desired
 automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of <code>date.breaks</code>
-up or down.</dd>
-      <dt>...</dt>
-      <dd>Other graphical parameters passed onto <code>cutData</code>
+up or down.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other graphical parameters passed onto <code>cutData</code>
 and <code>lattice:xyplot</code>. For example, <code>TheilSen</code> passes
-the option <code>hemisphere = &quot;southern&quot;</code> on to <code>cutData</code>
+the option <code>hemisphere = "southern"</code> on to <code>cutData</code>
 to provide southern (rather than default northern) hemisphere
-handling of <code>type = &quot;season&quot;</code>. Similarly, common axis and
+handling of <code>type = "season"</code>. Similarly, common axis and
 title labelling options (such as <code>xlab</code>, <code>ylab</code>,
 <code>main</code>) are passed to <code>xyplot</code> via <code>quickText</code> to
-handle routine formatting.</dd>
-    </dl>
+handle routine formatting.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>As well as generating the plot itself, <code>TheilSen</code>
-  also returns an object of class ``openair&#39;&#39;. The object includes
+  also returns an object of class ``openair''. The object includes
   three main components: <code>call</code>, the command used to generate
   the plot; <code>data</code>, the data frame of summarised information
   used to make the plot; and <code>plot</code>, the plot itself. If
-  retained, e.g. using <code>output &lt;- TheilSen(mydata, &quot;nox&quot;)</code>,
+  retained, e.g. using <code>output &lt;- TheilSen(mydata, "nox")</code>,
   this output can be used to recover the data, reproduce or rework
-  the original plot or undertake further analysis.</p>
-    <p>An openair output can be manipulated using a number of generic
+  the original plot or undertake further analysis.
+  
+  An openair output can be manipulated using a number of generic
   operations, including <code>print</code>, <code>plot</code> and
-  <code>summary</code>.</p>
-    <p>The <code>data</code> component of the <code>TheilSen</code> output includes
+  <code>summary</code>.
+  
+  The <code>data</code> component of the <code>TheilSen</code> output includes
   two subsets: <code>main.data</code>, the monthly data <code>res2</code> the
-  trend statistics. For <code>output &lt;- TheilSen(mydata, &quot;nox&quot;)</code>,
+  trend statistics. For <code>output &lt;- TheilSen(mydata, "nox")</code>,
   these can be extracted as <code>object$data$main.data</code> and
   <code>object$data$res2</code>, respectively.</p>
-    <p>Note: In the case of the intercept, it is assumed the y-axis crosses the
+<p>Note: In the case of the intercept, it is assumed the y-axis crosses the
   x-axis on 1/1/1970.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -271,21 +325,21 @@ flexibility makes it much easier to draw inferences from data
 e.g. why is there a strong downward trend in concentration from
 one wind sector and not another, or why trends on one day of the
 week or a certain time of day are unexpected.</p>
-    <p>For data that are strongly seasonal, perhaps from a background
+<p>For data that are strongly seasonal, perhaps from a background
 site, or a pollutant such as ozone, it will be important to
 deseasonalise the data (using the option <code>deseason =
 TRUE</code>.Similarly, for data that increase, then decrease, or show
 sharp changes it may be better to use <code><a href='smoothTrend.html'>smoothTrend</a></code>.</p>
-    <p>A minimum of 6 points are required for trend estimates to be made.</p>
-    <p>Note! that since version 0.5-11 openair uses Theil-Sen to derive
+<p>A minimum of 6 points are required for trend estimates to be made.</p>
+<p>Note! that since version 0.5-11 openair uses Theil-Sen to derive
 the p values also for the slope. This is to ensure there is
 consistency between the calculated p value and other trend
 parameters i.e. slope estimates and uncertainties. The p value and
 all uncertainties are calculated through bootstrap simulations.</p>
-    <p>Note that the symbols shown next to each trend estimate relate to
+<p>Note that the symbols shown next to each trend estimate relate to
 how statistically significant the trend estimate is: p $&lt;$ 0.001 =
 ***, p $&lt;$ 0.01 = **, p $&lt;$ 0.05 = * and p $&lt;$ 0.1 = $+$.</p>
-    <p>Some of the code used in <code>TheilSen</code> is based on that from
+<p>Some of the code used in <code>TheilSen</code> is based on that from
 Rand Wilcox <a href = 'http://www-rcf.usc.edu/~rwilcox/'>http://www-rcf.usc.edu/~rwilcox/</a>. This mostly
 relates to the Theil-Sen slope estimates and uncertainties.
 Further modifications have been made to take account of correlated
@@ -294,7 +348,7 @@ to take account of auto-correlated data using block bootstrap
 simulations if <code>autocor = TRUE</code> (Kunsch, 1989). We follow the
 suggestion of Kunsch (1989) of setting the block length to n(1/3)
 where n is the length of the time series.</p>
-    <p>The slope estimate and confidence intervals in the slope are plotted and
+<p>The slope estimate and confidence intervals in the slope are plotted and
 numerical information presented.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -303,19 +357,19 @@ numerical information presented.</p>
   Geological Survey.  <a href = 'http://pubs.usgs.gov/twri/twri4a3/'>http://pubs.usgs.gov/twri/twri4a3/</a>. Note that
   this is a very good resource for statistics as applied to environmental
   data.</p>
-    <p>Hirsch, R. M., Slack, J. R., Smith, R. A., 1982. Techniques of trend
+<p>Hirsch, R. M., Slack, J. R., Smith, R. A., 1982. Techniques of trend
   analysis for monthly water-quality data. Water Resources Research 18 (1),
   107-121.</p>
-    <p>Kunsch, H. R., 1989. The jackknife and the bootstrap for general stationary
+<p>Kunsch, H. R., 1989. The jackknife and the bootstrap for general stationary
   observations. Annals of Statistics 17 (3), 1217-1241.</p>
-    <p>Sen, P. K., 1968. Estimates of regression coefficient based on
-Kendall&#39;s tau. Journal of the American Statistical Association
+<p>Sen, P. K., 1968. Estimates of regression coefficient based on
+Kendall's tau. Journal of the American Statistical Association
 63(324).</p>
-    <p>Theil, H., 1950. A rank invariant method of linear and polynomial
+<p>Theil, H., 1950. A rank invariant method of linear and polynomial
 regression analysis, i, ii, iii. Proceedings of the Koninklijke
 Nederlandse Akademie Wetenschappen, Series A - Mathematical
-Sciences 53, 386-392, 521-525, 1397-1412.</p>
-    <p>&#8230; see also several of the Air Quality Expert Group (AQEG) reports for
+Sciences 53, 386-392, 521-525, 1397-1412.
+    &#8230; see also several of the Air Quality Expert Group (AQEG) reports for
   the use of similar tests applied to UK/European air quality data, see
   <a href = 'http://uk-air.defra.gov.uk/library/aqeg/'>http://uk-air.defra.gov.uk/library/aqeg/</a>.</p>
     
@@ -334,17 +388,17 @@ Sciences 53, 386-392, 521-525, 1397-1412.</p>
 <span class='fu'>data</span>(<span class='no'>mydata</span>)
 
 <span class='co'># trend plot for nox</span>
-<span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; [1] &quot;Taking bootstrap samples. Please wait.&quot;</div><img src='TheilSen-3.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; [1] "Taking bootstrap samples. Please wait."</div><img src='TheilSen-3.png' alt='' width='540' height='400' /><div class='input'>
 <span class='co'># trend plot for ozone with p=0.01 i.e. uncertainty in slope shown at</span>
 <span class='co'># 99 % confidence interval</span>
 
-<span class='co'>## Not run: TheilSen(mydata, pollutant = &amp;quot;o3&amp;quot;, ylab = &amp;quot;o3 (ppb)&amp;quot;, alpha = 0.01)</span>
+<span class='co'>## Not run: TheilSen(mydata, pollutant = "o3", ylab = "o3 (ppb)", alpha = 0.01)</span>
 
 <span class='co'># trend plot by each of 8 wind sectors</span>
-<span class='co'>## Not run: TheilSen(mydata, pollutant = &amp;quot;o3&amp;quot;, type = &amp;quot;wd&amp;quot;, ylab = &amp;quot;o3 (ppb)&amp;quot;)</span>
+<span class='co'>## Not run: TheilSen(mydata, pollutant = "o3", type = "wd", ylab = "o3 (ppb)")</span>
 
 <span class='co'># and for a subset of data (from year 2000 onwards)</span>
-<span class='co'>## Not run: TheilSen(selectByDate(mydata, year = 2000:2005), pollutant = &amp;quot;o3&amp;quot;, ylab = &amp;quot;o3 (ppb)&amp;quot;)</span></div></pre>
+<span class='co'>## Not run: TheilSen(selectByDate(mydata, year = 2000:2005), pollutant = "o3", ylab = "o3 (ppb)")</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

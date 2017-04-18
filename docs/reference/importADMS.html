@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -79,111 +81,134 @@
 
     
     <p>Function(s) to import various ADMS file types into openair. Currently
-handles &quot;.met&quot;, &quot;.bgd&quot;, &quot;.mop&quot; and &quot;.pst&quot; file structures. Uses
+handles ".met", ".bgd", ".mop" and ".pst" file structures. Uses
 <code>read.csv</code> (in <code>utils</code>) to read in data, format for R and openair
 and apply some file structure testing.</p>
     
 
-    <pre><span class='fu'>importADMS</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'>file.choose</span>(), <span class='kw'>file.type</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>drop.case</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>importADMS</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'>file.choose</span>(), <span class='kw'>file.type</span> <span class='kw'>=</span> <span class='st'>"unknown"</span>, <span class='kw'>drop.case</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>drop.input.dates</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>keep.units</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>simplify.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>test.file.structure</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>drop.delim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>add.prefixes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>file</dt>
-      <dd>The ADMS file to be imported. Default, <code>file.choose()</code>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>file</th>
+      <td><p>The ADMS file to be imported. Default, <code>file.choose()</code>
 opens browser. Use of <code>read.csv</code> (in <code>utils</code>) also allows this
 to be a readable text-mode connection or url (although these options are
-currently not fully tested).</dd>
-      <dt>file.type</dt>
-      <dd>Type of ADMS file to be imported. With default, &quot;unknown&quot;,
+currently not fully tested).</p></td>
+    </tr>
+    <tr>
+      <th>file.type</th>
+      <td><p>Type of ADMS file to be imported. With default, "unknown",
 the import uses the file extension to identify the file type and, where
 recognised, uses this to identify the file structure and import method to
 be applied. Where file extension is not recognised the choice may be
 forced by setting <code>file.type</code> to one of the known <code>file.type</code>
-options: &quot;bgd&quot;, &quot;met&quot;, &quot;mop&quot; or &quot;pst&quot;.</dd>
-      <dt>drop.case</dt>
-      <dd>Option to convert all data names to lower case. Default,
+options: "bgd", "met", "mop" or "pst".</p></td>
+    </tr>
+    <tr>
+      <th>drop.case</th>
+      <td><p>Option to convert all data names to lower case. Default,
 <code>TRUE</code>.  Alternative, <code>FALSE</code>, returns data with name cases as
-defined in file.</dd>
-      <dt>drop.input.dates</dt>
-      <dd>Option to remove ADMS &quot;hour&quot;, &quot;day&quot;, and &quot;year&quot;
-data columns after generating openair &quot;date&quot; timeseries. Default,
-<code>TRUE</code>. Alternative, <code>FALSE</code>, returns both &quot;date&quot; and the
-associated ADMS data columns as part of openair data frame.</dd>
-      <dt>keep.units</dt>
-      <dd>Option to retain ADMS data units. Default, <code>TRUE</code>,
+defined in file.</p></td>
+    </tr>
+    <tr>
+      <th>drop.input.dates</th>
+      <td><p>Option to remove ADMS "hour", "day", and "year"
+data columns after generating openair "date" timeseries. Default,
+<code>TRUE</code>. Alternative, <code>FALSE</code>, returns both "date" and the
+associated ADMS data columns as part of openair data frame.</p></td>
+    </tr>
+    <tr>
+      <th>keep.units</th>
+      <td><p>Option to retain ADMS data units. Default, <code>TRUE</code>,
 retains units (if recoverable) as character vector in data frame comment
 if defined in <code>file</code>.  Alternative, <code>FALSE</code>, discards units.
 (NOTE: currently, only <code>.bgd</code> and <code>.pst</code> files assign units.
 So, this option is ignored when importing <code>.met</code> or <code>.mop</code>
-files.)</dd>
-      <dt>simplify.names</dt>
-      <dd>Option to simplify data names in accordance with
+files.)</p></td>
+    </tr>
+    <tr>
+      <th>simplify.names</th>
+      <td><p>Option to simplify data names in accordance with
 common <code>openair</code> practices. Default, <code>TRUE</code>. Alternative,
 <code>FALSE</code>, returns data with names as interpreted by standard R.
 (NOTE: Some ADMS file data names include symbols and structures that R
 does not allow as part of a name, so some renaming is automatic
 regardless of <code>simplify.names</code> setting.  For example, brackets or
-symbols are removed from names or repaced with &quot;.&quot;, and names in the form
-&quot;1/x&quot; may be returned as &quot;X1.x&quot; or &quot;recip.x&quot;.)</dd>
-      <dt>test.file.structure</dt>
-      <dd>Option to test file structure before trying to
+symbols are removed from names or repaced with ".", and names in the form
+"1/x" may be returned as "X1.x" or "recip.x".)</p></td>
+    </tr>
+    <tr>
+      <th>test.file.structure</th>
+      <td><p>Option to test file structure before trying to
 import. Default, <code>TRUE</code>, tests for expected file structure and halts
 import operation if this is not found.  Alternative, <code>FALSE</code>,
-attempts import regardless of structure.</dd>
-      <dt>drop.delim</dt>
-      <dd>Option to remove delim columns from the data frame. ADMS
-.mop files include two columns, &quot;INPUT_DATA:&quot; and &quot;PROCESSED_DATA:&quot;, to
+attempts import regardless of structure.</p></td>
+    </tr>
+    <tr>
+      <th>drop.delim</th>
+      <td><p>Option to remove delim columns from the data frame. ADMS
+.mop files include two columns, "INPUT_DATA:" and "PROCESSED_DATA:", to
 separate model input and output types.  Default, <code>TRUE</code>, removes
 these. Alternative, <code>FALSE</code>, retains them as part of import.  (Note:
 Option ignored when importing <code>.bgd</code>, <code>.met</code> or <code>.pst</code>
-files.)</dd>
-      <dt>add.prefixes</dt>
-      <dd>Option to add prefixes to data names. ADMS .mop files
+files.)</p></td>
+    </tr>
+    <tr>
+      <th>add.prefixes</th>
+      <td><p>Option to add prefixes to data names. ADMS .mop files
 include a number of input and process data types with shared names.
 Prefixes can be automatically added to these so individual data can be
 readily identified in the R/openair environment. Default, <code>TRUE</code>,
-adds &quot;process.&quot; as a prefix to processed data. Other options include:
+adds "process." as a prefix to processed data. Other options include:
 <code>FALSE</code> which uses no prefixes and leave all name rationalisation to
 R, and character vectors which are treated as the required prefixes. If
 one vector is sent, this is treated as processed data prefix. If two (or
 more) vectors are sent, the first and second are treated as the input and
 processed data prefixes, respectively. For example, the argument
-(<code>add.prefixes=&quot;out&quot;</code>) would add the &quot;out&quot; prefix to processed data
-names, while the argument (<code>add.prefixes=c(&quot;in&quot;,&quot;out&quot;)</code>) would add
-&quot;in&quot; and &quot;out&quot; prefixes to input and output data names, respectively.
+(<code>add.prefixes="out"</code>) would add the "out" prefix to processed data
+names, while the argument (<code>add.prefixes=c("in","out")</code>) would add
+"in" and "out" prefixes to input and output data names, respectively.
 (Note: Option ignored when importing <code>.bgd</code>, <code>.met</code> or
-<code>.pst</code> files.)</dd>
-      <dt>names</dt>
-      <dd>Option applied by <code>simplifyNamesADMS</code> when
+<code>.pst</code> files.)</p></td>
+    </tr>
+    <tr>
+      <th>names</th>
+      <td><p>Option applied by <code>simplifyNamesADMS</code> when
 <code>simplify.names</code> is enabled.  All names are simplified for the
-default setting, <code>NULL</code>.</dd>
-      <dt>...</dt>
-      <dd>Additional arguments, passed to <code>read.csv</code> as part of
-import operation.</dd>
-    </dl>
+default setting, <code>NULL</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments, passed to <code>read.csv</code> as part of
+import operation.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>In standard use <code>importADMS()</code> returns a data frame for use in
   openair. By comparison to the original file, the resulting data frame is
   modified as follows:</p>
-    <p>Time and date information will combined in a single column &quot;date&quot;,
+<p>Time and date information will combined in a single column "date",
   formatted as a conventional timeseries (<code>as.POSIX*</code>). If
   <code>drop.input.dates</code> is enabled data series combined to generated the
-  new &quot;date&quot; data series will also be removed.</p>
-    <p>If <code>simplify.names</code> is enabled common chemical names may be
+  new "date" data series will also be removed.</p>
+<p>If <code>simplify.names</code> is enabled common chemical names may be
   simplified, and some other parameters may be reset to openair standards
-  (e.g. &quot;ws&quot;, &quot;wd&quot; and &quot;temp&quot;) according to operations defined in
+  (e.g. "ws", "wd" and "temp") according to operations defined in
   <code>simplifyNamesADMS</code>. A summary of simplfication operations can be
   obtained using, e.g., the call <code>importADMS(simplify.names)</code>.</p>
-    <p>If <code>drop.case</code> is enabled all upper case characters in names will be
+<p>If <code>drop.case</code> is enabled all upper case characters in names will be
   converted to lower case.</p>
-    <p>If <code>keep.units</code> is enabled data units information may also be retained
+<p>If <code>keep.units</code> is enabled data units information may also be retained
   as part of the data frame comment if available.</p>
-    <p>With <code>.mop</code> files, input and processed data series names may also been
+<p>With <code>.mop</code> files, input and processed data series names may also been
   modified on the basis of <code>drop.delim</code> and <code>add.prefixes</code>
   settings</p>
     
@@ -195,7 +220,7 @@ work in default configuration, e.g. <code>mydata &lt;- importADMS()</code>. The
 function currently recognises four file formats: <code>.bgd</code>, <code>.met</code>,
 <code>.mop</code> and <code>.pst</code>.  Where other file extensions have been set but
 the file structure is known, the import call can be forced by, e.g,
-<code>mydata &lt;- importADMS(file.type=&quot;bgd&quot;)</code>. Other options can be adjusted
+<code>mydata &lt;- importADMS(file.type="bgd")</code>. Other options can be adjusted
 to provide fine control of the data structuring and renaming.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
@@ -224,7 +249,7 @@ to provide fine control of the data structuring and renaming.</p>
 <span class='fu'>importADMS</span>(<span class='no'>simplify.names</span>)</div><div class='output co'>#&gt; <span class='message'>Simplification operation summary</span></div><div class='output co'>#&gt; <span class='message'>[ADMS =&gt; R =&gt; OPENAIR]:</span></div><div class='output co'>#&gt; <span class='message'>	1/LMO =&gt; X1.LMO =&gt; RECIP.LMO</span></div><div class='output co'>#&gt; <span class='message'>	1/MONIN-OBUKHOV LENGTH =&gt; X1.MONIN.OBUKHOV.LENGTH =&gt; RECIP.LMO</span></div><div class='output co'>#&gt; <span class='message'>	ALBEDO(D) =&gt; ALBEDO.D. =&gt; ALBEDO.DISP</span></div><div class='output co'>#&gt; <span class='message'>	ALBEDO (D) =&gt; ALBEDO..D. =&gt; ALBEDO.DISP</span></div><div class='output co'>#&gt; <span class='message'>	ALBEDO(DISP) =&gt; ALBEDO.DISP. =&gt; ALBEDO.DISP</span></div><div class='output co'>#&gt; <span class='message'>	ALBEDO (DISP) =&gt; ALBEDO..DISP. =&gt; ALBEDO.DISP</span></div><div class='output co'>#&gt; <span class='message'>	ALBEDO (DISPERSION AREA) =&gt; ALBEDO..DISPERSION.AREA. =&gt; ALBEDO.DISP</span></div><div class='output co'>#&gt; <span class='message'>	ALBEDO(M) =&gt; ALBEDO.M. =&gt; ALBEDO.MET</span></div><div class='output co'>#&gt; <span class='message'>	ALBEDO (M) =&gt; ALBEDO..M. =&gt; ALBEDO.MET</span></div><div class='output co'>#&gt; <span class='message'>	ALBEDO(MET) =&gt; ALBEDO.MET. =&gt; ALBEDO.MET</span></div><div class='output co'>#&gt; <span class='message'>	ALBEDO (MET) =&gt; ALBEDO..MET. =&gt; ALBEDO.MET</span></div><div class='output co'>#&gt; <span class='message'>	ALBEDO (MET SITE) =&gt; ALBEDO..MET.SITE. =&gt; ALBEDO.MET</span></div><div class='output co'>#&gt; <span class='message'>	ALPHA(D) =&gt; ALPHA.D. =&gt; ALPHA.DISP</span></div><div class='output co'>#&gt; <span class='message'>	ALPHA (D) =&gt; ALPHA..D. =&gt; ALPHA.DISP</span></div><div class='output co'>#&gt; <span class='message'>	ALPHA(DISP) =&gt; ALPHA.DISP. =&gt; ALPHA.DISP</span></div><div class='output co'>#&gt; <span class='message'>	ALPHA (DISP) =&gt; ALPHA..DISP. =&gt; ALPHA.DISP</span></div><div class='output co'>#&gt; <span class='message'>	ALPHA(M) =&gt; ALPHA.M. =&gt; ALPHA.MET</span></div><div class='output co'>#&gt; <span class='message'>	ALPHA (M) =&gt; ALPHA..M. =&gt; ALPHA.MET</span></div><div class='output co'>#&gt; <span class='message'>	ALPHA(MET) =&gt; ALPHA.MET. =&gt; ALPHA.MET</span></div><div class='output co'>#&gt; <span class='message'>	ALPHA (MET) =&gt; ALPHA..MET. =&gt; ALPHA.MET</span></div><div class='output co'>#&gt; <span class='message'>	BL DEPTH =&gt; BL.DEPTH =&gt; H</span></div><div class='output co'>#&gt; <span class='message'>	BOUNDARY LAYER DEPTH =&gt; BOUNDARY.LAYER.DEPTH =&gt; H</span></div><div class='output co'>#&gt; <span class='message'>	BUOYANCY FREQUENCY ABOVE BOUNDARY LAYER =&gt; BUOYANCY.FREQUENCY.ABOVE.BOUNDARY.LAYER =&gt; NU</span></div><div class='output co'>#&gt; <span class='message'>	CLOUD =&gt; CLOUD =&gt; CL</span></div><div class='output co'>#&gt; <span class='message'>	CLOUD AMOUNT (OKTAS) =&gt; CLOUD.AMOUNT..OKTAS. =&gt; CL</span></div><div class='output co'>#&gt; <span class='message'>	Conc|ppb|NAME|SOURCES|-| RESOLUTION =&gt; Conc.ppb.NAME.SOURCES....RESOLUTION =&gt; NAME.SOURCES.RESOLUTION</span></div><div class='output co'>#&gt; <span class='message'>	Conc|ppm|NAME|SOURCES|-| RESOLUTION =&gt; Conc.ppm.NAME.SOURCES....RESOLUTION =&gt; NAME.SOURCES.RESOLUTION</span></div><div class='output co'>#&gt; <span class='message'>	Conc|ug/m3|NAME|SOURCES|-| RESOLUTION =&gt; Conc.ug.m3.NAME.SOURCES....RESOLUTION =&gt; NAME.SOURCES.RESOLUTION</span></div><div class='output co'>#&gt; <span class='message'>	NAME.All.sources.1hr =&gt; NAME.All.sources.1hr =&gt; NAME</span></div><div class='output co'>#&gt; <span class='message'>	NAME.All.sources.RESOLUTION =&gt; NAME.All.sources.RESOLUTION =&gt; NAME.RESOLUTION</span></div><div class='output co'>#&gt; <span class='message'>	NAME.SOURCE.1hr =&gt; NAME.SOURCE.1hr =&gt; NAME.SOURCE</span></div><div class='output co'>#&gt; <span class='message'>	D(RELATIVE HUMIDITY)/DZ ABOVE BOUNDARY LAYER (PERCENT/M) =&gt; D.RELATIVE.HUMIDITY..DZ.ABOVE.BOUNDARY.LAYER..PERCENT.M. =&gt; DRHDZU</span></div><div class='output co'>#&gt; <span class='message'>	DELTAPHI =&gt; DELTAPHI =&gt; DELTA.WD</span></div><div class='output co'>#&gt; <span class='message'>	DELTAT =&gt; DELTAT =&gt; DELTA.T</span></div><div class='output co'>#&gt; <span class='message'>	DELTA T =&gt; DELTA.T =&gt; DELTA.T</span></div><div class='output co'>#&gt; <span class='message'>	DELTATHETA =&gt; DELTATHETA =&gt; DELTA.THETA</span></div><div class='output co'>#&gt; <span class='message'>	DELTA THETA =&gt; DELTA.THETA =&gt; DELTA.THETA</span></div><div class='output co'>#&gt; <span class='message'>	DIRN CHANGE =&gt; DIRN.CHANGE =&gt; DELTA.WD</span></div><div class='output co'>#&gt; <span class='message'>	DRH/DZ =&gt; DRH.DZ =&gt; DRHDZU</span></div><div class='output co'>#&gt; <span class='message'>	GEOSTROPHIC MINUS SURFACE WIND DIRECTION (DEGREES) =&gt; GEOSTROPHIC.MINUS.SURFACE.WIND.DIRECTION..DEGREES. =&gt; DELTA.WD</span></div><div class='output co'>#&gt; <span class='message'>	HEAT FLUX =&gt; HEAT.FLUX =&gt; FTHETA0</span></div><div class='output co'>#&gt; <span class='message'>	INCOMING SOLAR RADIATION =&gt; INCOMING.SOLAR.RADIATION =&gt; K</span></div><div class='output co'>#&gt; <span class='message'>	LATENT HEAT FLUX =&gt; LATENT.HEAT.FLUX =&gt; LAMBDAE</span></div><div class='output co'>#&gt; <span class='message'>	LAT HT FLUX =&gt; LAT.HT.FLUX =&gt; LAMBDAE</span></div><div class='output co'>#&gt; <span class='message'>	MODIFIED PRIESTLEY-TAYLOR PARAMETER (DISPERSION AREA) =&gt; MODIFIED.PRIESTLEY.TAYLOR.PARAMETER..DISPERSION.AREA. =&gt; ALPHA.DISP</span></div><div class='output co'>#&gt; <span class='message'>	MODIFIED PRIESTLEY-TAYLOR PARAMETER (MET SITE) =&gt; MODIFIED.PRIESTLEY.TAYLOR.PARAMETER..MET.SITE. =&gt; ALPHA.MET</span></div><div class='output co'>#&gt; <span class='message'>	N ABOVE BL =&gt; N.ABOVE.BL =&gt; NU</span></div><div class='output co'>#&gt; <span class='message'>	PHI =&gt; PHI =&gt; WD</span></div><div class='output co'>#&gt; <span class='message'>	PHI0 =&gt; PHI0 =&gt; WD.0</span></div><div class='output co'>#&gt; <span class='message'>	PHIG =&gt; PHIG =&gt; WD.G</span></div><div class='output co'>#&gt; <span class='message'>	PHISEC =&gt; PHISEC =&gt; WD.SEC</span></div><div class='output co'>#&gt; <span class='message'>	PRECIP =&gt; PRECIP =&gt; P</span></div><div class='output co'>#&gt; <span class='message'>	PRECIPITATION RATE (MM/HOUR) =&gt; PRECIPITATION.RATE..MM.HOUR. =&gt; P</span></div><div class='output co'>#&gt; <span class='message'>	R =&gt; R =&gt; ALBEDO.MET</span></div><div class='output co'>#&gt; <span class='message'>	RECIPLMO =&gt; RECIPLMO =&gt; RECIP.LMO</span></div><div class='output co'>#&gt; <span class='message'>	RELATIVE HUMIDITY ABOVE BOUNDARY LAYER (PERCENT) =&gt; RELATIVE.HUMIDITY.ABOVE.BOUNDARY.LAYER..PERCENT. =&gt; RHU</span></div><div class='output co'>#&gt; <span class='message'>	RH ABOVE BL =&gt; RH.ABOVE.BL =&gt; RHU</span></div><div class='output co'>#&gt; <span class='message'>	RHUM =&gt; RHUM =&gt; RHU</span></div><div class='output co'>#&gt; <span class='message'>	ROUGHNESS LENGTH (DISPERSION AREA) =&gt; ROUGHNESS.LENGTH..DISPERSION.AREA. =&gt; Z0.DISP</span></div><div class='output co'>#&gt; <span class='message'>	ROUGHNESS LENGTH (MET SITE) =&gt; ROUGHNESS.LENGTH..MET.SITE. =&gt; Z0.MET</span></div><div class='output co'>#&gt; <span class='message'>	S HUMIDITY =&gt; S.HUMIDITY =&gt; SHU</span></div><div class='output co'>#&gt; <span class='message'>	SEA SURFACE TEMPERATURE (C) =&gt; SEA.SURFACE.TEMPERATURE..C. =&gt; TSEA</span></div><div class='output co'>#&gt; <span class='message'>	SEA TEMP =&gt; SEA.TEMP =&gt; TSEA</span></div><div class='output co'>#&gt; <span class='message'>	SENSIBLE HEAT FLUX =&gt; SENSIBLE.HEAT.FLUX =&gt; FTHETA0</span></div><div class='output co'>#&gt; <span class='message'>	SIGMATHETA =&gt; SIGMATHETA =&gt; SIGMA.THETA</span></div><div class='output co'>#&gt; <span class='message'>	SIGMA THETA =&gt; SIGMA.THETA =&gt; SIGMA.THETA</span></div><div class='output co'>#&gt; <span class='message'>	SIGMA THETA (DEGREES) =&gt; SIGMA.THETA..DEGREES. =&gt; SIGMA.THETA</span></div><div class='output co'>#&gt; <span class='message'>	SOLAR RAD =&gt; SOLAR.RAD =&gt; K</span></div><div class='output co'>#&gt; <span class='message'>	SPECIFIC HUMIDITY =&gt; SPECIFIC.HUMIDITY =&gt; SHU</span></div><div class='output co'>#&gt; <span class='message'>	T0C =&gt; T0C =&gt; TEMP</span></div><div class='output co'>#&gt; <span class='message'>	TEMPERATURE =&gt; TEMPERATURE =&gt; TEMP</span></div><div class='output co'>#&gt; <span class='message'>	TEMPERATURE (C) =&gt; TEMPERATURE..C. =&gt; TEMP</span></div><div class='output co'>#&gt; <span class='message'>	TEMPERATURE JUMP ACROSS BOUNDARY LAYER TOP =&gt; TEMPERATURE.JUMP.ACROSS.BOUNDARY.LAYER.TOP =&gt; DELTA.THETA</span></div><div class='output co'>#&gt; <span class='message'>	TEMPERATURE OVER LAND MINUS SEA SURFACE TEMPERATURE =&gt; TEMPERATURE.OVER.LAND.MINUS.SEA.SURFACE.TEMPERATURE =&gt; DELTA.T</span></div><div class='output co'>#&gt; <span class='message'>	Time(s) =&gt; Time.s. =&gt; Time</span></div><div class='output co'>#&gt; <span class='message'>	U =&gt; U =&gt; WS</span></div><div class='output co'>#&gt; <span class='message'>	UG =&gt; UG =&gt; WS.G</span></div><div class='output co'>#&gt; <span class='message'>	UGSTAR =&gt; UGSTAR =&gt; WS.GSTAR</span></div><div class='output co'>#&gt; <span class='message'>	USTAR =&gt; USTAR =&gt; WS.STAR</span></div><div class='output co'>#&gt; <span class='message'>	WIND DIRN =&gt; WIND.DIRN =&gt; WD</span></div><div class='output co'>#&gt; <span class='message'>	WIND DIRECTION (DEGREES) =&gt; WIND.DIRECTION..DEGREES. =&gt; WD</span></div><div class='output co'>#&gt; <span class='message'>	WIND HEIGHT =&gt; WIND.HEIGHT =&gt; WIND.HEIGHT</span></div><div class='output co'>#&gt; <span class='message'>	WIND MEASUREMENT HEIGHT =&gt; WIND.MEASUREMENT.HEIGHT =&gt; WIND.HEIGHT</span></div><div class='output co'>#&gt; <span class='message'>	WIND SPEED =&gt; WIND.SPEED =&gt; WS</span></div><div class='output co'>#&gt; <span class='message'>	X(m) =&gt; X.m. =&gt; X</span></div><div class='output co'>#&gt; <span class='message'>	Y(m) =&gt; Y.m. =&gt; Y</span></div><div class='output co'>#&gt; <span class='message'>	Z(m) =&gt; Z.m. =&gt; Z</span></div><div class='output co'>#&gt; <span class='message'>	Z0(D) =&gt; Z0.D. =&gt; Z0.DISP</span></div><div class='output co'>#&gt; <span class='message'>	Z0 (D) =&gt; Z0..D. =&gt; Z0.DISP</span></div><div class='output co'>#&gt; <span class='message'>	Z0(DISP) =&gt; Z0.DISP. =&gt; Z0.DISP</span></div><div class='output co'>#&gt; <span class='message'>	Z0 (DISP) =&gt; Z0..DISP. =&gt; Z0.DISP</span></div><div class='output co'>#&gt; <span class='message'>	Z0(M) =&gt; Z0.M. =&gt; Z0.MET</span></div><div class='output co'>#&gt; <span class='message'>	Z0 (M) =&gt; Z0..M. =&gt; Z0.MET</span></div><div class='output co'>#&gt; <span class='message'>	Z0(MET) =&gt; Z0.MET. =&gt; Z0.MET</span></div><div class='output co'>#&gt; <span class='message'>	Z0 (MET) =&gt; Z0..MET. =&gt; Z0.MET</span></div><div class='input'>
 <span class='co'>#to see what simplify.names does to adms data series name PHI</span>
 <span class='no'>new.name</span> <span class='kw'>&lt;-</span> <span class='fu'>importADMS</span>(<span class='no'>simplify.names</span>, <span class='kw'>names</span><span class='kw'>=</span><span class='st'>"PHI"</span>)
-<span class='no'>new.name</span></div><div class='output co'>#&gt; [1] &quot;WD&quot;</div><div class='input'>
+<span class='no'>new.name</span></div><div class='output co'>#&gt; [1] "WD"</div><div class='input'>
 
 </div></pre>
   </div>

@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -84,67 +86,87 @@ analysis. Hierarchical clustering is used to group similar
 variables.</p>
     
 
-    <pre><span class='fu'>corPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutants</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>cluster</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <pre class="usage"><span class='fu'>corPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutants</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>cluster</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>dendrogram</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>r.thresh</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
   <span class='kw'>text.col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"black"</span>, <span class='st'>"black"</span>), <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>mydata</dt>
-      <dd>A data frame which should consist of some numeric
-columns.</dd>
-      <dt>pollutants</dt>
-      <dd>the names of data-series in <code>mydata</code> to be
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>mydata</th>
+      <td><p>A data frame which should consist of some numeric
+columns.</p></td>
+    </tr>
+    <tr>
+      <th>pollutants</th>
+      <td><p>the names of data-series in <code>mydata</code> to be
 plotted by <code>corPlot</code>. The default option <code>NULL</code> and the
-alternative &#8220;all&#8221; use all available valid (numeric) data.</dd>
-      <dt>type</dt>
-      <dd><code>type</code> determines how the data are split
+alternative &#8220;all&#8221; use all available valid (numeric) data.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p><code>type</code> determines how the data are split
 i.e. conditioned, and then plotted. The default is will produce a
 single plot using the entire data. Type can be one of the built-in
 types as detailed in <code>cutData</code> e.g. &#8220;season&#8221;,
 &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For example, <code>type
-= &quot;season&quot;</code> will produce four plots --- one for each season.
-
-It is also possible to choose <code>type</code> as another variable in
+= "season"</code> will produce four plots --- one for each season.</p>
+<p>It is also possible to choose <code>type</code> as another variable in
 the data frame. If that variable is numeric, then the data will be
 split into four quantiles (if possible) and labelled
 accordingly. If type is an existing character or factor variable,
 then those categories/levels will be used directly. This offers
 great flexibility for understanding the variation of different
-variables and how they depend on one another.</dd>
-      <dt>cluster</dt>
-      <dd>Should the data be ordered according to cluster
+variables and how they depend on one another.</p></td>
+    </tr>
+    <tr>
+      <th>cluster</th>
+      <td><p>Should the data be ordered according to cluster
 analysis. If <code>TRUE</code> hierarchical clustering is applied to the
 correlation matrices using <code>hclust</code> to group similar
 variables together. With many variables clustering can greatly
-assist interpretation.</dd>
-      <dt>dendrogram</dt>
-      <dd>Should a dendrogram be plotted? When <code>TRUE</code>
+assist interpretation.</p></td>
+    </tr>
+    <tr>
+      <th>dendrogram</th>
+      <td><p>Should a dendrogram be plotted? When <code>TRUE</code>
 a dendrogram is shown on the right of the plot. Note that this
-will only work for <code>type = &quot;default&quot;</code>.</dd>
-      <dt>cols</dt>
-      <dd>Colours to be used for plotting. Options include
+will only work for <code>type = "default"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>Colours to be used for plotting. Options include
 &#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;,
 &#8220;spectral&#8221;, &#8220;hue&#8221;, &#8220;greyscale&#8221; and user
-defined (see <code>openColours</code> for more details).</dd>
-      <dt>r.thresh</dt>
-      <dd>Values of greater than <code>r.thresh</code> will be
-shown in bold type. This helps to highlight high correlations.</dd>
-      <dt>text.col</dt>
-      <dd>The colour of the text used to show the
+defined (see <code>openColours</code> for more details).</p></td>
+    </tr>
+    <tr>
+      <th>r.thresh</th>
+      <td><p>Values of greater than <code>r.thresh</code> will be
+shown in bold type. This helps to highlight high correlations.</p></td>
+    </tr>
+    <tr>
+      <th>text.col</th>
+      <td><p>The colour of the text used to show the
 correlation values. The first value controls the colour of
-negative correlations and the second positive.</dd>
-      <dt>auto.text</dt>
-      <dd>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
+negative correlations and the second positive.</p></td>
+    </tr>
+    <tr>
+      <th>auto.text</th>
+      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and
 format pollutant names and units properly e.g.  by subscripting
-the `2&#39; in NO2.</dd>
-      <dt>...</dt>
-      <dd>Other graphical parameters passed onto
+the `2' in NO2.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other graphical parameters passed onto
 <code>lattice:levelplot</code>, with common axis and title labelling
 options (such as <code>xlab</code>, <code>ylab</code>, <code>main</code>) being
-passed via <code>quickText</code> to handle routine formatting.</dd>
-    </dl>
+passed via <code>quickText</code> to handle routine formatting.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -158,7 +180,7 @@ this output can be used to recover the data, reproduce or rework
 the original plot or undertake further analysis. Note the denogram
 when <code>cluster = TRUE</code> can aslo be returned and plotted. See
 examples.</p>
-    <p>An openair output can be manipulated using a number of generic
+<p>An openair output can be manipulated using a number of generic
 operations, including <code>print</code>, <code>plot</code> and
 <code>summary</code>.</p>
     
@@ -167,26 +189,26 @@ operations, including <code>print</code>, <code>plot</code> and
     <p>The <code>corPlot</code> function plots correlation matrices. The
 implementation relies heavily on that shown in Sarkar (2007), with
 a few extensions.</p>
-    <p>Correlation matrices are a very effective way of understating
+<p>Correlation matrices are a very effective way of understating
 relationships between many variables. The <code>corPlot</code> shows the
 correlation coded in three ways: by shape (ellipses), colour and
 the numeric value. The ellipses can be thought of as visual
 representations of scatter plot. With a perfect positive
 correlation a line at 45 degrees positive slope is drawn. For zero
 correlation the shape becomes a circle. See examples below.</p>
-    <p>With many different variables it can be difficult to see
+<p>With many different variables it can be difficult to see
 relationships between variables i.e. which variables tend to
 behave most like one another. For this reason hierarchical
 clustering is applied to the correlation matrices to group
 variables that are most similar to one another (if <code>cluster =
 TRUE</code>).</p>
-    <p>If clustering is chosen it is also possible to add a dendrogram
+<p>If clustering is chosen it is also possible to add a dendrogram
 using the option <code>dendrogram = TRUE</code>. Note that
-dendrogramscan only be plotted for <code>type = &quot;default&quot;</code>
+dendrogramscan only be plotted for <code>type = "default"</code>
 i.e. when there is only a single panel. The dendrogram can also be
 recovered from the plot object itself and plotted more clearly;
 see examples below.</p>
-    <p>It is also possible to use the <code>openair</code> type option to
+<p>It is also possible to use the <code>openair</code> type option to
 condition the data in many flexible ways, although this may become
 difficult to visualise with too many panels.</p>
     
@@ -194,7 +216,7 @@ difficult to visualise with too many panels.</p>
 
     <p>Sarkar, D. (2007). Lattice Multivariate Data Visualization with
   R. New York: Springer.</p>
-    <p>Friendly, M. (2002). Corrgrams : Exploratory displays for correlation
+<p>Friendly, M. (2002). Corrgrams : Exploratory displays for correlation
   matrices. American Statistician, 2002(4), 1-16. doi:10.1198/000313002533</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -210,13 +232,13 @@ difficult to visualise with too many panels.</p>
 <span class='co'>## basic corrgram plot</span>
 <span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><img src='corPlot-2.png' alt='' width='540' height='400' /><div class='input'><span class='co'>## plot by season ... and so on</span>
 <span class='fu'>corPlot</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)</div><img src='corPlot-4.png' alt='' width='540' height='400' /><div class='input'><span class='co'>## recover dendogram when cluster = TRUE and plot it</span>
-<span class='no'>res</span> <span class='kw'>&lt;-</span><span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><img src='corPlot-6.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>res</span>$<span class='no'>clust</span>)</div><img src='corPlot-8.png' alt='' width='540' height='400' /><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># ## a more interesting are hydrocarbon measurements</span>
-<span class='co'># hc &lt;- importAURN(site = "my1", year = 2005, hc = TRUE)</span>
-<span class='co'># ## now it is possible to see the hydrocarbons that behave most</span>
-<span class='co'># ## similarly to one another</span>
-<span class='co'># corPlot(hc)</span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
+<span class='no'>res</span> <span class='kw'>&lt;-</span><span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><img src='corPlot-6.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>plot</span>(<span class='no'>res</span>$<span class='no'>clust</span>)</div><img src='corPlot-8.png' alt='' width='540' height='400' /><div class='input'><span class='fu'>not_run</span>({
+  <span class='co'>## a more interesting are hydrocarbon measurements</span>
+  <span class='no'>hc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importAURN.html'>importAURN</a></span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2005</span>, <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='co'>## now it is possible to see the hydrocarbons that behave most</span>
+  <span class='co'>## similarly to one another</span>
+  <span class='fu'>corPlot</span>(<span class='no'>hc</span>)
+})</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

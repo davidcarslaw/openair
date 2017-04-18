@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -81,53 +83,70 @@
     <p>Import pre-calculated airbase statistics</p>
     
 
-    <pre><span class='fu'>airbaseStats</span>(<span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"Mean"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
+    <pre class="usage"><span class='fu'>airbaseStats</span>(<span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"Mean"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
   <span class='kw'>code</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>site.type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"background"</span>, <span class='st'>"traffic"</span>, <span class='st'>"industrial"</span>,
   <span class='st'>"unknown"</span>), <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>1969</span>:<span class='fl'>2012</span>, <span class='kw'>data.cap</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"country"</span>, <span class='st'>"lat"</span>,
   <span class='st'>"lon"</span>, <span class='st'>"site.type"</span>, <span class='st'>"site"</span>, <span class='st'>"city"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>statistic</dt>
-      <dd>A <em>single</em> choice from &#8220;P50&#8221;,
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>statistic</th>
+      <td><p>A <em>single</em> choice from &#8220;P50&#8221;,
 &#8220;Mean&#8221;, &#8220;P95&#8221;, &#8220;P98&#8221;, &#8220;Max&#8221;,
 &#8220;Max36&#8221;, &#8220;Max8&#8221;, &#8220;Days.c.50.&#8221;,
 &#8220;Max26&#8221;, &#8220;Days.c.120.&#8221;,&#8220;SOMO35&#8221;,
 &#8220;AOT40&#8221;, &#8220;Max19&#8221;, &#8220;Hours.c.200.&#8221;,
 &#8220;Max4&#8221;, &#8220;Days.c.125.&#8221;, &#8220;P99_9&#8221;,
-&#8220;Max25&#8221;, &#8220;Hours.c.350.&#8221;.</dd>
-      <dt>pollutant</dt>
-      <dd>The <em>single</em> name of a pollutant to extract;
-can be upper or lower case but must match one of those below.</dd>
-      <dt>avg.time</dt>
-      <dd>The averaging time on which the measurements are
+&#8220;Max25&#8221;, &#8220;Hours.c.350.&#8221;.</p></td>
+    </tr>
+    <tr>
+      <th>pollutant</th>
+      <td><p>The <em>single</em> name of a pollutant to extract;
+can be upper or lower case but must match one of those below.</p></td>
+    </tr>
+    <tr>
+      <th>avg.time</th>
+      <td><p>The averaging time on which the measurements are
 based. By default the averaging period with most data associated
 with it is used. For most pollutants the averaging period will be
 &#8220;day&#8221;. Other common options are &#8220;hour&#8221; and
-&#8220;week&#8221;.</dd>
-      <dt>code</dt>
-      <dd>The airbase site code(s) to select. Can be upper or lower case.</dd>
-      <dt>site.type</dt>
-      <dd>The type of site(s) to select.</dd>
-      <dt>year</dt>
-      <dd>The year(s) to select e.g. <code>year = 2000:2012</code> to
-select years 2010, 2011 and 2012.</dd>
-      <dt>data.cap</dt>
-      <dd>The data capture threshold to use (%). By default
-all data are selected.</dd>
-      <dt>add</dt>
-      <dd>Additional fields to add to the returned data frame. By
+&#8220;week&#8221;.</p></td>
+    </tr>
+    <tr>
+      <th>code</th>
+      <td><p>The airbase site code(s) to select. Can be upper or lower case.</p></td>
+    </tr>
+    <tr>
+      <th>site.type</th>
+      <td><p>The type of site(s) to select.</p></td>
+    </tr>
+    <tr>
+      <th>year</th>
+      <td><p>The year(s) to select e.g. <code>year = 2000:2012</code> to
+select years 2010, 2011 and 2012.</p></td>
+    </tr>
+    <tr>
+      <th>data.cap</th>
+      <td><p>The data capture threshold to use (%). By default
+all data are selected.</p></td>
+    </tr>
+    <tr>
+      <th>add</th>
+      <td><p>Additional fields to add to the returned data frame. By
 default the country, site type, latitude and logitude are
 returned. Other useful options include &#8220;city&#8221;,
 &#8220;site&#8221; (site name), &#8220;EMEP_station&#8221; and
-&#8220;altitude&#8221;.</dd>
-    </dl>
+&#8220;altitude&#8221;.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame of airbase sites with the statsitics chosen
 and for all species.</p>
-    <p>Returns a data frame with POSIXct date, together with many
+<p>Returns a data frame with POSIXct date, together with many
 other airbase fields.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -135,393 +154,204 @@ other airbase fields.</p>
     <p>The airbase database makes available detailed pre-calculated
 statsitics for all species, sites and years. The
 <code>airbaseStats</code> function provides these data.</p>
-    <p>The data are imported depending on the statistic chosen --- see
+<p>The data are imported depending on the statistic chosen --- see
 the list of available statistics in the <code>statistics</code>
 option. Further options are available to refine the selection
 including a <em>single</em> pollutant, year(s), site type(s), data
 capture percentage threshold and airbase site code.</p>
-    <p>Once the data have been imported it is then possible to subset the
+<p>Once the data have been imported it is then possible to subset the
 data in various ways e.g. by extracting a particular species with
 a defined data capture threshold.</p>
-    <p>The following pollutants are available:</p>
-    <p><ul>
-<li> (CH3)2-CH-CH2-CH2-CH3
- </li>
-<li> (CH3)3-C-CH2-CH-(CH3)2
- </li>
-<li> 1,2,3-C6H3(CH3)3
- </li>
-<li> 1,2,4-C6H3(CH3)3
- </li>
-<li> 1,3,5-C6H3(CH3)3
- </li>
-<li> 3-methylpentane
- </li>
-<li> Acenaphthene
- </li>
-<li> Acenaphtylene
- </li>
-<li> Al
- </li>
-<li> Anthracene
- </li>
-<li> As
- </li>
-<li> As in PM10
- </li>
-<li> As in PM2.5
- </li>
-<li> As in TSP
- </li>
-<li> BS
- </li>
-<li> BaP
- </li>
-<li> BaP in PM10
- </li>
-<li> BaP in PM2.5
- </li>
-<li> Benzo(a)anthracene
- </li>
-<li> Benzo(a)anthracene in PM10
- </li>
-<li> Benzo(b)fluoranthene
- </li>
-<li> Benzo(b)fluoranthene in PM10
- </li>
-<li> Benzo(b+j+k)fluoranthenes
- </li>
-<li> Benzo(b,j,k)fluoranthene
- </li>
-<li> Benzo(b,j,k)fluorantheneInPM1
- </li>
-<li> Benzo(e)pyrene
- </li>
-<li> Benzo(ghi)perylene
- </li>
-<li> Benzo(j)fluoranthene
- </li>
-<li> Benzo(j)fluoranthene in PM10
- </li>
-<li> Benzo(k)fluoranthene
- </li>
-<li> Benzo(k)fluoranthene in PM10
- </li>
-<li> Black Carbon
- </li>
-<li> C2Cl4
- </li>
-<li> C2H6
- </li>
-<li> C6H14
- </li>
-<li> C6H5-C2H5
- </li>
-<li> C6H5-CH3
- </li>
-<li> C6H5-CH=CH2
- </li>
-<li> C6H6
- </li>
-<li> C7H16
- </li>
-<li> C8H18
- </li>
-<li> CH2=CH-C(CH3)=CH2
- </li>
-<li> CH2=CH-CH3
- </li>
-<li> CH2=CH-CH=CH2
- </li>
-<li> CH4
- </li>
-<li> CHCl=CCl2
- </li>
-<li> CO
- </li>
-<li> CO2
- </li>
-<li> CS2
- </li>
-<li> Ca++
- </li>
-<li> Ca2+ in PM10
- </li>
-<li> Ca2+ in PM2.5
- </li>
-<li> Cd
- </li>
-<li> Cd in PM10
- </li>
-<li> Cd in PM2.5
- </li>
-<li> Cd in TSP
- </li>
-<li> Chrysene
- </li>
-<li> Chrysene + Triphenylene
- </li>
-<li> Cl-
- </li>
-<li> Cl- in PM10
- </li>
-<li> Cl- in PM2.5
- </li>
-<li> Co
- </li>
-<li> Cr
- </li>
-<li> Cu
- </li>
-<li> Cyclo-hexane
- </li>
-<li> Dibenzo(ah)anthracene
- </li>
-<li> Dibenzo(ah)anthracene in PM10
- </li>
-<li> EC in PM10
- </li>
-<li> EC in PM2.5
- </li>
-<li> Fe
- </li>
-<li> Fluoranthene
- </li>
-<li> Fluorene
- </li>
-<li> H+
- </li>
-<li> H2C=CH-CH2-CH2-CH3
- </li>
-<li> H2C=CH-CH2-CH3
- </li>
-<li> H2C=CH2
- </li>
-<li> H2S
- </li>
-<li> H3C-(CH2)3-CH3
- </li>
-<li> H3C-CH(CH3)2
- </li>
-<li> H3C-CH2-CH(CH3)2
- </li>
-<li> H3C-CH2-CH2-CH3
- </li>
-<li> H3C-CH2-CH3
- </li>
-<li> H3C-HC=CH-CH2-CH3
- </li>
-<li> HC C2-C6(excl. AROM. &amp; CHLH)
- </li>
-<li> HC=CH
- </li>
-<li> HCHO
- </li>
-<li> HCl
- </li>
-<li> HF
- </li>
-<li> HNO3+NO3
- </li>
-<li> Hg
- </li>
-<li> Hg in PM10
- </li>
-<li> Hg-reactive
- </li>
-<li> Hg0
- </li>
-<li> Hg0 + Hg-reactive
- </li>
-<li> Indeno-(1,2,3-cd)pyrene
- </li>
-<li> Indeno-(1,2,3-cd)pyrene in PM
- </li>
-<li> K+
- </li>
-<li> K+ in PM10
- </li>
-<li> K+ in PM2.5
- </li>
-<li> Mg++
- </li>
-<li> Mg2+ in PM10
- </li>
-<li> Mg2+ in PM2.5
- </li>
-<li> Mn
- </li>
-<li> N-DEP
- </li>
-<li> N2O
- </li>
-<li> NH3
- </li>
-<li> NH3+NH4
- </li>
-<li> NH4
- </li>
-<li> NH4+
- </li>
-<li> NH4+ in PM10
- </li>
-<li> NH4+ in PM2.5
- </li>
-<li> NO
- </li>
-<li> NO2
- </li>
-<li> NO3
- </li>
-<li> NO3-
- </li>
-<li> NO3- in PM10
- </li>
-<li> NO3- in PM2.5
- </li>
-<li> NOX
- </li>
-<li> Na+
- </li>
-<li> Na+  in PM10
- </li>
-<li> Na+  in PM2.5
- </li>
-<li> Naphtalene
- </li>
-<li> Ni
- </li>
-<li> Ni in PM10
- </li>
-<li> Ni in PM2.5
- </li>
-<li> Ni in TSP
- </li>
-<li> O3
- </li>
-<li> OC in PM10
- </li>
-<li> OC in PM2.5
- </li>
-<li> PAH
- </li>
-<li> PAN
- </li>
-<li> PCB-105
- </li>
-<li> PCB-114
- </li>
-<li> PCB-118
- </li>
-<li> PCB-138
- </li>
-<li> PCB-141
- </li>
-<li> PCB-149
- </li>
-<li> PCB-153
- </li>
-<li> PCB-156
- </li>
-<li> PCB-157
- </li>
-<li> PCB-167
- </li>
-<li> PCB-170
- </li>
-<li> PCB-18
- </li>
-<li> PCB-180
- </li>
-<li> PCB-183
- </li>
-<li> PCB-187
- </li>
-<li> PCB-189
- </li>
-<li> PCB-194
- </li>
-<li> PCB-28
- </li>
-<li> PCB-31
- </li>
-<li> PCB-52
- </li>
-<li> PCB-74
- </li>
-<li> PCB-99
- </li>
-<li> PCB_123
- </li>
-<li> PM1
- </li>
-<li> PM10
- </li>
-<li> PM2.5
- </li>
-<li> Pb
- </li>
-<li> Pb in PM10
- </li>
-<li> Pb in PM2.5
- </li>
-<li> Pb in TSP
- </li>
-<li> Phenanthrene
- </li>
-<li> Pyrene
- </li>
-<li> Radioactivity
- </li>
-<li> S-DEP
- </li>
-<li> SA
- </li>
-<li> SO2
- </li>
-<li> SO2 + SO4--
- </li>
-<li> SO4 (H2SO4 aerosols) (SO4--)
- </li>
-<li> SO4--
- </li>
-<li> SO42-  in PM10
- </li>
-<li> SO42- in PM2.5
- </li>
-<li> SPM
- </li>
-<li> Se
- </li>
-<li> T-VOC
- </li>
-<li> THC (NM)
- </li>
-<li> V
- </li>
-<li> Vanadium
- </li>
-<li> Zn
- </li>
-<li> Zn in PM2.5
- </li>
-<li> cis-H3C-CH=CH-CH3
- </li>
-<li> k
- </li>
-<li> m,p-C6H4(CH3)2
- </li>
-<li> o-C6H4-(CH3)2
- </li>
-<li> pH
- </li>
-<li> precip_amount
- </li>
-<li> precip_amount_off
- </li>
-<li> trans-H3C-CH=CH-CH3</p>
-    <p></li>
-</ul></p>
+<p>The following pollutants are available:</p><ul>
+<li><p>(CH3)2-CH-CH2-CH2-CH3</p></li>
+<li><p>(CH3)3-C-CH2-CH-(CH3)2</p></li>
+<li><p>1,2,3-C6H3(CH3)3</p></li>
+<li><p>1,2,4-C6H3(CH3)3</p></li>
+<li><p>1,3,5-C6H3(CH3)3</p></li>
+<li><p>3-methylpentane</p></li>
+<li><p>Acenaphthene</p></li>
+<li><p>Acenaphtylene</p></li>
+<li><p>Al</p></li>
+<li><p>Anthracene</p></li>
+<li><p>As</p></li>
+<li><p>As in PM10</p></li>
+<li><p>As in PM2.5</p></li>
+<li><p>As in TSP</p></li>
+<li><p>BS</p></li>
+<li><p>BaP</p></li>
+<li><p>BaP in PM10</p></li>
+<li><p>BaP in PM2.5</p></li>
+<li><p>Benzo(a)anthracene</p></li>
+<li><p>Benzo(a)anthracene in PM10</p></li>
+<li><p>Benzo(b)fluoranthene</p></li>
+<li><p>Benzo(b)fluoranthene in PM10</p></li>
+<li><p>Benzo(b+j+k)fluoranthenes</p></li>
+<li><p>Benzo(b,j,k)fluoranthene</p></li>
+<li><p>Benzo(b,j,k)fluorantheneInPM1</p></li>
+<li><p>Benzo(e)pyrene</p></li>
+<li><p>Benzo(ghi)perylene</p></li>
+<li><p>Benzo(j)fluoranthene</p></li>
+<li><p>Benzo(j)fluoranthene in PM10</p></li>
+<li><p>Benzo(k)fluoranthene</p></li>
+<li><p>Benzo(k)fluoranthene in PM10</p></li>
+<li><p>Black Carbon</p></li>
+<li><p>C2Cl4</p></li>
+<li><p>C2H6</p></li>
+<li><p>C6H14</p></li>
+<li><p>C6H5-C2H5</p></li>
+<li><p>C6H5-CH3</p></li>
+<li><p>C6H5-CH=CH2</p></li>
+<li><p>C6H6</p></li>
+<li><p>C7H16</p></li>
+<li><p>C8H18</p></li>
+<li><p>CH2=CH-C(CH3)=CH2</p></li>
+<li><p>CH2=CH-CH3</p></li>
+<li><p>CH2=CH-CH=CH2</p></li>
+<li><p>CH4</p></li>
+<li><p>CHCl=CCl2</p></li>
+<li><p>CO</p></li>
+<li><p>CO2</p></li>
+<li><p>CS2</p></li>
+<li><p>Ca++</p></li>
+<li><p>Ca2+ in PM10</p></li>
+<li><p>Ca2+ in PM2.5</p></li>
+<li><p>Cd</p></li>
+<li><p>Cd in PM10</p></li>
+<li><p>Cd in PM2.5</p></li>
+<li><p>Cd in TSP</p></li>
+<li><p>Chrysene</p></li>
+<li><p>Chrysene + Triphenylene</p></li>
+<li><p>Cl-</p></li>
+<li><p>Cl- in PM10</p></li>
+<li><p>Cl- in PM2.5</p></li>
+<li><p>Co</p></li>
+<li><p>Cr</p></li>
+<li><p>Cu</p></li>
+<li><p>Cyclo-hexane</p></li>
+<li><p>Dibenzo(ah)anthracene</p></li>
+<li><p>Dibenzo(ah)anthracene in PM10</p></li>
+<li><p>EC in PM10</p></li>
+<li><p>EC in PM2.5</p></li>
+<li><p>Fe</p></li>
+<li><p>Fluoranthene</p></li>
+<li><p>Fluorene</p></li>
+<li><p>H+</p></li>
+<li><p>H2C=CH-CH2-CH2-CH3</p></li>
+<li><p>H2C=CH-CH2-CH3</p></li>
+<li><p>H2C=CH2</p></li>
+<li><p>H2S</p></li>
+<li><p>H3C-(CH2)3-CH3</p></li>
+<li><p>H3C-CH(CH3)2</p></li>
+<li><p>H3C-CH2-CH(CH3)2</p></li>
+<li><p>H3C-CH2-CH2-CH3</p></li>
+<li><p>H3C-CH2-CH3</p></li>
+<li><p>H3C-HC=CH-CH2-CH3</p></li>
+<li><p>HC C2-C6(excl. AROM. &amp; CHLH)</p></li>
+<li><p>HC=CH</p></li>
+<li><p>HCHO</p></li>
+<li><p>HCl</p></li>
+<li><p>HF</p></li>
+<li><p>HNO3+NO3</p></li>
+<li><p>Hg</p></li>
+<li><p>Hg in PM10</p></li>
+<li><p>Hg-reactive</p></li>
+<li><p>Hg0</p></li>
+<li><p>Hg0 + Hg-reactive</p></li>
+<li><p>Indeno-(1,2,3-cd)pyrene</p></li>
+<li><p>Indeno-(1,2,3-cd)pyrene in PM</p></li>
+<li><p>K+</p></li>
+<li><p>K+ in PM10</p></li>
+<li><p>K+ in PM2.5</p></li>
+<li><p>Mg++</p></li>
+<li><p>Mg2+ in PM10</p></li>
+<li><p>Mg2+ in PM2.5</p></li>
+<li><p>Mn</p></li>
+<li><p>N-DEP</p></li>
+<li><p>N2O</p></li>
+<li><p>NH3</p></li>
+<li><p>NH3+NH4</p></li>
+<li><p>NH4</p></li>
+<li><p>NH4+</p></li>
+<li><p>NH4+ in PM10</p></li>
+<li><p>NH4+ in PM2.5</p></li>
+<li><p>NO</p></li>
+<li><p>NO2</p></li>
+<li><p>NO3</p></li>
+<li><p>NO3-</p></li>
+<li><p>NO3- in PM10</p></li>
+<li><p>NO3- in PM2.5</p></li>
+<li><p>NOX</p></li>
+<li><p>Na+</p></li>
+<li><p>Na+  in PM10</p></li>
+<li><p>Na+  in PM2.5</p></li>
+<li><p>Naphtalene</p></li>
+<li><p>Ni</p></li>
+<li><p>Ni in PM10</p></li>
+<li><p>Ni in PM2.5</p></li>
+<li><p>Ni in TSP</p></li>
+<li><p>O3</p></li>
+<li><p>OC in PM10</p></li>
+<li><p>OC in PM2.5</p></li>
+<li><p>PAH</p></li>
+<li><p>PAN</p></li>
+<li><p>PCB-105</p></li>
+<li><p>PCB-114</p></li>
+<li><p>PCB-118</p></li>
+<li><p>PCB-138</p></li>
+<li><p>PCB-141</p></li>
+<li><p>PCB-149</p></li>
+<li><p>PCB-153</p></li>
+<li><p>PCB-156</p></li>
+<li><p>PCB-157</p></li>
+<li><p>PCB-167</p></li>
+<li><p>PCB-170</p></li>
+<li><p>PCB-18</p></li>
+<li><p>PCB-180</p></li>
+<li><p>PCB-183</p></li>
+<li><p>PCB-187</p></li>
+<li><p>PCB-189</p></li>
+<li><p>PCB-194</p></li>
+<li><p>PCB-28</p></li>
+<li><p>PCB-31</p></li>
+<li><p>PCB-52</p></li>
+<li><p>PCB-74</p></li>
+<li><p>PCB-99</p></li>
+<li><p>PCB_123</p></li>
+<li><p>PM1</p></li>
+<li><p>PM10</p></li>
+<li><p>PM2.5</p></li>
+<li><p>Pb</p></li>
+<li><p>Pb in PM10</p></li>
+<li><p>Pb in PM2.5</p></li>
+<li><p>Pb in TSP</p></li>
+<li><p>Phenanthrene</p></li>
+<li><p>Pyrene</p></li>
+<li><p>Radioactivity</p></li>
+<li><p>S-DEP</p></li>
+<li><p>SA</p></li>
+<li><p>SO2</p></li>
+<li><p>SO2 + SO4--</p></li>
+<li><p>SO4 (H2SO4 aerosols) (SO4--)</p></li>
+<li><p>SO4--</p></li>
+<li><p>SO42-  in PM10</p></li>
+<li><p>SO42- in PM2.5</p></li>
+<li><p>SPM</p></li>
+<li><p>Se</p></li>
+<li><p>T-VOC</p></li>
+<li><p>THC (NM)</p></li>
+<li><p>V</p></li>
+<li><p>Vanadium</p></li>
+<li><p>Zn</p></li>
+<li><p>Zn in PM2.5</p></li>
+<li><p>cis-H3C-CH=CH-CH3</p></li>
+<li><p>k</p></li>
+<li><p>m,p-C6H4(CH3)2</p></li>
+<li><p>o-C6H4-(CH3)2</p></li>
+<li><p>pH</p></li>
+<li><p>precip_amount</p></li>
+<li><p>precip_amount_off</p></li>
+<li><p>trans-H3C-CH=CH-CH3</p></li>
+</ul>
     
 
   </div>

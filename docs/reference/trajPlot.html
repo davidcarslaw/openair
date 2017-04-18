@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -83,139 +85,174 @@ requires that data are imported using the <code>importTraj</code>
 function.</p>
     
 
-    <pre><span class='fu'>trajPlot</span>(<span class='no'>mydata</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"lon"</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"lat"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"height"</span>,
+    <pre class="usage"><span class='fu'>trajPlot</span>(<span class='no'>mydata</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"lon"</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"lat"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"height"</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>map.fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>map.res</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>map.cols</span> <span class='kw'>=</span> <span class='st'>"grey40"</span>, <span class='kw'>map.alpha</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
   <span class='kw'>projection</span> <span class='kw'>=</span> <span class='st'>"lambert"</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>51</span>, <span class='fl'>51</span>), <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>90</span>, <span class='fl'>0</span>,
   <span class='fl'>0</span>), <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"deepskyblue"</span>, <span class='kw'>npoints</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>origin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>mydata</dt>
-      <dd>Data frame, the result of importing a trajectory
-file using <code>importTraj</code>.</dd>
-      <dt>lon</dt>
-      <dd>Column containing the longitude, as a decimal.</dd>
-      <dt>lat</dt>
-      <dd>Column containing the latitude, as a decimal.</dd>
-      <dt>pollutant</dt>
-      <dd>Pollutant to be plotted. By default the
-trajectory height is used.</dd>
-      <dt>type</dt>
-      <dd><code>type</code> determines how the data are split
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>mydata</th>
+      <td><p>Data frame, the result of importing a trajectory
+file using <code>importTraj</code>.</p></td>
+    </tr>
+    <tr>
+      <th>lon</th>
+      <td><p>Column containing the longitude, as a decimal.</p></td>
+    </tr>
+    <tr>
+      <th>lat</th>
+      <td><p>Column containing the latitude, as a decimal.</p></td>
+    </tr>
+    <tr>
+      <th>pollutant</th>
+      <td><p>Pollutant to be plotted. By default the
+trajectory height is used.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p><code>type</code> determines how the data are split
 i.e. conditioned, and then plotted. The default is will produce a
 single plot using the entire data. Type can be one of the built-in
-types as detailed in <code>cutData</code> e.g. &quot;season&quot;, &quot;year&quot;,
-&quot;weekday&quot; and so on. For example, <code>type = &quot;season&quot;</code> will
-produce four plots --- one for each season.
-
-It is also possible to choose <code>type</code> as another variable in
+types as detailed in <code>cutData</code> e.g. "season", "year",
+"weekday" and so on. For example, <code>type = "season"</code> will
+produce four plots --- one for each season.</p>
+<p>It is also possible to choose <code>type</code> as another variable in
 the data frame. If that variable is numeric, then the data will be
 split into four quantiles (if possible) and labelled
 accordingly. If type is an existing character or factor variable,
 then those categories/levels will be used directly. This offers
 great flexibility for understanding the variation of different
-variables and how they depend on one another.
-
-    <code>type</code> can be up length two e.g. <code>type = c(&quot;season&quot;,
-    &quot;weekday&quot;)</code> will produce a 2x2 plot split by season and day of
+variables and how they depend on one another.</p>
+<p><code>type</code> can be up length two e.g. <code>type = c("season",
+    "weekday")</code> will produce a 2x2 plot split by season and day of
     the week. Note, when two types are provided the first forms
-    the columns and the second the rows.</dd>
-      <dt>map</dt>
-      <dd>Should a base map be drawn? If <code>TRUE</code> the world
-base map from the <code>maps</code> package is used.</dd>
-      <dt>group</dt>
-      <dd>It is sometimes useful to group and colour
+    the columns and the second the rows.</p></td>
+    </tr>
+    <tr>
+      <th>map</th>
+      <td><p>Should a base map be drawn? If <code>TRUE</code> the world
+base map from the <code>maps</code> package is used.</p></td>
+    </tr>
+    <tr>
+      <th>group</th>
+      <td><p>It is sometimes useful to group and colour
 trajectories according to a grouping variable. See example
-below.</dd>
-      <dt>map.fill</dt>
-      <dd>Should the base map be a filled polygon? Default
-is to fill countries.</dd>
-      <dt>map.res</dt>
-      <dd>The resolution of the base map. By default the
+below.</p></td>
+    </tr>
+    <tr>
+      <th>map.fill</th>
+      <td><p>Should the base map be a filled polygon? Default
+is to fill countries.</p></td>
+    </tr>
+    <tr>
+      <th>map.res</th>
+      <td><p>The resolution of the base map. By default the
 function uses the &#8216;world&#8217; map from the <code>maps</code>
-package. If <code>map.res = &quot;hires&quot;</code> then the (much) more
+package. If <code>map.res = "hires"</code> then the (much) more
 detailed base map &#8216;worldHires&#8217; from the <code>mapdata</code>
 package is used. Use <code>library(mapdata)</code>. Also available
 is a map showing the US states. In this case <code>map.res =
-&quot;state&quot;</code> should be used.</dd>
-      <dt>map.cols</dt>
-      <dd>If <code>map.fill = TRUE</code> <code>map.cols</code> controls
-the fill colour. Examples include <code>map.fill = &quot;grey40&quot;</code>
-and <code>map.fill = openColours(&quot;default&quot;, 10)</code>. The latter
-colours the countries and can help differentiate them.</dd>
-      <dt>map.alpha</dt>
-      <dd>The transpency level of the filled map which
+"state"</code> should be used.</p></td>
+    </tr>
+    <tr>
+      <th>map.cols</th>
+      <td><p>If <code>map.fill = TRUE</code> <code>map.cols</code> controls
+the fill colour. Examples include <code>map.fill = "grey40"</code>
+and <code>map.fill = openColours("default", 10)</code>. The latter
+colours the countries and can help differentiate them.</p></td>
+    </tr>
+    <tr>
+      <th>map.alpha</th>
+      <td><p>The transpency level of the filled map which
 takes values from 0 (full transparency) to 1 (full
 opacity). Setting it below 1 can help view trajectories,
-trajectory surfaces etc. <em>and</em> a filled base map.</dd>
-      <dt>projection</dt>
-      <dd>The map projection to be used. Different map
+trajectory surfaces etc. <em>and</em> a filled base map.</p></td>
+    </tr>
+    <tr>
+      <th>projection</th>
+      <td><p>The map projection to be used. Different map
 projections are possible through the <code>mapproj</code>
 package. See <code>?mapproject</code> for extensive details and
 information on setting other parameters and orientation (see
-below).</dd>
-      <dt>parameters</dt>
-      <dd>From the <code>mapproj</code> package. Optional
+below).</p></td>
+    </tr>
+    <tr>
+      <th>parameters</th>
+      <td><p>From the <code>mapproj</code> package. Optional
 numeric vector of parameters for use with the projection
 argument. This argument is optional only in the sense that
 certain projections do not require additional parameters. If a
 projection does not require additional parameters then set to
-null i.e. <code>parameters = NULL</code>.</dd>
-      <dt>orientation</dt>
-      <dd>From the <code>mapproj</code> package. An optional
+null i.e. <code>parameters = NULL</code>.</p></td>
+    </tr>
+    <tr>
+      <th>orientation</th>
+      <td><p>From the <code>mapproj</code> package. An optional
 vector c(latitude, longitude, rotation) which describes where
-the &quot;North Pole&quot; should be when computing the
+the "North Pole" should be when computing the
 projection. Normally this is c(90, 0), which is appropriate
 for cylindrical and conic projections. For a planar
 projection, you should set it to the desired point of
 tangency. The third value is a clockwise rotation (in
 degrees), which defaults to the midrange of the longitude
-coordinates in the map.</dd>
-      <dt>grid.col</dt>
-      <dd>The colour of the map grid to be used. To remove
-the grid set <code>grid.col = &quot;transparent&quot;</code>.</dd>
-      <dt>npoints</dt>
-      <dd>A dot is placed every <code>npoints</code> along each
+coordinates in the map.</p></td>
+    </tr>
+    <tr>
+      <th>grid.col</th>
+      <td><p>The colour of the map grid to be used. To remove
+the grid set <code>grid.col = "transparent"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>npoints</th>
+      <td><p>A dot is placed every <code>npoints</code> along each
 full trajectory. For hourly back trajectories points are
 plotted every <code>npoint</code> hours. This helps to understand
 where the air masses were at particular times and get a feel
 for the speed of the air (points closer togther correspond to
-slower moving air masses).</dd>
-      <dt>origin</dt>
-      <dd>If true a filled circle dot is shown to mark the
-receptor point.</dd>
-      <dt>...</dt>
-      <dd>other arguments are passed to <code>cutData</code> and
+slower moving air masses).</p></td>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <td><p>If true a filled circle dot is shown to mark the
+receptor point.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other arguments are passed to <code>cutData</code> and
 <code>scatterPlot</code>. This provides access to arguments used in
 both these functions and functions that they in turn pass
 arguments on to. For example, <code>plotTraj</code> passes the
 argument <code>cex</code> on to <code>scatterPlot</code> which in turn
 passes it on to the <code>lattice</code> function <code>xyplot</code>
-where it is applied to set the plot symbol size.</dd>
-    </dl>
+where it is applied to set the plot symbol size.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Several types of trajectory plot are available. <code>trajPlot</code> by
 default will plot each lat/lon location showing the origin of
 each trajectory, if no <code>pollutant</code> is supplied.</p>
-    <p>If a pollutant is given, by merging the trajectory data with
+<p>If a pollutant is given, by merging the trajectory data with
 concentration data (see example below), the trajectories are
 colour-coded by the concentration of <code>pollutant</code>. With a long
 time series there can be lots of overplotting making it difficult
 to gauge the overall concentration pattern. In these cases setting
 <code>alpha</code> to a low value e.g. 0.1 can help.</p>
-    <p>The user can aslo show points instead of lines by <code>plot.type
-= &quot;p&quot;</code>.</p>
-    <p>Note that <code>trajPlot</code> will plot only the full length
+<p>The user can aslo show points instead of lines by <code>plot.type
+= "p"</code>.</p>
+<p>Note that <code>trajPlot</code> will plot only the full length
 trajectories. This should be remembered when selecting only part
 of a year to plot.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='importTraj.html'>importTraj</a></code> to import trajectory data from
-    the King&#39;s College server and <code><a href='trajLevel.html'>trajLevel</a></code> for
+    the King's College server and <code><a href='trajLevel.html'>trajLevel</a></code> for
     trajectory binning functions.</p>
     
 
@@ -226,25 +263,25 @@ of a year to plot.</p>
 <span class='co'># Heathrow Airport was closed due to the Icelandic volcanic eruption</span>
 <span class='co'># 15--21 April 2010.</span>
 <span class='co'># import trajectories for London and plot</span>
-<span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># lond &lt;- importTraj("london", 2010)</span>
-<span class='co'># # well, HYSPLIT seems to think there certainly were conditions where trajectories</span>
-<span class='co'># # orginated from Iceland...</span>
-<span class='co'># trajPlot(selectByDate(lond, start = "15/4/2010", end = "21/4/2010"))</span>
-<span class='co'>## ---------------------------------------------</span>
+<span class='fu'>not_run</span>({
+  <span class='no'>lond</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importTraj.html'>importTraj</a></span>(<span class='st'>"london"</span>, <span class='fl'>2010</span>)
+  <span class='co'># well, HYSPLIT seems to think there certainly were conditions where trajectories</span>
+  <span class='co'># orginated from Iceland...</span>
+  <span class='fu'>trajPlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>lond</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"15/4/2010"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"21/4/2010"</span>))
+})
 
 <span class='co'># plot by day, need a column that makes a date</span>
-<span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># lond$day &lt;- as.Date(lond$date)</span>
-<span class='co'># trajPlot(selectByDate(lond, start = "15/4/2010", end = "21/4/2010"),</span>
-<span class='co'># type = "day")</span>
-<span class='co'>## ---------------------------------------------</span>
+<span class='fu'>not_run</span>({
+  <span class='no'>lond</span>$<span class='no'>day</span> <span class='kw'>&lt;-</span> <span class='fu'>as.Date</span>(<span class='no'>lond</span>$<span class='no'>date</span>)
+  <span class='fu'>trajPlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>lond</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"15/4/2010"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"21/4/2010"</span>),
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"day"</span>)
+})
 
 <span class='co'># or show each day grouped by colour, with some other options set</span>
-<span class='co'>## Not run: ------------------------------------</span>
-<span class='co'>#  trajPlot(selectByDate(lond, start = "15/4/2010", end = "21/4/2010"),</span>
-<span class='co'># group = "day", col = "jet", lwd = 2, key.pos = "right", key.col = 1)</span>
-<span class='co'>## ---------------------------------------------</span>
+<span class='fu'>not_run</span>({
+   <span class='fu'>trajPlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>lond</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"15/4/2010"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"21/4/2010"</span>),
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"day"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"jet"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>key.pos</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>key.col</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+})
 <span class='co'># more examples to follow linking with concentration measurements...</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

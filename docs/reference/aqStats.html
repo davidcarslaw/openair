@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -25,12 +25,14 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -81,31 +83,44 @@
     <p>Calculate a range of air pollution-relevant statistics by year and by site.</p>
     
 
-    <pre><span class='fu'>aqStats</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>95</span>,
+    <pre class="usage"><span class='fu'>aqStats</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>95</span>,
   <span class='fl'>99</span>), <span class='kw'>transpose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>mydata</dt>
-      <dd>A data frame containing a <code>date</code> field of hourly data.</dd>
-      <dt>pollutant</dt>
-      <dd>The name of a pollutant e.g. <code>pollutant = c(&quot;o3&quot;,
-&quot;pm10&quot;)</code>.</dd>
-      <dt>data.thresh</dt>
-      <dd>The data capture threshold in <!-- %. No values are -->
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>mydata</th>
+      <td><p>A data frame containing a <code>date</code> field of hourly data.</p></td>
+    </tr>
+    <tr>
+      <th>pollutant</th>
+      <td><p>The name of a pollutant e.g. <code>pollutant = c("o3",
+"pm10")</code>.</p></td>
+    </tr>
+    <tr>
+      <th>data.thresh</th>
+      <td><p>The data capture threshold in <!-- %. No values are -->
 calculated if data capture over the period of interest is less than this
 value. <code>data.thresh</code> is used for example in the calculation of daily
 mean values from hourly data. If there are less than <code>data.thresh</code>
-percentage of measurements available in a period, <code>NA</code> is returned.</dd>
-      <dt>percentile</dt>
-      <dd>Percentile values to calculate for each pollutant.</dd>
-      <dt>transpose</dt>
-      <dd>The default is to return a data frame with columns
+percentage of measurements available in a period, <code>NA</code> is returned.</p></td>
+    </tr>
+    <tr>
+      <th>percentile</th>
+      <td><p>Percentile values to calculate for each pollutant.</p></td>
+    </tr>
+    <tr>
+      <th>transpose</th>
+      <td><p>The default is to return a data frame with columns
 representing the statistics. If <code>transpose = TRUE</code> then the results
-have columns for each pollutant-site combination.</dd>
-      <dt>...</dt>
-      <dd>Other arguments, currently unused.</dd>
-    </dl>
+have columns for each pollutant-site combination.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other arguments, currently unused.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -114,47 +129,33 @@ statistics from a data frame. The statistics are calculated on an annual
 basis and the input is assumed to be hourly data. The function can cope
 with several sites and years. The user can control the output by setting
 <code>transpose</code> appropriately.</p>
-    <p>Note that the input data is assumed to be in mass units e.g. ug/m3 for all
+<p>Note that the input data is assumed to be in mass units e.g. ug/m3 for all
 species except CO (mg/m3).</p>
-    <p>The following statistics are calculated:</p>
-    <p><ul>
-<li> <b>data.capture</b> --- percentage data capture
-over a full year.</p>
-    <p></li>
-<li> <b>mean</b> --- annual mean.</p>
-    <p></li>
-<li> <b>minimum</b> --- minimum hourly value.</p>
-    <p></li>
-<li> <b>maximum</b> --- maximum hourly value.</p>
-    <p></li>
-<li> <b>median</b> --- median value.</p>
-    <p></li>
-<li> <b>max.daily</b> --- maximum daily mean.</p>
-    <p></li>
-<li> <b>max.rolling.8</b> --- maximum 8-hour rolling mean.</p>
-    <p></li>
-<li> <b>max.rolling.24</b> --- maximum 24-hour rolling mean.</p>
-    <p></li>
-<li> <b>percentile.95</b> --- 95th percentile. Note that several
-percentiles can be calculated.</p>
-    <p></li>
-<li> <b>roll.8.O3.gt.100</b> --- number of days when the daily
+<p>The following statistics are calculated:</p><ul>
+<li><p><b>data.capture</b> --- percentage data capture
+over a full year.</p></li>
+<li><p><b>mean</b> --- annual mean.</p></li>
+<li><p><b>minimum</b> --- minimum hourly value.</p></li>
+<li><p><b>maximum</b> --- maximum hourly value.</p></li>
+<li><p><b>median</b> --- median value.</p></li>
+<li><p><b>max.daily</b> --- maximum daily mean.</p></li>
+<li><p><b>max.rolling.8</b> --- maximum 8-hour rolling mean.</p></li>
+<li><p><b>max.rolling.24</b> --- maximum 24-hour rolling mean.</p></li>
+<li><p><b>percentile.95</b> --- 95th percentile. Note that several
+percentiles can be calculated.</p></li>
+<li><p><b>roll.8.O3.gt.100</b> --- number of days when the daily
 maximum rolling 8-hour mean ozone concentration is &gt;100
-ug/m3. This is the target value.</p>
-    <p></li>
-<li> <b>roll.8.O3.gt.120</b> --- number of days when the daily
+ug/m3. This is the target value.</p></li>
+<li><p><b>roll.8.O3.gt.120</b> --- number of days when the daily
 maximum rolling 8-hour mean ozone concentration is &gt;120
-ug/m3. This is the Limit Value not to be exceeded &gt; 10 days a year.</p>
-    <p></li>
-<li> <b>AOT40</b> --- is the accumulated amount of ozone over the
+ug/m3. This is the Limit Value not to be exceeded &gt; 10 days a year.</p></li>
+<li><p><b>AOT40</b> --- is the accumulated amount of ozone over the
 threshold value of 40 ppb for daylight hours in the growing season
 (April to September). Note that <code>latitude</code> and
-<code>longitude</code> can also be passed to this calculation.</p>
-    <p></li>
-<li> <b>hours.gt.200</b> --- number of hours NO2 is more than 200 ug/m3.</p>
-    <p></li>
-<li> <b>days.gt.50</b> --- number of days PM10 is more than 50 ug/m3. </li>
-</ul></p>
+<code>longitude</code> can also be passed to this calculation.</p></li>
+<li><p><b>hours.gt.200</b> --- number of hours NO2 is more than 200 ug/m3.</p></li>
+<li><p><b>days.gt.50</b> --- number of days PM10 is more than 50 ug/m3.</p></li>
+</ul>
     <p>There can be small discrepancies with the AURN due to the
 treatment of rounding data. The <code>aqStats</code> function does not
 round, whereas AURN data can be rounded at several stages during
