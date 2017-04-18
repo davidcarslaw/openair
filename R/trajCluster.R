@@ -212,7 +212,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       
       agg <- select_(traj, "lat", "lon", "date", "cluster", "hour.inc", type) %>% 
         group_by_(., "cluster", "hour.inc", type) %>% 
-        summarise_each(funs(mean))
+        summarise_all(funs(mean))
       
       # the data frame we want to return before it is transformed
       resRtn <- agg
