@@ -32,7 +32,7 @@ Description
 
 This package continues to develop and input from other developers would be welcome. A summary of some of the features are:
 
--   **Access to data** from several hundred UK air pollution monitoring sites through the `importAURN` and `importKCL` functions as well as archive data from the EEA (European Environment Agency) [Airbase](http://www.eea.europa.eu/themes/air/air-quality/map/airbase) database.
+-   **Access to data** from several hundred UK air pollution monitoring sites through the `importAURN` and `importKCL` functions.
 -   **Utility functions** such as `timeAverage` and `selectByDate` to make it easier to manipulate atmospheric composition data.
 -   Flexible **wind and pollution roses** through `windRose` and `pollutionRose`.
 -   Flexible plot conditioning to easily plot data by hour or the day, day of the week, season etc. through the openair `type` option available in most functions.
