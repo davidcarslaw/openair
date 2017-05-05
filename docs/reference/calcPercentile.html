@@ -144,15 +144,8 @@ one other numeric variable, percentiles are calculated.</p>
 
 <span class='co'># 95th percentile monthly o3 concentrations</span>
 <span class='no'>percentiles</span> <span class='kw'>&lt;-</span> <span class='fu'>calcPercentile</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span><span class='st'>"o3"</span>,
-<span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>95</span>)
-
-<span class='fu'>head</span>(<span class='no'>percentiles</span>)</div><div class='output co'>#&gt;         date percentile.95
-#&gt; 1 1998-01-01            14
-#&gt; 2 1998-02-01             7
-#&gt; 3 1998-03-01            15
-#&gt; 4 1998-04-01            20
-#&gt; 5 1998-05-01            25
-#&gt; 6 1998-06-01            15</div><div class='input'>
+<span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>95</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
+<span class='fu'>head</span>(<span class='no'>percentiles</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(percentiles): object 'percentiles' not found</span></div><div class='input'>
 <span class='co'># 5, 50, 95th percentile monthly o3 concentrations</span>
 <span class='fu'>not_run</span>({
   <span class='no'>percentiles</span> <span class='kw'>&lt;-</span> <span class='fu'>calcPercentile</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span><span class='st'>"o3"</span>,

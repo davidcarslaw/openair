@@ -82,7 +82,7 @@
 <p>This package continues to develop and input from other developers would be welcome. A summary of some of the features are:</p>
 <ul>
 <li>
-<strong>Access to data</strong> from several hundred UK air pollution monitoring sites through the <code>importAURN</code> and <code>importKCL</code> functions as well as archive data from the EEA (European Environment Agency) <a href="http://www.eea.europa.eu/themes/air/air-quality/map/airbase">Airbase</a> database.</li>
+<strong>Access to data</strong> from several hundred UK air pollution monitoring sites through the <code>importAURN</code> and <code>importKCL</code> functions.</li>
 <li>
 <strong>Utility functions</strong> such as <code>timeAverage</code> and <code>selectByDate</code> to make it easier to manipulate atmospheric composition data.</li>
 <li>Flexible <strong>wind and pollution roses</strong> through <code>windRose</code> and <code>pollutionRose</code>.</li>
@@ -100,7 +100,7 @@
 <a href="#import-data-from-the-uk-automatic-urban-and-rural-network" class="anchor"></a>Import data from the UK Automatic Urban and Rural Network</h3>
 <p>It is easy to import hourly data from 100s of sites and to import several sites at one time and several years of data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(openair)
-kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN.html">importAURN</a></span>(<span class="dt">site =</span> <span class="st">"kc1"</span>, <span class="dt">year =</span> <span class="dv">2011</span>:<span class="dv">2012</span>)
+kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN.html">importAURN</a></span>(<span class="dt">site =</span> <span class="st">"kc1"</span>, <span class="dt">year =</span> <span class="dv">2011</span><span class="op">:</span><span class="dv">2012</span>)
 <span class="kw">head</span>(kc1)
 ##                  date o3 no2  co so2 pm10 nox no pm2.5 nv2.5 v2.5 nv10 v10
 ## 1 2011-01-01 00:00:00 14  38 0.2   5   40  44  4    39    32    7   32   8
@@ -121,7 +121,7 @@ kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN
 <h3 class="hasAnchor">
 <a href="#utility-functions" class="anchor"></a>Utility functions</h3>
 <p>Using the <code>selectByDate</code> function it is easy to select quite complex time-based periods. For example, to select weekday (Monday to Friday) data from June to September for 2012 <em>and</em> for the hours 7am to 7pm inclusive:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sub &lt;-<span class="st"> </span><span class="kw"><a href="reference/selectByDate.html">selectByDate</a></span>(kc1, <span class="dt">day =</span> <span class="st">"weekday"</span>, <span class="dt">year =</span> <span class="dv">2012</span>, <span class="dt">month =</span> <span class="dv">6</span>:<span class="dv">9</span>, <span class="dt">hour =</span> <span class="dv">7</span>:<span class="dv">19</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sub &lt;-<span class="st"> </span><span class="kw"><a href="reference/selectByDate.html">selectByDate</a></span>(kc1, <span class="dt">day =</span> <span class="st">"weekday"</span>, <span class="dt">year =</span> <span class="dv">2012</span>, <span class="dt">month =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">hour =</span> <span class="dv">7</span><span class="op">:</span><span class="dv">19</span>)
 <span class="kw">head</span>(sub)
 ##                      date o3 no2   co so2 pm10 nox no pm2.5 nv2.5 v2.5
 ## 12416 2012-06-01 07:00:00 24  23 0.23   3    6  36  9    21    14    7

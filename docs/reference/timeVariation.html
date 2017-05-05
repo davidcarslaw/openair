@@ -346,7 +346,7 @@ can control the text in the subheading through the use of
     <pre class="examples"><div class='input'>
 
 <span class='co'># basic use</span>
-<span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><img src='timeVariation-2.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
 <span class='co'># for a subset of conditions</span>
 <span class='fu'>not_run</span>({
   <span class='fu'>timeVariation</span>(<span class='fu'>subset</span>(<span class='no'>mydata</span>, <span class='no'>ws</span> <span class='kw'>&gt;</span> <span class='fl'>3</span> <span class='kw'>&amp;</span> <span class='no'>wd</span> <span class='kw'>&gt;</span> <span class='fl'>100</span> <span class='kw'>&amp;</span> <span class='no'>wd</span> <span class='kw'>&lt;</span> <span class='fl'>270</span>),
