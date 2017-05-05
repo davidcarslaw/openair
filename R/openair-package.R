@@ -22,9 +22,8 @@
 ##' 
 ##' The package also provides access to a wide range of data
 ##' sources including the UK Automatic Urban and Rural Network (AURN),
-##' networks run by King's College London (e.g. the LAQN), the Scottish Air
-##' Quality Network (SAQN) and the European Environment Agency
-##' \emph{airbase} database with over 8,000 sites.
+##' networks run by King's College London (e.g. the LAQN) and the Scottish Air
+##' Quality Network (SAQN).
 ##' 
 ##' The package has a number of requirements for input data and these are
 ##' discussed in the manual (available on the \code{openair} website at

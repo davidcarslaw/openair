@@ -4,6 +4,7 @@
 
 - change `polarCluster` resolution to "normal" rather than "fine" to speed up.
 - fix regression when fitting smooth using `trajLevel`
+- remove all Airbase functions, will be available via new package that also incorporates newer e-reporting data
 
 # openair 2.1-0
 
