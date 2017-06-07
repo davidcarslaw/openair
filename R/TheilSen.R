@@ -327,7 +327,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
   
   ## date formatting for plot
-  date.at <- as.Date(dateBreaks(mydata$date, date.breaks)$major)
+  date.at <- as_date(dateBreaks(mydata$date, date.breaks)$major)
   date.format <- dateBreaks(mydata$date)$format
   
   
@@ -369,7 +369,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
     
     if (avg.time == "month") {
       
-      mydata$date <- as.Date(mydata$date)
+      mydata$date <- as_date(mydata$date)
       
       deseas <- mydata[[pollutant]]
       
@@ -402,7 +402,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
     } else {
       
       ## assume annual
-      all.results <- data.frame(date = as.Date(mydata$date), 
+      all.results <- data.frame(date = as_date(mydata$date), 
                                 conc = mydata[[pollutant]],
                                 stringsAsFactors = FALSE)
       results <- na.omit(all.results)
@@ -637,8 +637,8 @@ panel.shade <- function(split.data, start.year, end.year, ylim,
                        ISOdate(end.year + 5, 1, 1), by = "2 years"), "GMT")
   
   
-  if (class(split.data$date)[1]  == "Date") {x1 <- as.Date(x1)
-  x2 <- as.Date(x2)
+  if (class(split.data$date)[1]  == "Date") {x1 <- as_date(x1)
+  x2 <- as_date(x2)
   }
   
   rng <- range(split.data$conc, na.rm = TRUE) ## range of data

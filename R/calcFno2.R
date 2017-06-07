@@ -213,7 +213,7 @@ calcFno2 <- function(input,
         dates <- lapply(input.part, function(x) format(x$date[1], "%Y-%m"))
         dates <- do.call(rbind, dates)
 
-        dates <- as.Date(paste(dates, "-01", sep = ""))
+        dates <- as_date(paste(dates, "-01", sep = ""))
 
         results <- data.frame(date = dates, fno2 = 100 * fno2) ## retrun estimates
 

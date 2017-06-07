@@ -716,8 +716,8 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
                     par.strip.text = list(cex = 0.8),
                     par.settings = simpleTheme(col = myColors, pch = 16),
              scales = list(x = list(at = 1:12,
-                                    labels = substr(format(seq(as.Date("2000-01-01"),
-                                                               as.Date("2000-12-31"), "month"),
+                                    labels = substr(format(seq(as_date("2000-01-01"),
+                                                               as_date("2000-12-31"), "month"),
                                                            "%B"), 1, 1))),
              panel = function(x, y, ...) {
                  panel.grid(-1, 0)

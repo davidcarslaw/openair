@@ -349,7 +349,7 @@ one more label than date")
 
         if (class(mydata$date)[1] == "Date") {
 
-            dates <- as.Date(as.POSIXct(strptime(dates, "%d/%m/%Y"), "GMT"))
+            dates <- as_date(as.POSIXct(strptime(dates, "%d/%m/%Y"), "GMT"))
 
         } else {
 
@@ -361,7 +361,7 @@ one more label than date")
 
         if (class(mydata$date)[1] == "Date") {
 
-            dates <- as.Date(dates)
+            dates <- as_date(dates)
 
         } else {
 
@@ -468,17 +468,17 @@ selectByDate <- function (mydata, start = "1/1/2008",
 
         if (length(grep("/", start)) > 0 & length(grep("/", end)) > 0) {
             ## assume UK date format
-            start <- as.Date(start, "%d/%m/%Y")
-            end <- as.Date(end, "%d/%m/%Y")
+            start <- as_date(start, "%d/%m/%Y")
+            end <- as_date(end, "%d/%m/%Y")
         }
 
         if (length(grep("-", start)) > 0 & length(grep("-", end)) > 0) {
             ## assume R date format
-            start <- as.Date(start)
-            end <- as.Date(end)
+            start <- as_date(start)
+            end <- as_date(end)
         }
 
-        mydata <- subset(mydata, as.Date(date) >= start & as.Date(date) <= end)
+        mydata <- subset(mydata, as_date(date) >= start & as_date(date) <= end)
 
     }
     

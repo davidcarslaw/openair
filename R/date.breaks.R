@@ -99,7 +99,7 @@ dateBreaks <- function(x, n = 5, min.n = n %/% 2, ...)
         flabels <- format(at, s$format)
         ans <-
          #   if (isDate) as.Date(round(at, units = "days"))
-        if (isDate) as.Date(round(at))
+        if (isDate) as_date(round(at))
             else as.POSIXct(at)
         attr(ans, "labels") <- flabels
 

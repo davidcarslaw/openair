@@ -263,8 +263,8 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
     lattice.options(default.theme = cal.theme)
 
     ## all the days in the year
-    all.dates <- seq(as.Date(paste(year, "-01-01", sep = "")),
-                     as.Date(paste(year, "-12-31", sep = "")), by = "day")
+    all.dates <- seq(as_date(paste(year, "-01-01", sep = "")),
+                     as_date(paste(year, "-12-31", sep = "")), by = "day")
 
     prepare.grid <- function(mydata, pollutant) {
 

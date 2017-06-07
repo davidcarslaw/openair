@@ -173,7 +173,7 @@ kernelExceed <- function(polar,
         days <- daily$date[ids]
 
         ## ids for the hours
-        ids <- which(as.Date(polar$date) %in% as.Date(days))
+        ids <- which(as_date(polar$date) %in% as_date(days))
 
         subdata <- polar[ids, ]
 
