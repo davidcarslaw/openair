@@ -261,7 +261,7 @@ rollingMean <- function(mydata, pollutant = "o3", width = 8, new.name = "rolling
         ## make sure function is not called with window width longer than data
         if (width > nrow(mydata)) return(mydata)
 
-        mydata[[new.name]] <- .Call("rollingMean", mydata[[pollutant]],
+        mydata[[new.name]] <- .Call("rollMean", mydata[[pollutant]],
                                     width, data.thresh, align,
                                     PACKAGE = "openair")
 
