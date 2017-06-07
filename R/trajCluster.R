@@ -169,7 +169,11 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       z <- matrix(0, nrow = n, ncol = len)
       res <- matrix(0, nrow = len, ncol = len)
       
-      res <- .Call(method, x, y, res)
+      if (method == "distEuclid")
+        res <- .Call("distEuclid", x, y, res)
+      
+      if (method == "distAngle")
+        res <- .Call("distAngle", x, y, res)
       
       res[is.na(res)] <- 0 ## possible for some to be NA if trajectory does not move between two hours?
       

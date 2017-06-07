@@ -14,7 +14,7 @@ using namespace Rcpp;
 NumericVector ends(NumericVector A, LogicalVector NA, NumericVector res, std::string align, 
                    int start, int end, double lenr, double capr);
 
-RcppExport SEXP rollingMean(SEXP x, SEXP lenr, SEXP capr, SEXP alignr) {
+RcppExport SEXP rollMean(SEXP x, SEXP lenr, SEXP capr, SEXP alignr) {
   NumericVector A(x); // the data
   int n = A.size(); // length of data
   double cap = as<double>(capr); // data capture %
