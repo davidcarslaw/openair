@@ -424,7 +424,7 @@ one more label than date")
 ##' Friday) and \dQuote{weekend} for convenience.
 ##' @param hour An hour or hours to select from 0-23 e.g. \code{hour = 0:12} to
 ##'   select hours 0 to 12 inclusive.
-##' @importFrom lubridate dst year month hour force_tz day
+##' @importFrom lubridate dst year month hour force_tz day as_date
 ##' @export
 ##' @author David Carslaw
 ##' @keywords methods

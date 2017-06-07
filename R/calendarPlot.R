@@ -327,11 +327,11 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
 
         results
     }
-    
+  
     ## calculate daily means
     if ("POSIXt" %in% class(mydata$date) && !is.factor(mydata[, pollutant])) {
         mydata <- timeAverage(mydata, "day", statistic = statistic, data.thresh = data.thresh)
-        mydata$date <- as.Date(mydata$date)
+        mydata$date <- as_date(mydata$date)
     }
 
     ## type not yet used, set to month
