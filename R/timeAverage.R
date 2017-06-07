@@ -224,12 +224,12 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     stop("Statistic not recognised")
   
   if (statistic == "mean") FUN <- function (x) mean(x, na.rm = TRUE)
-  if (statistic == "median") FUN <- function (x) Cquantile(x, probs = 0.50)
+  if (statistic == "median") FUN <- function (x) median(x, na.rm = TRUE)
   if (statistic == "frequency") FUN <- function (x) length(na.omit(x))
   if (statistic == "max") FUN <- function (x) {
     if (all(is.na(x))) NA else max(x, na.rm = TRUE)
   }
-  if (statistic == "min") FUN <- function (x) Cquantile(x, probs = 0)
+  if (statistic == "min") FUN <- function (x) min(x, na.rm = TRUE)
   if (statistic == "sum") FUN <- function (x) {
     if (all(is.na(x))) NA else sum(x, na.rm = TRUE)
   }
@@ -249,7 +249,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
   }
   
   if (statistic == "percentile") FUN <- function (x)
-    Cquantile(x, probs = percentile)
+    quantile(x, probs = percentile, na.rm = TRUE)
   
   calc.mean <- function(mydata, start.date) { ## function to calculate means
     

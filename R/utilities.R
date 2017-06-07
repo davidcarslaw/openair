@@ -1019,23 +1019,6 @@ chooseFace <- function (fontface = NULL, font = 1)
 }
 
 
-Cquantile <- function(x, probs = 0.5) {
-    ## Quick (but basic) C++ quantile function
-
-    if (!is.numeric(x))
-        stop("Quantiles only work for numeric data")
-    
-    if (any(probs < 0) | any(probs > 1))
-        stop("Probabilities should be betweem 0 and 1")
-
-    if (all(is.na(x))) return(NA)
-
-    res <- Cquant(x, probs)
-    
-    return(res)
-    
-}
-
 
 
 ## simple rounding function from plyr
