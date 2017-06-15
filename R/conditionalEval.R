@@ -307,9 +307,11 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
             if (nrow(x) > 4) {
                 res <- plyr::ldply(1:200, tmpFun, x, ...)
 
-                data.frame(statistic = statistic, group = var.obs, mean = mean(res[[statistic]]),
+                data.frame(statistic = statistic, group = var.obs, 
+                           mean = mean(res[[statistic]]),
                            lower = quantile(res[[statistic]], probs = 0.025, na.rm = TRUE),
-                           upper = quantile(res[[statistic]], probs = 0.975, na.rm = TRUE))
+                           upper = quantile(res[[statistic]], probs = 0.975, na.rm = TRUE),
+                           stringsAsFactors = FALSE)
             }
         }
 
@@ -395,11 +397,17 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
     if (length(statistic) > 0) {
 
-        ## go through vars, then statistics
-        results <- plyr::ldply(seq_along(var.obs), function (x) {
-            plyr::ldply(statistic, function (y) plyr::ddply(mydata, type, procData, statistic = y,
-                                                var.obs = var.obs[x], var.mod = var.mod[x]))})
-        results$.id <- as.numeric(results$.id)
+      # combinations of statistics and variables to process
+      combs <- data.frame(expand.grid(var.obs = var.obs, stat = statistic, 
+                                      stringsAsFactors = FALSE), 
+                          expand.grid(var.mod = var.mod, stat = statistic, 
+                                      stringsAsFactors = FALSE))
+      
+      results <- combs %>% 
+        rowwise() %>% 
+        do(procData(mydata, statistic = .$stat, var.obs = .$var.obs, var.mod = .$var.mod))
+    
+      results$.id <- as.numeric(results$.id)
 
         ## make sure all infinite values are set to NA
         results[] <- lapply(results, function(x) {replace(x, x == Inf | x == -Inf, NA)})
