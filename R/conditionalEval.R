@@ -279,8 +279,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     procData <- function(mydata, statistic = statistic, var.obs = var.obs, 
                          var.mod = var.mod, ...) {
         ## only numerics if not clustering
-        if (!other) mydata <- mydata[ , sapply(mydata, class) %in% c("numeric", "integer"),
-                                       drop = FALSE]
+        if (!other) mydata <- select_if(mydata, is.numeric)
 
         obs <- mydata[[obs]]
         pred <- mydata[[mod]]
@@ -353,7 +352,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
         } else { ## two conditioning variables
 
-            pol.name <- sapply(levels(clust.results[ , type[1]]), function(x) quickText(x, auto.text))
+            pol.name <- sapply(levels(clust.results[ , type[1]]), function(x) 
+              quickText(x, auto.text))
             strip.left <- strip.custom(factor.levels = pol.name)
         }
         ## ###################################################################################
@@ -418,7 +418,9 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
         } else { ## two conditioning variables
 
-            pol.name <- sapply(levels(results[ , type[1]]), function(x) quickText(x, auto.text))
+            pol.name <- sapply(levels(results[ , type[1]]), function(x) 
+              quickText(x, auto.text))
+            
             strip.left <- strip.custom(factor.levels = pol.name)
         }
         ## #####################################################################################
@@ -428,8 +430,10 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
         if (is.null(var.names)) var.names <- var.obs
 
-        key <- list(lines = list(col = myColors[1:length(var.obs)], lty = extra.args$lty, lwd = 2),
-                    text = list(lab = sapply(var.names, function(x) quickText(x, auto.text)), cex = 1),
+        key <- list(lines = list(col = myColors[1:length(var.obs)], 
+                                 lty = extra.args$lty, lwd = 2),
+                    text = list(lab = sapply(var.names, function(x) 
+                      quickText(x, auto.text)), cex = 1),
                     space = "bottom", columns = 2,
                     title = quickText("variable", auto.text), cex.title = 1)
 
@@ -439,7 +443,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
         myform <- formula(paste("mean ~ .id | ", temp, sep = ""))
 
         p.args <- list(x = myform, data = results, groups = results$group,
-                       ylim = dlply(results, .(statistic), function(x) c(min(x$lower, na.rm = TRUE),
+                       ylim = dlply(results, .(statistic), 
+                                    function(x) c(min(x$lower, na.rm = TRUE),
                        max(x$upper, na.rm = TRUE))),
                        xlim = c(lo, hi * 1.05),
                        ylab = quickText(ylab, auto.text),
@@ -500,7 +505,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
     if (other) results <- clust.results
 
-    output <- list(plot = list(pltCondQ, trellis.last.object()), data = results, call = match.call())
+    output <- list(plot = list(pltCondQ, trellis.last.object()), data = results, 
+                   call = match.call())
     class(output) <- "openair"
     invisible(output)
 }
