@@ -6,6 +6,7 @@
 - fix regression when fitting smooth using `trajLevel`
 - remove all Airbase functions, will be available via new package that also incorporates newer e-reporting data
 - fix bug in `timeAverage` when `statistic = "sum"` and all data in period was missing (would return 0 rather than `NA`)
+- make sure that same data used in all `conditionalEval` plots by using data where there are no missing data for all variables used. This is more important of `var.obs ` and `var.mod` are supplied and hence additional variables are considered relative to only `obs` and `mod`.
 - fix date issues in `calendarPlot` to do with time zones
 
 # openair 2.1-0
