@@ -180,6 +180,9 @@ cutData <- function(x, type = "default", hemisphere = "northern",
       ## split by quantiles unless it is a factor, in which case keep as is
       ## number of quantiles set by n.levels
       
+      # don't want missing values in cuts
+      x <- x[!is.na(x[[type]]), ]
+      
       if (is.factor(x[[type]]) | is.character(x[[type]]) | class(x[[type]])[1] == "Date" |
           "POSIXt" %in% class(x[[type]])) {
         
