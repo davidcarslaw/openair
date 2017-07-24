@@ -186,7 +186,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
         
         x <- x[!is.na(x[[type]]), ]
         
-        warning(paste0("removing ", lenNA, " missing data."), call. = FALSE)
+        warning(paste0("removing ", lenNA, " missing rows due to ", type), call. = FALSE)
         
       }
       
