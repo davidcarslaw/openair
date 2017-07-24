@@ -181,7 +181,14 @@ cutData <- function(x, type = "default", hemisphere = "northern",
       ## number of quantiles set by n.levels
       
       # don't want missing values in cuts
-      x <- x[!is.na(x[[type]]), ]
+      if (anyNA(x[[type]])) {
+        lenNA <- length(which(is.na(x[[type]])))
+        
+        x <- x[!is.na(x[[type]]), ]
+        
+        warning(paste0("removing ", lenNA, " missing data."), call. = FALSE)
+        
+      }
       
       if (is.factor(x[[type]]) | is.character(x[[type]]) | class(x[[type]])[1] == "Date" |
           "POSIXt" %in% class(x[[type]])) {
