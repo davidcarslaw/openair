@@ -238,8 +238,8 @@ cutData <- function(x, type = "default", hemisphere = "northern",
       x[[type]] <- format(x$date, temp)
       
       ## month names
-      month.abbs <- format(seq(as_date("2000-01-01"), 
-                               as_date("2000-12-31"), "month"), temp)
+      month.abbs <- format(seq(as.Date("2000-01-01"), 
+                               as.Date("2000-12-31"), "month"), temp)
       
       ## might only be partial year...
       ids <- which(month.abbs %in% unique(x$month))
@@ -489,7 +489,7 @@ cutDaylight <- function(x, latitude = 51.522393, longitude = -0.154700, ...){
   
   #julian century (via julian day)
   julian.century <-
-    as.numeric(as_date(temp, format = "%m/%d/%Y")) + 2440587.5 +
+    as.numeric(as.Date(temp, format = "%m/%d/%Y")) + 2440587.5 +
     p.day - (local.hour.offset / 24)
   julian.century <- (julian.century - 2451545) / 36525
   
