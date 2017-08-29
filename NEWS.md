@@ -9,6 +9,7 @@
 - make sure that same data used in all `conditionalEval` plots by using data where there are no missing data for all variables used. This is more important of `var.obs ` and `var.mod` are supplied and hence additional variables are considered relative to only `obs` and `mod`.
 - fix date issues in `calendarPlot` to do with time zones
 - remove missing data when type is a numeric value split up into quantiles
+- fix bug in `windRose`/`pollutionRose` when two conditioning variables were given (problem in bias correction)
 
 # openair 2.1-0
 
