@@ -650,9 +650,9 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     # function to correct bias
     corr_bias <- function(results) {
       
-      # check to see if orginal data for this type is rounded to 10, if so bias adjust
-      wd_select <- mydata_orig[mydata_orig[[type]] == results[[type]][1] , wd]
-      if (!all(wd_select %% 10 == 0, na.rm = TRUE)) return(results)
+      # check to see if data for this type combination are rounded to 10 degrees
+      wd_select <- inner_join(mydata_orig, results[1, type], by = type)
+      if (!all(wd_select[[wd]] %% 10 == 0, na.rm = TRUE)) return(results)
       
       wds <- seq(10, 360, 10)
       tmp <- angle * ceiling(wds / angle - 0.5)
