@@ -1,6 +1,8 @@
-# openair 2.1-99
+# openair 2.2-99
 
-## Main changes
+- refine `selectByDate` due to changes in `lubridate`
+
+## openair 2.1-5
 
 - change `polarCluster` resolution to "normal" rather than "fine" to speed up.
 - fix regression when fitting smooth using `trajLevel`
