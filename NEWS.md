@@ -1,6 +1,7 @@
 # openair 2.2-99
 
 - refine `selectByDate` due to changes in `lubridate`
+- fix issue with `importSAQN` when no data
 
 ## openair 2.1-5
 
