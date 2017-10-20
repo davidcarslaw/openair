@@ -183,13 +183,16 @@ importSAQN <- function(site = "gla4", year = 2009, pollutant = "all") {
     }
 
     thedata <- lapply(files, loadData)
+    
+    # Return if no data
+    if (length(thedata) == 0) return() ## no data
 
     theObjs <- unlist(thedata)
     ## note unlist will drop NULLs from non-existant sites/years
     mylist <- lapply(theObjs, get)
 
     thedata <- do.call(bind_rows, mylist)
-    if (is.null(thedata)) stop("No data to import - check site codes and year.", call. = FALSE)
+    if (is.null(thedata) || nrow(thedata) == 0) stop("No data to import - check site codes and year.", call. = FALSE)
 
     thedata$site <- factor(thedata$site, levels = unique(thedata$site))
 
