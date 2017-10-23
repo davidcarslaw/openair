@@ -2,6 +2,7 @@
 
 - refine `selectByDate` due to changes in `lubridate`
 - fix issue with `importSAQN` when no data
+- remove site information from help of `importAURN` and point users to `importMeta`
 
 ## openair 2.1-5
 
