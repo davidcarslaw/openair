@@ -344,6 +344,8 @@
 #'   equal to the median and will be ignored if 
 #'   \code{"quantile.slope"} is not used.
 #'   
+#' @param plot.northarrow defines if geograhpic arrows should be plot 
+#'
 #' @param ... Other graphical parameters passed onto 
 #'   \code{lattice:levelplot} and \code{cutData}. For example, 
 #'   \code{polarPlot} passes the option \code{hemisphere = "southern"}
@@ -473,7 +475,7 @@ polarPlot <-
            units = x, force.positive = TRUE, k = 100, normalise = FALSE,
            key.header = "", key.footer = pollutant, key.position = "right", 
            key = TRUE, auto.text = TRUE, ws_spread = 15, wd_spread = 4, 
-           kernel = "gaussian", tau = 0.5, ...) {
+           kernel = "gaussian", tau = 0.5, plot.northarrow = TRUE, ...) {
     
     ## get rid of R check annoyances
     z <-  . <- NULL
@@ -1066,13 +1068,15 @@ polarPlot <-
                        quickText(x, auto.text)) , cex = 0.7, pos = 4)
         
         ## add axis line to central polarPlot
-        larrows(-upper, 0, upper, 0, code = 3, length = 0.1)
-        larrows(0, -upper, 0, upper, code = 3, length = 0.1)
-        
-        ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
-        ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
-        ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
-        ltext(upper * 0.95, 0.07 * upper, "E", cex = 0.7)
+        if (plot.northarrow == TRUE){
+          larrows(-upper, 0, upper, 0, code = 3, length = 0.1)
+          larrows(0, -upper, 0, upper, code = 3, length = 0.1)
+
+          ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
+          ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
+          ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
+          ltext(upper * 0.95, 0.07 * upper, "E", cex = 0.7)
+        }
         
         # Add formula to plot if regression
         if (grepl("slope|intercept", statistic) & length(pollutant == 2)) {
