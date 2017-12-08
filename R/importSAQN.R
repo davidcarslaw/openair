@@ -225,7 +225,8 @@ importSAQN <- function(site = "gla4", year = 2009, pollutant = "all") {
 
 
     ## if particular pollutants have been selected
-    if (!missing(pollutant)) thedata <- thedata[, c("date", pollutant, "site", "code")]
+    if (!missing(pollutant) && pollutant != "all") 
+      thedata <- thedata[, c("date", pollutant, "site", "code")]
 
     rm(list = theObjs, pos = 1)
 
