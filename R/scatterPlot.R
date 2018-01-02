@@ -1657,7 +1657,7 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
                     group.number, lwd, groupMax, type)
 {
   
-  
+ 
   ## data of interest
   tmp <- split(mydata[subscripts, ],
                mydata[subscripts, "date"])
@@ -1706,8 +1706,9 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
     {
       
       ## make sure we match clusters in case order mixed
+      vars <- c(type, "MyGroupVar")
      
-      pnts <- group_by(mydata, type, "MyGroupVar") %>%
+      pnts <- group_by(mydata, UQS(syms(vars))) %>%
         do(head(., 1))
       
       pnts <- merge(pnts, Args$clusters, 
