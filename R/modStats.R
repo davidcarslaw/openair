@@ -208,7 +208,7 @@ modStats <- function(mydata,  mod = "mod", obs = "obs",
             results <- rankModels(results, rank.name)
         } else {
 
-            results <- group_by(results, types) %>%
+            results <- group_by(results, UQS(syms(types))) %>%
               do(rankModels(., rank.name = rank.name))
         }
 
