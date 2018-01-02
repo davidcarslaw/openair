@@ -953,19 +953,19 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     if (nrow(unique(subset(mydata, select = c(xgrid, ygrid)))) != nrow(mydata)) {
       
       if (statistic == "frequency")
-        mydata <- select_(mydata, "xgrid", "ygrid", .dots = type, z) %>%
-          group_by_(., "xgrid", "ygrid", .dots = type) %>%
-          summarise_(MN = interp(~length(var), var = as.name(z)))
+        mydata <- select_(mydata, "xgrid", "ygrid", UQS(syms(type)), z) %>%
+          group_by(., "xgrid", "ygrid", UQS(syms(type))) %>%
+          summarise(MN = length(UQ(sym(z))))
       
       if (statistic == "mean")
-        mydata <- select_(mydata, "xgrid", "ygrid", .dots = type, z) %>%
-          group_by_(., "xgrid", "ygrid", .dots = type) %>%
-          summarise_(MN = interp(~mean(var, na.rm = TRUE), var = as.name(z)))  
+        mydata <- select_(mydata, "xgrid", "ygrid", UQS(syms(type)), z) %>%
+          group_by(., "xgrid", "ygrid", UQS(syms(type))) %>%
+          summarise(MN = mean(UQ(sym(z)), na.rm = TRUE))
       
       if (statistic == "median")
-        mydata <- select_(mydata, "xgrid", "ygrid", .dots = type, z) %>%
-          group_by_(., "xgrid", "ygrid", .dots = type) %>%
-          summarise_(MN = interp(~median(var, na.rm = TRUE), var = as.name(z)))  
+        mydata <- select_(mydata, "xgrid", "ygrid", UQS(syms(type)), z) %>%
+          group_by(., "xgrid", "ygrid", UQS(syms(type))) %>%
+          summarise(MN = median(UQ(sym(z)), na.rm = TRUE))  
      
       names(mydata)[which(names(mydata) == "MN")] <- z
       
@@ -1016,7 +1016,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       new.data
     }
     
-    if (smooth) mydata <- group_by_(mydata, .dots = type) %>%
+    if (smooth) mydata <- group_by(mydata, UQS(syms(type))) %>%
       do(smooth.grid(., z))
     
     ## basic function for lattice call + defaults
@@ -1216,7 +1216,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       new.data
     }
     
-    if (smooth) mydata <- group_by_(mydata, .dots = type) %>%
+    if (smooth) mydata <- group_by(mydata, UQS(syms(type))) %>%
       do(smooth.grid(., z))
     
     ## basic function for lattice call + defaults
@@ -1407,7 +1407,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     
     ## ###########################################################################
     
-    results.grid <- group_by_(mydata, .dots = type) %>%
+    results.grid <- group_by(mydata, UQS(syms(type))) %>%
       do(prepare.grid(.))
     
     
@@ -1707,7 +1707,7 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
       
       ## make sure we match clusters in case order mixed
      
-      pnts <- group_by_(mydata, type, "MyGroupVar") %>%
+      pnts <- group_by(mydata, type, "MyGroupVar") %>%
         do(head(., 1))
       
       pnts <- merge(pnts, Args$clusters, 

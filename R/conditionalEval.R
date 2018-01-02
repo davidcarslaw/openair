@@ -339,7 +339,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
     if (other) {
 
-        clust.results <- group_by_(mydata, type) %>%
+        clust.results <- group_by(mydata, UQS(syms(type))) %>%
           do(procData(., other = other, statistic = statistic))
 
         clust.results$.id <- as.numeric(clust.results$.id)

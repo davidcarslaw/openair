@@ -342,15 +342,18 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     rhs <- paste(rhs, collapse = "+")
     mydata <- mydata[ , c("date", "xgrid", "ygrid", type, pollutant)]
     ids <- which(names(mydata) %in% c("xgrid", "ygrid", type))
+    
+    # grouping variables
+    vars <- c("xgrid", "ygrid", type)
 
     ## plot mean concentration - CWT method
     if (statistic %in% c("cwt", "median")) {
 
         ## calculate the mean of points in each cell 
-        mydata <- group_by_(mydata, "xgrid", "ygrid", type) %>%
-          summarise_(date = interp(~ head(date, 1)),
-                     N = interp(~ n()),
-                     count = interp(~ mean(var, na.rm = TRUE), var = as.name(pollutant)))
+        mydata <- group_by(mydata, UQS(syms(vars))) %>%
+          summarise(date = head(date, 1),
+                     N = n(),
+                     count = mean(UQ(sym(pollutant)), na.rm = TRUE))
        
         mydata[[pollutant]] <- mydata$count
 
@@ -372,7 +375,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
         ## count % of times a cell contains a trajectory point
         ## need date for later use of type
 
-        mydata <- group_by_(mydata, "xgrid", "ygrid", type) %>%
+        mydata <- group_by(mydata, UQS(syms(vars))) %>%
           summarise(date = head(date, 1),  count = n())
 
         mydata[[pollutant]] <- 100 * mydata$count / max(mydata$count)
@@ -387,10 +390,10 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
         Q90 <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
 
         ## calculate the proportion of points in cell with value > Q90
-        mydata <- group_by_(mydata, "xgrid", "ygrid", type) %>%
-          summarise_(date = interp(~ head(date, 1)),
-                     N = interp(~ n()),
-                     count = interp(~ length(which(var > Q90)) / N, var = as.name(pollutant)))
+        mydata <- group_by(mydata, UQS(syms(vars))) %>%
+          summarise(date = head(date, 1),
+                     N = n(),
+                     count = length(which(UQ(sym(pollutant)) > Q90)) / N)
        
         mydata[[pollutant]] <- mydata$count
         
@@ -413,7 +416,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
         ## calculate percentage of points for all data
         
-        base <- group_by_(mydata, "xgrid", "ygrid", type) %>%
+        base <- group_by(mydata, UQS(syms(vars))) %>%
           summarise(date = head(date, 1),  count = n())
 
         base[[pollutant]] <- 100 * base$count / max(base$count)
@@ -423,10 +426,10 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
         
         ## calculate percentage of points for high data
-        high <- group_by_(mydata, "xgrid", "ygrid", type) %>%
-          summarise_(date = interp(~ head(date, 1)),
-                     N = interp(~ n()),
-                     count = interp(~ length(which(var > Q90)), var = as.name(pollutant)))
+        high <- group_by(mydata, UQS(syms(vars))) %>%
+          summarise(date = head(date, 1),
+                     N = n(),
+                     count = length(which(UQ(sym(pollutant)) > Q90)))
 
         high[[pollutant]] <- 100 * high$count / max(high$count)
 

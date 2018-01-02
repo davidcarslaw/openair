@@ -72,7 +72,6 @@
 ##'   representing the statistics. If \code{transpose = TRUE} then the results
 ##'   have columns for each pollutant-site combination.
 ##' @param ... Other arguments, currently unused.
-##' @import lazyeval
 ##' @export
 ##' @import reshape2
 ##' @author David Carslaw
@@ -168,7 +167,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
               do(rollingMean(., pollutant, data.thresh = data.thresh)) %>%
               do(timeAverage(., avg.time = "day", statistic = "max",
                              data.thresh = data.thresh, type = "site")) %>%
-              summarise_(roll.8.O3.gt.100 = interp(~ length(which(var > 100)), var = as.name("rolling8o3")))
+              summarise(roll.8.O3.gt.100 = length(which(rolling8o3 > 100)))
 
             rollingO3$site <- Mean$site ## make sure all have same columns
             rollingO3$date <- Mean$date
@@ -177,7 +176,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
               do(rollingMean(., pollutant, data.thresh = data.thresh)) %>%
               do(timeAverage(., avg.time = "day", statistic = "max",
                              data.thresh = data.thresh, type = "site")) %>%
-                               summarise_(roll.8.O3.gt.120 = interp(~ length(which(var > 120)), var = as.name("rolling8o3")))
+              summarise(roll.8.O3.gt.120 = length(which(rolling8o3 > 120)))
 
             rollingO3b$site <- Mean$site ## make sure all have same columns
             rollingO3b$date <- Mean$date
@@ -198,10 +197,10 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
         }
 
         if (length(grep("no2", pollutant, ignore.case = TRUE)) == 1) {
-
+browser()
             hours <- group_by(mydata, year) %>%
-              summarise_(hours = interp(~ length(which(var > 200)),
-                             var = as.name(pollutant)))
+              summarise(hours = length(which(UQ(sym(pollutant)) > 200)))
+            
             hours$site <- Mean$site ## make sure all have same columns
             hours$date <- Mean$date
 
@@ -221,8 +220,8 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
             days <- group_by(mydata, year) %>%
               do(timeAverage(., avg.time = "day", statistic = "mean", data.thresh,
                              type = "site")) %>%
-              summarise_(days = interp(~ length(which(var > 50)),
-                             var = as.name(pollutant)))
+              summarise(days = length(which(UQ(sym(pollutant)) > 50)))
+            
             days$site <- Mean$site ## make sure all have same columns
             days$date <- Mean$date
 

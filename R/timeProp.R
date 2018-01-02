@@ -204,7 +204,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   if (type == "default") aves$default <- mydata$default[1]
   
   # date 2 is the end date of each interval
-  aves <- group_by_(aves, type) %>% 
+  aves <- group_by(aves, UQS(syms(type))) %>% 
     mutate(date2 = lead(date))
   
   # this leaves NA at the end, add the time interval based on data
@@ -216,9 +216,11 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   mydata$date <- cut(mydata$date, avg.time)
   
   # calculate the mean and frequency by time interval, type, proportion
-  values <- group_by_(mydata, type, "date", proportion) %>% 
-    summarise_(mean = interp(~mean(var, na.rm = TRUE), var = as.name(pollutant)),
-               freq = interp(~length(na.omit(var)), var = as.name(pollutant)))
+  vars <- c(type, "date", proportion)
+  
+  values <- group_by(mydata, UQS(syms(vars))) %>% 
+    summarise(mean = mean(UQ(sym(pollutant)), na.rm = TRUE),
+               freq = length(na.omit(UQ(sym(pollutant)))))
   
   # do not weight by concentration if statistic = frequency, 
  
@@ -238,22 +240,24 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   # mean * frequency
   values <- mutate(values, sums = freq * mean)
   
+  vars <- c(type, "date")
+  
   if (statistic == "mean") {
     ## weighted conc
     
-    results <- group_by_(values, type, "date") %>%
+    results <- group_by(values, UQS(syms(vars))) %>%
       mutate(Var1 = sums / sum(freq, na.rm = TRUE))
     
   } else {
     
-    results <- group_by_(values, type, "date") %>%
+    results <- group_by(values, UQS(syms(vars))) %>%
       mutate(Var1 = means * freq / sum(freq, na.rm = TRUE))
     
   }
   
   ## normlaise to 100 if needed
   if (normalise)
-    results <- group_by_(results, type, "date") %>%
+    results <- group_by(results, UQS(syms(vars))) %>%
     mutate(Var1 = Var1 * (100 / sum(Var1, na.rm = TRUE)))
   
   # put date back into POSIXct format
@@ -308,7 +312,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   results <- na.omit(results)
   
   # y values for plotting rectangles
-  results <- group_by_(results, type, "date") %>%
+  results <- group_by(results, UQS(syms(vars))) %>%
     mutate(var2 = cumsum(Var1))
   
   myform <- formula(paste("Var1 ~ date | ", type, sep = ""))

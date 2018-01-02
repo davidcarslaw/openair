@@ -291,7 +291,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     ## if interval specified, then use it
     if (!is.na(interval)) {
       
-      mydata <- group_by_(mydata, .dots = type) %>%
+      mydata <- group_by(mydata, UQS(syms(type))) %>%
         do(date.pad2(., type = type, interval = interval))
       
       ## make sure missing types are inserted
@@ -452,7 +452,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       
       if (statistic == "mean") {## faster for some reason?
         
-        avmet <- group_by_(mydata, .dots = vars) %>%
+        avmet <- group_by(mydata, UQS(syms(vars))) %>%
           summarise_all(
             funs(
               if (sum(is.na(.)) / length(.) <= 1 - data.thresh)
@@ -463,7 +463,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
         
       } else {
         
-        avmet <- group_by_(mydata, .dots = vars) %>%
+        avmet <- group_by(mydata, UQS(syms(vars))) %>%
           summarise_all(
             funs(
               if (sum(is.na(.)) / length(.) <= 1 - data.thresh)
@@ -482,7 +482,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
         mydata$date <- as.POSIXct(cut(mydata$date, avg.time), TZ)
       
       avmet <- #select(mydata, -date) %>%
-        group_by_(mydata, .dots = vars) # %>%
+        group_by(mydata, UQS(syms(vars))) # %>%
       
       # This is much faster for some reason
       if (statistic == "mean") {
@@ -550,7 +550,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
   }
   
   ## calculate stats split by type
-  mydata <- group_by_(mydata, .dots = type) %>%
+  mydata <- group_by(mydata, UQS(syms(type))) %>%
     do(calc.mean(., start.date))
   
   ## don't need default column

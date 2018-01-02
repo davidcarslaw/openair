@@ -358,6 +358,7 @@
 #' @importFrom MASS rlm
 #' @importFrom latticeExtra useOuterStrips
 #' @import mgcv
+#' @import rlang 
 #' @import lattice
 #' @importFrom stats complete.cases
 #' @return As well as generating the plot itself, \code{polarPlot} 
@@ -866,19 +867,19 @@ polarPlot <-
       
       tmp <- min.bin
       min.bin <- 0
-      res1 <- group_by_(mydata, .dots = type) %>%
+      res1 <- group_by(mydata, UQS(syms(type))) %>%
         do(prepare.grid(.))
       
       min.bin <- tmp
       
-      res <- group_by_(mydata, .dots = type) %>%
+      res <- group_by(mydata, UQS(syms(type))) %>%
         do(prepare.grid(.))
       
       res$miss <- res1$z
       
     } else {
       
-      res <- group_by_(mydata, .dots = type) %>%
+      res <- group_by(mydata, UQS(syms(type))) %>%
         do(prepare.grid(.))
       
     }

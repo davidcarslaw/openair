@@ -401,7 +401,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
         if (length(percentile) > 1) {
 
-           mydata <- group_by_(mydata, type) %>%
+           mydata <- group_by(mydata, UQS(syms(type))) %>%
              do(calcPercentile(., pollutant = pollutant, avg.time = avg.time, 
                                data.thresh = data.thresh,
                                percentile = percentile))

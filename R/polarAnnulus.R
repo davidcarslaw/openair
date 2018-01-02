@@ -531,14 +531,14 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
 
     ## more compact way?  Need to test
     
-    results.grid <- group_by_(mydata, type) %>%
+    results.grid <- group_by(mydata, UQS(syms(type))) %>%
       do(prepare.grid(.))
 
 
     ## normalise by divining by mean conditioning value if needed
     if (normalise){
       
-        results.grid <- group_by_(results.grid, type) %>%
+        results.grid <- group_by(results.grid, UQS(syms(type))) %>%
           mutate(z = z / mean(z, na.rm = TRUE))
         
         if (missing(key.footer)) key.footer <- "normalised \nlevel"

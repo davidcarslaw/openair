@@ -189,7 +189,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     
     if (split.after) {
       
-      traj <- group_by_(traj, "default") %>%
+      traj <- group_by(traj, default) %>%
         do(calcTraj(.))
       traj <- cutData(traj, type)
       
@@ -197,7 +197,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       
       traj <- cutData(traj, type)
 
-      traj <- group_by_(traj, type) %>%
+      traj <- group_by(traj, UQS(syms(type))) %>%
         do(calcTraj(.))
       
     }
@@ -214,8 +214,11 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     if (plot) {
       ## calculate the mean trajectories by cluster
       
-      agg <- select_(traj, "lat", "lon", "date", "cluster", "hour.inc", type) %>% 
-        group_by_(., "cluster", "hour.inc", type) %>% 
+      vars <- c("lat", "lon", "date", "cluster", "hour.inc", type)
+      vars2 <- c("cluster", "hour.inc", type)
+      
+      agg <- select(traj, UQS(syms(vars))) %>% 
+        group_by(UQS(syms(vars2))) %>% 
         summarise_all(funs(mean))
       
       # the data frame we want to return before it is transformed
@@ -223,13 +226,15 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       
       ## proportion of total clusters
       
-      clusters <- group_by_(traj, type, "cluster") %>% 
+      vars <- c(type, "cluster")
+      
+      clusters <- group_by(traj, UQS(syms(vars))) %>% 
         summarise(n = n()) %>% 
         mutate(freq = round(100 * n / sum(n), 1))
       
       ## make each panel add up to 100
       if (by.type) {
-        clusters <- group_by_(clusters, type) %>% 
+        clusters <- group_by(clusters, UQS(syms(type))) %>% 
           mutate(freq = 100 * freq / sum(freq)) 
         
         clusters$freq <- round(clusters$freq, 1)

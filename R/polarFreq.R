@@ -342,7 +342,7 @@ polarFreq <- function(mydata,
     }
 
   
-    results.grid <- group_by_(mydata, .dots = type) %>%
+    results.grid <- group_by(mydata, UQS(syms(type))) %>%
       do(prepare.grid(.))
     
     results.grid <- na.omit(results.grid)

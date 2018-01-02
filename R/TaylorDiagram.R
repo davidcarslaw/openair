@@ -398,14 +398,15 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
         res
     }
 
+    vars <- c(group, type)
     
-    results <- group_by_(mydata, .dots = c(group, type)) %>%
+    results <- group_by(mydata, UQS(syms(vars))) %>%
       do(calcStats(., obs = obs, mod = mod[1]))
     
     results.new <- NULL
     
     if (combine) 
-      results.new <- group_by_(mydata, .dots = c(group, type)) %>%
+      results.new <- group_by(mydata, UQS(syms(vars))) %>%
         do(calcStats(., obs = obs, mod = mod[2]))
       
 

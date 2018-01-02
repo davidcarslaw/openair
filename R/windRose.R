@@ -234,7 +234,6 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##'   
 ##' @export windRose pollutionRose
 ##' @import dplyr
-##' @import lazyeval
 ##' @importFrom plyr ddply ldply dlply llply numcolwise .
 ##' @importFrom graphics abline
 ##' @importFrom grDevices col2rgb colorRampPalette grey rgb xy.coords
@@ -640,7 +639,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   }
   
   
-  results <- group_by_(mydata, .dots = type) %>%
+  results <- group_by(mydata, UQS(syms(type))) %>%
     do(prepare.grid(.))
   
   ## format
@@ -668,7 +667,7 @@ windRose <- function (mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   
   ## correction for bias when angle does not divide exactly into 360
   if (bias.corr) {
-    results <- group_by_(results, .dots = type) %>%
+    results <- group_by(results, UQS(syms(type))) %>%
       do(corr_bias(.))
   }
   

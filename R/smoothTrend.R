@@ -300,7 +300,9 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
   
   if (length(percentile) > 1) {
     
-    mydata <- group_by_(mydata, .dots = c(type, "variable")) %>%
+    vars <- c(type, "variable")
+    
+    mydata <- group_by(mydata, UQS(syms(vars))) %>%
       do(calcPercentile(., pollutant = "value",
                         avg.time = avg.time, percentile = percentile, 
                         data.thresh = data.thresh))
@@ -372,12 +374,15 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     
   }
   
-  res <- group_by_(mydata, .dots = c(type, "variable")) %>%
+  vars <- c(type, "variable")
+  
+  res <- group_by(mydata, UQS(syms(vars))) %>%
     do(process.cond(.))
   
   ## smooth fits so that they can be returned to the user
+  vars <- c(type, "variable")
   
-  fit <- group_by_(res, .dots = c(type, "variable")) %>%
+  fit <- group_by(res, UQS(syms(vars))) %>%
     do(fitGam(., x = "date", y = "conc", k = k, ...))
   
   class(fit$date) <- c("POSIXct", "POSIXt")

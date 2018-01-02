@@ -419,7 +419,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   }
   
   # need to work out how to use dplyr if it does not return a data frame due to too few data
-  split.data <- group_by_(mydata, .dots = type)%>%
+  split.data <- group_by(mydata, UQS(syms(type)))%>%
     do(process.cond(.))
   
 
@@ -470,8 +470,9 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
                           lower = 365 * lower.b, upper = 365 * upper.b)
   
   ## aggregated results
+  vars <- c(type, "p.stars")
   
-  res2 <- group_by_(split.data, .dots = type, "p.stars") %>% 
+  res2 <- group_by(split.data, UQS(syms(vars))) %>% 
     summarise_all(funs(mean(., na.rm = TRUE)))
   
   ## calculate percentage changes in slope and uncertainties need
@@ -479,10 +480,10 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   ## points percentage change defind as 100.(C.end/C.start -1) /
   ## duration
   
-  start <- group_by_(split.data, .dots = type) %>% 
+  start <- group_by(split.data, UQS(syms(type))) %>% 
     do(head(., 1))
   
-  end <- group_by_(split.data, .dots = type) %>% 
+  end <- group_by(split.data, UQS(syms(type))) %>% 
     do(tail(., 1))
   
   percent.change <- merge(start, end, by = type, suffixes = c(".start", ".end"))
