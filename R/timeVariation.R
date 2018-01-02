@@ -1008,8 +1008,8 @@ errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
     if (vars == "mnth") splits <- c("mnth", type)
     
     ## warnings from dplyr seem harmless FIXME
-    res <- group_by(mydata, UQS(syms(splits)) %>%
-      do(bootMeanDiff(., x = poll1, y = poll2, B = B)))
+    res <- group_by(mydata, UQS(syms(splits))) %>%
+      do(bootMeanDiff(., x = poll1, y = poll2, B = B))
     
     # make sure we keep the order correct
     res$variable <- ordered(res$variable, levels = res$variable[1:3])
