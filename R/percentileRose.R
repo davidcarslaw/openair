@@ -363,8 +363,15 @@ percentileRose <- function (mydata, pollutant = "nox", wd = "wd", type = "defaul
     if (method == "default") {
         
       ## calculate percentiles
-      percentiles <- plyr::ddply(mydata, wd, numcolwise(function (x)
-        quantile(x, probs = percentile / 100, na.rm = TRUE)))
+ #     percentiles <- plyr::ddply(mydata, wd, numcolwise(function (x)
+  #      quantile(x, probs = percentile / 100, na.rm = TRUE)))
+      
+      
+      percentiles <-  group_by(mydata, wd) %>% 
+        do(data.frame(V1= quantile(.[[pollutant]], probs = percentile / 100, na.rm = TRUE)))
+      
+      names(percentiles)[names(percentiles) == "V1"] <- pollutant
+      
       percentiles$percentile <- percentile
 
     }
