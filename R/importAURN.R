@@ -9,7 +9,7 @@
 ##' data from the UK AURN. AEA have provided .RData files (R workspaces) of all
 ##' individual sites and years for the AURN. These files are updated on a daily
 ##' basis. This approach requires a link to the Internet to work.
-##' 
+##'
 ##' For an up to date list of available sites that can be imported, see \code{importMeta}.
 ##'
 ##' There are several advantages over the web portal approach where .csv files
@@ -79,9 +79,9 @@
 ##'   is however not to as most users will not be interested in using
 ##'   hydrocarbon data and the resulting data frames are considerably larger.
 ##' @param meta Should meta data be returned? If \code{TRUE} the site type, latitude and longitude are returned.
-##' @param verbose Should the function give messages when downloading files? 
-##'   Default is \code{FALSE}. 
-##'   
+##' @param verbose Should the function give messages when downloading files?
+##'   Default is \code{FALSE}.
+##'
 ##' @export
 ##' @importFrom utils download.file
 ##' @return Returns a data frame of hourly mean values with date in POSIXct
@@ -118,79 +118,78 @@
 ##' }
 ##'
 ##'
-importAURN <- function(site = "my1", year = 2009, pollutant = "all", 
+importAURN <- function(site = "my1", year = 2009, pollutant = "all",
                        hc = FALSE, meta = FALSE,
                        verbose = FALSE) {
-  
-    # For file name matching, needs to be exact
-    site <- toupper(site)
 
-    # Create file name vector
-    files <- lapply(site, function(x) paste(x, "_", year, sep = ""))
-    files <- do.call(c, files)
+  # For file name matching, needs to be exact
+  site <- toupper(site)
 
-    # Donload and load data
-    thedata <- plyr::ldply(files, loadData, verbose)
-    
-    # Return if no data
-    if (nrow(thedata) == 0) return() ## no data
+  # Create file name vector
+  files <- lapply(site, function(x) paste(x, "_", year, sep = ""))
+  files <- do.call(c, files)
 
-    ## suppress warnings for now - unequal factors, harmless
- 
-    if (is.null(thedata)) 
-      stop("No data to import - check site codes and year.", call. = FALSE)
+  # Donload and load data
+  thedata <- plyr::ldply(files, loadData, verbose)
 
-    thedata$site <- factor(thedata$site, levels = unique(thedata$site))
+  # Return if no data
+  if (nrow(thedata) == 0) return() ## no data
 
-    ## change names
-    names(thedata) <- tolower(names(thedata))
+  ## suppress warnings for now - unequal factors, harmless
 
-    ## change nox as no2
-    id <- which(names(thedata) %in% "noxasno2")
-    if (length(id) == 1) names(thedata)[id] <- "nox"
+  if (is.null(thedata)) {
+    stop("No data to import - check site codes and year.", call. = FALSE)
+  }
 
-    
-    ## should hydrocarbons be imported?
-    if (hc) {
-      
-        thedata <- thedata
-        
-         } else {
-           
-             ## no hydrocarbons - therefore select conventional pollutants
-             theNames <- c("date", "co", "nox", "no2", "no", "o3", "so2", "pm10", "pm2.5",
-                           "v10", "v2.5", "nv10", "nv2.5", "ws", "wd", "code", "site")
+  thedata$site <- factor(thedata$site, levels = unique(thedata$site))
 
-             thedata <- thedata[,  which(names(thedata) %in% theNames)]
-             
-         }
+  ## change names
+  names(thedata) <- tolower(names(thedata))
 
-     ## if particular pollutants have been selected
-    if (pollutant != "all") 
-      thedata <- thedata[, c("date", pollutant, "site", "code")]
+  ## change nox as no2
+  id <- which(names(thedata) %in% "noxasno2")
+  if (length(id) == 1) names(thedata)[id] <- "nox"
 
 
-    ## warning about recent, possibly unratified data
-    timeDiff <- difftime(Sys.time(),  max(thedata$date), units='days')
-    if (timeDiff < 180) {
-      
-      warning("You have selected some data that is less than 6-months old.\n This most recent data is not yet ratified and may be changed\n during the QA/QC process. For complete information about the \nratification status of a data set, please use the online tool at:\n http://www.airquality.co.uk/data_and_statistics.php?action=da_1&go=Go", call. = FALSE)
-      
-    }
+  ## should hydrocarbons be imported?
+  if (hc) {
+    thedata <- thedata
+  } else {
 
-    ## make sure it is in GMT
-    attr(thedata$date, "tzone") <- "GMT"
-    
-    # make sure class is correct for lubridate
-    class(thedata$date) <- c("POSIXct" , "POSIXt")
-    
-    if (meta) {
-      meta <- importMeta(source = "aurn")
-      # suppress warnings about factors
-      thedata <- suppressWarnings(inner_join(thedata, meta, by = c("code", "site")))
-    }
-    
-    thedata
+    ## no hydrocarbons - therefore select conventional pollutants
+    theNames <- c(
+      "date", "co", "nox", "no2", "no", "o3", "so2", "pm10", "pm2.5",
+      "v10", "v2.5", "nv10", "nv2.5", "ws", "wd", "code", "site"
+    )
+
+    thedata <- thedata[, which(names(thedata) %in% theNames)]
+  }
+
+  ## if particular pollutants have been selected
+  if (pollutant != "all") {
+    thedata <- thedata[, c("date", pollutant, "site", "code")]
+  }
+
+
+  ## warning about recent, possibly unratified data
+  timeDiff <- difftime(Sys.time(), max(thedata$date), units = "days")
+  if (timeDiff < 180) {
+    warning("You have selected some data that is less than 6-months old.\n This most recent data is not yet ratified and may be changed\n during the QA/QC process. For complete information about the \nratification status of a data set, please use the online tool at:\n http://www.airquality.co.uk/data_and_statistics.php?action=da_1&go=Go", call. = FALSE)
+  }
+
+  ## make sure it is in GMT
+  attr(thedata$date, "tzone") <- "GMT"
+
+  # make sure class is correct for lubridate
+  class(thedata$date) <- c("POSIXct", "POSIXt")
+
+  if (meta) {
+    meta <- importMeta(source = "aurn")
+    # suppress warnings about factors
+    thedata <- suppressWarnings(inner_join(thedata, meta, by = c("code", "site")))
+  }
+
+  thedata
 }
 
 
@@ -198,37 +197,38 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all",
 # Define downloading and loading function
 # No export
 loadData <- function(x, verbose) {
-  
   tryCatch({
-    
+
     # Download file to temp directory
     # need to do this because of https, certificate problems
     tmp <- tempfile()
-    
+
     # Build the file name
-    fileName <- paste("https://uk-air.defra.gov.uk/openair/R_data/", x, 
-                      ".RData", sep = "")
-    
+    fileName <- paste(
+      "https://uk-air.defra.gov.uk/openair/R_data/", x,
+      ".RData", sep = ""
+    )
+
     # No warnings needed, function gives message if file is not present
     suppressWarnings(
-      download.file(fileName, method = "libcurl", destfile = tmp, 
-                    quiet = !verbose)
+      download.file(
+        fileName, method = "libcurl", destfile = tmp,
+        quiet = !verbose
+      )
     )
-    
+
     # Load the rdata object
     load(tmp)
-    
+
     # Reasign
     dat <- get(x)
-    
+
     return(dat)
-    
   }, error = function(ex) {
-    
+
     # Print a message
-    if (verbose)
+    if (verbose) {
       message(x, "does not exist - ignoring that one.")
-    
+    }
   })
-  
 }
