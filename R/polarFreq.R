@@ -193,272 +193,290 @@ polarFreq <- function(mydata,
                       key.footer = pollutant,
                       key.position = "right",
                       key = TRUE,
-                      auto.text = TRUE,...) {
+                      auto.text = TRUE, ...) {
 
 
 
-    ## extract necessary data
-    vars <- c("wd", "ws")
-    if (any(type %in%  dateTypes)) vars <- c(vars, "date")
+  ## extract necessary data
+  vars <- c("wd", "ws")
+  if (any(type %in% dateTypes)) vars <- c(vars, "date")
 
-    ## greyscale handling
-    if (length(cols) == 1 && cols == "greyscale") {
+  ## greyscale handling
+  if (length(cols) == 1 && cols == "greyscale") {
+    trellis.par.set(list(strip.background = list(col = "white")))
+  }
 
-        trellis.par.set(list(strip.background = list(col = "white")))
-    }
+  ## set graphics
+  current.strip <- trellis.par.get("strip.background")
+  current.font <- trellis.par.get("fontsize")
 
-    ## set graphics
-    current.strip <- trellis.par.get("strip.background")
-    current.font <- trellis.par.get("fontsize")
-    
-    ## reset graphic parameters
-    on.exit(trellis.par.set(strip.background = current.strip,
-                            fontsize = current.font))
+  ## reset graphic parameters
+  on.exit(trellis.par.set(
+    strip.background = current.strip,
+    fontsize = current.font
+  ))
 
-    ##extra.args setup
-    extra.args <- list(...)
+  ## extra.args setup
+  extra.args <- list(...)
 
-    #label controls
-    extra.args$xlab <- if ("xlab" %in% names(extra.args))
-                           quickText(extra.args$xlab, auto.text) else quickText("", auto.text)
-    extra.args$ylab <- if ("ylab" %in% names(extra.args))
-                           quickText(extra.args$ylab, auto.text) else quickText("", auto.text)
-    extra.args$main <- if ("main" %in% names(extra.args))
-                           quickText(extra.args$main, auto.text) else quickText("", auto.text)
+  # label controls
+  extra.args$xlab <- if ("xlab" %in% names(extra.args)) {
+    quickText(extra.args$xlab, auto.text)
+  } else {
+    quickText("", auto.text)
+  }
+  extra.args$ylab <- if ("ylab" %in% names(extra.args)) {
+    quickText(extra.args$ylab, auto.text)
+  } else {
+    quickText("", auto.text)
+  }
+  extra.args$main <- if ("main" %in% names(extra.args)) {
+    quickText(extra.args$main, auto.text)
+  } else {
+    quickText("", auto.text)
+  }
 
-    if ("fontsize" %in% names(extra.args))
-        trellis.par.set(fontsize = list(text = extra.args$fontsize))
-    
-    if (!missing(pollutant)) vars <- c(vars, pollutant)
+  if ("fontsize" %in% names(extra.args)) {
+    trellis.par.set(fontsize = list(text = extra.args$fontsize))
+  }
 
-    ## data checks
-    mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
+  if (!missing(pollutant)) vars <- c(vars, pollutant)
 
-    ## to make first interval easier to work with, set ws = 0 + e
-    ids <- which(mydata$ws == 0)
-     mydata$ws[ids] <-  mydata$ws[ids] + 0.0001
+  ## data checks
+  mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
 
-    ## remove all NAs
-    mydata <- na.omit(mydata)
+  ## to make first interval easier to work with, set ws = 0 + e
+  ids <- which(mydata$ws == 0)
+  mydata$ws[ids] <- mydata$ws[ids] + 0.0001
 
-    mydata <- cutData(mydata, type, ...)
+  ## remove all NAs
+  mydata <- na.omit(mydata)
 
-    ## if pollutant chosen but no statistic - use mean, issue warning
-    if (!missing(pollutant) & missing(statistic)) {
-        statistic <- "mean"
-        warning("No statistic chosen, using mean")
-    }
+  mydata <- cutData(mydata, type, ...)
 
-    ## if statistic chosen but no pollutant stop
-    if (!missing(statistic) & missing(pollutant)) {
-        stop("No pollutant chosen, please choose one e.g. pollutant = 'nox'")
-    }
+  ## if pollutant chosen but no statistic - use mean, issue warning
+  if (!missing(pollutant) & missing(statistic)) {
+    statistic <- "mean"
+    warning("No statistic chosen, using mean")
+  }
 
-    if (!missing(breaks)) trans <- FALSE  ## over-ride transform if breaks supplied
+  ## if statistic chosen but no pollutant stop
+  if (!missing(statistic) & missing(pollutant)) {
+    stop("No pollutant chosen, please choose one e.g. pollutant = 'nox'")
+  }
 
-    if (missing(key.header)) key.header <- statistic
-    if (key.header == "weighted.mean") key.header <- c("contribution", "(%)")
+  if (!missing(breaks)) trans <- FALSE ## over-ride transform if breaks supplied
 
-    ## apply square root transform?
-    if (trans) coef <- 2 else coef <- 1
+  if (missing(key.header)) key.header <- statistic
+  if (key.header == "weighted.mean") key.header <- c("contribution", "(%)")
 
-    ## set the upper wind speed
-    if (is.na(ws.upper)) {
-        max.ws <- max(mydata$ws, na.rm = TRUE)
-    } else {
-        max.ws <- ws.upper
-    }
+  ## apply square root transform?
+  if (trans) coef <- 2 else coef <- 1
 
-    ## offset for "hollow" middle
-    offset <- (max.ws * offset) / 5 / 10
+  ## set the upper wind speed
+  if (is.na(ws.upper)) {
+    max.ws <- max(mydata$ws, na.rm = TRUE)
+  } else {
+    max.ws <- ws.upper
+  }
 
-    ## make sure wd data are rounded to nearest 10
-    mydata$wd <- 10 * ceiling(mydata$wd / 10 - 0.5)
+  ## offset for "hollow" middle
+  offset <- (max.ws * offset) / 5 / 10
 
-    prepare.grid <- function(mydata)
+  ## make sure wd data are rounded to nearest 10
+  mydata$wd <- 10 * ceiling(mydata$wd / 10 - 0.5)
+
+  prepare.grid <- function(mydata) {
+    wd <- factor(mydata$wd)
+    ws <- factor(ws.int * ceiling(mydata$ws / ws.int))
+
+    if (statistic == "frequency") ## case with only ws and wd
     {
-        wd <- factor(mydata$wd)
-        ws <- factor(ws.int * ceiling(mydata$ws / ws.int))
-
-        if (statistic == "frequency")     ## case with only ws and wd
-        {
-            weights <- tapply(mydata$ws, list(wd, ws), function(x) length(na.omit(x)))}
-
-        if (statistic == "mean")
-        {
-            weights <- tapply(mydata[[pollutant]],
-                              list(wd, ws), function(x) mean(x, na.rm = TRUE))}
-
-        if (statistic == "median")
-        {
-            weights <- tapply(mydata[[pollutant]],
-                              list(wd, ws), function(x) median(x, na.rm = TRUE))}
-
-        if (statistic == "max")
-        {
-            weights <- tapply(mydata[[pollutant]],
-                              list(wd, ws), function(x) max(x, na.rm = TRUE))}
-
-        if (statistic == "stdev")
-        {
-            weights <- tapply(mydata[[pollutant]],
-                              list(wd, ws), function(x) sd(x, na.rm = TRUE))}
-
-        if (statistic == "weighted.mean")
-        {
-            weights <- tapply(mydata[[pollutant]], list(wd, ws),
-                              function(x) (mean(x) * length(x) / nrow(mydata)))
-
-            ## note sum for matrix
-            weights <- 100 * weights / sum(sum(weights, na.rm = TRUE))
-
-        }
-
-        weights <- as.vector(t(weights))
-
-        ## frequency - remove points with freq < min.bin
-        bin.len <- tapply(mydata$ws, list(wd, ws), function(x) length(na.omit(x)))
-        binned.len <- as.vector(t(bin.len))
-        ids <- which(binned.len < min.bin)
-        weights[ids] <- NA
-
-        ws.wd <- expand.grid(ws = as.numeric(levels(ws)), wd = as.numeric(levels(wd)))
-
-        weights <- cbind(ws.wd, weights)
-        weights
+      weights <- tapply(mydata$ws, list(wd, ws), function(x) length(na.omit(x)))
     }
 
-
-    poly <- function(dir, speed, colour)
-    {
-
-        ## offset by 3 * ws.int so that centre is not compressed
-        angle <- seq(dir - 5, dir + 5, length = 10)
-        x1 <- (speed + offset - ws.int) * sin(pi * angle / 180)
-        y1 <- (speed + offset - ws.int) * cos(pi * angle / 180)
-        x2 <- rev((speed + offset) * sin(pi * angle / 180))
-        y2 <- rev((speed + offset) * cos(pi * angle / 180))
-        lpolygon(c(x1, x2), c(y1, y2), col = colour, border = border.col, lwd = 0.5)
+    if (statistic == "mean") {
+      weights <- tapply(
+        mydata[[pollutant]],
+        list(wd, ws), function(x) mean(x, na.rm = TRUE)
+      )
     }
 
-  
-    results.grid <- group_by(mydata, UQS(syms(type))) %>%
-      do(prepare.grid(.))
-    
-    results.grid <- na.omit(results.grid)
-
-    ## proper names of labelling ###################################################
-    strip.dat <- strip.fun(results.grid, type, auto.text)
-    strip <- strip.dat[[1]]
-    strip.left <- strip.dat[[2]]
-    pol.name <- strip.dat[[3]]
-
-    results.grid$weights <- results.grid$weights ^ (1 / coef)
-
-    nlev <- 200
-    ## handle missing breaks arguments
-    if(missing(breaks)) {
-
-        breaks <- unique(c(0, pretty(results.grid$weights, nlev)))
-        br <- pretty((c(0, results.grid$weights) ^ coef), n = 10)  ## breaks for scale
-
-    } else {
-
-        br <- breaks
-
+    if (statistic == "median") {
+      weights <- tapply(
+        mydata[[pollutant]],
+        list(wd, ws), function(x) median(x, na.rm = TRUE)
+      )
     }
 
-    nlev2 <- length(breaks)
+    if (statistic == "max") {
+      weights <- tapply(
+        mydata[[pollutant]],
+        list(wd, ws), function(x) max(x, na.rm = TRUE)
+      )
+    }
 
-    col <- openColours(cols, (nlev2 - 1))
+    if (statistic == "stdev") {
+      weights <- tapply(
+        mydata[[pollutant]],
+        list(wd, ws), function(x) sd(x, na.rm = TRUE)
+      )
+    }
 
-    results.grid$div <- cut(results.grid$weights, breaks, include.lowest = TRUE)
+    if (statistic == "weighted.mean") {
+      weights <- tapply(
+        mydata[[pollutant]], list(wd, ws),
+        function(x) (mean(x) * length(x) / nrow(mydata))
+      )
 
-    ## for pollution data
-    results.grid$weights[results.grid$weights == "NaN"] <- 0
-    results.grid$weights[which(is.na(results.grid$weights))] <- 0
+      ## note sum for matrix
+      weights <- 100 * weights / sum(sum(weights, na.rm = TRUE))
+    }
 
+    weights <- as.vector(t(weights))
 
-    ##  scale key setup ################################################################################################
-    legend <- list(col = col[1:(length(breaks) - 1)], at = breaks,
-                   labels = list(at = br ^ (1 / coef), labels = br),
-                   space = key.position,
-                   auto.text = auto.text, footer = key.footer, header = key.header,
-                   height = 1, width = 1.5, fit = "all")
-    legend <- makeOpenKeyLegend(key, legend, "polarFreq")
+    ## frequency - remove points with freq < min.bin
+    bin.len <- tapply(mydata$ws, list(wd, ws), function(x) length(na.omit(x)))
+    binned.len <- as.vector(t(bin.len))
+    ids <- which(binned.len < min.bin)
+    weights[ids] <- NA
 
-    temp <- paste(type, collapse = "+")
-    myform <- formula(paste("ws ~ wd | ", temp, sep = ""))
+    ws.wd <- expand.grid(ws = as.numeric(levels(ws)), wd = as.numeric(levels(wd)))
 
-    span <- ws.int * floor (max.ws / ws.int) + ws.int + offset
-
-    xyplot.args <- list(x = myform,
-                  xlim = 1.03 * c(-span, span),
-                  ylim = 1.03 * c(-span, span),
-                  data = results.grid,
-                  par.strip.text = list(cex = 0.8),
-                  type = "n",
-                  strip = strip,
-                  strip.left = strip.left,
-                  as.table = TRUE,
-                  aspect = 1,
-                  scales = list(draw = FALSE),
-
-                  panel = function(x, y, subscripts,...) {
-                      panel.xyplot(x, y,...)
-
-                      subdata <- results.grid[subscripts, ]
-
-                      for (i in 1:nrow(subdata)) {
-                          colour <- col[as.numeric(subdata$div[i])]
-                       #   if (subdata$weights[i] == 0) colour <- "transparent"
-                          poly(subdata$wd[i], subdata$ws[i], colour)
-                      }
-
-                      ## annotate
-                      if (ws.int < max.ws) { ## don't annotate if only 1 interval
-                          angles <- seq(0, 2 * pi, length = 360)
-                          sapply(seq(0, 20 * grid.line, by = grid.line), function(x)
-                                 llines((offset + x) * sin(angles),
-                                        (offset + x) * cos(angles),
-                                        col = "grey", lty = 5))
-
-                          ## radial labels
-                          sapply(seq(0, 20 * grid.line, by = grid.line), function(x)
-                                 ltext((offset + x) * sin(pi / 4), (offset + x) * cos(pi / 4),
-                                       x, cex = 0.7))
-                      }
-
-                      larrows(-span, 0,  -offset, 0, code = 1, length = 0.1)
-                      larrows(span, 0,  offset, 0, code = 1, length = 0.1)
-                      larrows(0, -span, 0, -offset, code = 1, length = 0.1)
-                      larrows(0, span, 0, offset, code = 1, length = 0.1)
-
-                      ltext(-span * 0.95, 0.07 * span, "W", cex = 0.7)
-                      ltext(0.07 * span, -span  * 0.95, "S", cex = 0.7)
-                      ltext(0.07 * span, span * 0.95, "N", cex = 0.7)
-                      ltext(span * 0.95, 0.07 * span, "E", cex = 0.7)
-
-                  },
-                  legend = legend
-                  )
-
-    #reset for extra.args
-    xyplot.args<- listUpdate(xyplot.args, extra.args)
-
-    #plot
-    plt <- do.call(xyplot, xyplot.args)
+    weights <- cbind(ws.wd, weights)
+    weights
+  }
 
 
-#################
-    ## output
-#################
-    if (length(type) == 1) plot(plt) else plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
-    newdata <- results.grid
-    output <- list(plot = plt, data = newdata, call = match.call())
-    class(output) <- "openair"
+  poly <- function(dir, speed, colour) {
 
-    invisible(output)
+    ## offset by 3 * ws.int so that centre is not compressed
+    angle <- seq(dir - 5, dir + 5, length = 10)
+    x1 <- (speed + offset - ws.int) * sin(pi * angle / 180)
+    y1 <- (speed + offset - ws.int) * cos(pi * angle / 180)
+    x2 <- rev((speed + offset) * sin(pi * angle / 180))
+    y2 <- rev((speed + offset) * cos(pi * angle / 180))
+    lpolygon(c(x1, x2), c(y1, y2), col = colour, border = border.col, lwd = 0.5)
+  }
 
 
+  results.grid <- group_by(mydata, UQS(syms(type))) %>%
+    do(prepare.grid(.))
+
+  results.grid <- na.omit(results.grid)
+
+  ## proper names of labelling ###################################################
+  strip.dat <- strip.fun(results.grid, type, auto.text)
+  strip <- strip.dat[[1]]
+  strip.left <- strip.dat[[2]]
+  pol.name <- strip.dat[[3]]
+
+  results.grid$weights <- results.grid$weights ^ (1 / coef)
+
+  nlev <- 200
+  ## handle missing breaks arguments
+  if (missing(breaks)) {
+    breaks <- unique(c(0, pretty(results.grid$weights, nlev)))
+    br <- pretty((c(0, results.grid$weights) ^ coef), n = 10) ## breaks for scale
+  } else {
+    br <- breaks
+  }
+
+  nlev2 <- length(breaks)
+
+  col <- openColours(cols, (nlev2 - 1))
+
+  results.grid$div <- cut(results.grid$weights, breaks, include.lowest = TRUE)
+
+  ## for pollution data
+  results.grid$weights[results.grid$weights == "NaN"] <- 0
+  results.grid$weights[which(is.na(results.grid$weights))] <- 0
+
+
+  ##  scale key setup ################################################################################################
+  legend <- list(
+    col = col[1:(length(breaks) - 1)], at = breaks,
+    labels = list(at = br ^ (1 / coef), labels = br),
+    space = key.position,
+    auto.text = auto.text, footer = key.footer, header = key.header,
+    height = 1, width = 1.5, fit = "all"
+  )
+  legend <- makeOpenKeyLegend(key, legend, "polarFreq")
+
+  temp <- paste(type, collapse = "+")
+  myform <- formula(paste("ws ~ wd | ", temp, sep = ""))
+
+  span <- ws.int * floor(max.ws / ws.int) + ws.int + offset
+
+  xyplot.args <- list(
+    x = myform,
+    xlim = 1.03 * c(-span, span),
+    ylim = 1.03 * c(-span, span),
+    data = results.grid,
+    par.strip.text = list(cex = 0.8),
+    type = "n",
+    strip = strip,
+    strip.left = strip.left,
+    as.table = TRUE,
+    aspect = 1,
+    scales = list(draw = FALSE),
+
+    panel = function(x, y, subscripts, ...) {
+      panel.xyplot(x, y, ...)
+
+      subdata <- results.grid[subscripts, ]
+
+      for (i in 1:nrow(subdata)) {
+        colour <- col[as.numeric(subdata$div[i])]
+        #   if (subdata$weights[i] == 0) colour <- "transparent"
+        poly(subdata$wd[i], subdata$ws[i], colour)
+      }
+
+      ## annotate
+      if (ws.int < max.ws) { ## don't annotate if only 1 interval
+        angles <- seq(0, 2 * pi, length = 360)
+        sapply(seq(0, 20 * grid.line, by = grid.line), function(x)
+          llines(
+            (offset + x) * sin(angles),
+            (offset + x) * cos(angles),
+            col = "grey", lty = 5
+          ))
+
+        ## radial labels
+        sapply(seq(0, 20 * grid.line, by = grid.line), function(x)
+          ltext(
+            (offset + x) * sin(pi / 4), (offset + x) * cos(pi / 4),
+            x, cex = 0.7
+          ))
+      }
+
+      larrows(-span, 0, -offset, 0, code = 1, length = 0.1)
+      larrows(span, 0, offset, 0, code = 1, length = 0.1)
+      larrows(0, -span, 0, -offset, code = 1, length = 0.1)
+      larrows(0, span, 0, offset, code = 1, length = 0.1)
+
+      ltext(-span * 0.95, 0.07 * span, "W", cex = 0.7)
+      ltext(0.07 * span, -span * 0.95, "S", cex = 0.7)
+      ltext(0.07 * span, span * 0.95, "N", cex = 0.7)
+      ltext(span * 0.95, 0.07 * span, "E", cex = 0.7)
+    },
+    legend = legend
+  )
+
+  # reset for extra.args
+  xyplot.args <- listUpdate(xyplot.args, extra.args)
+
+  # plot
+  plt <- do.call(xyplot, xyplot.args)
+
+
+  #################
+  ## output
+  #################
+  if (length(type) == 1) plot(plt) else plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+  newdata <- results.grid
+  output <- list(plot = plt, data = newdata, call = match.call())
+  class(output) <- "openair"
+
+  invisible(output)
 }

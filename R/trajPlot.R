@@ -144,262 +144,287 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                      map.res = "default", map.cols = "grey40",
                      map.alpha = 0.4, projection = "lambert",
                      parameters = c(51, 51), orientation = c(90, 0, 0),
-                     grid.col = "deepskyblue", npoints = 12, origin = TRUE, ...)
-{
-    len <- NULL; hour.inc <- NULL ## silence R check
+                     grid.col = "deepskyblue", npoints = 12, origin = TRUE, ...) {
+  len <- NULL
+  hour.inc <- NULL ## silence R check
 
-    ## variables needed in trajectory plots
-    vars <- c("date", "lat", "lon", "hour.inc", pollutant)
+  ## variables needed in trajectory plots
+  vars <- c("date", "lat", "lon", "hour.inc", pollutant)
 
-    ## if group is present, need to add that list of variables unless it is a
-    ## pre-defined date-based one
-    if (!is.na(group)){
-
-        if (group %in%  dateTypes | any(type %in% dateTypes)) {
-            if (group %in%  dateTypes) {
-                vars <- unique(c(vars, "date")) ## don't need group because it is
-                ## defined by date
-            } else {
-                vars <- unique(c(vars, "date", group))
-            }
-
-        } else {
-            vars <- unique(c(vars, group))
-        }
-    }
-    
-    mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
-
-    ## slect only full length trajectories
-    mydata <- mydata[order(mydata$date, mydata$hour.inc), ]
-
-    ## length of back mydataectories
-    mydata$len <- ave(mydata$lat, mydata$date, FUN = length)
-
-    ## find length of back trajectories, choose most frequent
-    ## so that partial trajectories are not plotted
-    n <- as.numeric(names(which.max(table(abs(mydata$len)))))
-
-    mydata <- subset(mydata, len == n)
-
-    ##Args
-    Args <- list(...)
-    method <- "scatter"
-
-    ## location of receptor for map projection, used to show location on maps
-    origin_xy <- head(subset(mydata, hour.inc == 0), 1) ## origin
-    tmp <- mapproject(x = origin_xy[["lon"]][1],
-                      y = origin_xy[["lat"]][1],
-                      projection = projection,
-                      parameters = parameters,
-                      orientation = orientation)
-    receptor <- c(tmp$x, tmp$y)
-
-    ## set graphics
-    current.strip <- trellis.par.get("strip.background")
-    current.font <- trellis.par.get("fontsize")
-    
-    ## reset graphic parameters
-    on.exit(trellis.par.set(strip.background = current.strip,
-                            fontsize = current.font))
-
-    #aspect, cex
-     if (!"plot.type" %in% names(Args))
-        Args$plot.type <- "l"
-
-    if (!"cex" %in% names(Args))
-        Args$cex <- 0.1
-
-    if (!"ylab" %in% names(Args))
-        Args$ylab <- ""
-
-    if (!"xlab" %in% names(Args))
-        Args$xlab <- ""
-
-    if ("fontsize" %in% names(Args))
-        trellis.par.set(fontsize = list(text = Args$fontsize))
-
-    ## xlim and ylim set by user
-    if (!"xlim" %in% names(Args))
-        Args$xlim <- range(mydata$lon)
-
-    if (!"ylim" %in% names(Args))
-        Args$ylim <- range(mydata$lat)
-
-    ## extent of data (or limits set by user) in degrees
-    trajLims <- c(Args$xlim, Args$ylim)
-    
-    ## need *outline* of boundary for map limits
-    Args <- setTrajLims(mydata, Args, projection, parameters, orientation)
-
-    ## transform data for map projection
-    tmp <- mapproject(x = mydata[["lon"]],
-                      y = mydata[["lat"]],
-                      projection = projection,
-                      parameters = parameters,
-                      orientation = orientation)
-    mydata[["lon"]] <- tmp$x
-    mydata[["lat"]] <- tmp$y
-    
-    
-    if (missing(pollutant)) { ## don't need key
-
-        if (is.na(group)) key <- FALSE else key <- TRUE
-
-        if (!"main" %in% names(Args))
-             Args$main <- NULL
-
-        scatterPlot.args <- list(mydata, x = lon, y = lat, z = NA,
-                                 type = type, method = method,
-                                 map = map, key = key, group = group,
-                                 map.fill = map.fill, map.res = map.res,
-                                 map.cols = map.cols, map.alpha = map.alpha,
-                                 traj = TRUE, projection = projection,
-                                 parameters = parameters, orientation = orientation,
-                                 grid.col = grid.col, trajLims = trajLims,
-                                 receptor = receptor, npoints = npoints,
-                                 origin = origin)
-
+  ## if group is present, need to add that list of variables unless it is a
+  ## pre-defined date-based one
+  if (!is.na(group)) {
+    if (group %in% dateTypes | any(type %in% dateTypes)) {
+      if (group %in% dateTypes) {
+        vars <- unique(c(vars, "date")) ## don't need group because it is
+        ## defined by date
+      } else {
+        vars <- unique(c(vars, "date", group))
+      }
     } else {
-         if(!"main" %in% names(Args))
-             Args$main <- pollutant
+      vars <- unique(c(vars, group))
+    }
+  }
 
-        scatterPlot.args <- list(mydata, x = lon, y = lat, z = pollutant,
-                                 type = type, method = method,
-                                 map = map, group = group,
-                                 map.fill = map.fill, map.res = map.res,
-                                 map.cols = map.cols,
-                                 map.alpha = map.alpha, traj = TRUE, projection = projection,
-                                 parameters = parameters, orientation = orientation,
-                                 grid.col = grid.col, trajLims = trajLims,
-                                 receptor = receptor,  npoints = npoints,
-                                 origin = origin)
+  mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
+
+  ## slect only full length trajectories
+  mydata <- mydata[order(mydata$date, mydata$hour.inc), ]
+
+  ## length of back mydataectories
+  mydata$len <- ave(mydata$lat, mydata$date, FUN = length)
+
+  ## find length of back trajectories, choose most frequent
+  ## so that partial trajectories are not plotted
+  n <- as.numeric(names(which.max(table(abs(mydata$len)))))
+
+  mydata <- subset(mydata, len == n)
+
+  ## Args
+  Args <- list(...)
+  method <- "scatter"
+
+  ## location of receptor for map projection, used to show location on maps
+  origin_xy <- head(subset(mydata, hour.inc == 0), 1) ## origin
+  tmp <- mapproject(
+    x = origin_xy[["lon"]][1],
+    y = origin_xy[["lat"]][1],
+    projection = projection,
+    parameters = parameters,
+    orientation = orientation
+  )
+  receptor <- c(tmp$x, tmp$y)
+
+  ## set graphics
+  current.strip <- trellis.par.get("strip.background")
+  current.font <- trellis.par.get("fontsize")
+
+  ## reset graphic parameters
+  on.exit(trellis.par.set(
+    strip.background = current.strip,
+    fontsize = current.font
+  ))
+
+  # aspect, cex
+  if (!"plot.type" %in% names(Args)) {
+    Args$plot.type <- "l"
+  }
+
+  if (!"cex" %in% names(Args)) {
+    Args$cex <- 0.1
+  }
+
+  if (!"ylab" %in% names(Args)) {
+    Args$ylab <- ""
+  }
+
+  if (!"xlab" %in% names(Args)) {
+    Args$xlab <- ""
+  }
+
+  if ("fontsize" %in% names(Args)) {
+    trellis.par.set(fontsize = list(text = Args$fontsize))
+  }
+
+  ## xlim and ylim set by user
+  if (!"xlim" %in% names(Args)) {
+    Args$xlim <- range(mydata$lon)
+  }
+
+  if (!"ylim" %in% names(Args)) {
+    Args$ylim <- range(mydata$lat)
+  }
+
+  ## extent of data (or limits set by user) in degrees
+  trajLims <- c(Args$xlim, Args$ylim)
+
+  ## need *outline* of boundary for map limits
+  Args <- setTrajLims(mydata, Args, projection, parameters, orientation)
+
+  ## transform data for map projection
+  tmp <- mapproject(
+    x = mydata[["lon"]],
+    y = mydata[["lat"]],
+    projection = projection,
+    parameters = parameters,
+    orientation = orientation
+  )
+  mydata[["lon"]] <- tmp$x
+  mydata[["lat"]] <- tmp$y
+
+
+  if (missing(pollutant)) { ## don't need key
+
+    if (is.na(group)) key <- FALSE else key <- TRUE
+
+    if (!"main" %in% names(Args)) {
+      Args$main <- NULL
     }
 
-    #reset for Args
-    scatterPlot.args <- listUpdate(scatterPlot.args, Args)
+    scatterPlot.args <- list(
+      mydata, x = lon, y = lat, z = NA,
+      type = type, method = method,
+      map = map, key = key, group = group,
+      map.fill = map.fill, map.res = map.res,
+      map.cols = map.cols, map.alpha = map.alpha,
+      traj = TRUE, projection = projection,
+      parameters = parameters, orientation = orientation,
+      grid.col = grid.col, trajLims = trajLims,
+      receptor = receptor, npoints = npoints,
+      origin = origin
+    )
+  } else {
+    if (!"main" %in% names(Args)) {
+      Args$main <- pollutant
+    }
 
-    #plot
-    do.call(scatterPlot, scatterPlot.args)
+    scatterPlot.args <- list(
+      mydata, x = lon, y = lat, z = pollutant,
+      type = type, method = method,
+      map = map, group = group,
+      map.fill = map.fill, map.res = map.res,
+      map.cols = map.cols,
+      map.alpha = map.alpha, traj = TRUE, projection = projection,
+      parameters = parameters, orientation = orientation,
+      grid.col = grid.col, trajLims = trajLims,
+      receptor = receptor, npoints = npoints,
+      origin = origin
+    )
+  }
 
+  # reset for Args
+  scatterPlot.args <- listUpdate(scatterPlot.args, Args)
 
-
+  # plot
+  do.call(scatterPlot, scatterPlot.args)
 }
 
 
 setTrajLims <- function(mydata, Args, projection, parameters, orientation) {
 
-    ## xlim and ylim set by user
-    if ("xlim" %in% names(Args)) {
+  ## xlim and ylim set by user
+  if ("xlim" %in% names(Args)) {
+    x1 <- Args$xlim[1]
+    x2 <- Args$xlim[2]
+  } else {
+    x1 <- min(mydata$lon)
+    x2 <- max(mydata$lon)
+  }
 
-        x1 <- Args$xlim[1]
-        x2 <- Args$xlim[2]
+  if ("ylim" %in% names(Args)) {
+    y1 <- Args$ylim[1]
+    y2 <- Args$ylim[2]
+  } else {
+    y1 <- min(mydata$lat)
+    y2 <- max(mydata$lat)
+  }
 
-    } else {
+  n <- 40 ## number of points along each vertex
 
-        x1 <- min(mydata$lon)
-        x2 <- max(mydata$lon)
+  X <- c(
+    seq(x1, x1, length.out = n), seq(x1, x2, length.out = n),
+    seq(x2, x2, length.out = n), seq(x2, x1, length.out = n)
+  )
 
-    }
+  Y <- c(
+    seq(y1, y2, length.out = n), seq(y2, y2, length.out = n),
+    seq(y2, y1, length.out = n), seq(y1, y1, length.out = n)
+  )
 
-    if ("ylim" %in% names(Args)) {
+  tmp <- mapproject(
+    x = X, y = Y, projection = projection,
+    parameters = parameters, orientation = orientation
+  )
 
-        y1 <- Args$ylim[1]
-        y2 <- Args$ylim[2]
-
-    } else {
-
-        y1 <- min(mydata$lat)
-        y2 <- max(mydata$lat)
-
-    }
-
-    n <- 40 ## number of points along each vertex
-    
-    X <- c(seq(x1, x1, length.out = n), seq(x1, x2, length.out = n),
-       seq(x2, x2, length.out = n), seq(x2, x1, length.out = n))
-
-    Y <- c(seq(y1, y2, length.out = n), seq(y2, y2, length.out = n),
-           seq(y2, y1, length.out = n), seq(y1, y1, length.out = n))
-    
-    tmp <- mapproject(x = X, y = Y, projection = projection,
-                      parameters = parameters, orientation = orientation)
-    
-    Args$xlim <- tmp$range[1:2]
-    Args$ylim <- tmp$range[3:4]
-    Args
-    
+  Args$xlim <- tmp$range[1:2]
+  Args$ylim <- tmp$range[3:4]
+  Args
 }
 
 ## function from mapproj to add grid lines to a map
-map.grid2 <- function (lim, nx = 9, ny = 9, labels = TRUE, pretty = TRUE,
+map.grid2 <- function(lim, nx = 9, ny = 9, labels = TRUE, pretty = TRUE,
                       cex = 1, col = "deepskyblue", lty = 2, font = 1,
                       projection = "rectangular", parameters = 52,
-                      orientation = c(90, 0, 0), ...)
-
-{
-
-
-    pretty.range <- function(lim, ...) {
-        x = pretty(lim, ...)
-        if (abs(x[1] - lim[1]) > abs(x[2] - lim[1]))
-            x = x[-1]
-        n = length(x)
-        if (abs(x[n] - lim[2]) > abs(x[n - 1] - lim[2]))
-            x = x[-n]
-        x[1] = lim[1]
-        x[length(x)] = lim[2]
-        x
+                      orientation = c(90, 0, 0), ...) {
+  pretty.range <- function(lim, ...) {
+    x <- pretty(lim, ...)
+    if (abs(x[1] - lim[1]) > abs(x[2] - lim[1])) {
+      x <- x[-1]
     }
-    auto.format <- function(x) {
-        for (digits in 0:6) {
-            s = formatC(x, digits = digits, format = "f")
-            if (all(duplicated(s) == duplicated(x)))
-                break
-        }
-        s
+    n <- length(x)
+    if (abs(x[n] - lim[2]) > abs(x[n - 1] - lim[2])) {
+      x <- x[-n]
     }
-    if (missing(lim))
-        lim = maps::.map.range()
-    if (is.list(lim)) {
-        lim <- lim$range
+    x[1] <- lim[1]
+    x[length(x)] <- lim[2]
+    x
+  }
+  auto.format <- function(x) {
+    for (digits in 0:6) {
+      s <- formatC(x, digits = digits, format = "f")
+      if (all(duplicated(s) == duplicated(x))) {
+        break
+      }
     }
-    if (lim[2] - lim[1] > 360) {
-        lim[2] <- lim[1] + 360
-    }
-    if (pretty) {
-        x <- pretty.range(lim[1:2], n = nx)
-        y <- pretty.range(lim[3:4], n = ny)
-    }
-    else {
-        x <- seq(lim[1], lim[2], len = nx)
-        y <- seq(lim[3], lim[4], len = ny)
-    }
-    p <- mapproject(expand.grid(x = c(seq(lim[1], lim[2], len = 100),
-                                    NA), y = y), projection = projection,
-                    parameters = parameters,
-                 orientation = orientation)
-    p <- maps::map.wrap(p)
-    llines(p, col = col, lty = lty, ...)
-    llines(mapproject(expand.grid(y = c(seq(lim[3], lim[4], len = 100),
-                                      NA), x = x), projection = projection,
-                    parameters = parameters,
-                 orientation = orientation), col = col, lty = lty, ...)
-    if (labels) {
-        tx <- x[2]
-        xinc <- median(diff(x))
-        ty <- y[length(y) - 2]
-        yinc <- median(diff(y))
-        ltext(mapproject(expand.grid(x = x + xinc * 0.05, y = ty +
-                                         yinc * 0.5), projection = projection,
-                    parameters = parameters,
-                 orientation = orientation), labels = auto.format(x), cex = cex,
-            adj = c(0, 0), col = col, font = font, ...)
-        ltext(mapproject(expand.grid(x = tx + xinc * 0.5, y = y +
-                                         yinc * 0.05), projection = projection,
-                    parameters = parameters,
-                 orientation = orientation), labels = auto.format(y), cex = cex,
-            adj = c(0, 0), col = col, font = font, ...)
-    }
+    s
+  }
+  if (missing(lim)) {
+    lim <- maps::.map.range()
+  }
+  if (is.list(lim)) {
+    lim <- lim$range
+  }
+  if (lim[2] - lim[1] > 360) {
+    lim[2] <- lim[1] + 360
+  }
+  if (pretty) {
+    x <- pretty.range(lim[1:2], n = nx)
+    y <- pretty.range(lim[3:4], n = ny)
+  }
+  else {
+    x <- seq(lim[1], lim[2], len = nx)
+    y <- seq(lim[3], lim[4], len = ny)
+  }
+  p <- mapproject(
+    expand.grid(x = c(
+      seq(lim[1], lim[2], len = 100),
+      NA
+    ), y = y), projection = projection,
+    parameters = parameters,
+    orientation = orientation
+  )
+  p <- maps::map.wrap(p)
+  llines(p, col = col, lty = lty, ...)
+  llines(mapproject(
+    expand.grid(y = c(
+      seq(lim[3], lim[4], len = 100),
+      NA
+    ), x = x), projection = projection,
+    parameters = parameters,
+    orientation = orientation
+  ), col = col, lty = lty, ...)
+  if (labels) {
+    tx <- x[2]
+    xinc <- median(diff(x))
+    ty <- y[length(y) - 2]
+    yinc <- median(diff(y))
+    ltext(
+      mapproject(
+        expand.grid(x = x + xinc * 0.05, y = ty +
+          yinc * 0.5), projection = projection,
+        parameters = parameters,
+        orientation = orientation
+      ), labels = auto.format(x), cex = cex,
+      adj = c(0, 0), col = col, font = font, ...
+    )
+    ltext(
+      mapproject(
+        expand.grid(x = tx + xinc * 0.5, y = y +
+          yinc * 0.05), projection = projection,
+        parameters = parameters,
+        orientation = orientation
+      ), labels = auto.format(y), cex = cex,
+      adj = c(0, 0), col = col, font = font, ...
+    )
+  }
 }
-

@@ -127,201 +127,242 @@
 ##' modStats(mydata, mod = "no2", obs = "nox", type = "season")
 ##'
 ##'
-modStats <- function(mydata,  mod = "mod", obs = "obs",
-                     statistic = c("n", "FAC2", "MB", "MGE", "NMB", 
-                                   "NMGE", "RMSE", "r", "COE", "IOA"),
+modStats <- function(mydata, mod = "mod", obs = "obs",
+                     statistic = c(
+                       "n", "FAC2", "MB", "MGE", "NMB",
+                       "NMGE", "RMSE", "r", "COE", "IOA"
+                     ),
                      type = "default", rank.name = NULL, ...) {
-    ## function to calculate model evaluation statistics
-    ## the default is to use the entire data set.
-    ## Requires a field "date" and optional conditioning variables representing measured and modelled values
+  ## function to calculate model evaluation statistics
+  ## the default is to use the entire data set.
+  ## Requires a field "date" and optional conditioning variables representing measured and modelled values
 
-    ## extract variables of interest
-    vars <- c(mod, obs)
+  ## extract variables of interest
+  vars <- c(mod, obs)
 
-    if (any(type %in%  dateTypes)) vars <- c("date", vars)
+  if (any(type %in% dateTypes)) vars <- c("date", vars)
 
-    theStats <- c("n", "FAC2", "MB", "MGE", "NMB", "NMGE", "RMSE", 
-                  "r", "COE", "IOA")
-    
-    matching <- statistic %in% theStats
+  theStats <- c(
+    "n", "FAC2", "MB", "MGE", "NMB", "NMGE", "RMSE",
+    "r", "COE", "IOA"
+  )
 
-    if (any(!matching)) {
-        ## not all variables are present
-        stop(cat("Can't find the statistic(s)", statistic[!matching], "\n"))
+  matching <- statistic %in% theStats
+
+  if (any(!matching)) {
+    ## not all variables are present
+    stop(cat("Can't find the statistic(s)", statistic[!matching], "\n"))
+  }
+
+  ## check the data
+  mydata <- checkPrep(
+    mydata, vars, type, remove.calm = FALSE,
+    strip.white = FALSE
+  )
+
+  mydata <- cutData(mydata, type, ...)
+
+  ## calculate the various statistics
+
+  if ("n" %in% statistic) {
+    res.n <- group_by(mydata, UQS(syms(type))) %>%
+      do(n(., mod, obs))
+  } else {
+    res.n <- NULL
+  }
+
+  if ("FAC2" %in% statistic) {
+    res.FAC <- group_by(mydata, UQS(syms(type))) %>%
+      do(FAC2(., mod, obs))
+  } else {
+    res.FAC <- NULL
+  }
+
+  if ("MB" %in% statistic) {
+    res.MB <- group_by(mydata, UQS(syms(type))) %>%
+      do(MB(., mod, obs))
+  } else {
+    res.MB <- NULL
+  }
+
+  if ("MGE" %in% statistic) {
+    res.MGE <- group_by(mydata, UQS(syms(type))) %>%
+      do(MGE(., mod, obs))
+  } else {
+    res.MGE <- NULL
+  }
+
+  if ("NMB" %in% statistic) {
+    res.NMB <- group_by(mydata, UQS(syms(type))) %>%
+      do(NMB(., mod, obs))
+  } else {
+    res.NMB <- NULL
+  }
+
+  if ("NMGE" %in% statistic) {
+    res.NMGE <- group_by(mydata, UQS(syms(type))) %>%
+      do(NMGE(., mod, obs))
+  } else {
+    res.NMGE <- NULL
+  }
+
+  if ("RMSE" %in% statistic) {
+    res.RMSE <- group_by(mydata, UQS(syms(type))) %>%
+      do(RMSE(., mod, obs))
+  } else {
+    res.RMSE <- NULL
+  }
+
+  if ("r" %in% statistic) {
+    res.r <- group_by(mydata, UQS(syms(type))) %>%
+      do(r(., mod, obs))
+  } else {
+    res.r <- NULL
+  }
+
+  if ("COE" %in% statistic) {
+    res.COE <- group_by(mydata, UQS(syms(type))) %>%
+      do(COE(., mod, obs))
+  } else {
+    res.COE <- NULL
+  }
+
+  if ("IOA" %in% statistic) {
+    res.IOA <- group_by(mydata, UQS(syms(type))) %>%
+      do(IOA(., mod, obs))
+  } else {
+    res.IOA <- NULL
+  }
+
+
+  ## merge them all into one data frame
+  results <- list(
+    res.n, res.FAC, res.MB, res.MGE, res.NMB, res.NMGE, res.RMSE, res.r,
+    res.COE, res.IOA
+  )
+
+  ## remove NULLs from lits
+  results <- results[!sapply(results, is.null)]
+  results <- Reduce(function(x, y, by = type) merge(x, y, by = type, all = TRUE), results)
+
+  results <- sortDataFrame(results, key = type)
+
+  ## simple ranking of models?
+  if (!is.null(rank.name)) {
+    types <- setdiff(type, rank.name)
+
+    if (length(types) == 0) {
+      results <- rankModels(results, rank.name)
+    } else {
+      results <- group_by(results, UQS(syms(types))) %>%
+        do(rankModels(., rank.name = rank.name))
     }
+  }
 
-    ## check the data
-    mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE,
-                        strip.white = FALSE)
-
-    mydata <- cutData(mydata, type, ...)
-
-    ## calculate the various statistics
-
-    if ("n" %in% statistic) res.n <- group_by(mydata, UQS(syms(type))) %>% 
-      do(n(., mod, obs)) else res.n <- NULL
-    
-    if ("FAC2" %in% statistic) res.FAC <- group_by(mydata, UQS(syms(type))) %>% 
-      do(FAC2(., mod, obs)) else res.FAC <- NULL
-    
-    if ("MB" %in% statistic) res.MB <- group_by(mydata, UQS(syms(type))) %>% 
-      do(MB(., mod, obs)) else res.MB <- NULL
-    
-    if ("MGE" %in% statistic) res.MGE <- group_by(mydata, UQS(syms(type))) %>% 
-      do(MGE(., mod, obs)) else res.MGE <- NULL
-    
-    if ("NMB" %in% statistic) res.NMB <- group_by(mydata, UQS(syms(type))) %>% 
-      do(NMB(., mod, obs)) else res.NMB <- NULL
-    
-    if ("NMGE" %in% statistic) res.NMGE <- group_by(mydata, UQS(syms(type))) %>% 
-      do(NMGE(., mod, obs)) else res.NMGE <- NULL
-    
-    if ("RMSE" %in% statistic) res.RMSE <- group_by(mydata, UQS(syms(type))) %>% 
-      do(RMSE(., mod, obs)) else res.RMSE <- NULL
-  
-    if ("r" %in% statistic) res.r <- group_by(mydata, UQS(syms(type))) %>% 
-      do(r(., mod, obs)) else res.r <- NULL
-    
-    if ("COE" %in% statistic) res.COE <- group_by(mydata, UQS(syms(type))) %>% 
-      do(COE(., mod, obs)) else res.COE <- NULL
-  
-    if ("IOA" %in% statistic) res.IOA <- group_by(mydata, UQS(syms(type))) %>% 
-      do(IOA(., mod, obs)) else res.IOA <- NULL
-   
-
-    ## merge them all into one data frame
-    results <- list(res.n, res.FAC, res.MB, res.MGE, res.NMB, res.NMGE, res.RMSE, res.r,
-                    res.COE, res.IOA)
-
-    ## remove NULLs from lits
-    results <- results[!sapply(results, is.null)]
-    results <- Reduce(function(x, y, by = type) merge(x, y, by = type, all = TRUE), results)
-
-    results <- sortDataFrame(results, key = type)
-
-    ## simple ranking of models?
-    if (!is.null(rank.name)) {
-
-        types <- setdiff(type, rank.name)
-
-        if (length(types) == 0) {
-            results <- rankModels(results, rank.name)
-        } else {
-
-            results <- group_by(results, UQS(syms(types))) %>%
-              do(rankModels(., rank.name = rank.name))
-        }
-
-    }
-
-     results
-
+  results
 }
 
 sortDataFrame <- function(x, key, ...) {
-    ## function to sort a data frame given one or more column names (key)
-    ## from http://tolstoyc.newcastle.edu.au/R/help/04/07/1076.html
+  ## function to sort a data frame given one or more column names (key)
+  ## from http://tolstoyc.newcastle.edu.au/R/help/04/07/1076.html
 
-    if (missing(key)) {
-
-        rn <- rownames(x)
-        if (all(rn %in% 1:nrow(x))) rn <- as.numeric(rn)
-        x[order(rn, ...), , drop = FALSE]
-    } else {
-        x[do.call("order", c(x[key], ...)), , drop = FALSE]
-    }
+  if (missing(key)) {
+    rn <- rownames(x)
+    if (all(rn %in% 1:nrow(x))) rn <- as.numeric(rn)
+    x[order(rn, ...), , drop = FALSE]
+  } else {
+    x[do.call("order", c(x[key], ...)), , drop = FALSE]
+  }
 }
 
 
 rankModels <- function(mydata, rank.name = "group") {
 
-    ## sort by COE
-    mydata <- sortDataFrame(mydata, "COE", decreasing = TRUE)
+  ## sort by COE
+  mydata <- sortDataFrame(mydata, "COE", decreasing = TRUE)
 }
 
 ## number of valid readings
 n <- function(x, mod = "mod", obs = "obs") {
-
-    x <- na.omit(x[ , c(mod, obs)])
-    res <- nrow(x)
-    data.frame(n = res)
+  x <- na.omit(x[, c(mod, obs)])
+  res <- nrow(x)
+  data.frame(n = res)
 }
 
 ## fraction within a factor of two
 FAC2 <- function(x, mod = "mod", obs = "obs") {
-    x <- na.omit(x[ , c(mod, obs)])
-    ratio <- x[[mod]] / x[[obs]]
-    ratio <- na.omit(ratio)
-    len <- length(ratio)
-    if (len > 0) {
-        res <- length(which(ratio >= 0.5 & ratio <= 2)) / len
-    } else {
-        res <- NA
-    }
-    data.frame(FAC2 = res)
+  x <- na.omit(x[, c(mod, obs)])
+  ratio <- x[[mod]] / x[[obs]]
+  ratio <- na.omit(ratio)
+  len <- length(ratio)
+  if (len > 0) {
+    res <- length(which(ratio >= 0.5 & ratio <= 2)) / len
+  } else {
+    res <- NA
+  }
+  data.frame(FAC2 = res)
 }
 
 ## mean bias
 MB <- function(x, mod = "mod", obs = "obs") {
-    x <- na.omit(x[ , c(mod, obs)])
-    res <- mean(x[[mod]] - x[[obs]])
-    data.frame(MB = res)
+  x <- na.omit(x[, c(mod, obs)])
+  res <- mean(x[[mod]] - x[[obs]])
+  data.frame(MB = res)
 }
 
 ## mean gross error
 MGE <- function(x, mod = "mod", obs = "obs") {
-    x <- na.omit(x[ , c(mod, obs)])
-    res <- mean(abs(x[[mod]] - x[[obs]]))
-    data.frame(MGE = res)
+  x <- na.omit(x[, c(mod, obs)])
+  res <- mean(abs(x[[mod]] - x[[obs]]))
+  data.frame(MGE = res)
 }
 
 ## normalised mean bias
 NMB <- function(x, mod = "mod", obs = "obs") {
-    x <- na.omit(x[ , c(mod, obs)])
-    res <- sum(x[[mod]] - x[[obs]]) / sum(x[[obs]])
-    data.frame(NMB = res)
+  x <- na.omit(x[, c(mod, obs)])
+  res <- sum(x[[mod]] - x[[obs]]) / sum(x[[obs]])
+  data.frame(NMB = res)
 }
 
 ## normalised mean gross error
 NMGE <- function(x, mod = "mod", obs = "obs") {
-    x <- na.omit(x[ , c(mod, obs)])
-    res <- sum(abs(x[[mod]] - x[[obs]])) / sum(x[[obs]])
-    data.frame(NMGE = res)
+  x <- na.omit(x[, c(mod, obs)])
+  res <- sum(abs(x[[mod]] - x[[obs]])) / sum(x[[obs]])
+  data.frame(NMGE = res)
 }
 
 ## root mean square error
 RMSE <- function(x, mod = "mod", obs = "obs") {
-    x <- na.omit(x[ , c(mod, obs)])
-    res <- mean((x[[mod]] - x[[obs]]) ^ 2) ^ 0.5
-    data.frame(RMSE = res)
+  x <- na.omit(x[, c(mod, obs)])
+  res <- mean((x[[mod]] - x[[obs]]) ^ 2) ^ 0.5
+  data.frame(RMSE = res)
 }
 
 ## correlation coefficient
 r <- function(x, mod = "mod", obs = "obs", ...) {
+  x <- na.omit(x[, c(mod, obs)])
+  res <- suppressWarnings(cor(x[[mod]], x[[obs]], ...)) ## when SD=0; will return NA
 
-    x <- na.omit(x[ , c(mod, obs)])
-    res <- suppressWarnings(cor(x[[mod]], x[[obs]], ...)) ## when SD=0; will return NA
-
-    data.frame(r = res)
+  data.frame(r = res)
 }
 
 ##  Coefficient of Efficiency
 COE <- function(x, mod = "mod", obs = "obs") {
-    x <- na.omit(x[ , c(mod, obs)])
+  x <- na.omit(x[, c(mod, obs)])
 
-    res <-  1 - sum(abs(x[[mod]] - x[[obs]])) / sum(abs(x[[obs]] - mean(x[[obs]])))
+  res <- 1 - sum(abs(x[[mod]] - x[[obs]])) / sum(abs(x[[obs]] - mean(x[[obs]])))
 
-    data.frame(COE = res)
+  data.frame(COE = res)
 }
 
 ##  Index of Agreement
 IOA <- function(x, mod = "mod", obs = "obs") {
-    x <- na.omit(x[ , c(mod, obs)])
+  x <- na.omit(x[, c(mod, obs)])
 
-    LHS <- sum(abs(x[[mod]] - x[[obs]]))
-    RHS <- 2 * sum(abs(x[[obs]] - mean(x[[obs]])))
+  LHS <- sum(abs(x[[mod]] - x[[obs]]))
+  RHS <- 2 * sum(abs(x[[obs]] - mean(x[[obs]])))
 
-    if (LHS <= RHS) res <- 1 - LHS / RHS else res <- RHS / LHS - 1
+  if (LHS <= RHS) res <- 1 - LHS / RHS else res <- RHS / LHS - 1
 
-    data.frame(IOA = res)
+  data.frame(IOA = res)
 }

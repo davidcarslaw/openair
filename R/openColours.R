@@ -74,100 +74,97 @@
 ##'
 openColours <- function(scheme = "default", n = 100) {
 
-    ## pre-defined brewer colour palletes sequential, diverging, qualitative
-    brewer.col <- c("Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
-                    "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
-                    "BrBG", "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral",
-                    "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3")
-    ## max colours allowed
+  ## pre-defined brewer colour palletes sequential, diverging, qualitative
+  brewer.col <- c(
+    "Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
+    "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd",
+    "BrBG", "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral",
+    "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3"
+  )
+  ## max colours allowed
 
-    brewer.n <- c(rep(9, 18), rep(9, 9), c(8, 8, 12, 9, 8, 9, 8, 12))
+  brewer.n <- c(rep(9, 18), rep(9, 9), c(8, 8, 12, 9, 8, 9, 8, 12))
 
-    ## predefined schemes
-    schemes <- c("increment", "default", "brewer1", "heat", "jet", "hue", "greyscale", brewer.col)
+  ## predefined schemes
+  schemes <- c("increment", "default", "brewer1", "heat", "jet", "hue", "greyscale", brewer.col)
 
-    ## schemes
-    heat <- colorRampPalette(brewer.pal(9, "YlOrRd"), interpolate = "spline")
+  ## schemes
+  heat <- colorRampPalette(brewer.pal(9, "YlOrRd"), interpolate = "spline")
 
-    jet <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan",
-                              "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"))
+  jet <- colorRampPalette(c(
+    "#00007F", "blue", "#007FFF", "cyan",
+    "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"
+  ))
 
-    default.col <- colorRampPalette(brewer.pal(11, "Spectral"), interpolate = "spline")
+  default.col <- colorRampPalette(brewer.pal(11, "Spectral"), interpolate = "spline")
 
 
 
-    ## for this pallete use specfified number if possible - because it has been thought about...
-    brewer1 <- function (n) {
-        if (n >= 3 & n <= 9) {
-
-            brewer.pal(n, "Set1")
-
-        } else {
-
-            thefun <- suppressWarnings(colorRampPalette(brewer.pal(9, "Set1"), interpolate = "spline"))
-            thefun(n)
-        }
-
+  ## for this pallete use specfified number if possible - because it has been thought about...
+  brewer1 <- function(n) {
+    if (n >= 3 & n <= 9) {
+      brewer.pal(n, "Set1")
+    } else {
+      thefun <- suppressWarnings(colorRampPalette(brewer.pal(9, "Set1"), interpolate = "spline"))
+      thefun(n)
     }
+  }
 
-    ## for this pallete use specfified number if possible - because it has been thought about...
-    find.brewer <- function (thecol, n) {
+  ## for this pallete use specfified number if possible - because it has been thought about...
+  find.brewer <- function(thecol, n) {
+    n.brew <- brewer.n[scheme == brewer.col]
 
-        n.brew <- brewer.n[scheme == brewer.col]
-
-        if (n >= 3 & n <= n.brew) {
-
-            brewer.pal(n, thecol)
-
-        } else {
-
-            thefun <- suppressWarnings(colorRampPalette(brewer.pal(n.brew, thecol), interpolate = "spline"))
-            thefun(n)
-        }
-
+    if (n >= 3 & n <= n.brew) {
+      brewer.pal(n, thecol)
+    } else {
+      thefun <- suppressWarnings(colorRampPalette(brewer.pal(n.brew, thecol), interpolate = "spline"))
+      thefun(n)
     }
+  }
 
-    increment <- colorRampPalette(c("#B0FFF1", "#9CFFC7", "#87FF8E", "#A0FF73",
-                                    "#B4FF69", "#CCFF60", "#E7FF56", "#FFF84D", "#FFCB46", "#FF9C40",
-                                    "#FF6939", "#FF3333", "#CC1B62", "#990A7C", "#520066"))
+  increment <- colorRampPalette(c(
+    "#B0FFF1", "#9CFFC7", "#87FF8E", "#A0FF73",
+    "#B4FF69", "#CCFF60", "#E7FF56", "#FFF84D", "#FFCB46", "#FF9C40",
+    "#FF6939", "#FF3333", "#CC1B62", "#990A7C", "#520066"
+  ))
 
-    h = c(0, 360) + 15
-    l = 65
-    c = 100
+  h <- c(0, 360) + 15
+  l <- 65
+  c <- 100
 
-    if ((diff(h) %% 360) < 1) {
-        h[2] <- h[2] - 360 / n
+  if ((diff(h) %% 360) < 1) {
+    h[2] <- h[2] - 360 / n
+  }
+
+  hue <- grDevices::hcl(
+    h = seq(h[1], h[2], length = n),
+    c = c,
+    l = l
+  )
+
+  greyscale <- grey(seq(0.9, 0.1, length = n))
+
+  ## error catcher
+  if (length(scheme) == 1) {
+    if (scheme %in% brewer.col) cols <- find.brewer(scheme, n)
+    if (scheme == "increment") cols <- increment(n)
+    if (scheme == "default") cols <- rev(default.col(n))
+    if (scheme == "brewer1") cols <- brewer1(n)
+    if (scheme %in% brewer.col) cols <- find.brewer(scheme, n)
+    if (scheme == "heat") cols <- heat(n)
+    if (scheme == "jet") cols <- jet(n)
+    if (scheme == "hue") cols <- hue
+    if (scheme == "greyscale") cols <- greyscale
+  }
+
+  if (!any(scheme %in% schemes)) { # assume user has given own colours
+    if (length(scheme) > 1) { ## interpolate
+      user.cols <- colorRampPalette(scheme)
+      cols <- user.cols(n)
+    } else {
+      cols <- rep(scheme, n)
     }
+  }
 
-    hue <- grDevices::hcl(
-                          h = seq(h[1], h[2], length = n),
-                          c = c,
-                          l = l)
-
-    greyscale <- grey(seq(0.9, 0.1, length=n))
-
-    ## error catcher
-    if (length(scheme) == 1){
-        if (scheme %in% brewer.col) cols <- find.brewer(scheme, n)
-        if (scheme == "increment") cols <- increment(n)
-        if (scheme == "default") cols <- rev(default.col(n))
-        if (scheme == "brewer1") cols <- brewer1(n)
-        if (scheme %in% brewer.col) cols <- find.brewer(scheme, n)
-        if (scheme == "heat") cols <- heat(n)
-        if (scheme == "jet") cols <- jet(n)
-        if (scheme == "hue") cols <- hue
-        if (scheme == "greyscale") cols <- greyscale
-    }
-
-    if (!any(scheme %in% schemes)) { #assume user has given own colours
-        if (length(scheme) > 1) {  ## interpolate
-            user.cols  <- colorRampPalette(scheme)
-            cols =  user.cols(n)
-        } else {
-            cols <- rep(scheme, n)
-        }
-    }
-
-    cols
+  cols
 }
-

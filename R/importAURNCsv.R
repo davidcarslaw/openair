@@ -1,19 +1,19 @@
 ##' AURN csv file data import for openair
-##' 
+##'
 ##' Function for importing common 1 hour average (hourly) UK Automatic Urban
 ##' and Rural Network (AURN) Air Quality Archive data files previously
 ##' downloaded in ".csv" format for use with the openair package.  The function
 ##' uses \code{read.table} (in \code{utils}) and \code{rbind} (in
 ##' \code{reshape}).
-##' 
+##'
 ##' The importAURN() function was developed for use with air quality monitoring
 ##' site data files downloaded in standard hourly (or 1 hour average) format
 ##' using the Air Quality Archive email service. Argument defaults are set to
 ##' common values to simplify both the import operation and use with openair.
-##' 
+##'
 ##' Similar file structures can also be imported using this function with
 ##' argument modification.
-##' 
+##'
 ##' @param file The name of the AURN file to be imported. Default,
 ##'   \code{file.choose} opens browser. Use of \code{read.table} (in
 ##'   \code{utils}) also allows this to be a readable text-mode connection or
@@ -82,8 +82,8 @@
 ##'   \code{\link{importADMS}}, etc.
 ##' @keywords methods
 ##' @examples
-##' 
-##' 
+##'
+##'
 ##' ##########
 ##' #example 1
 ##' ##########
@@ -92,151 +92,166 @@
 ##' #or
 ##' #http://www.airquality.co.uk/archive/data_and_statistics.php?action=step_pre_1
 ##' #example file "AirQualityDataHourly.csv" Brighton Roadside and Brighton Preston Park 2008.
-##' 
+##'
 ##' #import data as mydata
 ##' ## mydata <- importAURN.csv("AirQualityDataHourly.csv")
-##' 
+##'
 ##' #read additional information retained by importAURN
 ##' ## comment(mydata)
-##' 
+##'
 ##' #analysis data by site
 ##' ## boxplot(nox ~ site, data = mydata)
-##' 
+##'
 ##' ##########
 ##' #example 2
 ##' ##########
 ##' #example using data from url
-##' 
+##'
 ##' #import data as otherdata
 ##' ## otherdata <- importAURN.csv(
 ##' ##  "http://www.airquality.co.uk/archive/data_files/site_data/HG1_2007.csv")
-##' 
+##'
 ##' #use openair function
 ##' ## summarise(otherdata)
-##' 
+##'
 ##' ##########
 ##' #example 3
 ##' ##########
 ##' #example of importing other similar data formats
-##' 
+##'
 ##' #import 15 min average so2 data from Bexley using url
 ##' ## so2.15min.data <- importAURN.csv(
 ##' ##  "http://www.airquality.co.uk/archive/data_files/15min_site_data/BEX_2008.csv",
 ##' ##  correct.time = -900)
-##' 
+##'
 ##' #note: correct.time amended for 15 min offset/correction.
-##' 
+##'
 ##' #additional comments
 ##' ## comment(so2.15min.data)
-##' 
+##'
 ##' #analysis
 ##' ## diurnal.error(so2.15min.data, pollutant="so2")
-##' 
+##'
 ##' #wrapper for above operation
 ##' ##(e.g. if you have to do this -or similar- a lot of time)
 ##' ## my.import.wrapper <- function(file, correct.time = -900, ...)
 ##' ##  { importAURN.csv(file = file, correct.time = correct.time, ...) }
-##' 
+##'
 ##' #same as above
 ##' ## so2.15min.data.again <- my.import.wrapper(
 ##' ##  "http://www.airquality.co.uk/archive/data_files/15min_site_data/BEX_2008.csv")
-##' 
+##'
 ##' #analysis
 ##' ## timeVariation(so2.15min.data.again, pollutant="so2")
-##' 
-##' 
-importAURNCsv <- function (file = file.choose(), header.at = 5, data.at = 7, na.strings = c("No data", 
-    "", "NA"), date.name = "Date", date.break = "-", time.name = "time", 
-    misc.info = c(1, 2, 3, 4), is.site = 4, bad.24 = TRUE, correct.time = -3600, 
-    output = "final", data.order = c("value", "status", "unit"), 
-    simplify.names = TRUE, ...) 
-{
-    initial.ans <- import(file = file, header.at = header.at, 
-        na.strings = na.strings, data.at = data.at, date.name = date.name, 
-        date.break = date.break, time.name = time.name, misc.info = misc.info, 
-        is.site = NULL, bad.24 = bad.24, correct.time = correct.time, 
-        output = "working", ...)
-    date.name <- make.names(date.name)
-    time.name <- make.names(time.name)
-    site.1 <- read.table(file, header = FALSE, sep = initial.ans$ops$sep, 
-        skip = (is.site - 1), nrows = 1, colClasses = "character", 
-        col.names = initial.ans$names, fill = TRUE, flush = TRUE)
-    site.1 <- site.1[1:length(initial.ans$names)]
-    names(site.1) <- make.names(initial.ans$names, unique = TRUE)
-    site.1 <- site.1[!names(site.1) == date.name]
-    site.1 <- site.1[!names(site.1) == time.name]
+##'
+##'
+importAURNCsv <- function(file = file.choose(), header.at = 5, data.at = 7, na.strings = c(
+                          "No data",
+                          "", "NA"
+                        ), date.name = "Date", date.break = "-", time.name = "time",
+                        misc.info = c(1, 2, 3, 4), is.site = 4, bad.24 = TRUE, correct.time = -3600,
+                        output = "final", data.order = c("value", "status", "unit"),
+                        simplify.names = TRUE, ...) {
+  initial.ans <- import(
+    file = file, header.at = header.at,
+    na.strings = na.strings, data.at = data.at, date.name = date.name,
+    date.break = date.break, time.name = time.name, misc.info = misc.info,
+    is.site = NULL, bad.24 = bad.24, correct.time = correct.time,
+    output = "working", ...
+  )
+  date.name <- make.names(date.name)
+  time.name <- make.names(time.name)
+  site.1 <- read.table(
+    file, header = FALSE, sep = initial.ans$ops$sep,
+    skip = (is.site - 1), nrows = 1, colClasses = "character",
+    col.names = initial.ans$names, fill = TRUE, flush = TRUE
+  )
+  site.1 <- site.1[1:length(initial.ans$names)]
+  names(site.1) <- make.names(initial.ans$names, unique = TRUE)
+  site.1 <- site.1[!names(site.1) == date.name]
+  site.1 <- site.1[!names(site.1) == time.name]
 
-#revised site handler
+  # revised site handler
 
-    site.2 <- as.character(site.1)
-    site.2 <- c(1:length(site.2))[gsub(" ", "", site.2) != ""]
+  site.2 <- as.character(site.1)
+  site.2 <- c(1:length(site.2))[gsub(" ", "", site.2) != ""]
 
-#    site.2 <- as.vector(sapply(site.1[!as.character(site.1) == 
-#        "" & !as.character(site.1) == " "], function(x) {
-#        grep(x, as.character(site.1), fixed = TRUE)
-#    }))
+  #    site.2 <- as.vector(sapply(site.1[!as.character(site.1) ==
+  #        "" & !as.character(site.1) == " "], function(x) {
+  #        grep(x, as.character(site.1), fixed = TRUE)
+  #    }))
 
-    if (length(site.2) > 1) {
-        site.3 <- c(site.2[2:length(site.2)] - 1, ncol(site.1))
-    }
-    else {
-        site.3 <- ncol(site.1)
-    }
-    site.names <- as.character(as.vector(site.1[site.2]))
-    #space at name start
-    site.names <- gsub("(^ +)|( +$)", "", site.names)
+  if (length(site.2) > 1) {
+    site.3 <- c(site.2[2:length(site.2)] - 1, ncol(site.1))
+  }
+  else {
+    site.3 <- ncol(site.1)
+  }
+  site.names <- as.character(as.vector(site.1[site.2]))
+  # space at name start
+  site.names <- gsub("(^ +)|( +$)", "", site.names)
 
-    initial.ans$data <- lapply(1:(length(site.2)), function(x) {
-        ans <- initial.ans$data[site.2[x]:site.3[x]]
-        ans.names <- names(ans)
-        if (simplify.names == TRUE) {
-            ans.names[grep("carbon.monoxide", ans.names, ignore.case = TRUE)] <- "co"
-            ans.names[grep("pm10.particulate.matter", ans.names, 
-                ignore.case = TRUE)] <- "pm10"
-            ans.names[grep("non.volatile.pm10", ans.names, ignore.case = TRUE)] <- "nv.pm10"
-            ans.names[grep("volatile.pm10", ans.names, ignore.case = TRUE)] <- "v.pm10"
-            ans.names[grep("pm2.5.particulate.matter", ans.names, 
-                ignore.case = TRUE)] <- "pm2.5"
-            ans.names[grep("non.volatile.pm2.5", ans.names, ignore.case = TRUE)] <- "nv.pm2.5"
-            ans.names[grep("volatile.pm2.5", ans.names, ignore.case = TRUE)] <- "v.pm2.5"
-            ans.names[grep("nitric.oxide", ans.names, ignore.case = TRUE)] <- "no"
-            ans.names[grep("nitrogen.oxides", ans.names, ignore.case = TRUE)] <- "nox"
-            ans.names[grep("nitrogen.dioxide", ans.names, ignore.case = TRUE)] <- "no2"
-            ans.names[grep("ozone", ans.names, ignore.case = TRUE)] <- "o3"
-            ans.names[grep("sulphur.dioxide", ans.names, ignore.case = TRUE)] <- "so2"
-        }
-        for (i in 1:length(data.order)) {
-            if (data.order[i] == "value") {
-            }
-            else {
-                ans.names[grep(data.order[i], ans.names, ignore.case = TRUE)] <- paste(data.order[i], 
-                  ".", ans.names[(grep(data.order[i], ans.names, 
-                    ignore.case = TRUE)) - (i - 1)], sep = "")
-            }
-        }
-        names(ans) <- ans.names
-        site <- rep(site.names[x], nrow(initial.ans$data))
-        ans <- cbind(date = initial.ans$date, site = site, ans)
-    })
-    initial.ans$data <- do.call(bind_rows, initial.ans$data)
+  initial.ans$data <- lapply(1:(length(site.2)), function(x) {
+    ans <- initial.ans$data[site.2[x]:site.3[x]]
+    ans.names <- names(ans)
     if (simplify.names == TRUE) {
-        initial.ans$misc <- c(initial.ans$misc, "importAURN operation: simplify names applied")
+      ans.names[grep("carbon.monoxide", ans.names, ignore.case = TRUE)] <- "co"
+      ans.names[grep(
+        "pm10.particulate.matter", ans.names,
+        ignore.case = TRUE
+      )] <- "pm10"
+      ans.names[grep("non.volatile.pm10", ans.names, ignore.case = TRUE)] <- "nv.pm10"
+      ans.names[grep("volatile.pm10", ans.names, ignore.case = TRUE)] <- "v.pm10"
+      ans.names[grep(
+        "pm2.5.particulate.matter", ans.names,
+        ignore.case = TRUE
+      )] <- "pm2.5"
+      ans.names[grep("non.volatile.pm2.5", ans.names, ignore.case = TRUE)] <- "nv.pm2.5"
+      ans.names[grep("volatile.pm2.5", ans.names, ignore.case = TRUE)] <- "v.pm2.5"
+      ans.names[grep("nitric.oxide", ans.names, ignore.case = TRUE)] <- "no"
+      ans.names[grep("nitrogen.oxides", ans.names, ignore.case = TRUE)] <- "nox"
+      ans.names[grep("nitrogen.dioxide", ans.names, ignore.case = TRUE)] <- "no2"
+      ans.names[grep("ozone", ans.names, ignore.case = TRUE)] <- "o3"
+      ans.names[grep("sulphur.dioxide", ans.names, ignore.case = TRUE)] <- "so2"
     }
-    if (!output == "working") {
-        ans <- initial.ans$data
-        if (!is.null(misc.info)) {
-            comment(ans) <- initial.ans$misc
-        }
-        ids <- which(is.na(ans$date))
-        if (length(ids) > 0) {
-            ans <- ans[-ids, ]
-            warning(paste("Missing dates detected, removing", 
-                length(ids), "lines"))
-        }
-        print(unlist(sapply(ans, class)))
-        return(ans)
+    for (i in 1:length(data.order)) {
+      if (data.order[i] == "value") {
+      }
+      else {
+        ans.names[grep(data.order[i], ans.names, ignore.case = TRUE)] <- paste(
+          data.order[i],
+          ".", ans.names[(grep(
+            data.order[i], ans.names,
+            ignore.case = TRUE
+          )) - (i - 1)], sep = ""
+        )
+      }
     }
-    else {
-        return(initial.ans)
+    names(ans) <- ans.names
+    site <- rep(site.names[x], nrow(initial.ans$data))
+    ans <- cbind(date = initial.ans$date, site = site, ans)
+  })
+  initial.ans$data <- do.call(bind_rows, initial.ans$data)
+  if (simplify.names == TRUE) {
+    initial.ans$misc <- c(initial.ans$misc, "importAURN operation: simplify names applied")
+  }
+  if (!output == "working") {
+    ans <- initial.ans$data
+    if (!is.null(misc.info)) {
+      comment(ans) <- initial.ans$misc
     }
+    ids <- which(is.na(ans$date))
+    if (length(ids) > 0) {
+      ans <- ans[-ids, ]
+      warning(paste(
+        "Missing dates detected, removing",
+        length(ids), "lines"
+      ))
+    }
+    print(unlist(sapply(ans, class)))
+    return(ans)
+  }
+  else {
+    return(initial.ans)
+  }
 }

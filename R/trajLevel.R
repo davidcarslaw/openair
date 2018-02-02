@@ -231,243 +231,258 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
                       map.fill = TRUE, map.res = "default", map.cols = "grey40",
                       map.alpha = 0.3, projection = "lambert",
                       parameters = c(51, 51), orientation = c(90, 0, 0),
-                      grid.col = "deepskyblue", origin = TRUE, ...)  {
+                      grid.col = "deepskyblue", origin = TRUE, ...) {
 
-    ## mydata can be a list of several trajectory files; in which case combine them
-    ## before averaging
-    hour.inc <- NULL
-    ## variables needed in trajectory plots
-    vars <- c("date", "lat", "lon", "hour.inc", pollutant)
-    mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
-    
-    ## Args
-    Args <- list(...)
+  ## mydata can be a list of several trajectory files; in which case combine them
+  ## before averaging
+  hour.inc <- NULL
+  ## variables needed in trajectory plots
+  vars <- c("date", "lat", "lon", "hour.inc", pollutant)
+  mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
 
-    ## set graphics
-    current.strip <- trellis.par.get("strip.background")
-    current.font <- trellis.par.get("fontsize")
-    
-    ## reset graphic parameters
-    on.exit(trellis.par.set(strip.background = current.strip,
-                            fontsize = current.font))
+  ## Args
+  Args <- list(...)
 
-    statistic <- tolower(statistic)
+  ## set graphics
+  current.strip <- trellis.par.get("strip.background")
+  current.font <- trellis.par.get("fontsize")
 
-    if (!"ylab" %in% names(Args))
-        Args$ylab <- ""
+  ## reset graphic parameters
+  on.exit(trellis.par.set(
+    strip.background = current.strip,
+    fontsize = current.font
+  ))
 
-    if (!"xlab" %in% names(Args))
-        Args$xlab <- ""
+  statistic <- tolower(statistic)
 
-    if (!"main" %in% names(Args))
-        Args$main <- ""
+  if (!"ylab" %in% names(Args)) {
+    Args$ylab <- ""
+  }
 
-    if (!"border" %in% names(Args))
-        Args$border <- NA
+  if (!"xlab" %in% names(Args)) {
+    Args$xlab <- ""
+  }
 
-    if ("fontsize" %in% names(Args))
-        trellis.par.set(fontsize = list(text = Args$fontsize))
+  if (!"main" %in% names(Args)) {
+    Args$main <- ""
+  }
 
-    if (!"key.header" %in% names(Args)) {
-        if (statistic == "frequency") Args$key.header <- "% trajectories"
-        if (statistic == "pscf") Args$key.header <- "PSCF \nprobability"
-        if (statistic == "difference") Args$key.header <- quickText(paste("gridded differences", "\n(", percentile, "th percentile)", sep = ""))
-    }
+  if (!"border" %in% names(Args)) {
+    Args$border <- NA
+  }
 
-     if(!"key.footer" %in% names(Args))
-         Args$key.footer <- ""
+  if ("fontsize" %in% names(Args)) {
+    trellis.par.set(fontsize = list(text = Args$fontsize))
+  }
 
-    ## xlim and ylim set by user
-    if (!"xlim" %in% names(Args))
-        Args$xlim <- range(mydata$lon)
+  if (!"key.header" %in% names(Args)) {
+    if (statistic == "frequency") Args$key.header <- "% trajectories"
+    if (statistic == "pscf") Args$key.header <- "PSCF \nprobability"
+    if (statistic == "difference") Args$key.header <- quickText(paste("gridded differences", "\n(", percentile, "th percentile)", sep = ""))
+  }
 
-    if (!"ylim" %in% names(Args))
-        Args$ylim <- range(mydata$lat)
+  if (!"key.footer" %in% names(Args)) {
+    Args$key.footer <- ""
+  }
 
-    ## extent of data (or limits set by user) in degrees
-    trajLims <- c(Args$xlim, Args$ylim)
+  ## xlim and ylim set by user
+  if (!"xlim" %in% names(Args)) {
+    Args$xlim <- range(mydata$lon)
+  }
 
-    ## need *outline* of boundary for map limits
-    Args <- setTrajLims(mydata, Args, projection, parameters, orientation)
+  if (!"ylim" %in% names(Args)) {
+    Args$ylim <- range(mydata$lat)
+  }
 
+  ## extent of data (or limits set by user) in degrees
+  trajLims <- c(Args$xlim, Args$ylim)
 
-    Args$trajStat <- statistic
-
-    if (!"method" %in% names(Args)) {
-        method <- "traj"
-    } else {
-        method <- Args$method
-        statistic = "XX" ## i.e. it wont touch the data
-    }
-
-    ## location of receptor for map projection, used to show location on maps
-    origin_xy <- head(subset(mydata, hour.inc == 0), 1) ## origin
-    tmp <- mapproject(x = origin_xy[["lon"]][1],
-                      y = origin_xy[["lat"]][1],
-                      projection = projection,
-                      parameters = parameters,
-                      orientation = orientation)
-    receptor <- c(tmp$x, tmp$y)
-    
-
-    if (method == "hexbin") {
-
-        ## transform data for map projection
-        tmp <- mapproject(x = mydata[["lon"]],
-                      y = mydata[["lat"]],
-                      projection = projection,
-                      parameters = parameters,
-                      orientation = orientation)
-        mydata[["lon"]] <- tmp$x
-        mydata[["lat"]] <- tmp$y
-    }
+  ## need *outline* of boundary for map limits
+  Args <- setTrajLims(mydata, Args, projection, parameters, orientation)
 
 
-    if (method == "density") stop ("Use trajPlot with method = 'density' instead")
+  Args$trajStat <- statistic
 
-    if (is.list(mydata)) mydata <- bind_rows(mydata)
-    
-    mydata <- cutData(mydata, type, ...)
+  if (!"method" %in% names(Args)) {
+    method <- "traj"
+  } else {
+    method <- Args$method
+    statistic <- "XX" ## i.e. it wont touch the data
+  }
 
-    ## bin data
-    if (method == "traj") {
-        mydata$ygrid <- round_any(mydata[[lat]], lat.inc)
-        mydata$xgrid <- round_any(mydata[[lon]], lon.inc)
-    } else {
-        mydata$ygrid <- mydata[[lat]]
-        mydata$xgrid <- mydata[[lon]]
-    }
-
-    rhs <- c("xgrid", "ygrid", type)
-    rhs <- paste(rhs, collapse = "+")
-    mydata <- mydata[ , c("date", "xgrid", "ygrid", type, pollutant)]
-    ids <- which(names(mydata) %in% c("xgrid", "ygrid", type))
-    
-    # grouping variables
-    vars <- c("xgrid", "ygrid", type)
-
-    ## plot mean concentration - CWT method
-    if (statistic %in% c("cwt", "median")) {
-
-        ## calculate the mean of points in each cell 
-        mydata <- group_by(mydata, UQS(syms(vars))) %>%
-          summarise(date = head(date, 1),
-                     N = n(),
-                     count = mean(UQ(sym(pollutant)), na.rm = TRUE))
-       
-        mydata[[pollutant]] <- mydata$count
-
-        ## adjust at edges
-
-        id <- which(mydata$N > 20 & mydata$N <= 80)
-        mydata[id, pollutant] <- mydata[id, pollutant] * 0.7
-
-        id <- which(mydata$N > 10 & mydata$N <= 20)
-        mydata[id, pollutant] <- mydata[id, pollutant] * 0.42
-
-        id <- which(mydata$N <= 10)
-        mydata[id, pollutant] <- mydata[id, pollutant] * 0.05
-        attr(mydata$date, "tzone") <- "GMT"  ## avoid warning messages about TZ
-    }
-
-    ## plot trajectory frequecies
-    if (statistic == "frequency" && method != "hexbin") {
-        ## count % of times a cell contains a trajectory point
-        ## need date for later use of type
-
-        mydata <- group_by(mydata, UQS(syms(vars))) %>%
-          summarise(date = head(date, 1),  count = n())
-
-        mydata[[pollutant]] <- 100 * mydata$count / max(mydata$count)
-                                                        
-
-    }
-
-    ## Poential Source Contribution Function
-    if (statistic == "pscf") {
-
-        ## high percentile
-        Q90 <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
-
-        ## calculate the proportion of points in cell with value > Q90
-        mydata <- group_by(mydata, UQS(syms(vars))) %>%
-          summarise(date = head(date, 1),
-                     N = n(),
-                     count = length(which(UQ(sym(pollutant)) > Q90)) / N)
-       
-        mydata[[pollutant]] <- mydata$count
-        
-        ## ## adjust at edges
-        n <- mean(mydata$N)
-        id <- which(mydata$N > n & mydata$N <= 2 * n)
-        mydata[id, pollutant] <- mydata[id, pollutant] * 0.75
-
-        id <- which(mydata$N > (n / 2) & mydata$N <= n)
-        mydata[id, pollutant] <- mydata[id, pollutant] * 0.5
-
-        id <- which(mydata$N <= (n / 2))
-        mydata[id, pollutant] <- mydata[id, pollutant] * 0.15
+  ## location of receptor for map projection, used to show location on maps
+  origin_xy <- head(subset(mydata, hour.inc == 0), 1) ## origin
+  tmp <- mapproject(
+    x = origin_xy[["lon"]][1],
+    y = origin_xy[["lat"]][1],
+    projection = projection,
+    parameters = parameters,
+    orientation = orientation
+  )
+  receptor <- c(tmp$x, tmp$y)
 
 
-    }
+  if (method == "hexbin") {
 
-    ## plot trajectory frequecy differences e.g. top 10% concs cf. mean
-    if (statistic == "difference") {
-
-        ## calculate percentage of points for all data
-        
-        base <- group_by(mydata, UQS(syms(vars))) %>%
-          summarise(date = head(date, 1),  count = n())
-
-        base[[pollutant]] <- 100 * base$count / max(base$count)
-
-        ## high percentile
-        Q90 <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
-
-        
-        ## calculate percentage of points for high data
-        high <- group_by(mydata, UQS(syms(vars))) %>%
-          summarise(date = head(date, 1),
-                     N = n(),
-                     count = length(which(UQ(sym(pollutant)) > Q90)))
-
-        high[[pollutant]] <- 100 * high$count / max(high$count)
-
-        ## calculate percentage absolute difference
-        mydata <- base
-        mydata[[pollutant]] <-  high[[pollutant]] - mydata[[pollutant]]
-
-        ## select only if > min.bin points in grid cell
-        mydata <- subset(mydata, count >= min.bin)
-        
-    }
+    ## transform data for map projection
+    tmp <- mapproject(
+      x = mydata[["lon"]],
+      y = mydata[["lat"]],
+      projection = projection,
+      parameters = parameters,
+      orientation = orientation
+    )
+    mydata[["lon"]] <- tmp$x
+    mydata[["lat"]] <- tmp$y
+  }
 
 
-    ## change x/y names to gridded values
-    lon <- "xgrid"
-    lat <- "ygrid"
-    
-    ## the plot, note k is the smoothing parameter when suface smooth fitted
-    scatterPlot.args <- list(mydata, x = lon, y = lat, z = pollutant,
-                             type = type, method = method, smooth = smooth,
-                             map = map, x.inc = lon.inc, y.inc = lat.inc,
-                             map.fill = map.fill, map.res = map.res,
-                             map.cols = map.cols, map.alpha = map.alpha, traj = TRUE,
-                             projection = projection,
-                             parameters = parameters, orientation = orientation,
-                             grid.col = grid.col, trajLims = trajLims,
-                             receptor = receptor, origin = origin, dist = 0.05, k = 50)
+  if (method == "density") stop("Use trajPlot with method = 'density' instead")
 
-    ## reset for Args
-    scatterPlot.args <- listUpdate(scatterPlot.args, Args)
+  if (is.list(mydata)) mydata <- bind_rows(mydata)
 
-    ## plot
-    do.call(scatterPlot, scatterPlot.args)
-    
-    output <- list(data = mydata, call = match.call())
-    class(output) <- "openair"
-    
-    invisible(output)
+  mydata <- cutData(mydata, type, ...)
 
+  ## bin data
+  if (method == "traj") {
+    mydata$ygrid <- round_any(mydata[[lat]], lat.inc)
+    mydata$xgrid <- round_any(mydata[[lon]], lon.inc)
+  } else {
+    mydata$ygrid <- mydata[[lat]]
+    mydata$xgrid <- mydata[[lon]]
+  }
+
+  rhs <- c("xgrid", "ygrid", type)
+  rhs <- paste(rhs, collapse = "+")
+  mydata <- mydata[, c("date", "xgrid", "ygrid", type, pollutant)]
+  ids <- which(names(mydata) %in% c("xgrid", "ygrid", type))
+
+  # grouping variables
+  vars <- c("xgrid", "ygrid", type)
+
+  ## plot mean concentration - CWT method
+  if (statistic %in% c("cwt", "median")) {
+
+    ## calculate the mean of points in each cell
+    mydata <- group_by(mydata, UQS(syms(vars))) %>%
+      summarise(
+        date = head(date, 1),
+        N = n(),
+        count = mean(UQ(sym(pollutant)), na.rm = TRUE)
+      )
+
+    mydata[[pollutant]] <- mydata$count
+
+    ## adjust at edges
+
+    id <- which(mydata$N > 20 & mydata$N <= 80)
+    mydata[id, pollutant] <- mydata[id, pollutant] * 0.7
+
+    id <- which(mydata$N > 10 & mydata$N <= 20)
+    mydata[id, pollutant] <- mydata[id, pollutant] * 0.42
+
+    id <- which(mydata$N <= 10)
+    mydata[id, pollutant] <- mydata[id, pollutant] * 0.05
+    attr(mydata$date, "tzone") <- "GMT" ## avoid warning messages about TZ
+  }
+
+  ## plot trajectory frequecies
+  if (statistic == "frequency" && method != "hexbin") {
+    ## count % of times a cell contains a trajectory point
+    ## need date for later use of type
+
+    mydata <- group_by(mydata, UQS(syms(vars))) %>%
+      summarise(date = head(date, 1), count = n())
+
+    mydata[[pollutant]] <- 100 * mydata$count / max(mydata$count)
+  }
+
+  ## Poential Source Contribution Function
+  if (statistic == "pscf") {
+
+    ## high percentile
+    Q90 <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
+
+    ## calculate the proportion of points in cell with value > Q90
+    mydata <- group_by(mydata, UQS(syms(vars))) %>%
+      summarise(
+        date = head(date, 1),
+        N = n(),
+        count = length(which(UQ(sym(pollutant)) > Q90)) / N
+      )
+
+    mydata[[pollutant]] <- mydata$count
+
+    ## ## adjust at edges
+    n <- mean(mydata$N)
+    id <- which(mydata$N > n & mydata$N <= 2 * n)
+    mydata[id, pollutant] <- mydata[id, pollutant] * 0.75
+
+    id <- which(mydata$N > (n / 2) & mydata$N <= n)
+    mydata[id, pollutant] <- mydata[id, pollutant] * 0.5
+
+    id <- which(mydata$N <= (n / 2))
+    mydata[id, pollutant] <- mydata[id, pollutant] * 0.15
+  }
+
+  ## plot trajectory frequecy differences e.g. top 10% concs cf. mean
+  if (statistic == "difference") {
+
+    ## calculate percentage of points for all data
+
+    base <- group_by(mydata, UQS(syms(vars))) %>%
+      summarise(date = head(date, 1), count = n())
+
+    base[[pollutant]] <- 100 * base$count / max(base$count)
+
+    ## high percentile
+    Q90 <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
+
+
+    ## calculate percentage of points for high data
+    high <- group_by(mydata, UQS(syms(vars))) %>%
+      summarise(
+        date = head(date, 1),
+        N = n(),
+        count = length(which(UQ(sym(pollutant)) > Q90))
+      )
+
+    high[[pollutant]] <- 100 * high$count / max(high$count)
+
+    ## calculate percentage absolute difference
+    mydata <- base
+    mydata[[pollutant]] <- high[[pollutant]] - mydata[[pollutant]]
+
+    ## select only if > min.bin points in grid cell
+    mydata <- subset(mydata, count >= min.bin)
+  }
+
+
+  ## change x/y names to gridded values
+  lon <- "xgrid"
+  lat <- "ygrid"
+
+  ## the plot, note k is the smoothing parameter when suface smooth fitted
+  scatterPlot.args <- list(
+    mydata, x = lon, y = lat, z = pollutant,
+    type = type, method = method, smooth = smooth,
+    map = map, x.inc = lon.inc, y.inc = lat.inc,
+    map.fill = map.fill, map.res = map.res,
+    map.cols = map.cols, map.alpha = map.alpha, traj = TRUE,
+    projection = projection,
+    parameters = parameters, orientation = orientation,
+    grid.col = grid.col, trajLims = trajLims,
+    receptor = receptor, origin = origin, dist = 0.05, k = 50
+  )
+
+  ## reset for Args
+  scatterPlot.args <- listUpdate(scatterPlot.args, Args)
+
+  ## plot
+  do.call(scatterPlot, scatterPlot.args)
+
+  output <- list(data = mydata, call = match.call())
+  class(output) <- "openair"
+
+  invisible(output)
 }
-

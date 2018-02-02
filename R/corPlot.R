@@ -129,265 +129,299 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
                     cluster = TRUE, dendrogram = FALSE, cols = "default",
                     r.thresh = 0.8, text.col =
                     c("black", "black"), auto.text = TRUE, ...) {
+  if (length(type) > 1) stop("Only one 'type' allowed in this function.")
 
-    if (length(type) > 1) stop ("Only one 'type' allowed in this function.")
+  ## make sure date is present for types requiring it
+  if (any(type %in% dateTypes)) {
+    if (!"date" %in% names(mydata)) stop("Need a field 'date'")
+  }
 
-    ## make sure date is present for types requiring it
-    if (any(type %in% dateTypes)) {
-        if (!"date" %in% names(mydata)) stop ("Need a field 'date'")
-    }
+  ## greyscale handling
+  if (length(cols) == 1 && cols == "greyscale") {
+    trellis.par.set(list(strip.background = list(col = "white")))
+  }
 
-    ## greyscale handling
-    if (length(cols) == 1 && cols == "greyscale") {
+  ## set graphics
+  current.strip <- trellis.par.get("strip.background")
+  current.font <- trellis.par.get("fontsize")
 
-        trellis.par.set(list(strip.background = list(col = "white")))
-    }
+  ## reset graphic parameters
+  on.exit(trellis.par.set(
+    strip.background = current.strip,
+    fontsize = current.font
+  ))
 
-    ## set graphics
-    current.strip <- trellis.par.get("strip.background")
-    current.font <- trellis.par.get("fontsize")
-    
-    ## reset graphic parameters
-    on.exit(trellis.par.set(strip.background = current.strip,
-                            fontsize = current.font))
+  ## extra.args setup
+  extra.args <- list(...)
 
-    ##extra.args setup
-    extra.args <- list(...)
+  # label controls
+  extra.args$xlab <- if ("xlab" %in% names(extra.args)) {
+    quickText(extra.args$xlab, auto.text)
+  } else {
+    quickText(NULL, auto.text)
+  }
+  extra.args$ylab <- if ("ylab" %in% names(extra.args)) {
+    quickText(extra.args$ylab, auto.text)
+  } else {
+    quickText(NULL, auto.text)
+  }
+  extra.args$main <- if ("main" %in% names(extra.args)) {
+    quickText(extra.args$main, auto.text)
+  } else {
+    quickText("", auto.text)
+  }
+  extra.args$method <- if ("method" %in% names(extra.args)) {
+    extra.args$method
+  } else {
+    "pearson"
+  }
 
-    #label controls
-    extra.args$xlab <- if ("xlab" %in% names(extra.args))
-                           quickText(extra.args$xlab, auto.text) else quickText(NULL, auto.text)
-    extra.args$ylab <- if ("ylab" %in% names(extra.args))
-                           quickText(extra.args$ylab, auto.text) else quickText(NULL, auto.text)
-    extra.args$main <- if ("main" %in% names(extra.args))
-                           quickText(extra.args$main, auto.text) else quickText("", auto.text)
-    extra.args$method <- if ("method" %in% names(extra.args))
-                             extra.args$method else "pearson"
+  if ("fontsize" %in% names(extra.args)) {
+    trellis.par.set(fontsize = list(text = extra.args$fontsize))
+  }
 
-    if ("fontsize" %in% names(extra.args))
-        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+  # layout default
+  if (!"layout" %in% names(extra.args)) {
+    extra.args$layout <- NULL
+  }
 
-    #layout default
-    if(!"layout" %in% names(extra.args))
-            extra.args$layout <- NULL
+  ## pollutant(s) handling
 
-    ##pollutant(s) handling
+  # null and all cases
+  if (is.null(pollutants)) {
+    pollutants <- names(mydata)
+  }
+  if (is.character(pollutants) && length(pollutants) == 1 && pollutants == "all") {
+    pollutants <- names(mydata)
+  }
 
-    #null and all cases
-    if(is.null(pollutants))
-        pollutants <- names(mydata)
-    if(is.character(pollutants) && length(pollutants)==1 && pollutants == "all")
-        pollutants <- names(mydata)
+  # keep date if about
+  pollutants <- if ("date" %in% names(mydata)) {
+    unique(c("date", pollutants))
+  } else {
+    unique(c(pollutants))
+  }
 
-    #keep date if about
-    pollutants <- if("date" %in% names(mydata))
-                      unique(c("date", pollutants)) else
-                          unique(c(pollutants))
+  mydata <- checkPrep(
+    mydata, pollutants, type = type,
+    remove.calm = FALSE
+  )
 
-    mydata <- checkPrep(mydata, pollutants, type = type,
-                        remove.calm = FALSE)
+  ## remove variables where all are NA
+  mydata <- mydata[, sapply(mydata, function(x) !all(is.na(x)))]
 
-    ## remove variables where all are NA
-    mydata <- mydata[ , sapply(mydata, function(x) !all(is.na(x)))]
+  ## cut data depending on type
+  mydata <- cutData(mydata, type, ...)
 
-    ## cut data depending on type
-    mydata <- cutData(mydata, type, ...)
+  ## proper names of labelling
+  pollutants <- names(mydata[, sapply(mydata, is.numeric)])
+  pol.name <- sapply(
+    pollutants,
+    function(x) quickText(x, auto.text)
+  )
 
-    ## proper names of labelling
-    pollutants <- names(mydata[, sapply(mydata, is.numeric)])
-    pol.name <- sapply(pollutants,
-                       function(x) quickText(x, auto.text))
+  ## number of pollutants
+  npol <- length(pol.name)
 
-    ## number of pollutants
-    npol <- length(pol.name)
+  if (npol < 2) stop("Need at least two valid (numeric) fields to compare")
 
-    if (npol < 2) stop ("Need at least two valid (numeric) fields to compare")
+  prepare.cond <- function(mydata) {
+    ## calculate the correlations
 
-    prepare.cond <- function(mydata) {
-        ## calculate the correlations
+    thedata <- suppressWarnings(cor(
+      mydata[, sapply(mydata, is.numeric)],
+      use = "pairwise.complete.obs",
+      method = extra.args$method
+    ))
 
-        thedata <- suppressWarnings(cor(mydata[, sapply(mydata, is.numeric)],
-                                        use = "pairwise.complete.obs",
-                                        method = extra.args$method))
+    ## remove columns/rows where all are NA
+    therows <- apply(thedata, 1, function(x) !all(is.na(x)))
+    thecols <- apply(thedata, 2, function(x) !all(is.na(x)))
+    thedata <- thedata[therows, thecols]
 
-        ## remove columns/rows where all are NA
-        therows <- apply(thedata, 1, function(x) !all(is.na(x)))
-        thecols <- apply(thedata, 2, function(x) !all(is.na(x)))
-        thedata <- thedata[therows, thecols]
+    ## maybe reduced number of pollutants, hence select only those present
+    thepols <- pol.name[thecols]
 
-        ## maybe reduced number of pollutants, hence select only those present
-        thepols <-  pol.name[thecols]
-
-        if (cluster) {
-            ## for plotting dendogram
-            clust <- hclust(dist(thedata))
-            ord.dat <- order.dendrogram(as.dendrogram(hclust(dist(thedata))))
-        } else {
-            clust <- NULL
-            ord.dat <- 1:ncol(thedata)
-        }
-
-        npol <- length(ord.dat)
-        grid <- expand.grid(x= 1:npol, y = 1:npol)
-
-        thepols <- thepols[ord.dat]
-
-        thedata <- thedata[ord.dat, ord.dat]
-        thedata <- as.vector(thedata)
-
-        thedata <- cbind(grid, z = thedata)
-        thedata[, type] <- mydata[1, type]
-        thedata <- list(thedata = thedata, pol.name = thepols, pol.ord = ord.dat,
-                        clust = clust)
-        thedata
-
-    }
-
-    results.grid <- dlply(mydata, type, prepare.cond)
-    clust <- results.grid[[1]]$clust
-
-    ##recover by-type order
-    #(re clustering = TRUE)
-    data.order <- lapply(1:length(results.grid), function(x)
-                     { pollutants[results.grid[[x]]$pol.ord]})
-    x2 <- unlist(lapply(1:length(data.order), function(x)
-                     (rep(data.order[[x]], times = length(data.order[[x]])))))
-    y2 <- unlist(lapply(1:length(data.order), function(x)
-                     (rep(data.order[[x]], each = length(data.order[[x]])))))
-
-    ## list of labels
-    labels <-  llply(results.grid, function(x) x$pol.name)
-    results.grid <- do.call(rbind, llply(results.grid, function(x) x$thedata))
-
-    div.col <- function (x) openColours(cols, x)
-
-    ## labelleing of strips
-    pol.name <- sapply(levels(results.grid[ , type]), function(x) quickText(x, auto.text))
-    strip <- strip.custom(factor.levels = pol.name)
-    if (type == "default") strip <- FALSE
-
-    ## special wd layout
-
-    if (length(type) == 1 & type[1] == "wd" & is.null(extra.args$layout)) {
-        ## re-order to make sensible layout
-        ## starting point code as of ManKendall
-        
-        wds <-  c("NW", "N", "NE", "W", "E", "SW", "S", "SE")
-        results.grid[, type] <- ordered(results.grid[, type], levels = wds)
-        wd.ok <- sapply(wds, function (x) {
-            if (x %in% unique(results.grid[, type])) FALSE else TRUE })
-
-        skip <- c(wd.ok[1:4], TRUE, wd.ok[5:8])
-        results.grid[, type] <- factor(results.grid[, type])
-        extra.args$layout <- c(3, 3)
-        if (!"skip" %in% names(extra.args))
-            extra.args$skip <- skip
-    }
-
-    if (!"skip" %in% names(extra.args))
-         extra.args$skip <- FALSE
-
-    strip.dat <- strip.fun(results.grid, type, auto.text)
-    strip <- strip.dat[[1]]
-    strip.left <- strip.dat[[2]]
-    pol.name <- strip.dat[[3]]
-
-    ## plot dendrogram
-    if (dendrogram && type == "default" && cluster) {
-
-        legend <- list(right = list(fun = dendrogramGrob,
-                      args = list(x = as.dendrogram(clust),
-                      side = "right", size = 4)))
-
+    if (cluster) {
+      ## for plotting dendogram
+      clust <- hclust(dist(thedata))
+      ord.dat <- order.dendrogram(as.dendrogram(hclust(dist(thedata))))
     } else {
-
-        legend <- NULL
-
+      clust <- NULL
+      ord.dat <- 1:ncol(thedata)
     }
 
-    temp <- paste(type, collapse = "+")
-    myform <- formula(paste("z ~ x * y | ", temp, sep = ""))
-    
-    ## plot via ... handler
-    levelplot.args <- list(x = myform , data = results.grid,
-              at = do.breaks(c(-1.01, 1.01), 100),
-              strip = strip,
-              as.table = TRUE,
-              aspect = 1,
-              colorkey = FALSE,
-              col.regions = div.col,
-              legend = legend,
-              par.strip.text = list(cex = 0.8),
-              scales = list(x = list(rot = 90, labels = labels, at = 1 : npol),
-              y = list(labels = labels, at = 1 : npol), relation = "free"),
-              text.col = text.col, r.thresh = r.thresh, label = TRUE,
-              panel = function (x, y, z, ...) {
-                panel.abline(v = 1:sqrt(length(z)), col = "grey95")
-                panel.abline(h = 1:sqrt(length(z)), col = "grey95")
-                panel.corrgram(x, y, z, ...)
-              })
+    npol <- length(ord.dat)
+    grid <- expand.grid(x = 1:npol, y = 1:npol)
 
-    #reset for extra.args
-    levelplot.args <- listUpdate(levelplot.args, extra.args)
+    thepols <- thepols[ord.dat]
 
-    #plot
-    plt <- do.call(levelplot, levelplot.args)
+    thedata <- thedata[ord.dat, ord.dat]
+    thedata <- as.vector(thedata)
 
-    #################
-    #output
-    #################
+    thedata <- cbind(grid, z = thedata)
+    thedata[, type] <- mydata[1, type]
+    thedata <- list(
+      thedata = thedata, pol.name = thepols, pol.ord = ord.dat,
+      clust = clust
+    )
+    thedata
+  }
 
-    plot(plt)
+  results.grid <- dlply(mydata, type, prepare.cond)
+  clust <- results.grid[[1]]$clust
 
-    ## openair object
+  ## recover by-type order
+  # (re clustering = TRUE)
+  data.order <- lapply(1:length(results.grid), function(x) {
+    pollutants[results.grid[[x]]$pol.ord]
+  })
+  x2 <- unlist(lapply(1:length(data.order), function(x)
+    (rep(data.order[[x]], times = length(data.order[[x]])))))
+  y2 <- unlist(lapply(1:length(data.order), function(x)
+    (rep(data.order[[x]], each = length(data.order[[x]])))))
 
-    newdata <- results.grid
+  ## list of labels
+  labels <- llply(results.grid, function(x) x$pol.name)
+  results.grid <- do.call(rbind, llply(results.grid, function(x) x$thedata))
 
-    #tidy newdata for output
-    rownames(newdata) <- NULL
-    names(newdata)[names(newdata)=="z"] <- "cor"
-    names(newdata)[names(newdata)=="x"] <- "row"
-    names(newdata)[names(newdata)=="y"] <- "col"
-    newdata <- cbind(x = x2, y = y2, newdata)
+  div.col <- function(x) openColours(cols, x)
 
-    #main handling
-    output <- list(plot = plt, data = newdata, call = match.call(), clust = clust)
-    class(output) <- "openair"
-    invisible(output)
+  ## labelleing of strips
+  pol.name <- sapply(levels(results.grid[, type]), function(x) quickText(x, auto.text))
+  strip <- strip.custom(factor.levels = pol.name)
+  if (type == "default") strip <- FALSE
 
+  ## special wd layout
+
+  if (length(type) == 1 & type[1] == "wd" & is.null(extra.args$layout)) {
+    ## re-order to make sensible layout
+    ## starting point code as of ManKendall
+
+    wds <- c("NW", "N", "NE", "W", "E", "SW", "S", "SE")
+    results.grid[, type] <- ordered(results.grid[, type], levels = wds)
+    wd.ok <- sapply(wds, function(x) {
+      if (x %in% unique(results.grid[, type])) FALSE else TRUE
+    })
+
+    skip <- c(wd.ok[1:4], TRUE, wd.ok[5:8])
+    results.grid[, type] <- factor(results.grid[, type])
+    extra.args$layout <- c(3, 3)
+    if (!"skip" %in% names(extra.args)) {
+      extra.args$skip <- skip
+    }
+  }
+
+  if (!"skip" %in% names(extra.args)) {
+    extra.args$skip <- FALSE
+  }
+
+  strip.dat <- strip.fun(results.grid, type, auto.text)
+  strip <- strip.dat[[1]]
+  strip.left <- strip.dat[[2]]
+  pol.name <- strip.dat[[3]]
+
+  ## plot dendrogram
+  if (dendrogram && type == "default" && cluster) {
+    legend <- list(right = list(
+      fun = dendrogramGrob,
+      args = list(
+        x = as.dendrogram(clust),
+        side = "right", size = 4
+      )
+    ))
+  } else {
+    legend <- NULL
+  }
+
+  temp <- paste(type, collapse = "+")
+  myform <- formula(paste("z ~ x * y | ", temp, sep = ""))
+
+  ## plot via ... handler
+  levelplot.args <- list(
+    x = myform, data = results.grid,
+    at = do.breaks(c(-1.01, 1.01), 100),
+    strip = strip,
+    as.table = TRUE,
+    aspect = 1,
+    colorkey = FALSE,
+    col.regions = div.col,
+    legend = legend,
+    par.strip.text = list(cex = 0.8),
+    scales = list(
+      x = list(rot = 90, labels = labels, at = 1:npol),
+      y = list(labels = labels, at = 1:npol), relation = "free"
+    ),
+    text.col = text.col, r.thresh = r.thresh, label = TRUE,
+    panel = function(x, y, z, ...) {
+      panel.abline(v = 1:sqrt(length(z)), col = "grey95")
+      panel.abline(h = 1:sqrt(length(z)), col = "grey95")
+      panel.corrgram(x, y, z, ...)
+    }
+  )
+
+  # reset for extra.args
+  levelplot.args <- listUpdate(levelplot.args, extra.args)
+
+  # plot
+  plt <- do.call(levelplot, levelplot.args)
+
+  #################
+  # output
+  #################
+
+  plot(plt)
+
+  ## openair object
+
+  newdata <- results.grid
+
+  # tidy newdata for output
+  rownames(newdata) <- NULL
+  names(newdata)[names(newdata) == "z"] <- "cor"
+  names(newdata)[names(newdata) == "x"] <- "row"
+  names(newdata)[names(newdata) == "y"] <- "col"
+  newdata <- cbind(x = x2, y = y2, newdata)
+
+  # main handling
+  output <- list(plot = plt, data = newdata, call = match.call(), clust = clust)
+  class(output) <- "openair"
+  invisible(output)
 }
 
 panel.corrgram <- function(x, y, z, subscripts, at, level = 0.9, text.col,
                            r.thresh = r.thresh, label = FALSE, ...) {
+  x <- as.numeric(x)[subscripts]
+  y <- as.numeric(y)[subscripts]
+  z <- as.numeric(z)[subscripts]
 
-    x <- as.numeric(x)[subscripts]
-    y <- as.numeric(y)[subscripts]
-    z <- as.numeric(z)[subscripts]
+  zcol <- level.colors(z, at = at, ...)
 
-    zcol <- level.colors(z, at = at, ...)
-    
-    # just do lower triangle
-    len <- length(z)
-    tmp <- matrix(seq_along(z), nrow = len ^ (1 / 2))
-    id <- which(lower.tri(tmp, diag = TRUE))
-    
-    for (i in seq(along = id)) {
-        ell <- ellipse(z[id[i]], level = level, npoints = 50, scale = c(.2, .2),
-                       centre = c(x[id[i]], y[id[i]]))
-        panel.polygon(ell, col = zcol[id[i]], border = zcol[id[i]],...)
+  # just do lower triangle
+  len <- length(z)
+  tmp <- matrix(seq_along(z), nrow = len ^ (1 / 2))
+  id <- which(lower.tri(tmp, diag = TRUE))
 
-    }
-    if (label)
-        panel.text(x = x[id], y = y[id], lab = 100 * round(z[id], 2),
-                   cex = 0.8, col = ifelse(z[id] < 0, text.col[1], text.col[2]),
-                   font = ifelse(z[id] < r.thresh, 1, 2))
+  for (i in seq(along = id)) {
+    ell <- ellipse(
+      z[id[i]], level = level, npoints = 50, scale = c(.2, .2),
+      centre = c(x[id[i]], y[id[i]])
+    )
+    panel.polygon(ell, col = zcol[id[i]], border = zcol[id[i]], ...)
+  }
+  if (label) {
+    panel.text(
+      x = x[id], y = y[id], lab = 100 * round(z[id], 2),
+      cex = 0.8, col = ifelse(z[id] < 0, text.col[1], text.col[2]),
+      font = ifelse(z[id] < r.thresh, 1, 2)
+    )
+  }
 }
 
 
 ## from ellipse package
-ellipse <- function (x, scale = c(1, 1), centre = c(0, 0), level = 0.95,
-            t = sqrt(qchisq(level, 2)), which = c(1, 2), npoints = 100, ...)
-{
+ellipse <- function(x, scale = c(1, 1), centre = c(0, 0), level = 0.95,
+                    t = sqrt(qchisq(level, 2)), which = c(1, 2), npoints = 100, ...) {
   names <- c("x", "y")
   if (is.matrix(x)) {
     xind <- which[1]
@@ -395,17 +429,22 @@ ellipse <- function (x, scale = c(1, 1), centre = c(0, 0), level = 0.95,
     r <- x[xind, yind]
     if (missing(scale)) {
       scale <- sqrt(c(x[xind, xind], x[yind, yind]))
-      if (scale[1] > 0) r <- r/scale[1]
-      if (scale[2] > 0) r <- r/scale[2]
+      if (scale[1] > 0) r <- r / scale[1]
+      if (scale[2] > 0) r <- r / scale[2]
     }
-    if (!is.null(dimnames(x)[[1]]))
+    if (!is.null(dimnames(x)[[1]])) {
       names <- dimnames(x)[[1]][c(xind, yind)]
+    }
   }
-  else r <- x
-  r <- min(max(r,-1),1)  # clamp to -1..1, in case of rounding errors
+  else {
+    r <- x
+  }
+  r <- min(max(r, -1), 1) # clamp to -1..1, in case of rounding errors
   d <- acos(r)
   a <- seq(0, 2 * pi, len = npoints)
-  matrix(c(t * scale[1] * cos(a + d/2) + centre[1], t * scale[2] *
-           cos(a - d/2) + centre[2]), npoints, 2, dimnames = list(NULL,
-                                                    names))
+  matrix(c(t * scale[1] * cos(a + d / 2) + centre[1], t * scale[2] *
+    cos(a - d / 2) + centre[2]), npoints, 2, dimnames = list(
+    NULL,
+    names
+  ))
 }

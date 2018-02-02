@@ -107,7 +107,7 @@
 ##' Gloucester Park | Roadside \item BB1 | Broxbourne (Roadside) |
 ##' Roadside \item BE0 | Belfast - Carbon | Urban Background \item BE1
 ##' | Belfast Centre AURN | Urban Background \item BE3 | Belfast
-##' Centre Aethalometer | Urban Background \item BE7 | Belfast Centre 
+##' Centre Aethalometer | Urban Background \item BE7 | Belfast Centre
 ##' FDMS trial | Urban Background \item BE8 | Belfast - Nitrate |
 ##' Urban Background \item BE9 | Belfast - Partisol SO4 | Urban
 ##' Background \item BF1 | Bedford Stewartby (Rural) | Industrial
@@ -132,7 +132,7 @@
 ##' BN3 | Barnet - Strawberry Vale | Urban Background \item BO1 |
 ##' Ballymoney 1 | Suburban \item BP0 | Westminster - Bridge Place |
 ##' Urban Background \item BQ5 | Bexley - Manor Road West Gravimetric
-##' | Industrial \item BQ6 | Bexley - Manor Road East Gravimetric | 
+##' | Industrial \item BQ6 | Bexley - Manor Road East Gravimetric |
 ##' Industrial \item BQ7 | Belvedere West | Urban Background \item BQ8
 ##' | Belvedere West FDMS | Urban Background \item BT1 | Brent -
 ##' Kingsbury | Suburban \item BT2 | Brent - Ikea Car Park | Roadside
@@ -141,14 +141,14 @@
 ##' | Brent - John Keble Primary School | Roadside \item BT7 | Brent -
 ##' St Marys Primary School | Urban Background \item BW1 | Brentwood -
 ##' Brentwood Town Hall | Urban Background \item BX0 | Bexley -
-##' Belvedere FDMS | Suburban \item BX1 | Bexley - Slade Green | 
+##' Belvedere FDMS | Suburban \item BX1 | Bexley - Slade Green |
 ##' Suburban \item BX2 | Bexley - Belvedere | Suburban \item BX3 |
 ##' Bexley - Thamesmead | Suburban \item BX4 | Bexley - Erith |
 ##' Industrial \item BX5 | Bexley - Bedonwell | Suburban \item BX6 |
 ##' Bexley - Thames Road North FDMS | Roadside \item BX7 | Bexley -
 ##' Thames Road North | Roadside \item BX8 | Bexley - Thames Road
 ##' South | Roadside \item BX9 | Bexley - Slade Green FDMS | Suburban
-##' \item BY1 | Bromley - Rent Office | Urban Background \item BY4 | 
+##' \item BY1 | Bromley - Rent Office | Urban Background \item BY4 |
 ##' Bromley - Tweedy Rd | Roadside \item BY5 | Bromley - Biggin Hill |
 ##' Suburban \item BY7 | Bromley - Harwood Avenue | Roadside \item CA1
 ##' | Crawley Background | Urban Background \item CA2 | Crawley -
@@ -165,7 +165,7 @@
 ##' CD7 | Camden - Swiss Cottage Partisol | Kerbside \item CD9 |
 ##' Camden - Euston Road | Roadside \item CF1 | Cardiff Aethalometer |
 ##' Urban Background \item CH1 | Cheltenham | Urban Background \item
-##' CI1 | Chichester - A27 Chichester Bypass | Roadside \item CI4 | 
+##' CI1 | Chichester - A27 Chichester Bypass | Roadside \item CI4 |
 ##' Chichester - Orchard Street | Roadside \item CK1 | Cookstown |
 ##' Suburban \item CP1 | Castle Point - Canvey Island | Urban
 ##' Background \item CR2 | Croydon - Purley Way | Roadside \item CR3 |
@@ -179,7 +179,7 @@
 ##' Roadside \item CT8 | City of London - Upper Thames Street |
 ##' Roadside \item CY1 | Crystal Palace - Crystal Palace Parade |
 ##' Roadside \item DC1 | Dacorum 1 Hemel Hempstead (Background) |
-##' Urban Background \item DC2 | Dacorum 2 Hemel Hempstead 
+##' Urban Background \item DC2 | Dacorum 2 Hemel Hempstead
 ##' (Background) | Urban Background \item DC3 | High Street
 ##' Northchurch | Roadside \item DE1 | Derry City - Brandywell | Urban
 ##' Background \item DE2 | Derry City - Dales Corner | Roadside \item
@@ -187,14 +187,14 @@
 ##' - Acton Town Hall FDMS | Roadside \item EA1 | Ealing - Ealing Town
 ##' Hall | Urban Background \item EA2 | Ealing - Acton Town Hall |
 ##' Roadside \item EA3 | Ealing 3 - A40 East Acton | Roadside \item
-##' EA4 | Ealing Mobile - Hamilton Road | Roadside \item EA5 | Ealing 
+##' EA4 | Ealing Mobile - Hamilton Road | Roadside \item EA5 | Ealing
 ##' Mobile - Southall | Roadside \item EA6 | Ealing - Hanger Lane
 ##' Gyratory | Roadside \item EA7 | Ealing - Southall | Urban
 ##' Background \item EA8 | Ealing - Horn Lane | Industrial \item EA9 |
 ##' Ealing - Court Way | Roadside \item EB1 | Eastbourne - Devonshire
 ##' Park | Urban Background \item EB3 | Eastbourne - Holly Place |
 ##' Urban Background \item EH1 | E Herts Throcking (Rural) | Rural
-##' \item EH2 | East Herts Sawbridgeworth (Background) | Urban 
+##' \item EH2 | East Herts Sawbridgeworth (Background) | Urban
 ##' Background \item EH3 | East Herts Sawbridgeworth (Roadside) |
 ##' Roadside \item EH4 | East Herts Ware | Roadside \item EH5 | East
 ##' Herts Bishops Stortford | Roadside \item EI0 | Ealing - Greenford
@@ -202,14 +202,14 @@
 ##' \item EL1 | Elmbridge - Bell Farm Hersham | Urban Background \item
 ##' EL2 | Elmbridge - Esher High Street | Roadside \item EL3 |
 ##' Elmbridge - Hampton Court Parade | Roadside \item EL4 | Elmbridge
-##' - Walton High Street | Kerbside \item EN1 | Enfield - Bushhill 
+##' - Walton High Street | Kerbside \item EN1 | Enfield - Bushhill
 ##' Park | Suburban \item EN2 | Enfield - Church Street | Roadside
 ##' \item EN3 | Enfield - Salisbury School | Urban Background \item
 ##' EN4 | Enfield - Derby Road | Roadside \item EN5 | Enfield - Bowes
 ##' Primary School | Roadside \item FB1 | Rushmoor - Medway Drive |
 ##' Roadside \item GB0 | Greenwich and Bexley - Falconwood FDMS |
 ##' Roadside \item GB6 | Greenwich and Bexley - Falconwood | Roadside
-##' \item GL1 | Glasgow Centre | Suburban \item GL4 | Glasgow Centre 
+##' \item GL1 | Glasgow Centre | Suburban \item GL4 | Glasgow Centre
 ##' Aethalometer | Suburban \item GN0 | Greenwich - A206 Burrage Grove
 ##' | Roadside \item GN2 | Greenwich - Millennium Village | Industrial
 ##' \item GN3 | Greenwich - Plumstead High Street | Roadside \item GN4
@@ -217,7 +217,7 @@
 ##' Greenwich - Eltham | Suburban \item GR5 | Greenwich - Trafalgar
 ##' Road | Roadside \item GR7 | Greenwich - Blackheath | Roadside
 ##' \item GR8 | Greenwich - Woolwich Flyover | Roadside \item GR9 |
-##' Greenwich - Westhorne Avenue | Roadside \item HA0 | Harwell - 
+##' Greenwich - Westhorne Avenue | Roadside \item HA0 | Harwell -
 ##' Carbon | Rural \item HA1 | Harwell Rural AURN | Rural \item HA2 |
 ##' Harwell Rural PARTISOL | Rural \item HA4 | Harwell Rural SMPS |
 ##' Rural \item HA9 | Harwell - Partisol SO4 | Urban Background \item
@@ -233,7 +233,7 @@
 ##' \item HK6 | Hackney - Old Street | Roadside \item HL1 | Halifax
 ##' Aethalometer | Urban Background \item HM1 | Hertsmere Borehamwood
 ##' 1 (Background) | Urban Background \item HM4 | Hertsmere -
-##' Borehamwood | Urban Background \item HO1 | Horsham Background | 
+##' Borehamwood | Urban Background \item HO1 | Horsham Background |
 ##' Urban Background \item HO2 | Horsham - Park Way | Roadside \item
 ##' HO4 | Horsham - Storrington | Roadside \item HO5 | Horsham -
 ##' Cowfold | Roadside \item HR1 | Harrow - Stanmore | Urban
@@ -252,7 +252,7 @@
 ##' - Eltham Ecology Centre Indoor | Urban Background \item IS1 |
 ##' Islington - Upper Street | Urban Background \item IS2 | Islington
 ##' - Holloway Road | Roadside \item IS4 | Islington - Foxham Gardens
-##' | Urban Background \item IS5 | Islington - Duncan Terrace | 
+##' | Urban Background \item IS5 | Islington - Duncan Terrace |
 ##' Roadside \item IS6 | Islington - Arsenal | Urban Background \item
 ##' IT2 | Tower Hamlets - Mile End Road | Roadside \item KB1 | South
 ##' Kirkby Aethalometer | Urban Background \item KC0 | North
@@ -261,7 +261,7 @@
 ##' Chelsea - Cromwell Road | Roadside \item KC3 | Kensington and
 ##' Chelsea - Knightsbridge | Roadside \item KC4 | Kensington and
 ##' Chelsea - Kings Road | Roadside \item KC5 | Kensington and Chelsea
-##' - Earls Court Rd | Kerbside \item KC7 | Kensington and Chelsea - 
+##' - Earls Court Rd | Kerbside \item KC7 | Kensington and Chelsea -
 ##' North Ken FDMS | Urban Background \item KC9 | North Kensington -
 ##' Partisol SO4 | Urban Background \item KT1 | Kingston - Chessington
 ##' | Suburban \item KT2 | Kingston - Town Centre | Roadside \item LA1
@@ -269,7 +269,7 @@
 ##' Christchurch Road | Roadside \item LB2 | Lambeth - Vauxhall Cross
 ##' | Roadside \item LB3 | Lambeth - Loughborough Junct | Urban
 ##' Background \item LB4 | Lambeth - Brixton Road | Kerbside \item LB5
-##' | Lambeth - Bondway Interchange | Roadside \item LB6 | Lambeth - 
+##' | Lambeth - Bondway Interchange | Roadside \item LB6 | Lambeth -
 ##' Streatham Green | Urban Background \item LH0 | Hillingdon -
 ##' Harlington | Urban Background \item LH2 | Heathrow Airport | Urban
 ##' Background \item LL1 | Lullington Heath Rural AURN | Rural \item
@@ -279,21 +279,21 @@
 ##' | Urban Background \item LW1 | Lewisham - Catford | Urban
 ##' Background \item LW2 | Lewisham - New Cross | Roadside \item LW3 |
 ##' Lewisham - Mercury Way | Industrial \item MA1 | Manchester
-##' Piccadilly CPC | Urban Background \item MA2 | Manchester 
+##' Piccadilly CPC | Urban Background \item MA2 | Manchester
 ##' Piccadilly | Urban Background \item MD1 | Mid Beds Biggleswade
 ##' (Roadside) | Roadside \item MD2 | Mid Beds Silsoe (Rural) | Rural
 ##' \item MD3 | Central Beds - Sandy | Roadside \item MD4 | Central
 ##' Beds - Marston Vale | Rural \item ME1 | Merton - Morden Civic
 ##' Centre | Roadside \item MP1 | Marchwood Power - Marchwood |
 ##' Industrial \item MP2 | Marchwood Power - Millbrook Rd Soton |
-##' Industrial \item MR3 | Marylebone Road Aethalometer | Kerbside 
+##' Industrial \item MR3 | Marylebone Road Aethalometer | Kerbside
 ##' \item MV1 | Mole Valley - Leatherhead | Rural \item MV2 | Mole
 ##' Valley - Lower Ashtead | Suburban \item MV3 | Mole Valley -
 ##' Dorking | Urban Background \item MW1 | Windsor and Maidenhead -
 ##' Frascati Way | Roadside \item MW2 | Windsor and Maidenhead -
 ##' Clarence Road | Roadside \item MW3 | Windsor and Maidenhead -
 ##' Ascot | Rural \item MY0 | Marylebone Road - Carbon | Kerbside
-##' \item MY1 | Westminster - Marylebone Road | Kerbside \item MY7 | 
+##' \item MY1 | Westminster - Marylebone Road | Kerbside \item MY7 |
 ##' Westminster - Marylebone Road FDMS | Kerbside \item NA5 |
 ##' Newtownabbey- Mallusk | Urban Background \item NA6 | Newtownabbey-
 ##' Shore Road | Roadside \item NE2 | Port Talbot TEOM and CPC | Urban
@@ -309,7 +309,7 @@
 ##' Roadside \item NK1 | North Kensington - CPC | Urban Background
 ##' \item NK3 | North Kensington Aethalometer | Urban Background \item
 ##' NK6 | North Kensington - URG | Urban Background \item NM1 | Newham
-##' - Tant Avenue | Urban Background \item NM2 | Newham - Cam Road | 
+##' - Tant Avenue | Urban Background \item NM2 | Newham - Cam Road |
 ##' Roadside \item NM3 | Newham - Wren Close | Urban Background \item
 ##' NW1 | Norwich Centre Aethalometer | Urban Background \item OX0 |
 ##' Oxford Centre Roadside AURN | Urban Background \item OX1 | South
@@ -317,14 +317,14 @@
 ##' Wallingford | Roadside \item OX3 | South Oxfordshire - Watlington
 ##' | Roadside \item OX4 | Oxford St Ebbes AURN | Urban Background
 ##' \item PO1 | Portsmouth Background AURN | Urban Background \item
-##' PT6 | Port Talbot Dyffryn School | Industrial \item RB1 | 
+##' PT6 | Port Talbot Dyffryn School | Industrial \item RB1 |
 ##' Redbridge - Perth Terrace | Urban Background \item RB2 | Redbridge
 ##' - Ilford Broadway | Kerbside \item RB3 | Redbridge - Fullwell
 ##' Cross | Kerbside \item RB4 | Redbridge - Gardner Close | Roadside
 ##' \item RB5 | Redbridge - South Woodford | Roadside \item RD0 |
 ##' Reading AURN - New Town | Urban Background \item RD1 | Reading -
 ##' Caversham Road | Roadside \item RD2 | Reading - Kings Road |
-##' Roadside \item RD3 | Reading - Oxford Road | Roadside \item RG1 | 
+##' Roadside \item RD3 | Reading - Oxford Road | Roadside \item RG1 |
 ##' Reigate and Banstead - Horley | Suburban \item RG2 | Reigate and
 ##' Banstead - Horley South | Suburban \item RG3 | Reigate and
 ##' Banstead - Poles Lane | Rural \item RG4 | Reigate and Banstead -
@@ -340,14 +340,14 @@
 ##' Mobile - Kew Rd | Kerbside \item RID | Richmond Mobile - Kew Rd |
 ##' Kerbside \item RIE | Richmond Mobile - Richmond Rd Twickenham |
 ##' Roadside \item RIF | Richmond Mobile - Richmond Rd Twickenham |
-##' Roadside \item RIG | Richmond Mobile - Upper Teddington Rd | 
+##' Roadside \item RIG | Richmond Mobile - Upper Teddington Rd |
 ##' Roadside \item RIH | Richmond Mobile - Upper Teddington Rd |
 ##' Roadside \item RII | Richmond Mobile - Somerset Rd Teddington |
 ##' Urban Background \item RIJ | Richmond Mobile - Somerset Rd
 ##' Teddington | Urban Background \item RIK | Richmond Mobile - St.
 ##' Margarets Grove | Urban Background \item RIL | Richmond Mobile -
 ##' St. Margarets Grove | Urban Background \item RIM | Richmond Mobile
-##' - Petersham Rd Ham | Roadside \item RIN | Richmond Mobile - 
+##' - Petersham Rd Ham | Roadside \item RIN | Richmond Mobile -
 ##' Petersham Rd Ham | Roadside \item RIO | Richmond Mobile - Stanley
 ##' Rd Twickenham | Roadside \item RIP | Richmond Mobile - Stanley Rd
 ##' Twickenham | Roadside \item RIQ | Richmond Mobile - Richmond Rd
@@ -362,7 +362,7 @@
 ##' \item SB1 | South Beds - Dunstable | Urban Background \item SC1 |
 ##' Sevenoaks 1 | Suburban \item SD1 | Southend-on-Sea AURN | Urban
 ##' Background \item SE1 | Stevenage - Lytton Way | Roadside \item SH1
-##' | Southampton Background AURN | Urban Background \item SH2 | 
+##' | Southampton Background AURN | Urban Background \item SH2 |
 ##' Southampton - Redbridge | Roadside \item SH3 | Southampton -
 ##' Onslow Road | Roadside \item SH4 | Southampton - Bitterne | Urban
 ##' Background \item SK1 | Southwark - Larcom Street | Urban
@@ -381,7 +381,7 @@
 ##' | Sussex Mobile15 Chichester County Hall | Urban Background \item
 ##' SU7 | Sussex Mobile 16 Warnham | Rural \item SU8 | Sussex Mobile
 ##' 17 Newhaven Paradise Park | Roadside \item SX1 | Sussex Mobile 1 |
-##' Urban Background \item SX2 | Sussex Mobile 2 North Berstead | 
+##' Urban Background \item SX2 | Sussex Mobile 2 North Berstead |
 ##' Roadside \item SX3 | Sussex Mobile 3 | Roadside \item SX4 | Sussex
 ##' Mobile 4 Adur | Roadside \item SX5 | Sussex Mobile 5 Fresh Fields
 ##' Rd Hastings | Roadside \item SX6 | Sussex Mobile 6 Orchard St
@@ -398,7 +398,7 @@
 ##' Roadside \item TK3 | Thurrock - Stanford-le-Hope | Roadside \item
 ##' TK8 | Thurrock - London Road (Purfleet) | Roadside \item TR1 |
 ##' Three Rivers - Rickmansworth | Urban Background \item UT1 |
-##' Uttlesford - Saffron Walden Fire Station | Roadside \item UT2 | 
+##' Uttlesford - Saffron Walden Fire Station | Roadside \item UT2 |
 ##' Uttlesford - Takeley | Urban Background \item UT3 | Uttlesford -
 ##' Broxted Farm | Rural \item VS1 | Westminster - Victoria Street |
 ##' Kerbside \item WA1 | Wandsworth - Garratt Lane | Roadside \item
@@ -413,7 +413,7 @@
 ##' Roadside \item WH1 | Welwyn Hatfield - Council Offices | Urban
 ##' Background \item WL1 | Waltham Forest - Dawlish Road | Urban
 ##' Background \item WL2 | Waltham Forest - Mobile | Roadside \item
-##' WL3 | Waltham Forest - Chingford | Roadside \item WL4 | Waltham 
+##' WL3 | Waltham Forest - Chingford | Roadside \item WL4 | Waltham
 ##' Forest - Crooked Billet | Kerbside \item WL5 | Waltham Forest -
 ##' Leyton | Roadside \item WM0 | Westminster - Horseferry Road |
 ##' Urban Background \item WM3 | Westminster - Hyde Park Partisol |
@@ -435,7 +435,7 @@
 ##' Coast Guard Met | Urban Background \item ZD6 | Dover Docks |
 ##' Industrial \item ZF1 | Folkestone Suburban - Cheriton | Suburban
 ##' \item ZG1 | Gravesham Backgrnd - Northfleet | Urban Background
-##' \item ZG2 | Gravesham Roadside - A2 | Roadside \item ZG3 | 
+##' \item ZG2 | Gravesham Roadside - A2 | Roadside \item ZG3 |
 ##' Gravesham Ind Bgd - Northfleet | Urban Background \item ZH1 |
 ##' Thanet Rural - Minster | Rural \item ZH2 | Thanet Background -
 ##' Margate | Urban Background \item ZH3 | Thanet Airport - Manston |
@@ -445,7 +445,7 @@
 ##' Roadside - Fairmeadow | Kerbside \item ZM3 | Maidstone Rural -
 ##' Detling | Rural \item ZR1 | Dartford Roadside - St Clements |
 ##' Kerbside \item ZR2 | Dartford Roadside 2 - Town Centre | Roadside
-##' \item ZR3 | Dartford Roadside 3 - Bean Interchange | Roadside 
+##' \item ZR3 | Dartford Roadside 3 - Bean Interchange | Roadside
 ##' \item ZS1 | Stoke Rural AURN | Rural \item ZT1 | Tonbridge
 ##' Roadside - Town Centre | Roadside \item ZT2 | Tunbridge Wells
 ##' Background - Town Hall | Urban Background \item ZT3 | Tunbridge
@@ -453,7 +453,7 @@
 ##' Roadside - St Johns | Roadside \item ZT5 | Tonbridge Roadside 2 -
 ##' High St | Roadside \item ZV1 | Sevenoaks - Greatness Park | Urban
 ##' Background \item ZV2 | Sevenoaks - Bat and Ball | Roadside \item
-##' ZW1 | Swale Roadside - Ospringe A2 | Roadside \item ZW2 | Swale 
+##' ZW1 | Swale Roadside - Ospringe A2 | Roadside \item ZW2 | Swale
 ##' Background - Sheerness | Urban Background \item ZW3 | Swale
 ##' Roadside 2 - Ospringe Street | Roadside \item ZY1 | Canterbury
 ##' Backgrnd - Chaucer TS | Urban Background \item ZY2 | Canterbury
@@ -519,146 +519,153 @@
 importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
                       units = "mass", extra = FALSE, meta = FALSE) {
 
-    ## get rid of R check annoyances
-    sites <- NULL; v10 <- NULL; v2.5 <- NULL
+  ## get rid of R check annoyances
+  sites <- NULL
+  v10 <- NULL
+  v2.5 <- NULL
 
-    site <- toupper(site)
+  site <- toupper(site)
 
-    ## rows with these site codes
-    ## this preserves order of site names
-    con <- url((paste("http://www.londonair.org.uk/r_data/", "sites", ".RData", sep = "")))
-    load(con)
-    close(con)
-    
-    id <- sapply(site, function(x) which(sites$SiteCode %in% toupper(x)))
-    site.name <- sites$SiteName[id]
+  ## rows with these site codes
+  ## this preserves order of site names
+  con <- url((paste("http://www.londonair.org.uk/r_data/", "sites", ".RData", sep = "")))
+  load(con)
+  close(con)
 
-    ## RData files to import
-    files <- lapply(site, function (x) paste(x, "_", year, sep = ""))
-    files <- do.call(c, files)
+  id <- sapply(site, function(x) which(sites$SiteCode %in% toupper(x)))
+  site.name <- sites$SiteName[id]
 
-    loadData <- function(x) {
-        tryCatch({
-             fileName <- paste("http://www.londonair.org.uk/r_data/", x, ".RData", sep = "")
-             con <- url(fileName)
-             load(con)
-            close(con)
-            
-            ## need to check the date starts at start of year...
-            start <- ISOdatetime(year = as.numeric(format(x$date[1], "%Y")), month = 1,
-                                 day = 1, hour = 0, min = 0, sec = 0, tz = "GMT")
+  ## RData files to import
+  files <- lapply(site, function(x) paste(x, "_", year, sep = ""))
+  files <- do.call(c, files)
 
-            if (x$date[1] != start) {
-                ## add first row
-                x1 <- data.frame(date = start, site = x$site[1])
-                x <- plyr::rbind.fill(x1, x)
-            }
-            
-             x <- date.pad(x, type = "site") ## pad out missing dates
-             x
-             },
-                  error = function(ex) {cat(x, "does not exist - ignoring that one.\n")})
+  loadData <- function(x) {
+    tryCatch(
+      {
+        fileName <- paste("http://www.londonair.org.uk/r_data/", x, ".RData", sep = "")
+        con <- url(fileName)
+        load(con)
+        close(con)
 
-     }
+        ## need to check the date starts at start of year...
+        start <- ISOdatetime(
+          year = as.numeric(format(x$date[1], "%Y")), month = 1,
+          day = 1, hour = 0, min = 0, sec = 0, tz = "GMT"
+        )
 
-    thedata <- lapply(files, loadData)
-
-    thedata <- do.call(bind_rows, thedata)
-    
-    if (is.null(thedata)) {
-
-        warning("No data to import - check site codes and year.", call. = FALSE)
-        return()
-    }
-    
-    if (nrow(thedata) < 1) {
-        warning("No data to import - check site codes and year.", call. = FALSE)
-        return()
-    }
-
-
-    thedata$code <- thedata$site
-
-    thedata$site <- factor(thedata$site, labels = site.name, levels = site)
-    
-
-    ## change names
-    names(thedata) <- tolower(names(thedata))
-
-    ## if particular pollutants have been selected
-    if (!missing(pollutant)) {
-        if (pollutant != "all") {
-            thedata <- thedata[, c("date", pollutant, "site", "code")]
+        if (x$date[1] != start) {
+          ## add first row
+          x1 <- data.frame(date = start, site = x$site[1])
+          x <- plyr::rbind.fill(x1, x)
         }
+
+        x <- date.pad(x, type = "site") ## pad out missing dates
+        x
+      },
+      error = function(ex) {
+        cat(x, "does not exist - ignoring that one.\n")
+      }
+    )
+  }
+
+  thedata <- lapply(files, loadData)
+
+  thedata <- do.call(bind_rows, thedata)
+
+  if (is.null(thedata)) {
+    warning("No data to import - check site codes and year.", call. = FALSE)
+    return()
+  }
+
+  if (nrow(thedata) < 1) {
+    warning("No data to import - check site codes and year.", call. = FALSE)
+    return()
+  }
+
+
+  thedata$code <- thedata$site
+
+  thedata$site <- factor(thedata$site, labels = site.name, levels = site)
+
+
+  ## change names
+  names(thedata) <- tolower(names(thedata))
+
+  ## if particular pollutants have been selected
+  if (!missing(pollutant)) {
+    if (pollutant != "all") {
+      thedata <- thedata[, c("date", pollutant, "site", "code")]
     }
+  }
 
-    ## change units to mass units, use values in ugm3Conversion table
-    if (units == "mass") {
-        if ("nox" %in% names(thedata)) thedata$nox <- thedata$nox * 1.91
-        if ("no2" %in% names(thedata)) thedata$no2 <- thedata$no2 * 1.91
-        if ("o3" %in% names(thedata)) thedata$o3 <- thedata$o3 * 2.00
-        if ("so2" %in% names(thedata)) thedata$so2 <- thedata$so2 * 2.66
-        if ("co" %in% names(thedata)) thedata$co <- thedata$co * 1.16
-        if ("pm10_raw" %in% names(thedata)) thedata$pm10_raw <- thedata$pm10_raw* 1.30
+  ## change units to mass units, use values in ugm3Conversion table
+  if (units == "mass") {
+    if ("nox" %in% names(thedata)) thedata$nox <- thedata$nox * 1.91
+    if ("no2" %in% names(thedata)) thedata$no2 <- thedata$no2 * 1.91
+    if ("o3" %in% names(thedata)) thedata$o3 <- thedata$o3 * 2.00
+    if ("so2" %in% names(thedata)) thedata$so2 <- thedata$so2 * 2.66
+    if ("co" %in% names(thedata)) thedata$co <- thedata$co * 1.16
+    if ("pm10_raw" %in% names(thedata)) thedata$pm10_raw <- thedata$pm10_raw * 1.30
 
-        unitMessage <- "NOTE - mass units are used \nug/m3 for NOx, NO2, SO2, O3; mg/m3 for CO\nPM10_raw is raw data multiplied by 1.3\n"
-    }
+    unitMessage <- "NOTE - mass units are used \nug/m3 for NOx, NO2, SO2, O3; mg/m3 for CO\nPM10_raw is raw data multiplied by 1.3\n"
+  }
 
-    ## rename PM volatile/non volatile components if present
+  ## rename PM volatile/non volatile components if present
 
-    if ("pmfr" %in% names(thedata)) {
-        thedata <- rename_(thedata, v10 = "pmfr")
-        thedata <- transform(thedata, v10 = -1 * v10)
-    }
-    
-    if ("p2fr" %in% names(thedata)) {
-        thedata <- rename_(thedata, v2.5 = "p2fr")
-        thedata <- transform(thedata, v2.5 = -1 * v2.5)
-    }
+  if ("pmfr" %in% names(thedata)) {
+    thedata <- rename_(thedata, v10 = "pmfr")
+    thedata <- transform(thedata, v10 = -1 * v10)
+  }
 
-    if ("pmfb" %in% names(thedata)) thedata <- rename_(thedata, nv10 = "pmfb")
-    if ("p2fb" %in% names(thedata)) thedata <- rename_(thedata, nv2.5 = "p2fb")
+  if ("p2fr" %in% names(thedata)) {
+    thedata <- rename_(thedata, v2.5 = "p2fr")
+    thedata <- transform(thedata, v2.5 = -1 * v2.5)
+  }
+
+  if ("pmfb" %in% names(thedata)) thedata <- rename_(thedata, nv10 = "pmfb")
+  if ("p2fb" %in% names(thedata)) thedata <- rename_(thedata, nv2.5 = "p2fb")
 
 
-    if (units != "mass")  {
-        if ("pm10" %in% names(thedata)) thedata$pm10_raw <- thedata$pm10_raw* 1.30
-        unitMessage <- "NOTE - volume units are used \nppbv for NOx, NO2, SO2, O3; ppmv for CO\nPM10_raw is raw data multiplied by 1.3\n"
-    }
+  if (units != "mass") {
+    if ("pm10" %in% names(thedata)) thedata$pm10_raw <- thedata$pm10_raw * 1.30
+    unitMessage <- "NOTE - volume units are used \nppbv for NOx, NO2, SO2, O3; ppmv for CO\nPM10_raw is raw data multiplied by 1.3\n"
+  }
 
-    ## don't add additional species
-    if (!extra) {
-        theNames <- c("date", "co", "nox", "no2", "no", "o3", "so2", "pm10", "pm10_raw", "pm25",
-                           "v10", "v2.5", "nv10", "nv2.5", "code", "site")
-        thedata <- thedata[,  which(names(thedata) %in% theNames)]
-    }
-    
-    if (is.null(nrow(thedata))) return()
-    
-    ## warning about recent, possibly unratified data
-    timeDiff <- difftime(Sys.time(),  max(thedata$date), units='days')
-    if (timeDiff < 180) {
-        warning("Some of the more recent data may not be ratified.")}
+  ## don't add additional species
+  if (!extra) {
+    theNames <- c(
+      "date", "co", "nox", "no2", "no", "o3", "so2", "pm10", "pm10_raw", "pm25",
+      "v10", "v2.5", "nv10", "nv2.5", "code", "site"
+    )
+    thedata <- thedata[, which(names(thedata) %in% theNames)]
+  }
 
-    if (met) {  ## merge met data
-        load(url(paste("http://www.londonair.org.uk/r_data/", "metData", ".RData", sep = "")))
-        #closeAllConnections()
-        thedata <- merge(thedata, met, by = "date")
-    }
+  if (is.null(nrow(thedata))) return()
 
-    ## make sure it is in GMT
-    attr(thedata$date, "tzone") <- "GMT"
-    thedata <- thedata[order(thedata$site, thedata$date), ]
+  ## warning about recent, possibly unratified data
+  timeDiff <- difftime(Sys.time(), max(thedata$date), units = "days")
+  if (timeDiff < 180) {
+    warning("Some of the more recent data may not be ratified.")
+  }
 
-    cat(unitMessage)
+  if (met) { ## merge met data
+    load(url(paste("http://www.londonair.org.uk/r_data/", "metData", ".RData", sep = "")))
+    # closeAllConnections()
+    thedata <- merge(thedata, met, by = "date")
+  }
 
-    # add meta data
-    if (meta) {
-      meta <- importMeta(source = "kcl")
-      # suppress warnings about factors
-      thedata <- suppressWarnings(inner_join(thedata, meta, by = c("code", "site")))
-    }
-      
-    return(thedata)
+  ## make sure it is in GMT
+  attr(thedata$date, "tzone") <- "GMT"
+  thedata <- thedata[order(thedata$site, thedata$date), ]
+
+  cat(unitMessage)
+
+  # add meta data
+  if (meta) {
+    meta <- importMeta(source = "kcl")
+    # suppress warnings about factors
+    thedata <- suppressWarnings(inner_join(thedata, meta, by = c("code", "site")))
+  }
+
+  return(thedata)
 }
-
-

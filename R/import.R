@@ -89,93 +89,98 @@
 ##'   : \code{\link{importAURN}}, \code{\link{importAURNCsv}},
 ##'   \code{\link{importKCL}}, \code{\link{importADMS}}, etc.
 ##' @keywords methods
-##' 
-import <- function (file = file.choose(), file.type = "csv", sep = ",", header.at = 1,
-                    data.at = 2,  date = "date", date.format = "%d/%m/%Y %H:%M",
-                    time = NULL,  time.format = NULL, tzone = "GMT", na.strings = c("", "NA"),
-                    quote = "\"", ws = NULL, wd = NULL,
-                    correct.time = NULL, ...)
-{
+##'
+import <- function(file = file.choose(), file.type = "csv", sep = ",", header.at = 1,
+                   data.at = 2, date = "date", date.format = "%d/%m/%Y %H:%M",
+                   time = NULL, time.format = NULL, tzone = "GMT", na.strings = c("", "NA"),
+                   quote = "\"", ws = NULL, wd = NULL,
+                   correct.time = NULL, ...) {
 
-    ## read header
-    if (header.at > 0 ) {
-        Names <- read.table(file, nrows = 1, skip = (header.at - 1), sep = sep,
-                            colClasses = "character", na.strings = "")
+  ## read header
+  if (header.at > 0) {
+    Names <- read.table(
+      file, nrows = 1, skip = (header.at - 1), sep = sep,
+      colClasses = "character", na.strings = ""
+    )
 
-        ## deal with header columns that are left blank
-        if (any(is.na(Names))) {
-            id <- which(is.na(Names))
-            Names[id] <- colnames(Names)[id]
-
-        }
+    ## deal with header columns that are left blank
+    if (any(is.na(Names))) {
+      id <- which(is.na(Names))
+      Names[id] <- colnames(Names)[id]
     }
+  }
 
-    ## read data
-    thedata <- read.table(file, skip = (data.at - 1), sep = sep, na.strings = na.strings,
-                          quote = quote, ...)
+  ## read data
+  thedata <- read.table(
+    file, skip = (data.at - 1), sep = sep, na.strings = na.strings,
+    quote = quote, ...
+  )
 
-    names(thedata) <- Names
+  names(thedata) <- Names
 
 
-    ## rename date field
-    if (!date %in% Names) stop (paste("Can't find variable", date))
-    names(thedata)[which(Names == date)] <- "date"
+  ## rename date field
+  if (!date %in% Names) stop(paste("Can't find variable", date))
+  names(thedata)[which(Names == date)] <- "date"
 
-    if (!is.null(ws)) {
-        if (!ws %in% Names) stop (paste("Can't find variable", ws))
-        names(thedata)[which(Names == ws)] <- "ws"
+  if (!is.null(ws)) {
+    if (!ws %in% Names) stop(paste("Can't find variable", ws))
+    names(thedata)[which(Names == ws)] <- "ws"
+  }
+
+  if (!is.null(wd)) {
+    if (!wd %in% Names) stop(paste("Can't find variable", wd))
+    names(thedata)[which(Names == wd)] <- "wd"
+  }
+
+
+  ## set date format - if no time column use date format directly
+  if (is.null(time)) {
+    ## use this to show what date looks like
+    exam.date <- do.call("paste", list(head(thedata$date), collapse = ", "))
+
+    thedata$date <- as.POSIXct(
+      strptime(thedata$date, format = date.format, tz = tzone),
+      tz = tzone
+    )
+
+    ## if all dates are NA, there is a problem...
+    if (all(is.na(thedata$date))) stop(paste("Date conversion problems, check that date.format is correct.\n First few dates looks like this:", exam.date))
+  } else {
+
+    ## correct hour if 1 to 24
+    if (time.format == "%H") {
+      if (min(thedata[, time]) == 1 & max(thedata[, time] == 24)) {
+        thedata[, time] <- thedata[, time] - 1
+      }
     }
+    ## time is in a separate column
+    thedata$date <- as.POSIXct(strptime(
+      paste(thedata$date, thedata[, time]),
+      format = paste(date.format, time.format),
+      tz = tzone
+    ), tz = tzone)
 
-    if (!is.null(wd)) {
-        if (!wd %in% Names) stop (paste("Can't find variable", wd))
-        names(thedata)[which(Names == wd)] <- "wd"
-    }
+    ## if all dates are NA, there is a problem...
+    if (all(is.na(thedata$date))) stop("Date conversion problems, check that date.format and/or time.format is correct")
+  }
 
+  if (!is.null(correct.time)) thedata$date <- thedata$date + correct.time
 
-    ## set date format - if no time column use date format directly
-    if (is.null(time)) {
-        ## use this to show what date looks like
-        exam.date <- do.call("paste", list(head(thedata$date), collapse = ", "))
+  attr(thedata$date, "tzone") <- tzone
 
-        thedata$date <- as.POSIXct(strptime(thedata$date, format = date.format, tz = tzone),
-                                   tz = tzone)
+  ## deal with missing dates
+  ids <- which(is.na(thedata$date))
+  if (length(ids) > 0) {
+    thedata <- thedata[-ids, ]
+    warning(paste(
+      "Missing dates detected, removing",
+      length(ids), "lines"
+    ), call. = FALSE)
+  }
 
-        ## if all dates are NA, there is a problem...
-        if (all(is.na(thedata$date))) stop (paste("Date conversion problems, check that date.format is correct.\n First few dates looks like this:", exam.date))
+  ## print data types - helps with debugging
+  print(unlist(sapply(thedata, class)))
 
-    } else {
-
-        ## correct hour if 1 to 24
-        if (time.format == "%H") {
-            if (min(thedata[, time]) == 1 & max(thedata[, time] == 24)) {
-                thedata[, time] <- thedata[, time] - 1
-            }
-        }
-        ## time is in a separate column
-        thedata$date <- as.POSIXct(strptime(paste(thedata$date, thedata[, time]),
-                                            format = paste(date.format, time.format),
-                                            tz = tzone), tz = tzone)
-
-        ## if all dates are NA, there is a problem...
-        if (all(is.na(thedata$date))) stop ("Date conversion problems, check that date.format and/or time.format is correct")
-    }
-
-    if (!is.null(correct.time)) thedata$date <- thedata$date + correct.time
-
-    attr(thedata$date, "tzone") <- tzone
-
-    ## deal with missing dates
-    ids <- which(is.na(thedata$date))
-    if (length(ids) > 0) {
-
-            thedata <- thedata[-ids, ]
-            warning(paste("Missing dates detected, removing",
-                length(ids), "lines"), call. = FALSE)
-        }
-
-    ## print data types - helps with debugging
-    print(unlist(sapply(thedata, class)))
-
-    thedata
+  thedata
 }
-

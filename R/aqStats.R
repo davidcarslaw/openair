@@ -86,247 +86,300 @@
 aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(95, 99),
                     transpose = FALSE, ...) {
 
-    ## get rid of R check annoyances
-    year = site <- NULL; daylight <- NULL; . <- NULL
+  ## get rid of R check annoyances
+  year <- site <- NULL
+  daylight <- NULL
+  . <- NULL
 
-    ## check data and add 'ste' field if not there
-    if (!"site" %in% names(mydata)) mydata$site <- "site"
+  ## check data and add 'ste' field if not there
+  if (!"site" %in% names(mydata)) mydata$site <- "site"
 
-    vars <- c("date", pollutant, "site")
+  vars <- c("date", pollutant, "site")
 
-    mydata <- checkPrep(mydata, vars, "default", remove.calm = FALSE, strip.white = FALSE)
+  mydata <- checkPrep(mydata, vars, "default", remove.calm = FALSE, strip.white = FALSE)
 
-    ## pre-defined lits of pollutants that need special treatment
-    thePolls <- c("no2", "o3", "pm10", "co")
+  ## pre-defined lits of pollutants that need special treatment
+  thePolls <- c("no2", "o3", "pm10", "co")
 
-    calcStats <- function(mydata, pollutant, data.thresh, percentile, ...) {
+  calcStats <- function(mydata, pollutant, data.thresh, percentile, ...) {
 
-        ## select only data needed
-        mydata <- mydata[c("date", pollutant, "site")]
+    ## select only data needed
+    mydata <- mydata[c("date", pollutant, "site")]
 
-        ## file any missing hours
-        mydata <- date.pad(mydata, type = "site")
-        mydata$year <- format(mydata$date, "%Y")
-        
-        
-        Mean <- group_by(mydata, year) %>%
-          do(timeAverage(., avg.time = "year", statistic = "mean", data.thresh,
-                         print.int = FALSE, type = "site")) %>%
-          rename_(mean = pollutant)
-
-        Min <- group_by(mydata, year) %>%
-          do(timeAverage(., avg.time = "year", statistic = "min", data.thresh,
-                         print.int = FALSE, type = "site")) %>%
-          rename_(minimum = pollutant)
-
-        Max <- group_by(mydata, year) %>%
-          do(timeAverage(., avg.time = "year", statistic = "max", data.thresh,
-                         print.int = FALSE, type = "site")) %>%
-          rename_(maximum = pollutant)
-
-        maxDaily <- group_by(mydata, year) %>%
-          do(timeAverage(., avg.time = "day", statistic = "mean", data.thresh,
-                         print.int = FALSE, type = "site")) %>%
-                           do(timeAverage(., avg.time = "year", statistic = "max",
-                                          data.thresh, print.int = FALSE,
-                                          type = "site")) %>%
-          rename_(daily.max = pollutant)
-
-        Median <- group_by(mydata, year) %>%
-          do(timeAverage(., avg.time = "year", statistic = "median", data.thresh,
-                         type = "site")) %>%
-          rename_(median = pollutant)
-
-        dataCapture <- group_by(mydata, year) %>%
-          do(timeAverage(., avg.time = "year", statistic = "data.cap",
-                         type = "site")) %>%
-          rename_(dat.cap = pollutant)
-
-        rollMax8 <- group_by(mydata, year) %>%
-          do(rollingMean(., pollutant = pollutant, data.thresh = data.thresh,
-                         width = 8, new.name = pollutant)) %>%
-          do(timeAverage(., avg.time = "year", statistic = "max",
-                         data.thresh, type = "site")) %>%
-                           rename_(max.roll.8 = pollutant)
-
-        rollMax24 <- group_by(mydata, year) %>%
-          do(rollingMean(., pollutant = pollutant, data.thresh = data.thresh,
-                         width = 24, new.name = pollutant)) %>%
-          do(timeAverage(., avg.time = "year", statistic = "max",
-                         data.thresh, type = "site")) %>%
-                           rename_(max.roll.24 = pollutant)
-
-        Percentile <- group_by(mydata, year) %>%
-          do(calcPercentile(., avg.time = "year", pollutant = pollutant,
-                            data.thresh = data.thresh, percentile = percentile))
+    ## file any missing hours
+    mydata <- date.pad(mydata, type = "site")
+    mydata$year <- format(mydata$date, "%Y")
 
 
-        if (length(grep("o3", pollutant, ignore.case = TRUE)) == 1) {
+    Mean <- group_by(mydata, year) %>%
+      do(timeAverage(
+        ., avg.time = "year", statistic = "mean", data.thresh,
+        print.int = FALSE, type = "site"
+      )) %>%
+      rename_(mean = pollutant)
 
-            rollingO3 <- group_by(mydata, year) %>%
-              do(rollingMean(., pollutant, data.thresh = data.thresh)) %>%
-              do(timeAverage(., avg.time = "day", statistic = "max",
-                             data.thresh = data.thresh, type = "site")) %>%
-              summarise(roll.8.O3.gt.100 = length(which(rolling8o3 > 100)))
+    Min <- group_by(mydata, year) %>%
+      do(timeAverage(
+        ., avg.time = "year", statistic = "min", data.thresh,
+        print.int = FALSE, type = "site"
+      )) %>%
+      rename_(minimum = pollutant)
 
-            rollingO3$site <- Mean$site ## make sure all have same columns
-            rollingO3$date <- Mean$date
+    Max <- group_by(mydata, year) %>%
+      do(timeAverage(
+        ., avg.time = "year", statistic = "max", data.thresh,
+        print.int = FALSE, type = "site"
+      )) %>%
+      rename_(maximum = pollutant)
 
-            rollingO3b <- group_by(mydata, year) %>%
-              do(rollingMean(., pollutant, data.thresh = data.thresh)) %>%
-              do(timeAverage(., avg.time = "day", statistic = "max",
-                             data.thresh = data.thresh, type = "site")) %>%
-              summarise(roll.8.O3.gt.120 = length(which(rolling8o3 > 120)))
+    maxDaily <- group_by(mydata, year) %>%
+      do(timeAverage(
+        ., avg.time = "day", statistic = "mean", data.thresh,
+        print.int = FALSE, type = "site"
+      )) %>%
+      do(timeAverage(
+        ., avg.time = "year", statistic = "max",
+        data.thresh, print.int = FALSE,
+        type = "site"
+      )) %>%
+      rename_(daily.max = pollutant)
 
-            rollingO3b$site <- Mean$site ## make sure all have same columns
-            rollingO3b$date <- Mean$date
+    Median <- group_by(mydata, year) %>%
+      do(timeAverage(
+        ., avg.time = "year", statistic = "median", data.thresh,
+        type = "site"
+      )) %>%
+      rename_(median = pollutant)
 
-            AOT40 <- group_by(mydata, year) %>%
-              do(AOT40(., pollutant))
+    dataCapture <- group_by(mydata, year) %>%
+      do(timeAverage(
+        ., avg.time = "year", statistic = "data.cap",
+        type = "site"
+      )) %>%
+      rename_(dat.cap = pollutant)
 
-            AOT40$site <- Mean$site ## make sure all have same columns
-            AOT40$date <- Mean$date
+    rollMax8 <- group_by(mydata, year) %>%
+      do(rollingMean(
+        ., pollutant = pollutant, data.thresh = data.thresh,
+        width = 8, new.name = pollutant
+      )) %>%
+      do(timeAverage(
+        ., avg.time = "year", statistic = "max",
+        data.thresh, type = "site"
+      )) %>%
+      rename_(max.roll.8 = pollutant)
 
-            o3.results <- list(dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8, rollMax24,
-                               Percentile, rollingO3, rollingO3b, AOT40)
-            o3.results <- Reduce(function(x, y) merge(x, y, by = c('site', 'year', 'date'),
-                                                      all = TRUE), o3.results)
-            o3.results$pollutant <- "O3"
-            results <- o3.results
-            results
-        }
+    rollMax24 <- group_by(mydata, year) %>%
+      do(rollingMean(
+        ., pollutant = pollutant, data.thresh = data.thresh,
+        width = 24, new.name = pollutant
+      )) %>%
+      do(timeAverage(
+        ., avg.time = "year", statistic = "max",
+        data.thresh, type = "site"
+      )) %>%
+      rename_(max.roll.24 = pollutant)
 
-        if (length(grep("no2", pollutant, ignore.case = TRUE)) == 1) {
-browser()
-            hours <- group_by(mydata, year) %>%
-              summarise(hours = length(which(UQ(sym(pollutant)) > 200)))
-            
-            hours$site <- Mean$site ## make sure all have same columns
-            hours$date <- Mean$date
-
-            no2.results <- list(dataCapture, Mean, Min, Max, Median,  maxDaily, rollMax8,
-                                rollMax24, Percentile, hours)
-            
-            no2.results <- Reduce(function(x, y) merge(x, y, by = c('site', 'year', 'date'),
-                                                       all = TRUE), no2.results)
-
-            no2.results$pollutant <- "NO2"
-            results <- no2.results
-            results
-        }
-
-        if (length(grep("pm10", pollutant, ignore.case = TRUE)) == 1) {
-
-            days <- group_by(mydata, year) %>%
-              do(timeAverage(., avg.time = "day", statistic = "mean", data.thresh,
-                             type = "site")) %>%
-              summarise(days = length(which(UQ(sym(pollutant)) > 50)))
-            
-            days$site <- Mean$site ## make sure all have same columns
-            days$date <- Mean$date
-
-            pm10.results <- list(dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8,
-                                 rollMax24, Percentile, days)
-
-            pm10.results <- Reduce(function(x, y) merge(x, y, by = c('site', 'year', 'date'),
-                                                        all = TRUE), pm10.results)
-            pm10.results$pollutant <- "PM10"
-            results <- pm10.results
-            results
-        }
-
-        if (length(grep("co", pollutant, ignore.case = TRUE)) == 1) {
-
-            co.results <- list(dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8, rollMax24,
-                               Percentile)
-            co.results <- Reduce(function(x, y) merge(x, y, by = c('site', 'year', 'date'),
-                                                    all = TRUE), co.results)
-            co.results$pollutant <- "CO"
-            results <- co.results
-            results
-        }
-        
-
-        ## see if pollutant string in any pre-defined ones
-        ## if not calculate basic stats
-        if (all(is.na(sapply(thePolls, function (x) grep(x, pollutant, ignore.case = TRUE)) >0))) {
-
-            results <- list(dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8, rollMax24,
-                            Percentile)
-            
-            results <- Reduce(function(x, y) merge(x, y, by = c('site', 'year', 'date'),
-                                                   all = TRUE), results)
-            
-            results$pollutant <- pollutant
-            results <- results
-
-        }
+    Percentile <- group_by(mydata, year) %>%
+      do(calcPercentile(
+        ., avg.time = "year", pollutant = pollutant,
+        data.thresh = data.thresh, percentile = percentile
+      ))
 
 
-        results
+    if (length(grep("o3", pollutant, ignore.case = TRUE)) == 1) {
+      rollingO3 <- group_by(mydata, year) %>%
+        do(rollingMean(., pollutant, data.thresh = data.thresh)) %>%
+        do(timeAverage(
+          ., avg.time = "day", statistic = "max",
+          data.thresh = data.thresh, type = "site"
+        )) %>%
+        summarise(roll.8.O3.gt.100 = length(which(rolling8o3 > 100)))
+
+      rollingO3$site <- Mean$site ## make sure all have same columns
+      rollingO3$date <- Mean$date
+
+      rollingO3b <- group_by(mydata, year) %>%
+        do(rollingMean(., pollutant, data.thresh = data.thresh)) %>%
+        do(timeAverage(
+          ., avg.time = "day", statistic = "max",
+          data.thresh = data.thresh, type = "site"
+        )) %>%
+        summarise(roll.8.O3.gt.120 = length(which(rolling8o3 > 120)))
+
+      rollingO3b$site <- Mean$site ## make sure all have same columns
+      rollingO3b$date <- Mean$date
+
+      AOT40 <- group_by(mydata, year) %>%
+        do(AOT40(., pollutant))
+
+      AOT40$site <- Mean$site ## make sure all have same columns
+      AOT40$date <- Mean$date
+
+      o3.results <- list(
+        dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8, rollMax24,
+        Percentile, rollingO3, rollingO3b, AOT40
+      )
+      o3.results <- Reduce(function(x, y) merge(
+          x, y, by = c("site", "year", "date"),
+          all = TRUE
+        ), o3.results)
+      o3.results$pollutant <- "O3"
+      results <- o3.results
+      results
     }
 
-    ## function to go through sites
+    if (length(grep("no2", pollutant, ignore.case = TRUE)) == 1) {
+      browser()
+      hours <- group_by(mydata, year) %>%
+        summarise(hours = length(which(UQ(sym(pollutant)) > 200)))
 
-    bySite <- function (mydata, pollutant, data.thresh = data.thresh,
-                        percentile = percentile, ...) {
-        
-        ## dates should be unique; issue warning if not
-        if (any(duplicated(mydata$date))) warning ("Duplicate dates detected - more than one site?",
-                                                   call. = FALSE)
+      hours$site <- Mean$site ## make sure all have same columns
+      hours$date <- Mean$date
 
+      no2.results <- list(
+        dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8,
+        rollMax24, Percentile, hours
+      )
 
-        results <- lapply(pollutant, function (x) calcStats(mydata = mydata, pollutant = x ,
-                                                            data.thresh = data.thresh,
-                                                            percentile = percentile, ...))
+      no2.results <- Reduce(function(x, y) merge(
+          x, y, by = c("site", "year", "date"),
+          all = TRUE
+        ), no2.results)
 
-        ## supress warnings about binding factors
-        results <- suppressWarnings(bind_rows(results))
-        results$year <- as.numeric(results$year)
-        results
+      no2.results$pollutant <- "NO2"
+      results <- no2.results
+      results
     }
 
-    
-    results <- group_by(mydata, site) %>%
-      do(bySite(., pollutant = pollutant, data.thresh = data.thresh,
-                percentile = percentile,...))
-    
+    if (length(grep("pm10", pollutant, ignore.case = TRUE)) == 1) {
+      days <- group_by(mydata, year) %>%
+        do(timeAverage(
+          ., avg.time = "day", statistic = "mean", data.thresh,
+          type = "site"
+        )) %>%
+        summarise(days = length(which(UQ(sym(pollutant)) > 50)))
 
-    ## order sensible
-    results <- results[c("site", "pollutant", setdiff(names(results), c("site", "pollutant")))]
-                                      
-    class(results$year) <- "integer"
+      days$site <- Mean$site ## make sure all have same columns
+      days$date <- Mean$date
 
-    ## transpose if requested
-    if (transpose) {
-        if (length(unique(results$site)) > 1) {
-            results <- melt(results, id.vars = c("site", "pollutant", "year"))
-            results <- dcast(results, ... ~ site + pollutant)
-        } else {
-            ## only one site and don't need to add name
-            results <- subset(results, select = -site)
-            results <- melt(results, id.vars = c("pollutant", "year"))
-            results <- dcast(results, ... ~ pollutant)
-        }
-        ## sort out names
-        names(results) <- gsub("\\_", " ", names(results))
+      pm10.results <- list(
+        dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8,
+        rollMax24, Percentile, days
+      )
+
+      pm10.results <- Reduce(function(x, y) merge(
+          x, y, by = c("site", "year", "date"),
+          all = TRUE
+        ), pm10.results)
+      pm10.results$pollutant <- "PM10"
+      results <- pm10.results
+      results
     }
+
+    if (length(grep("co", pollutant, ignore.case = TRUE)) == 1) {
+      co.results <- list(
+        dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8, rollMax24,
+        Percentile
+      )
+      co.results <- Reduce(function(x, y) merge(
+          x, y, by = c("site", "year", "date"),
+          all = TRUE
+        ), co.results)
+      co.results$pollutant <- "CO"
+      results <- co.results
+      results
+    }
+
+
+    ## see if pollutant string in any pre-defined ones
+    ## if not calculate basic stats
+    if (all(is.na(sapply(thePolls, function(x) grep(x, pollutant, ignore.case = TRUE)) > 0))) {
+      results <- list(
+        dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8, rollMax24,
+        Percentile
+      )
+
+      results <- Reduce(function(x, y) merge(
+          x, y, by = c("site", "year", "date"),
+          all = TRUE
+        ), results)
+
+      results$pollutant <- pollutant
+      results <- results
+    }
+
+
     results
+  }
 
+  ## function to go through sites
+
+  bySite <- function(mydata, pollutant, data.thresh = data.thresh,
+                     percentile = percentile, ...) {
+
+    ## dates should be unique; issue warning if not
+    if (any(duplicated(mydata$date))) {
+      warning(
+        "Duplicate dates detected - more than one site?",
+        call. = FALSE
+      )
+    }
+
+
+    results <- lapply(pollutant, function(x) calcStats(
+        mydata = mydata, pollutant = x,
+        data.thresh = data.thresh,
+        percentile = percentile, ...
+      ))
+
+    ## supress warnings about binding factors
+    results <- suppressWarnings(bind_rows(results))
+    results$year <- as.numeric(results$year)
+    results
+  }
+
+
+  results <- group_by(mydata, site) %>%
+    do(bySite(
+      ., pollutant = pollutant, data.thresh = data.thresh,
+      percentile = percentile, ...
+    ))
+
+
+  ## order sensible
+  results <- results[c("site", "pollutant", setdiff(names(results), c("site", "pollutant")))]
+
+  class(results$year) <- "integer"
+
+  ## transpose if requested
+  if (transpose) {
+    if (length(unique(results$site)) > 1) {
+      results <- melt(results, id.vars = c("site", "pollutant", "year"))
+      results <- dcast(results, ... ~ site + pollutant)
+    } else {
+      ## only one site and don't need to add name
+      results <- subset(results, select = -site)
+      results <- melt(results, id.vars = c("pollutant", "year"))
+      results <- dcast(results, ... ~ pollutant)
+    }
+    ## sort out names
+    names(results) <- gsub("\\_", " ", names(results))
+  }
+  results
 }
 
 
 AOT40 <- function(mydata, pollutant, ...) {
-    ## note the assumption is the O3 is in ug/m3
-    daylight <- NULL
+  ## note the assumption is the O3 is in ug/m3
+  daylight <- NULL
 
-    ## need daylight hours in growing season (April to September)
-    mydata <- selectByDate(mydata, month = 4:9)
-    mydata <- cutData(mydata, "daylight", ...)
-    mydata <- subset(mydata, daylight == "daylight")
-    AOT40 <- ifelse(mydata[[pollutant]] - 80 < 0 , 0, mydata[[pollutant]] - 80)
-    AOT40 <- sum(AOT40, na.rm = TRUE) * 0.50 ## for ppb
-    AOT40 <- data_frame(AOT40)
-    return(AOT40)
+  ## need daylight hours in growing season (April to September)
+  mydata <- selectByDate(mydata, month = 4:9)
+  mydata <- cutData(mydata, "daylight", ...)
+  mydata <- subset(mydata, daylight == "daylight")
+  AOT40 <- ifelse(mydata[[pollutant]] - 80 < 0, 0, mydata[[pollutant]] - 80)
+  AOT40 <- sum(AOT40, na.rm = TRUE) * 0.50 ## for ppb
+  AOT40 <- data_frame(AOT40)
+  return(AOT40)
 }
-

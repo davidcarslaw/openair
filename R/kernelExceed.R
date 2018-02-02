@@ -133,162 +133,175 @@ kernelExceed <- function(polar,
                          nbin = 256,
                          auto.text = TRUE, ...) {
 
-    ## get rid of R check annoyances
-    wd = NULL
+  ## get rid of R check annoyances
+  wd <- NULL
 
-    ## extract variables of interest
-    vars <- c(y, x, "date", pollutant)
-    polar <- checkPrep(polar, vars, type, remove.calm = FALSE)
-    polar <- subset(polar, wd > 0)
+  ## extract variables of interest
+  vars <- c(y, x, "date", pollutant)
+  polar <- checkPrep(polar, vars, type, remove.calm = FALSE)
+  polar <- subset(polar, wd > 0)
 
-    ##extra.args
-    extra.args <- list(...)
-    #label controls
-    extra.args$xlab <- if ("xlab" %in% names(extra.args))
-                           quickText(extra.args$xlab, auto.text) else quickText(x, auto.text)
-    extra.args$ylab <- if ("ylab" %in% names(extra.args))
-                           quickText(extra.args$ylab, auto.text) else quickText(y, auto.text)
-    extra.args$main <- if ("main" %in% names(extra.args))
-                           quickText(extra.args$main, auto.text) else quickText("", auto.text)
+  ## extra.args
+  extra.args <- list(...)
+  # label controls
+  extra.args$xlab <- if ("xlab" %in% names(extra.args)) {
+    quickText(extra.args$xlab, auto.text)
+  } else {
+    quickText(x, auto.text)
+  }
+  extra.args$ylab <- if ("ylab" %in% names(extra.args)) {
+    quickText(extra.args$ylab, auto.text)
+  } else {
+    quickText(y, auto.text)
+  }
+  extra.args$main <- if ("main" %in% names(extra.args)) {
+    quickText(extra.args$main, auto.text)
+  } else {
+    quickText("", auto.text)
+  }
 
-    if ("fontsize" %in% names(extra.args))
-        trellis.par.set(fontsize = list(text = extra.args$fontsize))
+  if ("fontsize" %in% names(extra.args)) {
+    trellis.par.set(fontsize = list(text = extra.args$fontsize))
+  }
 
-    #greyscale handling
-    if (length(cols) == 1 && cols == "greyscale") {
-        #strip only
-        current.strip <- trellis.par.get("strip.background")
-        trellis.par.set(list(strip.background = list(col = "cut")))
+  # greyscale handling
+  if (length(cols) == 1 && cols == "greyscale") {
+    # strip only
+    current.strip <- trellis.par.get("strip.background")
+    trellis.par.set(list(strip.background = list(col = "cut")))
+  }
+
+  ## white data depending on type
+  polar <- cutData(polar, type, ...)
+
+  if (by[1] == "day" | by[1] == "dayhour") {
+    ## identify days where pm10 > limit
+    daily <- timeAverage(polar, "day", data.thresh = data.thresh)
+
+    ## days where this is true - more than or less than a threshold
+    if (more.than) ids <- which(daily[pollutant] > limit) else ids <- which(daily[pollutant] < limit)
+    days <- daily$date[ids]
+
+    ## ids for the hours
+    ids <- which(as_date(polar$date) %in% as_date(days))
+
+    subdata <- polar[ids, ]
+
+    ## only select hour on days that exceed
+    if (by[1] == "dayhour") subdata <- subdata[subdata[pollutant] > limit, ]
+    subdata <- na.omit(subdata)
+  } else {
+    if (more.than) ids <- which(polar[pollutant] > limit) else ids <- which(polar[pollutant] < limit)
+    days <- polar$date[ids]
+
+    subdata <- polar[ids, ]
+  }
+
+  if (nrow(subdata) == 0) stop(call. = FALSE, "No data above threshold to plot")
+
+  prepare.grid <- function(subdata) {
+    x <- subdata[[x]]
+    y <- subdata[[y]]
+
+    xy <- xy.coords(x, y, "xlab", "ylab")
+    xlab <- xy$xlab
+    ylab <- xy$ylab
+
+    x <- cbind(xy$x, xy$y)[is.finite(xy$x) & is.finite(xy$y), , drop = FALSE]
+
+    xlim <- range(x[, 1])
+    ylim <- range(x[, 2])
+
+    map <- .smoothScatterCalcDensity(x, nbin)
+    xm <- map$x1
+    ym <- map$x2
+
+    dens <- map$fhat
+
+    grid <- expand.grid(x = xm, y = ym)
+
+    results <- data.frame(
+      u = grid$x, v = grid$y, z = as.vector(dens),
+      freq = nrow(subdata) / 24
+    )
+
+    results
+  }
+
+  #############################################################################
+
+  results.grid <- group_by(subdata, UQS(syms(type))) %>%
+    do(prepare.grid(.))
+
+  ## adjust to get number of exceedance days
+  total.sum <- sum(unique(results.grid$freq)) ## by each condition
+  results.grid$freq <- results.grid$freq * length(days) / total.sum
+
+  strip <- TRUE
+  skip <- FALSE
+  if (type == "default") strip <- FALSE ## remove strip
+
+  ## auto-scaling
+  nlev <- 200 ## preferred number of intervals
+  breaks <- unique(pretty(results.grid$z, n = nlev))
+  nlev2 <- length(breaks)
+
+  col <- openColours(cols, (nlev2 - 1))
+  col <- c("transparent", col) ## add white at bottom
+  col.scale <- breaks
+
+  X <- x
+  Y <- y ## to avoid confusion with lattice function
+
+  scales <- list()
+  if (X == "wd") scales <- list(x = list(at = seq(0, 360, 90)))
+
+  myform <- formula(paste("z ~ u * v |", type))
+
+  levelplot.args <- list(
+    x = myform, results.grid,
+    as.table = TRUE,
+    strip = strip,
+    region = TRUE,
+    scales = scales,
+    colorkey = FALSE,
+
+    panel = function(x, y, z, subscripts, ...) {
+      panel.levelplot(
+        x, y, z,
+        subscripts,
+        at = col.scale,
+        pretty = TRUE,
+        col.regions = col,
+        labels = FALSE
+      )
+      panel.grid(-1, 0, col = "grey90", lty = 5)
+      if (X == "wd") {
+        panel.abline(v = seq(0, 360, by = 90), col = "grey90", lty = 5)
+      } else {
+        panel.grid(0, -1, col = "grey90", lty = 5)
+      }
+      if (by[1] == "day" | by[1] == "dayhour") len <- "days" else len <- "hours"
+      panel.text(
+        0.03 * max(results.grid$u, na.rm = TRUE), 0.95 * max(
+          results.grid$v,
+          na.rm = TRUE
+        ),
+        paste(round(results.grid[subscripts[1], "freq"]), len), pos = 4,
+        cex = 0.7, ...
+      )
     }
+  )
 
-    ## white data depending on type
-    polar <- cutData(polar, type, ...)
+  # reset for extra.args
+  levelplot.args <- listUpdate(levelplot.args, extra.args)
 
-    if (by[1] == "day" | by[1] == "dayhour") {
-        ## identify days where pm10 > limit
-        daily <- timeAverage(polar, "day", data.thresh = data.thresh)
+  # plot
+  ans <- do.call(levelplot, levelplot.args)
 
-        ## days where this is true - more than or less than a threshold
-        if (more.than)   ids <- which(daily[pollutant] > limit) else ids <- which(daily[pollutant] < limit)
-        days <- daily$date[ids]
-
-        ## ids for the hours
-        ids <- which(as_date(polar$date) %in% as_date(days))
-
-        subdata <- polar[ids, ]
-
-        ## only select hour on days that exceed
-        if (by[1] == "dayhour") subdata <- subdata[subdata[pollutant] > limit, ]
-        subdata <- na.omit(subdata)
-
-    } else {
-        if (more.than)   ids <- which(polar[pollutant] > limit) else ids <- which(polar[pollutant] < limit)
-        days <- polar$date[ids]
-
-        subdata <- polar[ids, ]
-    }
-
-    if(nrow(subdata) == 0) stop(call. = FALSE, "No data above threshold to plot")
-
-    prepare.grid <- function(subdata) {
-        x <- subdata[[x]]
-        y <- subdata[[y]]
-
-        xy <- xy.coords(x, y, "xlab", "ylab")
-        xlab <-  xy$xlab
-        ylab <- xy$ylab
-
-        x <- cbind(xy$x, xy$y)[is.finite(xy$x) & is.finite(xy$y), , drop = FALSE]
-
-        xlim <- range(x[, 1])
-        ylim <- range(x[, 2])
-
-        map <- .smoothScatterCalcDensity(x, nbin)
-        xm <- map$x1
-        ym <- map$x2
-
-        dens <- map$fhat
-
-        grid <- expand.grid(x = xm, y = ym)
-
-        results <- data.frame(u = grid$x, v = grid$y, z = as.vector(dens),
-                              freq = nrow(subdata) / 24)
-
-        results
-    }
-
-#############################################################################
-
-    results.grid <- group_by(subdata, UQS(syms(type))) %>%
-      do(prepare.grid(.))
-
-    ## adjust to get number of exceedance days
-    total.sum <-  sum(unique(results.grid$freq)) ## by each condition
-    results.grid$freq <- results.grid$freq * length(days) / total.sum
-
-    strip <- TRUE
-    skip <- FALSE
-    if (type == "default") strip <- FALSE ## remove strip
-
-    ## auto-scaling
-    nlev <- 200  ## preferred number of intervals
-    breaks <- unique(pretty(results.grid$z, n = nlev))
-    nlev2 <- length(breaks)
-
-    col <- openColours(cols, (nlev2 - 1))
-    col <- c("transparent", col) ## add white at bottom
-    col.scale <- breaks
-
-    X <- x
-    Y <- y ## to avoid confusion with lattice function
-
-    scales <- list()
-    if (X == "wd")  scales <- list(x = list(at = seq(0, 360, 90)))
-
-    myform <- formula(paste("z ~ u * v |", type))
-
-    levelplot.args <- list(x = myform, results.grid,
-              as.table = TRUE,
-              strip = strip,
-              region = TRUE,
-              scales = scales,
-              colorkey = FALSE,
-
-              panel = function(x, y, z, subscripts,...) {
-
-                  panel.levelplot(x, y, z,
-                                  subscripts,
-                                  at = col.scale,
-                                  pretty = TRUE,
-                                  col.regions = col,
-                                  labels = FALSE)
-                  panel.grid(-1, 0, col = "grey90", lty = 5)
-                  if (X == "wd") {
-
-                      panel.abline(v = seq(0, 360, by = 90), col = "grey90", lty = 5)
-
-                  } else {
-
-                      panel.grid(0, -1, col = "grey90", lty = 5)
-
-                  }
-                  if (by[1] == "day" | by[1] == "dayhour") len <- "days" else len <- "hours"
-                  panel.text(0.03 * max(results.grid$u, na.rm = TRUE), 0.95 * max(results.grid$v,
-                                                       na.rm = TRUE),
-                             paste(round(results.grid[subscripts[1], "freq"]), len), pos = 4,
-                             cex = 0.7, ...)
-
-              })
-
-    #reset for extra.args
-    levelplot.args<- listUpdate(levelplot.args, extra.args)
-
-    #plot
-    ans <- do.call(levelplot, levelplot.args)
-
-    #reset if greyscale
-    if (length(cols) == 1 && cols == "greyscale")
-        trellis.par.set("strip.background", current.strip)
-    ans
+  # reset if greyscale
+  if (length(cols) == 1 && cols == "greyscale") {
+    trellis.par.set("strip.background", current.strip)
+  }
+  ans
 }
-
