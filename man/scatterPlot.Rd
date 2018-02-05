@@ -165,7 +165,7 @@ limits are set in the form \code{c(lower, upper)}, so \code{limits
 speed/direction shows as an arrow. The option is a list
 e.g. \code{windflow = list(col = "grey", lwd = 2, scale =
 0.1)}. This option requires wind speed (\code{ws}) and wind
-direction (\code{wd}) to be available. 
+direction (\code{wd}) to be available.
 
 The maximum length of the arrow plotted is a fraction of the plot
 dimension with the longest arrow being \code{scale} of the plot

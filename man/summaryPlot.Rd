@@ -12,37 +12,37 @@ summaryPlot(mydata, na.len = 24, clip = TRUE, percentile = 0.99,
   date.breaks = 7, auto.text = TRUE, ...)
 }
 \arguments{
-\item{mydata}{A data frame to be summarised. Must contain a 
+\item{mydata}{A data frame to be summarised. Must contain a
 \code{date} field and at least one other parameter.}
 
-\item{na.len}{Missing data are only shown with at least 
-\code{na.len} \emph{contiguous} missing vales. The purpose of 
+\item{na.len}{Missing data are only shown with at least
+\code{na.len} \emph{contiguous} missing vales. The purpose of
 setting \code{na.len} is for clarity: with long time series it
 is difficult to see where individual missing hours are.
 Furthermore, setting \code{na.len = 96}, for example would show
 where there are at least 4 days of continuous missing data.}
 
-\item{clip}{When data contain outliers, the histogram or density 
+\item{clip}{When data contain outliers, the histogram or density
 plot can fail to show the distribution of the main body of data.
 Setting \code{clip = TRUE}, will remove the top 1 % of data to
 yield what is often a better display of the overall distribution
-of the data. The amount of clipping can be set with 
+of the data. The amount of clipping can be set with
 \code{percentile}.}
 
-\item{percentile}{This is used to clip the data. For example, 
-\code{percentile = 0.99} (the default) will remove the top 1 
+\item{percentile}{This is used to clip the data. For example,
+\code{percentile = 0.99} (the default) will remove the top 1
 percentile of values i.e. values greater than the 99th
 percentile will not be used.}
 
-\item{type}{\code{type} is used to determine whether a histogram 
+\item{type}{\code{type} is used to determine whether a histogram
 (the default) or a density plot is used to show the distribution
 of the data.}
 
-\item{pollutant}{\code{pollutant} is used when there is a field 
+\item{pollutant}{\code{pollutant} is used when there is a field
 \code{site} and there is more than one site in the data frame.}
 
-\item{period}{\code{period} is either \code{years} (the default) 
-or \code{months}. Statistics are calculated depending on the 
+\item{period}{\code{period} is either \code{years} (the default)
+or \code{months}. Statistics are calculated depending on the
 \code{period} chosen.}
 
 \item{avg.time}{This defines the time period to average the time
@@ -55,15 +55,15 @@ space. For example, a timeAverage of 2 months would be
 
 \item{print.datacap}{Should the data capture \% be shown for each period?}
 
-\item{breaks}{Number of histogram bins. Sometime useful but not 
-easy to set a single value for a range of very different 
+\item{breaks}{Number of histogram bins. Sometime useful but not
+easy to set a single value for a range of very different
 variables.}
 
-\item{col.trend}{Colour to be used to show the monthly trend of 
+\item{col.trend}{Colour to be used to show the monthly trend of
 the data, shown as a shaded region. Type \code{colors()} into R
 to see the full range of colour names.}
 
-\item{col.data}{Colour to be used to show the \emph{presence} of 
+\item{col.data}{Colour to be used to show the \emph{presence} of
 data. Type \code{colors()} into R to see the full range of
 colour names.}
 
@@ -71,23 +71,23 @@ colour names.}
 
 \item{col.hist}{Colour for the histogram or density plot.}
 
-\item{cols}{Predefined colour scheme, currently only enabled for 
+\item{cols}{Predefined colour scheme, currently only enabled for
 \code{"greyscale"}.}
 
-\item{date.breaks}{Number of major x-axis intervals to use. The 
+\item{date.breaks}{Number of major x-axis intervals to use. The
 function will try and choose a sensible number of dates/times as
 well as formatting the date/time appropriately to the range
-being considered.  This does not always work as desired 
-automatically. The user can therefore increase or decrease the 
+being considered.  This does not always work as desired
+automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of \code{date.breaks}
 up or down.}
 
-\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If 
-\code{TRUE} titles and axis labels will automatically try and 
-format pollutant names and units properly e.g.  by subscripting 
+\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
+\code{TRUE} titles and axis labels will automatically try and
+format pollutant names and units properly e.g.  by subscripting
 the \sQuote{2} in NO2.}
 
-\item{...}{Other graphical parameters. Commonly used examples 
+\item{...}{Other graphical parameters. Commonly used examples
 include the axis and title labelling options (such as
 \code{xlab}, \code{ylab} and \code{main}), which are all passed
 to the plot via \code{quickText} to handle routine formatting.
@@ -97,50 +97,50 @@ a vector. For example, the default case (\code{type =
 "Percent of Total")}.}
 }
 \description{
-This function provides a quick graphical and numerical summary of 
-data. The location presence/absence of data are shown, with 
+This function provides a quick graphical and numerical summary of
+data. The location presence/absence of data are shown, with
 summary statistics and plots of variable distributions.
 \code{summaryPlot} can also provide summaries of a single
 pollutant across many sites.
 }
 \details{
-\code{summaryPlot} produces two panels of plots: one showing the 
+\code{summaryPlot} produces two panels of plots: one showing the
 presence/absence of data and the other the distributions. The left
-panel shows time series and codes the presence or absence of data 
-in different colours. By stacking the plots one on top of another 
-it is easy to compare different pollutants/variables. Overall 
-statistics are given for each variable: mean, maximum, minimum, 
-missing hours (also expressed as a percentage), median and the 
+panel shows time series and codes the presence or absence of data
+in different colours. By stacking the plots one on top of another
+it is easy to compare different pollutants/variables. Overall
+statistics are given for each variable: mean, maximum, minimum,
+missing hours (also expressed as a percentage), median and the
 95th percentile. For each year the data capture rate (expressed as
 a percentage of hours in that year) is also given.
 
-The right panel shows either a histogram or a density plot 
-depending on the choice of \code{type}. Density plots avoid the 
-issue of arbitrary bin sizes that can sometimes provide a 
+The right panel shows either a histogram or a density plot
+depending on the choice of \code{type}. Density plots avoid the
+issue of arbitrary bin sizes that can sometimes provide a
 misleading view of the data distribution.  Density plots are often
-more appropriate, but their effectiveness will depend on the data 
+more appropriate, but their effectiveness will depend on the data
 in question.
 
 \code{summaryPlot} will only show data that are numeric or integer
-type.  This is useful for checking that data have been imported 
-properly. For example, if for some reason a column representing 
-wind speed erroneosly had one or more fields with charcters in, 
-the whole column would be either character or factor type. The 
-absence of a wind speed variable in the \code{summaryPlot} plot 
-would therefore indicate a problem with the input data. In this 
-particular case, the user should go back to the source data and 
+type.  This is useful for checking that data have been imported
+properly. For example, if for some reason a column representing
+wind speed erroneosly had one or more fields with charcters in,
+the whole column would be either character or factor type. The
+absence of a wind speed variable in the \code{summaryPlot} plot
+would therefore indicate a problem with the input data. In this
+particular case, the user should go back to the source data and
 remove the characters or remove them using R functions.
 
-If there is a field \code{site}, which would generally mean there 
+If there is a field \code{site}, which would generally mean there
 is more than one site, \code{summaryPlot} will provide information
 on a \emph{single} pollutant across all sites, rather than provide
-details on all pollutants at a \emph{single} site. In this case 
+details on all pollutants at a \emph{single} site. In this case
 the user should also provide a name of a pollutant e.g.
 \code{pollutant = "nox"}. If a pollutant is not provided the first
 numeric field will automatically be chosen.
 
-\bold{It is strongly recommended that the \code{summaryPlot} 
-function is applied to all new imported data sets to ensure the 
+\bold{It is strongly recommended that the \code{summaryPlot}
+function is applied to all new imported data sets to ensure the
 data are imported as expected.}
 }
 \examples{

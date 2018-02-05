@@ -27,25 +27,25 @@ data are first linearly interpolated because \code{stl} cannot
 handle missing data.}
 
 \item{type}{\code{type} determines how the data are split i.e.
-conditioned, and then plotted. The default is will produce a 
-single plot using the entire data. Type can be one of the
-built-in types as detailed in \code{cutData} e.g.
-\dQuote{season}, \dQuote{year}, \dQuote{weekday} and so on. For
-example, \code{type = "season"} will produce four plots --- one
-for each season.
+  conditioned, and then plotted. The default is will produce a
+  single plot using the entire data. Type can be one of the
+  built-in types as detailed in \code{cutData} e.g.
+  \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so on. For
+  example, \code{type = "season"} will produce four plots --- one
+  for each season.
 
-It is also possible to choose \code{type} as another variable in
-the data frame. If that variable is numeric, then the data will
-be split into four quantiles (if possible) and labelled 
-accordingly. If type is an existing character or factor
-variable, then those categories/levels will be used directly.
-This offers great flexibility for understanding the variation of
-different variables and how they depend on one another.
+  It is also possible to choose \code{type} as another variable in
+  the data frame. If that variable is numeric, then the data will
+  be split into four quantiles (if possible) and labelled
+  accordingly. If type is an existing character or factor
+  variable, then those categories/levels will be used directly.
+  This offers great flexibility for understanding the variation of
+  different variables and how they depend on one another.
 
-Type can be up length two e.g. \code{type = c("season",
-"weekday")} will produce a 2x2 plot split by season and day of
-the week. Note, when two types are provided the first forms the
-columns and the second the rows.}
+  Type can be up length two e.g. \code{type = c("season",
+  "weekday")} will produce a 2x2 plot split by season and day of
+  the week. Note, when two types are provided the first forms the
+  columns and the second the rows.}
 
 \item{statistic}{Statistic used for calculating monthly values.
 Default is \dQuote{mean}, but can also be \dQuote{percentile}.
@@ -58,7 +58,7 @@ more years are required. For \dQuote{season} the data are plit
 up into spring: March, April, May etc. Note that December is
 considered as belonging to winter of the following year.}
 
-\item{percentile}{Percentile value(s) to use if \code{statistic = 
+\item{percentile}{Percentile value(s) to use if \code{statistic =
 "percentile"} is chosen. Can be a vector of numbers e.g.
 \code{percentile = c(5, 50, 95)} will plot the 5th, 50th and
 95th percentile values together on the same plot.}
@@ -72,14 +72,14 @@ be present for the average to be calculated, else it is recorded
 as \code{NA}. Not used if \code{avg.time = "default"}.}
 
 \item{simulate}{Should simulations be carried out to determine the
-Mann-Kendall tau and p-value. The default is \code{FALSE}. If 
+Mann-Kendall tau and p-value. The default is \code{FALSE}. If
 \code{TRUE}, bootstrap simulations are undertaken, which also
 account for autocorrelation.}
 
 \item{n}{Number of bootstrap simulations if \code{simulate =
 TRUE}.}
 
-\item{autocor}{Should autocorrelation be considered in the trend 
+\item{autocor}{Should autocorrelation be considered in the trend
 uncertainty estimates? The default is \code{FALSE}. Generally,
 accounting for autocorrelation increases the uncertainty of the
 trend estimate sometimes by a large amount.}
@@ -88,37 +88,37 @@ trend estimate sometimes by a large amount.}
 \code{cols = c("black", "green")} or pre-defined openair colours
 --- see \code{openColours} for more details.}
 
-\item{shade}{The colour used for marking alternate years. Use 
+\item{shade}{The colour used for marking alternate years. Use
 \dQuote{white} or \dQuote{transparent} to remove shading.}
 
 \item{xlab}{x-axis label, by default \dQuote{year}.}
 
 \item{y.relation}{This determines how the y-axis scale is plotted.
 "same" ensures all panels use the same scale and "free" will use
-panel-specfic scales. The latter is a useful setting when 
+panel-specfic scales. The latter is a useful setting when
 plotting data with very different values.  ref.x See
 \code{ref.y} for details. In this case the correct date format
-should be used for a vertical line e.g.  \code{ref.x = list(v = 
+should be used for a vertical line e.g.  \code{ref.x = list(v =
 as.POSIXct("2000-06-15"), lty = 5)}.}
 
 \item{ref.x}{See \code{ref.y}.}
 
-\item{ref.y}{A list with details of the horizontal lines to be 
+\item{ref.y}{A list with details of the horizontal lines to be
 added representing reference line(s). For example, \code{ref.y =
 list(h = 50, lty = 5)} will add a dashed horizontal line at 50.
-Several lines can be plotted e.g. \code{ref.y = list(h = c(50, 
-100), lty = c(1, 5), col = c("green", "blue"))}. See 
+Several lines can be plotted e.g. \code{ref.y = list(h = c(50,
+100), lty = c(1, 5), col = c("green", "blue"))}. See
 \code{panel.abline} in the \code{lattice} package for more
 details on adding/controlling lines.}
 
 \item{key.columns}{Number of columns used if a key is drawn when
 using the option \code{statistic = "percentile"}.}
 
-\item{name.pol}{Names to be given to the pollutant(s). This is 
+\item{name.pol}{Names to be given to the pollutant(s). This is
 useful if you want to give a fuller description of the
 variables, maybe also including subscripts etc.}
 
-\item{ci}{Should confidence intervals be plotted? The default is 
+\item{ci}{Should confidence intervals be plotted? The default is
 \code{FALSE}.}
 
 \item{alpha}{The alpha transparency of shaded confidence intervals
@@ -133,12 +133,12 @@ automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of \code{date.breaks}
 up or down.}
 
-\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If 
+\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
 \code{TRUE} titles and axis labels will automatically try and
 format pollutant names and units properly e.g.  by subscripting
 the \sQuote{2} in NO2.}
 
-\item{k}{This is the smoothing parameter used by the \code{gam} 
+\item{k}{This is the smoothing parameter used by the \code{gam}
 function in package \code{mgcv}. By default it is not used and
 the amount of smoothing is optimised automatically. However,
 sometimes it is useful to set the smoothing amount manually
@@ -153,7 +153,7 @@ than default northern) hemisphere handling of \code{type =
 \code{xlim} and \code{ylim} for plotting ranges and \code{pch}
 and \code{cex} for plot symbol type and size, are passed on
 \code{xyplot}, although some local modifications may be applied
-by openair. For example, axis and title labelling options (such 
+by openair. For example, axis and title labelling options (such
 as \code{xlab}, \code{ylab} and \code{main}) are passed to
 \code{xyplot} via \code{quickText} to handle routine formatting.
 One special case here is that many graphical parameters can be
@@ -161,18 +161,18 @@ vectors when used with \code{statistic = "percentile"} and a
 vector of \code{percentile} values, see examples below.}
 }
 \value{
-As well as generating the plot itself, \code{smoothTrend} 
+As well as generating the plot itself, \code{smoothTrend}
   also returns an object of class ``openair''. The object includes
   three main components: \code{call}, the command used to generate
-  the plot; \code{data}, the data frame of summarised information 
+  the plot; \code{data}, the data frame of summarised information
   used to make the plot; and \code{plot}, the plot itself. Note
-  that \code{data} is a list of two data frames: \code{data} (the 
+  that \code{data} is a list of two data frames: \code{data} (the
   original data) and \code{fit} (the smooth fit that has details
-  of the fit and teh uncertainties). If retained, e.g. using 
-  \code{output <- smoothTrend(mydata, "nox")}, this output can be 
+  of the fit and teh uncertainties). If retained, e.g. using
+  \code{output <- smoothTrend(mydata, "nox")}, this output can be
   used to recover the data, reproduce or rework the original plot
   or undertake further analysis.
-  
+
   An openair output can be manipulated using a number of generic
   operations, including \code{print}, \code{plot} and
   \code{summarise}.

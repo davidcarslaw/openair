@@ -12,39 +12,39 @@ cutData(x, type = "default", hemisphere = "northern", n.levels = 4,
 \item{x}{A data frame containing a field \code{date}.}
 
 \item{type}{A string giving the way in which the data frame should
-be split. Pre-defined values are: \dQuote{default}, 
-\dQuote{year}, \dQuote{hour}, \dQuote{month}, \dQuote{season}, 
-\dQuote{weekday}, \dQuote{site}, \dQuote{weekend}, 
-\dQuote{monthyear}, \dQuote{daylight}, \dQuote{dst} (daylight 
-saving time).
+  be split. Pre-defined values are: \dQuote{default},
+  \dQuote{year}, \dQuote{hour}, \dQuote{month}, \dQuote{season},
+  \dQuote{weekday}, \dQuote{site}, \dQuote{weekend},
+  \dQuote{monthyear}, \dQuote{daylight}, \dQuote{dst} (daylight
+  saving time).
 
-\code{type} can also be the name of a numeric or factor. If a 
-numeric column name is supplied \code{cutData} will split the 
-data into four quantiles. Factors levels will be used to split 
-the data without any adjustment.}
+  \code{type} can also be the name of a numeric or factor. If a
+  numeric column name is supplied \code{cutData} will split the
+  data into four quantiles. Factors levels will be used to split
+  the data without any adjustment.}
 
-\item{hemisphere}{Can be \code{"northern"} or \code{"southern"}, 
+\item{hemisphere}{Can be \code{"northern"} or \code{"southern"},
 used to split data into seasons.}
 
 \item{n.levels}{Number of quantiles to split numeric data into.}
 
-\item{start.day}{What day of the week should the \code{type = 
-"weekday"} start on?  The user can change the start day by 
-supplying an integer between 0 and 6. Sunday = 0, Monday = 1, 
-\ldots For example to start the weekday plots on a Saturday, 
+\item{start.day}{What day of the week should the \code{type =
+"weekday"} start on?  The user can change the start day by
+supplying an integer between 0 and 6. Sunday = 0, Monday = 1,
+\ldots For example to start the weekday plots on a Saturday,
 choose \code{start.day = 6}.}
 
-\item{is.axis}{A logical (\code{TRUE}/\code{FALSE}), used to 
+\item{is.axis}{A logical (\code{TRUE}/\code{FALSE}), used to
 request shortened cut labels for axes.}
 
-\item{local.tz}{Used for identifying whether a date has daylight 
-savings time (DST) applied or not. Examples include 
-\code{local.tz = "Europe/London"}, \code{local.tz = 
-"America/New_York"} i.e. time zones that assume DST. 
-\url{http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones} 
-shows time zones that should be valid for most systems. It is 
-important that the original data are in GMT (UTC) or a fixed 
-offset from GMT. See \code{import} and the openair manual for 
+\item{local.tz}{Used for identifying whether a date has daylight
+savings time (DST) applied or not. Examples include
+\code{local.tz = "Europe/London"}, \code{local.tz =
+"America/New_York"} i.e. time zones that assume DST.
+\url{http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones}
+shows time zones that should be valid for most systems. It is
+important that the original data are in GMT (UTC) or a fixed
+offset from GMT. See \code{import} and the openair manual for
 information on how to import data and ensure no DST is applied.}
 
 \item{latitude}{The decimal latitude used in \code{type =
@@ -53,11 +53,11 @@ information on how to import data and ensure no DST is applied.}
 \item{longitude}{The decimal longitude. Note that locations west
 of Greenwich are negative.}
 
-\item{...}{All additional parameters are passed on to next 
+\item{...}{All additional parameters are passed on to next
 function(s).}
 }
 \value{
-Returns a data frame with a column \code{cond} that is 
+Returns a data frame with a column \code{cond} that is
   defined by \code{type}.
 }
 \description{
@@ -108,11 +108,11 @@ sunset to give either daylight or nighttime. The cut is made by
 \code{cutDaylight} but more conveniently accessed via
 \code{cutData}, e.g. \code{cutData(mydata, type = "daylight",
 latitude = my.latitude, longitude = my.longitude)}. The daylight
-estimation, which is valid for dates between 1901 and 2099, is 
+estimation, which is valid for dates between 1901 and 2099, is
 made using the measurement location, date, time and astronomical
 algorithms to estimate the relative positions of the Sun and the
 measurement location on the Earth's surface, and is based on NOAA
-methods. 
+methods.
 Measurement location should be
 set using \code{latitude} (+ to North; - to South) and
 \code{longitude} (+ to East; - to West).
@@ -146,8 +146,8 @@ column \code{ws}.
 "site" splits the data by site and therefore requires a column
 \code{site}.
 
-Note that all the date-based types e.g. month/year are derived 
-from a column \code{date}. If a user already has a column with a 
+Note that all the date-based types e.g. month/year are derived
+from a column \code{date}. If a user already has a column with a
 name of one of the date-based types it will not be used.
 }
 \examples{

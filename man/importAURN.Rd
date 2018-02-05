@@ -27,7 +27,7 @@ hydrocarbon data and the resulting data frames are considerably larger.}
 
 \item{meta}{Should meta data be returned? If \code{TRUE} the site type, latitude and longitude are returned.}
 
-\item{verbose}{Should the function give messages when downloading files? 
+\item{verbose}{Should the function give messages when downloading files?
 Default is \code{FALSE}.}
 }
 \value{

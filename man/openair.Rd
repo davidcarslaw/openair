@@ -18,7 +18,7 @@ capabilities of these tools.
 \details{
 The project code is also developed using R-Forge
 (\url{http://r-forge.r-project.org/projects/openair/}).
- 
+
 \code{openair} contains collection of functions to analyse air pollution
 data. Typically it is expected that data are hourly means, although most
 functions consider other time periods. The principal aim to make

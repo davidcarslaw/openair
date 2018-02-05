@@ -45,11 +45,11 @@ useful for showing how trends diverge over time. Setting
 together in one panel.}
 
 \item{avg.time}{This defines the time period to average to. Can be
-\dQuote{sec}, \dQuote{min}, \dQuote{hour}, \dQuote{day}, 
+\dQuote{sec}, \dQuote{min}, \dQuote{hour}, \dQuote{day},
 \dQuote{DSTday}, \dQuote{week}, \dQuote{month}, \dQuote{quarter}
-or \dQuote{year}. For much increased flexibility a number can 
-precede these options followed by a space. For example, a 
-timeAverage of 2 months would be \code{period = "2 month"}. See 
+or \dQuote{year}. For much increased flexibility a number can
+precede these options followed by a space. For example, a
+timeAverage of 2 months would be \code{period = "2 month"}. See
 function \code{timeAverage} for further details on this.}
 
 \item{data.thresh}{The data capture threshold to use (\%) when
@@ -61,12 +61,12 @@ be present for the average to be calculated, else it is recorded
 as \code{NA}. Not used if \code{avg.time = "default"}.}
 
 \item{statistic}{The statistic to apply when aggregating the data;
-default is the mean. Can be one of \dQuote{mean}, \dQuote{max}, 
-\dQuote{min}, \dQuote{median}, \dQuote{frequency}, \dQuote{sd}, 
-\dQuote{percentile}. Note that \dQuote{sd} is the standard 
-deviation and \dQuote{frequency} is the number (frequency) of 
-valid records in the period.  \dQuote{percentile} is the 
-percentile level (\%) between 0-100, which can be set using the 
+default is the mean. Can be one of \dQuote{mean}, \dQuote{max},
+\dQuote{min}, \dQuote{median}, \dQuote{frequency}, \dQuote{sd},
+\dQuote{percentile}. Note that \dQuote{sd} is the standard
+deviation and \dQuote{frequency} is the number (frequency) of
+valid records in the period.  \dQuote{percentile} is the
+percentile level (\%) between 0-100, which can be set using the
 \dQuote{percentile} option - see below. Not used if
 \code{avg.time = "default"}.}
 
@@ -85,24 +85,24 @@ with a line connecting each chunk. For irregular data, set to
 than \code{default}.}
 
 \item{type}{\code{type} determines how the data are split i.e.
-conditioned, and then plotted. The default is will produce a 
-single plot using the entire data. Type can be one of the
-built-in types as detailed in \code{cutData} e.g.
-\dQuote{season}, \dQuote{year}, \dQuote{weekday} and so on. For
-example, \code{type = "season"} will produce four plots --- one
-for each season.
+  conditioned, and then plotted. The default is will produce a
+  single plot using the entire data. Type can be one of the
+  built-in types as detailed in \code{cutData} e.g.
+  \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so on. For
+  example, \code{type = "season"} will produce four plots --- one
+  for each season.
 
-It is also possible to choose \code{type} as another variable in
-the data frame. If that variable is numeric, then the data will
-be split into four quantiles (if possible) and labelled
-accordingly. If type is an existing character or factor
-variable, then those categories/levels will be used directly.
-This offers great flexibility for understanding the variation of
-different variables and how they depend on one another.
+  It is also possible to choose \code{type} as another variable in
+  the data frame. If that variable is numeric, then the data will
+  be split into four quantiles (if possible) and labelled
+  accordingly. If type is an existing character or factor
+  variable, then those categories/levels will be used directly.
+  This offers great flexibility for understanding the variation of
+  different variables and how they depend on one another.
 
-Only one \code{type} is currently allowed in \code{timePlot}.}
+  Only one \code{type} is currently allowed in \code{timePlot}.}
 
-\item{cols}{Colours to be used for plotting. Options include 
+\item{cols}{Colours to be used for plotting. Options include
 \dQuote{default}, \dQuote{increment}, \dQuote{heat},
 \dQuote{jet} and \code{RColorBrewer} colours --- see the
 \code{openair} \code{openColours} function for more details. For
@@ -110,8 +110,8 @@ user defined the user can supply a list of colour names
 recognised by R (type \code{colours()} to see the full list). An
 example would be \code{cols = c("yellow", "green", "blue")}}
 
-\item{plot.type}{The \code{lattice} plot type, which is a line 
-(\code{plot.type = "l"}) by default. Another useful option is 
+\item{plot.type}{The \code{lattice} plot type, which is a line
+(\code{plot.type = "l"}) by default. Another useful option is
 \code{plot.type = "h"}, which draws vertical lines.}
 
 \item{key}{Should a key be drawn? The default is \code{TRUE}.}
@@ -124,22 +124,22 @@ useful to use \code{log = TRUE} together with \code{group =
 TRUE}.}
 
 \item{windflow}{This option allows a scatter plot to show the wind
-speed/direction as an arrow. The option is a list e.g.
-\code{windflow = list(col = "grey", lwd = 2, scale = 0.1)}. This
-option requires wind speed (\code{ws}) and wind direction
-(\code{wd}) to be available.
+  speed/direction as an arrow. The option is a list e.g.
+  \code{windflow = list(col = "grey", lwd = 2, scale = 0.1)}. This
+  option requires wind speed (\code{ws}) and wind direction
+  (\code{wd}) to be available.
 
-The maximum length of the arrow plotted is a fraction of the
-plot dimension with the longest arrow being \code{scale} of the
-plot x-y dimension. Note, if the plot size is adjusted manually
-by the user it should be re-plotted to ensure the correct wind
-angle. The list may contain other options to \code{panel.arrows}
-in the \code{lattice} package. Other useful options include 
-\code{length}, which controls the length of the arrow head and 
-\code{angle}, which controls the angle of the arrow head.
+  The maximum length of the arrow plotted is a fraction of the
+  plot dimension with the longest arrow being \code{scale} of the
+  plot x-y dimension. Note, if the plot size is adjusted manually
+  by the user it should be re-plotted to ensure the correct wind
+  angle. The list may contain other options to \code{panel.arrows}
+  in the \code{lattice} package. Other useful options include
+  \code{length}, which controls the length of the arrow head and
+  \code{angle}, which controls the angle of the arrow head.
 
-This option works best where there are not too many data to
-ensure over-plotting does not become a problem.}
+  This option works best where there are not too many data to
+  ensure over-plotting does not become a problem.}
 
 \item{smooth}{Should a smooth line be applied to the data? The
 default is \code{FALSE}.}
@@ -152,15 +152,15 @@ determines whether the 95\% confidence intervals are shown.}
 panel-specific scales. The latter is a useful setting when
 plotting data with very different values.}
 
-\item{ref.x}{See \code{ref.y} for details. In this case the 
-correct date format should be used for a vertical line e.g. 
+\item{ref.x}{See \code{ref.y} for details. In this case the
+correct date format should be used for a vertical line e.g.
 \code{ref.x = list(v = as.POSIXct("2000-06-15"), lty = 5)}.}
 
-\item{ref.y}{A list with details of the horizontal lines to be 
+\item{ref.y}{A list with details of the horizontal lines to be
 added representing reference line(s). For example, \code{ref.y =
 list(h = 50, lty = 5)} will add a dashed horizontal line at 50.
-Several lines can be plotted e.g. \code{ref.y = list(h = c(50, 
-100), lty = c(1, 5), col = c("green", "blue"))}. See 
+Several lines can be plotted e.g. \code{ref.y = list(h = c(50,
+100), lty = c(1, 5), col = c("green", "blue"))}. See
 \code{panel.abline} in the \code{lattice} package for more
 details on adding/controlling lines.}
 
@@ -173,12 +173,12 @@ user can thus choose to use several columns by setting
 Can include \dQuote{top}, \dQuote{bottom}, \dQuote{right} and
 \dQuote{left}.}
 
-\item{name.pol}{This option can be used to give alternative names 
+\item{name.pol}{This option can be used to give alternative names
 for the variables plotted. Instead of taking the column headings
-as names, the user can supply replacements. For example, if a 
+as names, the user can supply replacements. For example, if a
 column had the name \dQuote{nox} and the user wanted a different
-description, then setting \code{name.pol = "nox before change"} 
-can be used. If more than one pollutant is plotted then use 
+description, then setting \code{name.pol = "nox before change"}
+can be used. If more than one pollutant is plotted then use
 \code{c} e.g. \code{name.pol = c("nox here", "o3 there")}.}
 
 \item{date.breaks}{Number of major x-axis intervals to use. The
@@ -189,29 +189,29 @@ automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of \code{date.breaks}
 up or down.}
 
-\item{date.format}{This option controls the date format on the 
-x-axis. While \code{timePlot} generally sets the date format 
-sensibly there can be some situations where the user wishes to 
-have more control. For format types see \code{strptime}. For 
-example, to format the date like \dQuote{Jan-2012} set 
+\item{date.format}{This option controls the date format on the
+x-axis. While \code{timePlot} generally sets the date format
+sensibly there can be some situations where the user wishes to
+have more control. For format types see \code{strptime}. For
+example, to format the date like \dQuote{Jan-2012} set
 \code{date.format = "\%b-\%Y"}.}
 
-\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If 
-\code{TRUE} titles and axis labels will automatically try and 
-format pollutant names and units properly e.g.  by subscripting 
+\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
+\code{TRUE} titles and axis labels will automatically try and
+format pollutant names and units properly e.g.  by subscripting
 the \sQuote{2} in NO2.}
 
 \item{...}{Other graphical parameters are passed onto
 \code{cutData} and \code{lattice:xyplot}. For example,
 \code{timePlot} passes the option \code{hemisphere = "southern"}
 on to \code{cutData} to provide southern (rather than default
-northern) hemisphere handling of \code{type = "season"}. 
+northern) hemisphere handling of \code{type = "season"}.
 Similarly, most common plotting parameters, such as
 \code{layout} for panel arrangement and \code{pch} and
 \code{cex} for plot symbol type and size and \code{lty} and
 \code{lwd} for line type and width, as passed to \code{xyplot},
 although some maybe locally managed by \code{openair} on route,
-e.g. axis and title labelling options (such as \code{xlab}, 
+e.g. axis and title labelling options (such as \code{xlab},
 \code{ylab}, \code{main}) are passed via \code{quickText} to
 handle routine formatting. See examples below.}
 }
@@ -224,7 +224,7 @@ As well as generating the plot itself, \code{timePlot}
   retained, e.g. using \code{output <- timePlot(mydata, "nox")},
   this output can be used to recover the data, reproduce or rework
   the original plot or undertake further analysis.
-  
+
   An openair output can be manipulated using a number of generic
   operations, including \code{print}, \code{plot} and
   \code{summary}.
@@ -234,7 +234,7 @@ Plot time series quickly, perhaps for multiple pollutants, grouped
 or in separate panels.
 }
 \details{
-The \code{timePlot} is the basic time series plotting function in 
+The \code{timePlot} is the basic time series plotting function in
 \code{openair}. Its purpose is to make it quick and easy to plot
 time series for pollutants and other variables. The other purpose
 is to plot potentially many variables together in as compact a way
@@ -320,8 +320,8 @@ c("nox", "no2"), lwd = c(1, 2), col = "black")
 
 }
 \seealso{
-\code{\link{TheilSen}}, \code{\link{smoothTrend}}, 
-  \code{\link{linearRelation}}, \code{\link{selectByDate}} and 
+\code{\link{TheilSen}}, \code{\link{smoothTrend}},
+  \code{\link{linearRelation}}, \code{\link{selectByDate}} and
   \code{\link{timeAverage}} for details on selecting averaging
   times and other statistics in a flexible way
 }

@@ -45,7 +45,7 @@ results <- binData(mydata, bin = "ws", uncer = "nox")
 # easy to plot this using ggplot2
 \dontrun{
 library(ggplot2)
-ggplot(results, aes(ws, mean, ymin = min, ymax = max)) + 
+ggplot(results, aes(ws, mean, ymin = min, ymax = max)) +
 geom_pointrange()
 
 }

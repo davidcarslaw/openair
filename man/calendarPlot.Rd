@@ -14,7 +14,7 @@ calendarPlot(mydata, pollutant = "nox", year = 2003, month = 1:12,
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{date} and at
-least one other numeric variable. The date should be in either 
+least one other numeric variable. The date should be in either
 \code{Date} format or class \code{POSIXct}.}
 
 \item{pollutant}{Mandatory. A pollutant name corresponding to a
@@ -23,24 +23,24 @@ variable in a data frame should be supplied e.g. \code{pollutant
 
 \item{year}{Year to plot e.g. \code{year = 2003}.}
 
-\item{month}{If only certain month are required. By default the 
+\item{month}{If only certain month are required. By default the
 function will plot an entire year even if months are missing. To
 only plot certain months use the \code{month} option where month
-is a numeric 1:12 e.g. \code{month = c(1, 12)} to only plot 
+is a numeric 1:12 e.g. \code{month = c(1, 12)} to only plot
 January and December.}
 
 \item{type}{Not yet implemented.}
 
-\item{annotate}{This option controls what appears on each day of 
-the calendar. Can be: \dQuote{date} --- shows day of the month; 
-\dQuote{wd} --- shows vector-averaged wind direction, or 
-\dQuote{ws} --- shows vector-averaged wind direction scaled by 
+\item{annotate}{This option controls what appears on each day of
+the calendar. Can be: \dQuote{date} --- shows day of the month;
+\dQuote{wd} --- shows vector-averaged wind direction, or
+\dQuote{ws} --- shows vector-averaged wind direction scaled by
 wind speed. Finally it can be \dQuote{value} which shows the
 daily mean value.}
 
 \item{statistic}{Statistic passed to \code{timeAverage}.}
 
-\item{cols}{Colours to be used for plotting. Options include 
+\item{cols}{Colours to be used for plotting. Options include
 \dQuote{default}, \dQuote{increment}, \dQuote{heat},
 \dQuote{jet} and \code{RColorBrewer} colours --- see the
 \code{openair} \code{openColours} function for more details. For
@@ -48,20 +48,20 @@ user defined the user can supply a list of colour names
 recognised by R (type \code{colours()} to see the full list). An
 example would be \code{cols = c("yellow", "green", "blue")}}
 
-\item{limits}{Use this option to manually set the colour scale 
+\item{limits}{Use this option to manually set the colour scale
 limits. This is useful in the case when there is a need for two
-or more plots and a consistent scale is needed on each. Set the 
+or more plots and a consistent scale is needed on each. Set the
 limits to cover the maximimum range of the data for all plots of
-interest. For example, if one plot had data covering 0--60 and 
+interest. For example, if one plot had data covering 0--60 and
 another 0--100, then set \code{limits = c(0, 100)}. Note that
 data will be ignored if outside the limits range.}
 
-\item{lim}{A threshold value to help differentiate values above 
+\item{lim}{A threshold value to help differentiate values above
 and below \code{lim}. It is used when \code{annotate = "value"}.
 See next few options for control over the labels used.}
 
-\item{col.lim}{For the annotation of concentration labels on each 
-day. The first sets the colour of the text below \code{lim} and 
+\item{col.lim}{For the annotation of concentration labels on each
+day. The first sets the colour of the text below \code{lim} and
 the second sets the colour of the text above \code{lim}.}
 
 \item{font.lim}{For the annotation of concentration labels on each
@@ -69,20 +69,20 @@ day. The first sets the font of the text below \code{lim} and
 the second sets the font of the text above \code{lim}. Note that
 font = 1 is normal text and font = 2 is bold text.}
 
-\item{cex.lim}{For the annotation of concentration labels on each 
-day. The first sets the size of the text below \code{lim} and 
+\item{cex.lim}{For the annotation of concentration labels on each
+day. The first sets the size of the text below \code{lim} and
 the second sets the size of the text above \code{lim}.}
 
-\item{digits}{The number of digits used to display concentration 
+\item{digits}{The number of digits used to display concentration
 values when \code{annotate = "value"}.}
 
-\item{data.thresh}{Data capture threshold passed to 
-\code{timeAverage}. For example, \code{data.thresh = 75} means 
+\item{data.thresh}{Data capture threshold passed to
+\code{timeAverage}. For example, \code{data.thresh = 75} means
 that at least 75\% of the data must be available in a day for
 the value to be calculate, else the data is removed.}
 
 \item{labels}{If a categorical scale is required then these labels
-will be used. Note there is one less label than break. For 
+will be used. Note there is one less label than break. For
 example, \code{labels = c("good", "bad", "very bad")}.
 \code{breaks} must also be supplied if labels are given.}
 
@@ -109,14 +109,14 @@ below the scale key. These arguments are passed to
 
 \item{key.footer}{see \code{key.header}.}
 
-\item{key.position}{Location where the scale key is to plotted. 
+\item{key.position}{Location where the scale key is to plotted.
 Allowed arguments currently include \code{"top"},
 \code{"right"}, \code{"bottom"} and \code{"left"}.}
 
 \item{key}{Fine control of the scale key via \code{drawOpenKey}.
 See \code{drawOpenKey} for further details.}
 
-\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If 
+\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
 \code{TRUE} titles and axis labels will automatically try and
 format pollutant names and units properly e.g.  by subscripting
 the `2' in NO2.}
@@ -136,24 +136,24 @@ As well as generating the plot itself, \code{calendarPlot}
   retained, e.g. using \code{output <- calendarPlot(mydata,
   "nox")}, this output can be used to recover the data, reproduce
   or rework the original plot or undertake further analysis.
-  
+
   An openair output can be manipulated using a number of generic
   operations, including \code{print}, \code{plot} and
   \code{summary}.
 }
 \description{
-This function will plot one year of data by month laid out in a 
+This function will plot one year of data by month laid out in a
 conventional calendar format. The main purpose is to help rapidly
 visualise potentially complex data in a familiar way. Users can
 also choose to show daily mean wind vectors if wind speed and
 direction are available.
 }
 \details{
-\code{calendarPlot} will plot one year of data in a conventional 
-calendar format i.e. by month and day of the week. The main 
+\code{calendarPlot} will plot one year of data in a conventional
+calendar format i.e. by month and day of the week. The main
 purpose of this function is to make it easy to visualise data in a
-familiar way. Daily statistics are calculated using 
-\code{\link{timeAverage}}, which by default will calculate the 
+familiar way. Daily statistics are calculated using
+\code{\link{timeAverage}}, which by default will calculate the
 daily mean concentration.
 
 If wind direction is available it is then possible to plot the
@@ -169,16 +169,16 @@ If wind speed is also available, then setting the option
 scaled to the wind speed. Thus information on the daily mean wind
 speed and direction are available.
 
-It is also possible to plot categorical scales. This is useful 
+It is also possible to plot categorical scales. This is useful
 where, for example, an air quality index defines concentrations as
 bands e.g. \dQuote{good}, \dQuote{poor}. In these cases users must
 supply \code{labels} and corresponding \code{breaks}.
 
-Note that is is possible to pre-calculate concentrations in some 
-way before passing the data to \code{calendarPlot}. For example 
-\code{\link{rollingMean}} could be used to calculate rolling 
-8-hour mean concentrations. The data can then be passed to 
-\code{calendarPlot} and \code{statistic = "max"} chosen, which 
+Note that is is possible to pre-calculate concentrations in some
+way before passing the data to \code{calendarPlot}. For example
+\code{\link{rollingMean}} could be used to calculate rolling
+8-hour mean concentrations. The data can then be passed to
+\code{calendarPlot} and \code{statistic = "max"} chosen, which
 will plot maximum daily 8-hour mean concentrations.
 }
 \examples{
