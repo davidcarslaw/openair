@@ -203,7 +203,8 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
   }
 
   mydata <- checkPrep(
-    mydata, pollutants, type = type,
+    mydata, pollutants,
+    type = type,
     remove.calm = FALSE
   )
 
@@ -404,7 +405,8 @@ panel.corrgram <- function(x, y, z, subscripts, at, level = 0.9, text.col,
 
   for (i in seq(along = id)) {
     ell <- ellipse(
-      z[id[i]], level = level, npoints = 50, scale = c(.2, .2),
+      z[id[i]],
+      level = level, npoints = 50, scale = c(.2, .2),
       centre = c(x[id[i]], y[id[i]])
     )
     panel.polygon(ell, col = zcol[id[i]], border = zcol[id[i]], ...)

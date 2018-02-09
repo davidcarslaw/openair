@@ -287,7 +287,8 @@ kernelExceed <- function(polar,
           results.grid$v,
           na.rm = TRUE
         ),
-        paste(round(results.grid[subscripts[1], "freq"]), len), pos = 4,
+        paste(round(results.grid[subscripts[1], "freq"]), len),
+        pos = 4,
         cex = 0.7, ...
       )
     }

@@ -41,7 +41,8 @@ try_require <- function(package, fun) {
 
   stop(
     "Package `", package, "` required for `", fun, "`.\n",
-    "Please install and try again.", call. = FALSE
+    "Please install and try again.",
+    call. = FALSE
   )
 }
 
@@ -361,7 +362,8 @@ one more label than date")
 
 
   mydata[, name] <- cut(
-    as.numeric(mydata$date), breaks = c(
+    as.numeric(mydata$date),
+    breaks = c(
       0, as.numeric(dates),
       max(mydata$date)
     ), labels = labels,
@@ -448,7 +450,8 @@ selectByDate <- function(mydata, start = "1/1/2008",
 
   ## check data - mostly date format
   mydata <- checkPrep(
-    mydata, vars, "default", remove.calm = FALSE,
+    mydata, vars, "default",
+    remove.calm = FALSE,
     strip.white = FALSE
   )
 
@@ -927,7 +930,8 @@ makeOpenKeyLegend <- function(key, default.key, fun.name = "function") {
       warning(
         paste(
           "In ", fun.name, "(...):\n unrecognised key not exported/applied\n",
-          " [see ?drawOpenKey for key structure/options]", sep = ""
+          " [see ?drawOpenKey for key structure/options]",
+          sep = ""
         ),
         call. = FALSE
       )

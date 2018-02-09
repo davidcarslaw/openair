@@ -200,7 +200,8 @@ cutData <- function(x, type = "default", hemisphere = "northern",
             x[[type]], unique(quantile(
               x[[type]],
               probs = seq(
-                0, 1, length =
+                0, 1,
+                length =
                   n.levels + 1
               ),
               na.rm = TRUE
@@ -214,7 +215,8 @@ cutData <- function(x, type = "default", hemisphere = "northern",
             x[[type]],
             probs = seq(0, 1, length = n.levels + 1),
             na.rm = TRUE
-          )), include.lowest = TRUE,
+          )),
+          include.lowest = TRUE,
           labels = FALSE
         )
 
@@ -231,7 +233,8 @@ cutData <- function(x, type = "default", hemisphere = "northern",
       if ("date" %in% names(x)) {
         x[[type]] <- factor(paste(
           format(min(x$date), "%d %B %Y"), " to ",
-          format(max(x$date), "%d %B %Y"), sep = ""
+          format(max(x$date), "%d %B %Y"),
+          sep = ""
         ))
         ## order the data by date
         x <- arrange(x, date)
@@ -329,7 +332,8 @@ cutData <- function(x, type = "default", hemisphere = "northern",
 
       ## calculate year
       x <- mutate(
-        x, year = lubridate::year(date),
+        x,
+        year = lubridate::year(date),
         month = lubridate::month(date)
       )
 
@@ -393,7 +397,8 @@ cutData <- function(x, type = "default", hemisphere = "northern",
       }
 
       x[[type]] <- cut(
-        x$wd, breaks = seq(22.5, 382.5, 45),
+        x$wd,
+        breaks = seq(22.5, 382.5, 45),
         labels = c(
           "NE", "E", "SE", "S", "SW", "W",
           "NW", "N"

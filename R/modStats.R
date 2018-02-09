@@ -156,7 +156,8 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
 
   ## check the data
   mydata <- checkPrep(
-    mydata, vars, type, remove.calm = FALSE,
+    mydata, vars, type,
+    remove.calm = FALSE,
     strip.white = FALSE
   )
 

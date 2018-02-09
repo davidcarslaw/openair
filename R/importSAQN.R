@@ -171,17 +171,16 @@ importSAQN <- function(site = "gla4", year = 2009, pollutant = "all") {
 
 
   loadData <- function(x) {
-    tryCatch(
-      {
-        fileName <- paste("http://www.scottishairquality.co.uk/openair/R_data/", x, ".RData", sep = "")
-        con <- url(fileName)
-        load(con, envir = .GlobalEnv)
-        close(con)
-        x
-      },
-      error = function(ex) {
-        cat(x, "does not exist - ignoring that one.\n")
-      }
+    tryCatch({
+      fileName <- paste("http://www.scottishairquality.co.uk/openair/R_data/", x, ".RData", sep = "")
+      con <- url(fileName)
+      load(con, envir = .GlobalEnv)
+      close(con)
+      x
+    },
+    error = function(ex) {
+      cat(x, "does not exist - ignoring that one.\n")
+    }
     )
   }
 

@@ -425,7 +425,8 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
     if (length(percentile) > 1) {
       mydata <- group_by(mydata, UQS(syms(type))) %>%
         do(calcPercentile(
-          ., pollutant = pollutant, avg.time = avg.time,
+          .,
+          pollutant = pollutant, avg.time = avg.time,
           data.thresh = data.thresh,
           percentile = percentile
         ))
@@ -435,7 +436,8 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
       if (missing(group)) group <- TRUE
     } else {
       mydata <- timeAverage(
-        mydata, pollutant = pollutant,
+        mydata,
+        pollutant = pollutant,
         type = type, statistic = statistic,
         avg.time = avg.time,
         data.thresh = data.thresh,
@@ -689,7 +691,8 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
       }
 
       panel.xyplot(
-        x, y, type = plot.type, lty = lty, lwd = lwd, pch = pch,
+        x, y,
+        type = plot.type, lty = lty, lwd = lwd, pch = pch,
         col.line = myColors[group.number],
         col.symbol = myColors[group.number], ...
       )
@@ -697,7 +700,8 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
       ## does not join consequtive points
       if (any(!is.na(Args$pch))) {
         lpoints(
-          x, y, type = "p", pch = Args$pch[group.number],
+          x, y,
+          type = "p", pch = Args$pch[group.number],
           col.symbol = myColors[group.number], ...
         )
       }
@@ -711,7 +715,8 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
       if (smooth) {
         panel.gam(
-          x, y, col = myColors[group.number],
+          x, y,
+          col = myColors[group.number],
           col.se = myColors[group.number],
           lty = 1, lwd = 1, se = ci, k = NULL, ...
         )

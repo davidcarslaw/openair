@@ -40,7 +40,7 @@ regci <- function(x, y, regfun = tsreg, nboot = 599, alpha = 0.05, autocor = aut
   x <- as.matrix(x)
   if (SEED) {
     set.seed(2)
-  }  ## set seed of random number generator so that
+  } ## set seed of random number generator so that
   ##             results can be duplicated.
   if (pr) {
     print("Taking bootstrap samples. Please wait.")

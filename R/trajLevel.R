@@ -464,7 +464,8 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
   ## the plot, note k is the smoothing parameter when suface smooth fitted
   scatterPlot.args <- list(
-    mydata, x = lon, y = lat, z = pollutant,
+    mydata,
+    x = lon, y = lat, z = pollutant,
     type = type, method = method, smooth = smooth,
     map = map, x.inc = lon.inc, y.inc = lat.inc,
     map.fill = map.fill, map.res = map.res,

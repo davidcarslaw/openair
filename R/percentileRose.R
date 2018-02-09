@@ -420,7 +420,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
   overall.upper <- quantile(mydata[[pollutant]], probs = max(percentile) / 100, na.rm = TRUE)
 
   results.grid <- plyr::ddply(
-    mydata, type, prepare.grid, stat = "percentile",
+    mydata, type, prepare.grid,
+    stat = "percentile",
     overall.lower, overall.upper
   )
 
@@ -430,9 +431,11 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
       "CPF at the ", max(percentile),
       "th percentile (=",
       round(max(quantile(
-        mydata[[pollutant]], probs = percentile / 100,
+        mydata[[pollutant]],
+        probs = percentile / 100,
         na.rm = TRUE
-      )), 1), ")", sep = ""
+      )), 1), ")",
+      sep = ""
     )
   }
 
@@ -492,7 +495,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     intervals <- intervals + -1 * min.int
     results$pollutant <- results$pollutant + -1 * min.int
     results.grid <- transform(
-      results, x = pollutant * sin(eval(wd) * pi / 180),
+      results,
+      x = pollutant * sin(eval(wd) * pi / 180),
       y = pollutant * cos(eval(wd) * pi / 180)
     )
   }
@@ -549,7 +553,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
       if (!is.na(zero)) {
         llines(
           intervals[zero] * sin(angles),
-          intervals[zero] * cos(angles), col = "grey85"
+          intervals[zero] * cos(angles),
+          col = "grey85"
         )
       }
 
@@ -562,7 +567,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
       ltext(
         0.7 * sin(pi * (angle.scale + 5) / 180) * max(intervals),
         0.7 * cos(pi * (angle.scale + 5) / 180) * max(intervals),
-        quickText(pollutant, auto.text), srt = 0, cex = 0.8, pos = 4
+        quickText(pollutant, auto.text),
+        srt = 0, cex = 0.8, pos = 4
       )
 
 
@@ -589,7 +595,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
       ltext(
         intervals * sin(pi * angle.scale / 180),
         intervals * cos(pi * angle.scale / 180),
-        paste(labs, c("", "", rep("", 7))), cex = 0.7
+        paste(labs, c("", "", rep("", 7))),
+        cex = 0.7
       )
     }, legend = legend
   )

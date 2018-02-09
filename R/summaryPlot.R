@@ -426,21 +426,24 @@ summaryPlot <- function(mydata,
       meanLine[[panelNo]]$value <- 1 + range01(meanLine[[panelNo]]$value) * 4
 
       panel.xyplot(
-        meanLine[[panelNo]]$date, meanLine[[panelNo]]$value, type = "l",
+        meanLine[[panelNo]]$date, meanLine[[panelNo]]$value,
+        type = "l",
         col = col.trend, ...
       )
 
       ## plot all data region
       with(mydata, lrect(
         as.numeric(min(date)), 0,
-        as.numeric(max(date)), 1, col = col.data, border = NA
+        as.numeric(max(date)), 1,
+        col = col.data, border = NA
       ))
 
       ## over-plot missing data - if there are any
       if (nrow(missing.dat[[panelNo]]) > 0) {
         lrect(
           as.numeric(missing.dat[[panelNo]]$starts), 0,
-          as.numeric(missing.dat[[panelNo]]$ends), 1, col = col.mis, border = NA
+          as.numeric(missing.dat[[panelNo]]$ends), 1,
+          col = col.mis, border = NA
         )
       }
       stats <- sum.stats[[panelNo]]$results
@@ -543,7 +546,8 @@ summaryPlot <- function(mydata,
       panel = function(x, ...) {
         panel.grid(-1, -1)
         panel.densityplot(
-          x, lwd = 2, plot.points = FALSE,
+          x,
+          lwd = 2, plot.points = FALSE,
           col = col.hist, ...
         )
       }

@@ -262,7 +262,8 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
     }
 
     scatterPlot.args <- list(
-      mydata, x = lon, y = lat, z = NA,
+      mydata,
+      x = lon, y = lat, z = NA,
       type = type, method = method,
       map = map, key = key, group = group,
       map.fill = map.fill, map.res = map.res,
@@ -279,7 +280,8 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
     }
 
     scatterPlot.args <- list(
-      mydata, x = lon, y = lat, z = pollutant,
+      mydata,
+      x = lon, y = lat, z = pollutant,
       type = type, method = method,
       map = map, group = group,
       map.fill = map.fill, map.res = map.res,
@@ -389,7 +391,8 @@ map.grid2 <- function(lim, nx = 9, ny = 9, labels = TRUE, pretty = TRUE,
     expand.grid(x = c(
       seq(lim[1], lim[2], len = 100),
       NA
-    ), y = y), projection = projection,
+    ), y = y),
+    projection = projection,
     parameters = parameters,
     orientation = orientation
   )
@@ -399,7 +402,8 @@ map.grid2 <- function(lim, nx = 9, ny = 9, labels = TRUE, pretty = TRUE,
     expand.grid(y = c(
       seq(lim[3], lim[4], len = 100),
       NA
-    ), x = x), projection = projection,
+    ), x = x),
+    projection = projection,
     parameters = parameters,
     orientation = orientation
   ), col = col, lty = lty, ...)
@@ -411,19 +415,23 @@ map.grid2 <- function(lim, nx = 9, ny = 9, labels = TRUE, pretty = TRUE,
     ltext(
       mapproject(
         expand.grid(x = x + xinc * 0.05, y = ty +
-          yinc * 0.5), projection = projection,
+          yinc * 0.5),
+        projection = projection,
         parameters = parameters,
         orientation = orientation
-      ), labels = auto.format(x), cex = cex,
+      ),
+      labels = auto.format(x), cex = cex,
       adj = c(0, 0), col = col, font = font, ...
     )
     ltext(
       mapproject(
         expand.grid(x = tx + xinc * 0.5, y = y +
-          yinc * 0.05), projection = projection,
+          yinc * 0.05),
+        projection = projection,
         parameters = parameters,
         orientation = orientation
-      ), labels = auto.format(y), cex = cex,
+      ),
+      labels = auto.format(y), cex = cex,
       adj = c(0, 0), col = col, font = font, ...
     )
   }

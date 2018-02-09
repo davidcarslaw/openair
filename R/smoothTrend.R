@@ -319,7 +319,8 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
     mydata <- group_by(mydata, UQS(syms(vars))) %>%
       do(calcPercentile(
-        ., pollutant = "value",
+        .,
+        pollutant = "value",
         avg.time = avg.time, percentile = percentile,
         data.thresh = data.thresh
       ))
@@ -328,7 +329,8 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
       subset(mydata, select = -variable),
       measure.vars = paste(
         "percentile.",
-        percentile, sep = ""
+        percentile,
+        sep = ""
       )
     )
   } else {
@@ -373,7 +375,8 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
       mydata[["value"]] <- approx(mydata[["value"]], n = length(mydata$value))$y
 
       myts <- ts(
-        mydata[["value"]], start = c(start.year, start.month),
+        mydata[["value"]],
+        start = c(start.year, start.month),
         end = c(end.year, end.month), frequency = 12
       )
 
@@ -544,14 +547,16 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
       }
 
       panel.xyplot(
-        x, y, type = "b", lwd = lwd,
+        x, y,
+        type = "b", lwd = lwd,
         lty = lty, pch = pch,
         col.line = myColors[group.number],
         col.symbol = myColors[group.number], ...
       )
 
       panel.gam(
-        x, y, col = myColors[group.number],
+        x, y,
+        col = myColors[group.number],
         k = k, myColors[group.number],
         simulate = simulate, n.sim = n,
         autocor = autocor, lty = 1, lwd = 1,

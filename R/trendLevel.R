@@ -264,7 +264,8 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
   if (length(x) > 1) {
     warning(paste(
       "\ttrendLevel does not allow multiple 'x' values.",
-      "\n\t[ignoring all but first]", sep = ""
+      "\n\t[ignoring all but first]",
+      sep = ""
     ), call. = FALSE)
     x <- x[1]
     xlab <- xlab[1]
@@ -272,7 +273,8 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
   if (length(y) > 1) {
     warning(paste(
       "\ttrendLevel does not allow multiple 'y' values.",
-      "\n\t[ignoring all but first]", sep = ""
+      "\n\t[ignoring all but first]",
+      sep = ""
     ), call. = FALSE)
     y <- y[1]
     ylab <- ylab[1]
@@ -281,7 +283,8 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
   if (length(type) > 2) {
     warning(paste(
       "\ttrendLevel allows up to two 'type' values.",
-      "\n\t[ignoring all but first two]", sep = ""
+      "\n\t[ignoring all but first two]",
+      sep = ""
     ), call. = FALSE)
     type <- type[1]
   }
@@ -537,7 +540,8 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
 
     ## cut data into categories
     newdata$cuts <- cut(
-      newdata[, pollutant], breaks = breaks, labels = labels,
+      newdata[, pollutant],
+      breaks = breaks, labels = labels,
       include.lowest = TRUE
     )
     n <- length(levels(newdata$cuts))

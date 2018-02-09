@@ -333,13 +333,15 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     if (length(conf.int) == 1L) {
       sub.text <- paste(
         "median and ", 100 * (1 - conf.int[1]), "/", 100 * conf.int[1],
-        "th quantiles", sep = ""
+        "th quantiles",
+        sep = ""
       )
     } else {
       sub.text <- paste(
         "median, ", 100 * (1 - conf.int[1]), "/", 100 * conf.int[1],
         " and ", 100 * (1 - conf.int[2]), "/", 100 * conf.int[2],
-        "th quantiles", sep = ""
+        "th quantiles",
+        sep = ""
       )
     }
   }
@@ -565,13 +567,15 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
 
   if (difference) {
     data.hour <- errorDiff(
-      mydata, vars = "hour", type = type, poll1 = poll1,
+      mydata,
+      vars = "hour", type = type, poll1 = poll1,
       poll2 = poll2, B = B, conf.int = conf.int
     )
   } else {
     data.hour <- group_by(conf_int, ci) %>%
       do(proc(
-        .$ci, mydata, vars = "hour", pollutant, type, B = B,
+        .$ci, mydata,
+        vars = "hour", pollutant, type, B = B,
         statistic = statistic
       ))
   }
@@ -628,13 +632,15 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
           ## plot once
           id <- which(data.hour$ci[subscripts] == data.hour$ci[1])
           panel.xyplot(
-            x[id], y[id], type = "l",
+            x[id], y[id],
+            type = "l",
             col.line = myColors[group.number], ...
           )
 
           if (ci) {
             mkpoly(
-              data.hour[subscripts, ], x = "hour", y = "Mean",
+              data.hour[subscripts, ],
+              x = "hour", y = "Mean",
               group.number, myColors, alpha
             )
           }
@@ -655,13 +661,15 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
 
   if (difference) {
     data.weekday <- errorDiff(
-      mydata, vars = "wkday", type = type, poll1 = poll1,
+      mydata,
+      vars = "wkday", type = type, poll1 = poll1,
       poll2 = poll2, B = B, conf.int = conf.int
     )
   } else {
     data.weekday <- group_by(conf_int, ci) %>%
       do(proc(
-        .$ci, mydata, vars = "wkday", pollutant, type, B = B,
+        .$ci, mydata,
+        vars = "wkday", pollutant, type, B = B,
         statistic = statistic
       ))
   }
@@ -712,13 +720,15 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
           ## only plot median once if 2 conf.int
           id <- which(data.weekday$ci[subscripts] == data.weekday$ci[1])
           panel.xyplot(
-            x[id], y[id], type = "l",
+            x[id], y[id],
+            type = "l",
             col.line = myColors[group.number], ...
           )
 
           if (ci) {
             mkrect(
-              data.weekday[subscripts, ], x = "wkday",
+              data.weekday[subscripts, ],
+              x = "wkday",
               y = "Mean", group.number, myColors, alpha
             )
           }
@@ -738,13 +748,15 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
 
   if (difference) {
     data.month <- errorDiff(
-      mydata, vars = "mnth", type = type, poll1 = poll1,
+      mydata,
+      vars = "mnth", type = type, poll1 = poll1,
       poll2 = poll2, B = B, conf.int = conf.int
     )
   } else {
     data.month <- group_by(conf_int, ci) %>%
       do(proc(
-        .$ci, mydata, vars = "mnth", pollutant, type, B = B,
+        .$ci, mydata,
+        vars = "mnth", pollutant, type, B = B,
         statistic = statistic
       ))
   }
@@ -810,14 +822,16 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
             ## lines not needed if split by season
             if (group != "season" || is.null(group)) {
               panel.xyplot(
-                x[id], y[id], type = pltType,
+                x[id], y[id],
+                type = pltType,
                 col.line = myColors[group.number], ...
               )
             }
 
             if (ci) {
               mkrect(
-                data.month[subscripts, ], x = "mnth",
+                data.month[subscripts, ],
+                x = "mnth",
                 y = "Mean", group.number, myColors, alpha
               )
             }
@@ -838,13 +852,15 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
 
   if (difference) {
     data.day.hour <- errorDiff(
-      mydata, vars = "day.hour", type = type, poll1 = poll1,
+      mydata,
+      vars = "day.hour", type = type, poll1 = poll1,
       poll2 = poll2, B = B, conf.int = conf.int
     )
   } else {
     data.day.hour <- group_by(conf_int, ci) %>%
       do(proc(
-        .$ci, mydata, vars = "day.hour", pollutant, type, B = B,
+        .$ci, mydata,
+        vars = "day.hour", pollutant, type, B = B,
         statistic = statistic
       ))
   }
@@ -922,13 +938,15 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
           id <- which(data.day.hour$ci[subscripts] == data.day.hour$ci[1])
 
           panel.xyplot(
-            x[id], y[id], type = "l",
+            x[id], y[id],
+            type = "l",
             col.line = myColors[group.number], ...
           )
 
           if (ci) {
             mkpoly(
-              data.day.hour[subscripts, ], x = "hour",
+              data.day.hour[subscripts, ],
+              x = "hour",
               y = "Mean", group.number, myColors, alpha
             )
           }
@@ -1029,7 +1047,8 @@ proc <- function(conf.int = conf.int, mydata, vars = "day.hour", pollutant, type
     if (vars == "mnth") myform <- formula(paste("value ~ variable + mnth +", type))
 
     mydata <- aggregate(
-      myform, data = mydata, FUN, B = B, statistic = statistic,
+      myform,
+      data = mydata, FUN, B = B, statistic = statistic,
       conf.int = conf.int
     )
     mydata
@@ -1039,7 +1058,8 @@ proc <- function(conf.int = conf.int, mydata, vars = "day.hour", pollutant, type
   if (any(!pollutant %in% "wd")) {
     data1 <- subset(mydata, variable != "wd")
     data1 <- summary.values(
-      data1, vars, stat, type, B = B, statistic = statistic,
+      data1, vars, stat, type,
+      B = B, statistic = statistic,
       conf.int = conf.int
     )
     data1 <- data.frame(subset(data1, select = -value), data1$value)
@@ -1145,13 +1165,15 @@ mkpoly <- function(dat, x = "hour", y = "Mean", group.number, myColors, alpha) {
 
   poly.na(
     dat[[x]][id1], dat$Lower[id1], dat[[x]][id1], dat$Upper[id1],
-    group.number, myColors, alpha = fac * alpha / 2
+    group.number, myColors,
+    alpha = fac * alpha / 2
   )
 
   if (len == 2L) {
     poly.na(
       dat[[x]][id2], dat$Lower[id2], dat[[x]][id2], dat$Upper[id2],
-      group.number, myColors, alpha = alpha
+      group.number, myColors,
+      alpha = alpha
     )
   }
 }
@@ -1172,14 +1194,16 @@ mkrect <- function(dat, x = "wkday", y = "Mean", group.number, myColors, alpha) 
 
   panel.rect(
     dat[[x]][id1] - 0.15 * fac, dat$Lower[id1], dat[[x]][id1] + 0.15 * fac,
-    dat$Upper[id1], fill = myColors[group.number],
+    dat$Upper[id1],
+    fill = myColors[group.number],
     border = NA, alpha = fac * alpha / 2
   )
 
   if (len == 2L) {
     panel.rect(
       dat[[x]][id2] - 0.3, dat$Lower[id2], dat[[x]][id2] + 0.3,
-      dat$Upper[id2], fill = myColors[group.number],
+      dat$Upper[id2],
+      fill = myColors[group.number],
       border = NA, alpha = alpha
     )
   }

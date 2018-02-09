@@ -275,7 +275,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
   ## ordinary conditional quantile plot
   pltCondQ <- conditionalQuantile(
-    mydata, obs = obs, mod = mod, type =
+    mydata,
+    obs = obs, mod = mod, type =
       type, bins = bins,
     key.position = "bottom", key.columns = 1,
     layout = c(1, NA), ...
@@ -307,7 +308,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     labs <- b + 0.5 * diff(bins)
 
     pred.cut <- cut(
-      pred, breaks = bins, include.lowest = TRUE,
+      pred,
+      breaks = bins, include.lowest = TRUE,
       labels = labs
     )
     pred.cut[is.na(pred.cut)] <- labs[1]
@@ -379,7 +381,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     myform <- formula(paste("Freq ~ .id | ", temp, sep = ""))
 
     clust.plt <- xyplot(
-      myform, data = clust.results,
+      myform,
+      data = clust.results,
       xlim = c(lo, hi * 1.05),
       ylim = c(0, 1),
       ylab = "proportion",
@@ -540,7 +543,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     suppressWarnings(print(thePlot, position = c(width, 0, 1, 1), more = FALSE))
   } else {
     suppressWarnings(print(useOuterStrips(
-      thePlot, strip = strip,
+      thePlot,
+      strip = strip,
       strip.left = strip.left
     ), position = c(width, 0, 1, 1), more = FALSE))
   }

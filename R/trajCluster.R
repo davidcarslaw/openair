@@ -282,7 +282,8 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     agg[["lat"]] <- tmp$y
 
     plot.args <- list(
-      agg, x = "lon", y = "lat", group = "cluster",
+      agg,
+      x = "lon", y = "lat", group = "cluster",
       col = cols, type = type, map = TRUE, map.fill = map.fill,
       map.cols = map.cols, map.alpha = map.alpha,
       projection = projection, parameters = parameters,

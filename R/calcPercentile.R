@@ -59,7 +59,8 @@ calcPercentile <- function(mydata, pollutant = "o3", avg.time = "month", percent
   make.percentile <- function(mydata, pollutant = "o3", avg.time = "month", percentile = 50,
                               data.thresh = 0, start = NA) {
     mydata <- timeAverage(
-      mydata, avg.time, statistic = "percentile", percentile = percentile,
+      mydata, avg.time,
+      statistic = "percentile", percentile = percentile,
       data.thresh = 0, start.date = NA
     )
     ## change column name
@@ -73,7 +74,8 @@ calcPercentile <- function(mydata, pollutant = "o3", avg.time = "month", percent
 
   mydata <- lapply(percentile, function(x)
     make.percentile(
-      mydata, pollutant = pollutant, avg.time = avg.time,
+      mydata,
+      pollutant = pollutant, avg.time = avg.time,
       data.thresh = data.thresh, percentile = x
     ))
 

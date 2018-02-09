@@ -373,7 +373,8 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   }
 
   plt <- xyplot(
-    myform, data = results,
+    myform,
+    data = results,
     as.table = TRUE,
     strip = strip,
     strip.left = strip.left,

@@ -206,13 +206,15 @@ loadData <- function(x, verbose) {
     # Build the file name
     fileName <- paste(
       "https://uk-air.defra.gov.uk/openair/R_data/", x,
-      ".RData", sep = ""
+      ".RData",
+      sep = ""
     )
 
     # No warnings needed, function gives message if file is not present
     suppressWarnings(
       download.file(
-        fileName, method = "libcurl", destfile = tmp,
+        fileName,
+        method = "libcurl", destfile = tmp,
         quiet = !verbose
       )
     )

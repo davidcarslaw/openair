@@ -162,7 +162,8 @@ importAURNCsv <- function(file = file.choose(), header.at = 5, data.at = 7, na.s
   date.name <- make.names(date.name)
   time.name <- make.names(time.name)
   site.1 <- read.table(
-    file, header = FALSE, sep = initial.ans$ops$sep,
+    file,
+    header = FALSE, sep = initial.ans$ops$sep,
     skip = (is.site - 1), nrows = 1, colClasses = "character",
     col.names = initial.ans$names, fill = TRUE, flush = TRUE
   )
@@ -223,7 +224,8 @@ importAURNCsv <- function(file = file.choose(), header.at = 5, data.at = 7, na.s
           ".", ans.names[(grep(
             data.order[i], ans.names,
             ignore.case = TRUE
-          )) - (i - 1)], sep = ""
+          )) - (i - 1)],
+          sep = ""
         )
       }
     }

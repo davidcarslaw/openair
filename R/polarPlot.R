@@ -695,14 +695,16 @@ polarPlot <-
 
         sub <- paste(
           "CPF (", format(Pval[1], digits = 2), " to ",
-          format(Pval[2], digits = 2), ")", sep = ""
+          format(Pval[2], digits = 2), ")",
+          sep = ""
         )
       } else {
         Pval <- quantile(mydata[, pollutant], probs = percentile / 100, na.rm = TRUE)
 
         sub <- paste(
           "CPF at the ", percentile,
-          "th percentile (=", format(Pval, digits = 2), ")", sep = ""
+          "th percentile (=", format(Pval, digits = 2), ")",
+          sep = ""
         )
       }
     } else {
@@ -719,7 +721,8 @@ polarPlot <-
       )
 
       x <- cut(
-        mydata[[x]], breaks = seq(0, max.ws, length = 31),
+        mydata[[x]],
+        breaks = seq(0, max.ws, length = 31),
         include.lowest = TRUE
       )
 
@@ -763,7 +766,8 @@ polarPlot <-
       } else {
         binned <- rowwise(ws.wd) %>%
           do(calculate_weighted_statistics(
-            ., mydata, statistic = statistic,
+            ., mydata,
+            statistic = statistic,
             x = nam.x, y = nam.wd, pol_1 = pollutant[1], pol_2 = pollutant[2],
             ws_spread = ws_spread, wd_spread = wd_spread, kernel, tau = tau
           ))
@@ -1072,7 +1076,8 @@ polarPlot <-
             paste(labels, c("", "", units, rep("", 7))),
             function(x)
               quickText(x, auto.text)
-          ), cex = 0.7, pos = 4
+          ),
+          cex = 0.7, pos = 4
         )
 
         ## add axis line to central polarPlot
@@ -1109,7 +1114,8 @@ polarPlot <-
       plot(plt)
     } else {
       plot(useOuterStrips(
-        plt, strip = strip,
+        plt,
+        strip = strip,
         strip.left = strip.left
       ))
     }
@@ -1248,7 +1254,8 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
     # Build model
     suppressWarnings(
       fit <- try(quantreg::rq(
-        thedata[[pol_1]] ~ thedata[[pol_2]], tau = tau,
+        thedata[[pol_1]] ~ thedata[[pol_2]],
+        tau = tau,
         weights = thedata[["weight"]], method = "br"
       ), TRUE)
     )

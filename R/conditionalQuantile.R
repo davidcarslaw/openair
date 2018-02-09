@@ -222,13 +222,15 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
     b <- bins[-length(bins)]
     labs <- b + 0.5 * diff(bins)
     obs.cut <- cut(
-      obs, breaks = bins, include.lowest = TRUE,
+      obs,
+      breaks = bins, include.lowest = TRUE,
       labels = labs
     )
     obs.cut[is.na(obs.cut)] <- labs[1]
     obs.cut <- as.numeric(as.character(obs.cut))
     pred.cut <- cut(
-      pred, breaks = bins, include.lowest = TRUE,
+      pred,
+      breaks = bins, include.lowest = TRUE,
       labels = labs
     )
     pred.cut[is.na(pred.cut)] <- labs[1]
@@ -312,12 +314,14 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
       poly.na(
         results$x[subscripts], results$q3[subscripts],
         results$x[subscripts],
-        results$q4[subscripts], myColors = col.2, alpha = 1
+        results$q4[subscripts],
+        myColors = col.2, alpha = 1
       )
       poly.na(
         results$x[subscripts], results$q1[subscripts],
         results$x[subscripts],
-        results$q2[subscripts], myColors = col.1, alpha = 1
+        results$q2[subscripts],
+        myColors = col.1, alpha = 1
       )
 
       ## match type and get limits for obs
@@ -360,7 +364,8 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
   pred.cut <- NULL ## avoid R NOTES
 
   histo <- histogram(
-    myform, data = hist.results, breaks = bins, type = "count",
+    myform,
+    data = hist.results, breaks = bins, type = "count",
     as.table = TRUE,
     strip = strip,
     strip.left = strip.left,
@@ -389,7 +394,8 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
     plot(thePlot)
   } else {
     plot(latticeExtra::useOuterStrips(
-      thePlot, strip = strip,
+      thePlot,
+      strip = strip,
       strip.left = strip.left
     ))
   }

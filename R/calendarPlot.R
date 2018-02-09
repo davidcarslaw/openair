@@ -278,7 +278,8 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   ## all the days in the year
   all.dates <- seq(
     as_date(paste(year, "-01-01", sep = "")),
-    as_date(paste(year, "-12-31", sep = "")), by = "day"
+    as_date(paste(year, "-12-31", sep = "")),
+    by = "day"
   )
 
   prepare.grid <- function(mydata, pollutant) {
@@ -486,7 +487,8 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
 
       if (annotate == "date") {
         ltext(
-          x, y, labels = mydata$date.mat[subscripts], cex = 0.6,
+          x, y,
+          labels = mydata$date.mat[subscripts], cex = 0.6,
           col = as.character(mydata$dateColour[subscripts])
         )
       }
@@ -497,7 +499,8 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
         ids <- which(date.col == "black")
         date.col[ids] <- "transparent"
         ltext(
-          x, y, labels = mydata$date.mat[subscripts], cex = 0.6,
+          x, y,
+          labels = mydata$date.mat[subscripts], cex = 0.6,
           col = date.col
         )
 
@@ -523,7 +526,8 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
           the.labs[id] <- ""
         }
         ltext(
-          x, y, labels = the.labs, cex = the.cex,
+          x, y,
+          labels = the.labs, cex = the.cex,
           font = the.font, col = the.cols
         )
       }

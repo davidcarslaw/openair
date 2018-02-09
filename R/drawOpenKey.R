@@ -267,7 +267,8 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
       "\n\tplease use one of:\n\t\"", paste(
         temp,
         sep = "", collapse = "\", \""
-      ), "\"", call. = FALSE
+      ), "\"",
+      call. = FALSE
     )
   }
 
@@ -503,7 +504,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
         c("center", "bottom")
       } else {
         c("left", "center")
-      } , rot = rot, gp = gpar(
+      }, rot = rot, gp = gpar(
         col = col,
         cex = cex, fontfamily = fontfamily, fontface = chooseFace(
           fontface,
@@ -539,7 +540,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
           c("center", "bottom")
         } else {
           c("left", "center")
-        } , rot = rot, gp = gpar(
+        }, rot = rot, gp = gpar(
           col = col,
           cex = cex, fontfamily = fontfamily, fontface = chooseFace(
             fontface,
@@ -562,7 +563,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
         c("center", "bottom")
       } else {
         c("left", "center")
-      } , rot = rot, gp = gpar(
+      }, rot = rot, gp = gpar(
         col = col,
         cex = cex, fontfamily = fontfamily, fontface = chooseFace(
           fontface,
@@ -629,7 +630,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
         c("center", "bottom")
       } else {
         c("right", "center")
-      } , rot = rot, gp = gpar(
+      }, rot = rot, gp = gpar(
         col = col,
         cex = cex, fontfamily = fontfamily, fontface = chooseFace(
           fontface,
@@ -665,7 +666,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
           c("center", "bottom")
         } else {
           c("right", "center")
-        } , rot = rot, gp = gpar(
+        }, rot = rot, gp = gpar(
           col = col,
           cex = cex, fontfamily = fontfamily, fontface = chooseFace(
             fontface,
@@ -690,7 +691,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
           c("center", "bottom")
         } else {
           c("right", "center")
-        } , rot = rot, gp = gpar(
+        }, rot = rot, gp = gpar(
           col = col,
           cex = cex, fontfamily = fontfamily, fontface = chooseFace(
             fontface,
@@ -698,7 +699,8 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
           )
         )
       )
-      , row = 6, col = 1
+      ,
+      row = 6, col = 1
     )
     key.gf <- placeGrob(key.gf, rectGrob(
       x = rep(0.5, length(reccentre)),
@@ -755,7 +757,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
         c("center", "bottom")
       } else {
         c("left", "center")
-      } , rot = rot, gp = gpar(
+      }, rot = rot, gp = gpar(
         col = col,
         cex = cex, fontfamily = fontfamily, fontface = chooseFace(
           fontface,
@@ -770,7 +772,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
         c("center", "bottom")
       } else {
         c("left", "center")
-      } , rot = rot, gp = gpar(
+      }, rot = rot, gp = gpar(
         col = col,
         cex = cex, fontfamily = fontfamily, fontface = chooseFace(
           fontface,
@@ -785,7 +787,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
         c("center", "bottom")
       } else {
         c("left", "center")
-      } , rot = rot, gp = gpar(
+      }, rot = rot, gp = gpar(
         col = col,
         cex = cex, fontfamily = fontfamily, fontface = chooseFace(
           fontface,
@@ -816,7 +818,8 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
     heights.data <- list(keyGrob2, keyGrob, labelsGrob, NULL, NULL)
     key.layout <- grid.layout(nrow = 5, ncol = 3, heights = unit(
       heights.x,
-      heights.units, data = heights.data
+      heights.units,
+      data = heights.data
     ), widths = unit(
       widths.x,
       widths.units
@@ -896,7 +899,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
         c("center", "bottom")
       } else {
         c("left", "center")
-      } , rot = rot, gp = gpar(
+      }, rot = rot, gp = gpar(
         col = col,
         cex = cex, fontfamily = fontfamily, fontface = chooseFace(
           fontface,
@@ -911,7 +914,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
         c("center", "bottom")
       } else {
         c("left", "center")
-      } , rot = rot, gp = gpar(
+      }, rot = rot, gp = gpar(
         col = col,
         cex = cex, fontfamily = fontfamily, fontface = chooseFace(
           fontface,
@@ -926,7 +929,7 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
         c("center", "bottom")
       } else {
         c("left", "center")
-      } , rot = rot, gp = gpar(
+      }, rot = rot, gp = gpar(
         col = col,
         cex = cex, fontfamily = fontfamily, fontface = chooseFace(
           fontface,
@@ -941,7 +944,8 @@ drawOpenKey <- function(key, draw = FALSE, vp = NULL) {
     heights.data <- list(NULL, NULL, labelsGrob, keyGrob, keyGrob2)
     key.layout <- grid.layout(nrow = 5, ncol = 3, heights = unit(
       heights.x,
-      heights.units, data = heights.data
+      heights.units,
+      data = heights.data
     ), widths = unit(
       widths.x,
       widths.units

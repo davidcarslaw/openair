@@ -284,7 +284,8 @@ importADMSBgd <- function(file=file.choose()
   }
 
   ans <- read.csv(
-    file, header = FALSE, skip = data.start
+    file,
+    header = FALSE, skip = data.start
     , na.strings = c("", "NA", "-999", "-999.0")
     , ...
   )
@@ -322,7 +323,8 @@ importADMSBgd <- function(file=file.choose()
     if (length(ids) == nrow(ans)) {
       stop(
         "Invalid date (and time) format requested\n       [compare openair import settings and data structure]"
-        , call. = FALSE
+        ,
+        call. = FALSE
       )
     }
     ans <- ans[-ids, ]
@@ -465,7 +467,8 @@ importADMSMet <- function(file = file.choose()
     met <- met[-ids, ]
     reply <- paste(
       "Missing dates detected, removing", length(ids),
-      "line", sep = " "
+      "line",
+      sep = " "
     )
     if (length(ids) > 1) {
       reply <- paste(reply, "s", sep = "")
@@ -536,14 +539,16 @@ importADMSMop <- function(file=file.choose()
     if (length(x.1) == 0 | length(x.2) == 0) {
       stop(
         "File not recognised ADMS.mop structure\n       [please contact openair if valid]"
-        , call. = FALSE
+        ,
+        call. = FALSE
       )
     }
   }
 
   # read in data
   ans <- read.csv(
-    file, header = FALSE, skip = 1
+    file,
+    header = FALSE, skip = 1
     , na.strings = c("", "NA", "-999", "-999.0")
     , ...
   )
@@ -558,7 +563,8 @@ importADMSMop <- function(file=file.choose()
   if (ncol(ans) != length(check.names)) {
     warning(
       "Unexpected name/data mismatch, handled pragmatically\n       [compare openair import settings and data structure]"
-      , call. = FALSE
+      ,
+      call. = FALSE
     )
   }
 
@@ -579,7 +585,8 @@ importADMSMop <- function(file=file.choose()
       } else {
         warning(
           "Unexpected add.prefixes option, option treated as FALSE\n       [check openair import settings]"
-          , call. = FALSE
+          ,
+          call. = FALSE
         )
       }
     }
@@ -595,7 +602,8 @@ importADMSMop <- function(file=file.choose()
     ans[, temp][ans[, temp] == 0] <- 360
     warning(
       "Zero wind directions encountered, resetting to 360"
-      , call. = FALSE
+      ,
+      call. = FALSE
     )
   }
 
@@ -628,7 +636,8 @@ importADMSMop <- function(file=file.choose()
     if (length(ids) == nrow(ans)) {
       stop(
         "Invalid date (and time) format requested\n       [compare openair import settings and data structure]"
-        , call. = FALSE
+        ,
+        call. = FALSE
       )
     }
     ans <- ans[-ids, ]
@@ -692,14 +701,16 @@ importADMSPst <- function(file=file.choose()
     if (!identical(temp, test)) {
       stop(
         "File not recognised ADMS.pst structure\n       [please contact openair if valid]"
-        , call. = FALSE
+        ,
+        call. = FALSE
       )
     }
   }
 
   # read in data
   ans <- read.csv(
-    file, header = FALSE, skip = 1
+    file,
+    header = FALSE, skip = 1
     , na.strings = c("", "NA", "-999", "-999.0")
     , ...
   )
@@ -711,7 +722,8 @@ importADMSPst <- function(file=file.choose()
   if (ncol(ans) != length(check.names)) {
     warning(
       "Unexpected name/data mismatch, handled pragmatically\n       [compare openair import settings and data structure]"
-      , call. = FALSE
+      ,
+      call. = FALSE
     )
   }
 
@@ -761,7 +773,8 @@ importADMSPst <- function(file=file.choose()
     if (length(ids) == nrow(ans)) {
       stop(
         "Invalid date (and time) format requested\n       [compare openair import settings and data structure]"
-        , call. = FALSE
+        ,
+        call. = FALSE
       )
     }
     ans <- ans[-ids, ]

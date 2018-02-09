@@ -129,310 +129,375 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
                            ylab = paste0("slope from ", y, " = m.", x, " + c"),
                            auto.text = TRUE, cols = "grey30", date.breaks= 5, ...) {
 
-    ## get rid of R check annoyances
-    nox = ox = cond = rsquare = N = r.thresh = NULL
+  ## get rid of R check annoyances
+  nox <- ox <- cond <- rsquare <- N <- r.thresh <- NULL
 
-    adj <- 1 ## factors for ratios (oxidant is a percentage)
+  adj <- 1 ## factors for ratios (oxidant is a percentage)
 
-    ## set graphics
-    current.strip <- trellis.par.get("strip.background")
-    current.font <- trellis.par.get("fontsize")
-    
-    ## reset graphic parameters
-    on.exit(trellis.par.set(strip.background = current.strip,
-                            fontsize = current.font))
+  ## set graphics
+  current.strip <- trellis.par.get("strip.background")
+  current.font <- trellis.par.get("fontsize")
 
-    #greyscale handling
-    if (length(cols) == 1 && cols == "greyscale") {
+  ## reset graphic parameters
+  on.exit(trellis.par.set(
+    strip.background = current.strip,
+    fontsize = current.font
+  ))
 
-        trellis.par.set(list(strip.background = list(col = "white")))
-        #other local colours
-        data.col <- "darkgrey"
-        line.col <- "black"
+  # greyscale handling
+  if (length(cols) == 1 && cols == "greyscale") {
+    trellis.par.set(list(strip.background = list(col = "white")))
+    # other local colours
+    data.col <- "darkgrey"
+    line.col <- "black"
+  } else {
+    data.col <- cols
+    line.col <- "red"
+  }
+
+
+  ## Args setup
+  Args <- list(...)
+
+  ## label controls
+  ##  ylab handled in args because unique
+  ## further xlab handled in code because mulitple outputs by period
+  Args$xlab <- if ("xlab" %in% names(Args)) {
+    quickText(Args$xlab, auto.text)
+  } else {
+    NULL
+  }
+
+  xlim <- if ("xlim" %in% names(Args)) {
+    Args$xlim
+  } else {
+    NULL
+  }
+
+  Args$pch <- if ("pch" %in% names(Args)) {
+    Args$pch
+  } else {
+    16
+  }
+
+  Args$cex <- if ("cex" %in% names(Args)) {
+    Args$cex
+  } else {
+    1
+  }
+
+  Args$main <- if ("main" %in% names(Args)) {
+    quickText(Args$main, auto.text)
+  } else {
+    quickText("", auto.text)
+  }
+
+  if ("fontsize" %in% names(Args)) {
+    trellis.par.set(fontsize = list(text = Args$fontsize))
+  }
+
+
+  ## prepare data
+  if ("ox" %in% tolower(c(x, y))) {
+    vars <- c("date", "nox", "no2", "ox")
+    mydata$ox <- mydata$no2 + mydata$o3
+    mydata <- subset(mydata, nox > 0 & ox > 0)
+    if (missing(ylab)) ylab <- "f-no2 (%) by vol."
+    adj <- 100
+  } else {
+    vars <- c("date", x, y)
+  }
+
+  mydata <- checkPrep(mydata, vars, "default", remove.calm = FALSE)
+  mydata <- na.omit(mydata)
+
+  if (!condition) {
+    mydata$cond <- paste(
+      format(min(mydata$date), "%d/%/%m/%Y"),
+      " to ", format(max(mydata$date), "%d/%/%m/%Y")
+    )
+  } else { ## condition by year
+    mydata$cond <- format(mydata$date, "%Y")
+  }
+
+  model <- function(df) lm(eval(paste(y, "~", x)), data = df)
+  rsq <- function(x) summary(x)$r.squared
+  seslope <- function(x) {
+    if (nrow(summary(x)$coefficients) == 2) {
+      2 * summary(x)$coefficients[2, 2] ## 95 % CI; need two rows in coefs
     } else {
-        data.col <- cols
-        line.col <- "red"
+      NA
+    }
+  }
+  len <- function(x) nrow(x$model)
+
+  ## y range taking account of expanded uncertainties
+  rng <- function(x) {
+    lims <- range(c(x$slope - x$seslope, x$slope + x$seslope), na.rm = TRUE)
+    inc <- 0.04 * abs(lims[2] - lims[1])
+    lims <- c(lims[1] - inc, lims[2] + inc)
+    lims
+  }
+  ## ############################################################################
+  if (period == "hour") {
+
+    # xlab default
+    if (is.null(Args$xlab)) {
+      Args$xlab <- "hour"
     }
 
+    models <- plyr::dlply(
+      mydata,
+      .(cond, hour = as.numeric(format(date, "%H"))),
+      model
+    )
+    results <- plyr::ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
+    names(results) <- c(
+      "cond", "hour", "intercept", "slope",
+      "rsquare", "seslope", "N"
+    )
+    results$slope <- results$slope * adj
+    results$seslope <- results$seslope * adj
+    results <- subset(results, rsquare >= rsq.thresh & N >= n)
 
-    ## Args setup
-    Args <- list(...)
+    eq <- formula(slope ~ hour)
+    if (condition) eq <- formula(slope ~ hour | cond)
+    if (!"ylim" %in% names(Args)) ylim <- rng(results)
 
-    ## label controls
-    ##  ylab handled in args because unique
-    ## further xlab handled in code because mulitple outputs by period
-    Args$xlab <- if ("xlab" %in% names(Args))
-                           quickText(Args$xlab, auto.text) else NULL
+    xyplot.args <- list(
+      x = eq, data = results, as.table = TRUE,
+      ylab = quickText(ylab, auto.text),
+      scales = list(x = list(at = c(0, 6, 12, 18, 23))),
+      ...,
+      panel = function(x, y, pch, cex, subscripts, ...) {
+        panel.grid(-1, 0)
+        panel.abline(v = c(0, 6, 12, 18, 23), col = "grey85")
+        panel.xyplot(x, y,
+          col = data.col, pch = Args$pch,
+          cex = Args$cex, ...
+        )
+        panel.segments(x, y - results$seslope[subscripts], x,
+          y + results$seslope[subscripts],
+          col = data.col,
+          lwd = 2
+        )
+      }
+    )
 
-    xlim <- if ("xlim" %in% names(Args))
-        Args$xlim else  NULL
+    # reset for Args
+    xyplot.args <- listUpdate(xyplot.args, Args)
 
-    Args$pch <- if ("pch" %in% names(Args))
-                          Args$pch else 16
+    # plot
+    plt <- do.call(xyplot, xyplot.args)
+  }
+  ## ###############################################################################
+  ## flexible time period
 
-    Args$cex <- if ("cex" %in% names(Args))
-                           Args$cex else 1
-    
-    Args$main <- if ("main" %in% names(Args))
-                           quickText(Args$main, auto.text) else quickText("", auto.text)
+  if (!period %in% c("hour", "weekday", "day.hour")) {
+    mydata$cond <- cut(mydata$date, period)
+    models <- plyr::dlply(mydata, .(cond), model)
+    results <- plyr::ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
 
-    if ("fontsize" %in% names(Args))
-        trellis.par.set(fontsize = list(text = Args$fontsize))
+    names(results) <- c(
+      "cond", "intercept", "slope",
+      "rsquare", "seslope", "N"
+    )
+    results$slope <- results$slope * adj
+    results$seslope <- results$seslope * adj
+    results$date <- as.POSIXct(results$cond, "GMT")
 
+    results <- subset(results, rsquare >= rsq.thresh & N >= n)
 
-    ## prepare data
-    if ("ox" %in% tolower(c(x, y))) {
-        vars <- c("date", "nox", "no2", "ox")
-        mydata$ox <- mydata$no2 + mydata$o3
-        mydata <- subset(mydata, nox > 0 & ox > 0)
-        if (missing(ylab)) ylab <- "f-no2 (%) by vol."
-        adj <- 100
-    } else {
-        vars <- c("date", x, y)
-    }
+    ## date grid lines
+    dates <- dateBreaks(mydata$date, date.breaks)$major ## for date scale
 
-    mydata <- checkPrep(mydata, vars, "default", remove.calm = FALSE)
-    mydata <- na.omit(mydata)
+    ## date axis formating
 
-    if (!condition) {
-        mydata$cond <- paste(format(min(mydata$date), "%d/%/%m/%Y"),
-                             " to ", format(max(mydata$date), "%d/%/%m/%Y"))
-    } else {   ## condition by year
-        mydata$cond <- format(mydata$date, "%Y")
-    }
+    formats <- dateBreaks(mydata$date, date.breaks)$format
 
-    model <- function(df)  lm(eval(paste(y, "~", x)), data = df) 
-    rsq <- function(x) summary(x)$r.squared
-    seslope <-  function(x) { if (nrow(summary(x)$coefficients) == 2) {
-        2 * summary(x)$coefficients[2, 2]  ## 95 % CI; need two rows in coefs
-    } else {
-        NA
-    }}
-    len <-  function(x) nrow(x$model)
+    scales <- list(x = list(at = dates, format = formats))
 
-    ## y range taking account of expanded uncertainties
-    rng <- function(x) {
-        lims <- range(c(x$slope - x$seslope, x$slope + x$seslope), na.rm = TRUE)
-        inc <- 0.04 * abs(lims[2] - lims[1])
-        lims <- c(lims[1] - inc, lims[2] + inc)
-        lims
-    }
-    ## ############################################################################
-    if (period == "hour") {
+    ## allow reasonable gaps at ends, default has too much padding
+    gap <- difftime(max(mydata$date), min(mydata$date), units = "secs") / 80
+    if (is.null(xlim)) xlim <- range(mydata$date) + c(-1 * gap, gap)
 
-        #xlab default
-        if(is.null(Args$xlab))
-            Args$xlab <- "hour"
+    if (!"ylim" %in% names(Args)) ylim <- rng(results)
 
-        models <- plyr::dlply(mydata,
-                              .(cond, hour = as.numeric(format(date, "%H"))),
-                              model)
-        results <- plyr::ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
-        names(results) <- c("cond", "hour", "intercept", "slope",
-                            "rsquare", "seslope", "N")
-        results$slope <- results$slope * adj
-        results$seslope <- results$seslope * adj
-        results <- subset(results, rsquare >= rsq.thresh & N >= n)
+    xyplot.args <- list(
+      x = slope ~ date, data = results,
+      scales = scales,
+      xlim = xlim,
+      ylab = quickText(ylab, auto.text), ...,
+      panel = function(x, y, pch, cex, subscripts, ...) {
+        panel.grid(-1, 0)
+        panel.abline(v = dates, col = "grey90")
+        panel.xyplot(x, y,
+          col = data.col, pch = Args$pch,
+          cex = Args$cex, ...
+        )
+        panel.segments(x, y - results$seslope[subscripts], x,
+          y + results$seslope[subscripts],
+          col = data.col,
+          lwd = 2
+        )
+      }
+    )
+    ## reset for Args
+    xyplot.args <- listUpdate(xyplot.args, Args)
 
-        eq <- formula(slope ~ hour)
-        if (condition) eq <- formula(slope ~ hour | cond)
-        if (!"ylim" %in% names(Args)) ylim <- rng(results)
+    # plot
+    plt <- do.call(xyplot, xyplot.args)
+  }
 
-        xyplot.args <- list(x = eq, data = results, as.table = TRUE,
-                            ylab = quickText(ylab, auto.text),
-                            scales = list(x = list(at = c(0, 6, 12, 18, 23))),
-                            ...,
-                            panel = function(x, y, pch, cex, subscripts, ...) {
-                                panel.grid(-1, 0)
-                                panel.abline(v = c(0, 6, 12, 18, 23), col = "grey85")
-                                panel.xyplot(x, y, col = data.col, pch = Args$pch, 
-                                             cex = Args$cex, ...)
-                                panel.segments(x, y - results$seslope[subscripts], x,
-                                               y + results$seslope[subscripts], col = data.col,
-                                               lwd = 2)
-                            })
-
-        #reset for Args
-        xyplot.args<- listUpdate(xyplot.args, Args)
-
-        #plot
-        plt <- do.call(xyplot, xyplot.args)
-    }
-    ## ###############################################################################
-    ## flexible time period
-
-    if (!period %in% c("hour", "weekday", "day.hour")) {
-        
-        mydata$cond <- cut(mydata$date, period)
-        models <- plyr::dlply(mydata, .(cond), model)
-        results <- plyr::ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
-        
-        names(results) <- c("cond", "intercept", "slope",
-                            "rsquare", "seslope", "N")
-        results$slope <- results$slope * adj
-        results$seslope <- results$seslope * adj
-        results$date <- as.POSIXct(results$cond, "GMT")
-
-        results <- subset(results, rsquare >= rsq.thresh & N >= n)
-
-       ## date grid lines
-        dates <- dateBreaks(mydata$date, date.breaks)$major ## for date scale
-
-        ## date axis formating
-        
-        formats <- dateBreaks(mydata$date, date.breaks)$format
-
-        scales <- list(x = list(at = dates, format = formats))
-
-        ## allow reasonable gaps at ends, default has too much padding
-        gap <- difftime(max(mydata$date), min(mydata$date), units = "secs") / 80
-        if (is.null(xlim)) xlim <- range(mydata$date) + c(-1 * gap, gap)
-
-        if (!"ylim" %in% names(Args)) ylim <- rng(results)
-        
-        xyplot.args <- list(x = slope ~ date, data = results,
-                            scales = scales,
-                            xlim = xlim, 
-                            ylab = quickText(ylab, auto.text), ...,
-                            panel = function(x, y, pch, cex, subscripts, ...) {
-                                panel.grid(-1, 0)
-                                panel.abline(v = dates, col = "grey90")
-                                panel.xyplot(x, y, col = data.col, pch = Args$pch,
-                                             cex = Args$cex, ...)
-                                panel.segments(x, y - results$seslope[subscripts], x,
-                                               y + results$seslope[subscripts], col = data.col,
-                                               lwd = 2)
-                               })
-        ## reset for Args
-        xyplot.args<- listUpdate(xyplot.args, Args)
-
-        #plot
-        plt <- do.call(xyplot, xyplot.args)
-        
-    }
-    
   ## ###############################################################################
 
-    if (period == "weekday") {
+  if (period == "weekday") {
 
-        #xlab default
-        if(is.null(Args$xlab))
-            Args$xlab <- "weekday"
-
-        models <- plyr::dlply(mydata, .(cond, weekday = format(date, "%a")), model)
-        results <- plyr::ldply(models,
-                               function(x) c(coef(x), rsq(x), seslope(x), len(x)))
-        names(results) <- c("cond", "weekday", "intercept", "slope",
-                            "rsquare", "seslope", "N")
-        results <- subset(results, rsquare >= rsq.thresh & N >= n)
-        results$slope <- results$slope * adj
-        results$seslope <- results$seslope * adj
-
-        results$weekday <- ordered(results$weekday,
-                                   levels = format(ISOdate(2000, 1, 3:9), "%a"))
-        if (!"ylim" %in% names(Args)) ylim <- rng(results)
-
-
-        if (condition) {
-            myform <- formula("x = slope ~ weekday | cond")
-        } else {
-            myform <- formula("x = slope ~ weekday")
-        }
-
-        xyplot.args <- list(myform, data = results,
-                            ylab = quickText(ylab, auto.text),
-                            as.table = TRUE, ..., 
-                            panel = function(x, y, pch, cex, subscripts, ...) {
-                                panel.grid(-1, 0)
-                                panel.abline(v = 1:7, col = "grey85")
-                                panel.xyplot(x, y, col = data.col, pch = Args$pch,
-                                             cex = Args$cex, ...)
-                                panel.segments(x, y - results$seslope[subscripts], x,
-                                               y + results$seslope[subscripts], col = data.col,
-                                               lwd = 2)
-                            })
-c
-        #reset for Args
-        xyplot.args<- listUpdate(xyplot.args, Args)
-
-        #plot
-        plt <- do.call(xyplot, xyplot.args)
-    }
-################################################################################################
-
-    if (period == "day.hour") {
-
-        #xlab default
-        if(is.null(Args$xlab))
-            Args$xlab <- "hour"
-
-        models <- plyr::dlply(mydata, .(cond, weekday = format(date, "%A"),
-                                  hour = as.numeric(format(date, "%H"))), model)
-        results <- plyr::ldply(models,
-                               function(x) c(coef(x), rsq(x), seslope(x), len(x)))
-        names(results) <- c("cond", "weekday", "hour", "intercept", "slope",
-                            "rsquare", "seslope", "N")
-        results$slope <- results$slope * adj
-        results$seslope <- results$seslope * adj
-        results <- subset(results, rsquare >= rsq.thresh & N >= n)
-        results$weekday <- ordered(results$weekday, levels = format(ISOdate(2000, 1, 3:9), "%A"))
-        if (nrow(results) == 0) stop("Note enough data to plot. Try reducing 'n'.")
-
-        eq <- formula(slope ~ hour | weekday)
-        if (condition) eq <- formula(slope ~ hour | weekday * cond)
-
-        if (!"ylim" %in% names(Args)) ylim <- rng(results)
-       
-        xyplot.args <- list(x = eq, data = results,
-                      as.table = TRUE,
-                      layout = c(7, length(unique(results$cond))),
-                      ylab = quickText(ylab, auto.text),
-                      scales = list(x = list(at = c(0, 6, 12, 18, 23))),
-                      panel = function(x, y, pch, cex, subscripts, ...) {
-                          panel.grid(-1, 0)
-                          panel.abline(v = c(0, 6, 12, 18, 23), col = "grey85")
-                          panel.xyplot(x, y, col = data.col, pch = Args$pch,
-                                       cex = Args$cex, ...)
-                          panel.segments(x,
-                                         y - results$seslope[subscripts],
-                                         x,
-                                         y + results$seslope[subscripts],
-                                         col = data.col, lwd = 2)
-                      })
-
-        #reset for Args
-        xyplot.args<- listUpdate(xyplot.args, Args)
-
-        #plot
-        plt <- do.call(xyplot, xyplot.args)
+    # xlab default
+    if (is.null(Args$xlab)) {
+      Args$xlab <- "weekday"
     }
 
-    if (condition & period == "day.hour") print(useOuterStrips(plt)) else print(plt)
+    models <- plyr::dlply(mydata, .(cond, weekday = format(date, "%a")), model)
+    results <- plyr::ldply(
+      models,
+      function(x) c(coef(x), rsq(x), seslope(x), len(x))
+    )
+    names(results) <- c(
+      "cond", "weekday", "intercept", "slope",
+      "rsquare", "seslope", "N"
+    )
+    results <- subset(results, rsquare >= rsq.thresh & N >= n)
+    results$slope <- results$slope * adj
+    results$seslope <- results$seslope * adj
 
-    #################
-    #output
-    #################
-    plt <- trellis.last.object()
-    newdata <- results
-    output <- list(plot = plt, data = newdata, call = match.call())
-    class(output) <- "openair"
+    results$weekday <- ordered(results$weekday,
+      levels = format(ISOdate(2000, 1, 3:9), "%a")
+    )
+    if (!"ylim" %in% names(Args)) ylim <- rng(results)
 
-    invisible(output)
 
+    if (condition) {
+      myform <- formula("x = slope ~ weekday | cond")
+    } else {
+      myform <- formula("x = slope ~ weekday")
+    }
+
+    xyplot.args <- list(myform,
+      data = results,
+      ylab = quickText(ylab, auto.text),
+      as.table = TRUE, ...,
+      panel = function(x, y, pch, cex, subscripts, ...) {
+        panel.grid(-1, 0)
+        panel.abline(v = 1:7, col = "grey85")
+        panel.xyplot(x, y,
+          col = data.col, pch = Args$pch,
+          cex = Args$cex, ...
+        )
+        panel.segments(x, y - results$seslope[subscripts], x,
+          y + results$seslope[subscripts],
+          col = data.col,
+          lwd = 2
+        )
+      }
+    )
+    c
+    # reset for Args
+    xyplot.args <- listUpdate(xyplot.args, Args)
+
+    # plot
+    plt <- do.call(xyplot, xyplot.args)
+  }
+  ################################################################################################
+
+  if (period == "day.hour") {
+
+    # xlab default
+    if (is.null(Args$xlab)) {
+      Args$xlab <- "hour"
+    }
+
+    models <- plyr::dlply(mydata, .(cond,
+      weekday = format(date, "%A"),
+      hour = as.numeric(format(date, "%H"))
+    ), model)
+    results <- plyr::ldply(
+      models,
+      function(x) c(coef(x), rsq(x), seslope(x), len(x))
+    )
+    names(results) <- c(
+      "cond", "weekday", "hour", "intercept", "slope",
+      "rsquare", "seslope", "N"
+    )
+    results$slope <- results$slope * adj
+    results$seslope <- results$seslope * adj
+    results <- subset(results, rsquare >= rsq.thresh & N >= n)
+    results$weekday <- ordered(results$weekday, levels = format(ISOdate(2000, 1, 3:9), "%A"))
+    if (nrow(results) == 0) stop("Note enough data to plot. Try reducing 'n'.")
+
+    eq <- formula(slope ~ hour | weekday)
+    if (condition) eq <- formula(slope ~ hour | weekday * cond)
+
+    if (!"ylim" %in% names(Args)) ylim <- rng(results)
+
+    xyplot.args <- list(
+      x = eq, data = results,
+      as.table = TRUE,
+      layout = c(7, length(unique(results$cond))),
+      ylab = quickText(ylab, auto.text),
+      scales = list(x = list(at = c(0, 6, 12, 18, 23))),
+      panel = function(x, y, pch, cex, subscripts, ...) {
+        panel.grid(-1, 0)
+        panel.abline(v = c(0, 6, 12, 18, 23), col = "grey85")
+        panel.xyplot(x, y,
+          col = data.col, pch = Args$pch,
+          cex = Args$cex, ...
+        )
+        panel.segments(x,
+          y - results$seslope[subscripts],
+          x,
+          y + results$seslope[subscripts],
+          col = data.col, lwd = 2
+        )
+      }
+    )
+
+    # reset for Args
+    xyplot.args <- listUpdate(xyplot.args, Args)
+
+    # plot
+    plt <- do.call(xyplot, xyplot.args)
+  }
+
+  if (condition & period == "day.hour") print(useOuterStrips(plt)) else print(plt)
+
+  #################
+  # output
+  #################
+  plt <- trellis.last.object()
+  newdata <- results
+  output <- list(plot = plt, data = newdata, call = match.call())
+  class(output) <- "openair"
+
+  invisible(output)
 }
 
 ## Theil-Sen
 
 nonParSlope <- function(mydata, x, y, alpha = 0.05, nboot = 50) {
-    ## silence R check
-    upper = lower = NULL
-    
-    estimates <- regci(x = mydata[[x]], y = mydata[[y]], alpha = alpha,
-                       nboot = nboot, autocor = FALSE)$regci
-    
-    results <- data.frame(slope =  estimates[2, 3], upper = estimates[2, 2],
-                          lower = estimates[2, 1])
-    results <- transform(results, error = (upper - lower) / 2)
-    
-    return(results)
+  ## silence R check
+  upper <- lower <- NULL
+
+  estimates <- regci(
+    x = mydata[[x]], y = mydata[[y]], alpha = alpha,
+    nboot = nboot, autocor = FALSE
+  )$regci
+
+  results <- data.frame(
+    slope = estimates[2, 3], upper = estimates[2, 2],
+    lower = estimates[2, 1]
+  )
+  results <- transform(results, error = (upper - lower) / 2)
+
+  return(results)
 }

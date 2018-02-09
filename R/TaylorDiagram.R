@@ -544,14 +544,16 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
       ## annotate each panel but don't need to do this for each grouping value
       panel.taylor.setup(
-        x, y, results = results, maxsd = maxsd,
+        x, y,
+        results = results, maxsd = maxsd,
         cor.col = cor.col, rms.col = rms.col,
         annotate = annotate, ...
       )
 
       ## plot data in each panel
       panel.superpose(
-        x, y, panel.groups = panel.taylor, ...,
+        x, y,
+        panel.groups = panel.taylor, ...,
         results = results, results.new = results.new,
         combine = combine, myColors = myColors,
         arrow.lwd = arrow.lwd
@@ -647,12 +649,14 @@ panel.taylor.setup <- function(x, y, subscripts, results, maxsd, cor.col, rms.co
     )
     ltext(
       xcurve[labelpos[gindex]], ycurve[labelpos[gindex]],
-      gamma[gindex], cex = 0.7, col = rms.col, pos = 1,
+      gamma[gindex],
+      cex = 0.7, col = rms.col, pos = 1,
       srt = 0, font = 2
     )
 
     ltext(
-      1.1 * maxsd, 1.05 * maxsd, labels = annotate, cex = 0.7,
+      1.1 * maxsd, 1.05 * maxsd,
+      labels = annotate, cex = 0.7,
       col = rms.col, pos = 2
     )
   }
@@ -663,12 +667,14 @@ panel.taylor.setup <- function(x, y, subscripts, results, maxsd, cor.col, rms.co
   ltext(
     cos(c(bigtick, acos(c(0.95, 0.99)))) *
       1.06 * maxsd, sin(c(bigtick, acos(c(0.95, 0.99)))) *
-      1.06 * maxsd, c(seq(0.1, 0.9, by = 0.1), 0.95, 0.99), cex = 0.7,
+      1.06 * maxsd, c(seq(0.1, 0.9, by = 0.1), 0.95, 0.99),
+    cex = 0.7,
     adj = 0.5, srt = angles, col = cor.col
   )
 
   ltext(
-    0.82 * maxsd, 0.82 * maxsd, "correlation", srt = 315, cex = 0.7,
+    0.82 * maxsd, 0.82 * maxsd, "correlation",
+    srt = 315, cex = 0.7,
     col = cor.col
   )
 

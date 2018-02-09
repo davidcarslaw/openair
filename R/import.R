@@ -99,7 +99,8 @@ import <- function(file = file.choose(), file.type = "csv", sep = ",", header.at
   ## read header
   if (header.at > 0) {
     Names <- read.table(
-      file, nrows = 1, skip = (header.at - 1), sep = sep,
+      file,
+      nrows = 1, skip = (header.at - 1), sep = sep,
       colClasses = "character", na.strings = ""
     )
 
@@ -112,7 +113,8 @@ import <- function(file = file.choose(), file.type = "csv", sep = ",", header.at
 
   ## read data
   thedata <- read.table(
-    file, skip = (data.at - 1), sep = sep, na.strings = na.strings,
+    file,
+    skip = (data.at - 1), sep = sep, na.strings = na.strings,
     quote = quote, ...
   )
 

@@ -147,7 +147,8 @@ quickText <- function(text, auto.text = TRUE) {
     a <- ans
     ans <- paste(
       substr(a, 1, (nchar(a) - 7)),
-      substr(a, (nchar(a) - 5), nchar(a)), sep = ""
+      substr(a, (nchar(a) - 5), nchar(a)),
+      sep = ""
     )
   }
 
@@ -161,7 +162,8 @@ quickText <- function(text, auto.text = TRUE) {
     a <- ans
     ans <- paste(
       substr(a, 1, (nchar(a) - 2)), " ' ' ",
-      substr(a, (nchar(a) - 1), nchar(a)), sep = ""
+      substr(a, (nchar(a) - 1), nchar(a)),
+      sep = ""
     )
   }
 

@@ -27,7 +27,8 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
   }
 
   windRose(
-    mydata, pollutant = pollutant, paddle = paddle, seg = seg,
+    mydata,
+    pollutant = pollutant, paddle = paddle, seg = seg,
     key.position = key.position, key.footer = key.footer, key = key,
     breaks = breaks, normalise = normalise, ...
   )
@@ -363,13 +364,15 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   if (360 / angle != round(360 / angle)) {
     warning(
       "In windRose(...):\n  angle will produce some spoke overlap",
-      "\n  suggest one of: 5, 6, 8, 9, 10, 12, 15, 30, 45, etc.", call. = FALSE
+      "\n  suggest one of: 5, 6, 8, 9, 10, 12, 15, 30, 45, etc.",
+      call. = FALSE
     )
   }
   if (angle < 3) {
     warning(
       "In windRose(...):\n  angle too small",
-      "\n  enforcing 'angle = 3'", call. = FALSE
+      "\n  enforcing 'angle = 3'",
+      call. = FALSE
     )
     angle <- 3
   }
@@ -408,7 +411,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     if (!is.character(statistic) || !statistic[1] %in% ok.stat) {
       warning(
         "In windRose(...):\n  statistic unrecognised",
-        "\n  enforcing statistic = 'prop.count'", call. = FALSE
+        "\n  enforcing statistic = 'prop.count'",
+        call. = FALSE
       )
       statistic <- "prop.count"
     }
@@ -544,7 +548,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
   breaks <- unique(breaks)
   mydata$x <- cut(
-    mydata$x, breaks = breaks, include.lowest = FALSE,
+    mydata$x,
+    breaks = breaks, include.lowest = FALSE,
     dig.lab = dig.lab
   )
 
@@ -641,7 +646,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       y3 <- len2 * cos(theta) + width * sin(theta) + y.off
       y4 <- len2 * cos(theta) - width * sin(theta) + y.off
       lpolygon(
-        c(x1, x2, x4, x3), c(y1, y2, y4, y3), col = colour,
+        c(x1, x2, x4, x3), c(y1, y2, y4, y3),
+        col = colour,
         border = border
       )
     }
@@ -846,7 +852,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
             tmp <- paste(
               "poly(dat$wd[i], dat$Interval", j - 1,
               "[i], dat$Interval", j, "[i], width * box.widths[",
-              j, "], col[", j, "])", sep = ""
+              j, "], col[", j, "])",
+              sep = ""
             )
 
 
@@ -862,7 +869,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       ltext(
         seq((myby + off.set), mymax, myby) * sin(pi * angle.scale / 180),
         seq((myby + off.set), mymax, myby) * cos(pi * angle.scale / 180),
-        paste(seq(myby, mymax, by = myby), stat.unit, sep = ""), cex = 0.7
+        paste(seq(myby, mymax, by = myby), stat.unit, sep = ""),
+        cex = 0.7
       )
 
       ## annotations e.g. calms, means etc
@@ -874,7 +882,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
             label = paste(
               stat.lab2, " = ",
               dat$panel.fun[1], "\ncalm = ",
-              dat$calm[1], stat.unit, sep = ""
+              dat$calm[1], stat.unit,
+              sep = ""
             ),
             adj = c(1, 0), cex = 0.7, col = calm.col
           )

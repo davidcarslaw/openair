@@ -446,7 +446,8 @@ polarFreq <- function(mydata,
         sapply(seq(0, 20 * grid.line, by = grid.line), function(x)
           ltext(
             (offset + x) * sin(pi / 4), (offset + x) * cos(pi / 4),
-            x, cex = 0.7
+            x,
+            cex = 0.7
           ))
       }
 

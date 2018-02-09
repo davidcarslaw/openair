@@ -51,7 +51,8 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
   # file data read in
   ##################
   file.data <- read.table(
-    file, header = FALSE, sep = sep,
+    file,
+    header = FALSE, sep = sep,
     skip = (data.at - 1), nrows = -1, na.strings = na.strings,
     quote = quote, fill = TRUE
   )
@@ -70,7 +71,8 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
     paste("...XxX", 1:ncol(file.data), sep = "")
   } else {
     read.table(
-      file, header = FALSE, sep = sep,
+      file,
+      header = FALSE, sep = sep,
       quote = quote, skip = (header.at - 1), nrows = 1, colClasses = "character"
     )
   }
@@ -169,7 +171,8 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
         reply <- paste(reply, "s", sep = "")
       }
       reply <- paste(reply, paste(
-        missing.date.name, collapse = ", ",
+        missing.date.name,
+        collapse = ", ",
         sep = ""
       ), sep = ": ")
     }
@@ -182,7 +185,8 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
         reply <- paste(reply, "s", sep = "")
       }
       reply <- paste(reply, paste(
-        missing.time.name, collapse = ", ",
+        missing.time.name,
+        collapse = ", ",
         sep = ""
       ), sep = ": ")
     }
@@ -214,13 +218,15 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
       file.names <- file.names[1:ncol(file.data)]
       warning(
         "Unexpected extra names extracted, dropped unassigned names\n       [check openair import settings and data structure if unexpected]"
-        , call. = FALSE
+        ,
+        call. = FALSE
       )
     } else {
       file.names <- c(file.names, paste("new", 1:(ncol(file.data) - length(file.names)), sep = "."))
       warning(
         "Unexpected extra data extracted, extra names created\n       [check openair import settings and data structure if unexpected]"
-        , call. = FALSE
+        ,
+        call. = FALSE
       )
     }
   }
@@ -232,7 +238,8 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
   if (!identical(file.names, temp)) {
     warning(
       "Non-unique or non-R names extracted, names modifications applied\n       [check openair import settings and data structure if unexpected]"
-      , call. = FALSE
+      ,
+      call. = FALSE
     )
   }
   names(file.data) <- temp
@@ -246,19 +253,23 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
   } else {
     date.order <- gsub(
       "d", paste("%d", date.break, sep = ""),
-      date.order, ignore.case = TRUE
+      date.order,
+      ignore.case = TRUE
     )
     date.order <- gsub(
       "j", paste("%j", date.break, sep = ""),
-      date.order, ignore.case = TRUE
+      date.order,
+      ignore.case = TRUE
     )
     date.order <- gsub(
       "m", paste("%m", date.break, sep = ""),
-      date.order, ignore.case = TRUE
+      date.order,
+      ignore.case = TRUE
     )
     date.order <- gsub(
       "y", paste("%y", date.break, sep = ""),
-      date.order, ignore.case = TRUE
+      date.order,
+      ignore.case = TRUE
     )
     date.order <- substr(date.order, 1, (nchar(date.order) -
       1))
@@ -269,15 +280,18 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
   } else {
     time.order <- gsub(
       "h", paste("%H", time.break, sep = ""),
-      time.order, ignore.case = TRUE
+      time.order,
+      ignore.case = TRUE
     )
     time.order <- gsub(
       "m", paste("%M", time.break, sep = ""),
-      time.order, ignore.case = TRUE
+      time.order,
+      ignore.case = TRUE
     )
     time.order <- gsub(
       "s", paste("%S", time.break, sep = ""),
-      time.order, ignore.case = TRUE
+      time.order,
+      ignore.case = TRUE
     )
     time.order <- substr(time.order, 1, (nchar(time.order) -
       1))
@@ -350,13 +364,15 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
       misc.info <- 1
       file.misc <- paste(
         "import operation: correct.time applied (",
-        correct.time, " seconds)", sep = ""
+        correct.time, " seconds)",
+        sep = ""
       )
     }
     else {
       file.misc <- c(file.misc, paste(
         "import operation: correct.time applied (",
-        correct.time, " seconds)", sep = ""
+        correct.time, " seconds)",
+        sep = ""
       ))
     }
   }

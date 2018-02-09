@@ -524,7 +524,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
 
     mydata <- timeAverage(
-      mydata, type = types, avg.time = avg.time,
+      mydata,
+      type = types, avg.time = avg.time,
       statistic = statistic, percentile = percentile,
       data.thresh = data.thresh
     )
@@ -655,7 +656,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       thecol <- openColours(
         cols, 100
       )[cut(
-        mydata[[z]], breaks = seq(
+        mydata[[z]],
+        breaks = seq(
           limits[1], limits[2],
           length.out = 100
         ),
@@ -878,14 +880,16 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
         if (!is.na(z) & !Args$traj) {
           panel.xyplot(
-            x, y, col.symbol = thecol[subscripts],
+            x, y,
+            col.symbol = thecol[subscripts],
             as.table = TRUE, ...
           )
         }
 
         if (is.na(z) & !Args$traj) {
           panel.xyplot(
-            x, y, type = plot.type,
+            x, y,
+            type = plot.type,
             col.symbol = myColors[group.number],
             col.line = myColors[group.number],
             lty = lty, lwd = lwd,
@@ -903,7 +907,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
         if (linear) {
           panel.linear(
-            x, y, col = "black", myColors = Args$fill,
+            x, y,
+            col = "black", myColors = Args$fill,
             lwd = 1, lty = 5, x.nam = x.nam,
             y.nam = y.nam,
             se = ci, group.number = group.number
@@ -913,7 +918,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
         if (smooth) {
           panel.gam(
-            x, y, col = "grey20", col.se = "black",
+            x, y,
+            col = "grey20", col.se = "black",
             lty = 1, lwd = 1, se = ci, k = k, ...
           )
         }
@@ -981,7 +987,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
         if (linear & npol == 1) {
           panel.linear(
-            x, mydata[[y]][subscripts], x.nam = x.nam,
+            x, mydata[[y]][subscripts],
+            x.nam = x.nam,
             y.nam = y.nam, TRUE, col = "black", myColors = Args$fill,
             lwd = 1, lty = 5, se = ci, group.number = 1
           )
@@ -995,7 +1002,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         ## add mark for receptor location
         if (Args$origin) {
           lpoints(
-            Args$receptor[1], Args$receptor[2], pch = 16,
+            Args$receptor[1], Args$receptor[2],
+            pch = 16,
             cex = 1.5, col = "black"
           )
         }
@@ -1108,7 +1116,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
       ind <- with(all.data, exclude.too.far(
         wsp, wdp, mydata$xgrid,
-        mydata$ygrid, dist = dist
+        mydata$ygrid,
+        dist = dist
       ))
 
       new.data[ind, z] <- NA
@@ -1246,7 +1255,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
     ## add vertices of each grid so that polygons can be drawn
     mydata <- transform(
-      mydata, x1 = xgrid - x.inc / 2, x2 = xgrid - x.inc / 2,
+      mydata,
+      x1 = xgrid - x.inc / 2, x2 = xgrid - x.inc / 2,
       x3 = xgrid + x.inc / 2, x4 = xgrid + x.inc / 2,
       y1 = ygrid - y.inc / 2, y2 = ygrid + y.inc / 2,
       y3 = ygrid + y.inc / 2, y4 = ygrid - y.inc / 2
@@ -1289,7 +1299,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     )
 
     mydata <- transform(
-      mydata, x1 = coord1$x, x2 = coord2$x,
+      mydata,
+      x1 = coord1$x, x2 = coord2$x,
       x3 = coord3$x, x4 = coord4$x,
       y1 = coord1$y, y2 = coord2$y, y3 = coord3$y,
       y4 = coord4$y,
@@ -1307,11 +1318,13 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       new.data <- expand.grid(
         xgrid = seq(
           min(mydata$xgrid),
-          max(mydata$xgrid), length = res
+          max(mydata$xgrid),
+          length = res
         ),
         ygrid = seq(
           min(mydata$ygrid),
-          max(mydata$ygrid), length = res
+          max(mydata$ygrid),
+          length = res
         )
       )
 
@@ -1333,7 +1346,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
       ind <- with(all.data, exclude.too.far(
         wsp, wdp, mydata$xgrid,
-        mydata$ygrid, dist = dist
+        mydata$ygrid,
+        dist = dist
       ))
 
       new.data[ind, z] <- NA
@@ -1385,7 +1399,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
     thecol <- openColours(cols, length(breaks) - 1)[cut(
       mydata[[z]],
-      breaks, label = FALSE
+      breaks,
+      label = FALSE
     )]
     mydata$col <- thecol
     col <- thecol
@@ -1481,7 +1496,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         ## add mark for receptor location
         if (Args$origin) {
           lpoints(
-            Args$receptor[1], Args$receptor[2], pch = 16,
+            Args$receptor[1], Args$receptor[2],
+            pch = 16,
             cex = 1.5, col = "black"
           )
         }
@@ -1524,7 +1540,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
       ylab <- xy$ylab
       x <- cbind(xy$x, xy$y)[
         is.finite(xy$x) & is.finite(xy$y),
-        , drop = FALSE
+        ,
+        drop = FALSE
       ]
       xlim <- range(x[, 1])
       ylim <- range(x[, 2])
@@ -1675,7 +1692,8 @@ add.map <- function(Args, ...) {
     mp <- maps::map.wrap(mp)
 
     panel.polygon(
-      mp$x, mp$y, col = Args$map.cols, border = "black",
+      mp$x, mp$y,
+      col = Args$map.cols, border = "black",
       alpha = Args$map.alpha
     )
   } else {
@@ -1794,7 +1812,8 @@ panel.linear <- function(x, y, x.nam = "x", y.nam = "y",
         format(intercept, digits = 2),
         " R2=", format(r.sq, digits = 2),
         sep = ""
-      )), cex = 0.7, pos = 4,
+      )),
+      cex = 0.7, pos = 4,
       col = myColors[group.number]
     )
   }, error = function(x) return)
@@ -1819,7 +1838,8 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
     ## colour by
     lapply(tmp, function(dat)
       llines(
-        dat$lon, dat$lat, col.line = dat$col,
+        dat$lon, dat$lat,
+        col.line = dat$col,
         lwd = lwd, lty = lty
       ))
 
@@ -1858,7 +1878,8 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
     ## add mark for receptor location
     if (Args$origin) {
       lpoints(
-        Args$receptor[1], Args$receptor[2], pch = 16,
+        Args$receptor[1], Args$receptor[2],
+        pch = 16,
         cex = 1.5, col = "black"
       )
     }
@@ -1885,7 +1906,8 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
 
       ## clusterProp is from trajCluster
       ltext(
-        pnts$lon, pnts$lat, label = paste0(pnts$freq, "%"),
+        pnts$lon, pnts$lat,
+        label = paste0(pnts$freq, "%"),
         pos = 3
       )
     }
