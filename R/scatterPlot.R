@@ -1043,24 +1043,26 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     ## bin data
     mydata$ygrid <- round_any(mydata[[y]], y.inc)
     mydata$xgrid <- round_any(mydata[[x]], x.inc)
+    
+    vars <- c("xgrid", "ygrid", type) # for selecting / grouping
 
     ## only aggregate if we have to (for data pre-gridded)
     if (nrow(unique(subset(mydata, select = c(xgrid, ygrid)))) != nrow(mydata)) {
       if (statistic == "frequency") {
-        mydata <- select_(mydata, "xgrid", "ygrid", UQS(syms(type)), z) %>%
-          group_by(., "xgrid", "ygrid", UQS(syms(type))) %>%
+        mydata <- select(mydata, UQS(syms(vars)), z) %>%
+          group_by(., UQS(syms(vars))) %>%
           summarise(MN = length(UQ(sym(z))))
       }
 
       if (statistic == "mean") {
-        mydata <- select_(mydata, "xgrid", "ygrid", UQS(syms(type)), z) %>%
-          group_by(., "xgrid", "ygrid", UQS(syms(type))) %>%
+        mydata <- select(mydata, UQS(syms(vars)), z) %>%
+          group_by(., UQS(syms(vars))) %>%
           summarise(MN = mean(UQ(sym(z)), na.rm = TRUE))
       }
 
       if (statistic == "median") {
-        mydata <- select_(mydata, "xgrid", "ygrid", UQS(syms(type)), z) %>%
-          group_by(., "xgrid", "ygrid", UQS(syms(type))) %>%
+        mydata <- select(mydata, UQS(syms(vars)), z) %>%
+          group_by(., UQS(syms(vars))) %>%
           summarise(MN = median(UQ(sym(z)), na.rm = TRUE))
       }
 
