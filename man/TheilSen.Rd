@@ -21,34 +21,34 @@ typically (but not necessarily) a pollutant.}
 \item{pollutant}{The parameter for which a trend test is required.
 Mandatory.}
 
-\item{deseason}{Should the data be de-deasonalized first? If 
-\code{TRUE} the function \code{stl} is used (seasonal trend 
+\item{deseason}{Should the data be de-deasonalized first? If
+\code{TRUE} the function \code{stl} is used (seasonal trend
 decomposition using loess). Note that if \code{TRUE} missing
 data are first linearly interpolated because \code{stl} cannot
 handle missing data.}
 
 \item{type}{\code{type} determines how the data are split i.e.
-conditioned, and then plotted. The default is will produce a 
-single plot using the entire data. Type can be one of the
-built-in types as detailed in \code{cutData} e.g.
-\dQuote{season}, \dQuote{year}, \dQuote{weekday} and so on. For
-example, \code{type = "season"} will produce four plots --- one
-for each season.
+  conditioned, and then plotted. The default is will produce a
+  single plot using the entire data. Type can be one of the
+  built-in types as detailed in \code{cutData} e.g.
+  \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so on. For
+  example, \code{type = "season"} will produce four plots --- one
+  for each season.
 
-It is also possible to choose \code{type} as another variable in
-the data frame. If that variable is numeric, then the data will
-be split into four quantiles (if possible) and labelled 
-accordingly. If type is an existing character or factor
-variable, then those categories/levels will be used directly.
-This offers great flexibility for understanding the variation of
-different variables and how they depend on one another.
+  It is also possible to choose \code{type} as another variable in
+  the data frame. If that variable is numeric, then the data will
+  be split into four quantiles (if possible) and labelled
+  accordingly. If type is an existing character or factor
+  variable, then those categories/levels will be used directly.
+  This offers great flexibility for understanding the variation of
+  different variables and how they depend on one another.
 
-Type can be up length two e.g. \code{type = c("season", 
-"weekday")} will produce a 2x2 plot split by season and day of
-the week. Note, when two types are provided the first forms the 
-columns and the second the rows.}
+  Type can be up length two e.g. \code{type = c("season",
+  "weekday")} will produce a 2x2 plot split by season and day of
+  the week. Note, when two types are provided the first forms the
+  columns and the second the rows.}
 
-\item{avg.time}{Can be \dQuote{month} (the default), 
+\item{avg.time}{Can be \dQuote{month} (the default),
 \dQuote{season} or \dQuote{year}. Determines the time over which
 data should be averaged. Note that for \dQuote{year}, six or
 more years are required. For \dQuote{season} the data are split
@@ -59,10 +59,10 @@ considered as belonging to winter of the following year.}
 Default is \dQuote{mean}, but can also be \dQuote{percentile}.
 See \code{timeAverage} for more details.}
 
-\item{percentile}{Single percentile value to use if 
+\item{percentile}{Single percentile value to use if
 \code{statistic = "percentile"} is chosen.}
 
-\item{data.thresh}{The data capture threshold to use (%) when 
+\item{data.thresh}{The data capture threshold to use (%) when
 aggregating the data using \code{avg.time}. A value of zero
 means that all available data will be used in a particular
 period regardless if of the number of values available.
@@ -85,19 +85,19 @@ information should be printed at, default 0.99.}
 \item{lab.cex}{Size of text for trend information.}
 
 \item{x.relation}{This determines how the x-axis scale is plotted.
-\dQuote{same} ensures all panels use the same scale and 
-\dQuote{free} will use panel-specfic scales. The latter is a 
+\dQuote{same} ensures all panels use the same scale and
+\dQuote{free} will use panel-specfic scales. The latter is a
 useful setting when plotting data with very different values.}
 
 \item{y.relation}{This determines how the y-axis scale is plotted.
-\dQuote{same} ensures all panels use the same scale and 
-\dQuote{free} will use panel-specfic scales. The latter is a 
+\dQuote{same} ensures all panels use the same scale and
+\dQuote{free} will use panel-specfic scales. The latter is a
 useful setting when plotting data with very different values.}
 
 \item{data.col}{Colour name for the data}
 
-\item{trend}{list containing information on the line width, line 
-type and line colour for the main trend line and confidence 
+\item{trend}{list containing information on the line width, line
+type and line colour for the main trend line and confidence
 intervals respectively.}
 
 \item{text.col}{Colour name for the slope/uncertainty numeric
@@ -106,46 +106,46 @@ estimates}
 \item{slope.text}{The text shown for the slope (default is
 \sQuote{units/year}).}
 
-\item{cols}{Predefined colour scheme, currently only enabled for 
+\item{cols}{Predefined colour scheme, currently only enabled for
 \code{"greyscale"}.}
 
-\item{shade}{The colour used for marking alternate years. Use 
+\item{shade}{The colour used for marking alternate years. Use
 \dQuote{white} or \dQuote{transparent} to remove shading.}
 
-\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If 
+\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
 \code{TRUE} titles and axis labels will automatically try and
 format pollutant names and units properly e.g.  by subscripting
 the \sQuote{2} in NO2.}
 
-\item{autocor}{Should autocorrelation be considered in the trend 
+\item{autocor}{Should autocorrelation be considered in the trend
 uncertainty estimates? The default is \code{FALSE}. Generally,
 accounting for autocorrelation increases the uncertainty of the
 trend estimate --- sometimes by a large amount.}
 
-\item{slope.percent}{Should the slope and the slope uncertainties 
-be expressed as a percentage change per year? The default is 
-\code{FALSE} and the slope is expressed as an average units/year
-change e.g. ppb.  Percentage changes can often be confusing and 
-should be clearly defined.  Here the percentage change is 
-expressed as 100 * (C.end/C.start - 1) / (end.year - 
-start.year). Where C.start is the concentration at the start 
-date and C.end is the concentration at the end date.
+\item{slope.percent}{Should the slope and the slope uncertainties
+  be expressed as a percentage change per year? The default is
+  \code{FALSE} and the slope is expressed as an average units/year
+  change e.g. ppb.  Percentage changes can often be confusing and
+  should be clearly defined.  Here the percentage change is
+  expressed as 100 * (C.end/C.start - 1) / (end.year -
+  start.year). Where C.start is the concentration at the start
+  date and C.end is the concentration at the end date.
 
-For \code{avg.time = "year"} (end.year - start.year) will be the
-total number of years - 1. For example, given a concentration in
-year 1 of 100 units and a percentage reduction of 5%/yr, after 5
-years there will be 75 units but the actual time span will be 6 
-years i.e. year 1 is used as a reference year. Things are
-slightly different for monthly values e.g.  \code{avg.time =
-"month"}, which will use the total number of months as a basis
-of the time span and is therefore able to deal with partial
-years.  There can be slight differences in the %/yr trend
-estimate therefore, depending on whether monthly or annual
-values are considered.}
+  For \code{avg.time = "year"} (end.year - start.year) will be the
+  total number of years - 1. For example, given a concentration in
+  year 1 of 100 units and a percentage reduction of 5%/yr, after 5
+  years there will be 75 units but the actual time span will be 6
+  years i.e. year 1 is used as a reference year. Things are
+  slightly different for monthly values e.g.  \code{avg.time =
+  "month"}, which will use the total number of months as a basis
+  of the time span and is therefore able to deal with partial
+  years.  There can be slight differences in the %/yr trend
+  estimate therefore, depending on whether monthly or annual
+  values are considered.}
 
-\item{date.breaks}{Number of major x-axis intervals to use. The 
+\item{date.breaks}{Number of major x-axis intervals to use. The
 function will try and choose a sensible number of dates/times as
-well as formatting the date/time appropriately to the range 
+well as formatting the date/time appropriately to the range
 being considered. This does not always work as desired
 automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of \code{date.breaks}
@@ -169,11 +169,11 @@ As well as generating the plot itself, \code{TheilSen}
   retained, e.g. using \code{output <- TheilSen(mydata, "nox")},
   this output can be used to recover the data, reproduce or rework
   the original plot or undertake further analysis.
-  
+
   An openair output can be manipulated using a number of generic
   operations, including \code{print}, \code{plot} and
   \code{summary}.
-  
+
   The \code{data} component of the \code{TheilSen} output includes
   two subsets: \code{main.data}, the monthly data \code{res2} the
   trend statistics. For \code{output <- TheilSen(mydata, "nox")},
