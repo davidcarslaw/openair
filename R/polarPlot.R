@@ -1210,9 +1210,6 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   # Robust linear regression with weights
   if (grepl("robust", statistic, ignore.case = TRUE)) {
 
-    # make sure package is available
-    try_require("MASS", "polarPlot")
-
     # Drop dplyr's data frame for formula
     thedata <- data.frame(thedata)
 
