@@ -283,8 +283,8 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
     (rep(data.order[[x]], each = length(data.order[[x]])))))
 
   ## list of labels
-  labels <- llply(results.grid, function(x) x$pol.name)
-  results.grid <- do.call(rbind, llply(results.grid, function(x) x$thedata))
+  labels <- lapply(results.grid, function(x) x$pol.name)
+  results.grid <- do.call(rbind, lapply(results.grid, function(x) x$thedata))
 
   div.col <- function(x) openColours(cols, x)
 
