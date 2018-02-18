@@ -87,7 +87,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
                     transpose = FALSE, ...) {
 
   ## get rid of R check annoyances
-  year <- site <- NULL
+  year <- site <- rolling8o3 <- NULL
   daylight <- NULL
   . <- NULL
 

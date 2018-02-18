@@ -121,7 +121,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
                         by.type = FALSE, origin = TRUE, ...) {
 
   # silence R check
-  freq <- hour.inc <- NULL
+  freq <- hour.inc <- default <- NULL
 
   if (tolower(method) == "euclid") {
     method <- "distEuclid"
