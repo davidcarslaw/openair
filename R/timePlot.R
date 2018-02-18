@@ -598,7 +598,8 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
     scales <- list(x = list(at = dates, format = "%d-%b", relation = "sliced"), y = list(log = nlog))
 
-    xlim <- dlply(mydata, .(year), function(x) range(x$date))
+
+    xlim <- lapply(split(mydata, mydata["year"]), function(x) range(x$date))
   }
 
   if (missing(key.columns)) key.columns <- npol
