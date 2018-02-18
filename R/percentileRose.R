@@ -405,7 +405,10 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
       do(mod.percentiles(.$percentile, overall.lower, overall.upper))
 
     ## calculate mean; assume a percentile of 999 to flag it later
-    percentiles <- plyr::ddply(mydata, wd, numcolwise(function(x) mean(x, na.rm = TRUE)))
+   
+    percentiles <- group_by(mydata, wd) %>% 
+      summarise_if(is.numeric, funs(mean), na.rm = TRUE)
+    
     percentiles$percentile <- 999
     Mean <- plyr::ldply(999, mod.percentiles)
 
