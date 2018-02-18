@@ -370,10 +370,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     if (method == "default") {
 
       ## calculate percentiles
-      #     percentiles <- plyr::ddply(mydata, wd, numcolwise(function (x)
-      #      quantile(x, probs = percentile / 100, na.rm = TRUE)))
-
-
+      
       percentiles <- group_by(mydata, wd) %>%
         do(data.frame(V1 = quantile(.[[pollutant]], probs = percentile / 100, na.rm = TRUE)))
 
@@ -383,15 +380,16 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     }
 
     if (tolower(method) == "cpf") {
-      percentiles1 <- plyr::ddply(mydata, wd, numcolwise(function(x)
-        length(which(x < overall.lower)) /
-          length(x)))
+    
+      percentiles1 <- group_by(mydata, wd) %>% 
+        summarise_if(is.numeric, funs(length(which(. < overall.lower)) /length(.)))
+      
       percentiles1$percentile <- min(percentile)
 
-      percentiles2 <- plyr::ddply(mydata, wd, numcolwise(function(x)
-        length(which(x > overall.upper)) /
-          length(x)))
-      percentiles2$percentile <- max(percentile)
+      percentiles2 <- group_by(mydata, wd) %>% 
+        summarise_if(is.numeric, funs(length(which(. > overall.upper)) /length(.)))
+      
+     percentiles2$percentile <- max(percentile)
 
       if (fill) {
         percentiles <- rbind(percentiles1, percentiles2)
