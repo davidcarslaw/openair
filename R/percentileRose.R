@@ -401,7 +401,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     }
 
 
-    results <- plyr::ldply(percentile, mod.percentiles, overall.lower, overall.upper)
+    results <- group_by(data.frame(percentile), percentile) %>% 
+      do(mod.percentiles(.$percentile, overall.lower, overall.upper))
 
     ## calculate mean; assume a percentile of 999 to flag it later
     percentiles <- plyr::ddply(mydata, wd, numcolwise(function(x) mean(x, na.rm = TRUE)))
@@ -419,11 +420,9 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
   overall.lower <- quantile(mydata[[pollutant]], probs = min(percentile) / 100, na.rm = TRUE)
   overall.upper <- quantile(mydata[[pollutant]], probs = max(percentile) / 100, na.rm = TRUE)
 
-  results.grid <- plyr::ddply(
-    mydata, type, prepare.grid,
-    stat = "percentile",
-    overall.lower, overall.upper
-  )
+  results.grid <- group_by(mydata, UQS(syms(type))) %>%
+    do(prepare.grid(., stat = "percentile", overall.lower, overall.upper))
+  
 
   if (method == "cpf") {
     ## useful labelling
@@ -441,9 +440,10 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
 
 
   if (mean) {
-    Mean <- plyr::ddply(mydata, type, prepare.grid, stat = "mean")
+    Mean <- group_by(mydata, UQS(syms(type))) %>%
+      do(prepare.grid(., stat = "mean"))
 
-    results.grid <- rbind(results.grid, Mean)
+    results.grid <- bind_rows(results.grid, Mean)
   }
 
   ## proper names of labelling ###################################################
@@ -470,8 +470,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
   ## keep unstransformed copy in case data are negative
   results <- results.grid
 
-  results.grid$x <- results.grid$pollutant * sin(results.grid[, wd] * pi / 180)
-  results.grid$y <- results.grid$pollutant * cos(results.grid[, wd] * pi / 180)
+  results.grid$x <- results.grid$pollutant * sin(results.grid[[wd]] * pi / 180)
+  results.grid$y <- results.grid$pollutant * cos(results.grid[[wd]] * pi / 180)
 
 
   min.res <- min(results.grid$pollutant, na.rm = TRUE)
