@@ -130,7 +130,8 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all",
   files <- do.call(c, files)
 
   # Donload and load data
-  thedata <- plyr::ldply(files, loadData, verbose)
+  thedata <- lapply(files, loadData, verbose)
+  thedata <- do.call(bind_rows, thedata)
 
   # Return if no data
   if (nrow(thedata) == 0) return() ## no data
