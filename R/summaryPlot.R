@@ -318,10 +318,10 @@ summaryPlot <- function(mydata,
   ## means for trend line
 
   meanLine <- timeAverage(mydata, avg.time)
-  meanLine <- melt(meanLine, id.var = "date")
+  meanLine <- gather(meanLine, key = variable, value = value, -date)
   meanLine <- split(meanLine, meanLine$variable)
 
-  mydata <- melt(mydata, id.var = "date")
+  mydata <- gather(mydata, key = variable, value = value, -date)
 
   plot.missing <- function(mydata, na.len, col = "red") {
     dat <- ifelse(is.na(mydata[["value"]]), 1, 0)
