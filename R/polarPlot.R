@@ -611,7 +611,8 @@ polarPlot <-
       }
 
       ## use pollutants as conditioning variables
-      mydata <- reshape2::melt(mydata, measure.vars = pollutant)
+      mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)), 
+                       factor_key = TRUE)
       ## now set pollutant to "value"
       pollutant <- "value"
 

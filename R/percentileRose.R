@@ -234,7 +234,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
       type <- type[1]
     }
     ## use pollutants as conditioning variables
-    mydata <- melt(mydata, measure.vars = pollutant)
+  
+    mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)))
     ## now set pollutant to "value"
     pollutant <- "value"
     if (type == "default") {

@@ -450,9 +450,11 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
   if (type == "default") mydata$default <- "default"
 
   if (!is.null(windflow)) {
-    mydata <- melt(mydata, id.var = c("date", type, "ws", "wd"))
+ 
+    mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)))
   } else {
-    mydata <- melt(mydata, id.var = c("date", type))
+ #   mydata <- melt(mydata, id.var = c("date", type))
+    mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)))
   }
 
   if (type != "default") group <- TRUE ## need to group pollutants if conditioning

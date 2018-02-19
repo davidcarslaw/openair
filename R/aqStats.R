@@ -73,7 +73,6 @@
 ##'   have columns for each pollutant-site combination.
 ##' @param ... Other arguments, currently unused.
 ##' @export
-##' @import reshape2
 ##' @author David Carslaw
 ##' @keywords methods
 ##' @examples
@@ -245,7 +244,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
     }
 
     if (length(grep("no2", pollutant, ignore.case = TRUE)) == 1) {
-      browser()
+      
       hours <- group_by(mydata, year) %>%
         summarise(hours = length(which(UQ(sym(pollutant)) > 200)))
 
@@ -375,15 +374,14 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 
   ## transpose if requested
   if (transpose) {
-    if (length(unique(results$site)) > 1) {
-      results <- melt(results, id.vars = c("site", "pollutant", "year"))
-      results <- dcast(results, ... ~ site + pollutant)
-    } else {
-      ## only one site and don't need to add name
-      results <- subset(results, select = -site)
-      results <- melt(results, id.vars = c("pollutant", "year"))
-      results <- dcast(results, ... ~ pollutant)
-    }
+    
+    results <- gather(results, key = variable, value = value, 
+                      -c(site, pollutant, year, date))
+    
+    results <- unite(res, site_pol, site, pollutant)
+    
+    results <- spread(res, site_pol, value)
+    
     ## sort out names
     names(results) <- gsub("\\_", " ", names(results))
   }

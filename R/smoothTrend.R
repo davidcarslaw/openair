@@ -312,7 +312,9 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   # in the case of mutiple percentiles, these are assinged and treated
   # like multiple pollutants
-  mydata <- melt(mydata, measure.vars = pollutant)
+ 
+  mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)),
+                   factor_key = TRUE)
 
   if (length(percentile) > 1) {
     vars <- c(type, "variable")
@@ -324,15 +326,12 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
         avg.time = avg.time, percentile = percentile,
         data.thresh = data.thresh
       ))
+    
+    vars <- paste0("percentile.", percentile)
 
-    mydata <- melt(
-      subset(mydata, select = -variable),
-      measure.vars = paste(
-        "percentile.",
-        percentile,
-        sep = ""
-      )
-    )
+    mydata <- gather(mydata, key = variable, value = value, UQS(syms(vars)))
+    
+   
   } else {
     mydata <- timeAverage(
       mydata,

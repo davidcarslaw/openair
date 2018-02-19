@@ -302,7 +302,9 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
   ## if more than one pollutant, need to stack the data and set type = "variable"
   ## this case is most relevent for model-measurement compasrions where data are in columns
   if (length(pollutant) > 1) {
-    mydata <- melt(mydata, measure.vars = pollutant)
+   
+    mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)),
+                     factor_key = TRUE)
     ## now set pollutant to "value"
     pollutant <- "value"
     type <- "variable"

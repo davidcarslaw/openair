@@ -1,8 +1,8 @@
 Package: openair
 Type: Package
 Title: Tools for the Analysis of Air Pollution Data
-Version: 2.2-1
-Date: 2018-02-16
+Version: 2.2-2
+Date: 2018-02-19
 Authors@R: c(person("David", "Carslaw", role = c("aut", "cre"), email =
     "david.carslaw@york.ac.uk"), person("Karl", "Ropkins", role =
     "aut", email = "K.Ropkins@its.leeds.ac.uk"))
@@ -16,7 +16,6 @@ Imports:
     dplyr,
     purrr,
     tidyr,
-    reshape2,
     mgcv,
     lattice,
     latticeExtra,
