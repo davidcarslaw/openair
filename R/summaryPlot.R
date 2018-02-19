@@ -318,7 +318,7 @@ summaryPlot <- function(mydata,
   ## means for trend line
 
   meanLine <- timeAverage(mydata, avg.time)
-  meanLine <- melt(meanLine, id.var = "date")
+  meanLine <- gather(meanLine, key = variable, value = value, -date)
   meanLine <- split(meanLine, meanLine$variable)
 
   mydata <- melt(mydata, id.var = "date")
