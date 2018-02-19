@@ -94,7 +94,7 @@
 ##'   Similarly, common axis and title labelling options (such as \code{xlab},
 ##'   \code{ylab}, \code{main}) are passed to \code{xyplot} via \code{quickText}
 ##'   to handle routine formatting.
-##' @import latticeExtra
+##' @import latticeExtra purrr tidyr
 ##' @export
 ##' @author David Carslaw
 ##' @seealso See \code{\link{modStats}} for model evaluation statistics and the
@@ -150,7 +150,9 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
                                 key.position = "bottom",
                                 auto.text = TRUE, ...) {
   ## partly based on from Wilks (2005) and package verification, with many modifications
-
+  
+  # keep R check quite
+  data = second = third = NULL
 
   if (length(type) > 2) stop("Only two types can be used with this function")
 
@@ -206,13 +208,10 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
 
 
   procData <- function(mydata) {
-    mydata <- mydata[
-      , sapply(mydata, class) %in% c("numeric", "integer"),
-      drop = FALSE
-    ]
-
-    obs <- mydata[, obs]
-    pred <- mydata[, mod]
+   
+  mydata <- select_if(mydata, is.numeric)
+    obs <- mydata[[obs]]
+    pred <- mydata[[mod]]
     min.d <- min(mydata)
     max.d <- max(mydata)
     bins <- seq(floor(min.d), ceiling(max.d), length = bins)
@@ -260,14 +259,33 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
 
   lo <- min(mydata[c(mod, obs)])
   hi <- max(mydata[c(mod, obs)])
-  all.results <- dlply(mydata, type, procData)
+  
+ # all.results <- dlply(mydata, type, procData)
+  all.results <- group_by(mydata, UQS(syms(type))) %>% 
+    nest() %>% 
+    mutate(results = map(data, procData))
 
-  results <- plyr::ldply(all.results, function(x) rbind(x[[1]]))
-  hist.results <- plyr::ldply(all.results, function(x) rbind(x[[2]]))
-  obs.results <- plyr::ldply(all.results, function(x) rbind(x[[3]]))
+#  results <- plyr::ldply(all.results, function(x) rbind(x[[1]]))
+#  hist.results <- plyr::ldply(all.results, function(x) rbind(x[[2]]))
+ # obs.results <- plyr::ldply(all.results, function(x) rbind(x[[3]]))
+  
+  results <- all.results %>% 
+    mutate(first = map(results, 1)) %>% 
+    select(-data, -results) %>% 
+    unnest(first)
+  
+  hist.results <- all.results %>% 
+    mutate(second = map(results, 2)) %>% 
+    select(-data, -results) %>% 
+    unnest(second)
+  
+  obs.results <- all.results %>% 
+    mutate(third = map(results, 3)) %>% 
+    select(-data, -results) %>% 
+    unnest(third)
 
   ## proper names of labelling ##############################################################################
-  pol.name <- sapply(levels(results[, type[1]]), function(x) quickText(x, auto.text))
+  pol.name <- sapply(levels(results[[type[1]]]), function(x) quickText(x, auto.text))
   strip <- strip.custom(factor.levels = pol.name)
 
   if (length(type) == 1) {
@@ -275,7 +293,7 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
     if (type == "default") strip <- FALSE
   } else { ## two conditioning variables
 
-    pol.name <- sapply(levels(results[, type[2]]), function(x) quickText(x, auto.text))
+    pol.name <- sapply(levels(results[[type[2]]]), function(x) quickText(x, auto.text))
     strip.left <- strip.custom(factor.levels = pol.name)
   }
   ## #####################################################################################
@@ -306,7 +324,7 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
       )),
       space = key.position,
       columns = key.columns
-    ),
+    ), 
     par.strip.text = list(cex = 0.8),
     panel = function(x, subscripts, ...) {
       panel.grid(-1, -1, col = "grey95")
@@ -323,19 +341,10 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
         results$q2[subscripts],
         myColors = col.1, alpha = 1
       )
-
-      ## match type and get limits for obs
-      theType <- results[subscripts[1], type]
-
-      if (length(type) == 1) {
-        theSubset <- subset(obs.results, get(type) == theType)
-      } else {
-        theSubset <- obs.results[obs.results[type[1]] ==
-          as.character(theType[, 1]) &
-          obs.results[type[2]] ==
-            as.character(theType[, 2]), ]
-      }
-
+      
+      # draw line of where observations lie
+      theSubset <- inner_join(obs.results, results[subscripts[1], ], by = type)
+      
       panel.lines(
         c(theSubset$min, theSubset$max), c(
           theSubset$min,
@@ -377,7 +386,7 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
                      subscripts, ...) {
       ## histogram of observations
       panel.histogram(
-        x = hist.results[subscripts, "obs.cut"],
+        x = hist.results[["obs.cut"]][subscripts],
         col = NA, alpha = 0.5, lwd = 0.5,
         border = ideal.col, ...
       )

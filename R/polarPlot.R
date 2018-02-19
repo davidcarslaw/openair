@@ -358,7 +358,7 @@
 #' @importFrom MASS rlm
 #' @importFrom latticeExtra useOuterStrips
 #' @import mgcv
-#' @import rlang
+#' @importFrom rlang sym syms UQ UQS
 #' @import lattice
 #' @importFrom stats complete.cases
 #' @return As well as generating the plot itself, \code{polarPlot}

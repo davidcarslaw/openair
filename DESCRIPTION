@@ -14,6 +14,8 @@ Imports:
     plyr,
     rlang,
     dplyr,
+    purrr,
+    tidyr,
     reshape2,
     mgcv,
     lattice,
