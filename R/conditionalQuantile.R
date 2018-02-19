@@ -260,31 +260,24 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
   lo <- min(mydata[c(mod, obs)])
   hi <- max(mydata[c(mod, obs)])
   
- # all.results <- dlply(mydata, type, procData)
   all.results <- group_by(mydata, UQS(syms(type))) %>% 
     nest() %>% 
     mutate(results = map(data, procData))
 
-#  results <- plyr::ldply(all.results, function(x) rbind(x[[1]]))
-#  hist.results <- plyr::ldply(all.results, function(x) rbind(x[[2]]))
- # obs.results <- plyr::ldply(all.results, function(x) rbind(x[[3]]))
-  
+
   results <- all.results %>% 
     mutate(first = map(results, 1)) %>% 
-    select(-data, -results) %>% 
     unnest(first)
   
   hist.results <- all.results %>% 
     mutate(second = map(results, 2)) %>% 
-    select(-data, -results) %>% 
     unnest(second)
   
   obs.results <- all.results %>% 
     mutate(third = map(results, 3)) %>% 
-    select(-data, -results) %>% 
     unnest(third)
 
-  ## proper names of labelling ##############################################################################
+  ## proper names of labelling #################################################
   pol.name <- sapply(levels(results[[type[1]]]), function(x) quickText(x, auto.text))
   strip <- strip.custom(factor.levels = pol.name)
 
@@ -296,7 +289,7 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
     pol.name <- sapply(levels(results[[type[2]]]), function(x) quickText(x, auto.text))
     strip.left <- strip.custom(factor.levels = pol.name)
   }
-  ## #####################################################################################
+  ## ###########################################################################
 
   temp <- paste(type, collapse = "+")
   myform <- formula(paste("x ~ med | ", temp, sep = ""))
