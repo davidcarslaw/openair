@@ -409,7 +409,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
       summarise_if(is.numeric, funs(mean), na.rm = TRUE)
     
     percentiles$percentile <- 999
-    Mean <- plyr::ldply(999, mod.percentiles)
+  
+    Mean <- map_df(999, mod.percentiles)
 
     if (stat == "percentile") results <- results else results <- Mean
     results

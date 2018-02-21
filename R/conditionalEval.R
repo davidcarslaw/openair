@@ -315,7 +315,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     pred.cut[is.na(pred.cut)] <- labs[1]
 
     ## split by predicted intervals
-    res <- split(mydata, pred.cut)
+    res <- mutate(mydata, pred.cut = pred.cut) 
 
     statFun <- function(x, ...) {
       tmpFun <- function(i, x, ...) {
@@ -324,7 +324,9 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
       }
 
       if (nrow(x) > 4) {
-        res <- plyr::ldply(1:200, tmpFun, x, ...)
+       
+        res <- group_by(data.frame(n = 1:200), n) %>% 
+          do(tmpFun(i = .$n, x))
 
         data.frame(
           statistic = statistic, group = var.obs,
@@ -337,15 +339,21 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     }
 
     if (other) {
-      res <- plyr::ldply(res, function(x) as.data.frame(table(x[, statistic])))
+ 
+      res <- group_by(res, pred.cut, ws.obs) %>% 
+        summarise(Freq = n())
 
       ## calculate proportions by interval
 
-      res <- group_by(res, .id) %>%
+      res <- ungroup(res) %>%
+        group_by(pred.cut) %>%
         mutate(Freq = Freq / sum(Freq))
+      
       res$statistic <- factor(statistic)
+      
     } else {
-      res <- plyr::ldply(res, statFun, statistic = statistic)
+     
+      res <- do(statFun(., statistic = statistic))
     }
 
     res
@@ -357,8 +365,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     clust.results <- group_by(mydata, UQS(syms(type))) %>%
       do(procData(., other = other, statistic = statistic))
 
-    clust.results$.id <- as.numeric(clust.results$.id)
-
+    clust.results$.id <- as.numeric(as.character(clust.results$pred.cut))
+  
     pol.name <- sapply(
       levels(clust.results[["statistic"]]),
       function(x) quickText(x, auto.text)
@@ -375,10 +383,12 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     }
     ## ###################################################################################
 
-    cols <- openColours(col.var, length(unique(clust.results$Var1)))
+    cols <- openColours(col.var, length(unique(clust.results[[statistic]])))
+  
     temp <- "statistic"
     if (type != "default") temp <- paste(c("statistic", type), collapse = "+")
     myform <- formula(paste("Freq ~ .id | ", temp, sep = ""))
+    clust.results$grp <- clust.results[[statistic]]
 
     clust.plt <- xyplot(
       myform,
@@ -390,7 +400,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
       as.table = TRUE,
       strip = strip,
       strip.left = strip.left,
-      groups = Var1,
+      groups = grp,
       stack = TRUE,
       col = cols,
       border = NA,
@@ -398,7 +408,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
       horizontal = FALSE,
       key = list(
         rectangles = list(col = cols, border = NA),
-        text = list(levels(clust.results$Var1)), space = "bottom",
+        text = list(levels(clust.results[[statistic]])), space = "bottom",
         title = statistic, cex.title = 1
       ),
       par.strip.text = list(cex = 0.8),

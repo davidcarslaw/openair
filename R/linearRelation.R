@@ -220,16 +220,28 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
     mydata$cond <- format(mydata$date, "%Y")
   }
 
-  model <- function(df) lm(eval(paste(y, "~", x)), data = df)
-  rsq <- function(x) summary(x)$r.squared
-  seslope <- function(x) {
-    if (nrow(summary(x)$coefficients) == 2) {
-      2 * summary(x)$coefficients[2, 2] ## 95 % CI; need two rows in coefs
-    } else {
-      NA
-    }
+  # function to put a linear model through grouped data and extract components
+  model_lm <- function(x, y, data) {
+  
+    # make it easy to refer to x and y
+    data <- rename(data, x = !! (sym(x)),
+                   y = !! (sym(y)))
+    
+    my_lm <- function(data) lm(y ~ x, data = data)
+    
+    results <- data %>% 
+      nest() %>%
+      mutate(fit = map(data, my_lm), sum = map(fit, summary)) %>% 
+      mutate(rsquare = map_dbl(sum, "r.squared"), 
+             coef = map(sum, "coefficients"),
+             intercept = map_dbl(coef, ~ .[1, 1]),
+             slope = map_dbl(coef, ~ .[2, 1]),
+             seslope = 2 * map_dbl(coef, ~ .[2, 2]),
+             N = map_dbl(data, nrow))
+    
+    return(results)      
+               
   }
-  len <- function(x) nrow(x$model)
 
   ## y range taking account of expanded uncertainties
   rng <- function(x) {
@@ -245,17 +257,13 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
     if (is.null(Args$xlab)) {
       Args$xlab <- "hour"
     }
+    
+    mydata <- mutate(mydata, cond,  hour = as.numeric(format(date, "%H"))) %>%
+      group_by(cond, hour)
 
-    models <- plyr::dlply(
-      mydata,
-      .(cond, hour = as.numeric(format(date, "%H"))),
-      model
-    )
-    results <- plyr::ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
-    names(results) <- c(
-      "cond", "hour", "intercept", "slope",
-      "rsquare", "seslope", "N"
-    )
+    results <- model_lm(x = x, y = y, mydata) %>%
+      select(cond, hour, slope, intercept, rsquare, seslope, N)
+    
     results$slope <- results$slope * adj
     results$seslope <- results$seslope * adj
     results <- subset(results, rsquare >= rsq.thresh & N >= n)
@@ -294,16 +302,16 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
   ## flexible time period
 
   if (!period %in% c("hour", "weekday", "day.hour")) {
-    mydata$cond <- cut(mydata$date, period)
-    models <- plyr::dlply(mydata, .(cond), model)
-    results <- plyr::ldply(models, function(x) c(coef(x), rsq(x), seslope(x), len(x)))
-
-    names(results) <- c(
-      "cond", "intercept", "slope",
-      "rsquare", "seslope", "N"
-    )
+    
+    mydata <- mutate(mydata, cond = round_date(date, period)) %>%
+      group_by(cond)
+    
+    results <- model_lm(x = x, y = y, mydata) %>%
+      select(cond, slope, intercept, rsquare, seslope, N)
+    
     results$slope <- results$slope * adj
     results$seslope <- results$seslope * adj
+   
     results$date <- as.POSIXct(results$cond, "GMT")
 
     results <- subset(results, rsquare >= rsq.thresh & N >= n)
@@ -335,6 +343,7 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
           col = data.col, pch = Args$pch,
           cex = Args$cex, ...
         )
+       
         panel.segments(x, y - results$seslope[subscripts], x,
           y + results$seslope[subscripts],
           col = data.col,
@@ -357,16 +366,13 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
     if (is.null(Args$xlab)) {
       Args$xlab <- "weekday"
     }
-
-    models <- plyr::dlply(mydata, .(cond, weekday = format(date, "%a")), model)
-    results <- plyr::ldply(
-      models,
-      function(x) c(coef(x), rsq(x), seslope(x), len(x))
-    )
-    names(results) <- c(
-      "cond", "weekday", "intercept", "slope",
-      "rsquare", "seslope", "N"
-    )
+    
+    mydata <- mutate(mydata, cond,  weekday = format(date, "%a")) %>%
+      group_by(cond, weekday)
+    
+    results <- model_lm(x = x, y = y, mydata) %>%
+      select(cond, weekday, slope, intercept, rsquare, seslope, N)
+  
     results <- subset(results, rsquare >= rsq.thresh & N >= n)
     results$slope <- results$slope * adj
     results$seslope <- results$seslope * adj
@@ -401,7 +407,7 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
         )
       }
     )
-    c
+    
     # reset for Args
     xyplot.args <- listUpdate(xyplot.args, Args)
 
@@ -417,22 +423,18 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
       Args$xlab <- "hour"
     }
 
-    models <- plyr::dlply(mydata, .(cond,
-      weekday = format(date, "%A"),
-      hour = as.numeric(format(date, "%H"))
-    ), model)
-    results <- plyr::ldply(
-      models,
-      function(x) c(coef(x), rsq(x), seslope(x), len(x))
-    )
-    names(results) <- c(
-      "cond", "weekday", "hour", "intercept", "slope",
-      "rsquare", "seslope", "N"
-    )
+    mydata <- mutate(mydata, cond,  weekday = format(date, "%A"),
+                     hour = as.numeric(format(date, "%H"))) %>%
+      group_by(cond, weekday, hour)
+    
+    results <- model_lm(x = x, y = y, mydata) %>%
+      select(cond, weekday, hour, slope, intercept, rsquare, seslope, N)
+    
     results$slope <- results$slope * adj
     results$seslope <- results$seslope * adj
     results <- subset(results, rsquare >= rsq.thresh & N >= n)
-    results$weekday <- ordered(results$weekday, levels = format(ISOdate(2000, 1, 3:9), "%A"))
+    results$weekday <- ordered(results$weekday, 
+                               levels = format(ISOdate(2000, 1, 3:9), "%A"))
     if (nrow(results) == 0) stop("Note enough data to plot. Try reducing 'n'.")
 
     eq <- formula(slope ~ hour | weekday)
