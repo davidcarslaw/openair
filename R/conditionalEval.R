@@ -335,12 +335,21 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
           upper = quantile(res[[statistic]], probs = 0.975, na.rm = TRUE),
           stringsAsFactors = FALSE
         )
+      } else {
+        data.frame(
+          statistic = statistic, group = var.obs,
+          mean = NA,
+          lower = NA,
+          upper = NA,
+          stringsAsFactors = FALSE
+        )
       }
     }
 
     if (other) {
- 
-      res <- group_by(res, pred.cut, ws.obs) %>% 
+    vars <- c("pred.cut", statistic)
+    
+      res <- group_by(res, UQS(syms(vars))) %>% 
         summarise(Freq = n())
 
       ## calculate proportions by interval
@@ -352,14 +361,14 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
       res$statistic <- factor(statistic)
       
     } else {
-     
-      res <- do(statFun(., statistic = statistic))
+      res <- group_by(res, pred.cut) %>% do(statFun(., statistic = statistic))
+    #  res <- do(statFun(., statistic = statistic))
     }
 
-    res
+    na.omit(res)
   }
 
-  ## treat clusters specfically if present ###############################################
+  ## treat clusters specfically if present #####################################
 
   if (other) {
     clust.results <- group_by(mydata, UQS(syms(type))) %>%
@@ -381,7 +390,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
         quickText(x, auto.text))
       strip.left <- strip.custom(factor.levels = pol.name)
     }
-    ## ###################################################################################
+    ## #########################################################################
 
     cols <- openColours(col.var, length(unique(clust.results[[statistic]])))
   
@@ -422,7 +431,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     )
   }
 
-  ## go through list of ordinary statistics ##################################################
+  ## go through list of ordinary statistics ####################################
   statistic <- statistic[which(statistic %in% the.stats)]
 
   if (length(statistic) > 0) {
@@ -443,7 +452,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
       rowwise() %>%
       do(procData(mydata, statistic = .$stat, var.obs = .$var.obs, var.mod = .$var.mod))
 
-    results$.id <- as.numeric(results$.id)
+   # results$.id <- as.numeric(results$.id)
+    results$.id <- as.numeric(as.character(results$pred.cut))
 
     ## make sure all infinite values are set to NA
     results[] <- lapply(results, function(x) {
@@ -453,9 +463,10 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     results$statistic <- factor(results$statistic)
     results$group <- factor(results$group)
 
-    ## proper names of labelling #####################################################
+    ## proper names of labelling ###############################################
 
-    pol.name <- sapply(levels(results[["statistic"]]), function(x) quickText(x, auto.text))
+    pol.name <- sapply(levels(results[["statistic"]]), 
+                       function(x) quickText(x, auto.text))
     strip <- strip.custom(factor.levels = pol.name)
 
     if (type == "default") {
@@ -467,7 +478,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
       strip.left <- strip.custom(factor.levels = pol.name)
     }
-    ## #####################################################################################
+    ## #########################################################################
 
     ## set up colours
     myColors <- openColours(col.var, length(var.obs))
@@ -489,16 +500,14 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     if (type != "default") temp <- paste(c("statistic", type), collapse = "+")
 
     myform <- formula(paste("mean ~ .id | ", temp, sep = ""))
+    
+    # ylimits list
+    ylim <- split(results, results$statistic) %>% 
+      map(~ c(min(.$lower, na.rm = TRUE), max(.$upper, na.rm = TRUE)))
 
     p.args <- list(
       x = myform, data = results, groups = results$group,
-      ylim = dlply(
-        results, .(statistic),
-        function(x) c(
-            min(x$lower, na.rm = TRUE),
-            max(x$upper, na.rm = TRUE)
-          )
-      ),
+      ylim = ylim,
       xlim = c(lo, hi * 1.05),
       ylab = quickText(ylab, auto.text),
       xlab = quickText(xlab, auto.text),

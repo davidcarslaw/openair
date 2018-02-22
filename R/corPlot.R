@@ -261,7 +261,6 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
     thedata <- as.vector(thedata)
 
     thedata <- cbind(grid, z = thedata)
-    thedata[, type] <- mydata[1, type]
     thedata <- list(
       thedata = thedata, pol.name = thepols, pol.ord = ord.dat,
       clust = clust
@@ -269,22 +268,39 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
     thedata
   }
 
-  results.grid <- dlply(mydata, type, prepare.cond)
-  clust <- results.grid[[1]]$clust
+  # main results in lists
+  results.grid <- group_by(mydata, UQS(syms(type))) %>% 
+    nest() %>% 
+    mutate(results = map(data, prepare.cond))
+  
+  # cluster model
+  clust <- results.grid %>% 
+    mutate(clust = map(results, 4))
+  clust <-  clust$clust[[1]]
 
   ## recover by-type order
-  # (re clustering = TRUE)
-  data.order <- lapply(1:length(results.grid), function(x) {
-    pollutants[results.grid[[x]]$pol.ord]
-  })
+  
+  data.order <- results.grid %>%
+    mutate(out = map(results, 3))
+  
+  data.order <- lapply(data.order$out, function(x) pollutants[x])
+  
   x2 <- unlist(lapply(1:length(data.order), function(x)
     (rep(data.order[[x]], times = length(data.order[[x]])))))
   y2 <- unlist(lapply(1:length(data.order), function(x)
     (rep(data.order[[x]], each = length(data.order[[x]])))))
 
   ## list of labels
-  labels <- lapply(results.grid, function(x) x$pol.name)
-  results.grid <- do.call(rbind, lapply(results.grid, function(x) x$thedata))
+
+  labels <- results.grid %>%
+    mutate(out = map(results, 2))
+  
+  labels <- labels$out
+  
+  results.grid <- results.grid %>% 
+    mutate(out = map(results, 1)) %>% 
+    select(UQS(syms(type)), out) %>% 
+    unnest()
 
   div.col <- function(x) openColours(cols, x)
 
@@ -386,7 +402,6 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
 
   # main handling
   output <- list(plot = plt, data = newdata, call = match.call(), clust = clust)
-  class(output) <- "openair"
   invisible(output)
 }
 

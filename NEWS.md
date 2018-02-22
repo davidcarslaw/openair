@@ -5,6 +5,7 @@
 - remove site information from help of `importAURN` and point users to `importMeta`
 - fixed bug in `scatterPlot` when `method = "level"` due to NSE
 - use `tidyr` in place of `reshape2`
+- remove dependency of `plyr` and `reshape2`
 
 ## openair 2.1-5
 

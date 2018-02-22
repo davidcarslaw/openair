@@ -237,7 +237,6 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##'
 ##' @export windRose pollutionRose
 ##' @import dplyr
-##' @importFrom plyr ldply dlply llply numcolwise .
 ##' @importFrom graphics abline
 ##' @importFrom grDevices col2rgb colorRampPalette grey rgb xy.coords
 ##' @importFrom methods is

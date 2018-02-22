@@ -395,7 +395,8 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
     panel = function(..., col, subscripts) {
       panel.grid(-1, 0)
       panel.abline(v = dates, col = "grey95", ...)
-      plyr::d_ply(results[subscripts, ], "date", panelBar)
+    
+      split(results[subscripts, ], results$date) %>% lapply(., panelBar)
     }
   )
 

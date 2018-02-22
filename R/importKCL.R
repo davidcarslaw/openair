@@ -555,7 +555,7 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
       if (x$date[1] != start) {
         ## add first row
         x1 <- data.frame(date = start, site = x$site[1])
-        x <- plyr::rbind.fill(x1, x)
+        x <- bind_rows(x1, x)
       }
 
       x <- date.pad(x, type = "site") ## pad out missing dates
