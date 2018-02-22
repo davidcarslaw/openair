@@ -218,6 +218,9 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     other <- TRUE
     statistic <- "cluster"
   }
+  
+  if (any(type %in% dateTypes)) vars <- c("date", vars)
+  
 
   ## various checks
   if (length(var.obs) == 0 | length(var.mod) == 0 & !"cluster" %in% statistic) {
@@ -447,14 +450,19 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
         stringsAsFactors = FALSE
       )
     )
-
+    
+    process_data <- function(mydata, type, ...) {
+      mydata <- group_by(mydata, UQS(syms(type))) %>%
+        do(procData(., ...))
+    }
+    
     results <- combs %>%
       rowwise() %>%
-      do(procData(mydata, statistic = .$stat, var.obs = .$var.obs, var.mod = .$var.mod))
-
-   # results$.id <- as.numeric(results$.id)
+      do(suppressWarnings(process_data(mydata, type, statistic = .$stat, 
+                      var.obs = .$var.obs, var.mod = .$var.mod)))
+    
     results$.id <- as.numeric(as.character(results$pred.cut))
-
+    
     ## make sure all infinite values are set to NA
     results[] <- lapply(results, function(x) {
       replace(x, x == Inf | x == -Inf, NA)
@@ -462,10 +470,11 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
     results$statistic <- factor(results$statistic)
     results$group <- factor(results$group)
+  
 
     ## proper names of labelling ###############################################
 
-    pol.name <- sapply(levels(results[["statistic"]]), 
+    pol.name <- sapply(levels(as.factor(results[["statistic"]])), 
                        function(x) quickText(x, auto.text))
     strip <- strip.custom(factor.levels = pol.name)
 
@@ -473,7 +482,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
       strip.left <- FALSE
     } else { ## two conditioning variables
 
-      pol.name <- sapply(levels(results[, type[1]]), function(x)
+      pol.name <- sapply(levels(results[[type[1]]]), function(x)
         quickText(x, auto.text))
 
       strip.left <- strip.custom(factor.levels = pol.name)
