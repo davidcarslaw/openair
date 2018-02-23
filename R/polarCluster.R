@@ -175,10 +175,13 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
     fontsize = current.font
   ))
 
+  # add id for later merging
+  mydata <- mutate(mydata, .id = 1:nrow(mydata))
+  
   data.orig <- mydata ## keep original data so cluster can be merged with it
   type <- "default"
   vars <- c("wd", x, pollutant)
-  vars <- c(vars, "date")
+  vars <- c(vars, "date", ".id")
 
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
 
@@ -280,8 +283,8 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
     ## match u.id, v.id in mydata to cluster
     mydata$cluster <- as.factor(temp[cbind(mydata$u.id, mydata$v.id)])
 
-    mydata <- mydata[, c("date", "cluster")] ## just need date/cluster
-    mydata <- merge(data.orig, mydata, by = "date")
+    mydata <- mydata[, c("date", "cluster", ".id")] ## just need date/cluster
+    mydata <- merge(data.orig, mydata, by = ".id")
     results <- mydata
     myform <- formula("cluster ~ u * v")
   }
