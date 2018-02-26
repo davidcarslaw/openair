@@ -223,12 +223,16 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
 
   ## need lowest value if shading
   if (fill) percentile <- unique(c(0, percentile))
+  
+  # number of pollutants
+  npol <- length(pollutant)
 
   ## if more than one pollutant, need to stack the data and set type = "variable"
   ## this case is most relevent for model-measurement compasrions where data are in columns
   ## Can also do more than one pollutant and a single type that is not "default", in which
   ## case pollutant becomes a conditioning variable
   if (length(pollutant) > 1) {
+    
     if (length(type) > 1) {
       warning(paste("Only type = '", type[1], "' will be used", sep = ""))
       type <- type[1]
@@ -313,6 +317,10 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
   }
 
   prepare.grid <- function(mydata, stat, overall.lower, overall.upper) {
+    
+    overall.lower <- mydata$lower[1]
+    overall.upper <- mydata$upper[1]
+    
     # wd = NULL
     ## add zero wind angle = same as 360 for cyclic spline
     ids <- which(mydata[, wd] == 360)
@@ -381,7 +389,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     }
 
     if (tolower(method) == "cpf") {
-    
+   
       percentiles1 <- group_by(mydata, wd) %>% 
         summarise_if(is.numeric, funs(length(which(. < overall.lower)) /length(.)))
       
@@ -420,11 +428,30 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
   mydata <- cutData(mydata, type, ...)
 
   ## overall.lower and overall.upper are the OVERALL upper/lower percentiles
-  overall.lower <- quantile(mydata[[pollutant]], probs = min(percentile) / 100, na.rm = TRUE)
-  overall.upper <- quantile(mydata[[pollutant]], probs = max(percentile) / 100, na.rm = TRUE)
+#  overall.lower <- quantile(mydata[[pollutant]], probs = min(percentile) / 100, na.rm = TRUE)
+#  overall.upper <- quantile(mydata[[pollutant]], probs = max(percentile) / 100, na.rm = TRUE)
 
+  ## overall.lower and overall.upper are the OVERALL upper/lower percentiles, but pollutant specific
+  if (npol > 1) {
+    
+    mydata <- mydata %>%
+      group_by(variable) %>%
+      mutate(
+      lower = quantile(UQ(sym(pollutant)), probs = min(UQ(percentile)) / 100, na.rm = TRUE),
+      upper = quantile(UQ(sym(pollutant)), probs = max(UQ(percentile)) / 100, na.rm = TRUE)
+    ) %>%
+      ungroup()
+    
+  } else {
+    mydata <- mutate(
+      mydata,
+      lower = quantile(UQ(sym(pollutant)), probs = min(UQ(percentile)) / 100, na.rm = TRUE),
+      upper = quantile(UQ(sym(pollutant)), probs = max(UQ(percentile)) / 100, na.rm = TRUE)
+    )
+  }
+  
   results.grid <- group_by(mydata, UQS(syms(type))) %>%
-    do(prepare.grid(., stat = "percentile", overall.lower, overall.upper))
+    do(prepare.grid(., stat = "percentile"))
   
 
   if (method == "cpf") {
@@ -531,12 +558,10 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
             subdata <- subset(results.grid[subscripts, ], percentile == value)
             lpolygon(subdata$x, subdata$y, col = "white", border = NA)
           } else {
-            subdata1 <- subset(results.grid[subscripts, ], percentile == value)
+           
+            subdata1 <- results.grid[subscripts, ] %>% filter(percentile == UQ(value))
             value2 <- percentile[i - 1]
-            subdata2 <- subset(
-              results.grid[subscripts, ],
-              percentile == value2
-            )
+            subdata2 <- results.grid[subscripts, ] %>% filter(percentile == UQ(value2))
 
             poly.na(
               x1 = subdata1$x, x2 = subdata2$x, y1 = subdata1$y, y2 = subdata2$y,

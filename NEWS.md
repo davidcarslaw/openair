@@ -6,6 +6,7 @@
 - fixed bug in `scatterPlot` when `method = "level"` due to NSE
 - use `tidyr` in place of `reshape2`
 - remove dependency of `plyr` and `reshape2`
+- fix bug in `percentileRose` for `method = "cpf"` with mutiple pollutants
 
 ## openair 2.1-5
 
