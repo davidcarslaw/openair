@@ -1,4 +1,8 @@
-# openair 2.2-99
+## openair 2.3-99
+
+# openair 2.2-3
+
+## Main changes
 
 - refine `selectByDate` due to changes in `lubridate`
 - fix issue with `importSAQN` when no data
@@ -8,7 +12,9 @@
 - remove dependency of `plyr` and `reshape2`
 - fix bug in `percentileRose` for `method = "cpf"` with mutiple pollutants
 
-## openair 2.1-5
+# openair 2.1-5
+
+## Main changes
 
 - change `polarCluster` resolution to "normal" rather than "fine" to speed up.
 - fix regression when fitting smooth using `trajLevel`
