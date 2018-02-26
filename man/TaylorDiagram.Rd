@@ -149,9 +149,7 @@ conditioning by any categorical or numeric variables, which makes the
 function very flexible.
 }
 \details{
-The Taylor Diagram is a very useful model evaluation tool. Details of the
-diagram can be found at
-\url{http://www-pcmdi.llnl.gov/about/staff/Taylor/CV/Taylor_diagram_primer.pdf}.
+The Taylor Diagram is a very useful model evaluation tool. 
 The diagram provides a way of showing how three complementary model
 performance statistics vary simultaneously. These statistics are the
 correlation coefficient R, the standard deviation (sigma) and the (centred)
@@ -266,7 +264,7 @@ TaylorDiagram(mod.dat, obs = "obs", mod = "mod", group = c("model", "month"))
 \references{
 Taylor, K.E.: Summarizing multiple aspects of model performance in a single
   diagram. J.  Geophys. Res., 106, 7183-7192, 2001 (also see PCMDI Report
-  55, \url{http://www-pcmdi.llnl.gov/about/staff/Taylor/CV/Taylor_2001_JGR.pdf})
+  55).
 
 IPCC, 2001: Climate Change 2001: The Scientific Basis, Contribution of
   Working Group I to the Third Assessment Report of the Intergovernmental
