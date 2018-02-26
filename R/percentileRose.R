@@ -217,7 +217,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
   if (length(ids) > 0 & smooth != TRUE) {
     extra <- mydata[rep(1, length(ids)), ]
     extra[[wd]] <- seq(angle, 360, by = angle)[ids]
-    extra[[pollutant]] <- NA
+    extra[pollutant, ] <- NA
     mydata <- rbind(mydata, extra)
   }
 
