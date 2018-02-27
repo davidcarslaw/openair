@@ -12,7 +12,7 @@ TheilSen(mydata, pollutant = "nox", deseason = FALSE, type = "default",
   c(1, 5), lwd = c(2, 1), col = c("red", "red")), text.col = "darkgreen",
   slope.text = NULL, cols = NULL, shade = "grey95", auto.text = TRUE,
   autocor = FALSE, slope.percent = FALSE, date.breaks = 7, plot = TRUE,
-  ...)
+  silent = FALSE, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing the field \code{date} and at
@@ -155,6 +155,8 @@ up or down.}
 \item{plot}{Should a plot be produced. \code{FALSE} can be useful when
 analysing data to extract trend components and plotting them in other
 ways.}
+
+\item{silent}{When \code{FALSE} the function will give updates on trend-fitting progress.}
 
 \item{...}{Other graphical parameters passed onto \code{cutData}
 and \code{lattice:xyplot}. For example, \code{TheilSen} passes

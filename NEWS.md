@@ -1,6 +1,7 @@
 ## openair 2.3-99
 
 - add option `plot` to `TheilSen`. `FALSE` can be useful when analysing data to extract the trend components and plot in otherways and when the `TheilSen` plot is not required.
+- add option `silent` to `TheilSen` to avoid printing updates to trend fitting. By default it is `FALSE`.
 
 # openair 2.2-3
 
