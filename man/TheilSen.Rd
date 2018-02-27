@@ -11,7 +11,8 @@ TheilSen(mydata, pollutant = "nox", deseason = FALSE, type = "default",
   y.relation = "same", data.col = "cornflowerblue", trend = list(lty =
   c(1, 5), lwd = c(2, 1), col = c("red", "red")), text.col = "darkgreen",
   slope.text = NULL, cols = NULL, shade = "grey95", auto.text = TRUE,
-  autocor = FALSE, slope.percent = FALSE, date.breaks = 7, ...)
+  autocor = FALSE, slope.percent = FALSE, date.breaks = 7, plot = TRUE,
+  ...)
 }
 \arguments{
 \item{mydata}{A data frame containing the field \code{date} and at
@@ -150,6 +151,10 @@ being considered. This does not always work as desired
 automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of \code{date.breaks}
 up or down.}
+
+\item{plot}{Should a plot be produced. \code{FALSE} can be useful when
+analysing data to extract trend components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters passed onto \code{cutData}
 and \code{lattice:xyplot}. For example, \code{TheilSen} passes

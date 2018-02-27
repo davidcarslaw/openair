@@ -1,5 +1,7 @@
 ## openair 2.3-99
 
+- add option `plot` to `TheilSen`. `FALSE` can be useful when analysing data to extract the trend components and plot in otherways and when the `TheilSen` plot is not required.
+
 # openair 2.2-3
 
 ## Main changes
