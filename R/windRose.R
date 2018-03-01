@@ -217,7 +217,9 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##'   \code{pollutant = "ws"}.
 ##' @param annotate If \code{TRUE} then the percentage calm and mean
 ##'   values are printed in each panel together with a description of
-##'   the statistic below the plot.
+##'   the statistic below the plot. If \code{" "} then only the 
+##'   stastic is below the plot. Custom annotations may be added by 
+##'   setting value to \code{c("annotation 1", "annotation 2")}. 
 ##' @param angle.scale The wind speed scale is by default shown at a
 ##'   315 degree angle. Sometimes the placement of the scale may
 ##'   interfere with an interesting feature. The user can therefore
@@ -799,7 +801,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
   if (myby / mymax > 0.9) myby <- mymax * 0.9
 
-  if (annotate) sub <- stat.lab else sub <- NULL
+  is_annotated <- !(annotate %in% c(FALSE, NA, NaN)) &&   !is.null(annotate)
+  if (is_annotated) sub <- stat.lab else sub <- NULL
 
   xy.args <- list(
     x = myform,
@@ -873,32 +876,33 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       )
 
       ## annotations e.g. calms, means etc
-      if (annotate) { ## don't add calms for prop.mean for now...
-
-        if (!diff) {
-          ltext(
-            max.freq + off.set, -max.freq - off.set,
-            label = paste(
-              stat.lab2, " = ",
-              dat$panel.fun[1], "\ncalm = ",
-              dat$calm[1], stat.unit,
-              sep = ""
-            ),
-            adj = c(1, 0), cex = 0.7, col = calm.col
+      if (is_annotated) { ## don't add calms for prop.mean for now...
+        if (annotate == "TRUE") {
+          if (!diff) annotate <- c("statistic" , "calm")
+          if (diff) annotate <- c("mean_ws" , "mean_wd")
+        }
+        
+        annotations_to_place <- NULL
+        for(annotate.index in annotate){
+          annotations_to_place <- paste(
+            annotations_to_place, 
+            switch(
+              annotate.index,
+              statistic = paste(stat.lab2, " = ", dat$panel.fun[1]),
+              calm = paste("calm = ", dat$calm[1], stat.unit),
+              mean_ws = paste("mean ws = ", round(as.numeric(dat$panel.fun[1]), 1)),
+              mean_wd = paste("mean wd = ", round(dat$mean.wd[1], 1)),
+              annotate.index
+            ), sep = "\n"
           )
         }
-      }
-
-      if (diff) { ## when two data sets are present
+        
         ltext(
           max.freq + off.set, -max.freq - off.set,
-          label = paste(
-            "mean ws = ",
-            round(as.numeric(dat$panel.fun[1]), 1),
-            "\nmean wd = ", round(dat$mean.wd[1], 1),
-            sep = ""
-          ), adj = c(1, 0), cex = 0.7, col = calm.col
-        )
+          label = annotations_to_place  ,
+          adj = c(1, 0), cex = 0.7, col = calm.col
+        )        
+        
       }
     }, legend = legend
   )
