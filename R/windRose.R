@@ -770,33 +770,15 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
   mymax <- 2 * max.freq
 
-  # check to see if grid.line is a list or not and set grid line properties
-  grid.value <- NULL
+  # set grid line properties
 
-  if (is.list(grid.line)) {
-    if (is.null(grid.line[["value"]])) {
-      grid.value <- NULL
-    } else {
-      grid.value <- grid.line[["value"]]
-    }
-
-    if (is.null(grid.line[["lty"]])) {
-      grid.lty <- 1
-    } else {
-      grid.lty <- grid.line[["lty"]]
-    }
-
-    if (is.null(grid.line[["col"]])) {
-      grid.col <- "grey85"
-    } else {
-      grid.col <- grid.line[["col"]]
-    }
-  } else {
-    grid.value <- grid.line
-    grid.lty <- 1
-    grid.col <- "grey85"
-  }
-
+  grid.value <- if ("value" %in% names(grid.line)) grid.line[["value"]] else 
+    if (is.numeric(grid.line)) grid.line else NULL
+  
+  grid.lty <- if ("lty" %in% names(grid.line)) grid.line[["lty"]] else 1  
+  
+  grid.col <- if ("col" %in% names(grid.line)) grid.line[["col"]] else "grey85" 
+    
   myby <- if (is.null(grid.value)) pretty(c(0, mymax), 10)[2] else grid.value
 
   if (myby / mymax > 0.9) myby <- mymax * 0.9
