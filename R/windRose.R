@@ -382,26 +382,18 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   extra <- list(...)
 
   ## label controls
-  extra$xlab <- if ("xlab" %in% names(extra)) {
-    quickText(extra$xlab, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
-  extra$ylab <- if ("ylab" %in% names(extra)) {
-    quickText(extra$ylab, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
-  extra$main <- if ("main" %in% names(extra)) {
-    quickText(extra$main, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
+  extra$xlab <- quickText(
+    if ("xlab" %in% names(extra)) extra$xlab else "", auto.text)
+  
+  extra$ylab <- quickText(
+    if ("ylab" %in% names(extra)) extra$ylab else "", auto.text)
+   
+  extra$main <- quickText(
+    if ("main" %in% names(extra)) extra$main else "", auto.text)
 
   if ("fontsize" %in% names(extra)) {
     trellis.par.set(fontsize = list(text = extra$fontsize))
   }
-
 
   ## preset statitistics
 
