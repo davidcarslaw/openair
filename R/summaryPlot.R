@@ -314,14 +314,24 @@ summaryPlot <- function(mydata,
   mydata <- full_join(mydata, all.dates, by = "date") %>%
     arrange(date)
 
-
+  
+  
   ## means for trend line
 
   meanLine <- timeAverage(mydata, avg.time)
   meanLine <- gather(meanLine, key = variable, value = value, -date)
+  
+  # ensure order of pollutants is correct
+  meanLine <- mutate(meanLine,
+                   variable = factor(variable, levels = unique(variable)))
+  
   meanLine <- split(meanLine, meanLine$variable)
 
   mydata <- gather(mydata, key = variable, value = value, -date)
+  
+  # ensure order of pollutants is correct
+  mydata <- mutate(mydata,
+                   variable = factor(variable, levels = unique(variable)))
 
   plot.missing <- function(mydata, na.len, col = "red") {
     dat <- ifelse(is.na(mydata[["value"]]), 1, 0)
