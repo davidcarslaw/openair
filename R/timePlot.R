@@ -487,6 +487,10 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
   ## not sure what was meant
 
   if (!missing(normalise)) {
+    
+    # preserve order of pollutants after group_by (if not factor, is alphabetic)
+    mydata <-  mutate(mydata, variable = factor(variable, levels = unique(variable)))
+    
     if (is.null(Args$ylab)) {
       Args$ylab <- "normalised level"
     }
@@ -504,7 +508,11 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
       mydata <- group_by(mydata, variable) %>%
         do(norm.by.date(., thedate = thedate))
     }
+    
+    
   }
+
+  
 
   # set ylab as pollutant(s) if not already set
   if (is.null(Args$ylab)) {
