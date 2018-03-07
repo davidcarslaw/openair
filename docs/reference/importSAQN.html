@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scottish Air Quality Network data import for openair � importSAQN • openair</title>
+<title>Scottish Air Quality Network data import for openair — importSAQN • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Scottish Air Quality Network data import for openair — importSAQN" />
 
+<meta property="og:description" content="Function for importing hourly mean Scottish Air Quality Network (SAQN)
+archive data files for use with the openair package. Files are
+imported from a remote server operated by AEA that provides air quality
+data files as R data objects." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -120,7 +130,7 @@ pollutants ffrom a site. To import only NOx and NO2 for example use
 
     <p>The <code>importSAQN</code> function has been written to make it easy to import
 data from the Scottish Air Quality Network (SAQN) ---
-<a href = 'http://www.scottishairquality.co.uk/index.php'>http://www.scottishairquality.co.uk/index.php</a>. AEA have provided
+<a href='http://www.scottishairquality.co.uk/index.php'>http://www.scottishairquality.co.uk/index.php</a>. AEA have provided
 .RData files (R workspaces) of all individual sites and years for the SAQN.
 These files are updated on a daily basis. This approach requires a link to
 the Internet to work.</p>
@@ -331,14 +341,20 @@ Whitburn | URBAN BACKGROUND |</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
-<span class='co'>## import all pollutants from Glasgow Roadside</span>
-<span class='co'>## Not run: glas &amp;lt;- importSAQN(site = "gla4", year = 2000:2009)</span>
+## import all pollutants from Glasgow Roadside
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>glas</span> <span class='kw'>&lt;-</span> <span class='fu'>importSAQN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"gla4"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2000</span>:<span class='fl'>2009</span>)
+<span class='co'># }</span><div class='input'>
+## import all pollutants from Lerwick rural site (O3)
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>ler</span> <span class='kw'>&lt;-</span> <span class='fu'>importSAQN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"lerw"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2005</span>:<span class='fl'>2010</span>)
+<span class='co'># }</span><div class='input'>
+## import all pollutants from Glasgow/Dundee Centre for 2009
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>all</span> <span class='kw'>&lt;-</span> <span class='fu'>importSAQN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"gla3"</span>, <span class='st'>"dun3"</span>), <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>)
+<span class='co'># }</span><div class='input'>
 
-<span class='co'>## import all pollutants from Lerwick rural site (O3)</span>
-<span class='co'>## Not run: ler &amp;lt;- importSAQN(site = "lerw", year = 2005:2010)</span>
-
-<span class='co'>## import all pollutants from Glasgow/Dundee Centre for 2009</span>
-<span class='co'>## Not run: all &amp;lt;- importSAQN(site = c("gla3", "dun3"), year = 2009)</span></div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -367,7 +383,7 @@ David Carslaw and Trevor Davies (AEA)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -375,3 +391,4 @@ David Carslaw and Trevor Davies (AEA)
 
   </body>
 </html>
+

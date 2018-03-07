@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bivariate polarAnnulus plot � polarAnnulus • openair</title>
+<title>Bivariate polarAnnulus plot — polarAnnulus • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Bivariate polarAnnulus plot — polarAnnulus" />
 
+<meta property="og:description" content="Typically plots the concentration of a pollutant by wind direction and as a
+function of time as an annulus. The function is good for visualising how
+concentrations of pollutants vary by wind direction and a time period e.g.
+by month, day of week." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -369,22 +379,22 @@ through the smoothing parameter <code>k</code>.</p>
 <span class='co'># load example data from package</span>
 <span class='fu'>data</span>(<span class='no'>mydata</span>)
 
-<span class='co'># diurnal plot for PM10 at Marylebone Rd</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>polarAnnulus</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"diurnal variation in pm10 at Marylebone Road"</span>)
-})
-
-<span class='co'># seasonal plot for PM10 at Marylebone Rd</span>
-<span class='co'>## Not run: polarAnnulus(mydata, poll="pm10", period = "season")</span>
-
+<span class='co'># diurnal plot for PM10 at Marylebone Rd</span></div><span class='co'># NOT RUN {</span>
+<span class='fu'>polarAnnulus</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>,
+<span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"diurnal variation in pm10 at Marylebone Road"</span>)
+<span class='co'># }</span><div class='input'>
+# seasonal plot for PM10 at Marylebone Rd
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>polarAnnulus</span>(<span class='no'>mydata</span>, <span class='kw'>poll</span><span class='kw'>=</span><span class='st'>"pm10"</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"season"</span>)
+<span class='co'># }</span><div class='input'>
 <span class='co'># trend in coarse particles (PMc = PM10 - PM2.5), calculate PMc first</span>
 
-<span class='no'>mydata</span>$<span class='no'>pmc</span> <span class='kw'>&lt;-</span> <span class='no'>mydata</span>$<span class='no'>pm10</span> - <span class='no'>mydata</span>$<span class='no'>pm25</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>polarAnnulus</span>(<span class='no'>mydata</span>, <span class='kw'>poll</span><span class='kw'>=</span><span class='st'>"pmc"</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"trend"</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"trend in pmc at Marylebone Road"</span>)
-})</div></pre>
+<span class='no'>mydata</span>$<span class='no'>pmc</span> <span class='kw'>&lt;-</span> <span class='no'>mydata</span>$<span class='no'>pm10</span> - <span class='no'>mydata</span>$<span class='no'>pm25</span></div><span class='co'># NOT RUN {</span>
+<span class='fu'>polarAnnulus</span>(<span class='no'>mydata</span>, <span class='kw'>poll</span><span class='kw'>=</span><span class='st'>"pmc"</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"trend"</span>,
+<span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"trend in pmc at Marylebone Road"</span>)
+<span class='co'># }</span><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -413,7 +423,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -421,3 +431,4 @@ David Carslaw
 
   </body>
 </html>
+

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Import data from King's College London networks � importKCL • openair</title>
+<title>Import data from King's College London networks — importKCL • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,21 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Import data from King's College London networks — importKCL" />
 
+<meta property="og:description" content="Function for importing hourly mean data from King's College London
+networks. Files are imported from a remote server operated by King's
+College London that provides air quality data files as R data objects." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -200,7 +209,7 @@ TEOM measurements can only be applied after 1st January 2004, when
 sufficiently widespread measurements of volatile PM became available. The
 1.3 correction factor is now considered redundant for measurements of PM10
 made after 1st January 2004.  Further information on the VCM can be found
-at <a href = 'http://www.volatile-correction-model.info/'>http://www.volatile-correction-model.info/</a>.</p>
+at <a href='http://www.volatile-correction-model.info/'>http://www.volatile-correction-model.info/</a>.</p>
 <p>All PM10 statistics on the LondonAir web site, including the bulletins and
 statistical tools (and in the RData objects downloaded using
 <code>importKCL</code>), now report PM10 results as reference equivalent. For
@@ -239,7 +248,7 @@ Roadside</p></li>
 | Belfast Centre AURN | Urban Background</p></li>
 <li><p>BE3 | Belfast
 Centre Aethalometer | Urban Background</p></li>
-<li><p>BE7 | Belfast Centre 
+<li><p>BE7 | Belfast Centre
 FDMS trial | Urban Background</p></li>
 <li><p>BE8 | Belfast - Nitrate |
 Urban Background</p></li>
@@ -288,7 +297,7 @@ Ballymoney 1 | Suburban</p></li>
 Urban Background</p></li>
 <li><p>BQ5 | Bexley - Manor Road West Gravimetric
 | Industrial</p></li>
-<li><p>BQ6 | Bexley - Manor Road East Gravimetric | 
+<li><p>BQ6 | Bexley - Manor Road East Gravimetric |
 Industrial</p></li>
 <li><p>BQ7 | Belvedere West | Urban Background</p></li>
 <li><p>BQ8
@@ -308,7 +317,7 @@ St Marys Primary School | Urban Background</p></li>
 Brentwood Town Hall | Urban Background</p></li>
 <li><p>BX0 | Bexley -
 Belvedere FDMS | Suburban</p></li>
-<li><p>BX1 | Bexley - Slade Green | 
+<li><p>BX1 | Bexley - Slade Green |
 Suburban</p></li>
 <li><p>BX2 | Bexley - Belvedere | Suburban</p></li>
 <li><p>BX3 |
@@ -324,7 +333,7 @@ Thames Road North | Roadside</p></li>
 South | Roadside</p></li>
 <li><p>BX9 | Bexley - Slade Green FDMS | Suburban</p></li>
 <li><p>BY1 | Bromley - Rent Office | Urban Background</p></li>
-<li><p>BY4 | 
+<li><p>BY4 |
 Bromley - Tweedy Rd | Roadside</p></li>
 <li><p>BY5 | Bromley - Biggin Hill |
 Suburban</p></li>
@@ -357,7 +366,7 @@ Camden - Euston Road | Roadside</p></li>
 Urban Background</p></li>
 <li><p>CH1 | Cheltenham | Urban Background</p></li>
 <li><p>CI1 | Chichester - A27 Chichester Bypass | Roadside</p></li>
-<li><p>CI4 | 
+<li><p>CI4 |
 Chichester - Orchard Street | Roadside</p></li>
 <li><p>CK1 | Cookstown |
 Suburban</p></li>
@@ -386,7 +395,7 @@ Roadside</p></li>
 Roadside</p></li>
 <li><p>DC1 | Dacorum 1 Hemel Hempstead (Background) |
 Urban Background</p></li>
-<li><p>DC2 | Dacorum 2 Hemel Hempstead 
+<li><p>DC2 | Dacorum 2 Hemel Hempstead
 (Background) | Urban Background</p></li>
 <li><p>DC3 | High Street
 Northchurch | Roadside</p></li>
@@ -402,7 +411,7 @@ Hall | Urban Background</p></li>
 Roadside</p></li>
 <li><p>EA3 | Ealing 3 - A40 East Acton | Roadside</p></li>
 <li><p>EA4 | Ealing Mobile - Hamilton Road | Roadside</p></li>
-<li><p>EA5 | Ealing 
+<li><p>EA5 | Ealing
 Mobile - Southall | Roadside</p></li>
 <li><p>EA6 | Ealing - Hanger Lane
 Gyratory | Roadside</p></li>
@@ -416,7 +425,7 @@ Park | Urban Background</p></li>
 <li><p>EB3 | Eastbourne - Holly Place |
 Urban Background</p></li>
 <li><p>EH1 | E Herts Throcking (Rural) | Rural</p></li>
-<li><p>EH2 | East Herts Sawbridgeworth (Background) | Urban 
+<li><p>EH2 | East Herts Sawbridgeworth (Background) | Urban
 Background</p></li>
 <li><p>EH3 | East Herts Sawbridgeworth (Roadside) |
 Roadside</p></li>
@@ -432,7 +441,7 @@ Herts Bishops Stortford | Roadside</p></li>
 Elmbridge - Hampton Court Parade | Roadside</p></li>
 <li><p>EL4 | Elmbridge
 - Walton High Street | Kerbside</p></li>
-<li><p>EN1 | Enfield - Bushhill 
+<li><p>EN1 | Enfield - Bushhill
 Park | Suburban</p></li>
 <li><p>EN2 | Enfield - Church Street | Roadside</p></li>
 <li><p>EN3 | Enfield - Salisbury School | Urban Background</p></li>
@@ -445,7 +454,7 @@ Roadside</p></li>
 Roadside</p></li>
 <li><p>GB6 | Greenwich and Bexley - Falconwood | Roadside</p></li>
 <li><p>GL1 | Glasgow Centre | Suburban</p></li>
-<li><p>GL4 | Glasgow Centre 
+<li><p>GL4 | Glasgow Centre
 Aethalometer | Suburban</p></li>
 <li><p>GN0 | Greenwich - A206 Burrage Grove
 | Roadside</p></li>
@@ -461,7 +470,7 @@ Road | Roadside</p></li>
 <li><p>GR8 | Greenwich - Woolwich Flyover | Roadside</p></li>
 <li><p>GR9 |
 Greenwich - Westhorne Avenue | Roadside</p></li>
-<li><p>HA0 | Harwell - 
+<li><p>HA0 | Harwell -
 Carbon | Rural</p></li>
 <li><p>HA1 | Harwell Rural AURN | Rural</p></li>
 <li><p>HA2 |
@@ -494,7 +503,7 @@ Aethalometer | Urban Background</p></li>
 1 (Background) | Urban Background</p></li>
 <li><p>HM4 | Hertsmere -
 Borehamwood | Urban Background</p></li>
-<li><p>HO1 | Horsham Background | 
+<li><p>HO1 | Horsham Background |
 Urban Background</p></li>
 <li><p>HO2 | Horsham - Park Way | Roadside</p></li>
 <li><p>HO4 | Horsham - Storrington | Roadside</p></li>
@@ -536,7 +545,7 @@ Islington - Upper Street | Urban Background</p></li>
 - Holloway Road | Roadside</p></li>
 <li><p>IS4 | Islington - Foxham Gardens
 | Urban Background</p></li>
-<li><p>IS5 | Islington - Duncan Terrace | 
+<li><p>IS5 | Islington - Duncan Terrace |
 Roadside</p></li>
 <li><p>IS6 | Islington - Arsenal | Urban Background</p></li>
 <li><p>IT2 | Tower Hamlets - Mile End Road | Roadside</p></li>
@@ -554,7 +563,7 @@ Chelsea - Knightsbridge | Roadside</p></li>
 Chelsea - Kings Road | Roadside</p></li>
 <li><p>KC5 | Kensington and Chelsea
 - Earls Court Rd | Kerbside</p></li>
-<li><p>KC7 | Kensington and Chelsea - 
+<li><p>KC7 | Kensington and Chelsea -
 North Ken FDMS | Urban Background</p></li>
 <li><p>KC9 | North Kensington -
 Partisol SO4 | Urban Background</p></li>
@@ -572,7 +581,7 @@ Background</p></li>
 <li><p>LB4 | Lambeth - Brixton Road | Kerbside</p></li>
 <li><p>LB5
 | Lambeth - Bondway Interchange | Roadside</p></li>
-<li><p>LB6 | Lambeth - 
+<li><p>LB6 | Lambeth -
 Streatham Green | Urban Background</p></li>
 <li><p>LH0 | Hillingdon -
 Harlington | Urban Background</p></li>
@@ -592,7 +601,7 @@ Background</p></li>
 Lewisham - Mercury Way | Industrial</p></li>
 <li><p>MA1 | Manchester
 Piccadilly CPC | Urban Background</p></li>
-<li><p>MA2 | Manchester 
+<li><p>MA2 | Manchester
 Piccadilly | Urban Background</p></li>
 <li><p>MD1 | Mid Beds Biggleswade
 (Roadside) | Roadside</p></li>
@@ -620,7 +629,7 @@ Clarence Road | Roadside</p></li>
 Ascot | Rural</p></li>
 <li><p>MY0 | Marylebone Road - Carbon | Kerbside</p></li>
 <li><p>MY1 | Westminster - Marylebone Road | Kerbside</p></li>
-<li><p>MY7 | 
+<li><p>MY7 |
 Westminster - Marylebone Road FDMS | Kerbside</p></li>
 <li><p>NA5 |
 Newtownabbey- Mallusk | Urban Background</p></li>
@@ -653,7 +662,7 @@ Roadside</p></li>
 <li><p>NK6 | North Kensington - URG | Urban Background</p></li>
 <li><p>NM1 | Newham
 - Tant Avenue | Urban Background</p></li>
-<li><p>NM2 | Newham - Cam Road | 
+<li><p>NM2 | Newham - Cam Road |
 Roadside</p></li>
 <li><p>NM3 | Newham - Wren Close | Urban Background</p></li>
 <li><p>NW1 | Norwich Centre Aethalometer | Urban Background</p></li>
@@ -668,7 +677,7 @@ Wallingford | Roadside</p></li>
 <li><p>OX4 | Oxford St Ebbes AURN | Urban Background</p></li>
 <li><p>PO1 | Portsmouth Background AURN | Urban Background</p></li>
 <li><p>PT6 | Port Talbot Dyffryn School | Industrial</p></li>
-<li><p>RB1 | 
+<li><p>RB1 |
 Redbridge - Perth Terrace | Urban Background</p></li>
 <li><p>RB2 | Redbridge
 - Ilford Broadway | Kerbside</p></li>
@@ -683,7 +692,7 @@ Caversham Road | Roadside</p></li>
 <li><p>RD2 | Reading - Kings Road |
 Roadside</p></li>
 <li><p>RD3 | Reading - Oxford Road | Roadside</p></li>
-<li><p>RG1 | 
+<li><p>RG1 |
 Reigate and Banstead - Horley | Suburban</p></li>
 <li><p>RG2 | Reigate and
 Banstead - Horley South | Suburban</p></li>
@@ -716,7 +725,7 @@ Kerbside</p></li>
 Roadside</p></li>
 <li><p>RIF | Richmond Mobile - Richmond Rd Twickenham |
 Roadside</p></li>
-<li><p>RIG | Richmond Mobile - Upper Teddington Rd | 
+<li><p>RIG | Richmond Mobile - Upper Teddington Rd |
 Roadside</p></li>
 <li><p>RIH | Richmond Mobile - Upper Teddington Rd |
 Roadside</p></li>
@@ -730,7 +739,7 @@ Margarets Grove | Urban Background</p></li>
 St. Margarets Grove | Urban Background</p></li>
 <li><p>RIM | Richmond Mobile
 - Petersham Rd Ham | Roadside</p></li>
-<li><p>RIN | Richmond Mobile - 
+<li><p>RIN | Richmond Mobile -
 Petersham Rd Ham | Roadside</p></li>
 <li><p>RIO | Richmond Mobile - Stanley
 Rd Twickenham | Roadside</p></li>
@@ -761,7 +770,7 @@ Background</p></li>
 <li><p>SE1 | Stevenage - Lytton Way | Roadside</p></li>
 <li><p>SH1
 | Southampton Background AURN | Urban Background</p></li>
-<li><p>SH2 | 
+<li><p>SH2 |
 Southampton - Redbridge | Roadside</p></li>
 <li><p>SH3 | Southampton -
 Onslow Road | Roadside</p></li>
@@ -800,7 +809,7 @@ Roadside</p></li>
 17 Newhaven Paradise Park | Roadside</p></li>
 <li><p>SX1 | Sussex Mobile 1 |
 Urban Background</p></li>
-<li><p>SX2 | Sussex Mobile 2 North Berstead | 
+<li><p>SX2 | Sussex Mobile 2 North Berstead |
 Roadside</p></li>
 <li><p>SX3 | Sussex Mobile 3 | Roadside</p></li>
 <li><p>SX4 | Sussex
@@ -835,7 +844,7 @@ Roadside</p></li>
 Three Rivers - Rickmansworth | Urban Background</p></li>
 <li><p>UT1 |
 Uttlesford - Saffron Walden Fire Station | Roadside</p></li>
-<li><p>UT2 | 
+<li><p>UT2 |
 Uttlesford - Takeley | Urban Background</p></li>
 <li><p>UT3 | Uttlesford -
 Broxted Farm | Rural</p></li>
@@ -865,7 +874,7 @@ Background</p></li>
 Background</p></li>
 <li><p>WL2 | Waltham Forest - Mobile | Roadside</p></li>
 <li><p>WL3 | Waltham Forest - Chingford | Roadside</p></li>
-<li><p>WL4 | Waltham 
+<li><p>WL4 | Waltham
 Forest - Crooked Billet | Kerbside</p></li>
 <li><p>WL5 | Waltham Forest -
 Leyton | Roadside</p></li>
@@ -909,7 +918,7 @@ Industrial</p></li>
 <li><p>ZF1 | Folkestone Suburban - Cheriton | Suburban</p></li>
 <li><p>ZG1 | Gravesham Backgrnd - Northfleet | Urban Background</p></li>
 <li><p>ZG2 | Gravesham Roadside - A2 | Roadside</p></li>
-<li><p>ZG3 | 
+<li><p>ZG3 |
 Gravesham Ind Bgd - Northfleet | Urban Background</p></li>
 <li><p>ZH1 |
 Thanet Rural - Minster | Rural</p></li>
@@ -944,7 +953,7 @@ High St | Roadside</p></li>
 Background</p></li>
 <li><p>ZV2 | Sevenoaks - Bat and Ball | Roadside</p></li>
 <li><p>ZW1 | Swale Roadside - Ospringe A2 | Roadside</p></li>
-<li><p>ZW2 | Swale 
+<li><p>ZW2 | Swale
 Background - Sheerness | Urban Background</p></li>
 <li><p>ZW3 | Swale
 Roadside 2 - Ospringe Street | Roadside</p></li>
@@ -965,28 +974,33 @@ Place | Roadside</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
-<span class='co'>## import all pollutants from Marylebone Rd from 1990:2009</span>
-<span class='co'>## Not run: mary &amp;lt;- importKCL(site = "my1", year = 2000:2009)</span>
+## import all pollutants from Marylebone Rd from 1990:2009
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>mary</span> <span class='kw'>&lt;-</span> <span class='fu'>importKCL</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2000</span>:<span class='fl'>2009</span>)
+<span class='co'># }</span><div class='input'>
+## import nox, no2, o3 from Marylebone Road and North Kensignton for 2000
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'>importKCL</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"my1"</span>, <span class='st'>"kc1"</span>), <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2000</span>,
+<span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>, <span class='st'>"o3"</span>))
+<span class='co'># }</span><div class='input'>
+## import met data too...
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>my1</span> <span class='kw'>&lt;-</span> <span class='fu'>importKCL</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2008</span>, <span class='kw'>met</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># }</span><div class='input'>
+## reshape the data so that each column represents a pollutant/site
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>require</span>(<span class='no'>reshape2</span>)
+<span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'>importKCL</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"my1"</span>, <span class='st'>"kc1"</span>), <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2008</span>,
+<span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>)
+<span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/reshape2/topics/melt'>melt</a></span>(<span class='no'>thedata</span>, <span class='kw'>measure.vars</span><span class='kw'>=</span><span class='st'>"o3"</span>)
+<span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/reshape2/topics/cast'>dcast</a></span>(<span class='no'>thedata</span>, <span class='no'>...</span> ~ <span class='no'>site</span> + <span class='no'>code</span> + <span class='no'>variable</span>)
+<span class='co'>## thedata now has columns for O3 at MY1 and KC1</span>
 
-<span class='co'>## import nox, no2, o3 from Marylebone Road and North Kensignton for 2000</span>
-<span class='fu'>not_run</span>({
-  <span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'>importKCL</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"my1"</span>, <span class='st'>"kc1"</span>), <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2000</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>, <span class='st'>"o3"</span>))
-})
+<span class='co'># }</span><div class='input'>
 
-<span class='co'>## import met data too...</span>
-<span class='co'>## Not run: my1 &amp;lt;- importKCL(site = "my1", year = 2008, met = TRUE)</span>
 
-<span class='co'>## reshape the data so that each column represents a pollutant/site</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>require</span>(<span class='no'>reshape2</span>)
-  <span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'>importKCL</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"my1"</span>, <span class='st'>"kc1"</span>), <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2008</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>)
-  <span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'>melt</span>(<span class='no'>thedata</span>, <span class='kw'>measure.vars</span><span class='kw'>=</span><span class='st'>"o3"</span>)
-  <span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'>dcast</span>(<span class='no'>thedata</span>, <span class='no'>...</span> ~ <span class='no'>site</span> + <span class='no'>code</span> + <span class='no'>variable</span>)
-  <span class='co'>## thedata now has columns for O3 at MY1 and KC1</span>
 
-})</div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -1015,7 +1029,7 @@ David Carslaw and Ben Barratt
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -1023,3 +1037,4 @@ David Carslaw and Ben Barratt
 
   </body>
 </html>
+

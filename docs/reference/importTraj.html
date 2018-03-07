@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Import pre-calculated HYSPLIT 96-hour back trajectories � importTraj • openair</title>
+<title>Import pre-calculated HYSPLIT 96-hour back trajectories — importTraj • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,23 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Import pre-calculated HYSPLIT 96-hour back trajectories — importTraj" />
 
+<meta property="og:description" content="Function to import pre-calculated back trajectories using the NOAA
+HYSPLIT model. The trajectories have been calculated for a select
+range of locations which will expand in time. They cover the last
+20 years or so and can be used together with other openair
+functions." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -102,22 +113,22 @@ abudhabi   </td>
 <td> Abu Dhabi                    </td>
 <td>  24.43000 </td>
 <td>  54.408000 </td>
-</tr><tr><td> 2012-2013</td>
-<td>
+<td> 2012-2013</td>
+</tr><tr><td>
 ah         </td>
 <td> Aston Hill                   </td>
 <td>  52.50385 </td>
-</tr><tr><td>  -3.041780 </td>
+<td>  -3.041780 </td>
 <td> 1988-2013</td>
-<td>
+</tr><tr><td>
 auch       </td>
 <td> Auchencorth Moss             </td>
-</tr><tr><td>  55.79283 </td>
+<td>  55.79283 </td>
 <td>  -3.242568 </td>
 <td> 2006-2013</td>
-<td>
+</tr><tr><td>
 berlin     </td>
-</tr><tr><td> Berlin, Germany              </td>
+<td> Berlin, Germany              </td>
 <td>  52.52000 </td>
 <td>  13.400000 </td>
 <td> 2000-2013</td>
@@ -126,22 +137,22 @@ birm       </td>
 <td> Birmigham Centre             </td>
 <td>  52.47972 </td>
 <td>  -1.908078 </td>
-</tr><tr><td> 1990-2013</td>
-<td>
+<td> 1990-2013</td>
+</tr><tr><td>
 boston     </td>
 <td> Boston, USA                  </td>
 <td>  42.32900 </td>
-</tr><tr><td> -71.083000 </td>
+<td> -71.083000 </td>
 <td> 2008-2013</td>
-<td>
+</tr><tr><td>
 bot        </td>
 <td> Bottesford                   </td>
-</tr><tr><td>  52.93028 </td>
+<td>  52.93028 </td>
 <td>  -0.814722 </td>
 <td> 1990-2013</td>
-<td>
+</tr><tr><td>
 bukit      </td>
-</tr><tr><td> Bukit Kototabang, Indonesia  </td>
+<td> Bukit Kototabang, Indonesia  </td>
 <td>  -0.19805 </td>
 <td> 100.318000 </td>
 <td> 1996-2013</td>
@@ -150,22 +161,22 @@ chittagong </td>
 <td> Chittagong, Bangladesh       </td>
 <td>  22.37000 </td>
 <td>  91.800000 </td>
-</tr><tr><td> 2010-2013</td>
-<td>
+<td> 2010-2013</td>
+</tr><tr><td>
 dhaka      </td>
 <td> Dhaka, Bangladesh            </td>
 <td>  23.70000 </td>
-</tr><tr><td>  90.375000 </td>
+<td>  90.375000 </td>
 <td> 2010-2013</td>
-<td>
+</tr><tr><td>
 ed         </td>
 <td> Edinburgh                    </td>
-</tr><tr><td>  55.95197 </td>
+<td>  55.95197 </td>
 <td>  -3.195775 </td>
 <td> 1990-2013</td>
-<td>
+</tr><tr><td>
 elche      </td>
-</tr><tr><td> Elche, Spain                 </td>
+<td> Elche, Spain                 </td>
 <td>  38.27000 </td>
 <td>  -0.690000 </td>
 <td> 2004-2013</td>
@@ -174,22 +185,22 @@ esk        </td>
 <td> Eskdalemuir                  </td>
 <td>  55.31530 </td>
 <td>  -3.206110 </td>
-</tr><tr><td> 1998-2013</td>
-<td>
+<td> 1998-2013</td>
+</tr><tr><td>
 gibraltar  </td>
 <td> Gibraltar                    </td>
 <td>  36.13400 </td>
-</tr><tr><td>  -5.347000 </td>
+<td>  -5.347000 </td>
 <td> 2005-2010</td>
-<td>
+</tr><tr><td>
 glaz       </td>
 <td> Glazebury                    </td>
-</tr><tr><td>  53.46008 </td>
+<td>  53.46008 </td>
 <td>  -2.472056 </td>
 <td> 1998-2013</td>
-<td>
+</tr><tr><td>
 groningen  </td>
-</tr><tr><td> Groningen                    </td>
+<td> Groningen                    </td>
 <td>  53.40000 </td>
 <td>   6.350000 </td>
 <td> 2007-2013</td>
@@ -198,22 +209,22 @@ har        </td>
 <td> Harwell                      </td>
 <td>  51.57108 </td>
 <td>  -1.325283 </td>
-</tr><tr><td> 1988-2013</td>
-<td>
+<td> 1988-2013</td>
+</tr><tr><td>
 hk         </td>
 <td> Hong Kong                    </td>
 <td>  22.29000 </td>
-</tr><tr><td> 114.170000 </td>
+<td> 114.170000 </td>
 <td> 1998-2013</td>
-<td>
+</tr><tr><td>
 hm         </td>
 <td> High Muffles                 </td>
-</tr><tr><td>  54.33500 </td>
+<td>  54.33500 </td>
 <td>  -0.808600 </td>
 <td> 1988-2013</td>
-<td>
+</tr><tr><td>
 kuwait     </td>
-</tr><tr><td> Kuwait City                  </td>
+<td> Kuwait City                  </td>
 <td>  29.36700 </td>
 <td>  47.967000 </td>
 <td> 2008-2013</td>
@@ -222,22 +233,22 @@ lb         </td>
 <td> Ladybower                    </td>
 <td>  53.40337 </td>
 <td>  -1.752006 </td>
-</tr><tr><td> 1988-2013</td>
-<td>
+<td> 1988-2013</td>
+</tr><tr><td>
 london     </td>
 <td> Central London               </td>
 <td>  51.50000 </td>
-</tr><tr><td>  -0.100000 </td>
+<td>  -0.100000 </td>
 <td> 1990-2013</td>
-<td>
+</tr><tr><td>
 lh         </td>
 <td> Lullington Heath             </td>
-</tr><tr><td>  50.79370 </td>
+<td>  50.79370 </td>
 <td>   0.181250 </td>
 <td> 1988-2013</td>
-<td>
+</tr><tr><td>
 ln         </td>
-</tr><tr><td> Lough Navar                  </td>
+<td> Lough Navar                  </td>
 <td>  54.43951 </td>
 <td>  -7.900328 </td>
 <td> 1988-2013</td>
@@ -246,22 +257,22 @@ mh         </td>
 <td> Mace Head                    </td>
 <td>  53.33000 </td>
 <td>  -9.900000 </td>
-</tr><tr><td> 1988-2013</td>
-<td>
+<td> 1988-2013</td>
+</tr><tr><td>
 ny-alesund </td>
 <td> Ny-Alesund, Norway           </td>
 <td>  78.91763 </td>
-</tr><tr><td>  11.894653 </td>
+<td>  11.894653 </td>
 <td> 2009-2013</td>
-<td>
+</tr><tr><td>
 oslo       </td>
 <td> Oslo                         </td>
-</tr><tr><td>  59.90000 </td>
+<td>  59.90000 </td>
 <td>  10.750000 </td>
 <td> 2010-2013</td>
-<td>
+</tr><tr><td>
 paris      </td>
-</tr><tr><td> Paris, France                </td>
+<td> Paris, France                </td>
 <td>  48.86200 </td>
 <td>   2.339000 </td>
 <td> 2000-2013</td>
@@ -270,22 +281,22 @@ roch       </td>
 <td> Rochester Stoke              </td>
 <td>  51.45617 </td>
 <td>   0.634889 </td>
-</tr><tr><td> 1988-2013</td>
-<td>
+<td> 1988-2013</td>
+</tr><tr><td>
 rotterdam  </td>
 <td> Rotterdam                    </td>
 <td>  51.91660 </td>
-</tr><tr><td>   4.475000 </td>
+<td>   4.475000 </td>
 <td> 2010-2013</td>
-<td>
+</tr><tr><td>
 saopaulo   </td>
 <td> Sao Paulo                    </td>
-</tr><tr><td> -23.55000 </td>
+<td> -23.55000 </td>
 <td> -46.640000 </td>
 <td> 2000-2013</td>
-<td>
+</tr><tr><td>
 sib        </td>
-</tr><tr><td> Sibton                       </td>
+<td> Sibton                       </td>
 <td>  52.29440 </td>
 <td>   1.463970 </td>
 <td> 1988-2013</td>
@@ -294,16 +305,13 @@ sv         </td>
 <td> Strath Vaich                 </td>
 <td>  57.73446 </td>
 <td>  -4.776583 </td>
-</tr><tr><td> 1988-2013</td>
-<td>
+<td> 1988-2013</td>
+</tr><tr><td>
 wuhan      </td>
 <td> Wuhan, China                 </td>
 <td>  30.58300 </td>
-</tr><tr><td> 114.280000 </td>
+<td> 114.280000 </td>
 <td> 2008-2013</td>
-<td>
-abudhabi   </td>
-<td> Abu Dhabi                    </td>
 </tr></table></td>
     </tr>
     <tr>
@@ -331,7 +339,7 @@ of the openair manual. An example would be <code>local =
     <p>This function imports pre-calculated back trajectories using the
 HYSPLIT trajectory model (Hybrid Single Particle Lagrangian
 Integrated Trajectory Model
-<a href = 'http://ready.arl.noaa.gov/HYSPLIT.php'>http://ready.arl.noaa.gov/HYSPLIT.php</a>). Back trajectories
+<a href='http://ready.arl.noaa.gov/HYSPLIT.php'>http://ready.arl.noaa.gov/HYSPLIT.php</a>). Back trajectories
 provide some very useful information for air quality data
 analysis. However, while they are commonly calculated by
 researchers it is generally difficult for them to be calculated on
@@ -352,7 +360,7 @@ addition, these archives are available for use widely, which is
 not the case for many other data sets e.g. ECMWF. HYSPLIT
 calculated trajectories based on archive data may be distributed
 without permission (see
-<a href = 'http://ready.arl.noaa.gov/HYSPLIT_agreement.php'>http://ready.arl.noaa.gov/HYSPLIT_agreement.php</a>). For those
+<a href='http://ready.arl.noaa.gov/HYSPLIT_agreement.php'>http://ready.arl.noaa.gov/HYSPLIT_agreement.php</a>). For those
 wanting, for example, to consider higher resolution meteorological
 data sets it may be better to run the trajectories separately.</p>
 <p>We are extremely grateful to NOAA for making HYSPLIT available to
@@ -392,14 +400,15 @@ large and care should be exercised when importing several years and/or sites.</p
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
-<span class='co'>## import trajectory data for London in 2009</span>
-<span class='co'>## Not run: mytraj &amp;lt;- importTraj(site = "london", year = 2009)</span>
-
-<span class='co'>## combine with measurements</span>
-<span class='fu'>not_run</span>({
-  <span class='no'>theData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importAURN.html'>importAURN</a></span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"kc1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>)
-  <span class='no'>mytraj</span> <span class='kw'>&lt;-</span> <span class='fu'>merge</span>(<span class='no'>mytraj</span>, <span class='no'>theData</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"date"</span>)
-})</div></pre>
+## import trajectory data for London in 2009
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>mytraj</span> <span class='kw'>&lt;-</span> <span class='fu'>importTraj</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"london"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>)
+<span class='co'># }</span><div class='input'>
+## combine with measurements
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>theData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importAURN.html'>importAURN</a></span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"kc1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>)
+<span class='no'>mytraj</span> <span class='kw'>&lt;-</span> <span class='fu'>merge</span>(<span class='no'>mytraj</span>, <span class='no'>theData</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"date"</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -430,7 +439,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -438,3 +447,4 @@ David Carslaw
 
   </body>
 </html>
+

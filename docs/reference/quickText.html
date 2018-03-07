@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Automatic text formatting for openair � quickText • openair</title>
+<title>Automatic text formatting for openair — quickText • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,20 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Automatic text formatting for openair — quickText" />
 
+<meta property="og:description" content="Workhorse function that automatically applies routine text formatting to
+common expressions and data names used in openair." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -120,11 +128,11 @@ text components of their own graphs (see below).</p>
 
 <span class='co'>#example 1</span>
 <span class='co'>##see axis formatting in an openair plot, e.g.:</span>
-<span class='fu'><a href='scatterPlot.html'>scatterPlot</a></span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>)</div><img src='quickText-2.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'><a href='scatterPlot.html'>scatterPlot</a></span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>)</div><div class='img'><img src='quickText-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>#example 2</span>
 <span class='co'>##using quickText in other plots</span>
 <span class='fu'>plot</span>(<span class='no'>mydata</span>$<span class='no'>no2</span>, <span class='no'>mydata</span>$<span class='no'>pm10</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'>quickText</span>(<span class='st'>"my no2 label"</span>),
-     <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'>quickText</span>(<span class='st'>"pm10 [ ug.m-3 ]"</span>))</div><img src='quickText-4.png' alt='' width='540' height='400' /><div class='input'>
+     <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'>quickText</span>(<span class='st'>"pm10 [ ug.m-3 ]"</span>))</div><div class='img'><img src='quickText-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 
 </div></pre>
   </div>
@@ -153,7 +161,7 @@ Karl Ropkins.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -161,3 +169,4 @@ Karl Ropkins.
 
   </body>
 </html>
+

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Traditional wind rose plot and pollution rose variation � windRose • openair</title>
+<title>Traditional wind rose plot and pollution rose variation — windRose • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Traditional wind rose plot and pollution rose variation — windRose" />
 
+<meta property="og:description" content="The traditional wind rose plot that plots wind speed and wind
+direction by different intervals. The pollution rose applies the
+same plot structure but substitutes other measurements, most
+commonly a pollutant time series, for wind speed." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -80,9 +90,9 @@
     </div>
 
     
-    <p>The traditional wind rose plot that plots wind speed and wind 
-direction by different intervals. The pollution rose applies the 
-same plot structure but substitutes other measurements, most 
+    <p>The traditional wind rose plot that plots wind speed and wind
+direction by different intervals. The pollution rose applies the
+same plot structure but substitutes other measurements, most
 commonly a pollutant time series, for wind speed.</p>
     
 
@@ -105,7 +115,7 @@ commonly a pollutant time series, for wind speed.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mydata</th>
-      <td><p>A data frame containing fields <code>ws</code> and 
+      <td><p>A data frame containing fields <code>ws</code> and
 <code>wd</code></p></td>
     </tr>
     <tr>
@@ -119,7 +129,7 @@ commonly a pollutant time series, for wind speed.</p>
     <tr>
       <th>ws2</th>
       <td><p>The user can supply a second set of wind speed and wind
-direction values with which the first can be compared. See 
+direction values with which the first can be compared. See
 details below for full explanation.</p></td>
     </tr>
     <tr>
@@ -128,63 +138,63 @@ details below for full explanation.</p></td>
     </tr>
     <tr>
       <th>ws.int</th>
-      <td><p>The Wind speed interval. Default is 2 m/s but for 
-low met masts with low mean wind speeds a value of 1 or 0.5 m/s 
-may be better. Note, this argument is superseded in 
+      <td><p>The Wind speed interval. Default is 2 m/s but for
+low met masts with low mean wind speeds a value of 1 or 0.5 m/s
+may be better. Note, this argument is superseded in
 <code>pollutionRose</code>. See <code>breaks</code> below.</p></td>
     </tr>
     <tr>
       <th>angle</th>
-      <td><p>Default angle of &#8220;spokes&#8221; is 30. Other 
-potentially useful angles are 45 and 10. Note that the width of 
+      <td><p>Default angle of &#8220;spokes&#8221; is 30. Other
+potentially useful angles are 45 and 10. Note that the width of
 the wind speed interval may need adjusting using <code>width</code>.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p><code>type</code> determines how the data are split i.e. 
-conditioned, and then plotted. The default is will produce a 
-single plot using the entire data. Type can be one of the 
-built-in types as detailed in <code>cutData</code> e.g. 
-&#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For 
-example, <code>type = "season"</code> will produce four plots --- one 
-for each season.</p>
+      <td><p><code>type</code> determines how the data are split i.e.
+  conditioned, and then plotted. The default is will produce a
+  single plot using the entire data. Type can be one of the
+  built-in types as detailed in <code>cutData</code> e.g.
+  &#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For
+  example, <code>type = "season"</code> will produce four plots --- one
+  for each season.</p>
 <p>It is also possible to choose <code>type</code> as another variable in
-the data frame. If that variable is numeric, then the data will 
-be split into four quantiles (if possible) and labelled 
-accordingly. If type is an existing character or factor 
-variable, then those categories/levels will be used directly. 
-This offers great flexibility for understanding the variation of
-different variables and how they depend on one another.</p>
-<p>Type can be up length two e.g. <code>type = c("season", 
-"weekday")</code> will produce a 2x2 plot split by season and day of 
-the week. Note, when two types are provided the first forms the 
-columns and the second the rows.</p></td>
+  the data frame. If that variable is numeric, then the data will
+  be split into four quantiles (if possible) and labelled
+  accordingly. If type is an existing character or factor
+  variable, then those categories/levels will be used directly.
+  This offers great flexibility for understanding the variation of
+  different variables and how they depend on one another.</p>
+<p>Type can be up length two e.g. <code>type = c("season",
+  "weekday")</code> will produce a 2x2 plot split by season and day of
+  the week. Note, when two types are provided the first forms the
+  columns and the second the rows.</p></td>
     </tr>
     <tr>
       <th>bias.corr</th>
-      <td><p>When <code>angle</code> does not divide exactly into 
-360 a bias is introduced in the frequencies when the wind 
+      <td><p>When <code>angle</code> does not divide exactly into
+360 a bias is introduced in the frequencies when the wind
 direction is already supplied rounded to the nearest 10 degrees,
 as is often the case. For example, if <code>angle = 22.5</code>, N, E,
-S, W will include 3 wind sectors and all other angles will be 
-two. A bias correction can made to correct for this problem. A 
-simple method according to Applequist (2012) is used to adjust 
+S, W will include 3 wind sectors and all other angles will be
+two. A bias correction can made to correct for this problem. A
+simple method according to Applequist (2012) is used to adjust
 the frequencies.</p></td>
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>Colours to be used for plotting. Options include 
-&#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;, 
-&#8220;jet&#8221;, &#8220;hue&#8221; and user defined. For user defined 
+      <td><p>Colours to be used for plotting. Options include
+&#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;,
+&#8220;jet&#8221;, &#8220;hue&#8221; and user defined. For user defined
 the user can supply a list of colour names recognised by R (type
-<code>colours()</code> to see the full list). An example would be 
+<code>colours()</code> to see the full list). An example would be
 <code>cols = c("yellow", "green", "blue", "black")</code>.</p></td>
     </tr>
     <tr>
       <th>grid.line</th>
-      <td><p>Grid line interval to use. If <code>NULL</code>, as in 
-default, this is assigned by <code>windRose</code> based on the 
-available data range. However, it can also be forced to a 
+      <td><p>Grid line interval to use. If <code>NULL</code>, as in
+default, this is assigned by <code>windRose</code> based on the
+available data range. However, it can also be forced to a
 specific value, e.g. <code>grid.line = 10</code>. <code>grid.line</code> can
 also be a list to control the interval, line type and colour.
 For example <code>grid.line = list(value = 10, lty = 5, col =
@@ -192,68 +202,68 @@ For example <code>grid.line = list(value = 10, lty = 5, col =
     </tr>
     <tr>
       <th>width</th>
-      <td><p>For <code>paddle = TRUE</code>, the adjustment factor for 
-width of wind speed intervals. For example, <code>width = 1.5</code> 
+      <td><p>For <code>paddle = TRUE</code>, the adjustment factor for
+width of wind speed intervals. For example, <code>width = 1.5</code>
 will make the paddle width 1.5 times wider.</p></td>
     </tr>
     <tr>
       <th>seg</th>
-      <td><p>For <code>pollutionRose</code> <code>seg</code> determines with 
-width of the segments. For example, <code>seg = 0.5</code> will 
+      <td><p>For <code>pollutionRose</code> <code>seg</code> determines with
+width of the segments. For example, <code>seg = 0.5</code> will
 produce segments 0.5 * <code>angle</code>.</p></td>
     </tr>
     <tr>
       <th>auto.text</th>
-      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
-<code>TRUE</code> titles and axis labels will automatically try and 
-format pollutant names and units properly e.g.  by subscripting 
+      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
+<code>TRUE</code> titles and axis labels will automatically try and
+format pollutant names and units properly e.g.  by subscripting
 the &#8216;2&#8217; in NO2.</p></td>
     </tr>
     <tr>
       <th>breaks</th>
-      <td><p>Most commonly, the number of break points for wind 
-speed in <code>windRose</code> or pollutant in <code>pollutionRose</code>. 
-For <code>windRose</code> and the <code>ws.int</code> default of 2 m/s, the 
-default, 4, generates the break points 2, 4, 6, 8 m/s. For 
-<code>pollutionRose</code>, the default, 6, attempts to breaks the 
+      <td><p>Most commonly, the number of break points for wind
+speed in <code>windRose</code> or pollutant in <code>pollutionRose</code>.
+For <code>windRose</code> and the <code>ws.int</code> default of 2 m/s, the
+default, 4, generates the break points 2, 4, 6, 8 m/s. For
+<code>pollutionRose</code>, the default, 6, attempts to breaks the
 supplied data at approximately 6 sensible break points. However,
 <code>breaks</code> can also be used to set specific break points. For
-example, the argument <code>breaks = c(0, 1, 10, 100)</code> breaks 
+example, the argument <code>breaks = c(0, 1, 10, 100)</code> breaks
 the data into segments &lt;1, 1-10, 10-100, &gt;100.</p></td>
     </tr>
     <tr>
       <th>offset</th>
-      <td><p>The size of the 'hole' in the middle of the plot, 
+      <td><p>The size of the 'hole' in the middle of the plot,
 expressed as a percentage of the polar axis scale, default 10.</p></td>
     </tr>
     <tr>
       <th>normalise</th>
-      <td><p>If <code>TRUE</code> each wind direction segment of a 
-pollution rose is normalised to equal one. This is useful for 
-showing how the concentrations (or other parameters) contribute 
-to each wind sector when the proprtion of time the wind is from 
-that direction is low. A line showing the probability that the 
+      <td><p>If <code>TRUE</code> each wind direction segment of a
+pollution rose is normalised to equal one. This is useful for
+showing how the concentrations (or other parameters) contribute
+to each wind sector when the proprtion of time the wind is from
+that direction is low. A line showing the probability that the
 wind directions is from a particular wind sector is also shown.</p></td>
     </tr>
     <tr>
       <th>max.freq</th>
-      <td><p>Controls the scaling used by setting the maximum 
-value for the radial limits. This is useful to ensure several 
+      <td><p>Controls the scaling used by setting the maximum
+value for the radial limits. This is useful to ensure several
 plots use the same radial limits.</p></td>
     </tr>
     <tr>
       <th>paddle</th>
-      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
-<code>TRUE</code> plots rose using `paddle' style spokes. If 
+      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
+<code>TRUE</code> plots rose using `paddle' style spokes. If
 <code>FALSE</code> plots rose using `wedge' style spokes.</p></td>
     </tr>
     <tr>
       <th>key.header</th>
-      <td><p>Adds additional text/labels above and/or below 
-the scale key, respectively. For example, passing 
-<code>windRose(mydata, key.header = "ws")</code> adds the addition 
-text as a scale header. Note: This argument is passed to 
-<code>drawOpenKey</code> via <code>quickText</code>, applying the auto.text 
+      <td><p>Adds additional text/labels above and/or below
+the scale key, respectively. For example, passing
+<code>windRose(mydata, key.header = "ws")</code> adds the addition
+text as a scale header. Note: This argument is passed to
+<code>drawOpenKey</code> via <code>quickText</code>, applying the auto.text
 argument, to handle formatting.</p></td>
     </tr>
     <tr>
@@ -262,67 +272,69 @@ argument, to handle formatting.</p></td>
     </tr>
     <tr>
       <th>key.position</th>
-      <td><p>Location where the scale key is to plotted. 
-Allowed arguments currently include &#8220;top&#8221;, 
+      <td><p>Location where the scale key is to plotted.
+Allowed arguments currently include &#8220;top&#8221;,
 &#8220;right&#8221;, &#8220;bottom&#8221; and &#8220;left&#8221;.</p></td>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>Fine control of the scale key via <code>drawOpenKey</code>. 
+      <td><p>Fine control of the scale key via <code>drawOpenKey</code>.
 See <code>drawOpenKey</code> for further details.</p></td>
     </tr>
     <tr>
       <th>dig.lab</th>
-      <td><p>The number of signficant figures at which 
-scientific number formatting is used in break point and key 
+      <td><p>The number of signficant figures at which
+scientific number formatting is used in break point and key
 labelling. Default 5.</p></td>
     </tr>
     <tr>
       <th>statistic</th>
-      <td><p>The <code>statistic</code> to be applied to each data 
-bin in the plot. Options currently include &#8220;prop.count&#8221;, 
-&#8220;prop.mean&#8221; and &#8220;abs.count&#8221;. The default 
-&#8220;prop.count&#8221; sizes bins according to the proportion of 
-the frequency of measurements.  Similarly, &#8220;prop.mean&#8221; 
+      <td><p>The <code>statistic</code> to be applied to each data
+bin in the plot. Options currently include &#8220;prop.count&#8221;,
+&#8220;prop.mean&#8221; and &#8220;abs.count&#8221;. The default
+&#8220;prop.count&#8221; sizes bins according to the proportion of
+the frequency of measurements.  Similarly, &#8220;prop.mean&#8221;
 sizes bins according to their relative contribution to the mean.
-&#8220;abs.count&#8221; provides the absolute count of measurements 
+&#8220;abs.count&#8221; provides the absolute count of measurements
 in each bin.</p></td>
     </tr>
     <tr>
       <th>pollutant</th>
-      <td><p>Alternative data series to be sampled instead of 
-wind speed. The <code>windRose</code> default NULL is equivalent to 
+      <td><p>Alternative data series to be sampled instead of
+wind speed. The <code>windRose</code> default NULL is equivalent to
 <code>pollutant = "ws"</code>.</p></td>
     </tr>
     <tr>
       <th>annotate</th>
-      <td><p>If <code>TRUE</code> then the percentage calm and mean 
-values are printed in each panel together with a description of 
-the statistic below the plot.</p></td>
+      <td><p>If <code>TRUE</code> then the percentage calm and mean
+values are printed in each panel together with a description of
+the statistic below the plot. If <code>" "</code> then only the 
+stastic is below the plot. Custom annotations may be added by 
+setting value to <code>c("annotation 1", "annotation 2")</code>.</p></td>
     </tr>
     <tr>
       <th>angle.scale</th>
-      <td><p>The wind speed scale is by default shown at a 
-315 degree angle. Sometimes the placement of the scale may 
-interfere with an interesting feature. The user can therefore 
-set <code>angle.scale</code> to another value (between 0 and 360 
-degrees) to mitigate such problems. For example 
-<code>angle.scale = 45</code> will draw the scale heading in a NE 
+      <td><p>The wind speed scale is by default shown at a
+315 degree angle. Sometimes the placement of the scale may
+interfere with an interesting feature. The user can therefore
+set <code>angle.scale</code> to another value (between 0 and 360
+degrees) to mitigate such problems. For example
+<code>angle.scale = 45</code> will draw the scale heading in a NE
 direction.</p></td>
     </tr>
     <tr>
       <th>border</th>
-      <td><p>Border colour for shaded areas. Default is no 
+      <td><p>Border colour for shaded areas. Default is no
 border.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>For <code>pollutionRose</code> other parameters that are 
-passed on to <code>windRose</code>. For <code>windRose</code> other 
-parameters that are passed on to <code>drawOpenKey</code>, 
-<code>lattice:xyplot</code> and <code>cutData</code>. Axis and title 
-labelling options (<code>xlab</code>, <code>ylab</code>, <code>main</code>) are 
-passed to <code>xyplot</code> via <code>quickText</code> to handle routine 
+      <td><p>For <code>pollutionRose</code> other parameters that are
+passed on to <code>windRose</code>. For <code>windRose</code> other
+parameters that are passed on to <code>drawOpenKey</code>,
+<code>lattice:xyplot</code> and <code>cutData</code>. Axis and title
+labelling options (<code>xlab</code>, <code>ylab</code>, <code>main</code>) are
+passed to <code>xyplot</code> via <code>quickText</code> to handle routine
 formatting.</p></td>
     </tr>
     </table>
@@ -330,87 +342,85 @@ formatting.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>As well as generating the plot itself, <code>windRose</code> and
-  <code>pollutionRose</code> also return an object of class 
-  &#8220;openair&#8221;. The object includes three main components: 
+  <code>pollutionRose</code> also return an object of class
+  &#8220;openair&#8221;. The object includes three main components:
   <code>call</code>, the command used to generate the plot; <code>data</code>,
-  the data frame of summarised information used to make the plot; 
-  and <code>plot</code>, the plot itself. If retained, e.g. using 
-  <code>output &lt;- windRose(mydata)</code>, this output can be used to 
-  recover the data, reproduce or rework the original plot or 
-  undertake further analysis.
-  
-  An openair output can be manipulated using a number of generic 
-  operations, including <code>print</code>, <code>plot</code> and 
-  <code>summarise</code>.
-  
-  Summarised proportions can also be extracted directly using the 
+  the data frame of summarised information used to make the plot;
+  and <code>plot</code>, the plot itself. If retained, e.g. using
+  <code>output &lt;- windRose(mydata)</code>, this output can be used to
+  recover the data, reproduce or rework the original plot or
+  undertake further analysis.</p>
+<p>An openair output can be manipulated using a number of generic
+  operations, including <code>print</code>, <code>plot</code> and
+  <code>summarise</code>.</p>
+<p>Summarised proportions can also be extracted directly using the
   <code>$data</code> operator, e.g.  <code>object$data</code> for <code>output
-  &lt;- windRose(mydata)</code>. This returns a data frame with three set 
-  columns: <code>cond</code>, conditioning based on <code>type</code>; 
-  <code>wd</code>, the wind direction; and <code>calm</code>, the 
-  <code>statistic</code> for the proportion of data unattributed to any 
-  specific wind direction because it was collected under calm 
-  conditions; and then several (one for each range binned for the 
+  &lt;- windRose(mydata)</code>. This returns a data frame with three set
+  columns: <code>cond</code>, conditioning based on <code>type</code>;
+  <code>wd</code>, the wind direction; and <code>calm</code>, the
+  <code>statistic</code> for the proportion of data unattributed to any
+  specific wind direction because it was collected under calm
+  conditions; and then several (one for each range binned for the
   plot) columns giving proportions of measurements associated with
-  each <code>ws</code> or <code>pollutant</code> range plotted as a discrete 
+  each <code>ws</code> or <code>pollutant</code> range plotted as a discrete
   panel.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For <code>windRose</code> data are summarised by direction, typically by
-45 or 30 (or 10) degrees and by different wind speed categories. 
-Typically, wind speeds are represented by different width 
-"paddles". The plots show the proportion (here represented as a 
+45 or 30 (or 10) degrees and by different wind speed categories.
+Typically, wind speeds are represented by different width
+"paddles". The plots show the proportion (here represented as a
 percentage) of time that the wind is from a certain angle and wind
 speed range.</p>
-<p>By default <code>windRose</code> will plot a windRose in using "paddle" 
+<p>By default <code>windRose</code> will plot a windRose in using "paddle"
 style segments and placing the scale key below the plot.</p>
 <p>The argument <code>pollutant</code> uses the same plotting structure but
-substitutes another data series, defined by <code>pollutant</code>, for 
+substitutes another data series, defined by <code>pollutant</code>, for
 wind speed.</p>
-<p>The option <code>statistic = "prop.mean"</code> provides a measure of 
-the relative contribution of each bin to the panel mean, and is 
+<p>The option <code>statistic = "prop.mean"</code> provides a measure of
+the relative contribution of each bin to the panel mean, and is
 intended for use with <code>pollutionRose</code>.
-    <code>pollutionRose</code> is a <code>windRose</code> wrapper which brings 
-<code>pollutant</code> forward in the argument list, and attempts to 
-sensibly rescale break points based on the <code>pollutant</code> data 
+    <code>pollutionRose</code> is a <code>windRose</code> wrapper which brings
+<code>pollutant</code> forward in the argument list, and attempts to
+sensibly rescale break points based on the <code>pollutant</code> data
 range by by-passing <code>ws.int</code>.</p>
-<p>By default, <code>pollutionRose</code> will plot a pollution rose of 
-<code>nox</code> using "wedge" style segments and placing the scale key 
+<p>By default, <code>pollutionRose</code> will plot a pollution rose of
+<code>nox</code> using "wedge" style segments and placing the scale key
 to the right of the plot.</p>
 <p>It is possible to compare two wind speed-direction data sets using
-<code>pollutionRose</code>. There are many reasons for doing so e.g. to 
+<code>pollutionRose</code>. There are many reasons for doing so e.g. to
 see how one site compares with another or for meteorological model
-evaluation. In this case, <code>ws</code> and <code>wd</code> are considered 
-to the the reference data sets with which a second set of wind 
-speed and wind directions are to be compared (<code>ws2</code> and 
+evaluation. In this case, <code>ws</code> and <code>wd</code> are considered
+to the the reference data sets with which a second set of wind
+speed and wind directions are to be compared (<code>ws2</code> and
 <code>wd2</code>). The first set of values is subtracted from the second
-and the differences compared. If for example, <code>wd2</code> was 
-biased positive compared with <code>wd</code> then <code>pollutionRose</code> 
-will show the bias in polar coordinates. In its default use, wind 
+and the differences compared. If for example, <code>wd2</code> was
+biased positive compared with <code>wd</code> then <code>pollutionRose</code>
+will show the bias in polar coordinates. In its default use, wind
 direction bias is colour-coded to show negative bias in one colour
 and positive bias in another.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p><code>windRose</code> and <code>pollutionRose</code> both use 
+    <p><code>windRose</code> and <code>pollutionRose</code> both use
   <a href='drawOpenKey.html'>drawOpenKey</a> to produce scale keys.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Applequist, S, 2012: Wind Rose Bias Correction. J. Appl. Meteor. 
+    <p>Applequist, S, 2012: Wind Rose Bias Correction. J. Appl. Meteor.
 Climatol., 51, 1305-1309.</p>
 <p>This paper seems to be the original?</p>
-<p>Droppo,  J.G. and B.A. Napier (2008) Wind Direction Bias in 
-Generating Wind Roses and Conducting Sector-Based Air Dispersion 
+<p>Droppo,  J.G. and B.A. Napier (2008) Wind Direction Bias in
+Generating Wind Roses and Conducting Sector-Based Air Dispersion
 Modeling, Journal of the Air &amp; Waste Management Association, 58:7,
 913-918.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>See <code><a href='drawOpenKey.html'>drawOpenKey</a></code> for fine control of the 
-  scale key.
-    See <code><a href='polarFreq.html'>polarFreq</a></code> for a more flexible version that 
+    <p>See <code><a href='drawOpenKey.html'>drawOpenKey</a></code> for fine control of the
+  scale key.</p>
+<p>See <code><a href='polarFreq.html'>polarFreq</a></code> for a more flexible version that
   considers other statistics and pollutant concentrations.</p>
     
 
@@ -419,21 +429,19 @@ Modeling, Journal of the Air &amp; Waste Management Association, 58:7,
 <span class='co'># load example data from package data(mydata)</span>
 
 <span class='co'># basic plot</span>
-<span class='fu'>windRose</span>(<span class='no'>mydata</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
+<span class='fu'>windRose</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='windRose-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># one windRose for each year</span>
-<span class='fu'>windRose</span>(<span class='no'>mydata</span>,<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
-<span class='co'># windRose in 10 degree intervals with gridlines and width adjusted</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>windRose</span>(<span class='no'>mydata</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>grid.line</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-})
-
+<span class='fu'>windRose</span>(<span class='no'>mydata</span>,<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>)</div><div class='img'><img src='windRose-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+# windRose in 10 degree intervals with gridlines and width adjusted
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>windRose</span>(<span class='no'>mydata</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>grid.line</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='co'># }</span><div class='input'>
 <span class='co'># pollutionRose of nox</span>
-<span class='fu'>pollutionRose</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
-<span class='co'>## source apportionment plot - contribution to mean</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>pollutionRose</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"prop.mean"</span>)
-})
-
+<span class='fu'>pollutionRose</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='windRose-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+## source apportionment plot - contribution to mean
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>pollutionRose</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"prop.mean"</span>)
+<span class='co'># }</span><div class='input'>
 <span class='co'>## example of comparing 2 met sites</span>
 <span class='co'>## first we will make some new ws/wd data with a postive bias</span>
 <span class='no'>mydata</span>$<span class='no'>ws2</span> <span class='kw'>=</span> <span class='no'>mydata</span>$<span class='no'>ws</span> + <span class='fl'>2</span> * <span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>mydata</span>)) + <span class='fl'>1</span>
@@ -444,7 +452,7 @@ Modeling, Journal of the Air &amp; Waste Management Association, 58:7,
 <span class='no'>mydata</span>$<span class='no'>wd2</span>[<span class='no'>id</span>] <span class='kw'>&lt;-</span> <span class='no'>mydata</span>$<span class='no'>wd2</span>[<span class='no'>id</span>] + <span class='fl'>360</span>
 
 <span class='co'>## results show postive bias in wd and ws</span>
-<span class='fu'>pollutionRose</span>(<span class='no'>mydata</span>, <span class='kw'>ws</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>wd</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>ws2</span> <span class='kw'>=</span> <span class='st'>"ws2"</span>, <span class='kw'>wd2</span> <span class='kw'>=</span> <span class='st'>"wd2"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div></pre>
+<span class='fu'>pollutionRose</span>(<span class='no'>mydata</span>, <span class='kw'>ws</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>wd</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>ws2</span> <span class='kw'>=</span> <span class='st'>"ws2"</span>, <span class='kw'>wd2</span> <span class='kw'>=</span> <span class='st'>"wd2"</span>)</div><div class='img'><img src='windRose-4.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -466,7 +474,7 @@ Modeling, Journal of the Air &amp; Waste Management Association, 58:7,
 
     <h2>Author</h2>
     
-David Carslaw (with some additional contributions by Karl 
+David Carslaw (with some additional contributions by Karl
   Ropkins)
 
   </div>
@@ -478,7 +486,7 @@ David Carslaw (with some additional contributions by Karl
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -486,3 +494,4 @@ David Carslaw (with some additional contributions by Karl
 
   </body>
 </html>
+

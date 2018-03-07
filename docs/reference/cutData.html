@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function to split data in different ways for conditioning � cutData • openair</title>
+<title>Function to split data in different ways for conditioning — cutData • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Function to split data in different ways for conditioning — cutData" />
 
+<meta property="og:description" content="Utility function to split data frames up in various ways for
+conditioning plots. Users would generally not be expected to call
+this function directly.  Widely used by many openair
+functions usually through the option type." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -100,20 +110,19 @@ functions usually through the option <code>type</code>.</p>
     <tr>
       <th>type</th>
       <td><p>A string giving the way in which the data frame should
-be split. Pre-defined values are: &#8220;default&#8221;, 
-&#8220;year&#8221;, &#8220;hour&#8221;, &#8220;month&#8221;, &#8220;season&#8221;, 
-&#8220;weekday&#8221;, &#8220;site&#8221;, &#8220;weekend&#8221;, 
-&#8220;monthyear&#8221;, &#8220;daylight&#8221;, &#8220;dst&#8221; (daylight 
-saving time).
-
-<code>type</code> can also be the name of a numeric or factor. If a 
-numeric column name is supplied <code>cutData</code> will split the 
-data into four quantiles. Factors levels will be used to split 
-the data without any adjustment.</p></td>
+  be split. Pre-defined values are: &#8220;default&#8221;,
+  &#8220;year&#8221;, &#8220;hour&#8221;, &#8220;month&#8221;, &#8220;season&#8221;,
+  &#8220;weekday&#8221;, &#8220;site&#8221;, &#8220;weekend&#8221;,
+  &#8220;monthyear&#8221;, &#8220;daylight&#8221;, &#8220;dst&#8221; (daylight
+  saving time).</p>
+<p><code>type</code> can also be the name of a numeric or factor. If a
+  numeric column name is supplied <code>cutData</code> will split the
+  data into four quantiles. Factors levels will be used to split
+  the data without any adjustment.</p></td>
     </tr>
     <tr>
       <th>hemisphere</th>
-      <td><p>Can be <code>"northern"</code> or <code>"southern"</code>, 
+      <td><p>Can be <code>"northern"</code> or <code>"southern"</code>,
 used to split data into seasons.</p></td>
     </tr>
     <tr>
@@ -122,27 +131,27 @@ used to split data into seasons.</p></td>
     </tr>
     <tr>
       <th>start.day</th>
-      <td><p>What day of the week should the <code>type = 
-"weekday"</code> start on?  The user can change the start day by 
-supplying an integer between 0 and 6. Sunday = 0, Monday = 1, 
-&#8230; For example to start the weekday plots on a Saturday, 
+      <td><p>What day of the week should the <code>type =
+"weekday"</code> start on?  The user can change the start day by
+supplying an integer between 0 and 6. Sunday = 0, Monday = 1,
+&#8230; For example to start the weekday plots on a Saturday,
 choose <code>start.day = 6</code>.</p></td>
     </tr>
     <tr>
       <th>is.axis</th>
-      <td><p>A logical (<code>TRUE</code>/<code>FALSE</code>), used to 
+      <td><p>A logical (<code>TRUE</code>/<code>FALSE</code>), used to
 request shortened cut labels for axes.</p></td>
     </tr>
     <tr>
       <th>local.tz</th>
-      <td><p>Used for identifying whether a date has daylight 
-savings time (DST) applied or not. Examples include 
-<code>local.tz = "Europe/London"</code>, <code>local.tz = 
-"America/New_York"</code> i.e. time zones that assume DST. 
-<a href = 'http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones'>http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones</a> 
-shows time zones that should be valid for most systems. It is 
-important that the original data are in GMT (UTC) or a fixed 
-offset from GMT. See <code>import</code> and the openair manual for 
+      <td><p>Used for identifying whether a date has daylight
+savings time (DST) applied or not. Examples include
+<code>local.tz = "Europe/London"</code>, <code>local.tz =
+"America/New_York"</code> i.e. time zones that assume DST.
+<a href='http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones'>http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones</a>
+shows time zones that should be valid for most systems. It is
+important that the original data are in GMT (UTC) or a fixed
+offset from GMT. See <code>import</code> and the openair manual for
 information on how to import data and ensure no DST is applied.</p></td>
     </tr>
     <tr>
@@ -157,14 +166,14 @@ of Greenwich are negative.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>All additional parameters are passed on to next 
+      <td><p>All additional parameters are passed on to next
 function(s).</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a data frame with a column <code>cond</code> that is 
+    <p>Returns a data frame with a column <code>cond</code> that is
   defined by <code>type</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -200,11 +209,11 @@ sunset to give either daylight or nighttime. The cut is made by
 <code>cutDaylight</code> but more conveniently accessed via
 <code>cutData</code>, e.g. <code>cutData(mydata, type = "daylight",
 latitude = my.latitude, longitude = my.longitude)</code>. The daylight
-estimation, which is valid for dates between 1901 and 2099, is 
+estimation, which is valid for dates between 1901 and 2099, is
 made using the measurement location, date, time and astronomical
 algorithms to estimate the relative positions of the Sun and the
 measurement location on the Earth's surface, and is based on NOAA
-methods. 
+methods.
 Measurement location should be
 set using <code>latitude</code> (+ to North; - to South) and
 <code>longitude</code> (+ to East; - to West).</p>
@@ -233,8 +242,8 @@ emissions or natural processes.</p>
 column <code>ws</code>.</p>
 <p>"site" splits the data by site and therefore requires a column
 <code>site</code>.</p>
-<p>Note that all the date-based types e.g. month/year are derived 
-from a column <code>date</code>. If a user already has a column with a 
+<p>Note that all the date-based types e.g. month/year are derived
+from a column <code>date</code>. If a user already has a column with a
 name of one of the date-based types it will not be used.</p>
     
 
@@ -268,7 +277,7 @@ David Carslaw (cutData) and Karl Ropkins (cutDaylight)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -276,3 +285,4 @@ David Carslaw (cutData) and Karl Ropkins (cutDaylight)
 
   </body>
 </html>
+

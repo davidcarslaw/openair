@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function to plot percentiles by wind direction � percentileRose • openair</title>
+<title>Function to plot percentiles by wind direction — percentileRose • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,21 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Function to plot percentiles by wind direction — percentileRose" />
 
+<meta property="og:description" content="percentileRose plots percentiles by wind direction with
+flexible conditioning. The plot can display mutiple percentile
+lines or filled areas." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -115,38 +124,38 @@ variable in a data frame should be supplied e.g. <code>pollutant
     <tr>
       <th>type</th>
       <td><p><code>type</code> determines how the data are split i.e.
-conditioned, and then plotted. The default is will produce a 
-single plot using the entire data. Type can be one of the
-built-in types as detailed in <code>cutData</code> e.g.
-&#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For
-example, <code>type = "season"</code> will produce four plots --- one
-for each season.</p>
+  conditioned, and then plotted. The default is will produce a
+  single plot using the entire data. Type can be one of the
+  built-in types as detailed in <code>cutData</code> e.g.
+  &#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For
+  example, <code>type = "season"</code> will produce four plots --- one
+  for each season.</p>
 <p>It is also possible to choose <code>type</code> as another variable in
-the data frame. If that variable is numeric, then the data will
-be split into four quantiles (if possible) and labelled 
-accordingly. If type is an existing character or factor
-variable, then those categories/levels will be used directly.
-This offers great flexibility for understanding the variation of
-different variables and how they depend on one another.</p>
+  the data frame. If that variable is numeric, then the data will
+  be split into four quantiles (if possible) and labelled
+  accordingly. If type is an existing character or factor
+  variable, then those categories/levels will be used directly.
+  This offers great flexibility for understanding the variation of
+  different variables and how they depend on one another.</p>
 <p>Type can be up length two e.g. <code>type = c("season",
-"weekday")</code> will produce a 2x2 plot split by season and day of
-the week. Note, when two types are provided the first forms the
-columns and the second the rows.</p></td>
+  "weekday")</code> will produce a 2x2 plot split by season and day of
+  the week. Note, when two types are provided the first forms the
+  columns and the second the rows.</p></td>
     </tr>
     <tr>
       <th>percentile</th>
       <td><p>The percentile value(s) to plot. Must be between
-0--100. If <code>percentile = NA</code> then only a mean line will be 
+0--100. If <code>percentile = NA</code> then only a mean line will be
 shown.</p></td>
     </tr>
     <tr>
       <th>smooth</th>
-      <td><p>Should the wind direction data be smoothed using a 
+      <td><p>Should the wind direction data be smoothed using a
 cyclic spline?</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>When <code>method = "default"</code> the supplied 
+      <td><p>When <code>method = "default"</code> the supplied
 percentiles by wind direction are calculated. When <code>method
 = "cpf"</code> the conditional probability function (CPF) is plotted
 and a single (usually high) percentile level is supplied. The
@@ -158,7 +167,7 @@ number of samples in the same wind sector (see Ashbaugh et al.,
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>Colours to be used for plotting. Options include 
+      <td><p>Colours to be used for plotting. Options include
 &#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;,
 &#8220;jet&#8221; and <code>RColorBrewer</code> colours --- see the
 <code>openair</code> <code>openColours</code> function for more details. For
@@ -207,14 +216,14 @@ will draw the scale heading in a NW direction.</p></td>
     </tr>
     <tr>
       <th>auto.text</th>
-      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
+      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and
 format pollutant names and units properly e.g.  by subscripting
 the &#8216;2&#8217; in NO2.</p></td>
     </tr>
     <tr>
       <th>key.header</th>
-      <td><p>Adds additional text/labels to the scale key. 
+      <td><p>Adds additional text/labels to the scale key.
 For example, passing options <code>key.header = "header",
 key.footer = "footer"</code> adds addition text above and below the
 scale key. These arguments are passed to <code>drawOpenKey</code> via
@@ -227,7 +236,7 @@ handle formatting.</p></td>
     </tr>
     <tr>
       <th>key.position</th>
-      <td><p>Location where the scale key is to plotted. 
+      <td><p>Location where the scale key is to plotted.
 Allowed arguments currently include <code>"top"</code>,
 <code>"right"</code>, <code>"bottom"</code> and <code>"left"</code>.</p></td>
     </tr>
@@ -260,12 +269,11 @@ as <code>xlab</code>, <code>ylab</code> and <code>main</code>) are passed to
   &#8220;openair&#8221;. The object includes three main components:
   <code>call</code>, the command used to generate the plot; <code>data</code>,
   the data frame of summarised information used to make the plot;
-  and <code>plot</code>, the plot itself. If retained, e.g. using 
+  and <code>plot</code>, the plot itself. If retained, e.g. using
   <code>output &lt;- percentileRose(mydata, "nox")</code>, this output can
   be used to recover the data, reproduce or rework the original
-  plot or undertake further analysis.
-  
-  An openair output can be manipulated using a number of generic
+  plot or undertake further analysis.</p>
+<p>An openair output can be manipulated using a number of generic
   operations, including <code>print</code>, <code>plot</code> and
   <code>summary</code>.</p>
     
@@ -275,17 +283,17 @@ as <code>xlab</code>, <code>ylab</code> and <code>main</code>) are passed to
 and plots them by wind direction. One or more percentile levels
 can be calculated and these are displayed as either filled areas
 or as lines.</p>
-<p>The wind directions are rounded to the nearest 10 degrees, 
-consistent with surface data from the UK Met Office before a 
-smooth is fitted. The levels by wind direction are optionally 
-calculated using a cyclic smooth cubic spline using the option 
+<p>The wind directions are rounded to the nearest 10 degrees,
+consistent with surface data from the UK Met Office before a
+smooth is fitted. The levels by wind direction are optionally
+calculated using a cyclic smooth cubic spline using the option
 <code>smooth</code>. If <code>smooth = FALSE</code> then the data are shown in
 10 degree sectors.</p>
 <p>The <code>percentileRose</code> function compliments other similar
 functions including <code><a href='windRose.html'>windRose</a></code>,
 <code><a href='windRose.html'>pollutionRose</a></code>, <code><a href='polarFreq.html'>polarFreq</a></code> or
 <code><a href='polarPlot.html'>polarPlot</a></code>. It is most useful for showing the
-distribution of concentrations by wind direction and often can 
+distribution of concentrations by wind direction and often can
 reveal different sources e.g. those that only affect high
 percentile concentrations such as a chimney stack.</p>
 <p>Similar to other functions, flexible conditioning is available
@@ -298,9 +306,9 @@ and colour.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A 
-residence time probability analysis of sulfur concentrations at 
-ground canyon national park. Atmospheric Environment 19 (8), 
+    <p>Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A
+residence time probability analysis of sulfur concentrations at
+ground canyon national park. Atmospheric Environment 19 (8),
 1263-1270.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -313,16 +321,18 @@ ground canyon national park. Atmospheric Environment 19 (8),
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># basic percentile plot</span>
-<span class='fu'>percentileRose</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>)</div><img src='percentileRose-2.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>percentileRose</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>)</div><div class='img'><img src='percentileRose-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'># 50/95th percentiles of ozone, with different colours</span>
-<span class='fu'>percentileRose</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>50</span>, <span class='fl'>95</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>)</div><img src='percentileRose-4.png' alt='' width='540' height='400' /><div class='input'>
-<span class='fu'>not_run</span>({
-  <span class='co'># percentiles of ozone by year, with different colours</span>
-  <span class='fu'>percentileRose</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>)
+<span class='fu'>percentileRose</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>50</span>, <span class='fl'>95</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>)</div><div class='img'><img src='percentileRose-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+<span class='co'># percentiles of ozone by year, with different colours</span>
+<span class='fu'>percentileRose</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>)
 
-  <span class='co'># percentile concentrations by season and day/nighttime..</span>
-  <span class='fu'>percentileRose</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"season"</span>, <span class='st'>"daylight"</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>)
-})</div></pre>
+<span class='co'># percentile concentrations by season and day/nighttime..</span>
+<span class='fu'>percentileRose</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"season"</span>, <span class='st'>"daylight"</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>)
+<span class='co'># }</span><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -353,7 +363,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -361,3 +371,4 @@ David Carslaw
 
   </body>
 </html>
+

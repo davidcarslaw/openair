@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate clusters for back tracectories � trajCluster • openair</title>
+<title>Calculate clusters for back tracectories — trajCluster • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,23 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Calculate clusters for back tracectories — trajCluster" />
 
+<meta property="og:description" content="This function carries out cluster analysis of HYSPLIT back
+trajectories. The function is specifically designed to work with
+the trajectories imported using the openair
+importTraj function, which provides pre-calculated back
+trajectories at specific receptor locations." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -80,10 +91,10 @@
     </div>
 
     
-    <p>This function carries out cluster analysis of HYSPLIT back 
-trajectories. The function is specifically designed to work with 
-the trajectories imported using the <code>openair</code> 
-<code>importTraj</code> function, which provides pre-calculated back 
+    <p>This function carries out cluster analysis of HYSPLIT back
+trajectories. The function is specifically designed to work with
+the trajectories imported using the <code>openair</code>
+<code>importTraj</code> function, which provides pre-calculated back
 trajectories at specific receptor locations.</p>
     
 
@@ -98,7 +109,7 @@ trajectories at specific receptor locations.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>traj</th>
-      <td><p>An openair trajectory data frame resulting from the 
+      <td><p>An openair trajectory data frame resulting from the
 use of <code>importTraj</code>.</p></td>
     </tr>
     <tr>
@@ -118,7 +129,7 @@ back trajectories. There are two methods available:
     <tr>
       <th>type</th>
       <td><p><code>type</code> determines how the data are split i.e.
-conditioned, and then plotted. The default is will produce a 
+conditioned, and then plotted. The default is will produce a
 single plot using the entire data. Type can be one of the
 built-in types as detailed in <code>cutData</code> e.g.
 &#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For
@@ -128,7 +139,7 @@ separately made of each level of "type".</p></td>
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>Colours to be used for plotting. Options include 
+      <td><p>Colours to be used for plotting. Options include
 &#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;,
 &#8220;jet&#8221; and <code>RColorBrewer</code> colours --- see the
 <code>openair</code> <code>openColours</code> function for more details. For
@@ -138,7 +149,7 @@ example would be <code>cols = c("yellow", "green", "blue")</code></p></td>
     </tr>
     <tr>
       <th>split.after</th>
-      <td><p>For <code>type</code> other than &#8220;default&#8221; 
+      <td><p>For <code>type</code> other than &#8220;default&#8221;
 e.g. &#8220;season&#8221;, the trajectories can either be calculated
 for each level of <code>type</code> independently or extracted after
 the cluster calculations have been applied to the whole data
@@ -146,7 +157,7 @@ set.</p></td>
     </tr>
     <tr>
       <th>map.fill</th>
-      <td><p>Should the base map be a filled polygon? Default 
+      <td><p>Should the base map be a filled polygon? Default
 is to fill countries.</p></td>
     </tr>
     <tr>
@@ -158,22 +169,22 @@ the countries and can help differentiate them.</p></td>
     </tr>
     <tr>
       <th>map.alpha</th>
-      <td><p>The transpency level of the filled map which 
+      <td><p>The transpency level of the filled map which
 takes values from 0 (full transparency) to 1 (full opacity).
 Setting it below 1 can help view trajectories, trajectory
 surfaces etc. <em>and</em> a filled base map.</p></td>
     </tr>
     <tr>
       <th>projection</th>
-      <td><p>The map projection to be used. Different map 
+      <td><p>The map projection to be used. Different map
 projections are possible through the <code>mapproj</code> package.
 See<code>?mapproject</code> for extensive details and information on
 setting other parameters and orientation (see below).</p></td>
     </tr>
     <tr>
       <th>parameters</th>
-      <td><p>From the <code>mapproj</code> package. Optional 
-numeric vector of parameters for use with the projection 
+      <td><p>From the <code>mapproj</code> package. Optional
+numeric vector of parameters for use with the projection
 argument. This argument is optional only in the sense that
 certain projections do not require additional parameters. If a
 projection does require additional parameters, these must be
@@ -181,11 +192,11 @@ given in the parameters argument.</p></td>
     </tr>
     <tr>
       <th>orientation</th>
-      <td><p>From the <code>mapproj</code> package. An optional 
-vector c(latitude,longitude,rotation) which describes where the 
-"North Pole" should be when computing the projection. Normally 
-this is c(90,0), which is appropriate for cylindrical and conic 
-projections. For a planar projection, you should set it to the 
+      <td><p>From the <code>mapproj</code> package. An optional
+vector c(latitude,longitude,rotation) which describes where the
+"North Pole" should be when computing the projection. Normally
+this is c(90,0), which is appropriate for cylindrical and conic
+projections. For a planar projection, you should set it to the
 desired point of tangency. The third value is a clockwise
 rotation (in degrees), which defaults to the midrange of the
 longitude coordinates in the map.</p></td>
@@ -203,10 +214,10 @@ receptor point.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other graphical parameters passed onto 
-<code>lattice:levelplot</code> and <code>cutData</code>. Similarly, common 
-axis and title labelling options (such as <code>xlab</code>, 
-<code>ylab</code>, <code>main</code>) are passed to <code>levelplot</code> via 
+      <td><p>Other graphical parameters passed onto
+<code>lattice:levelplot</code> and <code>cutData</code>. Similarly, common
+axis and title labelling options (such as <code>xlab</code>,
+<code>ylab</code>, <code>main</code>) are passed to <code>levelplot</code> via
 <code>quickText</code> to handle routine formatting.</p></td>
     </tr>
     </table>
@@ -220,17 +231,17 @@ axis and title labelling options (such as <code>xlab</code>,
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Two main methods are available to cluster the back trajectories 
-using two different calculations of the distance matrix. The 
-default is to use the standard Euclidian distance between each 
-pair of trajectories. Also available is an angle-based distance 
+    <p>Two main methods are available to cluster the back trajectories
+using two different calculations of the distance matrix. The
+default is to use the standard Euclidian distance between each
+pair of trajectories. Also available is an angle-based distance
 matrix based on Sirois and Bottenheim (1995). The latter method is
-useful when the interest is the direction of the trajectories in 
+useful when the interest is the direction of the trajectories in
 clustering.</p>
-<p>The distance matrix calculations are made in C++ for speed. For 
-data sets of up to 1 year both methods should be relatively fast, 
+<p>The distance matrix calculations are made in C++ for speed. For
+data sets of up to 1 year both methods should be relatively fast,
 although the <code>method = "Angle"</code> does tend to take much longer
-to calculate. Further details of these methods are given in the 
+to calculate. Further details of these methods are given in the
 openair manual.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -247,15 +258,15 @@ Scotia. Journal of Geophysical Research, 100: 2867-2881.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>not_run</span>({
-  <span class='co'>## import trajectories</span>
-  <span class='no'>traj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importTraj.html'>importTraj</a></span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"london"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>)
-  <span class='co'>## calculate clusters</span>
-  <span class='no'>clust</span> <span class='kw'>&lt;-</span> <span class='fu'>trajCluster</span>(<span class='no'>traj</span>, <span class='kw'>n.clusters</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-  <span class='fu'>head</span>(<span class='no'>clust</span>$<span class='no'>data</span>) <span class='co'>## note new variable 'cluster'</span>
-  <span class='co'>## use different distance matrix calculation, and calculate by season</span>
-  <span class='no'>traj</span> <span class='kw'>&lt;-</span> <span class='fu'>trajCluster</span>(<span class='no'>traj</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"Angle"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>, <span class='kw'>n.clusters</span> <span class='kw'>=</span> <span class='fl'>4</span>)
-})</div></pre>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'>## import trajectories</span>
+<span class='no'>traj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importTraj.html'>importTraj</a></span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"london"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>)
+<span class='co'>## calculate clusters</span>
+<span class='no'>clust</span> <span class='kw'>&lt;-</span> <span class='fu'>trajCluster</span>(<span class='no'>traj</span>, <span class='kw'>n.clusters</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+<span class='fu'>head</span>(<span class='no'>clust</span>$<span class='no'>data</span>) <span class='co'>## note new variable 'cluster'</span>
+<span class='co'>## use different distance matrix calculation, and calculate by season</span>
+<span class='no'>traj</span> <span class='kw'>&lt;-</span> <span class='fu'>trajCluster</span>(<span class='no'>traj</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"Angle"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>, <span class='kw'>n.clusters</span> <span class='kw'>=</span> <span class='fl'>4</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -286,7 +297,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -294,3 +305,4 @@ David Carslaw
 
   </body>
 </html>
+

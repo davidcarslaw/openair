@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bin data, calculate mean and bootstrap 95% confidence interval in the mean � binData • openair</title>
+<title>Bin data, calculate mean and bootstrap 95% confidence interval in the mean — binData • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Bin data, calculate mean and bootstrap 95% confidence interval in the mean — binData" />
 
+<meta property="og:description" content="Bin a variable and calculate mean an uncertainties in mean" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -134,14 +141,14 @@ binning intervals.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># how does nox vary by intervals of wind speed?</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>binData</span>(<span class='no'>mydata</span>, <span class='kw'>bin</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>uncer</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
-<span class='co'># easy to plot this using ggplot2</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>library</span>(<span class='no'>ggplot2</span>)
-  <span class='fu'>ggplot</span>(<span class='no'>results</span>, <span class='fu'>aes</span>(<span class='no'>ws</span>, <span class='no'>mean</span>, <span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>min</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>max</span>)) +
-  <span class='fu'>geom_pointrange</span>()
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>binData</span>(<span class='no'>mydata</span>, <span class='kw'>bin</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>uncer</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)
 
-})</div></pre>
+<span class='co'># easy to plot this using ggplot2</span></div><span class='co'># NOT RUN {</span>
+<span class='fu'>library</span>(<span class='no'>ggplot2</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='no'>results</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='no'>ws</span>, <span class='no'>mean</span>, <span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>min</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>max</span>)) +
+<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_linerange'>geom_pointrange</a></span>()
+
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -164,7 +171,7 @@ binning intervals.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -172,3 +179,4 @@ binning intervals.</p>
 
   </body>
 </html>
+

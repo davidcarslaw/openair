@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Conditional quantile estimates with additional variables for model evaluation � conditionalEval • openair</title>
+<title>Conditional quantile estimates with additional variables for model
+evaluation — conditionalEval • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +19,29 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Conditional quantile estimates with additional variables for model
+evaluation — conditionalEval" />
 
+<meta property="og:description" content="This function enhances conditionalQuantile by also considering
+how other variables vary over the same intervals. Conditional quantiles are
+very useful on their own for model evaluation, but provide no direct
+information on how other variables change at the same time. For example, a
+conditional quantile plot of ozone concentrations may show that low
+concentrations of ozone tend to be under-predicted. However, the cause of
+the under-prediction can be difficult to determine. However, by considering
+how well the model predicts other variables over the same intervals, more
+insight can be gained into the underlying reasons why model performance is
+poor." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -76,21 +94,21 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Conditional quantile estimates with additional variables for model evaluation</h1>
+    <h1>Conditional quantile estimates with additional variables for model
+evaluation</h1>
     </div>
 
     
-    <p>This function enhances <code><a href='conditionalQuantile.html'>conditionalQuantile</a></code> by also
-considering how other variables vary over the same
-intervals. Conditional quantiles are very useful on their own for
-model evaluation, but provide no direct information on how other
-variables change at the same time. For example, a conditional
-quantile plot of ozone concentrations may show that low
-concentrations of ozone tend to be under-predicted. However, the
-cause of the under-prediction can be difficult to
-determine. However, by considering how well the model predicts
-other variables over the same intervals, more insight can be
-gained into the underlying reasons why model performance is poor.</p>
+    <p>This function enhances <code><a href='conditionalQuantile.html'>conditionalQuantile</a></code> by also considering
+how other variables vary over the same intervals. Conditional quantiles are
+very useful on their own for model evaluation, but provide no direct
+information on how other variables change at the same time. For example, a
+conditional quantile plot of ozone concentrations may show that low
+concentrations of ozone tend to be under-predicted. However, the cause of
+the under-prediction can be difficult to determine. However, by considering
+how well the model predicts other variables over the same intervals, more
+insight can be gained into the underlying reasons why model performance is
+poor.</p>
     
 
     <pre class="usage"><span class='fu'>conditionalEval</span>(<span class='no'>mydata</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>var.obs</span> <span class='kw'>=</span> <span class='st'>"var.obs"</span>,
@@ -116,31 +134,31 @@ representing observed and modelled values.</p></td>
     </tr>
     <tr>
       <th>var.obs</th>
-      <td><p>Other variable observations for which statistics
-should be calculated. Can be more than length one
-e.g. <code>var.obs = c("nox.obs", "ws.obs")</code>.</p></td>
+      <td><p>Other variable observations for which statistics should be
+calculated. Can be more than length one e.g. <code>var.obs = c("nox.obs",
+"ws.obs")</code>. Note that including other variables could reduce the number of
+data available to plot due to teh need of having non-missing data for all
+variables.</p></td>
     </tr>
     <tr>
       <th>var.mod</th>
-      <td><p>Other variable predictions for which statistics
-should be calculated. Can be more than length one
-e.g. <code>var.obs = c("nox.obs", "ws.obs")</code>.</p></td>
+      <td><p>Other variable predictions for which statistics should be
+calculated. Can be more than length one e.g. <code>var.obs = c("nox.obs",
+"ws.obs")</code>.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p><code>type</code> determines how the data are split
-i.e. conditioned, and then plotted. The default is will produce a
-single plot using the entire data. Type can be one of the built-in
-types as detailed in <code>cutData</code> e.g. "season", "year",
-"weekday" and so on. For example, <code>type = "season"</code> will
-produce four plots --- one for each season.</p>
-<p>It is also possible to choose <code>type</code> as another variable in
-the data frame. If that variable is numeric, then the data will be
-split into four quantiles (if possible) and labelled
-accordingly. If type is an existing character or factor variable,
-then those categories/levels will be used directly. This offers
-great flexibility for understanding the variation of different
-variables and how they depend on one another.</p></td>
+      <td><p><code>type</code> determines how the data are split i.e. conditioned,
+  and then plotted. The default is will produce a single plot using the
+  entire data. Type can be one of the built-in types as detailed in
+  <code>cutData</code> e.g. "season", "year", "weekday" and so on. For example,
+  <code>type = "season"</code> will produce four plots --- one for each season.</p>
+<p>It is also possible to choose <code>type</code> as another variable in the data
+  frame. If that variable is numeric, then the data will be split into four
+  quantiles (if possible) and labelled accordingly. If type is an existing
+  character or factor variable, then those categories/levels will be used
+  directly. This offers great flexibility for understanding the variation of
+  different variables and how they depend on one another.</p></td>
     </tr>
     <tr>
       <th>bins</th>
@@ -149,20 +167,19 @@ variables and how they depend on one another.</p></td>
     <tr>
       <th>statistic</th>
       <td><p>Statistic(s) to be plotted. Can be &#8220;MB&#8221;,
-&#8220;NMB&#8221;, &#8220;r&#8221;, &#8220;COE&#8221;, &#8220;MGE&#8221;,
-&#8220;NMGE&#8221;, &#8220;RMSE&#8221; and &#8220;FAC2&#8221;, as described in
-<code>modStats</code>. When these statistics are chosen, they are
-calculated from <code>var.mod</code> and <code>var.mod</code>.
-
-<code>statistic</code> can also be a value that can be supplied to
-<code>cutData</code>. For example, <code>statistic = "season"</code> will show
-how model performance varies by season across the distribution of
-predictions which might highlight that at high concentrations of
-NOx the model tends to underestimate concentrations and that these
-periods mostly occur in winter. <code>statistic</code> can also be
-another variable in the data frame --- see <code>cutData</code> for more
-information. A special case is <code>statistic = "cluster"</code> if
-clusters have been calculated using <code>trajCluster</code>.</p></td>
+  &#8220;NMB&#8221;, &#8220;r&#8221;, &#8220;COE&#8221;, &#8220;MGE&#8221;, &#8220;NMGE&#8221;,
+  &#8220;RMSE&#8221; and &#8220;FAC2&#8221;, as described in <code>modStats</code>. When
+  these statistics are chosen, they are calculated from <code>var.mod</code> and
+  <code>var.mod</code>.</p>
+<p><code>statistic</code> can also be a value that can be supplied to
+  <code>cutData</code>. For example, <code>statistic = "season"</code> will show how
+  model performance varies by season across the distribution of predictions
+  which might highlight that at high concentrations of NOx the model tends
+  to underestimate concentrations and that these periods mostly occur in
+  winter. <code>statistic</code> can also be another variable in the data frame
+  --- see <code>cutData</code> for more information. A special case is
+  <code>statistic = "cluster"</code> if clusters have been calculated using
+  <code>trajCluster</code>.</p></td>
     </tr>
     <tr>
       <th>xlab</th>
@@ -179,8 +196,8 @@ line. Must be of length 5 or more.</p></td>
     </tr>
     <tr>
       <th>col.var</th>
-      <td><p>Colours for the additional variables to be
-compared. See <code>openColours</code> for more details.</p></td>
+      <td><p>Colours for the additional variables to be compared. See
+<code>openColours</code> for more details.</p></td>
     </tr>
     <tr>
       <th>var.names</th>
@@ -195,92 +212,82 @@ pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></td
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other graphical parameters passed onto
-<code>conditionalQuantile</code> and <code>cutData</code>. For example,
-<code>conditionalQuantile</code> passes the option <code>hemisphere =
-"southern"</code> on to <code>cutData</code> to provide southern (rather than
-default northern) hemisphere handling of <code>type = "season"</code>.
-Similarly, common axis and title labelling options (such as
-<code>xlab</code>, <code>ylab</code>, <code>main</code>) are passed to <code>xyplot</code>
-via <code>quickText</code> to handle routine formatting.</p></td>
+      <td><p>Other graphical parameters passed onto <code>conditionalQuantile</code>
+and <code>cutData</code>. For example, <code>conditionalQuantile</code> passes the
+option <code>hemisphere = "southern"</code> on to <code>cutData</code> to provide
+southern (rather than default northern) hemisphere handling of <code>type
+= "season"</code>. Similarly, common axis and title labelling options (such as
+<code>xlab</code>, <code>ylab</code>, <code>main</code>) are passed to <code>xyplot</code> via
+<code>quickText</code> to handle routine formatting.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>conditionalEval</code> function provides information on how
-other variables vary across the same intervals as shown on the
-conditional quantile plot. There are two types of variable that
-can be considered by setting the value of <code>statistic</code>. First,
-<code>statistic</code> can be another variable in the data frame. In
-this case the plot will show the different proportions of
-<code>statistic</code> across the range of predictions. For example
-<code>statistic = "season"</code> will show for each interval of
-<code>mod</code> the proportion of predictions that were spring, summer,
-autumn or winter. This is useful because if model performance is
-worse for example at high concentrations of <code>mod</code> then
-knowing that these tend to occur during a particular season
-etc. can be very helpful when trying to understand <em>why</em> a
-model fails. See <code><a href='cutData.html'>cutData</a></code> for more details on the
-types of variable that can be <code>statistic</code>. Another example
-would be <code>statistic = "ws"</code> (if wind speed were available in
-the data frame), which would then split wind speed into four
-quantiles and plot the proportions of each.</p>
-<p>Second, <code>conditionalEval</code> can simultaneously plot the model
-performance of other observed/predicted variable <b>pairs</b>
-according to different model evaluation statistics. These
-statistics derive from the <code><a href='modStats.html'>modStats</a></code> function and
-include &#8220;MB&#8221;, &#8220;NMB&#8221;, &#8220;r&#8221;, &#8220;COE&#8221;,
-&#8220;MGE&#8221;, &#8220;NMGE&#8221;, &#8220;RMSE&#8221; and &#8220;FAC2&#8221;. More
-than one statistic can be supplied e.g. <code>statistic = c("NMB",
-"COE")</code>. Bootstrap samples are taken from the corresponding values
-of other variables to be plotted and their statistics with 95%
-confidence intervals calculated. In this case, the model
-<em>performance</em> of other variables is shown across the same
-intervals of <code>mod</code>, rather than just the values of single
-variables. In this second case the model would need to provide
-observed/predicted pairs of other variables.</p>
-<p>For example, a model may provide predictions of NOx and wind speed
-(for which there are also observations available). The
-<code>conditionalEval</code> function will show how well these other
-variables are predicted for the same intervals of the main
-variables assessed in the conditional quantile e.g. ozone. In this
-case, values are supplied to <code>var.obs</code> (observed values for
-other variables) and <code>var.mod</code> (modelled values for other
-variables). For example, to consider how well the model predicts
-NOx and wind speed <code>var.obs = c("nox.obs", "ws.obs")</code> and
-<code>var.mod = c("nox.mod", "ws.mod")</code> would be supplied
-(assuming <code>nox.obs, nox.mod, ws.obs, ws.mod</code> are present in
-the data frame). The analysis could show for example, when ozone
-concentrations are under-predicted, the model may also be shown to
-over-predict concentrations of NOx at the same time, or
-under-predict wind speeds. Such information can thus help identify
-the underlying causes of poor model performance. For example, an
+    <p>The <code>conditionalEval</code> function provides information on how other
+variables vary across the same intervals as shown on the conditional
+quantile plot. There are two types of variable that can be considered by
+setting the value of <code>statistic</code>. First, <code>statistic</code> can be
+another variable in the data frame. In this case the plot will show the
+different proportions of <code>statistic</code> across the range of predictions.
+For example <code>statistic = "season"</code> will show for each interval of
+<code>mod</code> the proportion of predictions that were spring, summer, autumn or
+winter. This is useful because if model performance is worse for example at
+high concentrations of <code>mod</code> then knowing that these tend to occur
+during a particular season etc. can be very helpful when trying to
+understand <em>why</em> a model fails. See <code><a href='cutData.html'>cutData</a></code> for more
+details on the types of variable that can be <code>statistic</code>. Another
+example would be <code>statistic = "ws"</code> (if wind speed were available in
+the data frame), which would then split wind speed into four quantiles and
+plot the proportions of each.</p>
+<p>Second, <code>conditionalEval</code> can simultaneously plot the model performance
+of other observed/predicted variable <b>pairs</b> according to different
+model evaluation statistics. These statistics derive from the
+<code><a href='modStats.html'>modStats</a></code> function and include &#8220;MB&#8221;, &#8220;NMB&#8221;,
+&#8220;r&#8221;, &#8220;COE&#8221;, &#8220;MGE&#8221;, &#8220;NMGE&#8221;, &#8220;RMSE&#8221; and
+&#8220;FAC2&#8221;. More than one statistic can be supplied e.g. <code>statistic
+= c("NMB", "COE")</code>. Bootstrap samples are taken from the corresponding
+values of other variables to be plotted and their statistics with 95%
+confidence intervals calculated. In this case, the model <em>performance</em>
+of other variables is shown across the same intervals of <code>mod</code>, rather
+than just the values of single variables. In this second case the model
+would need to provide observed/predicted pairs of other variables.</p>
+<p>For example, a model may provide predictions of NOx and wind speed (for
+which there are also observations available). The <code>conditionalEval</code>
+function will show how well these other variables are predicted for the same
+intervals of the main variables assessed in the conditional quantile e.g.
+ozone. In this case, values are supplied to <code>var.obs</code> (observed values
+for other variables) and <code>var.mod</code> (modelled values for other
+variables). For example, to consider how well the model predicts NOx and
+wind speed <code>var.obs = c("nox.obs", "ws.obs")</code> and <code>var.mod =
+c("nox.mod", "ws.mod")</code> would be supplied (assuming <code>nox.obs, nox.mod,
+ws.obs, ws.mod</code> are present in the data frame). The analysis could show for
+example, when ozone concentrations are under-predicted, the model may also
+be shown to over-predict concentrations of NOx at the same time, or
+under-predict wind speeds. Such information can thus help identify the
+underlying causes of poor model performance. For example, an
 under-prediction in wind speed could result in higher surface NOx
-concentrations and lower ozone concentrations. Similarly if wind
-speed predictions were good and NOx was over predicted it might
-suggest an over-estimate of NOx emissions. One or more additional
-variables can be plotted.</p>
-<p>A special case is <code>statistic = "cluster"</code>. In this case a
-data frame is provided that contains the cluster calculated by
-<code><a href='trajCluster.html'>trajCluster</a></code> and
-<code><a href='importTraj.html'>importTraj</a></code>. Alternatively users could supply their
-own pre-calculated clusters. These calculations can be very useful
-in showing whether certain back trajectory clusters are associated
-with poor (or good) model performance. Note that in the case of
-<code>statistic = "cluster"</code> there will be fewer data points used
-in the analysis compared with the ordinary statistics above
-because the trajectories are available for every three hours. Also
-note that <code>statistic = "cluster"</code> cannot be used together
-with the ordinary model evaluation statistics such as MB. The
-output will be a bar chart showing the proportion of each interval
-of <code>mod</code> by cluster number.</p>
-<p>Far more insight can be gained into model performance through
-conditioning using <code>type</code>. For example, <code>type =
-"season"</code> will plot conditional quantiles and the associated model
-performance statistics of other variables by each
-season. <code>type</code> can also be a factor or character field
-e.g. representing different models used.</p>
+concentrations and lower ozone concentrations. Similarly if wind speed
+predictions were good and NOx was over predicted it might suggest an
+over-estimate of NOx emissions. One or more additional variables can be
+plotted.</p>
+<p>A special case is <code>statistic = "cluster"</code>. In this case a data frame is
+provided that contains the cluster calculated by <code><a href='trajCluster.html'>trajCluster</a></code>
+and <code><a href='importTraj.html'>importTraj</a></code>. Alternatively users could supply their own
+pre-calculated clusters. These calculations can be very useful in showing
+whether certain back trajectory clusters are associated with poor (or good)
+model performance. Note that in the case of <code>statistic = "cluster"</code>
+there will be fewer data points used in the analysis compared with the
+ordinary statistics above because the trajectories are available for every
+three hours. Also note that <code>statistic = "cluster"</code> cannot be used
+together with the ordinary model evaluation statistics such as MB. The
+output will be a bar chart showing the proportion of each interval of
+<code>mod</code> by cluster number.</p>
+<p>Far more insight can be gained into model performance through conditioning
+using <code>type</code>. For example, <code>type = "season"</code> will plot conditional
+quantiles and the associated model performance statistics of other variables
+by each season. <code>type</code> can also be a factor or character field e.g.
+representing different models used.</p>
 <p>See Wilks (2005) for more details of conditional quantile plots.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -291,16 +298,18 @@ e.g. representing different models used.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>See <code><a href='conditionalQuantile.html'>conditionalQuantile</a></code> for information on conditional
-quantiles, <code><a href='modStats.html'>modStats</a></code> for model evaluation statistics
-and the package <code>verification</code> for comprehensive functions
-for forecast verification.</p>
+    <p>See <code><a href='conditionalQuantile.html'>conditionalQuantile</a></code> for information on
+  conditional quantiles, <code><a href='modStats.html'>modStats</a></code> for model evaluation
+  statistics and the package <code>verification</code> for comprehensive functions
+  for forecast verification.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
-<span class='co'>## Examples to follow, or will be shown in the openair manual</span></div></pre>
+## Examples to follow, or will be shown in the openair manual
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -329,7 +338,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -337,3 +346,4 @@ David Carslaw
 
   </body>
 </html>
+

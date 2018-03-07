@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function to plot wind speed/direction frequencies and other statistics � polarFreq • openair</title>
+<title>Function to plot wind speed/direction frequencies and other statistics — polarFreq • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,22 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Function to plot wind speed/direction frequencies and other statistics — polarFreq" />
 
+<meta property="og:description" content="polarFreq primarily plots wind speed-direction frequencies in
+&#8216;bins&#8217;. Each bin is colour-coded depending on the frequency of
+measurements. Bins can also be used to show the concentration of pollutants
+using a range of commonly used statistics." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -299,38 +309,41 @@ user has fine control over both the range, interval and colour.</p>
     <pre class="examples"><div class='input'>
 
 <span class='co'># basic wind frequency plot</span>
-<span class='fu'>polarFreq</span>(<span class='no'>mydata</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
-<span class='co'># wind frequencies by year</span>
-<span class='co'>## Not run: polarFreq(mydata, type = "year")</span>
+<span class='fu'>polarFreq</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='polarFreq-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+# wind frequencies by year
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>)
+<span class='co'># }</span><div class='input'>
 
-
-<span class='co'># mean SO2 by year, showing only bins with at least 2 points</span>
-<span class='co'>## Not run: polarFreq(mydata, pollutant = "so2", type = "year", statistic = "mean", min.bin = 2)</span>
-
-<span class='co'># weighted mean SO2 by year, showing only bins with at least 2 points</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"so2"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"weighted.mean"</span>,
-  <span class='kw'>min.bin</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-})
-
-<span class='co'>#windRose for just 2000 and 2003 with different colours</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>polarFreq</span>(<span class='fu'>subset</span>(<span class='no'>mydata</span>, <span class='fu'>format</span>(<span class='no'>date</span>, <span class='st'>"%Y"</span>) <span class='kw'>%in%</span> <span class='fu'>c</span>(<span class='fl'>2000</span>, <span class='fl'>2003</span>)),
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"jet"</span>)
-})
-
-<span class='co'># user defined breaks from 0-700 in intervals of 100 (note linear scale)</span>
-<span class='co'>## Not run: polarFreq(mydata, breaks = seq(0, 700, 100))</span>
-
-<span class='co'># more complicated user-defined breaks - useful for highlighting bins</span>
-<span class='co'># with a certain number of data points</span>
-<span class='co'>## Not run: polarFreq(mydata, breaks = c(0, 10, 50, 100, 250, 500, 700))</span>
-
-<span class='co'># source contribution plot and use of offset option</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm25"</span>, <span class='kw'>statistic</span>
-  <span class='kw'>=</span><span class='st'>"weighted.mean"</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>ws.int</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-})</div></pre>
+# mean SO2 by year, showing only bins with at least 2 points
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"so2"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>min.bin</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='co'># }</span><div class='input'>
+# weighted mean SO2 by year, showing only bins with at least 2 points
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"so2"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"weighted.mean"</span>,
+<span class='kw'>min.bin</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='co'># }</span><div class='input'>
+#windRose for just 2000 and 2003 with different colours
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>polarFreq</span>(<span class='fu'>subset</span>(<span class='no'>mydata</span>, <span class='fu'>format</span>(<span class='no'>date</span>, <span class='st'>"%Y"</span>) <span class='kw'>%in%</span> <span class='fu'>c</span>(<span class='fl'>2000</span>, <span class='fl'>2003</span>)),
+<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"jet"</span>)
+<span class='co'># }</span><div class='input'>
+# user defined breaks from 0-700 in intervals of 100 (note linear scale)
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>seq</span>(<span class='fl'>0</span>, <span class='fl'>700</span>, <span class='fl'>100</span>))
+<span class='co'># }</span><div class='input'>
+# more complicated user-defined breaks - useful for highlighting bins
+# with a certain number of data points
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>250</span>, <span class='fl'>500</span>, <span class='fl'>700</span>))
+<span class='co'># }</span><div class='input'>
+# source contribution plot and use of offset option
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm25"</span>, <span class='kw'>statistic</span>
+<span class='kw'>=</span><span class='st'>"weighted.mean"</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>ws.int</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -361,7 +374,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -369,3 +382,4 @@ David Carslaw
 
   </body>
 </html>
+

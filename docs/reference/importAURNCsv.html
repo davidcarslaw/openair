@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AURN csv file data import for openair � importAURNCsv • openair</title>
+<title>AURN csv file data import for openair — importAURNCsv • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,23 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="AURN csv file data import for openair — importAURNCsv" />
 
+<meta property="og:description" content="Function for importing common 1 hour average (hourly) UK Automatic Urban
+and Rural Network (AURN) Air Quality Archive data files previously
+downloaded in ".csv" format for use with the openair package.  The function
+uses read.table (in utils) and rbind (in
+reshape)." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -162,7 +173,7 @@ period.</p></td>
     </tr>
     <tr>
       <th>output</th>
-      <td><p>Output style. Default "final" using <code>import()</code>.</p></td>
+      <td><p>Output style. Default "final" using <code><a href='import.html'>import()</a></code>.</p></td>
     </tr>
     <tr>
       <th>data.order</th>
@@ -180,7 +191,7 @@ contain unallowed characters or non-unique names.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other parameters. Passed onto and handled by <code>import()</code>.</p></td>
+      <td><p>Other parameters. Passed onto and handled by <code><a href='import.html'>import()</a></code>.</p></td>
     </tr>
     </table>
     
@@ -226,65 +237,68 @@ argument modification.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
-<span class='co'>##########</span>
-<span class='co'>#example 1</span>
-<span class='co'>##########</span>
-<span class='co'>#data obtained from email service:</span>
-<span class='co'>#http://www.airquality.co.uk/archive/data_selector.php</span>
-<span class='co'>#or</span>
-<span class='co'>#http://www.airquality.co.uk/archive/data_and_statistics.php?action=step_pre_1</span>
-<span class='co'>#example file "AirQualityDataHourly.csv" Brighton Roadside and Brighton Preston Park 2008.</span>
+##########
+#example 1
+##########
+#data obtained from email service:
+#http://www.airquality.co.uk/archive/data_selector.php
+#or
+#http://www.airquality.co.uk/archive/data_and_statistics.php?action=step_pre_1
+#example file "AirQualityDataHourly.csv" Brighton Roadside and Brighton Preston Park 2008.
 
-<span class='co'>#import data as mydata</span>
-<span class='co'>## mydata &lt;- importAURN.csv("AirQualityDataHourly.csv")</span>
+#import data as mydata
+## mydata <- importAURN.csv("AirQualityDataHourly.csv")
 
-<span class='co'>#read additional information retained by importAURN</span>
-<span class='co'>## comment(mydata)</span>
+#read additional information retained by importAURN
+## comment(mydata)
 
-<span class='co'>#analysis data by site</span>
-<span class='co'>## boxplot(nox ~ site, data = mydata)</span>
+#analysis data by site
+## boxplot(nox ~ site, data = mydata)
 
-<span class='co'>##########</span>
-<span class='co'>#example 2</span>
-<span class='co'>##########</span>
-<span class='co'>#example using data from url</span>
+##########
+#example 2
+##########
+#example using data from url
 
-<span class='co'>#import data as otherdata</span>
-<span class='co'>## otherdata &lt;- importAURN.csv(</span>
-<span class='co'>##  "http://www.airquality.co.uk/archive/data_files/site_data/HG1_2007.csv")</span>
+#import data as otherdata
+## otherdata <- importAURN.csv(
+##  "http://www.airquality.co.uk/archive/data_files/site_data/HG1_2007.csv")
 
-<span class='co'>#use openair function</span>
-<span class='co'>## summarise(otherdata)</span>
+#use openair function
+## summarise(otherdata)
 
-<span class='co'>##########</span>
-<span class='co'>#example 3</span>
-<span class='co'>##########</span>
-<span class='co'>#example of importing other similar data formats</span>
+##########
+#example 3
+##########
+#example of importing other similar data formats
 
-<span class='co'>#import 15 min average so2 data from Bexley using url</span>
-<span class='co'>## so2.15min.data &lt;- importAURN.csv(</span>
-<span class='co'>##  "http://www.airquality.co.uk/archive/data_files/15min_site_data/BEX_2008.csv",</span>
-<span class='co'>##  correct.time = -900)</span>
+#import 15 min average so2 data from Bexley using url
+## so2.15min.data <- importAURN.csv(
+##  "http://www.airquality.co.uk/archive/data_files/15min_site_data/BEX_2008.csv",
+##  correct.time = -900)
 
-<span class='co'>#note: correct.time amended for 15 min offset/correction.</span>
+#note: correct.time amended for 15 min offset/correction.
 
-<span class='co'>#additional comments</span>
-<span class='co'>## comment(so2.15min.data)</span>
+#additional comments
+## comment(so2.15min.data)
 
-<span class='co'>#analysis</span>
-<span class='co'>## diurnal.error(so2.15min.data, pollutant="so2")</span>
+#analysis
+## diurnal.error(so2.15min.data, pollutant="so2")
 
-<span class='co'>#wrapper for above operation</span>
-<span class='co'>##(e.g. if you have to do this -or similar- a lot of time)</span>
-<span class='co'>## my.import.wrapper &lt;- function(file, correct.time = -900, ...)</span>
-<span class='co'>##  { importAURN.csv(file = file, correct.time = correct.time, ...) }</span>
+#wrapper for above operation
+##(e.g. if you have to do this -or similar- a lot of time)
+## my.import.wrapper <- function(file, correct.time = -900, ...)
+##  { importAURN.csv(file = file, correct.time = correct.time, ...) }
 
-<span class='co'>#same as above</span>
-<span class='co'>## so2.15min.data.again &lt;- my.import.wrapper(</span>
-<span class='co'>##  "http://www.airquality.co.uk/archive/data_files/15min_site_data/BEX_2008.csv")</span>
+#same as above
+## so2.15min.data.again <- my.import.wrapper(
+##  "http://www.airquality.co.uk/archive/data_files/15min_site_data/BEX_2008.csv")
 
-<span class='co'>#analysis</span>
-<span class='co'>## timeVariation(so2.15min.data.again, pollutant="so2")</span></div></pre>
+#analysis
+## timeVariation(so2.15min.data.again, pollutant="so2")
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -313,7 +327,7 @@ Karl Ropkins
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -321,3 +335,4 @@ Karl Ropkins
 
   </body>
 </html>
+

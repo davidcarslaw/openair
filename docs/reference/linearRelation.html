@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Linear relations between pollutants � linearRelation • openair</title>
+<title>Linear relations between pollutants — linearRelation • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,24 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Linear relations between pollutants — linearRelation" />
 
+<meta property="og:description" content="This function considers linear relationships between two
+pollutants. The relationships are calculated on different times
+bases using a linear model.  The slope and 95
+in slope relationships by time unit are plotted in many ways. The
+function is particularly useful when considering whether
+relationships are consistent with emissions inventories." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -236,18 +248,24 @@ alternative.</p>
 
 <span class='co'># monthly relationship between NOx and SO2 - note rapid fall in</span>
 <span class='co'># ratio at the beginning of the series</span>
-<span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"so2"</span>)</div><img src='linearRelation-2.png' alt='' width='540' height='400' /><div class='input'><span class='co'># monthly relationship between NOx and SO2 - note rapid fall in</span>
-<span class='co'># ratio at the beginning of the series</span>
-<span class='co'>## Not run: linearRelation(mydata, x = "nox", y = "ox")</span>
+<span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"so2"</span>)</div><div class='img'><img src='linearRelation-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'># monthly relationship between NOx and SO2 - note rapid fall in
+# ratio at the beginning of the series
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ox"</span>)
+<span class='co'># }</span><div class='input'>
+# diurnal oxidant slope by year # clear change in magnitude
+# starting 2003, but the diurnal profile has also changed: the
+# morning and evening peak hours are more important, presumably
+# due to change in certain vehicle types
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ox"</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"hour"</span>, <span class='kw'>condition</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># }</span><div class='input'>
+# PM2.5/PM10 ratio, but only plot where monthly R2 >= 0.8
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"pm25"</span>, <span class='kw'>rsq.thresh</span> <span class='kw'>=</span> <span class='fl'>0.8</span>)
+<span class='co'># }</span><div class='input'>
 
-<span class='co'># diurnal oxidant slope by year # clear change in magnitude</span>
-<span class='co'># starting 2003, but the diurnal profile has also changed: the</span>
-<span class='co'># morning and evening peak hours are more important, presumably</span>
-<span class='co'># due to change in certain vehicle types</span>
-<span class='co'>## Not run: linearRelation(mydata, x = "nox", y = "ox", period = "hour", condition = TRUE)</span>
-
-<span class='co'># PM2.5/PM10 ratio, but only plot where monthly R2 &gt;= 0.8</span>
-<span class='co'>## Not run: linearRelation(mydata, x = "pm10", y = "pm25", rsq.thresh = 0.8)</span></div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -276,7 +294,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -284,3 +302,4 @@ David Carslaw
 
   </body>
 </html>
+

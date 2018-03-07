@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function to rapidly provide an overview of air quality data � summaryPlot • openair</title>
+<title>Function to rapidly provide an overview of air quality data — summaryPlot • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,23 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Function to rapidly provide an overview of air quality data — summaryPlot" />
 
+<meta property="og:description" content="This function provides a quick graphical and numerical summary of
+data. The location presence/absence of data are shown, with
+summary statistics and plots of variable distributions.
+summaryPlot can also provide summaries of a single
+pollutant across many sites." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -80,8 +91,8 @@
     </div>
 
     
-    <p>This function provides a quick graphical and numerical summary of 
-data. The location presence/absence of data are shown, with 
+    <p>This function provides a quick graphical and numerical summary of
+data. The location presence/absence of data are shown, with
 summary statistics and plots of variable distributions.
 <code>summaryPlot</code> can also provide summaries of a single
 pollutant across many sites.</p>
@@ -99,13 +110,13 @@ pollutant across many sites.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mydata</th>
-      <td><p>A data frame to be summarised. Must contain a 
+      <td><p>A data frame to be summarised. Must contain a
 <code>date</code> field and at least one other parameter.</p></td>
     </tr>
     <tr>
       <th>na.len</th>
-      <td><p>Missing data are only shown with at least 
-<code>na.len</code> <em>contiguous</em> missing vales. The purpose of 
+      <td><p>Missing data are only shown with at least
+<code>na.len</code> <em>contiguous</em> missing vales. The purpose of
 setting <code>na.len</code> is for clarity: with long time series it
 is difficult to see where individual missing hours are.
 Furthermore, setting <code>na.len = 96</code>, for example would show
@@ -113,35 +124,35 @@ where there are at least 4 days of continuous missing data.</p></td>
     </tr>
     <tr>
       <th>clip</th>
-      <td><p>When data contain outliers, the histogram or density 
+      <td><p>When data contain outliers, the histogram or density
 plot can fail to show the distribution of the main body of data.
 Setting <code>clip = TRUE</code>, will remove the top 1 <!-- % of data to -->
 yield what is often a better display of the overall distribution
-of the data. The amount of clipping can be set with 
+of the data. The amount of clipping can be set with
 <code>percentile</code>.</p></td>
     </tr>
     <tr>
       <th>percentile</th>
-      <td><p>This is used to clip the data. For example, 
-<code>percentile = 0.99</code> (the default) will remove the top 1 
+      <td><p>This is used to clip the data. For example,
+<code>percentile = 0.99</code> (the default) will remove the top 1
 percentile of values i.e. values greater than the 99th
 percentile will not be used.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p><code>type</code> is used to determine whether a histogram 
+      <td><p><code>type</code> is used to determine whether a histogram
 (the default) or a density plot is used to show the distribution
 of the data.</p></td>
     </tr>
     <tr>
       <th>pollutant</th>
-      <td><p><code>pollutant</code> is used when there is a field 
+      <td><p><code>pollutant</code> is used when there is a field
 <code>site</code> and there is more than one site in the data frame.</p></td>
     </tr>
     <tr>
       <th>period</th>
-      <td><p><code>period</code> is either <code>years</code> (the default) 
-or <code>months</code>. Statistics are calculated depending on the 
+      <td><p><code>period</code> is either <code>years</code> (the default)
+or <code>months</code>. Statistics are calculated depending on the
 <code>period</code> chosen.</p></td>
     </tr>
     <tr>
@@ -160,19 +171,19 @@ space. For example, a timeAverage of 2 months would be
     </tr>
     <tr>
       <th>breaks</th>
-      <td><p>Number of histogram bins. Sometime useful but not 
-easy to set a single value for a range of very different 
+      <td><p>Number of histogram bins. Sometime useful but not
+easy to set a single value for a range of very different
 variables.</p></td>
     </tr>
     <tr>
       <th>col.trend</th>
-      <td><p>Colour to be used to show the monthly trend of 
+      <td><p>Colour to be used to show the monthly trend of
 the data, shown as a shaded region. Type <code>colors()</code> into R
 to see the full range of colour names.</p></td>
     </tr>
     <tr>
       <th>col.data</th>
-      <td><p>Colour to be used to show the <em>presence</em> of 
+      <td><p>Colour to be used to show the <em>presence</em> of
 data. Type <code>colors()</code> into R to see the full range of
 colour names.</p></td>
     </tr>
@@ -186,29 +197,29 @@ colour names.</p></td>
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>Predefined colour scheme, currently only enabled for 
+      <td><p>Predefined colour scheme, currently only enabled for
 <code>"greyscale"</code>.</p></td>
     </tr>
     <tr>
       <th>date.breaks</th>
-      <td><p>Number of major x-axis intervals to use. The 
+      <td><p>Number of major x-axis intervals to use. The
 function will try and choose a sensible number of dates/times as
 well as formatting the date/time appropriately to the range
-being considered.  This does not always work as desired 
-automatically. The user can therefore increase or decrease the 
+being considered.  This does not always work as desired
+automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of <code>date.breaks</code>
 up or down.</p></td>
     </tr>
     <tr>
       <th>auto.text</th>
-      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
-<code>TRUE</code> titles and axis labels will automatically try and 
-format pollutant names and units properly e.g.  by subscripting 
+      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
+<code>TRUE</code> titles and axis labels will automatically try and
+format pollutant names and units properly e.g.  by subscripting
 the &#8216;2&#8217; in NO2.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other graphical parameters. Commonly used examples 
+      <td><p>Other graphical parameters. Commonly used examples
 include the axis and title labelling options (such as
 <code>xlab</code>, <code>ylab</code> and <code>main</code>), which are all passed
 to the plot via <code>quickText</code> to handle routine formatting.
@@ -221,39 +232,39 @@ a vector. For example, the default case (<code>type =
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>summaryPlot</code> produces two panels of plots: one showing the 
+    <p><code>summaryPlot</code> produces two panels of plots: one showing the
 presence/absence of data and the other the distributions. The left
-panel shows time series and codes the presence or absence of data 
-in different colours. By stacking the plots one on top of another 
-it is easy to compare different pollutants/variables. Overall 
-statistics are given for each variable: mean, maximum, minimum, 
-missing hours (also expressed as a percentage), median and the 
+panel shows time series and codes the presence or absence of data
+in different colours. By stacking the plots one on top of another
+it is easy to compare different pollutants/variables. Overall
+statistics are given for each variable: mean, maximum, minimum,
+missing hours (also expressed as a percentage), median and the
 95th percentile. For each year the data capture rate (expressed as
 a percentage of hours in that year) is also given.</p>
-<p>The right panel shows either a histogram or a density plot 
-depending on the choice of <code>type</code>. Density plots avoid the 
-issue of arbitrary bin sizes that can sometimes provide a 
+<p>The right panel shows either a histogram or a density plot
+depending on the choice of <code>type</code>. Density plots avoid the
+issue of arbitrary bin sizes that can sometimes provide a
 misleading view of the data distribution.  Density plots are often
-more appropriate, but their effectiveness will depend on the data 
+more appropriate, but their effectiveness will depend on the data
 in question.
     <code>summaryPlot</code> will only show data that are numeric or integer
-type.  This is useful for checking that data have been imported 
-properly. For example, if for some reason a column representing 
-wind speed erroneosly had one or more fields with charcters in, 
-the whole column would be either character or factor type. The 
-absence of a wind speed variable in the <code>summaryPlot</code> plot 
-would therefore indicate a problem with the input data. In this 
-particular case, the user should go back to the source data and 
+type.  This is useful for checking that data have been imported
+properly. For example, if for some reason a column representing
+wind speed erroneosly had one or more fields with charcters in,
+the whole column would be either character or factor type. The
+absence of a wind speed variable in the <code>summaryPlot</code> plot
+would therefore indicate a problem with the input data. In this
+particular case, the user should go back to the source data and
 remove the characters or remove them using R functions.</p>
-<p>If there is a field <code>site</code>, which would generally mean there 
+<p>If there is a field <code>site</code>, which would generally mean there
 is more than one site, <code>summaryPlot</code> will provide information
 on a <em>single</em> pollutant across all sites, rather than provide
-details on all pollutants at a <em>single</em> site. In this case 
+details on all pollutants at a <em>single</em> site. In this case
 the user should also provide a name of a pollutant e.g.
 <code>pollutant = "nox"</code>. If a pollutant is not provided the first
 numeric field will automatically be chosen.
-    <b>It is strongly recommended that the <code>summaryPlot</code> 
-function is applied to all new imported data sets to ensure the 
+    <b>It is strongly recommended that the <code>summaryPlot</code>
+function is applied to all new imported data sets to ensure the
 data are imported as expected.</b></p>
     
 
@@ -263,24 +274,32 @@ data are imported as expected.</b></p>
 <span class='co'># load example data from package</span>
 <span class='fu'>data</span>(<span class='no'>mydata</span>)
 
-<span class='co'># do not clip density plot data</span>
-<span class='co'>## Not run: summaryPlot(mydata, clip = FALSE)</span>
+<span class='co'># do not clip density plot data</span></div><span class='co'># NOT RUN {</span>
+<span class='fu'>summaryPlot</span>(<span class='no'>mydata</span>, <span class='kw'>clip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'># }</span><div class='input'>
+# exclude highest 5 % of data etc.
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>summaryPlot</span>(<span class='no'>mydata</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)
+<span class='co'># }</span><div class='input'>
+# show missing data where there are at least 96 contiguous missing
+# values (4 days)
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>summaryPlot</span>(<span class='no'>mydata</span>, <span class='kw'>na.len</span> <span class='kw'>=</span> <span class='fl'>96</span>)
+<span class='co'># }</span><div class='input'>
+# show data in green
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>summaryPlot</span>(<span class='no'>mydata</span>, <span class='kw'>col.data</span> <span class='kw'>=</span> <span class='st'>"green"</span>)
+<span class='co'># }</span><div class='input'>
+# show missing data in yellow
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>summaryPlot</span>(<span class='no'>mydata</span>, <span class='kw'>col.mis</span> <span class='kw'>=</span> <span class='st'>"yellow"</span>)
+<span class='co'># }</span><div class='input'>
+# show density plot line in black
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>summaryPlot</span>(<span class='no'>mydata</span>, <span class='kw'>col.dens</span> <span class='kw'>=</span> <span class='st'>"black"</span>)
+<span class='co'># }</span><div class='input'>
 
-<span class='co'># exclude highest 5 % of data etc.</span>
-<span class='co'>## Not run: summaryPlot(mydata, percentile = 0.95)</span>
-
-<span class='co'># show missing data where there are at least 96 contiguous missing</span>
-<span class='co'># values (4 days)</span>
-<span class='co'>## Not run: summaryPlot(mydata, na.len = 96)</span>
-
-<span class='co'># show data in green</span>
-<span class='co'>## Not run: summaryPlot(mydata, col.data = "green")</span>
-
-<span class='co'># show missing data in yellow</span>
-<span class='co'>## Not run: summaryPlot(mydata, col.mis = "yellow")</span>
-
-<span class='co'># show density plot line in black</span>
-<span class='co'>## Not run: summaryPlot(mydata, col.dens = "black")</span></div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -305,7 +324,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -313,3 +332,4 @@ David Carslaw
 
   </body>
 </html>
+

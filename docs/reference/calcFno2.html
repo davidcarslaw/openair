@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Estimate NO2/NOX emission ratios from monitoring data � calcFno2 • openair</title>
+<title>Estimate NO2/NOX emission ratios from monitoring data — calcFno2 • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,21 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Estimate NO2/NOX emission ratios from monitoring data — calcFno2" />
 
+<meta property="og:description" content="Given hourly NOX and NO2 from a roadside site and hourly NOX, NO2 and O3
+from a background site the function will estimate the emissions ratio of
+NO2/NOX --- the level of primary NO2" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -153,7 +162,7 @@ concentrations is primarily determined by direct emissions of NO2 and the
 availability of One to react with NO to form NO2. The method aims to
 quantify the amount of NO2 formed through these two processes by seeking
 the optimum level of primary NO2 that gives the least error.</p>
-<p>Test data is provided at <a href = 'http://www.openair-project.org'>http://www.openair-project.org</a>.</p>
+<p>Test data is provided at <a href='http://www.openair-project.org'>http://www.openair-project.org</a>.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -190,8 +199,10 @@ the optimum level of primary NO2 that gives the least error.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>## Users should see the full openair manual for examples of how</span>
-<span class='co'>## to use this function.</span></div></pre>
+## Users should see the full openair manual for examples of how
+## to use this function.
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -222,7 +233,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -230,3 +241,4 @@ David Carslaw
 
   </body>
 </html>
+

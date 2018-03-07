@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot time series � timePlot • openair</title>
+<title>Plot time series — timePlot • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,20 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Plot time series — timePlot" />
 
+<meta property="og:description" content="Plot time series quickly, perhaps for multiple pollutants, grouped
+or in separate panels." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -139,11 +147,11 @@ together in one panel.</p></td>
     <tr>
       <th>avg.time</th>
       <td><p>This defines the time period to average to. Can be
-&#8220;sec&#8221;, &#8220;min&#8221;, &#8220;hour&#8221;, &#8220;day&#8221;, 
+&#8220;sec&#8221;, &#8220;min&#8221;, &#8220;hour&#8221;, &#8220;day&#8221;,
 &#8220;DSTday&#8221;, &#8220;week&#8221;, &#8220;month&#8221;, &#8220;quarter&#8221;
-or &#8220;year&#8221;. For much increased flexibility a number can 
-precede these options followed by a space. For example, a 
-timeAverage of 2 months would be <code>period = "2 month"</code>. See 
+or &#8220;year&#8221;. For much increased flexibility a number can
+precede these options followed by a space. For example, a
+timeAverage of 2 months would be <code>period = "2 month"</code>. See
 function <code>timeAverage</code> for further details on this.</p></td>
     </tr>
     <tr>
@@ -159,12 +167,12 @@ as <code>NA</code>. Not used if <code>avg.time = "default"</code>.</p></td>
     <tr>
       <th>statistic</th>
       <td><p>The statistic to apply when aggregating the data;
-default is the mean. Can be one of &#8220;mean&#8221;, &#8220;max&#8221;, 
-&#8220;min&#8221;, &#8220;median&#8221;, &#8220;frequency&#8221;, &#8220;sd&#8221;, 
-&#8220;percentile&#8221;. Note that &#8220;sd&#8221; is the standard 
-deviation and &#8220;frequency&#8221; is the number (frequency) of 
-valid records in the period.  &#8220;percentile&#8221; is the 
-percentile level (%) between 0-100, which can be set using the 
+default is the mean. Can be one of &#8220;mean&#8221;, &#8220;max&#8221;,
+&#8220;min&#8221;, &#8220;median&#8221;, &#8220;frequency&#8221;, &#8220;sd&#8221;,
+&#8220;percentile&#8221;. Note that &#8220;sd&#8221; is the standard
+deviation and &#8220;frequency&#8221; is the number (frequency) of
+valid records in the period.  &#8220;percentile&#8221; is the
+percentile level (%) between 0-100, which can be set using the
 &#8220;percentile&#8221; option - see below. Not used if
 <code>avg.time = "default"</code>.</p></td>
     </tr>
@@ -189,24 +197,24 @@ than <code>default</code>.</p></td>
     <tr>
       <th>type</th>
       <td><p><code>type</code> determines how the data are split i.e.
-conditioned, and then plotted. The default is will produce a 
-single plot using the entire data. Type can be one of the
-built-in types as detailed in <code>cutData</code> e.g.
-&#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For
-example, <code>type = "season"</code> will produce four plots --- one
-for each season.</p>
+  conditioned, and then plotted. The default is will produce a
+  single plot using the entire data. Type can be one of the
+  built-in types as detailed in <code>cutData</code> e.g.
+  &#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For
+  example, <code>type = "season"</code> will produce four plots --- one
+  for each season.</p>
 <p>It is also possible to choose <code>type</code> as another variable in
-the data frame. If that variable is numeric, then the data will
-be split into four quantiles (if possible) and labelled
-accordingly. If type is an existing character or factor
-variable, then those categories/levels will be used directly.
-This offers great flexibility for understanding the variation of
-different variables and how they depend on one another.</p>
+  the data frame. If that variable is numeric, then the data will
+  be split into four quantiles (if possible) and labelled
+  accordingly. If type is an existing character or factor
+  variable, then those categories/levels will be used directly.
+  This offers great flexibility for understanding the variation of
+  different variables and how they depend on one another.</p>
 <p>Only one <code>type</code> is currently allowed in <code>timePlot</code>.</p></td>
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>Colours to be used for plotting. Options include 
+      <td><p>Colours to be used for plotting. Options include
 &#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;,
 &#8220;jet&#8221; and <code>RColorBrewer</code> colours --- see the
 <code>openair</code> <code>openColours</code> function for more details. For
@@ -216,8 +224,8 @@ example would be <code>cols = c("yellow", "green", "blue")</code></p></td>
     </tr>
     <tr>
       <th>plot.type</th>
-      <td><p>The <code>lattice</code> plot type, which is a line 
-(<code>plot.type = "l"</code>) by default. Another useful option is 
+      <td><p>The <code>lattice</code> plot type, which is a line
+(<code>plot.type = "l"</code>) by default. Another useful option is
 <code>plot.type = "h"</code>, which draws vertical lines.</p></td>
     </tr>
     <tr>
@@ -236,20 +244,20 @@ TRUE</code>.</p></td>
     <tr>
       <th>windflow</th>
       <td><p>This option allows a scatter plot to show the wind
-speed/direction as an arrow. The option is a list e.g.
-<code>windflow = list(col = "grey", lwd = 2, scale = 0.1)</code>. This
-option requires wind speed (<code>ws</code>) and wind direction
-(<code>wd</code>) to be available.</p>
+  speed/direction as an arrow. The option is a list e.g.
+  <code>windflow = list(col = "grey", lwd = 2, scale = 0.1)</code>. This
+  option requires wind speed (<code>ws</code>) and wind direction
+  (<code>wd</code>) to be available.</p>
 <p>The maximum length of the arrow plotted is a fraction of the
-plot dimension with the longest arrow being <code>scale</code> of the
-plot x-y dimension. Note, if the plot size is adjusted manually
-by the user it should be re-plotted to ensure the correct wind
-angle. The list may contain other options to <code>panel.arrows</code>
-in the <code>lattice</code> package. Other useful options include 
-<code>length</code>, which controls the length of the arrow head and 
-<code>angle</code>, which controls the angle of the arrow head.</p>
+  plot dimension with the longest arrow being <code>scale</code> of the
+  plot x-y dimension. Note, if the plot size is adjusted manually
+  by the user it should be re-plotted to ensure the correct wind
+  angle. The list may contain other options to <code>panel.arrows</code>
+  in the <code>lattice</code> package. Other useful options include
+  <code>length</code>, which controls the length of the arrow head and
+  <code>angle</code>, which controls the angle of the arrow head.</p>
 <p>This option works best where there are not too many data to
-ensure over-plotting does not become a problem.</p></td>
+  ensure over-plotting does not become a problem.</p></td>
     </tr>
     <tr>
       <th>smooth</th>
@@ -270,17 +278,17 @@ plotting data with very different values.</p></td>
     </tr>
     <tr>
       <th>ref.x</th>
-      <td><p>See <code>ref.y</code> for details. In this case the 
-correct date format should be used for a vertical line e.g. 
+      <td><p>See <code>ref.y</code> for details. In this case the
+correct date format should be used for a vertical line e.g.
 <code>ref.x = list(v = as.POSIXct("2000-06-15"), lty = 5)</code>.</p></td>
     </tr>
     <tr>
       <th>ref.y</th>
-      <td><p>A list with details of the horizontal lines to be 
+      <td><p>A list with details of the horizontal lines to be
 added representing reference line(s). For example, <code>ref.y =
 list(h = 50, lty = 5)</code> will add a dashed horizontal line at 50.
-Several lines can be plotted e.g. <code>ref.y = list(h = c(50, 
-100), lty = c(1, 5), col = c("green", "blue"))</code>. See 
+Several lines can be plotted e.g. <code>ref.y = list(h = c(50,
+100), lty = c(1, 5), col = c("green", "blue"))</code>. See
 <code>panel.abline</code> in the <code>lattice</code> package for more
 details on adding/controlling lines.</p></td>
     </tr>
@@ -299,12 +307,12 @@ Can include &#8220;top&#8221;, &#8220;bottom&#8221;, &#8220;right&#8221; and
     </tr>
     <tr>
       <th>name.pol</th>
-      <td><p>This option can be used to give alternative names 
+      <td><p>This option can be used to give alternative names
 for the variables plotted. Instead of taking the column headings
-as names, the user can supply replacements. For example, if a 
+as names, the user can supply replacements. For example, if a
 column had the name &#8220;nox&#8221; and the user wanted a different
-description, then setting <code>name.pol = "nox before change"</code> 
-can be used. If more than one pollutant is plotted then use 
+description, then setting <code>name.pol = "nox before change"</code>
+can be used. If more than one pollutant is plotted then use
 <code>c</code> e.g. <code>name.pol = c("nox here", "o3 there")</code>.</p></td>
     </tr>
     <tr>
@@ -319,18 +327,18 @@ up or down.</p></td>
     </tr>
     <tr>
       <th>date.format</th>
-      <td><p>This option controls the date format on the 
-x-axis. While <code>timePlot</code> generally sets the date format 
-sensibly there can be some situations where the user wishes to 
-have more control. For format types see <code>strptime</code>. For 
-example, to format the date like &#8220;Jan-2012&#8221; set 
+      <td><p>This option controls the date format on the
+x-axis. While <code>timePlot</code> generally sets the date format
+sensibly there can be some situations where the user wishes to
+have more control. For format types see <code>strptime</code>. For
+example, to format the date like &#8220;Jan-2012&#8221; set
 <code>date.format = "%b-%Y"</code>.</p></td>
     </tr>
     <tr>
       <th>auto.text</th>
-      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
-<code>TRUE</code> titles and axis labels will automatically try and 
-format pollutant names and units properly e.g.  by subscripting 
+      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
+<code>TRUE</code> titles and axis labels will automatically try and
+format pollutant names and units properly e.g.  by subscripting
 the &#8216;2&#8217; in NO2.</p></td>
     </tr>
     <tr>
@@ -339,13 +347,13 @@ the &#8216;2&#8217; in NO2.</p></td>
 <code>cutData</code> and <code>lattice:xyplot</code>. For example,
 <code>timePlot</code> passes the option <code>hemisphere = "southern"</code>
 on to <code>cutData</code> to provide southern (rather than default
-northern) hemisphere handling of <code>type = "season"</code>. 
+northern) hemisphere handling of <code>type = "season"</code>.
 Similarly, most common plotting parameters, such as
 <code>layout</code> for panel arrangement and <code>pch</code> and
 <code>cex</code> for plot symbol type and size and <code>lty</code> and
 <code>lwd</code> for line type and width, as passed to <code>xyplot</code>,
 although some maybe locally managed by <code>openair</code> on route,
-e.g. axis and title labelling options (such as <code>xlab</code>, 
+e.g. axis and title labelling options (such as <code>xlab</code>,
 <code>ylab</code>, <code>main</code>) are passed via <code>quickText</code> to
 handle routine formatting. See examples below.</p></td>
     </tr>
@@ -360,15 +368,14 @@ handle routine formatting. See examples below.</p></td>
   used to make the plot; and <code>plot</code>, the plot itself. If
   retained, e.g. using <code>output &lt;- timePlot(mydata, "nox")</code>,
   this output can be used to recover the data, reproduce or rework
-  the original plot or undertake further analysis.
-  
-  An openair output can be manipulated using a number of generic
+  the original plot or undertake further analysis.</p>
+<p>An openair output can be manipulated using a number of generic
   operations, including <code>print</code>, <code>plot</code> and
   <code>summary</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>timePlot</code> is the basic time series plotting function in 
+    <p>The <code>timePlot</code> is the basic time series plotting function in
 <code>openair</code>. Its purpose is to make it quick and easy to plot
 time series for pollutants and other variables. The other purpose
 is to plot potentially many variables together in as compact a way
@@ -399,8 +406,8 @@ the plotting area and therefore the information shown.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='TheilSen.html'>TheilSen</a></code>, <code><a href='smoothTrend.html'>smoothTrend</a></code>, 
-  <code><a href='linearRelation.html'>linearRelation</a></code>, <code><a href='selectByDate.html'>selectByDate</a></code> and 
+    <p><code><a href='TheilSen.html'>TheilSen</a></code>, <code><a href='smoothTrend.html'>smoothTrend</a></code>,
+  <code><a href='linearRelation.html'>linearRelation</a></code>, <code><a href='selectByDate.html'>selectByDate</a></code> and
   <code><a href='timeAverage.html'>timeAverage</a></code> for details on selecting averaging
   times and other statistics in a flexible way</p>
     
@@ -409,52 +416,58 @@ the plotting area and therefore the information shown.</p>
     <pre class="examples"><div class='input'>
 
 <span class='co'># basic use, single pollutant</span>
-<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><img src='timePlot-2.png' alt='' width='540' height='400' /><div class='input'>
-<span class='co'># two pollutants in separate panels</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = c("nox", "no2"))</span>
-
-<span class='co'># two pollutants in the same panel with the same scale</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = c("nox", "no2"), group = TRUE)</span>
-
+<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='timePlot-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+# two pollutants in separate panels
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>))
+<span class='co'># }</span><div class='input'>
+# two pollutants in the same panel with the same scale
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='co'># }</span><div class='input'>
 <span class='co'># alternative by normalising concentrations and plotting on the same</span>
   <span class='no'>scale</span></div><div class='output co'>#&gt; function (x, center = TRUE, scale = TRUE) 
 #&gt; UseMethod("scale")
-#&gt; &lt;bytecode: 0x000000002bef00a0&gt;
-#&gt; &lt;environment: namespace:base&gt;</div><div class='input'><span class='fu'>not_run</span>({
-  <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"co"</span>, <span class='st'>"pm10"</span>, <span class='st'>"so2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span>
-    <span class='st'>"year"</span>, <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='st'>"1/1/1998"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-})
+#&gt; &lt;bytecode: 0x000001fb8464fb30&gt;
+#&gt; &lt;environment: namespace:base&gt;</div><span class='co'># NOT RUN {</span>
+<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"co"</span>, <span class='st'>"pm10"</span>, <span class='st'>"so2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span>
+  <span class='st'>"year"</span>, <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='st'>"1/1/1998"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='co'># }</span><div class='input'>
+# examples of selecting by date
 
-<span class='co'># examples of selecting by date</span>
+# plot for nox in 1999
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>timePlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>1999</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)
+<span class='co'># }</span><div class='input'>
+# select specific date range for two pollutants
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>timePlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"6/8/2003"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"13/8/2003"</span>),
+<span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"no2"</span>, <span class='st'>"o3"</span>))
+<span class='co'># }</span><div class='input'>
+# choose different line styles etc
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>), <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='co'># }</span><div class='input'>
+# choose different line styles etc
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>timePlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2004</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fl'>6</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span>
+<span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>)
+<span class='co'># }</span><div class='input'>
+# different averaging times
 
-<span class='co'># plot for nox in 1999</span>
-<span class='co'>## Not run: timePlot(selectByDate(mydata, year = 1999), pollutant = "nox")</span>
-
-<span class='co'># select specific date range for two pollutants</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>timePlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"6/8/2003"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"13/8/2003"</span>),
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"no2"</span>, <span class='st'>"o3"</span>))
-})
-
-<span class='co'># choose different line styles etc</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = c("nox", "no2"), lty = 1)</span>
-
-<span class='co'># choose different line styles etc</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>timePlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2004</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fl'>6</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span>
-  <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>)
-})
-
-<span class='co'># different averaging times</span>
-
-<span class='co'>#daily mean O3</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = "o3", avg.time = "day")</span>
-
-<span class='co'># daily mean O3 ensuring each day has data capture of at least 75%</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = "o3", avg.time = "day", data.thresh = 75)</span>
-
-<span class='co'># 2-week average of O3 concentrations</span>
-<span class='co'>## Not run: timePlot(mydata, pollutant = "o3", avg.time = "2 week")</span></div></pre>
+#daily mean O3
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>)
+<span class='co'># }</span><div class='input'>
+# daily mean O3 ensuring each day has data capture of at least 75%
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>)
+<span class='co'># }</span><div class='input'>
+# 2-week average of O3 concentrations
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"2 week"</span>)
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -483,7 +496,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -491,3 +504,4 @@ David Carslaw
 
   </body>
 </html>
+

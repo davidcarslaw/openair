@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • openair</title>
+<title>Citation and Authors • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,16 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script>
 <script src="pkgdown.js"></script>
-
+  
+  
+<meta property="og:title" content="Citation and Authors" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -36,7 +40,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-citation-authors">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -74,18 +78,39 @@
       </header>
 
       <div class="row">
-  <div class="contents col-md-12">
+  <div class="contents col-md-9">
+
+    <div class="page-header">
+      <h1>Citation</h1>
+    </div>
+
+    <p>Carslaw DC and Ropkins K (2012).
+&ldquo;openair &mdash; An R package for air quality data analysis.&rdquo;
+<em>Environmental Modelling &amp; Software</em>, <b>27&ndash;28</b>(0), pp. 52&ndash;61.
+ISSN 1364-8152, doi: <a href="http://doi.org/10.1016/j.envsoft.2011.09.008">10.1016/j.envsoft.2011.09.008</a>. 
+</p>
+    <pre>@Article{,
+  title = {openair --- An R package for air quality data analysis},
+  author = {David C. Carslaw and Karl Ropkins},
+  journal = {Environmental Modelling & Software},
+  volume = {27--28},
+  number = {0},
+  pages = {52--61},
+  year = {2012},
+  issn = {1364-8152},
+  doi = {10.1016/j.envsoft.2011.09.008},
+}</pre>
     <div class="page-header">
       <h1>Authors</h1>
     </div>
 
     <ul class="list-unstyled">
       <li>
-        <p><strong>David Carslaw</strong>. Author, maintainer.
+        <p><strong>David Carslaw</strong>. Author, maintainer. 
         </p>
       </li>
       <li>
-        <p><strong>Karl Ropkins</strong>. Author.
+        <p><strong>Karl Ropkins</strong>. Author. 
         </p>
       </li>
     </ul>
@@ -101,7 +126,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -109,3 +134,4 @@
 
   </body>
 </html>
+

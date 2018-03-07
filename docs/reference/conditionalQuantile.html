@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Conditional quantile estimates for model evaluation � conditionalQuantile • openair</title>
+<title>Conditional quantile estimates for model evaluation — conditionalQuantile • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,21 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Conditional quantile estimates for model evaluation — conditionalQuantile" />
 
+<meta property="og:description" content="Function to calculate conditional quantiles with flexible conditioning. The
+function is for use in model evaluation and more generally to help better
+understand forecast predictions and how well they agree with observations." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -255,11 +264,16 @@ Geophysics), 2nd Edition. Academic Press.</p>
 <span class='co'>## the corresponding measurements. Note that the uncertainty bands</span>
 <span class='co'>## do not extend as far as the median line because there is insufficient</span>
 <span class='co'># to calculate them</span>
-<span class='fu'>conditionalQuantile</span>(<span class='no'>mydata</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>)</div><img src='conditionalQuantile-2.png' alt='' width='540' height='400' /><div class='input'>
-<span class='co'>## can split by season to show seasonal performance (not very</span>
-<span class='co'>## enlightening in this case - try some real data and it will be!)</span>
+<span class='fu'>conditionalQuantile</span>(<span class='no'>mydata</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>)</div><div class='img'><img src='conditionalQuantile-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+## can split by season to show seasonal performance (not very
+## enlightening in this case - try some real data and it will be!)
 
-<span class='co'>## Not run: conditionalQuantile(mydata, obs = "nox", mod = "mod", type = "season")</span></div></pre>
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>conditionalQuantile</span>(<span class='no'>mydata</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)
+<span class='co'># }</span><div class='input'>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -288,7 +302,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -296,3 +310,4 @@ David Carslaw
 
   </body>
 </html>
+

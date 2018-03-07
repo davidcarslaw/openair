@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate percentile values from a time series � calcPercentile • openair</title>
+<title>Calculate percentile values from a time series — calcPercentile • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,20 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Calculate percentile values from a time series — calcPercentile" />
 
+<meta property="og:description" content="Calculates multiple percentile values from a time series, with flexible
+time aggregation." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -144,15 +152,23 @@ one other numeric variable, percentiles are calculated.</p>
 
 <span class='co'># 95th percentile monthly o3 concentrations</span>
 <span class='no'>percentiles</span> <span class='kw'>&lt;-</span> <span class='fu'>calcPercentile</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span><span class='st'>"o3"</span>,
-<span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>95</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
-<span class='fu'>head</span>(<span class='no'>percentiles</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(percentiles): object 'percentiles' not found</span></div><div class='input'>
-<span class='co'># 5, 50, 95th percentile monthly o3 concentrations</span>
-<span class='fu'>not_run</span>({
-  <span class='no'>percentiles</span> <span class='kw'>&lt;-</span> <span class='fu'>calcPercentile</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span><span class='st'>"o3"</span>,
-  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>5</span>, <span class='fl'>50</span>, <span class='fl'>95</span>))
+<span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>95</span>)
 
-  <span class='fu'>head</span>(<span class='no'>percentiles</span>)
-})</div></pre>
+<span class='fu'>head</span>(<span class='no'>percentiles</span>)</div><div class='output co'>#&gt;         date percentile.95
+#&gt; 1 1998-01-01            14
+#&gt; 2 1998-02-01             7
+#&gt; 3 1998-03-01            15
+#&gt; 4 1998-04-01            20
+#&gt; 5 1998-05-01            25
+#&gt; 6 1998-06-01            15</div><div class='input'>
+# 5, 50, 95th percentile monthly o3 concentrations
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>percentiles</span> <span class='kw'>&lt;-</span> <span class='fu'>calcPercentile</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span><span class='st'>"o3"</span>,
+<span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>5</span>, <span class='fl'>50</span>, <span class='fl'>95</span>))
+
+<span class='fu'>head</span>(<span class='no'>percentiles</span>)
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -181,7 +197,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -189,3 +205,4 @@ David Carslaw
 
   </body>
 </html>
+

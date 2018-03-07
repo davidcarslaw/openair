@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>trendLevel � trendLevel • openair</title>
+<title>trendLevel — trendLevel • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,26 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="trendLevel — trendLevel" />
 
+<meta property="og:description" content="The trendLevel function provides a way of rapidly showing a large
+amount of data in a condensed form. In one plot, the variation in
+the concentration of one pollutant can to shown as a function of
+three other categorical properties. The default version of the
+plot uses y = hour of day, x = month of year and type = year to
+provide information on trends, seasonal effects and diurnal
+variations. However, x, y and type and summarising statistics can
+all be modified to provide a range of other similar plots." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -159,7 +173,7 @@ used.)</p></td>
       <th>cols</th>
       <td><p>The colour set to use to colour the <code>trendLevel</code>
 surface.  <code>cols</code> is passed to <code>openColours</code> for
-evaluation. See <code>?openColours</code> for more details.</p></td>
+evaluation. See <code><a href='openColours.html'>?openColours</a></code> for more details.</p></td>
     </tr>
     <tr>
       <th>auto.text</th>
@@ -193,7 +207,7 @@ plotted.  Allowed arguments currently include &#8220;top&#8221;,
     <tr>
       <th>key</th>
       <td><p>Fine control of the scale key via <code>drawOpenKey</code>. See
-<code>?drawOpenKey</code> for further details.</p></td>
+<code><a href='drawOpenKey.html'>?drawOpenKey</a></code> for further details.</p></td>
     </tr>
     <tr>
       <th>labels</th>
@@ -310,22 +324,24 @@ without warning for empty data series.</p>
 
 <span class='co'>#basic use</span>
 <span class='co'>#default statistic = "mean"</span>
-<span class='fu'>trendLevel</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><img src='trendLevel-2.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>trendLevel</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='trendLevel-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 <span class='co'>#applying same as 'own' statistic</span>
 <span class='no'>my.mean</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'>mean</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'>trendLevel</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='no'>my.mean</span>)</div><img src='trendLevel-4.png' alt='' width='540' height='400' /><div class='input'>
-<span class='co'>#alternative for 'third party' statistic</span>
-<span class='co'>#trendLevel(mydata, pollutant = "nox", statistic = mean,</span>
-<span class='co'>#           stat.args = list(na.rm = TRUE))</span>
+<span class='fu'>trendLevel</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='no'>my.mean</span>)</div><div class='img'><img src='trendLevel-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#alternative for 'third party' statistic
+#trendLevel(mydata, pollutant = "nox", statistic = mean,
+#           stat.args = list(na.rm = TRUE))
 
-<span class='fu'>not_run</span>({
-  <span class='co'># example with categorical scale</span>
-  <span class='fu'>trendLevel</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>,
-  <span class='kw'>border</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"max"</span>,
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>500</span>),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"low"</span>, <span class='st'>"medium"</span>, <span class='st'>"high"</span>),
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"forestgreen"</span>, <span class='st'>"yellow"</span>, <span class='st'>"red"</span>))
-})</div></pre>
+</div><span class='co'># NOT RUN {</span>
+<span class='co'># example with categorical scale</span>
+<span class='fu'>trendLevel</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>,
+<span class='kw'>border</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"max"</span>,
+<span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>500</span>),
+<span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"low"</span>, <span class='st'>"medium"</span>, <span class='st'>"high"</span>),
+<span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"forestgreen"</span>, <span class='st'>"yellow"</span>, <span class='st'>"red"</span>))
+<span class='co'># }</span><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -354,7 +370,7 @@ Karl Ropkins and David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -362,3 +378,4 @@ Karl Ropkins and David Carslaw
 
   </body>
 </html>
+

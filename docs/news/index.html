@@ -18,12 +18,16 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
+<meta property="og:title" content="All news" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -81,26 +85,60 @@
     </div>
 
     <div class="contents">
-    <div id="openair-2-1-99" class="section level1">
+    <div id="openair-2-3-99" class="section level2">
+<h2 class="hasAnchor">
+<a href="#openair-2-3-99" class="anchor"></a>openair 2.3-99</h2>
+<ul>
+<li>add option <code>plot</code> to <code>TheilSen</code>. <code>FALSE</code> can be useful when analysing data to extract the trend components and plot in otherways and when the <code>TheilSen</code> plot is not required.</li>
+<li>add option <code>silent</code> to <code>TheilSen</code> to avoid printing updates to trend fitting. By default it is <code>FALSE</code>.</li>
+</ul>
+</div>
+    <div id="openair-2-2-3" class="section level1">
 <h1 class="hasAnchor">
-<a href="#openair-2-1-99" class="anchor"></a>openair 2.1-99</h1>
+<a href="#openair-2-2-3" class="anchor"></a>openair 2.2-3</h1>
 <div id="main-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#main-changes" class="anchor"></a>Main changes</h2>
+<ul>
+<li>refine <code>selectByDate</code> due to changes in <code>lubridate</code>
+</li>
+<li>fix issue with <code>importSAQN</code> when no data</li>
+<li>remove site information from help of <code>importAURN</code> and point users to <code>importMeta</code>
+</li>
+<li>fixed bug in <code>scatterPlot</code> when <code>method = "level"</code> due to NSE</li>
+<li>use <code>tidyr</code> in place of <code>reshape2</code>
+</li>
+<li>remove dependency of <code>plyr</code> and <code>reshape2</code>
+</li>
+<li>fix bug in <code>percentileRose</code> for <code>method = "cpf"</code> with mutiple pollutants</li>
+</ul>
+</div>
+</div>
+    <div id="openair-2-1-5" class="section level1">
+<h1 class="hasAnchor">
+<a href="#openair-2-1-5" class="anchor"></a>openair 2.1-5</h1>
+<div id="main-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#main-changes-1" class="anchor"></a>Main changes</h2>
 <ul>
 <li>change <code>polarCluster</code> resolution to “normal” rather than “fine” to speed up.</li>
 <li>fix regression when fitting smooth using <code>trajLevel</code>
 </li>
 <li>remove all Airbase functions, will be available via new package that also incorporates newer e-reporting data</li>
+<li>fix bug in <code>timeAverage</code> when <code>statistic = "sum"</code> and all data in period was missing (would return 0 rather than <code>NA</code>)</li>
+<li>make sure that same data used in all <code>conditionalEval</code> plots by using data where there are no missing data for all variables used. This is more important of <code>var.obs</code> and <code>var.mod</code> are supplied and hence additional variables are considered relative to only <code>obs</code> and <code>mod</code>.</li>
+<li>fix date issues in <code>calendarPlot</code> to do with time zones</li>
+<li>remove missing data when type is a numeric value split up into quantiles</li>
+<li>fix bug in <code>windRose</code>/<code>pollutionRose</code> when two conditioning variables were given (problem in bias correction)</li>
 </ul>
 </div>
 </div>
     <div id="openair-2-1-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#openair-2-1-0" class="anchor"></a>openair 2.1-0</h1>
-<div id="main-changes-1" class="section level2">
+<div id="main-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#main-changes-1" class="anchor"></a>Main changes</h2>
+<a href="#main-changes-2" class="anchor"></a>Main changes</h2>
 <ul>
 <li>add <code>angle</code> option to <code>percentileRose</code> to allow wind direction averages for sectors &gt;10 degrees.</li>
 <li>fix bug in <code>aqStats</code> if only a few lines of data</li>
@@ -121,9 +159,9 @@
     <div id="openair-2-0-0" class="section level1">
 <h1 class="hasAnchor">
 <a href="#openair-2-0-0" class="anchor"></a>openair 2.0-0</h1>
-<div id="main-changes-2" class="section level2">
+<div id="main-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#main-changes-2" class="anchor"></a>Main changes</h2>
+<a href="#main-changes-3" class="anchor"></a>Main changes</h2>
 <ul>
 <li>silence download progress by default in <code>importAURN</code>
 </li>
@@ -149,9 +187,9 @@
     <div id="openair-1-9-9" class="section level1">
 <h1 class="hasAnchor">
 <a href="#openair-1-9-9" class="anchor"></a>openair 1.9-9</h1>
-<div id="main-changes-3" class="section level2">
+<div id="main-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#main-changes-3" class="anchor"></a>Main changes</h2>
+<a href="#main-changes-4" class="anchor"></a>Main changes</h2>
 <ul>
 <li>correct citation information</li>
 <li>Now depends on R version of &gt;= 3.2.0 so that <code>download.file</code> can use <code>libcurl</code> for access to https (used in <code>importAURN</code>)</li>
@@ -887,7 +925,9 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#openair-2-1-99">2.1-99</a></li>
+        <li><a href="#openair-2-3-99">2.3-99</a></li>
+        <li><a href="#openair-2-2-3">2.2-3</a></li>
+        <li><a href="#openair-2-1-5">2.1-5</a></li>
         <li><a href="#openair-2-1-0">2.1-0</a></li>
         <li><a href="#openair-2-0-0">2.0-0</a></li>
         <li><a href="#openair-1-9-9">1.9-9</a></li>
@@ -954,7 +994,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -962,3 +1002,4 @@
 
   </body>
 </html>
+

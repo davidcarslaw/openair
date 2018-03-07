@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate summary statistics for air pollution data by year � aqStats • openair</title>
+<title>Calculate summary statistics for air pollution data by year — aqStats • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Calculate summary statistics for air pollution data by year — aqStats" />
 
+<meta property="og:description" content="Calculate a range of air pollution-relevant statistics by year and by site." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -166,7 +173,13 @@ the calculations.</p>
     <pre class="examples"><div class='input'>
 <span class='co'>## Statistics for 2004. NOTE! these data are in ppb/ppm so the</span>
 <span class='co'>## example is for illustrative purposes only</span>
-<span class='fu'>aqStats</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2004</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
+<span class='fu'>aqStats</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2004</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 15
+#&gt; # Groups:   site [1]
+#&gt;   site  pollutant  year date                dat.cap  mean minimum maximum
+#&gt;   &lt;fct&gt; &lt;chr&gt;     &lt;int&gt; &lt;dttm&gt;                &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;
+#&gt; 1 site  NO2        2004 2004-01-01 00:00:00    99.8  55.0       0     185
+#&gt; # ... with 7 more variables: median &lt;dbl&gt;, daily.max &lt;dbl&gt;, max.roll.8 &lt;dbl&gt;,
+#&gt; #   max.roll.24 &lt;dbl&gt;, percentile.95 &lt;dbl&gt;, percentile.99 &lt;dbl&gt;, hours &lt;int&gt;</div><div class='input'>
 
 </div></pre>
   </div>
@@ -193,7 +206,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -201,3 +214,4 @@ David Carslaw
 
   </body>
 </html>
+

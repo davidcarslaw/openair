@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate nonparametric smooth trends � smoothTrend • openair</title>
+<title>Calculate nonparametric smooth trends — smoothTrend • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,19 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Calculate nonparametric smooth trends — smoothTrend" />
 
+<meta property="og:description" content="Use non-parametric methods to calculate time series trends" />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -116,23 +123,23 @@ handle missing data.</p></td>
     <tr>
       <th>type</th>
       <td><p><code>type</code> determines how the data are split i.e.
-conditioned, and then plotted. The default is will produce a 
-single plot using the entire data. Type can be one of the
-built-in types as detailed in <code>cutData</code> e.g.
-&#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For
-example, <code>type = "season"</code> will produce four plots --- one
-for each season.</p>
+  conditioned, and then plotted. The default is will produce a
+  single plot using the entire data. Type can be one of the
+  built-in types as detailed in <code>cutData</code> e.g.
+  &#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and so on. For
+  example, <code>type = "season"</code> will produce four plots --- one
+  for each season.</p>
 <p>It is also possible to choose <code>type</code> as another variable in
-the data frame. If that variable is numeric, then the data will
-be split into four quantiles (if possible) and labelled 
-accordingly. If type is an existing character or factor
-variable, then those categories/levels will be used directly.
-This offers great flexibility for understanding the variation of
-different variables and how they depend on one another.</p>
+  the data frame. If that variable is numeric, then the data will
+  be split into four quantiles (if possible) and labelled
+  accordingly. If type is an existing character or factor
+  variable, then those categories/levels will be used directly.
+  This offers great flexibility for understanding the variation of
+  different variables and how they depend on one another.</p>
 <p>Type can be up length two e.g. <code>type = c("season",
-"weekday")</code> will produce a 2x2 plot split by season and day of
-the week. Note, when two types are provided the first forms the
-columns and the second the rows.</p></td>
+  "weekday")</code> will produce a 2x2 plot split by season and day of
+  the week. Note, when two types are provided the first forms the
+  columns and the second the rows.</p></td>
     </tr>
     <tr>
       <th>statistic</th>
@@ -151,7 +158,7 @@ considered as belonging to winter of the following year.</p></td>
     </tr>
     <tr>
       <th>percentile</th>
-      <td><p>Percentile value(s) to use if <code>statistic = 
+      <td><p>Percentile value(s) to use if <code>statistic =
 "percentile"</code> is chosen. Can be a vector of numbers e.g.
 <code>percentile = c(5, 50, 95)</code> will plot the 5th, 50th and
 95th percentile values together on the same plot.</p></td>
@@ -169,7 +176,7 @@ as <code>NA</code>. Not used if <code>avg.time = "default"</code>.</p></td>
     <tr>
       <th>simulate</th>
       <td><p>Should simulations be carried out to determine the
-Mann-Kendall tau and p-value. The default is <code>FALSE</code>. If 
+Mann-Kendall tau and p-value. The default is <code>FALSE</code>. If
 <code>TRUE</code>, bootstrap simulations are undertaken, which also
 account for autocorrelation.</p></td>
     </tr>
@@ -180,7 +187,7 @@ TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>autocor</th>
-      <td><p>Should autocorrelation be considered in the trend 
+      <td><p>Should autocorrelation be considered in the trend
 uncertainty estimates? The default is <code>FALSE</code>. Generally,
 accounting for autocorrelation increases the uncertainty of the
 trend estimate sometimes by a large amount.</p></td>
@@ -193,7 +200,7 @@ trend estimate sometimes by a large amount.</p></td>
     </tr>
     <tr>
       <th>shade</th>
-      <td><p>The colour used for marking alternate years. Use 
+      <td><p>The colour used for marking alternate years. Use
 &#8220;white&#8221; or &#8220;transparent&#8221; to remove shading.</p></td>
     </tr>
     <tr>
@@ -204,10 +211,10 @@ trend estimate sometimes by a large amount.</p></td>
       <th>y.relation</th>
       <td><p>This determines how the y-axis scale is plotted.
 "same" ensures all panels use the same scale and "free" will use
-panel-specfic scales. The latter is a useful setting when 
+panel-specfic scales. The latter is a useful setting when
 plotting data with very different values.  ref.x See
 <code>ref.y</code> for details. In this case the correct date format
-should be used for a vertical line e.g.  <code>ref.x = list(v = 
+should be used for a vertical line e.g.  <code>ref.x = list(v =
 as.POSIXct("2000-06-15"), lty = 5)</code>.</p></td>
     </tr>
     <tr>
@@ -216,11 +223,11 @@ as.POSIXct("2000-06-15"), lty = 5)</code>.</p></td>
     </tr>
     <tr>
       <th>ref.y</th>
-      <td><p>A list with details of the horizontal lines to be 
+      <td><p>A list with details of the horizontal lines to be
 added representing reference line(s). For example, <code>ref.y =
 list(h = 50, lty = 5)</code> will add a dashed horizontal line at 50.
-Several lines can be plotted e.g. <code>ref.y = list(h = c(50, 
-100), lty = c(1, 5), col = c("green", "blue"))</code>. See 
+Several lines can be plotted e.g. <code>ref.y = list(h = c(50,
+100), lty = c(1, 5), col = c("green", "blue"))</code>. See
 <code>panel.abline</code> in the <code>lattice</code> package for more
 details on adding/controlling lines.</p></td>
     </tr>
@@ -231,13 +238,13 @@ using the option <code>statistic = "percentile"</code>.</p></td>
     </tr>
     <tr>
       <th>name.pol</th>
-      <td><p>Names to be given to the pollutant(s). This is 
+      <td><p>Names to be given to the pollutant(s). This is
 useful if you want to give a fuller description of the
 variables, maybe also including subscripts etc.</p></td>
     </tr>
     <tr>
       <th>ci</th>
-      <td><p>Should confidence intervals be plotted? The default is 
+      <td><p>Should confidence intervals be plotted? The default is
 <code>FALSE</code>.</p></td>
     </tr>
     <tr>
@@ -258,14 +265,14 @@ up or down.</p></td>
     </tr>
     <tr>
       <th>auto.text</th>
-      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
+      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and
 format pollutant names and units properly e.g.  by subscripting
 the &#8216;2&#8217; in NO2.</p></td>
     </tr>
     <tr>
       <th>k</th>
-      <td><p>This is the smoothing parameter used by the <code>gam</code> 
+      <td><p>This is the smoothing parameter used by the <code>gam</code>
 function in package <code>mgcv</code>. By default it is not used and
 the amount of smoothing is optimised automatically. However,
 sometimes it is useful to set the smoothing amount manually
@@ -282,7 +289,7 @@ than default northern) hemisphere handling of <code>type =
 <code>xlim</code> and <code>ylim</code> for plotting ranges and <code>pch</code>
 and <code>cex</code> for plot symbol type and size, are passed on
 <code>xyplot</code>, although some local modifications may be applied
-by openair. For example, axis and title labelling options (such 
+by openair. For example, axis and title labelling options (such
 as <code>xlab</code>, <code>ylab</code> and <code>main</code>) are passed to
 <code>xyplot</code> via <code>quickText</code> to handle routine formatting.
 One special case here is that many graphical parameters can be
@@ -293,19 +300,18 @@ vector of <code>percentile</code> values, see examples below.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>As well as generating the plot itself, <code>smoothTrend</code> 
+    <p>As well as generating the plot itself, <code>smoothTrend</code>
   also returns an object of class ``openair''. The object includes
   three main components: <code>call</code>, the command used to generate
-  the plot; <code>data</code>, the data frame of summarised information 
+  the plot; <code>data</code>, the data frame of summarised information
   used to make the plot; and <code>plot</code>, the plot itself. Note
-  that <code>data</code> is a list of two data frames: <code>data</code> (the 
+  that <code>data</code> is a list of two data frames: <code>data</code> (the
   original data) and <code>fit</code> (the smooth fit that has details
-  of the fit and teh uncertainties). If retained, e.g. using 
-  <code>output &lt;- smoothTrend(mydata, "nox")</code>, this output can be 
+  of the fit and teh uncertainties). If retained, e.g. using
+  <code>output &lt;- smoothTrend(mydata, "nox")</code>, this output can be
   used to recover the data, reproduce or rework the original plot
-  or undertake further analysis.
-  
-  An openair output can be manipulated using a number of generic
+  or undertake further analysis.</p>
+<p>An openair output can be manipulated using a number of generic
   operations, including <code>print</code>, <code>plot</code> and
   <code>summarise</code>.</p>
     
@@ -342,24 +348,26 @@ setting <code>type</code> - see examples below.</p>
 <span class='fu'>data</span>(<span class='no'>mydata</span>)
 
 <span class='co'># trend plot for nox</span>
-<span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
-<span class='co'># trend plot by each of 8 wind sectors</span>
-<span class='co'>## Not run: smoothTrend(mydata, pollutant = "o3", type = "wd", ylab = "o3 (ppb)")</span>
-
-<span class='co'># several pollutants, no plotting symbol</span>
-<span class='co'>## Not run: smoothTrend(mydata, pollutant = c("no2", "o3", "pm10", "pm25"), pch = NA)</span>
-
-<span class='co'># percentiles</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"percentile"</span>,
-  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>95</span>)
-})
-
-<span class='co'># several percentiles with control over lines used</span>
-<span class='fu'>not_run</span>({
-  <span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"percentile"</span>,
-  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>5</span>, <span class='fl'>50</span>, <span class='fl'>95</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>), <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>5</span>, <span class='fl'>1</span>, <span class='fl'>5</span>))
-})</div></pre>
+<span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='smoothTrend-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+# trend plot by each of 8 wind sectors
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"o3 (ppb)"</span>)
+<span class='co'># }</span><div class='input'>
+# several pollutants, no plotting symbol
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"no2"</span>, <span class='st'>"o3"</span>, <span class='st'>"pm10"</span>, <span class='st'>"pm25"</span>), <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+<span class='co'># }</span><div class='input'>
+# percentiles
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"percentile"</span>,
+<span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>95</span>)
+<span class='co'># }</span><div class='input'>
+# several percentiles with control over lines used
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"percentile"</span>,
+<span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>5</span>, <span class='fl'>50</span>, <span class='fl'>95</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>), <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>5</span>, <span class='fl'>1</span>, <span class='fl'>5</span>))
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -388,7 +396,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -396,3 +404,4 @@ David Carslaw
 
   </body>
 </html>
+

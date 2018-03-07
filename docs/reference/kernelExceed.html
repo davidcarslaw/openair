@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Kernel density plot for daily mean exceedance statistics � kernelExceed • openair</title>
+<title>Kernel density plot for daily mean exceedance statistics — kernelExceed • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,23 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Kernel density plot for daily mean exceedance statistics — kernelExceed" />
 
+<meta property="og:description" content="This function is used to explore the conditions leading to exeedances of
+air quality limits. Currently the focus is on understanding the conditions
+under which daily limit values for PM10 are in excess of a specified
+threshold. Kernel density estimates are calculated and plotted to highlight
+those conditions." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -248,9 +259,14 @@ each level of <code>type</code>.</p>
     <pre class="examples"><div class='input'>
 <span class='co'># Note! the manual contains other examples that are more illuminating</span>
 <span class='co'># basic plot</span>
-<span class='fu'>kernelExceed</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
-<span class='co'># condition by NOx concentrations</span>
-<span class='co'>## Not run: kernelExceed(mydata, pollutant = "pm10", type = "nox")</span></div></pre>
+<span class='fu'>kernelExceed</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>)</div><div class='output co'>#&gt; <span class='message'>(loaded the KernSmooth namespace)</span></div><div class='img'><img src='kernelExceed-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+# condition by NOx concentrations
+</div><span class='co'># NOT RUN {</span>
+<span class='fu'>kernelExceed</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)
+<span class='co'># }</span><div class='input'>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -281,7 +297,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -289,3 +305,4 @@ David Carslaw
 
   </body>
 </html>
+

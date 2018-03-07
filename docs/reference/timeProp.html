@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Time series plot with categories shown as a stacked bar chart � timeProp • openair</title>
+<title>Time series plot with categories shown as a stacked bar chart — timeProp • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,26 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Time series plot with categories shown as a stacked bar chart — timeProp" />
 
+<meta property="og:description" content="This function shows time series plots as stacked bar charts. The
+different categories in the bar chart are made up from a character
+or factor variable in a data frame. The function is primarily
+developed to support the plotting of cluster analysis output from
+polarCluster and trajCluster that
+consider local and regional (back trajectory) cluster analysis
+respectively. However, the function has more general use for
+understanding time series data." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -80,13 +94,13 @@
     </div>
 
     
-    <p>This function shows time series plots as stacked bar charts. The 
+    <p>This function shows time series plots as stacked bar charts. The
 different categories in the bar chart are made up from a character
-or factor variable in a data frame. The function is primarily 
-developed to support the plotting of cluster analysis output from 
-<code><a href='polarCluster.html'>polarCluster</a></code> and <code><a href='trajCluster.html'>trajCluster</a></code> that 
-consider local and regional (back trajectory) cluster analysis 
-respectively. However, the function has more general use for 
+or factor variable in a data frame. The function is primarily
+developed to support the plotting of cluster analysis output from
+<code><a href='polarCluster.html'>polarCluster</a></code> and <code><a href='trajCluster.html'>trajCluster</a></code> that
+consider local and regional (back trajectory) cluster analysis
+respectively. However, the function has more general use for
 understanding time series data.</p>
     
 
@@ -101,18 +115,18 @@ understanding time series data.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mydata</th>
-      <td><p>A data frame containing the fields <code>date</code>, 
+      <td><p>A data frame containing the fields <code>date</code>,
 <code>pollutant</code> and a splitting variable <code>proportion</code></p></td>
     </tr>
     <tr>
       <th>pollutant</th>
-      <td><p>Name of the pollutant to plot contained in 
+      <td><p>Name of the pollutant to plot contained in
 <code>mydata</code>.</p></td>
     </tr>
     <tr>
       <th>proportion</th>
       <td><p>The splitting variable that makes up the bars in
-the bar chart e.g. <code>proportion = "cluster"</code> if the output 
+the bar chart e.g. <code>proportion = "cluster"</code> if the output
 from <code>polarCluster</code> is being analysed. If <code>proportion</code>
 is a numeric variable it is split into 4 quantiles (by default)
 by <code>cutData</code>. If <code>proportion</code> is a factor or character
@@ -121,53 +135,52 @@ variable then the categories are used directly.</p></td>
     <tr>
       <th>avg.time</th>
       <td><p>This defines the time period to average to. Can be
-&#8220;sec&#8221;, &#8220;min&#8221;, &#8220;hour&#8221;, &#8220;day&#8221;, 
-&#8220;DSTday&#8221;, &#8220;week&#8221;, &#8220;month&#8221;, &#8220;quarter&#8221;
-or &#8220;year&#8221;. For much increased flexibility a number can 
-precede these options followed by a space. For example, a 
-timeAverage of 2 months would be <code>period = "2 month"</code>. In 
-addition, <code>avg.time</code> can equal &#8220;season&#8221;, in which
-case 3-month seasonal values are calculated with spring defined
-as March, April, May and so on.</p>
+  &#8220;sec&#8221;, &#8220;min&#8221;, &#8220;hour&#8221;, &#8220;day&#8221;,
+  &#8220;DSTday&#8221;, &#8220;week&#8221;, &#8220;month&#8221;, &#8220;quarter&#8221;
+  or &#8220;year&#8221;. For much increased flexibility a number can
+  precede these options followed by a space. For example, a
+  timeAverage of 2 months would be <code>period = "2 month"</code>. In
+  addition, <code>avg.time</code> can equal &#8220;season&#8221;, in which
+  case 3-month seasonal values are calculated with spring defined
+  as March, April, May and so on.</p>
 <p>Note that <code>avg.time</code> when used in <code>timeProp</code> should be
-greater than the time gap in the original data. For example,
-<code>avg.time = "day"</code> for hourly data is OK, but 
-<code>avg.time = "hour"</code> for daily data is not.</p></td>
+  greater than the time gap in the original data. For example,
+  <code>avg.time = "day"</code> for hourly data is OK, but
+  <code>avg.time = "hour"</code> for daily data is not.</p></td>
     </tr>
     <tr>
       <th>type</th>
       <td><p><code>type</code> determines how the data are split i.e.
-conditioned, and then plotted. The default is will produce a 
-single plot using the entire data. Type can be one of the
-built-in types as detailed in <code>cutData</code> e.g. "season",
-"year", "weekday" and so on. For example, <code>type = "season"</code>
-will produce four plots --- one for each season.</p>
+  conditioned, and then plotted. The default is will produce a
+  single plot using the entire data. Type can be one of the
+  built-in types as detailed in <code>cutData</code> e.g. "season",
+  "year", "weekday" and so on. For example, <code>type = "season"</code>
+  will produce four plots --- one for each season.</p>
 <p>It is also possible to choose <code>type</code> as another variable in
-the data frame. If that variable is numeric, then the data will
-be split into four quantiles (if possible) and labelled 
-accordingly. If type is an existing character or factor
-variable, then those categories/levels will be used directly.
-This offers great flexibility for understanding the variation of
-different variables and how they depend on one another.
-
-<code>type</code> must be of length one.</p></td>
+  the data frame. If that variable is numeric, then the data will
+  be split into four quantiles (if possible) and labelled
+  accordingly. If type is an existing character or factor
+  variable, then those categories/levels will be used directly.
+  This offers great flexibility for understanding the variation of
+  different variables and how they depend on one another.</p>
+<p><code>type</code> must be of length one.</p></td>
     </tr>
     <tr>
       <th>statistic</th>
-      <td><p>Determines how the bars are calculated. The 
-default (&#8220;mean&#8221;) will provide the contribution to the 
+      <td><p>Determines how the bars are calculated. The
+default (&#8220;mean&#8221;) will provide the contribution to the
 overall mean for a time interval. <code>statistic = "frequency"</code>
 will give the proportion in terms of counts.</p></td>
     </tr>
     <tr>
       <th>normalise</th>
-      <td><p>If <code>normalise = TRUE</code> then each time 
-interval is scaled to 100. This is helpful to show the relative 
+      <td><p>If <code>normalise = TRUE</code> then each time
+interval is scaled to 100. This is helpful to show the relative
 (percentage) contribution of the proportions.</p></td>
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>Colours to be used for plotting. Options include 
+      <td><p>Colours to be used for plotting. Options include
 &#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;,
 &#8220;jet&#8221; and <code>RColorBrewer</code> colours --- see the
 <code>openair</code> <code>openColours</code> function for more details. For
@@ -177,33 +190,33 @@ example would be <code>cols = c("yellow", "green", "blue")</code></p></td>
     </tr>
     <tr>
       <th>date.breaks</th>
-      <td><p>Number of major x-axis intervals to use. The 
+      <td><p>Number of major x-axis intervals to use. The
 function will try and choose a sensible number of dates/times as
 well as formatting the date/time appropriately to the range
-being considered.  This does not always work as desired 
-automatically. The user can therefore increase or decrease the 
+being considered.  This does not always work as desired
+automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of <code>date.breaks</code>
 up or down.</p></td>
     </tr>
     <tr>
       <th>date.format</th>
-      <td><p>This option controls the date format on the 
-x-axis. While <code>timePlot</code> generally sets the date format 
-sensibly there can be some situations where the user wishes to 
-have more control. For format types see <code>strptime</code>. For 
-example, to format the date like &#8220;Jan-2012&#8221; set 
+      <td><p>This option controls the date format on the
+x-axis. While <code>timePlot</code> generally sets the date format
+sensibly there can be some situations where the user wishes to
+have more control. For format types see <code>strptime</code>. For
+example, to format the date like &#8220;Jan-2012&#8221; set
 <code>date.format = "%b-%Y"</code>.</p></td>
     </tr>
     <tr>
       <th>key.columns</th>
-      <td><p>Number of columns to be used in the key. With 
+      <td><p>Number of columns to be used in the key. With
 many pollutants a single column can make to key too wide. The
 user can thus choose to use several columns by setting
 <code>columns</code> to be less than the number of pollutants.</p></td>
     </tr>
     <tr>
       <th>key.position</th>
-      <td><p>Location where the scale key is to plotted. 
+      <td><p>Location where the scale key is to plotted.
 Allowed arguments currently include &#8220;top&#8221;,
 &#8220;right&#8221;, &#8220;bottom&#8221; and &#8220;left&#8221;.</p></td>
     </tr>
@@ -213,7 +226,7 @@ Allowed arguments currently include &#8220;top&#8221;,
     </tr>
     <tr>
       <th>auto.text</th>
-      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If 
+      <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels etc. will automatically try
 and format pollutant names and units properly e.g.  by
 subscripting the `2' in NO2.</p></td>
@@ -233,18 +246,18 @@ handle routine formatting.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>In order to plot time series in this way, some sort of time 
-aggregation is needed, which is controlled by the option 
+    <p>In order to plot time series in this way, some sort of time
+aggregation is needed, which is controlled by the option
 <code>avg.time</code>.</p>
-<p>The plot shows the value of <code>pollutant</code> on the y-axis 
-(averaged according to <code>avg.time</code>). The time intervals are 
-made up of bars split according to <code>proportion</code>. The bars 
-therefore show how the total value of <code>pollutant</code> is made up 
+<p>The plot shows the value of <code>pollutant</code> on the y-axis
+(averaged according to <code>avg.time</code>). The time intervals are
+made up of bars split according to <code>proportion</code>. The bars
+therefore show how the total value of <code>pollutant</code> is made up
 for any time interval.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>See <code><a href='timePlot.html'>timePlot</a></code> for time series plotting, 
+    <p>See <code><a href='timePlot.html'>timePlot</a></code> for time series plotting,
   <code><a href='polarCluster.html'>polarCluster</a></code> for cluster analysis of bivariate
   polar plots and <code><a href='trajCluster.html'>trajCluster</a></code> for cluster analysis
   of HYSPLIT back trajectories.</p>
@@ -256,7 +269,7 @@ for any time interval.</p>
 
 
 <span class='co'>## monthly plot of SO2 showing the contribution by wind sector</span>
-<span class='fu'>timeProp</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"so2"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>proportion</span> <span class='kw'>=</span> <span class='st'>"wd"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 219 missing wind direction line(s) removed</span></div><div class='output co'>#&gt; <span class='error'>Error in env_assign_active(env, ".", group_slice): could not find function "env_assign_active"</span></div><div class='input'>
+<span class='fu'>timeProp</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"so2"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>proportion</span> <span class='kw'>=</span> <span class='st'>"wd"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 219 missing wind direction line(s) removed</span></div><div class='img'><img src='timeProp-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 
 </div></pre>
   </div>
@@ -285,7 +298,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -293,3 +306,4 @@ David Carslaw
 
   </body>
 </html>
+

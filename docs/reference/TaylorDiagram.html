@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Taylor Diagram for model evaluation with conditioning � TaylorDiagram • openair</title>
+<title>Taylor Diagram for model evaluation with conditioning — TaylorDiagram • openair</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,12 +18,21 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+  
+  
+<meta property="og:title" content="Taylor Diagram for model evaluation with conditioning — TaylorDiagram" />
 
+<meta property="og:description" content="Function to draw Taylor Diagrams for model evaluation. The function allows
+conditioning by any categorical or numeric variables, which makes the
+function very flexible." />
+<meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -263,9 +272,7 @@ handle routine formatting.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The Taylor Diagram is a very useful model evaluation tool. Details of the
-diagram can be found at
-<a href = 'http://www-pcmdi.llnl.gov/about/staff/Taylor/CV/Taylor_diagram_primer.pdf'>http://www-pcmdi.llnl.gov/about/staff/Taylor/CV/Taylor_diagram_primer.pdf</a>.
+    <p>The Taylor Diagram is a very useful model evaluation tool. 
 The diagram provides a way of showing how three complementary model
 performance statistics vary simultaneously. These statistics are the
 correlation coefficient R, the standard deviation (sigma) and the (centred)
@@ -313,7 +320,7 @@ e.g. <code>subset(mydata, site == "Harwell")</code>.</p>
 
     <p>Taylor, K.E.: Summarizing multiple aspects of model performance in a single
   diagram. J.  Geophys. Res., 106, 7183-7192, 2001 (also see PCMDI Report
-  55, <a href = 'http://www-pcmdi.llnl.gov/about/staff/Taylor/CV/Taylor_2001_JGR.pdf'>http://www-pcmdi.llnl.gov/about/staff/Taylor/CV/Taylor_2001_JGR.pdf</a>)</p>
+  55).</p>
 <p>IPCC, 2001: Climate Change 2001: The Scientific Basis, Contribution of
   Working Group I to the Third Assessment Report of the Intergovernmental
   Panel on Climate Change [Houghton, J.T., Y. Ding, D.J. Griggs, M. Noguer,
@@ -328,64 +335,65 @@ e.g. <code>subset(mydata, site == "Harwell")</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## in the examples below, most effort goes into making some artificial data</span>
-<span class='co'>## the function itself can be run very simply</span>
-<span class='fu'>not_run</span>({
-  <span class='co'>## dummy model data for 2003</span>
-  <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2003</span>)
-  <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>mydata</span>$<span class='no'>date</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='no'>mydata</span>$<span class='no'>nox</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mydata</span>$<span class='no'>nox</span>)
+    <pre class="examples"><div class='input'>## in the examples below, most effort goes into making some artificial data
+## the function itself can be run very simply
+</div><span class='co'># NOT RUN {</span>
+<span class='co'>## dummy model data for 2003</span>
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2003</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>mydata</span>$<span class='no'>date</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='no'>mydata</span>$<span class='no'>nox</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mydata</span>$<span class='no'>nox</span>)
 
-  <span class='co'>## now make mod worse by adding bias and noise according to the month</span>
-  <span class='co'>## do this for 3 different models</span>
-  <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fu'>as.numeric</span>(<span class='fu'>format</span>(<span class='no'>date</span>, <span class='st'>"%m"</span>)))
-  <span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>10</span> * <span class='no'>month</span> + <span class='fl'>10</span> * <span class='no'>month</span> * <span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>dat</span>)),
-  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 1"</span>)
-  <span class='co'>## lag the results for mod1 to make the correlation coefficient worse</span>
-  <span class='co'>## without affecting the sd</span>
-  <span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>mod1</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='no'>mod</span>[<span class='fl'>5</span>:<span class='fu'>length</span>(<span class='no'>mod</span>)], <span class='no'>mod</span>[(<span class='fu'>length</span>(<span class='no'>mod</span>) - <span class='fl'>3</span>) :
-  <span class='fu'>length</span>(<span class='no'>mod</span>)]))
+<span class='co'>## now make mod worse by adding bias and noise according to the month</span>
+<span class='co'>## do this for 3 different models</span>
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fu'>as.numeric</span>(<span class='fu'>format</span>(<span class='no'>date</span>, <span class='st'>"%m"</span>)))
+<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>10</span> * <span class='no'>month</span> + <span class='fl'>10</span> * <span class='no'>month</span> * <span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>dat</span>)),
+<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 1"</span>)
+<span class='co'>## lag the results for mod1 to make the correlation coefficient worse</span>
+<span class='co'>## without affecting the sd</span>
+<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>mod1</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='no'>mod</span>[<span class='fl'>5</span>:<span class='fu'>length</span>(<span class='no'>mod</span>)], <span class='no'>mod</span>[(<span class='fu'>length</span>(<span class='no'>mod</span>) - <span class='fl'>3</span>) :
+<span class='fu'>length</span>(<span class='no'>mod</span>)]))
 
-  <span class='co'>## model 2</span>
-  <span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>7</span> * <span class='no'>month</span> + <span class='fl'>7</span> * <span class='no'>month</span> * <span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>dat</span>)),
-  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 2"</span>)
-  <span class='co'>## model 3</span>
-  <span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>3</span> * <span class='no'>month</span> + <span class='fl'>3</span> * <span class='no'>month</span> * <span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>dat</span>)),
-  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 3"</span>)
+<span class='co'>## model 2</span>
+<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>7</span> * <span class='no'>month</span> + <span class='fl'>7</span> * <span class='no'>month</span> * <span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>dat</span>)),
+<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 2"</span>)
+<span class='co'>## model 3</span>
+<span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>3</span> * <span class='no'>month</span> + <span class='fl'>3</span> * <span class='no'>month</span> * <span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>dat</span>)),
+<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 3"</span>)
 
-  <span class='no'>mod.dat</span> <span class='kw'>&lt;-</span> <span class='fu'>rbind</span>(<span class='no'>mod1</span>, <span class='no'>mod2</span>, <span class='no'>mod3</span>)
+<span class='no'>mod.dat</span> <span class='kw'>&lt;-</span> <span class='fu'>rbind</span>(<span class='no'>mod1</span>, <span class='no'>mod2</span>, <span class='no'>mod3</span>)
 
-  <span class='co'>## basic Taylor plot</span>
+<span class='co'>## basic Taylor plot</span>
 
-  <span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>)
+<span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>)
 
-  <span class='co'>## Taylor plot by season</span>
-  <span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)
+<span class='co'>## Taylor plot by season</span>
+<span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)
 
-  <span class='co'>## now show how to evaluate model improvement (or otherwise)</span>
-  <span class='no'>mod1a</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>2</span> * <span class='no'>month</span> + <span class='fl'>2</span> * <span class='no'>month</span> * <span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>dat</span>)),
-  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 1"</span>)
-  <span class='no'>mod2a</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>mod2</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> * <span class='fl'>1.3</span>)
-  <span class='no'>mod3a</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>10</span> * <span class='no'>month</span> + <span class='fl'>10</span> * <span class='no'>month</span> * <span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>dat</span>)),
-  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 3"</span>)
-  <span class='no'>mod.dat2</span> <span class='kw'>&lt;-</span> <span class='fu'>rbind</span>(<span class='no'>mod1a</span>, <span class='no'>mod2a</span>, <span class='no'>mod3a</span>)
-  <span class='no'>mod.dat</span>$<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='no'>mod.dat2</span>$<span class='no'>mod</span>
+<span class='co'>## now show how to evaluate model improvement (or otherwise)</span>
+<span class='no'>mod1a</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>2</span> * <span class='no'>month</span> + <span class='fl'>2</span> * <span class='no'>month</span> * <span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>dat</span>)),
+<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 1"</span>)
+<span class='no'>mod2a</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>mod2</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> * <span class='fl'>1.3</span>)
+<span class='no'>mod3a</span> <span class='kw'>&lt;-</span> <span class='fu'>transform</span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>10</span> * <span class='no'>month</span> + <span class='fl'>10</span> * <span class='no'>month</span> * <span class='fu'>rnorm</span>(<span class='fu'>nrow</span>(<span class='no'>dat</span>)),
+<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 3"</span>)
+<span class='no'>mod.dat2</span> <span class='kw'>&lt;-</span> <span class='fu'>rbind</span>(<span class='no'>mod1a</span>, <span class='no'>mod2a</span>, <span class='no'>mod3a</span>)
+<span class='no'>mod.dat</span>$<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='no'>mod.dat2</span>$<span class='no'>mod</span>
 
-  <span class='co'>## now we have a data frame with 3 models, 1 set of observations</span>
-  <span class='co'>## and TWO sets of model predictions (mod and mod2)</span>
+<span class='co'>## now we have a data frame with 3 models, 1 set of observations</span>
+<span class='co'>## and TWO sets of model predictions (mod and mod2)</span>
 
-  <span class='co'>## do for all models</span>
-  <span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"mod"</span>, <span class='st'>"mod2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>)
-})
-<span class='fu'>not_run</span>({
-  <span class='co'>## all models, by season</span>
-  <span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"mod"</span>, <span class='st'>"mod2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)
+<span class='co'>## do for all models</span>
+<span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"mod"</span>, <span class='st'>"mod2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>)
+<span class='co'># }</span><span class='co'># NOT RUN {</span>
+<span class='co'>## all models, by season</span>
+<span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"mod"</span>, <span class='st'>"mod2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>,
+<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)
 
-  <span class='co'>## consider two groups (model/month). In this case all months are shown by model</span>
-  <span class='co'>## but are only differentiated by model.</span>
+<span class='co'>## consider two groups (model/month). In this case all months are shown by model</span>
+<span class='co'>## but are only differentiated by model.</span>
 
-  <span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"model"</span>, <span class='st'>"month"</span>))
-})</div></pre>
+<span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"model"</span>, <span class='st'>"month"</span>))
+<span class='co'># }</span><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -416,7 +424,7 @@ David Carslaw
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -424,3 +432,4 @@ David Carslaw
 
   </body>
 </html>
+
