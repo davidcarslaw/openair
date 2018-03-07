@@ -163,7 +163,9 @@ wind speed. The \code{windRose} default NULL is equivalent to
 
 \item{annotate}{If \code{TRUE} then the percentage calm and mean
 values are printed in each panel together with a description of
-the statistic below the plot.}
+the statistic below the plot. If \code{" "} then only the 
+stastic is below the plot. Custom annotations may be added by 
+setting value to \code{c("annotation 1", "annotation 2")}.}
 
 \item{angle.scale}{The wind speed scale is by default shown at a
 315 degree angle. Sometimes the placement of the scale may
