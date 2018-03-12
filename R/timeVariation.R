@@ -375,7 +375,8 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
 
   vars <- c("date", pollutant)
 
-  ##  various check to make sure all the data are available ######################################
+  ##  various check to make sure all the data are available ####################
+  
   if (!missing(group) & length(pollutant) > 1) {
     stop("Can only have one pollutant with a grouping variable, or several pollutants and no grouping variable.")
   }
@@ -457,8 +458,9 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
   }
 
   if (missing(group)) {
+    
     mydata <- gather(mydata, key = variable, value = value, UQS(syms(poll.orig)))
-    mydata$variable <- factor(mydata$variable) ## drop unused factor levels
+    mydata$variable <- factor(mydata$variable, levels = pollutant) ## drop unused factor levels
   } else {
     ## group needs to be 'variable' and pollutant 'value'
     id <- which(names(mydata) == poll.orig)
