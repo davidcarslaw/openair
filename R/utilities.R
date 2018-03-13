@@ -417,7 +417,7 @@ one more label than date")
 ##' Friday) and \dQuote{weekend} for convenience.
 ##' @param hour An hour or hours to select from 0-23 e.g. \code{hour = 0:12} to
 ##'   select hours 0 to 12 inclusive.
-##' @importFrom lubridate dst year month hour force_tz day as_date dmy round_date
+##' @importFrom lubridate dst year month hour force_tz day as_date dmy round_date parse_date_time
 ##' @export
 ##' @author David Carslaw
 ##' @keywords methods
@@ -458,15 +458,24 @@ selectByDate <- function(mydata, start = "1/1/2008",
   weekday.names <- format(ISOdate(2000, 1, 3:9), "%A")
 
 
-  if (!missing(start) & !missing(end)) {
+  if (!missing(start)) {
 
 
     ## assume R date format
-    start <- dmy(start)
-    end <- dmy(end)
+    start <- as_date(parse_date_time(start, c("ymd", "dmy")))
 
-    mydata <- subset(mydata, as_date(date) >= start & as_date(date) <= end)
+    mydata <- subset(mydata, as_date(date) >= start)
   }
+  
+  if (!missing(end)) {
+    
+    
+    ## assume R date format
+    end <-as_date(parse_date_time(end, c("ymd", "dmy")))
+    
+    mydata <- subset(mydata, as_date(date) <= end)
+  }
+  
 
   if (!missing(year)) {
     mydata <- mydata[which(year(mydata$date) %in% year), ]
