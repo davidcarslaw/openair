@@ -568,11 +568,11 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
   ## hour ############################################################################
 
   if (difference) {
-    data.hour <- errorDiff(
+    data.hour <- suppressWarnings(errorDiff(
       mydata,
       vars = "hour", type = type, poll1 = poll1,
       poll2 = poll2, B = B, conf.int = conf.int
-    )
+    ))
   } else {
     data.hour <- group_by(conf_int, ci) %>%
       do(proc(
@@ -662,11 +662,11 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
   ## weekday ############################################################################
 
   if (difference) {
-    data.weekday <- errorDiff(
+    data.weekday <-  suppressWarnings(errorDiff(
       mydata,
       vars = "wkday", type = type, poll1 = poll1,
       poll2 = poll2, B = B, conf.int = conf.int
-    )
+    ))
   } else {
     data.weekday <- group_by(conf_int, ci) %>%
       do(proc(
@@ -749,11 +749,11 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
   ## month ############################################################################
 
   if (difference) {
-    data.month <- errorDiff(
+    data.month <-  suppressWarnings(errorDiff(
       mydata,
       vars = "mnth", type = type, poll1 = poll1,
       poll2 = poll2, B = B, conf.int = conf.int
-    )
+    ))
   } else {
     data.month <- group_by(conf_int, ci) %>%
       do(proc(
@@ -853,11 +853,11 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
   ## day and hour ############################################################################
 
   if (difference) {
-    data.day.hour <- errorDiff(
+    data.day.hour <-  suppressWarnings(errorDiff(
       mydata,
       vars = "day.hour", type = type, poll1 = poll1,
       poll2 = poll2, B = B, conf.int = conf.int
-    )
+    ))
   } else {
     data.day.hour <- group_by(conf_int, ci) %>%
       do(proc(
