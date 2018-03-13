@@ -855,9 +855,15 @@ bootMeanDiff <- function(mydata, x = "x", y = "y", conf.int = 0.95, B = 1000) {
   Mean <- mean(y) - mean(x)
 
   if (nrow(mydata) < 2) {
-    res1 <- data.frame(variable = x.name, Mean = mean(x), Lower = NA, Upper = NA)
-    res2 <- data.frame(variable = y.name, Mean = mean(y), Lower = NA, Upper = NA)
-    res <- data.frame(variable = paste(y.name, "-", x.name), Mean = Mean, Lower = NA, Upper = NA)
+    res1 <- data.frame(variable = x.name, Mean = mean(x), Lower = NA, Upper = NA,
+                       stringsAsFactors = FALSE)
+    
+    res2 <- data.frame(variable = y.name, Mean = mean(y), Lower = NA, Upper = NA,
+                       stringsAsFactors = FALSE)
+    
+    res <- data.frame(variable = paste(y.name, "-", x.name), Mean = Mean, 
+                      Lower = NA, Upper = NA,
+                      stringsAsFactors = FALSE)
 
     res <- bind_rows(res1, res2, res)
     res$variable <- factor(res$variable)
@@ -873,9 +879,17 @@ bootMeanDiff <- function(mydata, x = "x", y = "y", conf.int = 0.95, B = 1000) {
   names(quant2) <- NULL
   names(quant) <- NULL
 
-  res1 <- data.frame(variable = x.name, Mean = mean(x), Lower = quant1[1], Upper = quant1[2])
-  res2 <- data.frame(variable = y.name, Mean = mean(y), Lower = quant2[1], Upper = quant2[2])
-  res <- data.frame(variable = paste(y.name, "-", x.name), Mean = Mean, Lower = quant[1], Upper = quant[2])
+  res1 <- data.frame(variable = x.name, Mean = mean(x), 
+                     Lower = quant1[1], Upper = quant1[2],
+                     stringsAsFactors = FALSE)
+  
+  res2 <- data.frame(variable = y.name, Mean = mean(y), Lower = quant2[1], 
+                     Upper = quant2[2],
+                     stringsAsFactors = FALSE)
+  
+  res <- data.frame(variable = paste(y.name, "-", x.name), 
+                    Mean = Mean, Lower = quant[1], Upper = quant[2],
+                    stringsAsFactors = FALSE)
 
   res <- bind_rows(res1, res2, res)
   res$variable <- factor(res$variable)
