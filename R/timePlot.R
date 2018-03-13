@@ -676,6 +676,9 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
   ## allow reasonable gaps at ends, default has too much padding
   gap <- difftime(max(mydata$date), min(mydata$date), units = "secs") / 80
   if (is.null(xlim)) xlim <- range(mydata$date) + c(-1 * gap, gap)
+  
+  # make sure order is correct
+  mydata$variable <- factor(mydata$variable, levels = pollutant)
 
   # the plot
   xyplot.args <- list(

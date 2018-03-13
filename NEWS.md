@@ -4,6 +4,7 @@
 - add option `silent` to `TheilSen` to avoid printing updates to trend fitting. By default it is `FALSE`.
 - fix wrong ordering of names in `timeVariation` when more than one pollutant
 - fix date parsing issues in `selectByDate`.
+- fix wrong ordering in `timePlot`
 
 # openair 2.2-3
 
