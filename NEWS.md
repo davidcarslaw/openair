@@ -6,6 +6,7 @@
 - fix date parsing issues in `selectByDate`.
 - fix wrong ordering in `timePlot`
 - allow `calendarPlot` to span any time period. The function can now straddle parts of two years or several years.
+- add option `col.arrow` to `calendarPlot` to control colour of the wind speed / direction annotation arrows.
 
 # openair 2.2-3
 

@@ -69,6 +69,8 @@
 ##' @param col.lim For the annotation of concentration labels on each day. The
 ##'   first sets the colour of the text below \code{lim} and the second sets the
 ##'   colour of the text above \code{lim}.
+##' @param col.arrow The colour of the annotated wind direction / wind speed
+##'   arrows.
 ##' @param font.lim For the annotation of concentration labels on each day. The
 ##'   first sets the font of the text below \code{lim} and the second sets the
 ##'   font of the text above \code{lim}. Note that font = 1 is normal text and
@@ -164,6 +166,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
                          annotate = "date", statistic = "mean", cols = "heat",
                          limits = c(0, 100),
                          lim = NULL, col.lim = c("grey30", "black"),
+                         col.arrow = "black",
                          font.lim = c(1, 2), cex.lim = c(0.6, 1),
                          digits = 0, data.thresh = 0, labels = NA,
                          breaks = NA, w.shift = 0, remove.empty = TRUE,
@@ -443,7 +446,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
     par.settings = cal.theme,
     main = main,
     strip = strip,
-    par.strip.text = list(cex = 0.8),
+    par.strip.text = list(cex = 0.9),
     at = col.scale,
     col.regions = col,
     as.table = TRUE,
@@ -514,7 +517,8 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
           y + 0.5 * cos(wd$value[subscripts]),
           x + -0.5 * sin(wd$value[subscripts]),
           y + -0.5 * cos(wd$value[subscripts]),
-          angle = 20, length = 0.07, lwd = 0.5
+          angle = 20, length = 0.07, lwd = 0.5,
+          col = col.arrow
         )
       }
 
@@ -528,7 +532,8 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
             ws$value[subscripts]),
           y + (-0.5 * cos(wd$value[subscripts]) *
             ws$value[subscripts]),
-          angle = 20, length = 0.07, lwd = 0.5
+          angle = 20, length = 0.07, lwd = 0.5, 
+          col = col.arrow
         )
       }
     }

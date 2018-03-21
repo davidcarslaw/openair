@@ -7,8 +7,8 @@
 calendarPlot(mydata, pollutant = "nox", year = 2003, month = 1:12,
   type = "default", annotate = "date", statistic = "mean",
   cols = "heat", limits = c(0, 100), lim = NULL, col.lim = c("grey30",
-  "black"), font.lim = c(1, 2), cex.lim = c(0.6, 1), digits = 0,
-  data.thresh = 0, labels = NA, breaks = NA, w.shift = 0,
+  "black"), col.arrow = "black", font.lim = c(1, 2), cex.lim = c(0.6, 1),
+  digits = 0, data.thresh = 0, labels = NA, breaks = NA, w.shift = 0,
   remove.empty = TRUE, main = NULL, key.header = "", key.footer = "",
   key.position = "right", key = TRUE, auto.text = TRUE, ...)
 }
@@ -59,6 +59,9 @@ options for control over the labels used.}
 \item{col.lim}{For the annotation of concentration labels on each day. The
 first sets the colour of the text below \code{lim} and the second sets the
 colour of the text above \code{lim}.}
+
+\item{col.arrow}{The colour of the annotated wind direction / wind speed
+arrows.}
 
 \item{font.lim}{For the annotation of concentration labels on each day. The
 first sets the font of the text below \code{lim} and the second sets the
