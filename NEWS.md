@@ -5,6 +5,7 @@
 - fix wrong ordering of names in `timeVariation` when more than one pollutant
 - fix date parsing issues in `selectByDate`.
 - fix wrong ordering in `timePlot`
+- allow `calendarPlot` to span any time period. The function can now straddle parts of two years or several years.
 
 # openair 2.2-3
 
