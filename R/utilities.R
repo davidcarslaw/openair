@@ -381,16 +381,15 @@ one more label than date")
 ##' Utility function to make it easier to select periods from a data frame
 ##' before sending to a function
 ##'
-##' This function makes it much easier to select periods of interest from a
-##' data frame based on dates in a British format. Selecting date/times in R
-##' format can be intimidating for new users. This function can be used to
-##' select quite complex dates simply - see examples below.
+##' This function makes it much easier to select periods of interest from a data
+##' frame based on dates in a British format. Selecting date/times in R format
+##' can be intimidating for new users. This function can be used to select quite
+##' complex dates simply - see examples below.
 ##'
-##' Dates are assumed to be inclusive, so \code{start = "1/1/1999"}
-##' means that times are selected from hour zero. Similarly, \code{end
-##' = "31/12/1999"} will include all hours of the 31st
-##' December. \code{start} and \code{end} can also be in standard R
-##' format as a string i.e. "YYYY-mm-dd", so \code{start =
+##' Dates are assumed to be inclusive, so \code{start = "1/1/1999"} means that
+##' times are selected from hour zero. Similarly, \code{end = "31/12/1999"} will
+##' include all hours of the 31st December. \code{start} and \code{end} can also
+##' be in standard R format as a string i.e. "YYYY-mm-dd", so \code{start =
 ##' "1999-01-01"} is fine.
 ##'
 ##' All options are applied in turn making it possible to select quite complex
@@ -398,26 +397,25 @@ one more label than date")
 ##'
 ##' @param mydata A data frame containing a \code{date} field in hourly or high
 ##'   resolution format.
-##' @param start A start date string in the form d/m/yyyy
-##' e.g. \dQuote{1/2/1999} or in \sQuote{R} format
-##' i.e. \dQuote{YYYY-mm-dd}, \dQuote{1999-02-01}
+##' @param start A start date string in the form d/m/yyyy e.g. \dQuote{1/2/1999}
+##'   or in \sQuote{R} format i.e. \dQuote{YYYY-mm-dd}, \dQuote{1999-02-01}
 ##' @param end See \code{start} for format.
-##' @param year A year or years to select e.g. \code{year = 1998:2004} to
-##'   select 1998-2004 inclusive or \code{year = c(1998, 2004)} to select 1998
-##'   and 2004.
+##' @param year A year or years to select e.g. \code{year = 1998:2004} to select
+##'   1998-2004 inclusive or \code{year = c(1998, 2004)} to select 1998 and
+##'   2004.
 ##' @param month A month or months to select. Can either be numeric e.g.
-##'   \code{month = 1:6} to select months 1-6 (January to June), or by name
-##'   e.g. \code{month = c("January", "December")}. Names can be abbreviated to
-##'   3 letters and be in lower or upper case.
-##' @param day A day name or or days to select. \code{day} can be
-##' numeric (1 to 31) or character. For example \code{day =
-##' c("Monday", "Wednesday")} or \code{day = 1:10} (to select the 1st
-##' to 10th of each month). Names can be abbreviated to 3 letters and
-##' be in lower or upper case. Also accepts \dQuote{weekday} (Monday -
-##' Friday) and \dQuote{weekend} for convenience.
+##'   \code{month = 1:6} to select months 1-6 (January to June), or by name e.g.
+##'   \code{month = c("January", "December")}. Names can be abbreviated to 3
+##'   letters and be in lower or upper case.
+##' @param day A day name or or days to select. \code{day} can be numeric (1 to
+##'   31) or character. For example \code{day = c("Monday", "Wednesday")} or
+##'   \code{day = 1:10} (to select the 1st to 10th of each month). Names can be
+##'   abbreviated to 3 letters and be in lower or upper case. Also accepts
+##'   \dQuote{weekday} (Monday - Friday) and \dQuote{weekend} for convenience.
 ##' @param hour An hour or hours to select from 0-23 e.g. \code{hour = 0:12} to
 ##'   select hours 0 to 12 inclusive.
-##' @importFrom lubridate dst year month hour force_tz day as_date dmy round_date parse_date_time
+##' @importFrom lubridate dst year month hour force_tz day as_date dmy
+##'   round_date parse_date_time floor_date ceiling_date
 ##' @export
 ##' @author David Carslaw
 ##' @keywords methods
@@ -441,7 +439,7 @@ one more label than date")
 ##' # select weekends between the hours of 7 am to 7 pm in winter (Dec, Jan, Feb)
 ##' sub.data <- selectByDate(mydata, day = "weekend", hour = 7:19, month =
 ##' c("dec", "jan", "feb"))
-##'
+##' 
 selectByDate <- function(mydata, start = "1/1/2008",
                          end = "31/12/2008", year = 2008,
                          month = 1, day = "weekday", hour = 1) {
