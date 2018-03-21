@@ -321,17 +321,16 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   
   mydata$date <- as_date(mydata$date)
   
-  # split by year-month
-  mydata <- mutate(mydata,
-    cuts = format(date, "%B-%Y"),
-    cuts = ordered(cuts, levels = unique(cuts))
-  )
-  
-  
   type <- "cuts"
 
   # make sure all days are available
   mydata <- left_join(data.frame(date = all.dates), mydata, by = "date")
+  
+  # split by year-month
+  mydata <- mutate(mydata,
+                   cuts = format(date, "%B-%Y"),
+                   cuts = ordered(cuts, levels = unique(cuts))
+  )
   
   if (remove.empty) {
     mydata <- group_by(mydata, cuts) %>% 
