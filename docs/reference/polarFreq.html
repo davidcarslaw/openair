@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Function to plot wind speed/direction frequencies and other statistics — polarFreq" />
 
 <meta property="og:description" content="polarFreq primarily plots wind speed-direction frequencies in
@@ -87,6 +85,7 @@ using a range of commonly used statistics." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Function to plot wind speed/direction frequencies and other statistics</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/polarFreq.R'><code>R/polarFreq.R</code></a></small>
     </div>
 
     
@@ -292,8 +291,8 @@ smoothing, which may be preferable for some data. Plotting with
 the relative importance of different source contributions. For example,
 high mean concentrations may be observed for high wind speed conditions,
 but the weighted mean concentration may well show that the contribution to
-overall concentrations is very low.
-    <code>polarFreq</code> also offers great flexibility with the scale used and the
+overall concentrations is very low.</p>
+<p><code>polarFreq</code> also offers great flexibility with the scale used and the
 user has fine control over both the range, interval and colour.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
@@ -309,7 +308,7 @@ user has fine control over both the range, interval and colour.</p>
     <pre class="examples"><div class='input'>
 
 <span class='co'># basic wind frequency plot</span>
-<span class='fu'>polarFreq</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='polarFreq-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>polarFreq</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='polarFreq-1.png' alt='' width='700' height='433' /></div><div class='input'>
 # wind frequencies by year
 </div><span class='co'># NOT RUN {</span>
 <span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>)

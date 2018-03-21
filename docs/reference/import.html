@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Generic data import for openair — import" />
 
 <meta property="og:description" content="This function is mostly used to simplify the importing of csv and
@@ -88,6 +86,7 @@ column and time in another." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generic data import for openair</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/import.R'><code>R/import.R</code></a></small>
     </div>
 
     
@@ -224,8 +223,8 @@ date and time. Often there is a column for the date and another
 for hour. For the latter, the option <code>time.format = "%H"</code>
 should be supplied. Note that R considers hours 0 to 23. However,
 if hours 1 to 24 are detected <code>import</code> will correct the hours
-accordingly.
-    <code>import</code> will also ensure wind speed and wind direction are
+accordingly.</p>
+<p><code>import</code> will also ensure wind speed and wind direction are
 correctly labelled (i.e. "ws", "wd") if <code>ws</code> or <code>wd</code> are
 given.</p>
 <p>Note that it is assumed that the input data are in GMT (UTC)

@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Calculate nonparametric smooth trends — smoothTrend" />
 
 <meta property="og:description" content="Use non-parametric methods to calculate time series trends" />
@@ -84,6 +82,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate nonparametric smooth trends</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/smoothTrend.R'><code>R/smoothTrend.R</code></a></small>
     </div>
 
     
@@ -321,8 +320,8 @@ vector of <code>percentile</code> values, see examples below.</p></td>
 estimating the trend in the concentration of a pollutant or other
 variable. Monthly mean values are calculated from an hourly (or
 higher resolution) or daily time series. There is the option to
-deseasonalise the data if there is evidence of a seasonal cycle.
-    <code>smoothTrend</code> uses a Generalized Additive Model (GAM) from
+deseasonalise the data if there is evidence of a seasonal cycle.</p>
+<p><code>smoothTrend</code> uses a Generalized Additive Model (GAM) from
 the <code>gam</code> package to find the most appropriate level
 of smoothing.  The function is particularly suited to situations
 where trends are not monotonic (see discussion with
@@ -348,7 +347,7 @@ setting <code>type</code> - see examples below.</p>
 <span class='fu'>data</span>(<span class='no'>mydata</span>)
 
 <span class='co'># trend plot for nox</span>
-<span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='smoothTrend-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='smoothTrend-1.png' alt='' width='700' height='433' /></div><div class='input'>
 # trend plot by each of 8 wind sectors
 </div><span class='co'># NOT RUN {</span>
 <span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"o3 (ppb)"</span>)

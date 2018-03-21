@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Import pre-calculated HYSPLIT 96-hour back trajectories — importTraj" />
 
 <meta property="og:description" content="Function to import pre-calculated back trajectories using the NOAA
@@ -88,6 +86,7 @@ functions." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Import pre-calculated HYSPLIT 96-hour back trajectories</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/importTraj.R'><code>R/importTraj.R</code></a></small>
     </div>
 
     
@@ -108,205 +107,206 @@ functions.</p>
       <td><p>Site code of the network site to import
 e.g. "london". Only one site can be imported at a time. The
 following sites are typically available from 2000-2012, although
-some UK ozone sites go back to 1988 (code, location, lat, lon, year):</p><table><tr><td>
+some UK ozone sites go back to 1988 (code, location, lat, lon, year):</p>
+<table><tr><td>
 abudhabi   </td>
 <td> Abu Dhabi                    </td>
 <td>  24.43000 </td>
 <td>  54.408000 </td>
 <td> 2012-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 ah         </td>
 <td> Aston Hill                   </td>
 <td>  52.50385 </td>
 <td>  -3.041780 </td>
 <td> 1988-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 auch       </td>
 <td> Auchencorth Moss             </td>
 <td>  55.79283 </td>
 <td>  -3.242568 </td>
 <td> 2006-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 berlin     </td>
 <td> Berlin, Germany              </td>
 <td>  52.52000 </td>
 <td>  13.400000 </td>
 <td> 2000-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 birm       </td>
 <td> Birmigham Centre             </td>
 <td>  52.47972 </td>
 <td>  -1.908078 </td>
 <td> 1990-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 boston     </td>
 <td> Boston, USA                  </td>
 <td>  42.32900 </td>
 <td> -71.083000 </td>
 <td> 2008-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 bot        </td>
 <td> Bottesford                   </td>
 <td>  52.93028 </td>
 <td>  -0.814722 </td>
 <td> 1990-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 bukit      </td>
 <td> Bukit Kototabang, Indonesia  </td>
 <td>  -0.19805 </td>
 <td> 100.318000 </td>
 <td> 1996-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 chittagong </td>
 <td> Chittagong, Bangladesh       </td>
 <td>  22.37000 </td>
 <td>  91.800000 </td>
 <td> 2010-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 dhaka      </td>
 <td> Dhaka, Bangladesh            </td>
 <td>  23.70000 </td>
 <td>  90.375000 </td>
 <td> 2010-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 ed         </td>
 <td> Edinburgh                    </td>
 <td>  55.95197 </td>
 <td>  -3.195775 </td>
 <td> 1990-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 elche      </td>
 <td> Elche, Spain                 </td>
 <td>  38.27000 </td>
 <td>  -0.690000 </td>
 <td> 2004-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 esk        </td>
 <td> Eskdalemuir                  </td>
 <td>  55.31530 </td>
 <td>  -3.206110 </td>
 <td> 1998-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 gibraltar  </td>
 <td> Gibraltar                    </td>
 <td>  36.13400 </td>
 <td>  -5.347000 </td>
 <td> 2005-2010</td>
-</tr><tr><td>
+</tr><tr><td><br />
 glaz       </td>
 <td> Glazebury                    </td>
 <td>  53.46008 </td>
 <td>  -2.472056 </td>
 <td> 1998-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 groningen  </td>
 <td> Groningen                    </td>
 <td>  53.40000 </td>
 <td>   6.350000 </td>
 <td> 2007-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 har        </td>
 <td> Harwell                      </td>
 <td>  51.57108 </td>
 <td>  -1.325283 </td>
 <td> 1988-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 hk         </td>
 <td> Hong Kong                    </td>
 <td>  22.29000 </td>
 <td> 114.170000 </td>
 <td> 1998-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 hm         </td>
 <td> High Muffles                 </td>
 <td>  54.33500 </td>
 <td>  -0.808600 </td>
 <td> 1988-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 kuwait     </td>
 <td> Kuwait City                  </td>
 <td>  29.36700 </td>
 <td>  47.967000 </td>
 <td> 2008-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 lb         </td>
 <td> Ladybower                    </td>
 <td>  53.40337 </td>
 <td>  -1.752006 </td>
 <td> 1988-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 london     </td>
 <td> Central London               </td>
 <td>  51.50000 </td>
 <td>  -0.100000 </td>
 <td> 1990-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 lh         </td>
 <td> Lullington Heath             </td>
 <td>  50.79370 </td>
 <td>   0.181250 </td>
 <td> 1988-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 ln         </td>
 <td> Lough Navar                  </td>
 <td>  54.43951 </td>
 <td>  -7.900328 </td>
 <td> 1988-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 mh         </td>
 <td> Mace Head                    </td>
 <td>  53.33000 </td>
 <td>  -9.900000 </td>
 <td> 1988-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 ny-alesund </td>
 <td> Ny-Alesund, Norway           </td>
 <td>  78.91763 </td>
 <td>  11.894653 </td>
 <td> 2009-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 oslo       </td>
 <td> Oslo                         </td>
 <td>  59.90000 </td>
 <td>  10.750000 </td>
 <td> 2010-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 paris      </td>
 <td> Paris, France                </td>
 <td>  48.86200 </td>
 <td>   2.339000 </td>
 <td> 2000-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 roch       </td>
 <td> Rochester Stoke              </td>
 <td>  51.45617 </td>
 <td>   0.634889 </td>
 <td> 1988-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 rotterdam  </td>
 <td> Rotterdam                    </td>
 <td>  51.91660 </td>
 <td>   4.475000 </td>
 <td> 2010-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 saopaulo   </td>
 <td> Sao Paulo                    </td>
 <td> -23.55000 </td>
 <td> -46.640000 </td>
 <td> 2000-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 sib        </td>
 <td> Sibton                       </td>
 <td>  52.29440 </td>
 <td>   1.463970 </td>
 <td> 1988-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 sv         </td>
 <td> Strath Vaich                 </td>
 <td>  57.73446 </td>
 <td>  -4.776583 </td>
 <td> 1988-2013</td>
-</tr><tr><td>
+</tr><tr><td><br />
 wuhan      </td>
 <td> Wuhan, China                 </td>
 <td>  30.58300 </td>
@@ -369,7 +369,8 @@ HYSPLIT if used in published work.</p>
 <p>Users can supply their own trajectory files to plot in
 openair. These files must have the following fields: date, lat,
 lon and hour.inc (see details below).</p>
-<p>The files consist of the following information:</p><dl class='dl-horizontal'>
+<p>The files consist of the following information:</p>
+<dl class='dl-horizontal'>
 <dt>date</dt><dd><p>This is the arrival point time and is
 repeated the number of times equal to the length of the back
 trajectory --- typically 96 hours (except early on in the

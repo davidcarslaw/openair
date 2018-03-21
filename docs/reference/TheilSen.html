@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Tests for trends using Theil-Sen estimates — TheilSen" />
 
 <meta property="og:description" content="Theil-Sen slope estimates and tests for trend." />
@@ -84,6 +82,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Tests for trends using Theil-Sen estimates</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/TheilSen.R'><code>R/TheilSen.R</code></a></small>
     </div>
 
     
@@ -384,8 +383,8 @@ Kendall's tau. Journal of the American Statistical Association
 <p>Theil, H., 1950. A rank invariant method of linear and polynomial
 regression analysis, i, ii, iii. Proceedings of the Koninklijke
 Nederlandse Akademie Wetenschappen, Series A - Mathematical
-Sciences 53, 386-392, 521-525, 1397-1412.
-    &#8230; see also several of the Air Quality Expert Group (AQEG) reports for
+Sciences 53, 386-392, 521-525, 1397-1412.</p>
+<p>&#8230; see also several of the Air Quality Expert Group (AQEG) reports for
   the use of similar tests applied to UK/European air quality data, see
   <a href='http://uk-air.defra.gov.uk/library/aqeg/'>http://uk-air.defra.gov.uk/library/aqeg/</a>.</p>
     
@@ -404,7 +403,7 @@ Sciences 53, 386-392, 521-525, 1397-1412.
 <span class='fu'>data</span>(<span class='no'>mydata</span>)
 
 <span class='co'># trend plot for nox</span>
-<span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; [1] "Taking bootstrap samples. Please wait."</div><div class='img'><img src='TheilSen-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; [1] "Taking bootstrap samples. Please wait."</div><div class='img'><img src='TheilSen-1.png' alt='' width='700' height='433' /></div><div class='input'>
 # trend plot for ozone with p=0.01 i.e. uncertainty in slope shown at
 # 99 % confidence interval
 

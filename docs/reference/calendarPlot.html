@@ -25,15 +25,12 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Plot time series values in convential calendar format — calendarPlot" />
 
-<meta property="og:description" content="This function will plot one year of data by month laid out in a
-conventional calendar format. The main purpose is to help rapidly
-visualise potentially complex data in a familiar way. Users can
-also choose to show daily mean wind vectors if wind speed and
-direction are available." />
+<meta property="og:description" content="This function will plot data by month laid out in a conventional calendar
+format. The main purpose is to help rapidly visualise potentially complex
+data in a familiar way. Users can also choose to show daily mean wind
+vectors if wind speed and direction are available." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -88,22 +85,22 @@ direction are available." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot time series values in convential calendar format</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/calendarPlot.R'><code>R/calendarPlot.R</code></a></small>
     </div>
 
     
-    <p>This function will plot one year of data by month laid out in a
-conventional calendar format. The main purpose is to help rapidly
-visualise potentially complex data in a familiar way. Users can
-also choose to show daily mean wind vectors if wind speed and
-direction are available.</p>
+    <p>This function will plot data by month laid out in a conventional calendar
+format. The main purpose is to help rapidly visualise potentially complex
+data in a familiar way. Users can also choose to show daily mean wind
+vectors if wind speed and direction are available.</p>
     
 
     <pre class="usage"><span class='fu'>calendarPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2003</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>12</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>annotate</span> <span class='kw'>=</span> <span class='st'>"date"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"heat"</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>100</span>), <span class='kw'>lim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col.lim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"grey30"</span>,
-  <span class='st'>"black"</span>), <span class='kw'>font.lim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>cex.lim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.6</span>, <span class='fl'>1</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>w.shift</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>paste</span>(<span class='no'>pollutant</span>, <span class='st'>"in"</span>, <span class='no'>year</span>), <span class='kw'>key.header</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>key.footer</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='st'>"black"</span>), <span class='kw'>col.arrow</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>font.lim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>cex.lim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.6</span>, <span class='fl'>1</span>),
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>w.shift</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>remove.empty</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key.header</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>key.footer</span> <span class='kw'>=</span> <span class='st'>""</span>,
   <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -111,27 +108,26 @@ direction are available.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mydata</th>
-      <td><p>A data frame minimally containing <code>date</code> and at
-least one other numeric variable. The date should be in either
-<code>Date</code> format or class <code>POSIXct</code>.</p></td>
+      <td><p>A data frame minimally containing <code>date</code> and at least one
+other numeric variable. The date should be in either <code>Date</code> format or
+class <code>POSIXct</code>.</p></td>
     </tr>
     <tr>
       <th>pollutant</th>
-      <td><p>Mandatory. A pollutant name corresponding to a
-variable in a data frame should be supplied e.g. <code>pollutant
-= "nox". </code></p></td>
+      <td><p>Mandatory. A pollutant name corresponding to a variable in
+a data frame should be supplied e.g. <code>pollutant = "nox". </code></p></td>
     </tr>
     <tr>
       <th>year</th>
-      <td><p>Year to plot e.g. <code>year = 2003</code>.</p></td>
+      <td><p>Year to plot e.g. <code>year = 2003</code>. If not supplied all data
+potentially spanning several years will be plotted.</p></td>
     </tr>
     <tr>
       <th>month</th>
-      <td><p>If only certain month are required. By default the
-function will plot an entire year even if months are missing. To
-only plot certain months use the <code>month</code> option where month
-is a numeric 1:12 e.g. <code>month = c(1, 12)</code> to only plot
-January and December.</p></td>
+      <td><p>If only certain month are required. By default the function
+will plot an entire year even if months are missing. To only plot certain
+months use the <code>month</code> option where month is a numeric 1:12 e.g.
+<code>month = c(1, 12)</code> to only plot January and December.</p></td>
     </tr>
     <tr>
       <th>type</th>
@@ -139,12 +135,11 @@ January and December.</p></td>
     </tr>
     <tr>
       <th>annotate</th>
-      <td><p>This option controls what appears on each day of
-the calendar. Can be: &#8220;date&#8221; --- shows day of the month;
-&#8220;wd&#8221; --- shows vector-averaged wind direction, or
-&#8220;ws&#8221; --- shows vector-averaged wind direction scaled by
-wind speed. Finally it can be &#8220;value&#8221; which shows the
-daily mean value.</p></td>
+      <td><p>This option controls what appears on each day of the
+calendar. Can be: &#8220;date&#8221; --- shows day of the month; &#8220;wd&#8221;
+--- shows vector-averaged wind direction, or &#8220;ws&#8221; --- shows
+vector-averaged wind direction scaled by wind speed. Finally it can be
+&#8220;value&#8221; which shows the daily mean value.</p></td>
     </tr>
     <tr>
       <th>statistic</th>
@@ -153,82 +148,89 @@ daily mean value.</p></td>
     <tr>
       <th>cols</th>
       <td><p>Colours to be used for plotting. Options include
-&#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;,
-&#8220;jet&#8221; and <code>RColorBrewer</code> colours --- see the
-<code>openair</code> <code>openColours</code> function for more details. For
-user defined the user can supply a list of colour names
-recognised by R (type <code>colours()</code> to see the full list). An
-example would be <code>cols = c("yellow", "green", "blue")</code></p></td>
+&#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;, &#8220;jet&#8221; and
+<code>RColorBrewer</code> colours --- see the <code>openair</code> <code>openColours</code>
+function for more details. For user defined the user can supply a list of
+colour names recognised by R (type <code>colours()</code> to see the full list).
+An example would be <code>cols = c("yellow", "green", "blue")</code></p></td>
     </tr>
     <tr>
       <th>limits</th>
-      <td><p>Use this option to manually set the colour scale
-limits. This is useful in the case when there is a need for two
-or more plots and a consistent scale is needed on each. Set the
-limits to cover the maximimum range of the data for all plots of
-interest. For example, if one plot had data covering 0--60 and
-another 0--100, then set <code>limits = c(0, 100)</code>. Note that
-data will be ignored if outside the limits range.</p></td>
+      <td><p>Use this option to manually set the colour scale limits. This
+is useful in the case when there is a need for two or more plots and a
+consistent scale is needed on each. Set the limits to cover the maximimum
+range of the data for all plots of interest. For example, if one plot had
+data covering 0--60 and another 0--100, then set <code>limits = c(0,
+100)</code>. Note that data will be ignored if outside the limits range.</p></td>
     </tr>
     <tr>
       <th>lim</th>
-      <td><p>A threshold value to help differentiate values above
-and below <code>lim</code>. It is used when <code>annotate = "value"</code>.
-See next few options for control over the labels used.</p></td>
+      <td><p>A threshold value to help differentiate values above and below
+<code>lim</code>. It is used when <code>annotate = "value"</code>. See next few
+options for control over the labels used.</p></td>
     </tr>
     <tr>
       <th>col.lim</th>
-      <td><p>For the annotation of concentration labels on each
-day. The first sets the colour of the text below <code>lim</code> and
-the second sets the colour of the text above <code>lim</code>.</p></td>
+      <td><p>For the annotation of concentration labels on each day. The
+first sets the colour of the text below <code>lim</code> and the second sets the
+colour of the text above <code>lim</code>.</p></td>
+    </tr>
+    <tr>
+      <th>col.arrow</th>
+      <td><p>The colour of the annotated wind direction / wind speed
+arrows.</p></td>
     </tr>
     <tr>
       <th>font.lim</th>
-      <td><p>For the annotation of concentration labels on each
-day. The first sets the font of the text below <code>lim</code> and
-the second sets the font of the text above <code>lim</code>. Note that
-font = 1 is normal text and font = 2 is bold text.</p></td>
+      <td><p>For the annotation of concentration labels on each day. The
+first sets the font of the text below <code>lim</code> and the second sets the
+font of the text above <code>lim</code>. Note that font = 1 is normal text and
+font = 2 is bold text.</p></td>
     </tr>
     <tr>
       <th>cex.lim</th>
-      <td><p>For the annotation of concentration labels on each
-day. The first sets the size of the text below <code>lim</code> and
-the second sets the size of the text above <code>lim</code>.</p></td>
+      <td><p>For the annotation of concentration labels on each day. The
+first sets the size of the text below <code>lim</code> and the second sets the
+size of the text above <code>lim</code>.</p></td>
     </tr>
     <tr>
       <th>digits</th>
-      <td><p>The number of digits used to display concentration
-values when <code>annotate = "value"</code>.</p></td>
+      <td><p>The number of digits used to display concentration values when
+<code>annotate = "value"</code>.</p></td>
     </tr>
     <tr>
       <th>data.thresh</th>
-      <td><p>Data capture threshold passed to
-<code>timeAverage</code>. For example, <code>data.thresh = 75</code> means
-that at least 75% of the data must be available in a day for
-the value to be calculate, else the data is removed.</p></td>
+      <td><p>Data capture threshold passed to <code>timeAverage</code>. For
+example, <code>data.thresh = 75</code> means that at least 75% of the data must
+be available in a day for the value to be calculate, else the data is
+removed.</p></td>
     </tr>
     <tr>
       <th>labels</th>
-      <td><p>If a categorical scale is required then these labels
-will be used. Note there is one less label than break. For
-example, <code>labels = c("good", "bad", "very bad")</code>.
-<code>breaks</code> must also be supplied if labels are given.</p></td>
+      <td><p>If a categorical scale is required then these labels will be
+used. Note there is one less label than break. For example, <code>labels =
+c("good", "bad", "very bad")</code>. <code>breaks</code> must also be supplied if
+labels are given.</p></td>
     </tr>
     <tr>
       <th>breaks</th>
-      <td><p>If a categorical scale is required then these breaks
-will be used. For example, <code>breaks = c(0, 50, 100, 1000)</code>.
-In this case &#8220;good&#8221; corresponds to values berween 0 and
-50 and so on. Users should set the maximum value of
-<code>breaks</code> to exceed the maximum data value to ensure it is
-within the maximum final range e.g. 100--1000 in this case.</p></td>
+      <td><p>If a categorical scale is required then these breaks will be
+used. For example, <code>breaks = c(0, 50, 100, 1000)</code>. In this case
+&#8220;good&#8221; corresponds to values berween 0 and 50 and so on. Users
+should set the maximum value of <code>breaks</code> to exceed the maximum data
+value to ensure it is within the maximum final range e.g. 100--1000 in
+this case.</p></td>
     </tr>
     <tr>
       <th>w.shift</th>
-      <td><p>Controls the order of the days of the week. By
-default the plot shows Saturday first (<code>w.shift = 0</code>). To
-change this so that it starts on a Monday for example, set
-<code>w.shift = 2</code>, and so on.</p></td>
+      <td><p>Controls the order of the days of the week. By default the
+plot shows Saturday first (<code>w.shift = 0</code>). To change this so that it
+starts on a Monday for example, set <code>w.shift = 2</code>, and so on.</p></td>
+    </tr>
+    <tr>
+      <th>remove.empty</th>
+      <td><p>Should months with no data present be removed? Default
+is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>main</th>
@@ -236,12 +238,11 @@ change this so that it starts on a Monday for example, set
     </tr>
     <tr>
       <th>key.header</th>
-      <td><p>Adds additional text/labels to the scale key.
-For example, passing <code>calendarPlot(mydata, key.header =
-"header", key.footer = "footer")</code> adds addition text above and
-below the scale key. These arguments are passed to
-<code>drawOpenKey</code> via <code>quickText</code>, applying the
-<code>auto.text</code> argument, to handle formatting.</p></td>
+      <td><p>Adds additional text/labels to the scale key. For example,
+passing <code>calendarPlot(mydata, key.header = "header", key.footer =
+"footer")</code> adds addition text above and below the scale key. These
+arguments are passed to <code>drawOpenKey</code> via <code>quickText</code>, applying
+the <code>auto.text</code> argument, to handle formatting.</p></td>
     </tr>
     <tr>
       <th>key.footer</th>
@@ -249,75 +250,68 @@ below the scale key. These arguments are passed to
     </tr>
     <tr>
       <th>key.position</th>
-      <td><p>Location where the scale key is to plotted.
-Allowed arguments currently include <code>"top"</code>,
-<code>"right"</code>, <code>"bottom"</code> and <code>"left"</code>.</p></td>
+      <td><p>Location where the scale key is to plotted. Allowed
+arguments currently include <code>"top"</code>, <code>"right"</code>, <code>"bottom"</code>
+and <code>"left"</code>.</p></td>
     </tr>
     <tr>
       <th>key</th>
-      <td><p>Fine control of the scale key via <code>drawOpenKey</code>.
-See <code>drawOpenKey</code> for further details.</p></td>
+      <td><p>Fine control of the scale key via <code>drawOpenKey</code>. See
+<code>drawOpenKey</code> for further details.</p></td>
     </tr>
     <tr>
       <th>auto.text</th>
       <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
-<code>TRUE</code> titles and axis labels will automatically try and
-format pollutant names and units properly e.g.  by subscripting
-the `2' in NO2.</p></td>
+<code>TRUE</code> titles and axis labels will automatically try and format
+pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other graphical parameters are passed onto the
-<code>lattice</code> function <code>lattice:levelplot</code>, with common
-axis and title labelling options (such as <code>xlab</code>,
-<code>ylab</code>, <code>main</code>) being passed to via <code>quickText</code>
-to handle routine formatting.</p></td>
+      <td><p>Other graphical parameters are passed onto the <code>lattice</code>
+function <code>lattice:levelplot</code>, with common axis and title labelling
+options (such as <code>xlab</code>, <code>ylab</code>, <code>main</code>) being passed to
+via <code>quickText</code> to handle routine formatting.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>As well as generating the plot itself, <code>calendarPlot</code>
-  also returns an object of class ``openair''. The object includes
-  three main components: <code>call</code>, the command used to generate
-  the plot; <code>data</code>, the data frame of summarised information
-  used to make the plot; and <code>plot</code>, the plot itself. If
-  retained, e.g. using <code>output &lt;- calendarPlot(mydata,
-  "nox")</code>, this output can be used to recover the data, reproduce
-  or rework the original plot or undertake further analysis.</p>
-<p>An openair output can be manipulated using a number of generic
-  operations, including <code>print</code>, <code>plot</code> and
-  <code>summary</code>.</p>
+    <p>As well as generating the plot itself, <code>calendarPlot</code> also
+  returns an object of class ``openair''. The object includes three main
+  components: <code>call</code>, the command used to generate the plot;
+  <code>data</code>, the data frame of summarised information used to make the
+  plot; and <code>plot</code>, the plot itself. If retained, e.g. using
+  <code>output &lt;- calendarPlot(mydata, "nox")</code>, this output can be used to
+  recover the data, reproduce or rework the original plot or undertake
+  further analysis.</p>
+<p>An openair output can be manipulated using a number of generic operations,
+  including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>calendarPlot</code> will plot one year of data in a conventional
-calendar format i.e. by month and day of the week. The main
-purpose of this function is to make it easy to visualise data in a
-familiar way. Daily statistics are calculated using
-<code><a href='timeAverage.html'>timeAverage</a></code>, which by default will calculate the
-daily mean concentration.</p>
-<p>If wind direction is available it is then possible to plot the
-wind direction vector on each day. This is very useful for getting
-a feel for the meteorological conditions that affect pollutant
-concentrations. Note that if hourly or higher time resolution are
-supplied, then <code>calendarPlot</code> will calculate daily averages
-using <code><a href='timeAverage.html'>timeAverage</a></code>, which ensures that wind
-directions are vector-averaged.</p>
-<p>If wind speed is also available, then setting the option
-<code>annotate = "ws"</code> will plot the wind vectors whose length is
-scaled to the wind speed. Thus information on the daily mean wind
-speed and direction are available.</p>
-<p>It is also possible to plot categorical scales. This is useful
-where, for example, an air quality index defines concentrations as
-bands e.g. &#8220;good&#8221;, &#8220;poor&#8221;. In these cases users must
-supply <code>labels</code> and corresponding <code>breaks</code>.</p>
-<p>Note that is is possible to pre-calculate concentrations in some
-way before passing the data to <code>calendarPlot</code>. For example
-<code><a href='rollingMean.html'>rollingMean</a></code> could be used to calculate rolling
-8-hour mean concentrations. The data can then be passed to
-<code>calendarPlot</code> and <code>statistic = "max"</code> chosen, which
-will plot maximum daily 8-hour mean concentrations.</p>
+    <p><code>calendarPlot</code> will plot data in a conventional calendar format i.e. by
+month and day of the week. Daily statistics are calculated using
+<code><a href='timeAverage.html'>timeAverage</a></code>, which by default will calculate the daily mean
+concentration.</p>
+<p>If wind direction is available it is then possible to plot the wind
+direction vector on each day. This is very useful for getting a feel for the
+meteorological conditions that affect pollutant concentrations. Note that if
+hourly or higher time resolution are supplied, then <code>calendarPlot</code> will
+calculate daily averages using <code><a href='timeAverage.html'>timeAverage</a></code>, which ensures that
+wind directions are vector-averaged.</p>
+<p>If wind speed is also available, then setting the option <code>annotate =
+"ws"</code> will plot the wind vectors whose length is scaled to the wind speed.
+Thus information on the daily mean wind speed and direction are available.</p>
+<p>It is also possible to plot categorical scales. This is useful where, for
+example, an air quality index defines concentrations as bands e.g.
+&#8220;good&#8221;, &#8220;poor&#8221;. In these cases users must supply <code>labels</code>
+and corresponding <code>breaks</code>.</p>
+<p>Note that is is possible to pre-calculate concentrations in some way before
+passing the data to <code>calendarPlot</code>. For example
+<code><a href='rollingMean.html'>rollingMean</a></code> could be used to calculate rolling 8-hour mean
+concentrations. The data can then be passed to <code>calendarPlot</code> and
+<code>statistic = "max"</code> chosen, which will plot maximum daily 8-hour mean
+concentrations.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -331,9 +325,9 @@ will plot maximum daily 8-hour mean concentrations.</p>
 <span class='fu'>data</span>(<span class='no'>mydata</span>)
 
 <span class='co'># basic plot</span>
-<span class='fu'>calendarPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2003</span>)</div><div class='img'><img src='calendarPlot-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>calendarPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2003</span>)</div><div class='img'><img src='calendarPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># show wind vectors</span>
-<span class='fu'>calendarPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2003</span>, <span class='kw'>annotate</span> <span class='kw'>=</span> <span class='st'>"wd"</span>)</div><div class='img'><img src='calendarPlot-2.png' alt='' width='700' height='432.632880098887' /></div><span class='co'># NOT RUN {</span>
+<span class='fu'>calendarPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2003</span>, <span class='kw'>annotate</span> <span class='kw'>=</span> <span class='st'>"wd"</span>)</div><div class='img'><img src='calendarPlot-2.png' alt='' width='700' height='433' /></div><span class='co'># NOT RUN {</span>
 <span class='co'># show wind vectors scaled by wind speed and different colours</span>
 <span class='fu'>calendarPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2003</span>, <span class='kw'>annotate</span> <span class='kw'>=</span> <span class='st'>"ws"</span>,
 <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"heat"</span>)

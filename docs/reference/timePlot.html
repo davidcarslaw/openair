@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Plot time series — timePlot" />
 
 <meta property="og:description" content="Plot time series quickly, perhaps for multiple pollutants, grouped
@@ -85,6 +83,7 @@ or in separate panels." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot time series</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/timePlot.R'><code>R/timePlot.R</code></a></small>
     </div>
 
     
@@ -393,8 +392,8 @@ different scales, then it can be useful to normalise the data
 first, which can be down be setting the <code>normalise</code> option.</p>
 <p>The user has fine control over the choice of colours, line width
 and line types used. This is useful for example, to emphasise a
-particular variable with a specific line type/colour/width.
-    <code>timePlot</code> works very well with <code><a href='selectByDate.html'>selectByDate</a></code>,
+particular variable with a specific line type/colour/width.</p>
+<p><code>timePlot</code> works very well with <code><a href='selectByDate.html'>selectByDate</a></code>,
 which is used for selecting particular date ranges quickly and
 easily. See examples below.</p>
 <p>By default plots are shown with a colour key at the bottom and in
@@ -416,7 +415,7 @@ the plotting area and therefore the information shown.</p>
     <pre class="examples"><div class='input'>
 
 <span class='co'># basic use, single pollutant</span>
-<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='timePlot-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='timePlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 # two pollutants in separate panels
 </div><span class='co'># NOT RUN {</span>
 <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>))
@@ -428,7 +427,7 @@ the plotting area and therefore the information shown.</p>
 <span class='co'># alternative by normalising concentrations and plotting on the same</span>
   <span class='no'>scale</span></div><div class='output co'>#&gt; function (x, center = TRUE, scale = TRUE) 
 #&gt; UseMethod("scale")
-#&gt; &lt;bytecode: 0x000001fb8464fb30&gt;
+#&gt; &lt;bytecode: 0x000000002d945c80&gt;
 #&gt; &lt;environment: namespace:base&gt;</div><span class='co'># NOT RUN {</span>
 <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nox"</span>, <span class='st'>"co"</span>, <span class='st'>"pm10"</span>, <span class='st'>"so2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span>
   <span class='st'>"year"</span>, <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='st'>"1/1/1998"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>)

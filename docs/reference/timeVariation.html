@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Diurnal, day of the week and monthly variation — timeVariation" />
 
 <meta property="og:description" content="Plots the diurnal, day of the week and monthly variation for
@@ -86,6 +84,7 @@ separate plots are produced." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Diurnal, day of the week and monthly variation</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/timeVariation.R'><code>R/timeVariation.R</code></a></small>
     </div>
 
     
@@ -355,7 +354,7 @@ can control the text in the subheading through the use of
     <pre class="examples"><div class='input'>
 
 <span class='co'># basic use</span>
-<span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='timeVariation-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='timeVariation-1.png' alt='' width='700' height='433' /></div><div class='input'>
 # for a subset of conditions
 </div><span class='co'># NOT RUN {</span>
 <span class='fu'>timeVariation</span>(<span class='fu'>subset</span>(<span class='no'>mydata</span>, <span class='no'>ws</span> <span class='kw'>&gt;</span> <span class='fl'>3</span> <span class='kw'>&amp;</span> <span class='no'>wd</span> <span class='kw'>&gt;</span> <span class='fl'>100</span> <span class='kw'>&amp;</span> <span class='no'>wd</span> <span class='kw'>&lt;</span> <span class='fl'>270</span>),

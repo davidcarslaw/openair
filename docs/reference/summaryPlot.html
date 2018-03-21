@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Function to rapidly provide an overview of air quality data — summaryPlot" />
 
 <meta property="og:description" content="This function provides a quick graphical and numerical summary of
@@ -88,6 +86,7 @@ pollutant across many sites." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Function to rapidly provide an overview of air quality data</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/summaryPlot.R'><code>R/summaryPlot.R</code></a></small>
     </div>
 
     
@@ -246,8 +245,8 @@ depending on the choice of <code>type</code>. Density plots avoid the
 issue of arbitrary bin sizes that can sometimes provide a
 misleading view of the data distribution.  Density plots are often
 more appropriate, but their effectiveness will depend on the data
-in question.
-    <code>summaryPlot</code> will only show data that are numeric or integer
+in question.</p>
+<p><code>summaryPlot</code> will only show data that are numeric or integer
 type.  This is useful for checking that data have been imported
 properly. For example, if for some reason a column representing
 wind speed erroneosly had one or more fields with charcters in,
@@ -262,8 +261,8 @@ on a <em>single</em> pollutant across all sites, rather than provide
 details on all pollutants at a <em>single</em> site. In this case
 the user should also provide a name of a pollutant e.g.
 <code>pollutant = "nox"</code>. If a pollutant is not provided the first
-numeric field will automatically be chosen.
-    <b>It is strongly recommended that the <code>summaryPlot</code>
+numeric field will automatically be chosen.</p>
+<p><b>It is strongly recommended that the <code>summaryPlot</code>
 function is applied to all new imported data sets to ensure the
 data are imported as expected.</b></p>
     

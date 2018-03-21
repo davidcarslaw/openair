@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Function to calculate time averages for data frames — timeAverage" />
 
 <meta property="og:description" content="Function to flexibly aggregate or expand data frames by different
@@ -87,6 +85,7 @@ capture rates." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Function to calculate time averages for data frames</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/timeAverage.R'><code>R/timeAverage.R</code></a></small>
     </div>
 
     
@@ -271,8 +270,8 @@ annual means are required, setting <code>end.date</code> to the end of
 the year will ensure that the whole period is covered and that
 <code>data.thresh</code> is correctly calculated. The same also goes for
 a time series that starts later in the year where
-<code>start.date</code> should be set to the beginning of the year.
-    <code>timeAverage</code> should be useful in many circumstances where it
+<code>start.date</code> should be set to the beginning of the year.</p>
+<p><code>timeAverage</code> should be useful in many circumstances where it
 is necessary to work with different time average data. For
 example, hourly air pollution data and 15-minute meteorological
 data. To merge the two data sets <code>timeAverage</code> can be used to

@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Taylor Diagram for model evaluation with conditioning — TaylorDiagram" />
 
 <meta property="og:description" content="Function to draw Taylor Diagrams for model evaluation. The function allows
@@ -86,6 +84,7 @@ function very flexible." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Taylor Diagram for model evaluation with conditioning</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/TaylorDiagram.R'><code>R/TaylorDiagram.R</code></a></small>
     </div>
 
     
@@ -131,9 +130,8 @@ examples below.</p></td>
       <td><p>The <code>group</code> column is used to differentiate between
   different models and can be a factor or character. The total number of
   models compared will be equal to the number of unique values of
-  <code>group</code>.
-
-<code>group</code> can also be of length two e.g. <code>group =
+  <code>group</code>.</p>
+<p><code>group</code> can also be of length two e.g. <code>group =
 c("model", "site")</code>. In this case all model-site combinations will
 be shown but they will only be differentiated by colour/symbol by
 the first grouping variable ("model" in this case). In essence the
@@ -292,8 +290,8 @@ numeric variable e.g. wind speed or by land-use type etc.</p>
 <p>To consider several pollutants on one plot, a column identifying
 the pollutant name can be used e.g. <code>pollutant</code>. Then the
 Taylor Diagram can be plotted as (assuming a data frame
-<code>thedata</code>):
-    <code>TaylorDiagram(thedata, obs = "obs", mod = "mod", group = "model", type = "pollutant")</code></p>
+<code>thedata</code>):</p>
+<p><code>TaylorDiagram(thedata, obs = "obs", mod = "mod", group = "model", type = "pollutant")</code></p>
 <p>which will give the model performance by pollutant in each panel.</p>
 <p>Note that it is important that each panel represents data with the
 same mean observed data across different groups. Therefore

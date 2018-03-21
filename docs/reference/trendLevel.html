@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="trendLevel — trendLevel" />
 
 <meta property="og:description" content="The trendLevel function provides a way of rapidly showing a large
@@ -91,6 +89,7 @@ all be modified to provide a range of other similar plots." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>trendLevel</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/trendLevel.R'><code>R/trendLevel.R</code></a></small>
     </div>
 
     
@@ -324,10 +323,10 @@ without warning for empty data series.</p>
 
 <span class='co'>#basic use</span>
 <span class='co'>#default statistic = "mean"</span>
-<span class='fu'>trendLevel</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='trendLevel-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>trendLevel</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='trendLevel-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#applying same as 'own' statistic</span>
 <span class='no'>my.mean</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'>mean</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'>trendLevel</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='no'>my.mean</span>)</div><div class='img'><img src='trendLevel-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>trendLevel</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='no'>my.mean</span>)</div><div class='img'><img src='trendLevel-2.png' alt='' width='700' height='433' /></div><div class='input'>
 #alternative for 'third party' statistic
 #trendLevel(mydata, pollutant = "nox", statistic = mean,
 #           stat.args = list(na.rm = TRUE))

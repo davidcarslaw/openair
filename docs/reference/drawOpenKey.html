@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Scale key handling for openair — drawOpenKey" />
 
 <meta property="og:description" content="General function for producing scale keys for other openair functions.  The
@@ -88,6 +86,7 @@ and scaling." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Scale key handling for openair</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/drawOpenKey.R'><code>R/drawOpenKey.R</code></a></small>
     </div>
 
     
@@ -107,60 +106,48 @@ and scaling.</p>
       <th>key</th>
       <td><p>List defining the scale key structure to be produced. Most
   options are identical to original <code>draw.colorkey</code> function.</p>
-<p>Original <code>draw.colorkey</code> options:
-
-<code>space</code> location of the scale key ("left", "right", "top" or
-  "bottom").  Defaults to "right".
-
-<code>col</code> vector of colours, used in scale key.
-
-<code>at</code> numeric vector specifying where the colors change. Must be of
-  length 1 more than the col vector.
-
-<code>labels</code> a character vector for labelling the at values, or more
+<p>Original <code>draw.colorkey</code> options:</p>
+<p><code>space</code> location of the scale key ("left", "right", "top" or
+  "bottom").  Defaults to "right".</p>
+<p><code>col</code> vector of colours, used in scale key.</p>
+<p><code>at</code> numeric vector specifying where the colors change. Must be of
+  length 1 more than the col vector.</p>
+<p><code>labels</code> a character vector for labelling the at values, or more
   commonly, a list describing characteristics of the labels. This list may
   include components <code>labels</code>, <code>at</code>, <code>cex</code>, <code>col</code>,
-  <code>rot</code>, <code>font</code>, <code>fontface</code> and <code>fontfamily</code>.
-
-<code>tick.number</code> approximate number of ticks.
-
-<code>width</code> width of the key.
-
-<code>height</code> height of key.</p>
+  <code>rot</code>, <code>font</code>, <code>fontface</code> and <code>fontfamily</code>.</p>
+<p><code>tick.number</code> approximate number of ticks.</p>
+<p><code>width</code> width of the key.</p>
+<p><code>height</code> height of key.</p>
 <p>Note: <code>width</code> and <code>height</code> refer to the key dimensions.
   <code>height</code> is the length of the key along the plot axis it is
   positioned against, and <code>width</code> is the length perpendicular to that.</p>
-<p>Additional options include:
-
-<code>header</code> a character vector of extra text to be added above the key,
+<p>Additional options include:</p>
+<p><code>header</code> a character vector of extra text to be added above the key,
   or a list describing some characteristics of the <code>header</code>. This list
   may include components <code>header</code>, the character vector of header
   labels, <code>tweaks</code>, a list of local controls, e.g. 'gap' and 'balance'
   for spacing relative to scale and footer, respectively, <code>auto.text</code>,
   <code>TRUE/FALSE</code> option to apply <code>quickText</code>, and <code>slot</code>, a
   numeric vector setting the size of the text boxes <code>header</code> text is
-  placed in.
-
-<code>footer</code> as in <code>header</code> but for labels below the scale key.</p>
+  placed in.</p>
+<p><code>footer</code> as in <code>header</code> but for labels below the scale key.</p>
 <p>Notes: <code>header</code> and <code>footer</code> formatting can not be set locally,
   but instead are matched to those set in <code>labels</code>. <code>drawOpenKey</code>
   allows for up to six additional labels (three above and three below scale
-  key). Any additional text is ignored.
-
-<code>tweak, auto.text, slot</code> as in <code>header</code> and <code>footer</code> but
+  key). Any additional text is ignored.</p>
+<p><code>tweak, auto.text, slot</code> as in <code>header</code> and <code>footer</code> but
   sets all options uniformly. This also overwrites anything in
-  <code>header</code> and/or <code>footer</code>.
-
-<code>fit</code> the fit method to be applied to the header, scale key and footer
+  <code>header</code> and/or <code>footer</code>.</p>
+<p><code>fit</code> the fit method to be applied to the header, scale key and footer
   when placing the scale key left or right of the plot. Options include:
   'all', 'soft' and 'scale'.  The default 'all' fits header, key and footer
   into <code>height</code> range. The alternative 'scale' fits only the key
   within <code>height</code>. (This means that keys keep the same proportions
   relative to the main plot regardless of positioning but that header and
   footer may exceed plot dimensions if <code>height</code> and/or <code>slots</code>
-  are too large.
-
-<code>plot.style</code> a character vector of key plotting style instructions:
+  are too large.</p>
+<p><code>plot.style</code> a character vector of key plotting style instructions:
   Options currently include: 'paddle', 'ticks' and 'border'. 'paddle'
   applies the incremental paddle layout used by <code>winRose</code>. 'ticks'
   places ticks between the labels scale key. 'border' places a border about
@@ -243,7 +230,7 @@ itself can be controlled using <code>fit</code> options. These can be set in
 
 <span class='co'>#paddle style scale key used by windRose</span>
 
-<span class='fu'><a href='windRose.html'>windRose</a></span>(<span class='no'>mydata</span>,)</div><div class='img'><img src='drawOpenKey-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='windRose.html'>windRose</a></span>(<span class='no'>mydata</span>,)</div><div class='img'><img src='drawOpenKey-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#adding text and changing style and position via key</span>
 
 <span class='co'>#note:</span>
@@ -253,7 +240,7 @@ itself can be controlled using <code>fit</code> options. These can be set in
 
 <span class='fu'><a href='windRose.html'>windRose</a></span>(<span class='no'>mydata</span>,
    <span class='kw'>key</span> <span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>space</span><span class='kw'>=</span><span class='st'>"right"</span>)
-)</div><div class='img'><img src='drawOpenKey-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+)</div><div class='img'><img src='drawOpenKey-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#however:</span>
 <span class='co'>#more detailed control possible working with</span>
 <span class='co'>#key and drawOpenKey. For example,</span>
@@ -263,7 +250,7 @@ itself can be controlled using <code>fit</code> options. These can be set in
               <span class='kw'>plot.style</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ticks"</span>, <span class='st'>"border"</span>),
               <span class='kw'>fit</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1</span>,
               <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"top"</span>)
-)</div><div class='img'><img src='drawOpenKey-3.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+)</div><div class='img'><img src='drawOpenKey-3.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>

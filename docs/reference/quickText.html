@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Automatic text formatting for openair — quickText" />
 
 <meta property="og:description" content="Workhorse function that automatically applies routine text formatting to
@@ -85,6 +83,7 @@ common expressions and data names used in openair." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Automatic text formatting for openair</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/quickText.R'><code>R/quickText.R</code></a></small>
     </div>
 
     
@@ -128,11 +127,11 @@ text components of their own graphs (see below).</p>
 
 <span class='co'>#example 1</span>
 <span class='co'>##see axis formatting in an openair plot, e.g.:</span>
-<span class='fu'><a href='scatterPlot.html'>scatterPlot</a></span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>)</div><div class='img'><img src='quickText-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'><a href='scatterPlot.html'>scatterPlot</a></span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>)</div><div class='img'><img src='quickText-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#example 2</span>
 <span class='co'>##using quickText in other plots</span>
 <span class='fu'>plot</span>(<span class='no'>mydata</span>$<span class='no'>no2</span>, <span class='no'>mydata</span>$<span class='no'>pm10</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'>quickText</span>(<span class='st'>"my no2 label"</span>),
-     <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'>quickText</span>(<span class='st'>"pm10 [ ug.m-3 ]"</span>))</div><div class='img'><img src='quickText-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+     <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'>quickText</span>(<span class='st'>"pm10 [ ug.m-3 ]"</span>))</div><div class='img'><img src='quickText-2.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>

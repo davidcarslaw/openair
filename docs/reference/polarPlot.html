@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Function for plotting bivariate polar plots with smoothing. — polarPlot" />
 
 <meta property="og:description" content="Function for plotting pollutant concentration in polar coordinates
@@ -89,6 +87,7 @@ is carried out using mgcv." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Function for plotting bivariate polar plots with smoothing.</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/polarPlot.R'><code>R/polarPlot.R</code></a></small>
     </div>
 
     
@@ -581,7 +580,7 @@ regression techniques. Atmospheric Environment. 145, 128-134.
 <span class='co'># Use openair 'mydata'</span>
 
 <span class='co'># basic plot</span>
-<span class='fu'>polarPlot</span>(<span class='kw pkg'>openair</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/openair/topics/mydata'>mydata</a></span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='polarPlot-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>polarPlot</span>(<span class='kw pkg'>openair</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/openair/topics/mydata'>mydata</a></span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; |======================================================|100% ~0 s remaining     </div><div class='img'><img src='polarPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='co'># polarPlots by year on same scale</span>
 <span class='fu'>polarPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"so2"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"polarPlot of so2"</span>)

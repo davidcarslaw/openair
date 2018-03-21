@@ -25,8 +25,6 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
 <meta property="og:title" content="Linear relations between pollutants — linearRelation" />
 
 <meta property="og:description" content="This function considers linear relationships between two
@@ -89,6 +87,7 @@ relationships are consistent with emissions inventories." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Linear relations between pollutants</h1>
+    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/linearRelation.R'><code>R/linearRelation.R</code></a></small>
     </div>
 
     
@@ -221,8 +220,8 @@ such as how the relationship between two pollutants vary over
 time, by day of the week, diurnally and so on. The
 <code>linearRelation</code> function does just that - it fits a linear
 relationship between two pollutants over a wide range of time
-periods determined by <code>period</code>.
-    <code>linearRelation</code> function is particularly useful if
+periods determined by <code>period</code>.</p>
+<p><code>linearRelation</code> function is particularly useful if
 background concentrations are first removed from roadside
 concentrations, as the increment will relate more directly with
 changes in emissions. In this respect, using <code>linearRelation</code>
@@ -248,7 +247,7 @@ alternative.</p>
 
 <span class='co'># monthly relationship between NOx and SO2 - note rapid fall in</span>
 <span class='co'># ratio at the beginning of the series</span>
-<span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"so2"</span>)</div><div class='img'><img src='linearRelation-1.png' alt='' width='700' height='432.632880098887' /></div><div class='input'># monthly relationship between NOx and SO2 - note rapid fall in
+<span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"so2"</span>)</div><div class='img'><img src='linearRelation-1.png' alt='' width='700' height='433' /></div><div class='input'># monthly relationship between NOx and SO2 - note rapid fall in
 # ratio at the beginning of the series
 </div><span class='co'># NOT RUN {</span>
 <span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ox"</span>)
