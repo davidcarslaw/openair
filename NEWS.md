@@ -1,5 +1,9 @@
 ## openair 2.3-99
 
+- use `lubridate` in `timeAverage` to improve speed / simplicity
+
+## openair 2.3-0
+
 - add option `plot` to `TheilSen`. `FALSE` can be useful when analysing data to extract the trend components and plot in otherways and when the `TheilSen` plot is not required.
 - add option `silent` to `TheilSen` to avoid printing updates to trend fitting. By default it is `FALSE`.
 - fix wrong ordering of names in `timeVariation` when more than one pollutant
