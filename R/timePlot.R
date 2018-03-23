@@ -320,7 +320,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-    strip.background = current.strip,
+     
     fontsize = current.font
   ))
 

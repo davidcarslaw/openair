@@ -263,7 +263,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-    strip.background = current.strip,
+     
     fontsize = current.font
   ))
 

@@ -355,7 +355,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-    strip.background = current.strip,
+     
     fontsize = current.font
   ))
 

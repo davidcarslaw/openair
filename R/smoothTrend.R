@@ -212,7 +212,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-    strip.background = current.strip,
+ #    
     fontsize = current.font
   ))
 
@@ -573,6 +573,13 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   ## plot
   plt <- do.call(xyplot, xyplot.args)
+  
+  newdata <- res
+  output <- list(
+    plot = plt, data = list(data = newdata, fit = fit),
+    call = match.call()
+  )
+  class(output) <- "openair"
 
   ## output ########################################################################
   if (length(type) == 1) {
@@ -581,12 +588,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
   }
 
-  newdata <- res
-  output <- list(
-    plot = plt, data = list(data = newdata, fit = fit),
-    call = match.call()
-  )
-  class(output) <- "openair"
+
 
   invisible(output)
 }

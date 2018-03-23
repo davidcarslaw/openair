@@ -138,7 +138,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-    strip.background = current.strip,
+     
     fontsize = current.font
   ))
 

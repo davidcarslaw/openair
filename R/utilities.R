@@ -26,7 +26,7 @@ setGraphics <- function(fontsize = 5) {
   ## reset graphic parameters
   font.orig <- trellis.par.get("fontsize")$text
   on.exit(trellis.par.set(
-    strip.background = current.strip,
+     
     fontsize = list(text = font.orig)
   ))
 }

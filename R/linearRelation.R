@@ -140,7 +140,7 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-    strip.background = current.strip,
+     
     fontsize = current.font
   ))
 

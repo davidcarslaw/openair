@@ -147,7 +147,7 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-    strip.background = current.strip,
+     
     fontsize = current.font
   ))
 

@@ -269,7 +269,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-    strip.background = current.strip,
+     
     fontsize = current.font
   ))
 

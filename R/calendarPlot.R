@@ -195,7 +195,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-    strip.background = current.strip,
+     
     fontsize = current.font
   ))
 

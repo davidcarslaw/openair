@@ -259,7 +259,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-    strip.background = current.strip,
+     
     fontsize = current.font
   ))
 
