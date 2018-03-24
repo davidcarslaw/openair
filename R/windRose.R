@@ -19,11 +19,13 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 
     ## breaks from the minimum to 90th percentile, which generally gives sensible
     ## spacing for skewed data. Maximum is added later.
-    breaks <- unique(pretty(c(
-      min(mydata[[pollutant]], na.rm = TRUE),
-      quantile(mydata[[pollutant]], probs = 0.9, na.rm = TRUE),
-      breaks
-    )))
+ breaks <- unique(pretty(c(
+  min(mydata[[pollutant]], na.rm = TRUE),
+  quantile(mydata[[pollutant]], probs = 0.9, na.rm = TRUE),
+  breaks
+)))
+ 
+ breaks <- c(breaks, max(mydata[[pollutant]], na.rm = TRUE))
   }
 
   windRose(
@@ -616,8 +618,9 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   ##### condition Data #####
   
   if (!twoDatasetsPresent) {
-    statdata <- mydata 
     statdata <- cutData(mydata, type, ...) # data conditioning
+    mydata <- statdata 
+#    statdata <- cutData(mydata, type, ...) # data conditioning
     statdata[[ws]] <- mydata[[ws]] 
     statdata[[wd]] <- angle360(mydata[[wd]]) 
   }else{    
