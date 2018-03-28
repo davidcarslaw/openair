@@ -337,7 +337,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                      width = 1, seg = 0.9, auto.text = TRUE, breaks = 4, 
                      offset = 10, normalise = FALSE, max.freq = NULL, 
                      paddle = TRUE, key.header = NULL, key.footer = "(m/s)", 
-                     key.position = "bottom", key = TRUE, dig.lab = 0, 
+                     key.position = "bottom", key = TRUE, dig.lab = 5, 
                      statistic = "prop.count", pollutant = NULL, 
                      annotate = TRUE, angle.scale = 315, border = NA,
                      ...) {
