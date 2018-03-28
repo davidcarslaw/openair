@@ -337,7 +337,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                      width = 1, seg = 0.9, auto.text = TRUE, breaks = 4, 
                      offset = 10, normalise = FALSE, max.freq = NULL, 
                      paddle = TRUE, key.header = NULL, key.footer = "(m/s)", 
-                     key.position = "bottom", key = TRUE, dig.lab = 0, 
+                     key.position = "bottom", key = TRUE, dig.lab = 5, 
                      statistic = "prop.count", pollutant = NULL, 
                      annotate = TRUE, angle.scale = 315, border = NA,
                      ...) {
@@ -478,6 +478,15 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   
   ##### breaks guards #####
   
+  noMaxInterval <- if (is.list(breaks)){ 
+    if ("noMaxInterval" %in% breaks) TRUE else FALSE} else FALSE
+  
+  if (is.list(breaks)){
+    # if list only keep numeric elements of the list
+    breaks <- unlist(breaks[unlist(lapply(breaks, is.numeric))])
+    if (is.null(breaks)){breaks <- breaksDEFAULT}
+  }
+    
   if (!is.numeric(breaks)) {
     warningWindRose("breaks must be numeric\n",
                     "defaulting to breaks = ",  breaksDEFAULT)
@@ -502,6 +511,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       breaks <- breaksDEFAULT
     }
   }
+
 
    
   ##### statistics guards #####
@@ -669,29 +679,20 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   value_min <- min(statdata$value, na.rm = TRUE) 
   
   ##### guards for breaks ##### 
-
-  # Guards are included because statistics needs to be calculated before 
-  #   determining if the breaks are suitable
+ 
   if (length(breaks) == 1){
-    if(value_max > ((breaks - 1)  * ws.int)){
-      breaks <- pretty(statdata$value, n = breaks)
-      if (!missing(ws.int)){
-        warningWindRose("Values in wind data exceed maximum determined \n",
-                        "by breaks and ws.int \n ",
-                        "breaks set to ", length(breaks) ,"\n",
-                        "to force breaks specify breaks as a vector")
-      }
-    }else{
-       breaks <- 0: (breaks - 1)  * ws.int
-    }
+    breaks <- seq(0, (breaks - 1) * ws.int, by = ws.int)
   }else{
-    if (max(breaks) < value_max) {
-      breaks <- c(breaks, value_max)
-      warningWindRose("Maximum value exceeded breaks \n", 
-                      "breaks set to ", breaks )
-    }
     if (min(breaks) > value_min) {
-      warningWindRose("Some values are below minimum break.")
+      warningWindRose("Some values are less than minimum break.")
+    }
+  }
+  
+  if (max(breaks) < value_max) {
+    if (!noMaxInterval) {
+      breaks <- c(breaks, value_max)
+    }else{
+      warningWindRose("Some values are greater than the maximum break ")
     }
   }
   
