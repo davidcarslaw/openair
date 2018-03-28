@@ -700,7 +700,7 @@ polarPlot <-
           sep = ""
         )
       } else {
-        Pval <- quantile(mydata[, pollutant], probs = percentile / 100, na.rm = TRUE)
+        Pval <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
 
         sub <- paste(
           "CPF at the ", percentile,
