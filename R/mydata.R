@@ -4,7 +4,7 @@
 ##' package. The dataset contains hourly measurements of air pollutant
 ##' concentrations, wind speed and wind direction collected at the Marylebone
 ##' (London) air quality monitoring supersite between 1st January 1998 and 23rd
-##' June 2005.
+##' June 2005. The data set is a tibble.
 ##'
 ##' \code{mydata} is supplied with the \code{openair} package as an example
 ##' dataset for use with documented examples.

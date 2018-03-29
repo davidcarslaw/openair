@@ -4,6 +4,7 @@
 - make sure all strip colours are white for `openair` objects
 - fix bug in `polarPlot` when `statistic = "cpf"` when using tibbles
 - fix bug in `polarCluster` with exported data (date was not correctly merged to produce  single date column)
+- convert internal `mydata` to a 'tibble' for easier printing.
 
 ## openair 2.3-0
 
