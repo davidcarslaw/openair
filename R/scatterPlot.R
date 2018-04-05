@@ -1845,17 +1845,20 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
         lwd = lwd, lty = lty
       ))
 
-    ## major npoints from trajPlot
-    id <- seq(
-      min(subscripts), max(subscripts),
-      by = Args$npoints
-    )
+    ## major npoints from trajPlot, don't plot if NA
+    if (!is.na(Args$npoints)) {
+      id <- seq(
+        min(subscripts), max(subscripts),
+        by = Args$npoints
+      )
 
-    lapply(tmp, function(dat)
-      lpoints(
-        dat[id, ][["lon"]], dat[id, ][["lat"]],
-        col = dat$col, pch = 16
-      ))
+      lapply(tmp, function(dat)
+        lpoints(
+          dat[id, ][["lon"]], dat[id, ][["lat"]],
+          col = dat$col, pch = 16
+        ))
+    }
+    
   } else {
 
     ## colour by a z
@@ -1868,7 +1871,7 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
       ))
 
     ## major npoints from trajPlot
-
+    if (!is.na(Args$npoints)) {
     lapply(tmp, function(dat)
       lpoints(
         dat[seq(1, nrow(dat), Args$npoints), ][["lon"]],
@@ -1876,6 +1879,7 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
         col = myColors[group.number],
         pch = 16
       ))
+    }
 
     ## add mark for receptor location
     if (Args$origin) {
