@@ -6,6 +6,7 @@
 - fix bug in `polarCluster` with exported data (date was not correctly merged to produce  single date column)
 - convert internal `mydata` to a 'tibble' for easier printing.
 - allow `npoints = NA` in `trajPlot` to suppress plotting of interval points.
+- fix bias correction bug in `windRose` when ws/wd have different names
 
 ## openair 2.3-0
 

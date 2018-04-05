@@ -693,8 +693,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     if (length(id > 0)) tmp[id] <- 360
     tmp <- table(tmp) ## number of sectors spanned
     vars <- grep("Interval[1-9]", names(results)) ## the frequencies, without any calms
-    results[results[[wd]] != -999, vars] <-
-      results[results[[wd]] != -999, vars] * mean(tmp) / tmp
+    results[results[["wd"]] != -999, vars] <-
+      results[results[["wd"]] != -999, vars] * mean(tmp) / tmp
     return(results)
   }
 
