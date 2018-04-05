@@ -330,629 +330,989 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##' ## results show postive bias in wd and ws
 ##' pollutionRose(mydata, ws = "ws", wd = "wd", ws2 = "ws2", wd2 = "wd2")
 windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
-                     ws.int = 2, angle = 30, type = "default", bias.corr = TRUE,
-                     cols = "default", grid.line = NULL, width = 1, seg = NULL,
-                     auto.text = TRUE, breaks = 4, offset = 10, normalise = FALSE,
-                     max.freq = NULL, paddle = TRUE, key.header = NULL,
-                     key.footer = "(m/s)", key.position = "bottom",
-                     key = TRUE, dig.lab = 5, statistic = "prop.count",
-                     pollutant = NULL, annotate = TRUE, angle.scale = 315, border = NA,
+                     ws.int = 2, angle = 30, type = "default", 
+                     bias.corr = TRUE, cols = "default", grid.line = NULL, 
+                     width = 1, seg = 0.9, auto.text = TRUE, breaks = 4, 
+                     offset = 10, normalise = FALSE, max.freq = NULL, 
+                     paddle = TRUE, key.header = NULL, key.footer = "(m/s)", 
+                     key.position = "bottom", key = TRUE, dig.lab = 0, 
+                     statistic = "prop.count", pollutant = NULL, 
+                     annotate = TRUE, angle.scale = 315, border = NA,
                      ...) {
-  if (is.null(seg)) seg <- 0.9
+  
+  
+  ################## Literal Expressions ###################################### 
+  VALIDSTATS <- c("prop.count", "prop.mean", "abs.count", "frequency")
+  statisticDEFAULT <- formals(windRose)$statistic  
+  angleDEFAULT <- formals(windRose)$angle
+  wsIntDEFAULT <- formals(windRose)$ws.int
+  breaksDEFAULT <- formals(windRose)$breaks
+  maxFreqDEFAULT <- formals(windRose)$max.freq
+  radOffsetDEFAULT <- formals(windRose)$offset
+  
+  twoDatasetAngleDEFAULT <- 10
+  twoDatasetOffsetDEFAULT <- 20  
+  
+  angleMIN <- 3
+  angleMAX <- 360
+  gridLtyDEFAULT <- 1 
+  gridLwdDEFAULT <- 1
+  gridResDEFAULT <- 360
+  gridCexDEFAULT <- 0.7
+  numGridlinesDEFAULT <- 10
+  
+  calmANGLE <- -999
+  calmThreshold <- 0 # m/s
 
-  ## greyscale handling
-  if (length(cols) == 1 && cols == "greyscale") {
-    trellis.par.set(list(strip.background = list(col = "white")))
-    ## other local colours
-    calm.col <- "black"
-  } else {
-    calm.col <- "forestgreen"
+  statisticDigits <- 5
+  
+  
+  
+  ################## Wrapper Functions ########################################
+  
+  # wrapper for Windrose Warning Messages  
+  warningWindRose <- function(...){
+    warning("In windRose(...):\n", list(...), call. = FALSE)
   }
 
-  ## set graphics
-  current.strip <- trellis.par.get("strip.background")
-  current.font <- trellis.par.get("fontsize")
+  # Wrapper for statistics warning messages
+  warningStat <- function(... , StatInfo = list(statistic, statisticDEFAULT)){
+    warningWindRose("statistic = '", unlist(StatInfo[1]) ,"' is invalid\n",
+                    ..., "\n",
+                    "defaulting to statistic = '", unlist(StatInfo[2]), "'\n")
+    return(statisticDEFAULT)
+  }  
+    
+  # wrapper to coerce angle between 0 and 360 degrees
+  angle360 <- function(angleRaw, calmAngle = calmANGLE) {
+    angleRaw <- as.numeric(angleRaw)
+    validAngles <- angleRaw != calmAngle && !is.na(angleRaw)
+    angleRaw[validAngles] <- angleRaw[validAngles] %% 360
+    angleRaw[angleRaw == 0] <- 360
+    return(angleRaw)
+  } 
+  
+  degToRad <- function(angleRaw){
+    return(angleRaw * pi / 180)
+  }
+  
+  dispDecPlaces <- function(num, digits) {
+    trimws(format(round(num, digits), nsmall=digits))
+  }
+  
+  
+  
+  ################## Data validation ##########################################
+  
+  ##### primary data guards #####
+  
+  if (!is.data.frame(mydata)){
+    stop("mydata must be of type data.frame")
+  }
 
-  ## reset graphic parameters
-  on.exit(trellis.par.set(
+  if (!is.numeric(mydata[[ws]]) || !is.numeric(mydata[[wd]])){
+    stop(deparse(substitute(mydata)), "[[", ws, "]] needs to be numeric \n",
+         "and ", 
+         deparse(substitute(mydata)), "[[", wd, "]] needs to be numeric \n", 
+         "Check parameters ws and wd were specified properly")
+  }
+  
+
+  ##### two datasets data guards #####
+  
+  twoDatasetsPresent <- !(is.na(ws2) || is.na(wd2))
+  if (twoDatasetsPresent) {
+    if (!is.numeric(mydata[[ws2]]) || !is.numeric(mydata[[wd2]])){
+      warningWindRose("Second set of wind values not numeric \n",
+                      "Ignoring second set of wind values")
+      twoDatasetsPresent <- FALSE
+    }
+  }
+  
+  
+  ##### angle guards ##### 
+  
+  if (!is.numeric(angle)) {
+    warningWindRose("angle must be numeric, using angle = ", angleDEFAULT)
+    angle <- angleDEFAULT
+  }
+  
+  ## If angle is not divisible by 360 ##
+  if (360 %% angle) {
+    warningWindRose("angle will produce spoke overlap\n",
+                    "suggested angles: 5, 6, 8, 9, 10, 12, 15, 30, 45, 90")
+  }
+  
+  if (angle < angleMIN) {
+    warningWindRose("angle too small \n enforcing 'angle = ", angleMIN ,"'")
+    angle <- angleMIN
+  }
+  
+  if (angle > angleMAX) {
+    warningWindRose("angle too large \n enforcing 'angle = ", angleMAX ,"'")
+    angle <- angleMAX
+  } 
+  
+  if (twoDatasetsPresent & missing(angle)) {
+    angle <- twoDatasetAngleDEFAULT
+  }
+  
+  mydata[[wd]] <- angle360(mydata[[wd]]) #apply correction to angle 
+  AngleScaleRad <- degToRad(angle.scale)
+    
+  ##### ws.int guards #####
+  
+  if (!is.numeric(ws.int)) {
+    warningWindRose("ws.int must be numeric\n",
+                    "defaulting to ws.int = ",  wsIntDEFAULT)
+    ws.int <- wsIntDEFAULT
+  }
+  if (ws.int <= 0) { 
+    warningWindRose("ws.int must be positive\n",
+                    "defaulting to ws.int = ",  wsIntDEFAULT)
+    ws.int <- wsIntDEFAULT
+  }
+  
+  
+  ##### breaks guards #####
+  
+  if (!is.numeric(breaks)) {
+    warningWindRose("breaks must be numeric\n",
+                    "defaulting to breaks = ",  breaksDEFAULT)
+    breaks <- breaksDEFAULT
+  }
+  
+  if (length(breaks) == 1) {
+    if (breaks <= 0) {
+      warningWindRose("breaks must be positive\n",
+                      "defaulting to breaks = ",  breaksDEFAULT)
+      breaks <- breaksDEFAULT}
+  }else{
+    if (any(duplicated(breaks))) {
+      warningWindRose("breaks cannot have repeating values\n",
+                      "defaulting to breaks = ",  breaksDEFAULT)
+      breaks <- breaksDEFAULT
+    }
+    
+    if (is.unsorted(breaks)) {
+      warningWindRose("breaks must be specified in numerical order\n",
+                      "defaulting to breaks = ",  breaksDEFAULT)
+      breaks <- breaksDEFAULT
+    }
+  }
+
+   
+  ##### statistics guards #####
+  
+  statIsCustom <- length(statistic) > 1
+  
+  if (!statIsCustom) {
+    if (!statistic %in% VALIDSTATS || !is.character(statistic)) {
+      statistic <- warningStat("unknown value for parameter statistic")}
+  }else{
+    if (!is.list(statistic)) 
+      statistic <- warningStat("custom statistics must be in a list form")
+    if (!"fun" %in% names(statistic)){ 
+      statistic <- warningStat("custom statistics must include a function") 
+    }else{
+      if (!is.function(statistic$fun)){
+        statistic <- warningStat("custom statistic 'fun' must be a function")
+      }
+    }
+    statIsCustom <- length(statistic) > 1   # reassess if custom
+  }
+
+  
+  ##### custom statistics guard #####
+  
+  if (statIsCustom) {
+   
+    customStatFun <- statistic$fun
+    
+    ## custom units guard ##
+    if ("unit" %in% names(statistic)){
+      customStatUnit <- statistic$unit
+    }else{
+      warningWindRose("no custom unit specified \n",
+                      "defaulting to unit = ''\n")
+      customStatUnit <- ""
+    }
+    
+    ## custom scale guard ##
+    customScale <- if ("scale" %in% names(statistic)){
+      statistic$scale
+    }else{
+      "none"
+    }
+    
+    ## custom label guard ##
+    if ("lab" %in% names(statistic)){
+      customLab <- statistic$lab
+    }else{
+      warningWindRose("no custom label specified \n",
+                      "defaulting to lab = ''\n")      
+      customLab <- ""
+    } 
+    
+    ## custom function 2 guard ##
+    if ("fun2" %in% names(statistic)){
+      if (is.function(statistic$fun2)){
+        customFun2 <- statistic$fun2
+        customLab2 <- if ("lab2" %in% names(statistic)) statistic$lab2 else ""
+      }else{
+        warningWindRose("fun2 is not a valid function d \n",
+                        "changing fun to to prop.count defaults\n") 
+        customFun2 <- function(x) 
+          format(mean(x, na.rm = TRUE), digits = statisticDigits)
+        customLab2 <- "mean"
+      }
+    }else{
+      customFun2 <- function(x) 
+        format(mean(x, na.rm = TRUE), digits = statisticDigits)    
+      customLab2 <- "mean"
+    }
+    ## custom calm label guard ##
+    customLabcalm <- if ("labcalm" %in% names(statistic)){
+      statistic$labcalm
+    }else{
+      function(x) round(x, 0)
+    }
+  }
+ 
+  
+  
+  ##### custom max.freq guard #####
+  
+  if(!is.null(max.freq)){
+    if (!is.numeric(max.freq)){
+      warningWindRose(
+        "max.freq is not numeric or NULL, max.freq set to default")
+      max.freq <- maxFreqDEFAULT
+    }
+    if (max.freq <= 0 && !is.null(max.freq)){
+      warningWindRose(
+        "max.freq must be postive or NULL, max.freq set to default")
+      max.freq <- maxFreqDEFAULT
+    }    
+  }
+    
+    
+  
+  ##### Changes made if two datasets are present #####
+  
+  if (twoDatasetsPresent){
+    pollutant <- NULL
+    if (missing(key.footer)) {key.footer <- "ws"}
+    if (missing(offset)) offset <- twoDatasetOffsetDEFAULT
+    if (missing(cols)) cols <- c("lightskyblue", "tomato")
+    seg <- 1
+  }
+ 
+  
+  
+  
+  ##################  Data Preparation ######################################## 
+  
+  ##### condition Data #####
+  
+  if (!twoDatasetsPresent) {
+    statdata <- mydata 
+    statdata <- cutData(mydata, type, ...) # data conditioning
+    statdata[[ws]] <- mydata[[ws]] 
+    statdata[[wd]] <- angle360(mydata[[wd]]) 
+  }else{    
+    #Two Dataset implementation to preserve compatibility
+    statdata <- mydata
+    statdata$wsDiff <- statdata[[ws2]] - statdata[[ws]]
+    statdata$wdDiff <- angle360(mydata[[wd2]] - mydata[[wd]])
+    tmpWS <- statdata[[ws]]
+    tmpWD <- statdata[[wd]]
+    statdata[[ws]] <- statdata$wsDiff
+    statdata[[wd]] <- statdata$wdDiff   
+    statdata <- cutData(statdata, type, ...) # data conditioning
+    statdata$wsDiff <- statdata[[ws]]
+    statdata$wdDiff <- statdata[[wd]]
+    statdata[[ws]] <- tmpWS
+    statdata[[wd]] <- tmpWD
+  }
+  pollutantPresent <- !is.null(pollutant)
+  
+  statdata <- checkPrep(statdata,
+                        c(wd,ws,
+                          if(twoDatasetsPresent){c(ws2,wd2)},
+                          if(any(type %in% dateTypes)){"date"},
+                          if (pollutantPresent){pollutant}),
+                        type,
+                        remove.calm = FALSE,
+                        remove.neg = !twoDatasetsPresent)
+  
+  statdata  <- statdata[complete.cases(statdata[[ws]]),] # remove row if ws==NA
+  
+  ##### Create Calm Mask ##### 
+  
+  statdata$calmMask <- statdata[[ws]] == 0  
+  
+  ##### Create Value for Statistics calculations ##### 
+  
+  statdataValue <- if (pollutantPresent) pollutant else ws
+  statdata$value <- statdata[[statdataValue]]
+
+
+  
+  ################## Interval Determination ###################################
+  
+  ## min and max for breaks ## 
+  value_max <- max(statdata$value, na.rm = TRUE)
+  value_min <- min(statdata$value, na.rm = TRUE) 
+  
+  ##### guards for breaks ##### 
+
+  # Guards are included because statistics needs to be calculated before 
+  #   determining if the breaks are suitable
+  if (length(breaks) == 1){
+    if(value_max > ((breaks - 1)  * ws.int)){
+      breaks <- pretty(statdata$value, n = breaks)
+      if (!missing(ws.int)){
+        warningWindRose("Values in wind data exceed maximum determined \n",
+                        "by breaks and ws.int \n ",
+                        "breaks set to ", length(breaks) ,"\n",
+                        "to force breaks specify breaks as a vector")
+      }
+    }else{
+       breaks <- 0: (breaks - 1)  * ws.int
+    }
+  }else{
+    if (max(breaks) < value_max) {
+      breaks <- c(breaks, value_max)
+      warningWindRose("Maximum value exceeded breaks \n", 
+                      "breaks set to ", breaks )
+    }
+    if (min(breaks) > value_min) {
+      warningWindRose("Some values are below minimum break.")
+    }
+  }
+  
+  
+  ##### Create intervals for statistical value  ##### 
+  
+  numIntervals <- length(breaks) - 1
+  statdata$intervals <-  cut(statdata$value,
+                             breaks = breaks, 
+                             include.lowest = FALSE, 
+                             dig.lab = dig.lab, 
+                             labels = paste0("Interval", 
+                                             as.character(1:numIntervals))
+  )
+  
+  
+  ##### Create intervals for Wind direction #####
+  
+  statdata$wdInterval <- angle360(angle * ceiling(statdata[[wd]] / angle - 0.5)) 
+
+  
+  ##### adjust number of colors to match the number of intervals ##### 
+
+  radialCol <- if (numIntervals < length(cols)) {
+    cols[1:numIntervals] 
+  }else{ 
+    openColours(cols, numIntervals)
+  }
+  
      
-    fontsize = current.font
-  ))
+  ################## Set Statistics Variables #################################
+  
+  statFun <- switch(statistic,
+                     prop.count = length,
+                     prop.mean = function(x) sum(x, na.rm = TRUE),
+                     abs.count = length,
+                     frequency = length,
+                     custom = customStatFun)
+  
+  statUnit <- switch(statistic,
+                      prop.count = "%",
+                      prop.mean = "%",
+                      abs.count = "",
+                      frequency = "",
+                      custom = customStatUnit)    
+  
+  statScale <- switch(statistic,
+                       prop.count = "all",
+                       prop.mean = "panel",
+                       abs.count = "none",
+                       frequency = "none",
+                       custom = customScale)    
+  
+  statLabel <- switch(statistic,
+                     prop.count = "Frequency of counts by wind direction (%)",
+                     prop.mean = "Proportion contribution to the mean (%)",
+                     abs.count = "Count by wind direction",
+                     frequency = "Count by wind direction",
+                     custom = customLab) 
+  
+  statFun2 <- switch(statistic,
+                      prop.count = function(x) format(mean(x, na.rm = TRUE), 
+                                                      digits = statisticDigits),
+                      prop.mean = function(x) format(mean(x, na.rm = TRUE), 
+                                                     digits = statisticDigits),
+                      abs.count = function(x) length(x),
+                      frequency = function(x) length(x),
+                      custom = customFun2)
+  
+  statLabel2 <- switch(statistic,
+                      prop.count = "mean",
+                      prop.mean = "mean",
+                      abs.count = "count",
+                      frequency = "count",
+                      custom = customLab2) 
+  
+  statLabelcalm <- switch(statistic,
+                         prop.count = function(x) round(x, 1),
+                         prop.mean = function(x) round(x, 1),
+                         abs.count = function(x) round(x, 0),
+                         frequency = function(x) round(x, 0),
+                         custom = customLabcalm)     
+  
+  
+  
+  ################### Functions to Generate Graphics  ####################
+  
+  
+  ##### calculate the mean wind direction  ##### 
+  ## useful for cases comparing two met data sets ##
+  u <- mean(sin(degToRad(statdata[[wd]])), na.rm = TRUE)
+  v <- mean(cos(degToRad(statdata[[wd]])), na.rm = TRUE)
+  
+  meanWindDir <- angle360(atan2(u, v) * 360 / 2 / pi)
+  
+  
+  ##### calculate the mean wind speed  #####   
+  meanWindSpd <- mean(statdata[[wd]], na.rm = TRUE)
+  
+  
+  ##### calculate the grid  ##### 
+  
+  prepare.grid <- function(statdata) {
+    
+    if (all(is.na(statdata$intervals))) { # for all calms...
+      weights <- data_frame(Interval1 = NA, wd = NA, calm = 100, 
+                            panel.fun = NA , meanWindDir = NA, freqs = NA)
+    }else {
+     
+      calm <- statFun(statdata[statdata[[wd]] == calmANGLE, ][[statdataValue]])
+      
+      weights <- tapply(statdata[[statdataValue]], 
+                        list(statdata$wdInterval, statdata$intervals),
+                        statFun)
+      freqs <- tapply(statdata[[statdataValue]], statdata$wdInterval, length)        
+      
+      ## scale the grid ##
+      if (statScale == "all") {
+        all <- statFun(statdata$wdInterval)
+        calm <- calm / all * 100
+        weights <- weights / all * 100
+      }
+      
+      if (statScale == "panel") {
+        calm <- calm / (statFun(statFun(weights)) + calm) * 100
+        weights <- weights / (statFun(statFun(weights)) + calm) * 100
+      }
+      
+      weights[is.na(weights)] <- 0
+      weights <- t(apply(weights, 1, cumsum))
+      
+      panel.fun <- statFun2(statdata[[statdataValue]])
+            
 
-  # make sure ws and wd and numeric
-  mydata <- checkNum(mydata, vars = c(ws, wd))
-
-  if (360 / angle != round(360 / angle)) {
-    warning(
-      "In windRose(...):\n  angle will produce some spoke overlap",
-      "\n  suggest one of: 5, 6, 8, 9, 10, 12, 15, 30, 45, etc.",
-      call. = FALSE
-    )
+      
+      if (all(is.na(meanWindDir))) {meanWindDir <- NA}
+      
+      weights <- bind_cols(as_data_frame(weights),
+                           data_frame(
+                             wd = as.numeric(row.names(weights)),
+                             calm = calm, panel.fun = panel.fun,
+                             meanWindDir = meanWindDir, freqs = freqs
+                           )
+      )
+    }
+    return(weights)
   }
-  if (angle < 3) {
-    warning(
-      "In windRose(...):\n  angle too small",
-      "\n  enforcing 'angle = 3'",
-      call. = FALSE
-    )
-    angle <- 3
+  
+
+
+  ################## Create Plot Function Arguments ###########################
+  
+ 
+  ##### data for plot ##### 
+  plotData <- group_by(statdata, UQS(syms(type))) %>% do(prepare.grid(.))
+
+  ## calm results ##
+  plotData$calm <- statLabelcalm(plotData$calm)
+  plotData$meanWindDir <- statLabelcalm(plotData$meanWindDir)
+
+  
+  ## correct bias when angle does not divide exactly into 360 ## 
+  if (bias.corr) {
+    correctBias <- function(plotData) {
+      
+      # check to see if data for this type combination are rounded to 10 degrees
+      valueSelect <-  merge(statdata, plotData[1, type], by = type)
+      
+      if (!all(valueSelect[[wd]] %% 10 == 0, na.rm = TRUE)) return(plotData)
+      
+      vars <- grep("Interval[1-9]", names(plotData)) ## the frequencies, without any calms
+      
+      tmp <- table(angle360(angle * ceiling(seq(10, 360, 10) / angle - 0.5)))
+      plotData[plotData[[wd]] != calmANGLE, vars] <-
+        plotData[plotData[[wd]] != calmANGLE, vars] * mean(tmp) / tmp
+      
+      return(plotData)
+    }    
+    plotData <- group_by(plotData, UQS(syms(type))) %>% do(correctBias(.))
+  }
+ 
+  ## normalise by sector ## 
+  if (normalise) {
+    vars <- grep("Interval[1-9]", names(plotData))
+    
+    # for plotting the wind frequency line
+    plotData$freq <- ave(plotData[[max(vars)]],
+                        plotData[type], 
+                        FUN = function(x) x / sum(x))
+    
+    # scale by maximum frequency
+    plotData$norm <- plotData$freq / max(plotData$freq)
+    
+    # normalise
+    plotData[, vars] <- plotData[, vars] / plotData[[max(vars)]]
+    
+    statLabel <- "Normalised by wind sector"
+    statUnit <- ""
   }
 
-  ## extra args setup
+  
+  ##### define lattice strip arguments for plot ##### 
+
+  stripData <- strip.fun(plotData, type, auto.text)
+  strip <- stripData[[1]]
+  stripLeft <- stripData[[2]]
+  pol.name <- stripData[[3]]  ### unused 
+  
+  
+  ##### preparation for defining panel function argument #####   
+  
+  maxCalcFreq <- max(
+    plotData[plotData$wd != calmANGLE, grep("Interval", names(plotData))],
+    na.rm = TRUE)
+  
+  maxFrequency <- if (is.null(max.freq)) maxCalcFreq else max.freq
+ 
+  radialOffset <- maxFrequency * (offset / 100)
+ 
+
+ 
+  gridMax <- 2 * maxFrequency
+  doubleMax <- 2 * maxFrequency
+  
+
+  
+  ## set grid line properties ## 
+  
+  gridlty <- if ("lty" %in% names(grid.line)) grid.line$lty else gridLtyDEFAULT  
+  
+  gridCol <- if ("col" %in% names(grid.line)) grid.line$col else "grey85"   
+  
+  gridMax <- if ("max" %in% names(grid.line)) grid.line$max else gridMax
+  ScaleMax <- gridMax
+  
+  gridLwd <- if ("lwd" %in% names(grid.line)) grid.line$lwd else gridLwdDEFAULT
+
+  gridRes <- gridResDEFAULT * 
+    (if ("res" %in% names(grid.line)) grid.line$res else 1) 
+
+  
+  gridCex <- if ("cex" %in% names(grid.line)) grid.line$cex else gridCexDEFAULT
+  
+  gridArrow <- if ("gridArrow" %in% names(grid.line)) grid.line$gridArrow else NULL 
+  
+  if(!is.null(gridArrow) && missing(offset)){
+    radialOffset <- maxFrequency * radOffsetDEFAULT * 2  / 100
+  } 
+  
+  gridAveragePt <- if ("gridAveragePoint" %in% names(grid.line)) {
+    grid.line$gridAveragePoint} else {FALSE}
+
+  
+  gridUserInt <- if(is.numeric(grid.line) && is.null(names(grid.line))) {
+    grid.line
+  } else {
+    if ("value" %in% names(grid.line)) {
+      if(is.numeric(grid.line$value)) grid.line$value else NULL
+    } else NULL
+  } 
+  
+  gridInterval <- if (!is.null(gridUserInt)) gridUserInt else{
+    if (pretty(c(0, 2 * maxFrequency), 
+               n = numGridlinesDEFAULT)[2] / doubleMax < 0.9) {
+    pretty(c(0, 2 * maxFrequency), n = numGridlinesDEFAULT)[2]}
+    else 1.8 * maxFrequency
+  }
+  
+
+  ## extra Arguments ## 
+  
   extra <- list(...)
-
-  ## label controls
-  extra$xlab <- if ("xlab" %in% names(extra)) {
-    quickText(extra$xlab, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
-  extra$ylab <- if ("ylab" %in% names(extra)) {
-    quickText(extra$ylab, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
-  extra$main <- if ("main" %in% names(extra)) {
-    quickText(extra$main, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
-
+  
+  extra$xlab <- quickText(
+    if ("xlab" %in% names(extra)) extra$xlab else "", auto.text)
+  
+  extra$ylab <- quickText(
+    if ("ylab" %in% names(extra)) extra$ylab else "", auto.text)
+  
+  extra$main <- quickText(
+    if ("main" %in% names(extra)) extra$main else "", auto.text)
+  
   if ("fontsize" %in% names(extra)) {
     trellis.par.set(fontsize = list(text = extra$fontsize))
   }
 
+  ##### defining parts of the panel function argument #####  
+  
+  #apothem is a geometric line from the center of the midpoint to the edge
+  pltApothemLength <- maxFrequency + radialOffset  
+  
+  
+  ## draw the axis ## 
+  
+  drawAxis <- function(apothem = pltApothemLength,
+                       RadOffset = radialOffset,
+                       drawArrow = gridArrow){
+    
+    if(is.null(drawArrow)){ # regular axis
+      
+      lsegments(-apothem, 0, apothem, 0)
+      lsegments(0, -apothem, 0, apothem)  
+      
+    }else{ # axis with an arrow
+      arrowScaling <- 0.8 
 
-  ## preset statitistics
-
-  if (is.character(statistic)) {
-    ## allowed cases
-    ok.stat <- c("prop.count", "prop.mean", "abs.count", "frequency")
-
-    if (!is.character(statistic) || !statistic[1] %in% ok.stat) {
-      warning(
-        "In windRose(...):\n  statistic unrecognised",
-        "\n  enforcing statistic = 'prop.count'",
-        call. = FALSE
-      )
-      statistic <- "prop.count"
+      lpolygon(c(sin(degToRad(drawArrow)) * RadOffset * arrowScaling,
+                 -sin(degToRad(drawArrow - 20)) * RadOffset * arrowScaling,
+                 -sin(degToRad(drawArrow)) * 0.8 * RadOffset * arrowScaling, 
+                 -sin(degToRad(drawArrow + 20)) * RadOffset * arrowScaling),
+               c(cos(degToRad(drawArrow)) * RadOffset * arrowScaling,
+                 -cos(degToRad(drawArrow - 20)) * RadOffset * arrowScaling,
+                 -cos(degToRad(drawArrow)) * 0.8 * RadOffset * arrowScaling,
+                 -cos(degToRad(drawArrow + 20)) * RadOffset * arrowScaling),
+               col = "navy")
+      
+      
+      lsegments(-apothem, 0, -RadOffset, 0)
+      lsegments(RadOffset, 0, apothem, 0)
+      lsegments(0, -apothem, 0, -RadOffset)  
+      lsegments(0, RadOffset, 0, apothem)  
     }
+ }
+  
+  
+  ## Direction Labels ## 
+  
+  drawDirectionLabels <- function(apothem = pltApothemLength,
+                                  TextMagnification = gridCex){
+    ltext(apothem * -1 * 0.95, 0.07 * apothem, "W", cex = TextMagnification)
+    ltext(0.07 * apothem, apothem * -1 * 0.95, "S", cex = TextMagnification)
+    ltext(0.07 * apothem, apothem * 0.95, "N", cex = TextMagnification)
+    ltext(apothem * 0.95, 0.07 * apothem, "E", cex = TextMagnification)
+  }
+ 
+  ## Interval Circles ## 
+  
+  drawIntervalCircles <- function(IntCircleAngle = AngleScaleRad,
+                                  IntCircleMaximum = ScaleMax,
+                                  IntCircleInterval = gridInterval,
+                                  IntCircleOffset = radialOffset,
+                                  IntCircleColor = gridCol,
+                                  IntCircleLineType = gridlty,
+                                  IntCircleLineWidth = gridLwd,
+                                  IntCircleResolution = gridRes 
+                                  ){
+    
+    radialCircleIntervals <-  seq(IntCircleOffset,
+                                  IntCircleMaximum + IntCircleOffset,
+                                  by = IntCircleInterval)
 
-    if (statistic == "prop.count") {
-      stat.fun <- length
-      stat.unit <- "%"
-      stat.scale <- "all"
-      stat.lab <- "Frequency of counts by wind direction (%)"
-      stat.fun2 <- function(x) format(mean(x, na.rm = TRUE), digits = 5)
-      stat.lab2 <- "mean"
-      stat.labcalm <- function(x) round(x, 1)
+
+    circleAngles <- seq(0, 2 * pi, length = IntCircleResolution)
+
+    # draw circles by connecting lines together
+    for (radialInterval in radialCircleIntervals) {
+      llines(radialInterval * sin(circleAngles),
+             radialInterval * cos(circleAngles),
+             col = IntCircleColor,
+             lwd = IntCircleLineWidth,
+             lty = IntCircleLineType)
     }
+    
 
-    if (statistic == "prop.mean") {
-      stat.fun <- function(x) sum(x, na.rm = TRUE)
-      stat.unit <- "%"
-      stat.scale <- "panel"
-      stat.lab <- "Proportion contribution to the mean (%)"
-      stat.fun2 <- function(x) format(mean(x, na.rm = TRUE), digits = 5)
-      stat.lab2 <- "mean"
-      stat.labcalm <- function(x) round(x, 1)
-    }
-
-    if (statistic == "abs.count" | statistic == "frequency") {
-      stat.fun <- length
-      stat.unit <- ""
-      stat.scale <- "none"
-      stat.lab <- "Count by wind direction"
-      stat.fun2 <- function(x) round(length(x), 0)
-      stat.lab2 <- "count"
-      stat.labcalm <- function(x) round(x, 0)
-    }
+    
+    
   }
-
-  if (is.list(statistic)) {
-
-    ## IN DEVELOPMENT
-
-    ## this section has no testing/protection
-    ## but allows users to supply a function
-    ## scale it by total data or panel
-    ## convert proportions to percentage
-    ## label it
-
-    stat.fun <- statistic$fun
-    stat.unit <- statistic$unit
-    stat.scale <- statistic$scale
-    stat.lab <- statistic$lab
-    stat.fun2 <- statistic$fun2
-    stat.lab2 <- statistic$lab2
-    stat.labcalm <- statistic$labcalm
-  }
-
-  ## variables we need
-  vars <- c(wd, ws)
-
-  diff <- FALSE ## i.e. not two sets of ws/wd
-  rm.neg <- TRUE ## will remove negative ws in check.prep
-
-  ## case where two met data sets are to be compared
-  if (!is.na(ws2) & !is.na(wd2)) {
-    vars <- c(vars, ws2, wd2)
-    diff <- TRUE
-    rm.neg <- FALSE
-    mydata$ws <- mydata[[ws2]] - mydata[[ws]]
-    mydata$wd <- mydata[[wd2]] - mydata[[wd]]
-
-    ## fix negative wd
-    id <- which(mydata$wd < 0)
-    if (length(id) > 0) mydata$wd[id] <- mydata$wd[id] + 360
-
-    pollutant <- "ws"
-    key.footer <- "ws"
-    wd <- "wd"
-    ws <- "ws"
-    vars <- c("ws", "wd")
-    if (missing(angle)) angle <- 10
-    if (missing(offset)) offset <- 20
-    ## set the breaks to cover all the data
-    if (is.na(breaks[1])) {
-      max.br <- max(ceiling(abs(c(
-        min(mydata$ws, na.rm = TRUE),
-        max(mydata$ws, na.rm = TRUE)
-      ))))
-      breaks <- c(-1 * max.br, 0, max.br)
-    }
-
-    if (missing(cols)) cols <- c("lightskyblue", "tomato")
-    seg <- 1
-  }
-
-  if (any(type %in% dateTypes)) vars <- c(vars, "date")
-
-  if (!is.null(pollutant)) vars <- c(vars, pollutant)
-
-  mydata <- cutData(mydata, type, ...)
-
-
-  mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE, remove.neg = rm.neg)
-
-  # original data to use later
-  mydata_orig <- mydata
-
-  # remove lines where ws is missing
-  # wd can be NA and ws 0 (calm)
-  id <- which(is.na(mydata[[ws]]))
-
-  if (length(id) > 0) {
-    mydata <- mydata[-id, ]
-  }
-
-  if (is.null(pollutant)) pollutant <- ws
-
-  mydata$x <- mydata[[pollutant]]
-
-  mydata[[wd]] <- angle * ceiling(mydata[[wd]] / angle - 0.5)
-  mydata[[wd]][mydata[[wd]] == 0] <- 360
-
-  ## flag calms as negatives
-  mydata[[wd]][mydata[, ws] == 0] <- -999 ## set wd to flag where there are calms
-  ## do after rounding or -999 changes
-
-  if (length(breaks) == 1) breaks <- 0:(breaks - 1) * ws.int
-
-  if (max(breaks) < max(mydata$x, na.rm = TRUE)) {
-    breaks <- c(breaks, max(mydata$x, na.rm = TRUE))
-  }
-
-  if (min(breaks) > min(mydata$x, na.rm = TRUE)) {
-    warning("Some values are below minimum break.")
-  }
-
-  breaks <- unique(breaks)
-  mydata$x <- cut(
-    mydata$x,
-    breaks = breaks, include.lowest = FALSE,
-    dig.lab = dig.lab
-  )
-
-  ## clean up cut intervals
-  labs <- gsub("[(]|[)]|[[]|[]]", "", levels(mydata$x))
-  labs <- gsub("[,]", " to ", labs)
-
-
-
-  ## statistic handling
-
-  prepare.grid <- function(mydata) {
-
-    ## these are all calms...
-    if (all(is.na(mydata$x))) {
-      weights <- data_frame(
-        Interval1 = NA, wd = NA,
-        calm = 100, panel.fun = NA, mean.wd = NA, freqs = NA
-      )
-    } else {
-      levels(mydata$x) <- c(paste("Interval", 1:length(labs), sep = ""))
-
-      all <- stat.fun(mydata[[wd]])
-      calm <- mydata[mydata[[wd]] == -999, ][[pollutant]]
-
-      calm <- stat.fun(calm)
-
-      weights <- tapply(
-        mydata[[pollutant]], list(mydata[[wd]], mydata$x),
-        stat.fun
-      )
-
-      freqs <- tapply(mydata[[pollutant]], mydata[[wd]], length)
-
-      ## scaling
-      if (stat.scale == "all") {
-        calm <- calm / all
-        weights <- weights / all
-      }
-
-      if (stat.scale == "panel") {
-        temp <- stat.fun(stat.fun(weights)) + calm
-        calm <- calm / temp
-        weights <- weights / temp
-      }
-
-      weights[is.na(weights)] <- 0
-      weights <- t(apply(weights, 1, cumsum))
-
-      if (stat.scale == "all" | stat.scale == "panel") {
-        weights <- weights * 100
-        calm <- calm * 100
-      }
-
-      panel.fun <- stat.fun2(mydata[[pollutant]])
-
-      ## calculate mean wd - useful for cases comparing two met data sets
-      u <- mean(sin(2 * pi * mydata[[wd]] / 360), na.rm = TRUE)
-      v <- mean(cos(2 * pi * mydata[[wd]] / 360), na.rm = TRUE)
-      mean.wd <- atan2(u, v) * 360 / 2 / pi
-
-      if (all(is.na(mean.wd))) {
-        mean.wd <- NA
-      } else {
-        if (mean.wd < 0) mean.wd <- mean.wd + 360
-        ## show as a negative (bias)
-        if (mean.wd > 180) mean.wd <- mean.wd - 360
-      }
-
-      weights <- bind_cols(
-        as_data_frame(weights),
-        data_frame(
-          wd = as.numeric(row.names(weights)),
-          calm = calm, panel.fun = panel.fun,
-          mean.wd = mean.wd, freqs = freqs
-        )
-      )
-    }
-
-    weights
-  }
-
-  if (paddle) {
-    poly <- function(wd, len1, len2, width, colour, x.off = 0, y.off = 0) {
-      theta <- wd * pi / 180
-      len1 <- len1 + off.set
-      len2 <- len2 + off.set
-      x1 <- len1 * sin(theta) - width * cos(theta) + x.off
-      x2 <- len1 * sin(theta) + width * cos(theta) + x.off
-      x3 <- len2 * sin(theta) - width * cos(theta) + x.off
-      x4 <- len2 * sin(theta) + width * cos(theta) + x.off
-      y1 <- len1 * cos(theta) + width * sin(theta) + y.off
-      y2 <- len1 * cos(theta) - width * sin(theta) + y.off
-      y3 <- len2 * cos(theta) + width * sin(theta) + y.off
-      y4 <- len2 * cos(theta) - width * sin(theta) + y.off
-      lpolygon(
-        c(x1, x2, x4, x3), c(y1, y2, y4, y3),
-        col = colour,
-        border = border
-      )
-    }
-  } else {
-    poly <- function(wd, len1, len2, width, colour, x.off = 0,
-                     y.off = 0) {
-      len1 <- len1 + off.set
-      len2 <- len2 + off.set
-
-      theta <- seq(
-        (wd - seg * angle / 2), (wd + seg * angle / 2),
-        length.out = (angle - 2) * 10
-      )
-      theta <- ifelse(theta < 1, 360 - theta, theta)
-      theta <- theta * pi / 180
-      x1 <- len1 * sin(theta) + x.off
-      x2 <- rev(len2 * sin(theta) + x.off)
-      y1 <- len1 * cos(theta) + x.off
-      y2 <- rev(len2 * cos(theta) + x.off)
-      lpolygon(c(x1, x2), c(y1, y2), col = colour, border = border)
-    }
-  }
-
-
-  results <- group_by(mydata, UQS(syms(type))) %>%
-    do(prepare.grid(.))
-
-  ## format
-  results$calm <- stat.labcalm(results$calm)
-  results$mean.wd <- stat.labcalm(results$mean.wd)
-
-  # function to correct bias
-  corr_bias <- function(results) {
-
-    # check to see if data for this type combination are rounded to 10 degrees
-    wd_select <- inner_join(mydata_orig, results[1, type], by = type)
-    if (!all(wd_select[[wd]] %% 10 == 0, na.rm = TRUE)) return(results)
-
-    wds <- seq(10, 360, 10)
-    tmp <- angle * ceiling(wds / angle - 0.5)
-    id <- which(tmp == 0)
-    if (length(id > 0)) tmp[id] <- 360
-    tmp <- table(tmp) ## number of sectors spanned
-    vars <- grep("Interval[1-9]", names(results)) ## the frequencies, without any calms
-    results[results[[wd]] != -999, vars] <-
-      results[results[[wd]] != -999, vars] * mean(tmp) / tmp
-    return(results)
-  }
-
-  ## correction for bias when angle does not divide exactly into 360
-  if (bias.corr) {
-    results <- group_by(results, UQS(syms(type))) %>%
-      do(corr_bias(.))
-  }
-
-
-
-  ## proper names of labelling###########################################
-  strip.dat <- strip.fun(results, type, auto.text)
-  strip <- strip.dat[[1]]
-  strip.left <- strip.dat[[2]]
-  pol.name <- strip.dat[[3]]
-
-  if (length(labs) < length(cols)) {
-    col <- cols[1:length(labs)]
-  } else {
-    col <- openColours(cols, length(labs))
-  }
-
-  ## normalise by sector
-
-  if (normalise) {
-    vars <- grep("Interval[1-9]", names(results))
-
-    ## original frequencies, so we can plot the wind frequency line
-    results$freq <- results[[max(vars)]]
-
-    results$freq <- ave(results$freq, results[type], FUN = function(x) x / sum(x))
-
-    ## scale by maximum frequency
-    results$norm <- results$freq / max(results$freq)
-
-    ## normalise
-    results[, vars] <- results[, vars] / results[[max(vars)]]
-
-    stat.lab <- "Normalised by wind sector"
-    stat.unit <- ""
-  }
-
-  if (is.null(max.freq)) {
-    max.freq <- max(
-      results[results$wd != -999, grep("Interval", names(results))],
-      na.rm = TRUE
+  
+  ## Interval Scale Text ## 
+  
+  placeRadialScaleText <- function(ScaleAngle = AngleScaleRad,
+                                   ScaleMaximum = ScaleMax,
+                                   ScaleInterval = gridInterval,
+                                   ScaleOffset = radialOffset,
+                                   ScaleUnit = statUnit,
+                                   ScaleTextMagnification = gridCex){
+    
+    radialScaleIntervals <-  seq(ScaleInterval, ScaleMaximum, ScaleInterval)
+
+    ltext((ScaleOffset + radialScaleIntervals) * sin(ScaleAngle),
+          (ScaleOffset + radialScaleIntervals) * cos(ScaleAngle),
+          paste(radialScaleIntervals, ScaleUnit, sep = "") ,
+          cex = ScaleTextMagnification
     )
-  } else {
-    max.freq <- max.freq
+    
+  }
+  
+  ##### draw the spokes of the windrose ##### 
+  
+  drawSpokes <- function(spokeData = dat, radialCols = radialCol){
+    if (nrow(spokeData) > 0) {
+      
+      drawPoly <- if (paddle) {  # with paddles
+        function(wd, len1, len2, width, colour, xOffset = 0, yOffset = 0) {
+          theta <- degToRad(wd)
+          len1 <- len1 + radialOffset
+          len2 <- len2 + radialOffset
+          
+          lpolygon(c(len1 * sin(theta) - width * cos(theta) + xOffset,  #x1
+                     len1 * sin(theta) + width * cos(theta) + xOffset,  #x2
+                     len2 * sin(theta) + width * cos(theta) + xOffset,  #x4
+                     len2 * sin(theta) - width * cos(theta) + xOffset), #x3 
+                   c(len1 * cos(theta) + width * sin(theta) + yOffset,  #y1
+                     len1 * cos(theta) - width * sin(theta) + yOffset,  #y2
+                     len2 * cos(theta) - width * sin(theta) + yOffset,  #y4
+                     len2 * cos(theta) + width * sin(theta) + yOffset), #y3
+                   col = colour,
+                   border = border)
+        }
+      } else { # without paddles
+        function(wd, len1, len2, width, colour, xOffset = 0, yOffset = 0) {
+          len1 <- len1 + radialOffset
+          len2 <- len2 + radialOffset
+          
+          theta <- degToRad(angle360(seq((wd - seg * angle / 2), 
+                                         (wd + seg * angle / 2),
+                                         length.out = (angle - 2) * 10)))
+          
+          lpolygon(c(len1 * sin(theta) + xOffset,       #x1
+                     rev(len2 * sin(theta) + xOffset)), #x2
+                   c(len1 * cos(theta) + xOffset,       #y1
+                     rev(len2 * cos(theta) + xOffset)), #y2
+                   col = colour, 
+                   border = border)
+        }
+      } 
+      
+      
+      boxWidths <- seq(0.002 ^ 0.25, 0.016 ^ 0.25, length.out = numIntervals) ^ 4 * 
+        maxFrequency * angle / 5
+      
+      spokeData$Interval0 <- 0 ## make a lower bound to refer to
+      
+      for (spokeIndex in 1:nrow(spokeData)) { ## go through wind angles 30, 60, ...
+        
+        for (radialDivide in seq(numIntervals)) { ## go through paddles x1, x2, ...
+          
+          eval(parse(text = paste(
+            "drawPoly(spokeData$wd[spokeIndex], spokeData$Interval", 
+            radialDivide - 1,
+            "[spokeIndex], spokeData$Interval", 
+            radialDivide, "[spokeIndex], width * boxWidths[",
+            radialDivide, "], colour = radialCols[", radialDivide, "])",
+            sep = ""
+          )))
+        }
+      }
+    }
+  }
+  
+  
+  
+  drawProbLines <- function(normalise, dat, seg, angle, radialOffset) {
+    if (normalise) {
+      # line shows probability wind direction is from a particular sector  
+      makeline <- function(i, dat) {
+        
+        theta <- degToRad(angle360(seq((dat$wd[i] - seg * angle / 2), 
+                                       (dat$wd[i] + seg * angle / 2),
+                                       length.out = (angle - 2) * 10)))
+        
+        lpolygon(c(radialOffset * sin(theta),                       #x1
+                   rev((dat$norm[i] + radialOffset) * sin(theta))), #x2 
+                 c(radialOffset * cos(theta),                       #y1
+                   rev((dat$norm[i] + radialOffset) * cos(theta))), #y2
+                 col = "transparent", 
+                 border = "black", 
+                 lwd = 2)
+      }
+      
+      lapply(1:nrow(dat), makeline, dat)
+    }
+    
+  }
+  
+
+ 
+  
+  placeAnnotations <- function (dat){
+    
+    ## check annotations ## 
+    isAnnotated <- !(annotate %in% c(FALSE, NA, NaN)) && !is.null(annotate)
+    if (isAnnotated) sub <- statLabel else sub <- NULL
+    
+    ## annotations e.g. calms, means etc
+    if (isAnnotated) { ## don't add calms for prop.mean for now...
+      if (annotate == "TRUE") {
+        if (!twoDatasetsPresent) annotate <- c("statistic" , "calm")
+        if (twoDatasetsPresent) annotate <- c("mean_ws" , "mean_wd")
+      }
+      annotate.col <- if (length(cols) == 1 && cols == "greyscale") {
+        "black" } else {"forestgreen"}
+      
+      annotations_to_place <- NULL
+      for(annotate.index in annotate){
+        annotations_to_place <- paste(
+          annotations_to_place, 
+          switch(
+            annotate.index,
+            statistic = paste(statLabel2, " = ", dat$panel.fun[1]),
+            calm = paste("calm = ", dat$calm[1], statUnit),
+            mean_ws = 
+              paste("mean ws = ", round(as.numeric(dat$panel.fun[1]), 1)),
+            mean_wd = paste("mean wd = ", round(dat$meanWindDir[1], 1)),
+            annotate.index
+          ), sep = "\n"
+        )
+      }
+      
+      ltext(
+        maxFrequency + radialOffset, 
+        -maxFrequency - radialOffset,
+        label = annotations_to_place,
+        adj = c(1, 0), 
+        cex = 0.7, 
+        col = annotate.col
+      )    
+    }
+    
+  }
+  
+  placeAveragePoint <- function (drawMeanPoint = gridAveragePt,
+                                 meanWD = meanWindDir,
+                                 meanSp = meanWindSpd,
+                                 RadOffset = radialOffset){
+    
+    if(drawMeanPoint){
+      lpoints(
+        sin(degToRad(meanWD)) * (RadOffset + meanSp),
+        cos(degToRad(meanWD)) * (RadOffset + meanSp),
+        pch = 8, cex = 2, col = "black")
+    }
+  }
+  
+ 
+  
+  
+  ##### defining panel function argument #####   
+
+  panel <- function(x, y, subscripts, ...) {
+    panel.xyplot(x, y, ...)
+    dat <- filter(plotData[subscripts, ], wd <= 360, wd >= 0)
+    drawAxis()
+    drawDirectionLabels()
+    drawIntervalCircles() 
+    placeRadialScaleText()   
+    drawSpokes(dat, radialCol)
+    drawProbLines(normalise, dat, seg, angle, radialOffset)
+    placeAnnotations(dat)
+    placeAveragePoint()
   }
 
-  off.set <- max.freq * (offset / 100)
-  box.widths <- seq(
-    0.002 ^ 0.25, 0.016 ^ 0.25,
-    length.out = length(labs)
-  ) ^ 4
-  box.widths <- box.widths * max.freq * angle / 5
+  
+  ##### defining legend argument ##### 
 
-  ## key, colorkey, legend
-  legend <- list(
-    col = col, space = key.position, auto.text = auto.text,
-    labels = labs, footer = key.footer, header = key.header,
+    ## Set label values ## 
+  legend <- makeOpenKeyLegend(key, list(
+    col = radialCol, space = key.position, auto.text = auto.text,
+    labels = paste0(dispDecPlaces(breaks[1:numIntervals], dig.lab),
+                    " to " , 
+                    dispDecPlaces(breaks[2:(numIntervals + 1)], dig.lab)) , 
+    footer = key.footer, header = key.header,
     height = 0.60, width = 1.5, fit = "scale",
     plot.style = if (paddle) "paddle" else "other"
-  )
-
-  legend <- makeOpenKeyLegend(key, legend, "windRose")
-
-
-  temp <- paste(type, collapse = "+")
-  myform <- formula(paste("Interval1 ~ wd | ", temp, sep = ""))
-
-  mymax <- 2 * max.freq
-
-  # check to see if grid.line is a list or not and set grid line properties
-  grid.value <- NULL
-
-  if (is.list(grid.line)) {
-    if (is.null(grid.line[["value"]])) {
-      grid.value <- NULL
-    } else {
-      grid.value <- grid.line[["value"]]
-    }
-
-    if (is.null(grid.line[["lty"]])) {
-      grid.lty <- 1
-    } else {
-      grid.lty <- grid.line[["lty"]]
-    }
-
-    if (is.null(grid.line[["col"]])) {
-      grid.col <- "grey85"
-    } else {
-      grid.col <- grid.line[["col"]]
-    }
-  } else {
-    grid.value <- grid.line
-    grid.lty <- 1
-    grid.col <- "grey85"
-  }
-
-  myby <- if (is.null(grid.value)) pretty(c(0, mymax), 10)[2] else grid.value
-
-  if (myby / mymax > 0.9) myby <- mymax * 0.9
-
-  is_annotated <- !(annotate %in% c(FALSE, NA, NaN)) &&   !is.null(annotate)
-  if (is_annotated) sub <- stat.lab else sub <- NULL
-
-  xy.args <- list(
-    x = myform,
-    xlim = 1.03 * c(-max.freq - off.set, max.freq + off.set),
-    ylim = 1.03 * c(-max.freq - off.set, max.freq + off.set),
-    data = results,
+  ), "windRose") 
+  
+  
+    
+  ################## Set Plot Function Arguments ##############################
+  
+  xyArgs <- list(
+    x = formula(paste("Interval1 ~ wd | ",paste(type, collapse="+"),sep = "")),
+    data = plotData,
+    xlim = 1.03 * c(-maxFrequency - radialOffset, maxFrequency + radialOffset),
+    ylim = 1.03 * c(-maxFrequency - radialOffset, maxFrequency + radialOffset),
     type = "n",
     sub = sub,
     strip = strip,
-    strip.left = strip.left,
+    strip.left = stripLeft,
     as.table = TRUE,
     aspect = 1,
     par.strip.text = list(cex = 0.8),
     scales = list(draw = FALSE),
-
-    panel = function(x, y, subscripts, ...) {
-      panel.xyplot(x, y, ...)
-      angles <- seq(0, 2 * pi, length = 360)
-      sapply(
-        seq(off.set, mymax, by = myby),
-        function(x) llines(
-            x * sin(angles), x * cos(angles),
-            col = grid.col, lwd = 1,
-            lty = grid.lty
-          )
-      )
-
-      dat <- results[subscripts, ] ## subset of data
-      dat <- filter(dat, wd <= 360, wd >= 0)
-
-      upper <- max.freq + off.set
-
-      ## add axis lines
-      lsegments(-upper, 0, upper, 0)
-      lsegments(0, -upper, 0, upper)
-
-      ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
-      ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
-      ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
-      ltext(upper * 0.95, 0.07 * upper, "E", cex = 0.7)
-
-      if (nrow(dat) > 0) {
-        dat$Interval0 <- 0 ## make a lower bound to refer to
-
-        for (i in 1:nrow(dat)) { ## go through wind angles 30, 60, ...
-
-          for (j in seq_along(labs)) { ## go through paddles x1, x2, ...
-
-            tmp <- paste(
-              "poly(dat$wd[i], dat$Interval", j - 1,
-              "[i], dat$Interval", j, "[i], width * box.widths[",
-              j, "], col[", j, "])",
-              sep = ""
-            )
-
-
-            eval(parse(text = tmp))
-          }
-        }
-      }
-
-      if (normalise) {
-        panel.wdprob(dat, seg, angle, off.set)
-      }
-
-      ltext(
-        seq((myby + off.set), mymax, myby) * sin(pi * angle.scale / 180),
-        seq((myby + off.set), mymax, myby) * cos(pi * angle.scale / 180),
-        paste(seq(myby, mymax, by = myby), stat.unit, sep = ""),
-        cex = 0.7
-      )
-
-      ## annotations e.g. calms, means etc
-      if (is_annotated) { ## don't add calms for prop.mean for now...
-        if (annotate == "TRUE") {
-          if (!diff) annotate <- c("statistic" , "calm")
-          if (diff) annotate <- c("mean_ws" , "mean_wd")
-        }
-        
-        annotations_to_place <- NULL
-        for(annotate.index in annotate){
-          annotations_to_place <- paste(
-            annotations_to_place, 
-            switch(
-              annotate.index,
-              statistic = paste(stat.lab2, " = ", dat$panel.fun[1]),
-              calm = paste("calm = ", dat$calm[1], stat.unit),
-              mean_ws = paste("mean ws = ", round(as.numeric(dat$panel.fun[1]), 1)),
-              mean_wd = paste("mean wd = ", round(dat$mean.wd[1], 1)),
-              annotate.index
-            ), sep = "\n"
-          )
-        }
-        
-        ltext(
-          max.freq + off.set, -max.freq - off.set,
-          label = annotations_to_place  ,
-          adj = c(1, 0), cex = 0.7, col = calm.col
-        )        
-        
-      }
-    }, legend = legend
+    panel = panel, 
+    legend = legend
   )
-
-  ## reset for extra
-  xy.args <- listUpdate(xy.args, extra)
-
-  ## plot
-  plt <- do.call(xyplot, xy.args)
-
-
-  ## output ################################################################################
-
+  
+  
+  
+  ################## Set Lattice Graphics Information #########################
+  
+  current.strip <- trellis.par.get("strip.background")
+  current.font <- trellis.par.get("fontsize")
+  
+  
+  if (length(cols) == 1 && cols == "greyscale") {
+    trellis.par.set(list(strip.background = list(col = "white")))}  
+  
+  ## reset graphic parameters ## 
+  on.exit(trellis.par.set(
+    strip.background = current.strip,
+    fontsize = current.font
+  )) 
+  
+  
+ 
+  ################## Display Output ###########################################  
+  
+  xyArgs <- listUpdate(xyArgs, extra)  ## reset for extra
+ 
+  plt <- do.call(xyplot, xyArgs)  ## plot
+  
   if (length(type) == 1) {
     plot(plt)
   } else {
-    plt <- useOuterStrips(plt, strip = strip, strip.left = strip.left)
+    plt <- useOuterStrips(plt, strip = strip, strip.left = stripLeft)
     plot(plt)
   }
-
-
-  newdata <- results
-
+ 
+  newdata <- plotData
+  
   output <- list(plot = plt, data = newdata, call = match.call())
   class(output) <- "openair"
   invisible(output)
-}
-
-## adds a line showing probability wind direction is from a particular sector
-## used when normalise = TRUE
-
-panel.wdprob <- function(dat, seg, angle, off.set) {
-  len1 <- off.set
-
-  x.off <- 0
-  y.off <- 0
-
-  makeline <- function(i, dat) {
-    theta <- seq(
-      (dat$wd[i] - seg * angle / 2), (dat$wd[i] + seg * angle / 2),
-      length.out = (angle - 2) * 10
-    )
-    theta <- ifelse(theta < 1, 360 - theta, theta)
-    theta <- theta * pi / 180
-    x1 <- len1 * sin(theta) + x.off
-    x2 <- rev((dat$norm[i] + off.set) * sin(theta) + x.off)
-    y1 <- len1 * cos(theta) + x.off
-    y2 <- rev((dat$norm[i] + off.set) * cos(theta) + x.off)
-    lpolygon(c(x1, x2), c(y1, y2), col = "transparent", border = "black", lwd = 2)
   }
 
-  lapply(1:nrow(dat), makeline, dat)
-}
+
