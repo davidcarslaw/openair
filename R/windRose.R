@@ -477,16 +477,18 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   
   
   ##### breaks guards #####
-  
+ 
   noMaxInterval <- if (is.list(breaks)){ 
     if ("noMaxInterval" %in% breaks) TRUE else FALSE} else FALSE
   
   if (is.list(breaks)){
     # if list only keep numeric elements of the list
     breaks <- unlist(breaks[unlist(lapply(breaks, is.numeric))])
+    
     if (is.null(breaks)){breaks <- breaksDEFAULT}
   }
-    
+  
+  
   if (!is.numeric(breaks)) {
     warningWindRose("breaks must be numeric\n",
                     "defaulting to breaks = ",  breaksDEFAULT)
@@ -498,6 +500,13 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       warningWindRose("breaks must be positive\n",
                       "defaulting to breaks = ",  breaksDEFAULT)
       breaks <- breaksDEFAULT}
+    
+    if (breaks%%1 != 0){
+      warningWindRose("breaks must be a whole number\n",
+                      "defaulting to breaks = ",  breaksDEFAULT)
+      breaks <- breaksDEFAULT      
+      
+    }
   }else{
     if (any(duplicated(breaks))) {
       warningWindRose("breaks cannot have repeating values\n",
@@ -511,7 +520,6 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       breaks <- breaksDEFAULT
     }
   }
-
 
    
   ##### statistics guards #####
@@ -629,8 +637,6 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   
   if (!twoDatasetsPresent) {
     statdata <- cutData(mydata, type, ...) # data conditioning
-    mydata <- statdata 
-#    statdata <- cutData(mydata, type, ...) # data conditioning
     statdata[[ws]] <- mydata[[ws]] 
     statdata[[wd]] <- angle360(mydata[[wd]]) 
   }else{    
@@ -679,9 +685,14 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   value_min <- min(statdata$value, na.rm = TRUE) 
   
   ##### guards for breaks ##### 
- 
+
   if (length(breaks) == 1){
-    breaks <- seq(0, (breaks - 1) * ws.int, by = ws.int)
+    if (breaks != 1 )
+    {
+      breaks <- seq(0, (breaks - 1) * ws.int, by = ws.int)
+    }else{
+      breaks <- c(0, value_max)
+    }
   }else{
     if (min(breaks) > value_min) {
       warningWindRose("Some values are less than minimum break.")
@@ -697,18 +708,19 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   }
   
   
+  
   ##### Create intervals for statistical value  ##### 
   
-  numIntervals <- length(breaks) - 1
+  
+  numIntervals <- length(breaks) - 1  
   statdata$intervals <-  cut(statdata$value,
-                             breaks = breaks, 
-                             include.lowest = FALSE, 
-                             dig.lab = dig.lab, 
-                             labels = paste0("Interval", 
-                                             as.character(1:numIntervals))
-  )
-  
-  
+                               breaks = breaks, 
+                               include.lowest = FALSE, 
+                               dig.lab = dig.lab, 
+                               labels = paste0("Interval", 
+                                               as.character(1:numIntervals)))
+
+
   ##### Create intervals for Wind direction #####
   
   statdata$wdInterval <- angle360(angle * ceiling(statdata[[wd]] / angle - 0.5)) 
@@ -798,47 +810,50 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   prepare.grid <- function(statdata) {
     
     if (all(is.na(statdata$intervals))) { # for all calms...
-      weights <- data_frame(Interval1 = NA, wd = NA, calm = 100, 
+      AngIntCrosstab <- data_frame(Interval1 = NA, wd = NA, calm = 100, 
                             panel.fun = NA , meanWindDir = NA, freqs = NA)
-    }else {
+    } else {
      
       calm <- statFun(statdata[statdata[[wd]] == calmANGLE, ][[statdataValue]])
       
-      weights <- tapply(statdata[[statdataValue]], 
+      AngIntCrosstab <- tapply(statdata[[statdataValue]], 
                         list(statdata$wdInterval, statdata$intervals),
                         statFun)
-      freqs <- tapply(statdata[[statdataValue]], statdata$wdInterval, length)        
-      
+
+      freqs <- tapply(statdata[[statdataValue]], statdata$wdInterval, length)  
+
       ## scale the grid ##
       if (statScale == "all") {
         all <- statFun(statdata$wdInterval)
         calm <- calm / all * 100
-        weights <- weights / all * 100
+        AngIntCrosstab <- AngIntCrosstab / all * 100
       }
       
       if (statScale == "panel") {
-        calm <- calm / (statFun(statFun(weights)) + calm) * 100
-        weights <- weights / (statFun(statFun(weights)) + calm) * 100
+        calm <- calm / (statFun(statFun(AngIntCrosstab)) + calm) * 100
+        AngIntCrosstab <- AngIntCrosstab / (statFun(statFun(AngIntCrosstab)) + calm) * 100
       }
       
-      weights[is.na(weights)] <- 0
-      weights <- t(apply(weights, 1, cumsum))
+      AngIntCrosstab[is.na(AngIntCrosstab)] <- 0
+
+      if (numIntervals > 1){
+        AngIntCrosstab <- t(apply(AngIntCrosstab, 1, cumsum))
+      }
       
       panel.fun <- statFun2(statdata[[statdataValue]])
-            
-
-      
+ 
       if (all(is.na(meanWindDir))) {meanWindDir <- NA}
-      
-      weights <- bind_cols(as_data_frame(weights),
-                           data_frame(
-                             wd = as.numeric(row.names(weights)),
-                             calm = calm, panel.fun = panel.fun,
-                             meanWindDir = meanWindDir, freqs = freqs
-                           )
-      )
+     
+        
+        AngIntCrosstab <- bind_cols(as_data_frame(AngIntCrosstab),
+                                    data_frame(
+                                      wd = as.numeric(row.names(AngIntCrosstab)),
+                                      calm = calm, panel.fun = panel.fun,
+                                      meanWindDir = meanWindDir, freqs = freqs
+                                    ))
+
     }
-    return(weights)
+    return(AngIntCrosstab)
   }
   
 
@@ -1235,12 +1250,12 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   panel <- function(x, y, subscripts, ...) {
     panel.xyplot(x, y, ...)
     dat <- filter(plotData[subscripts, ], wd <= 360, wd >= 0)
-    drawAxis()
-    drawDirectionLabels()
-    drawIntervalCircles() 
     placeRadialScaleText()   
     drawSpokes(dat, radialCol)
     drawProbLines(normalise, dat, seg, angle, radialOffset)
+    drawIntervalCircles()   
+    drawDirectionLabels()   
+    drawAxis()    
     placeAnnotations(dat)
     placeAveragePoint()
   }
@@ -1318,5 +1333,4 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   class(output) <- "openair"
   invisible(output)
   }
-
-
+  
