@@ -1,0 +1,56 @@
+---
+title: "Creating a Wind Rose in R"
+author: '-'
+date: "March 30, 2018"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{Creating a windRose plot}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+# This vignette performs two purposes.
+# (1) Provide a detailed description of the nuiances of the openair package for educational purposes.
+# (2) Each example can doubles as a unit test.  When the vignette is knitted, it is easy to tell if and where the code breaks.
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Getting Started with windRose - The default example
+
+The default example wind rose is straightforward to plot.
+
+```{r basic windrose}
+library(openair)
+windRose(mydata)
+```
+
+
+## Less is More - A Test Wind Rose
+
+This example demonstrates a minimal test wind rose to clarify how the wind rose function works.
+
+windRose requires data to be formatted as a dataframe.  
+By default windRose expects the dataframe to have two columns: 
+one named ***ws*** for wind speed and another named ***wd*** for wind direction. 
+
+The following example creates such a dataframe called ***testData***.  
+Using windRose in a minimal configuration,  ***testData*** is plotted with a a single spoke radiating at 90 degrees.
+
+
+```{r wind direction windrose}
+library(openair)
+testData <- data.frame(ws = c(1,1), wd = c(90,90))
+windRose(testData, 
+         breaks = 1,                     # breaks = 1 disables wind speed intervals
+         angle = 30,                     # sets the angle of the spoke to 15 degrees
+         paddle = FALSE,                 # draws spokes as wedges
+         annotate = FALSE,               # removes default annotations
+         col = "blue",                   # draw a blue spoke  
+         grid.line = list(max = 100),    # limits grid lines to 100%
+         key = FALSE,                    # remove the key  
+         main = "Test Wind Rose")
+
+```
