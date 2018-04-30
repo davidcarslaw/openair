@@ -501,7 +501,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     }
 
 
-    if ("wd" %in% names(mydata){
+    if ("wd" %in% names(mydata)){
       if (statistic != "data.cap") {
         if (is.numeric(mydata$wd)) {
 
