@@ -7,6 +7,7 @@
 - convert internal `mydata` to a 'tibble' for easier printing.
 - allow `npoints = NA` in `trajPlot` to suppress plotting of interval points.
 - fix bias correction bug in `windRose` when ws/wd have different names
+- fix bug in `timeAverage` for wind direction (`wd`) when `statistic = "data.cap"`
 
 ## openair 2.3-0
 
