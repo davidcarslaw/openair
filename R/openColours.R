@@ -48,6 +48,9 @@
 ##' categorical data types. The pre-defined schemes are "Accent",
 ##' "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3".
 ##'
+##' A colorblind safe pallette "cbPalette" is available based on the work of:
+##' http://jfly.iam.u-tokyo.ac.jp/color/
+##'
 ##' Note that because of the way these schemes have been developed
 ##' they only exist over certain number of colour gradations
 ##' (typically 3--10) --- see ?\code{brewer.pal} for actual
@@ -86,7 +89,9 @@ openColours <- function(scheme = "default", n = 100) {
   brewer.n <- c(rep(9, 18), rep(9, 9), c(8, 8, 12, 9, 8, 9, 8, 12))
 
   ## predefined schemes
-  schemes <- c("increment", "default", "brewer1", "heat", "jet", "hue", "greyscale", brewer.col)
+  schemes <- c("increment", "default", "brewer1", "heat", "jet", "hue", 
+               "greyscale", brewer.col, "cbPalette")
+
 
   ## schemes
   heat <- colorRampPalette(brewer.pal(9, "YlOrRd"), interpolate = "spline")
@@ -144,6 +149,13 @@ openColours <- function(scheme = "default", n = 100) {
 
   greyscale <- grey(seq(0.9, 0.1, length = n))
 
+  # The palette with grey:
+  cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  if(missing(n)){n<-length(cbPalette)}
+  if (scheme == "cbPalette" && n > length(cbPalette)){
+    stop(paste("To use a color blind pallette n cannot exceed", length(cbPalette)))
+  }
+  
   ## error catcher
   if (length(scheme) == 1) {
     if (scheme %in% brewer.col) cols <- find.brewer(scheme, n)
@@ -155,6 +167,7 @@ openColours <- function(scheme = "default", n = 100) {
     if (scheme == "jet") cols <- jet(n)
     if (scheme == "hue") cols <- hue
     if (scheme == "greyscale") cols <- greyscale
+    if (scheme == "cbPalette") cols <- cbPalette
   }
 
   if (!any(scheme %in% schemes)) { # assume user has given own colours
