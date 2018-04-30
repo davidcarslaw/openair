@@ -31,6 +31,9 @@ Qualitative palettes are useful for differentiating between
 categorical data types. The pre-defined schemes are "Accent",
 "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3".
 
+A colorblind safe pallette "cbPalette" is available based on the work of:
+http://jfly.iam.u-tokyo.ac.jp/color/
+
 Note that because of the way these schemes have been developed
 they only exist over certain number of colour gradations
 (typically 3--10) --- see ?\code{brewer.pal} for actual

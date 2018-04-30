@@ -150,11 +150,22 @@ openColours <- function(scheme = "default", n = 100) {
   greyscale <- grey(seq(0.9, 0.1, length = n))
 
   # The palette with grey:
-  cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-  if(missing(n)){n<-length(cbPalette)}
-  if (scheme == "cbPalette" && n > length(cbPalette)){
-    stop(paste("To use a color blind pallette n cannot exceed", length(cbPalette)))
+  cbPalette <- function(n) {
+    
+    cols <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", 
+              "#D55E00", "#CC79A7")
+    
+    if (n >= 1 && n < 9) {
+      
+      cols <- cols[1:n] 
+      
+    } else {
+    
+      warning("Too many colours selected. Should be 1 to 8.")
+    }
   }
+    
+  
   
   ## error catcher
   if (length(scheme) == 1) {
@@ -167,7 +178,7 @@ openColours <- function(scheme = "default", n = 100) {
     if (scheme == "jet") cols <- jet(n)
     if (scheme == "hue") cols <- hue
     if (scheme == "greyscale") cols <- greyscale
-    if (scheme == "cbPalette") cols <- cbPalette
+    if (scheme == "cbPalette") cols <- cbPalette(n)
   }
 
   if (!any(scheme %in% schemes)) { # assume user has given own colours
