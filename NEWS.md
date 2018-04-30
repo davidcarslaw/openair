@@ -8,6 +8,7 @@
 - allow `npoints = NA` in `trajPlot` to suppress plotting of interval points.
 - fix bias correction bug in `windRose` when ws/wd have different names
 - fix bug in `timeAverage` for wind direction (`wd`) when `statistic = "data.cap"`
+- New built-in colour palette for the colour blind "cbPalette". Note maximum number of colours is 8 e.g. `windRose(mydata, col = "cbPalette", breaks = 6)`. Thanks to Jerry Martin.
 
 ## openair 2.3-0
 
