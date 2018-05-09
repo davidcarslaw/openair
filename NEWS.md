@@ -1,4 +1,6 @@
-## openair 2.3-99
+## openair 2.4-99
+
+## openair 2.4-0
 
 - use `lubridate` in `timeAverage` to improve speed / simplicity
 - make sure all strip colours are white for `openair` objects
