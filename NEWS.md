@@ -1,5 +1,7 @@
 ## openair 2.4-99
 
+- add simple versions of **viridis** colour palettes: "viridis", plasma", "magma", "inferno" and "cividis" e.g. `polarPlot(mydata, cols = "plasma")`
+
 ## openair 2.4-0
 
 - use `lubridate` in `timeAverage` to improve speed / simplicity

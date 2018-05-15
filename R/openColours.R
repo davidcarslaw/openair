@@ -90,12 +90,39 @@ openColours <- function(scheme = "default", n = 100) {
 
   ## predefined schemes
   schemes <- c("increment", "default", "brewer1", "heat", "jet", "hue", 
-               "greyscale", brewer.col, "cbPalette")
+               "greyscale", brewer.col, "cbPalette", "viridis", "magma",
+               "inferno", "plasma", "cividis")
 
 
   ## schemes
   heat <- colorRampPalette(brewer.pal(9, "YlOrRd"), interpolate = "spline")
 
+  viridis <- colorRampPalette(c(
+    "#440154FF", "#482878FF", "#3E4A89FF", "#31688EFF", "#26828EFF", "#1F9E89FF", 
+    "#35B779FF", "#6DCD59FF", "#B4DE2CFF", "#FDE725FF"
+  ))
+  
+  inferno <- colorRampPalette(c(
+    "#000004FF", "#1B0C42FF", "#4B0C6BFF", "#781C6DFF", "#A52C60FF", "#CF4446FF",
+    "#ED6925FF", "#FB9A06FF", "#F7D03CFF", "#FCFFA4FF"
+  ))
+  
+  magma <- colorRampPalette(c(
+    "#000004FF", "#180F3EFF", "#451077FF", "#721F81FF", "#9F2F7FFF", "#CD4071FF",
+    "#F1605DFF", "#FD9567FF", "#FEC98DFF", "#FCFDBFFF"
+  ))
+  
+  plasma <- colorRampPalette(c(
+    "#0D0887FF", "#47039FFF", "#7301A8FF", "#9C179EFF", "#BD3786FF", "#D8576BFF",
+    "#ED7953FF", "#FA9E3BFF", "#FDC926FF", "#F0F921FF"
+  ))
+  
+  cividis <- colorRampPalette(c(
+    "#00204DFF", "#00336FFF", "#39486BFF", "#575C6DFF", "#707173FF", "#8A8779FF",
+    "#A69D75FF", "#C4B56CFF", "#E4CF5BFF", "#FFEA46FF"
+  ))
+  
+  
   jet <- colorRampPalette(c(
     "#00007F", "blue", "#007FFF", "cyan",
     "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"
@@ -176,6 +203,11 @@ openColours <- function(scheme = "default", n = 100) {
     if (scheme %in% brewer.col) cols <- find.brewer(scheme, n)
     if (scheme == "heat") cols <- heat(n)
     if (scheme == "jet") cols <- jet(n)
+    if (scheme == "viridis") cols <- viridis(n)
+    if (scheme == "magma") cols <- magma(n)
+    if (scheme == "inferno") cols <- inferno(n)
+    if (scheme == "plasma") cols <- plasma(n)
+    if (scheme == "cividis") cols <- cividis(n)
     if (scheme == "hue") cols <- hue
     if (scheme == "greyscale") cols <- greyscale
     if (scheme == "cbPalette") cols <- cbPalette(n)
