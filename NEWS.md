@@ -1,6 +1,7 @@
 ## openair 2.4-99
 
 - add simple versions of **viridis** colour palettes: "viridis", "plasma", "magma", "inferno" and "cividis" e.g. `polarPlot(mydata, cols = "plasma")`
+- allow option `align` to be used in `aqStats` to deteremine how rolling means are calculated. Can take the values "center" (default), "left" and "right".
 
 ## openair 2.4-0
 
