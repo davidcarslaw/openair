@@ -240,7 +240,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     vars <- c(type, "cluster")
 
     clusters <- group_by(traj, UQS(syms(vars))) %>%
-      summarise(n = n()) %>%
+      tally() %>%
       mutate(freq = round(100 * n / sum(n), 1))
 
     ## make each panel add up to 100

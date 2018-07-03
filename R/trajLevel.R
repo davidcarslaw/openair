@@ -367,8 +367,8 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     ## calculate the mean of points in each cell
     mydata <- group_by(mydata, UQS(syms(vars))) %>%
       summarise(
+        N = length(date),
         date = head(date, 1),
-        N = n(),
         count = mean(UQ(sym(pollutant)), na.rm = TRUE)
       )
 
@@ -393,7 +393,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     ## need date for later use of type
 
     mydata <- group_by(mydata, UQS(syms(vars))) %>%
-      summarise(date = head(date, 1), count = n())
+      summarise(count = length(date), date = head(date, 1))
 
     mydata[[pollutant]] <- 100 * mydata$count / max(mydata$count)
   }
@@ -407,8 +407,8 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     ## calculate the proportion of points in cell with value > Q90
     mydata <- group_by(mydata, UQS(syms(vars))) %>%
       summarise(
+        N = length(date),
         date = head(date, 1),
-        N = n(),
         count = length(which(UQ(sym(pollutant)) > Q90)) / N
       )
 
@@ -443,8 +443,8 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     ## calculate percentage of points for high data
     high <- group_by(mydata, UQS(syms(vars))) %>%
       summarise(
+        N = length(date),
         date = head(date, 1),
-        N = n(),
         count = length(which(UQ(sym(pollutant)) > Q90))
       )
 

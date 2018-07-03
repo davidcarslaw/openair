@@ -7,8 +7,8 @@
 ##'
 ##' This function calculates a range of common and air pollution-specific
 ##' statistics from a data frame. The statistics are calculated on an annual
-##' basis and the input is assumed to be hourly data. The function can cope
-##' with several sites and years. The user can control the output by setting
+##' basis and the input is assumed to be hourly data. The function can cope with
+##' several sites and years. The user can control the output by setting
 ##' \code{transpose} appropriately.
 ##'
 ##' Note that the input data is assumed to be in mass units e.g. ug/m3 for all
@@ -16,9 +16,8 @@
 ##'
 ##' The following statistics are calculated:
 ##'
-##' \itemize{
-##' \item \bold{data.capture} --- percentage data capture
-##' over a full year.
+##' \itemize{ \item \bold{data.capture} --- percentage data capture over a full
+##' year.
 ##'
 ##' \item \bold{mean} --- annual mean.
 ##'
@@ -37,35 +36,38 @@
 ##' \item \bold{percentile.95} --- 95th percentile. Note that several
 ##' percentiles can be calculated.
 ##'
-##' \item \bold{roll.8.O3.gt.100} --- number of days when the daily
-##' maximum rolling 8-hour mean ozone concentration is >100
-##' ug/m3. This is the target value.
+##' \item \bold{roll.8.O3.gt.100} --- number of days when the daily maximum
+##' rolling 8-hour mean ozone concentration is >100 ug/m3. This is the target
+##' value.
 ##'
-##'  \item \bold{roll.8.O3.gt.120} --- number of days when the daily
-##' maximum rolling 8-hour mean ozone concentration is >120
-##' ug/m3. This is the Limit Value not to be exceeded > 10 days a year.
+##' \item \bold{roll.8.O3.gt.120} --- number of days when the daily maximum
+##' rolling 8-hour mean ozone concentration is >120 ug/m3. This is the Limit
+##' Value not to be exceeded > 10 days a year.
 ##'
-##' \item \bold{AOT40} --- is the accumulated amount of ozone over the
-##' threshold value of 40 ppb for daylight hours in the growing season
-##' (April to September). Note that \code{latitude} and
-##' \code{longitude} can also be passed to this calculation.
+##' \item \bold{AOT40} --- is the accumulated amount of ozone over the threshold
+##' value of 40 ppb for daylight hours in the growing season (April to
+##' September). Note that \code{latitude} and \code{longitude} can also be
+##' passed to this calculation.
 ##'
 ##' \item \bold{hours.gt.200} --- number of hours NO2 is more than 200 ug/m3.
 ##'
 ##' \item \bold{days.gt.50} --- number of days PM10 is more than 50 ug/m3. }
 ##'
-##' There can be small discrepancies with the AURN due to the
-##' treatment of rounding data. The \code{aqStats} function does not
-##' round, whereas AURN data can be rounded at several stages during
-##' the calculations.
+##' For the rolling means, the user can supply the option \code{align}, which
+##' can be "centre" (default), "left" or "right". See \code{rollingMean} for
+##' more details.
+##'
+##' There can be small discrepancies with the AURN due to the treatment of
+##' rounding data. The \code{aqStats} function does not round, whereas AURN data
+##' can be rounded at several stages during the calculations.
 ##'
 ##' @param mydata A data frame containing a \code{date} field of hourly data.
 ##' @param pollutant The name of a pollutant e.g. \code{pollutant = c("o3",
 ##'   "pm10")}.
-##' @param data.thresh The data capture threshold in %. No values are
-##'   calculated if data capture over the period of interest is less than this
-##'   value. \code{data.thresh} is used for example in the calculation of daily
-##'   mean values from hourly data. If there are less than \code{data.thresh}
+##' @param data.thresh The data capture threshold in %. No values are calculated
+##'   if data capture over the period of interest is less than this value.
+##'   \code{data.thresh} is used for example in the calculation of daily mean
+##'   values from hourly data. If there are less than \code{data.thresh}
 ##'   percentage of measurements available in a period, \code{NA} is returned.
 ##' @param percentile Percentile values to calculate for each pollutant.
 ##' @param transpose The default is to return a data frame with columns
@@ -81,7 +83,7 @@
 ##' ## example is for illustrative purposes only
 ##' aqStats(selectByDate(mydata, year = 2004), pollutant = "no2")
 ##'
-##'
+##' 
 aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(95, 99),
                     transpose = FALSE, ...) {
 
@@ -168,7 +170,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
       do(rollingMean(
         .,
         pollutant = pollutant, data.thresh = data.thresh,
-        width = 8, new.name = pollutant
+        width = 8, new.name = pollutant, ...
       )) %>%
       do(timeAverage(
         .,
@@ -181,7 +183,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
       do(rollingMean(
         .,
         pollutant = pollutant, data.thresh = data.thresh,
-        width = 24, new.name = pollutant
+        width = 24, new.name = pollutant, ...
       )) %>%
       do(timeAverage(
         .,
@@ -200,7 +202,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 
     if (length(grep("o3", pollutant, ignore.case = TRUE)) == 1) {
       rollingO3 <- group_by(mydata, year) %>%
-        do(rollingMean(., pollutant, data.thresh = data.thresh)) %>%
+        do(rollingMean(., pollutant, data.thresh = data.thresh, ...)) %>%
         do(timeAverage(
           .,
           avg.time = "day", statistic = "max",
@@ -212,7 +214,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
       rollingO3$date <- Mean$date
 
       rollingO3b <- group_by(mydata, year) %>%
-        do(rollingMean(., pollutant, data.thresh = data.thresh)) %>%
+        do(rollingMean(., pollutant, data.thresh = data.thresh, ...)) %>%
         do(timeAverage(
           .,
           avg.time = "day", statistic = "max",

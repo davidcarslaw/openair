@@ -1,4 +1,9 @@
-## openair 2.3-99
+## openair 2.4-2
+
+- add simple versions of **viridis** colour palettes: "viridis", "plasma", "magma", "inferno" and "cividis" e.g. `polarPlot(mydata, cols = "plasma")`
+- allow option `align` to be used in `aqStats` to determine how rolling means are calculated. Can take the values "center" (default), "left" and "right".
+
+## openair 2.4-0
 
 - use `lubridate` in `timeAverage` to improve speed / simplicity
 - make sure all strip colours are white for `openair` objects
@@ -8,6 +13,7 @@
 - allow `npoints = NA` in `trajPlot` to suppress plotting of interval points.
 - fix bias correction bug in `windRose` when ws/wd have different names
 - fix bug in `timeAverage` for wind direction (`wd`) when `statistic = "data.cap"`
+- New built-in colour palette for the colour blind "cbPalette". Note maximum number of colours is 8 e.g. `windRose(mydata, col = "cbPalette", breaks = 6)`. Thanks to Jerry Martin.
 
 ## openair 2.3-0
 
