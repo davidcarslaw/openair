@@ -225,8 +225,24 @@ loadData <- function(x, verbose) {
 
     # Reasign
     dat <- get(x)
+    
+    # make sure a full year of data is present
+    year_import <- year(dat$date[1])
+    
+    full_data <- data.frame(
+      date = seq(ymd_hm(paste0(year_import, "-01-01 00:00")),
+                 ymd_hm(paste0(year_import, "-12-31 23:00")),
+                 by = "hour"
+      ),
+      code = dat$code[1],
+      site = dat$site[1],
+      stringsAsFactors = FALSE
+    )
+    
+    dat <- full_join(full_data, dat, by = c("date", "code", "site"))
 
     return(dat)
+    
   }, error = function(ex) {
 
     # Print a message
