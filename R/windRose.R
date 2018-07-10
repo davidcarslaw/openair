@@ -382,21 +382,14 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   extra <- list(...)
 
   ## label controls
-  extra$xlab <- if ("xlab" %in% names(extra)) {
-    quickText(extra$xlab, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
-  extra$ylab <- if ("ylab" %in% names(extra)) {
-    quickText(extra$ylab, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
-  extra$main <- if ("main" %in% names(extra)) {
-    quickText(extra$main, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
+  extra$xlab <- 
+    quickText(if ("xlab" %in% names(extra)) extra$xlab else "",  auto.text)
+ 
+  extra$ylab <- 
+    quickText(if ("ylab" %in% names(extra)) extra$ylab else "", auto.text)
+
+  extra$main <- 
+    quickText(if ("main" %in% names(extra)) extra$main else "", auto.text)
 
   if ("fontsize" %in% names(extra)) {
     trellis.par.set(fontsize = list(text = extra$fontsize))
@@ -510,11 +503,9 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
   if (!is.null(pollutant)) vars <- c(vars, pollutant)
 
-  mydata <- cutData(mydata, type, ...)
-
-
-  mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE, remove.neg = rm.neg)
-
+  mydata <- checkPrep(cutData(mydata, type, ...), 
+                      vars, type, remove.calm = FALSE, remove.neg = rm.neg)
+  
   # original data to use later
   mydata_orig <- mydata
 
@@ -553,12 +544,9 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     breaks = breaks, include.lowest = FALSE,
     dig.lab = dig.lab
   )
-
+ 
   ## clean up cut intervals
-  labs <- gsub("[(]|[)]|[[]|[]]", "", levels(mydata$x))
-  labs <- gsub("[,]", " to ", labs)
-
-
+  labs <- gsub("[,]", " to ", gsub("[(]|[)]|[[]|[]]", "", levels(mydata$x)))
 
   ## statistic handling
 
@@ -574,9 +562,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       levels(mydata$x) <- c(paste("Interval", 1:length(labs), sep = ""))
 
       all <- stat.fun(mydata[[wd]])
-      calm <- mydata[mydata[[wd]] == -999, ][[pollutant]]
-
-      calm <- stat.fun(calm)
+      calm <- stat.fun(mydata[mydata[[wd]] == -999, ][[pollutant]])
 
       weights <- tapply(
         mydata[[pollutant]], list(mydata[[wd]], mydata$x),
@@ -612,6 +598,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       v <- mean(cos(2 * pi * mydata[[wd]] / 360), na.rm = TRUE)
       mean.wd <- atan2(u, v) * 360 / 2 / pi
 
+
       if (all(is.na(mean.wd))) {
         mean.wd <- NA
       } else {
@@ -619,6 +606,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
         ## show as a negative (bias)
         if (mean.wd > 180) mean.wd <- mean.wd - 360
       }
+      
 
       weights <- bind_cols(
         as_data_frame(weights),
@@ -712,11 +700,9 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   strip.left <- strip.dat[[2]]
   pol.name <- strip.dat[[3]]
 
-  if (length(labs) < length(cols)) {
-    col <- cols[1:length(labs)]
-  } else {
-    col <- openColours(cols, length(labs))
-  }
+  col <- if (length(labs) < length(cols)) cols[1:length(labs)] else 
+    openColours(cols, length(labs))
+  
 
   ## normalise by sector
 
@@ -724,10 +710,10 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     vars <- grep("Interval[1-9]", names(results))
 
     ## original frequencies, so we can plot the wind frequency line
-    results$freq <- results[[max(vars)]]
-
-    results$freq <- ave(results$freq, results[type], FUN = function(x) x / sum(x))
-
+    results$freq <- ave(results[[max(vars)]], 
+                        results[type], 
+                        FUN = function(x) x / sum(x))
+    
     ## scale by maximum frequency
     results$norm <- results$freq / max(results$freq)
 
@@ -738,59 +724,42 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     stat.unit <- ""
   }
 
-  if (is.null(max.freq)) {
-    max.freq <- max(
-      results[results$wd != -999, grep("Interval", names(results))],
-      na.rm = TRUE
-    )
-  } else {
-    max.freq <- max.freq
-  }
+  max.freq <- if (is.null(max.freq)) {
+    max.freq <- max(results[results$wd != -999, 
+                            grep("Interval", names(results))], na.rm = TRUE)
+  } else {max.freq}
 
   off.set <- max.freq * (offset / 100)
-  box.widths <- seq(
-    0.002 ^ 0.25, 0.016 ^ 0.25,
-    length.out = length(labs)
-  ) ^ 4
-  box.widths <- box.widths * max.freq * angle / 5
 
-  ## key, colorkey, legend
-  legend <- list(
-    col = col, space = key.position, auto.text = auto.text,
-    labels = labs, footer = key.footer, header = key.header,
-    height = 0.60, width = 1.5, fit = "scale",
-    plot.style = if (paddle) "paddle" else "other"
-  )
+  box.widths <- seq(0.002 ^ 0.25, 0.016 ^ 0.25,
+    length.out = length(labs)) ^ 4 * max.freq * angle / 5
+  
+  legend <- makeOpenKeyLegend(
+    key, list(
+      col = col, space = key.position, auto.text = auto.text,
+      labels = labs, footer = key.footer, header = key.header,
+      height = 0.60, width = 1.5, fit = "scale",
+      plot.style = if (paddle) "paddle" else "other"
+    ), "windRose")
 
-  legend <- makeOpenKeyLegend(key, legend, "windRose")
-
-
-  temp <- paste(type, collapse = "+")
-  myform <- formula(paste("Interval1 ~ wd | ", temp, sep = ""))
-
+  myform <- formula(paste("Interval1 ~ wd | ", paste(type, collapse = "+"), 
+                          sep = ""))
+  
   mymax <- 2 * max.freq
 
   # check to see if grid.line is a list or not and set grid line properties
   grid.value <- NULL
 
   if (is.list(grid.line)) {
-    if (is.null(grid.line[["value"]])) {
-      grid.value <- NULL
-    } else {
-      grid.value <- grid.line[["value"]]
-    }
+    
+    grid.value <-  grid.line[["value"]]
 
-    if (is.null(grid.line[["lty"]])) {
-      grid.lty <- 1
-    } else {
-      grid.lty <- grid.line[["lty"]]
-    }
+    grid.lty <- if (!is.null(grid.line[["lty"]])){ 
+      grid.line[["lty"]]} else 1
+    
+    grid.col <- if (!is.null(grid.line[["col"]])) {
+      grid.line[["col"]]} else "grey85"
 
-    if (is.null(grid.line[["col"]])) {
-      grid.col <- "grey85"
-    } else {
-      grid.col <- grid.line[["col"]]
-    }
   } else {
     grid.value <- grid.line
     grid.lty <- 1
@@ -801,7 +770,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
   if (myby / mymax > 0.9) myby <- mymax * 0.9
 
-  is_annotated <- !(annotate %in% c(FALSE, NA, NaN)) &&   !is.null(annotate)
+  is_annotated <- !(annotate %in% c(FALSE, NA, NaN)) && !is.null(annotate)
   if (is_annotated) sub <- stat.lab else sub <- NULL
 
   xy.args <- list(
@@ -830,9 +799,9 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
           )
       )
 
-      dat <- results[subscripts, ] ## subset of data
-      dat <- filter(dat, wd <= 360, wd >= 0)
-
+      ## subset of data
+      dat <- filter(results[subscripts, ], wd <= 360, wd >= 0)
+      
       upper <- max.freq + off.set
 
       ## add axis lines
@@ -916,14 +885,12 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
   ## output ################################################################################
 
-  if (length(type) == 1) {
-    plot(plt)
-  } else {
+  if (length(type) != 1) {
     plt <- useOuterStrips(plt, strip = strip, strip.left = strip.left)
-    plot(plt)
   }
-
-
+  
+  plot(plt)
+  
   newdata <- results
 
   output <- list(plot = plt, data = newdata, call = match.call())
@@ -941,12 +908,13 @@ panel.wdprob <- function(dat, seg, angle, off.set) {
   y.off <- 0
 
   makeline <- function(i, dat) {
+  
     theta <- seq(
       (dat$wd[i] - seg * angle / 2), (dat$wd[i] + seg * angle / 2),
       length.out = (angle - 2) * 10
     )
-    theta <- ifelse(theta < 1, 360 - theta, theta)
-    theta <- theta * pi / 180
+    theta <- ifelse(theta < 1, 360 - theta, theta) * pi / 180
+  
     x1 <- len1 * sin(theta) + x.off
     x2 <- rev((dat$norm[i] + off.set) * sin(theta) + x.off)
     y1 <- len1 * cos(theta) + x.off
