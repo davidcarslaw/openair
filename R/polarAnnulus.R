@@ -341,7 +341,7 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
   len.int <- 20 / int + 1 ## number of x and y points to make up surfacexb
 
   ## for CPF
-  Pval <- quantile(mydata[, pollutant], probs = percentile / 100, na.rm = TRUE)
+  Pval <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
 
   if (statistic == "cpf") {
     sub <- paste("CPF probability at the ", percentile,
