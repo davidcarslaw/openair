@@ -3,6 +3,7 @@
 - add simple versions of **viridis** colour palettes: "viridis", "plasma", "magma", "inferno" and "cividis" e.g. `polarPlot(mydata, cols = "plasma")`
 - allow option `align` to be used in `aqStats` to determine how rolling means are calculated. Can take the values "center" (default), "left" and "right".
 - make sure full year present in `importAURN`
+- fix issue with mutiple pollutants in `polarAnnulus`
 
 ## openair 2.4-0
 
