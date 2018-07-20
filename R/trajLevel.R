@@ -432,7 +432,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     ## calculate percentage of points for all data
 
     base <- group_by(mydata, UQS(syms(vars))) %>%
-      summarise(date = head(date, 1), count = n())
+      summarise(count = length(date), date = head(date, 1))
 
     base[[pollutant]] <- 100 * base$count / max(base$count)
 
