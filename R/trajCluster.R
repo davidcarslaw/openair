@@ -129,7 +129,19 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     method <- "distAngle"
   }
 
-
+  # remove any missing lat/lon
+  traj <- filter(traj, !is.na(lat), !is.na(lon))
+  
+  # check to see if all back trajectories are the same length
+  traj <- group_by(traj, date) %>% 
+    mutate(traj_len = length(date))
+  
+  if (length(unique(traj$traj_len)) > 1) {
+    warning("Trajectory lengths differ, using lowest length.")
+    traj <- ungroup(traj) %>% 
+      filter(traj_len == min(traj_len))
+  }
+  
   Args <- list(...)
 
   ## set graphics
