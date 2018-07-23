@@ -155,6 +155,8 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
   }
 
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
+  
+  mydata <- filter(mydata, !is.na(lat), !is.na(lon))
 
   ## slect only full length trajectories
   mydata <- mydata[order(mydata$date, mydata$hour.inc), ]
@@ -293,20 +295,20 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
 setTrajLims <- function(mydata, Args, projection, parameters, orientation) {
 
   ## xlim and ylim set by user
-  if ("xlim" %in% names(Args)) {
+  if ("xlim" %in% names(Args) & !all(is.na(Args$xlim))) {
     x1 <- Args$xlim[1]
     x2 <- Args$xlim[2]
   } else {
-    x1 <- min(mydata$lon)
-    x2 <- max(mydata$lon)
+    x1 <- min(mydata$lon, na.rm = TRUE)
+    x2 <- max(mydata$lon, na.rm = TRUE)
   }
 
-  if ("ylim" %in% names(Args)) {
+  if ("ylim" %in% names(Args) & !all(is.na(Args$ylim))) {
     y1 <- Args$ylim[1]
     y2 <- Args$ylim[2]
   } else {
-    y1 <- min(mydata$lat)
-    y2 <- max(mydata$lat)
+    y1 <- min(mydata$lat, na.rm = TRUE)
+    y2 <- max(mydata$lat, na.rm = TRUE)
   }
 
   n <- 40 ## number of points along each vertex
