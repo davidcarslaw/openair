@@ -51,6 +51,7 @@
 ##' details.
 ##' @param ws.int Wind speed interval assumed. In some cases e.g. a low met
 ##'   mast, an interval of 0.5 may be more appropriate.
+##' @param wd.nint Number of intervals of wind direction.
 ##' @param grid.line Radial spacing of grid lines.
 ##' @param breaks The user can provide their own scale. \code{breaks} expects a
 ##'   sequence of numbers that define the range of the scale. The sequence
@@ -180,6 +181,7 @@ polarFreq <- function(mydata,
                       pollutant = "",
                       statistic = "frequency",
                       ws.int = 1,
+                      wd.nint = 36,
                       grid.line = 5,
                       breaks = seq(0, 5000, 500),
                       cols = "default",
@@ -200,6 +202,9 @@ polarFreq <- function(mydata,
   ## extract necessary data
   vars <- c("wd", "ws")
   if (any(type %in% dateTypes)) vars <- c(vars, "date")
+  
+  ## intervals in wind direction
+  wd.int <- 360/round(wd.nint)
 
   ## greyscale handling
   if (length(cols) == 1 && cols == "greyscale") {
@@ -212,7 +217,6 @@ polarFreq <- function(mydata,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
     fontsize = current.font
   ))
 
@@ -284,7 +288,7 @@ polarFreq <- function(mydata,
   offset <- (max.ws * offset) / 5 / 10
 
   ## make sure wd data are rounded to nearest 10
-  mydata$wd <- 10 * ceiling(mydata$wd / 10 - 0.5)
+  mydata$wd <- wd.int * ceiling(mydata$wd / wd.int - 0.5)
 
   prepare.grid <- function(mydata) {
     wd <- factor(mydata$wd)
@@ -351,7 +355,7 @@ polarFreq <- function(mydata,
   poly <- function(dir, speed, colour) {
 
     ## offset by 3 * ws.int so that centre is not compressed
-    angle <- seq(dir - 5, dir + 5, length = 10)
+    angle <- seq(dir - wd.int/2, dir + wd.int/2, length = round(wd.int))
     x1 <- (speed + offset - ws.int) * sin(pi * angle / 180)
     y1 <- (speed + offset - ws.int) * cos(pi * angle / 180)
     x2 <- rev((speed + offset) * sin(pi * angle / 180))
