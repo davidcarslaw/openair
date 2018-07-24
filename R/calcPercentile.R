@@ -61,7 +61,7 @@ calcPercentile <- function(mydata, pollutant = "o3", avg.time = "month", percent
     mydata <- timeAverage(
       mydata, avg.time,
       statistic = "percentile", percentile = percentile,
-      data.thresh = 0, start.date = NA
+      data.thresh = data.thresh, start.date = NA
     )
     ## change column name
     new.name <- paste("percentile.", percentile, sep = "")
