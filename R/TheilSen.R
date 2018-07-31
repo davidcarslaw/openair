@@ -357,13 +357,15 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   start.month <- startMonth(mydata$date)
   end.month <- endMonth(mydata$date)
 
-  mydata <- timeAverage(mydata,
+  mydata <- suppressWarnings(
+    timeAverage(mydata,
     type = type,
     avg.time = avg.time,
     statistic = statistic,
     percentile = percentile,
     data.thresh = data.thresh,
     interval = interval
+  )
   )
 
   # timeAverage drops type if default
