@@ -6,10 +6,11 @@
 \usage{
 trajLevel(mydata, lon = "lon", lat = "lat", pollutant = "height",
   type = "default", smooth = FALSE, statistic = "frequency",
-  percentile = 90, map = TRUE, lon.inc = 1, lat.inc = 1, min.bin = 1,
-  map.fill = TRUE, map.res = "default", map.cols = "grey40",
-  map.alpha = 0.3, projection = "lambert", parameters = c(51, 51),
-  orientation = c(90, 0, 0), grid.col = "deepskyblue", origin = TRUE, ...)
+  percentile = 90, map = TRUE, lon.inc = 1, lat.inc = 1,
+  min.bin = 1, map.fill = TRUE, map.res = "default",
+  map.cols = "grey40", map.alpha = 0.3, projection = "lambert",
+  parameters = c(51, 51), orientation = c(90, 0, 0),
+  grid.col = "deepskyblue", origin = TRUE, ...)
 }
 \arguments{
 \item{mydata}{Data frame, the result of importing a trajectory

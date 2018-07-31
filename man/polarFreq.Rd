@@ -4,12 +4,13 @@
 \alias{polarFreq}
 \title{Function to plot wind speed/direction frequencies and other statistics}
 \usage{
-polarFreq(mydata, pollutant = "", statistic = "frequency", ws.int = 1,
-  wd.nint = 36, grid.line = 5, breaks = seq(0, 5000, 500),
-  cols = "default", trans = TRUE, type = "default", min.bin = 1,
-  ws.upper = NA, offset = 10, border.col = "transparent",
-  key.header = statistic, key.footer = pollutant, key.position = "right",
-  key = TRUE, auto.text = TRUE, ...)
+polarFreq(mydata, pollutant = "", statistic = "frequency",
+  ws.int = 1, wd.nint = 36, grid.line = 5, breaks = seq(0, 5000,
+  500), cols = "default", trans = TRUE, type = "default",
+  min.bin = 1, ws.upper = NA, offset = 10,
+  border.col = "transparent", key.header = statistic,
+  key.footer = pollutant, key.position = "right", key = TRUE,
+  auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{ws}, \code{wd} and

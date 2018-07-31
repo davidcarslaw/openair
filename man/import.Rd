@@ -6,9 +6,9 @@
 \usage{
 import(file = file.choose(), file.type = "csv", sep = ",",
   header.at = 1, data.at = 2, date = "date",
-  date.format = "\%d/\%m/\%Y \%H:\%M", time = NULL, time.format = NULL,
-  tzone = "GMT", na.strings = c("", "NA"), quote = "\\"", ws = NULL,
-  wd = NULL, correct.time = NULL, ...)
+  date.format = "\%d/\%m/\%Y \%H:\%M", time = NULL,
+  time.format = NULL, tzone = "GMT", na.strings = c("", "NA"),
+  quote = "\\"", ws = NULL, wd = NULL, correct.time = NULL, ...)
 }
 \arguments{
 \item{file}{The name of the file to be imported. Default, \code{file =

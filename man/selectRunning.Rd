@@ -4,7 +4,8 @@
 \alias{selectRunning}
 \title{Function to extract run lengths greater than a threshold}
 \usage{
-selectRunning(mydata, pollutant = "nox", run.len = 5, threshold = 500)
+selectRunning(mydata, pollutant = "nox", run.len = 5,
+  threshold = 500)
 }
 \arguments{
 \item{mydata}{A data frame with a \code{date} field and at least one

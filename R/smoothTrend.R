@@ -333,7 +333,8 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     
    
   } else {
-    mydata <- timeAverage(
+    # suppress unequal factor warnings due to attr
+    mydata <- suppressWarnings(timeAverage(
       mydata,
       type = c(type, "variable"),
       avg.time = avg.time,
@@ -341,7 +342,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
       statistic = statistic,
       data.thresh = data.thresh,
       interval = interval
-    )
+    ))
   }
 
   # timeAverage drops type if default

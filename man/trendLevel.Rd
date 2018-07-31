@@ -10,7 +10,8 @@ trendLevel(mydata, pollutant = "nox", x = "month", y = "hour",
   key.header = "use.stat.name", key.footer = pollutant,
   key.position = "right", key = TRUE, labels = NA, breaks = NA,
   statistic = c("mean", "max", "frequency"), stat.args = NULL,
-  stat.safe.mode = TRUE, drop.unused.types = TRUE, col.na = "white", ...)
+  stat.safe.mode = TRUE, drop.unused.types = TRUE, col.na = "white",
+  ...)
 }
 \arguments{
 \item{mydata}{The openair data frame to use to generate the

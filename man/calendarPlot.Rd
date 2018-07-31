@@ -6,11 +6,13 @@
 \usage{
 calendarPlot(mydata, pollutant = "nox", year = 2003, month = 1:12,
   type = "default", annotate = "date", statistic = "mean",
-  cols = "heat", limits = c(0, 100), lim = NULL, col.lim = c("grey30",
-  "black"), col.arrow = "black", font.lim = c(1, 2), cex.lim = c(0.6, 1),
-  digits = 0, data.thresh = 0, labels = NA, breaks = NA, w.shift = 0,
-  remove.empty = TRUE, main = NULL, key.header = "", key.footer = "",
-  key.position = "right", key = TRUE, auto.text = TRUE, ...)
+  cols = "heat", limits = c(0, 100), lim = NULL,
+  col.lim = c("grey30", "black"), col.arrow = "black",
+  font.lim = c(1, 2), cex.lim = c(0.6, 1), digits = 0,
+  data.thresh = 0, labels = NA, breaks = NA, w.shift = 0,
+  remove.empty = TRUE, main = NULL, key.header = "",
+  key.footer = "", key.position = "right", key = TRUE,
+  auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{date} and at least one

@@ -4,15 +4,17 @@
 \alias{scatterPlot}
 \title{Flexible scatter plots}
 \usage{
-scatterPlot(mydata, x = "nox", y = "no2", z = NA, method = "scatter",
-  group = NA, avg.time = "default", data.thresh = 0, statistic = "mean",
-  percentile = NA, type = "default", smooth = FALSE, spline = FALSE,
-  linear = FALSE, ci = TRUE, mod.line = FALSE, cols = "hue",
-  plot.type = "p", key = TRUE, key.title = group, key.columns = 1,
-  key.position = "right", strip = TRUE, log.x = FALSE, log.y = FALSE,
-  x.inc = NULL, y.inc = NULL, limits = NULL, windflow = NULL,
-  y.relation = "same", x.relation = "same", ref.x = NULL, ref.y = NULL,
-  k = NA, dist = 0.02, map = FALSE, auto.text = TRUE, ...)
+scatterPlot(mydata, x = "nox", y = "no2", z = NA,
+  method = "scatter", group = NA, avg.time = "default",
+  data.thresh = 0, statistic = "mean", percentile = NA,
+  type = "default", smooth = FALSE, spline = FALSE, linear = FALSE,
+  ci = TRUE, mod.line = FALSE, cols = "hue", plot.type = "p",
+  key = TRUE, key.title = group, key.columns = 1,
+  key.position = "right", strip = TRUE, log.x = FALSE,
+  log.y = FALSE, x.inc = NULL, y.inc = NULL, limits = NULL,
+  windflow = NULL, y.relation = "same", x.relation = "same",
+  ref.x = NULL, ref.y = NULL, k = NA, dist = 0.02, map = FALSE,
+  auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing at least two numeric variables to

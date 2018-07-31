@@ -8,8 +8,8 @@ summaryPlot(mydata, na.len = 24, clip = TRUE, percentile = 0.99,
   type = "histogram", pollutant = "nox", period = "years",
   avg.time = "day", print.datacap = TRUE, breaks = NULL,
   col.trend = "darkgoldenrod2", col.data = "lightblue",
-  col.mis = rgb(0.65, 0.04, 0.07), col.hist = "forestgreen", cols = NULL,
-  date.breaks = 7, auto.text = TRUE, ...)
+  col.mis = rgb(0.65, 0.04, 0.07), col.hist = "forestgreen",
+  cols = NULL, date.breaks = 7, auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame to be summarised. Must contain a

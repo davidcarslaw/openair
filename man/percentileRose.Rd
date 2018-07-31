@@ -4,12 +4,13 @@
 \alias{percentileRose}
 \title{Function to plot percentiles by wind direction}
 \usage{
-percentileRose(mydata, pollutant = "nox", wd = "wd", type = "default",
-  percentile = c(25, 50, 75, 90, 95), smooth = FALSE, method = "default",
-  cols = "default", angle = 10, mean = TRUE, mean.lty = 1,
-  mean.lwd = 3, mean.col = "grey", fill = TRUE, intervals = NULL,
-  angle.scale = 45, auto.text = TRUE, key.header = NULL,
-  key.footer = "percentile", key.position = "bottom", key = TRUE, ...)
+percentileRose(mydata, pollutant = "nox", wd = "wd",
+  type = "default", percentile = c(25, 50, 75, 90, 95),
+  smooth = FALSE, method = "default", cols = "default", angle = 10,
+  mean = TRUE, mean.lty = 1, mean.lwd = 3, mean.col = "grey",
+  fill = TRUE, intervals = NULL, angle.scale = 45,
+  auto.text = TRUE, key.header = NULL, key.footer = "percentile",
+  key.position = "bottom", key = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{wd} and a

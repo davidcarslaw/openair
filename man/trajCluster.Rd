@@ -5,10 +5,10 @@
 \title{Calculate clusters for back tracectories}
 \usage{
 trajCluster(traj, method = "Euclid", n.cluster = 5, plot = TRUE,
-  type = "default", cols = "Set1", split.after = FALSE, map.fill = TRUE,
-  map.cols = "grey40", map.alpha = 0.4, projection = "lambert",
-  parameters = c(51, 51), orientation = c(90, 0, 0), by.type = FALSE,
-  origin = TRUE, ...)
+  type = "default", cols = "Set1", split.after = FALSE,
+  map.fill = TRUE, map.cols = "grey40", map.alpha = 0.4,
+  projection = "lambert", parameters = c(51, 51), orientation = c(90,
+  0, 0), by.type = FALSE, origin = TRUE, ...)
 }
 \arguments{
 \item{traj}{An openair trajectory data frame resulting from the

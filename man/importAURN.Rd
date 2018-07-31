@@ -4,8 +4,8 @@
 \alias{importAURN}
 \title{Import data from the UK Automatic Urban and Rural Network (AURN)}
 \usage{
-importAURN(site = "my1", year = 2009, pollutant = "all", hc = FALSE,
-  meta = FALSE, verbose = FALSE)
+importAURN(site = "my1", year = 2009, pollutant = "all",
+  hc = FALSE, meta = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{site}{Site code of the AURN site to import e.g. "my1" is Marylebone

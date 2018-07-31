@@ -149,6 +149,9 @@ cutData <- function(x, type = "default", hemisphere = "northern",
   ##       generic label shortening handled at end of section
   ##       format(date, "%?") outputs modified by is.axis are set using temp
   ##       declared at at start of associated type section - karl
+  
+  # so we know that openair has looked at the data
+  attr(x, "source") <- "openair"
 
 
   makeCond <- function(x, type = "default") {
@@ -156,7 +159,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
     ## if type is time based and already exists in data,
     ## just return data
 
-    if (type %in% dateTypes & type %in% names(x)) {
+    if (type %in% dateTypes & type %in% names(x) & attr(x, "source") != "openair") {
       message(paste0("\nUsing ", "'", type, "'", " in data frame and not date-based openair version. \nThis may result in different behaviour compared with openair calculations."))
       return(x)
     }

@@ -8,8 +8,8 @@ TaylorDiagram(mydata, obs = "obs", mod = "mod", group = NULL,
   type = "default", normalise = FALSE, cols = "brewer1",
   rms.col = "darkgoldenrod", cor.col = "black", arrow.lwd = 3,
   annotate = "centred\\nRMS error", key = TRUE, key.title = group,
-  key.columns = 1, key.pos = "right", strip = TRUE, auto.text = TRUE,
-  ...)
+  key.columns = 1, key.pos = "right", strip = TRUE,
+  auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing a column of observations

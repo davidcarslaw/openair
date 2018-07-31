@@ -5,10 +5,11 @@
 \title{Conditional quantile estimates with additional variables for model
 evaluation}
 \usage{
-conditionalEval(mydata, obs = "obs", mod = "mod", var.obs = "var.obs",
-  var.mod = "var.mod", type = "default", bins = 31, statistic = "MB",
-  xlab = "predicted value", ylab = "statistic", col = brewer.pal(5,
-  "YlOrRd"), col.var = "Set1", var.names = NULL, auto.text = TRUE, ...)
+conditionalEval(mydata, obs = "obs", mod = "mod",
+  var.obs = "var.obs", var.mod = "var.mod", type = "default",
+  bins = 31, statistic = "MB", xlab = "predicted value",
+  ylab = "statistic", col = brewer.pal(5, "YlOrRd"),
+  col.var = "Set1", var.names = NULL, auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing the field \code{obs} and \code{mod}

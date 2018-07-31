@@ -11,8 +11,9 @@ polarPlot(mydata, pollutant = "nox", x = "ws", wd = "wd",
   min.bin = 1, mis.col = "grey", alpha = 1, upper = NA,
   angle.scale = 315, units = x, force.positive = TRUE, k = 100,
   normalise = FALSE, key.header = "", key.footer = pollutant,
-  key.position = "right", key = TRUE, auto.text = TRUE, ws_spread = 15,
-  wd_spread = 4, kernel = "gaussian", tau = 0.5, ...)
+  key.position = "right", key = TRUE, auto.text = TRUE,
+  ws_spread = 15, wd_spread = 4, kernel = "gaussian", tau = 0.5,
+  ...)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{wd}, another

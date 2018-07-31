@@ -425,9 +425,9 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       mydata <- mydata[!is.na(mydata$season), ]
 
       ## calculate year
-      mydata <- transform(mydata,
-        year = as.numeric(format(date, "%Y")),
-        month = as.numeric(format(date, "%m"))
+      mydata <- mutate(mydata,
+        year = year(date), 
+        month = month(date) 
       )
 
       ## ids where month = 12, make December part of following year's season
@@ -557,7 +557,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
 
   ## calculate stats split by type
   mydata <- group_by(mydata, UQS(syms(type))) %>%
-    do(calc.mean(., start.date))
+    do(suppressWarnings(calc.mean(., start.date)))
 
   ## don't need default column
   if ("default" %in% names(mydata)) {

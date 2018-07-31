@@ -6,9 +6,9 @@
 \usage{
 timeProp(mydata, pollutant = "nox", proportion = "cluster",
   avg.time = "day", type = "default", statistic = "mean",
-  normalise = FALSE, cols = "Set1", date.breaks = 7, date.format = NULL,
-  key.columns = 1, key.position = "right", key.title = proportion,
-  auto.text = TRUE, ...)
+  normalise = FALSE, cols = "Set1", date.breaks = 7,
+  date.format = NULL, key.columns = 1, key.position = "right",
+  key.title = proportion, auto.text = TRUE, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing the fields \code{date},

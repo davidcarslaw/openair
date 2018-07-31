@@ -4,8 +4,8 @@
 \alias{selectByDate}
 \title{Subset a data frame based on date}
 \usage{
-selectByDate(mydata, start = "1/1/2008", end = "31/12/2008", year = 2008,
-  month = 1, day = "weekday", hour = 1)
+selectByDate(mydata, start = "1/1/2008", end = "31/12/2008",
+  year = 2008, month = 1, day = "weekday", hour = 1)
 }
 \arguments{
 \item{mydata}{A data frame containing a \code{date} field in hourly or high

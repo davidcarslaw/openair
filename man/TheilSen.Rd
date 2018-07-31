@@ -4,15 +4,16 @@
 \alias{TheilSen}
 \title{Tests for trends using Theil-Sen estimates}
 \usage{
-TheilSen(mydata, pollutant = "nox", deseason = FALSE, type = "default",
-  avg.time = "month", statistic = "mean", percentile = NA,
-  data.thresh = 0, alpha = 0.05, dec.place = 2, xlab = "year",
-  lab.frac = 0.99, lab.cex = 0.8, x.relation = "same",
-  y.relation = "same", data.col = "cornflowerblue", trend = list(lty =
-  c(1, 5), lwd = c(2, 1), col = c("red", "red")), text.col = "darkgreen",
-  slope.text = NULL, cols = NULL, shade = "grey95", auto.text = TRUE,
-  autocor = FALSE, slope.percent = FALSE, date.breaks = 7, plot = TRUE,
-  silent = FALSE, ...)
+TheilSen(mydata, pollutant = "nox", deseason = FALSE,
+  type = "default", avg.time = "month", statistic = "mean",
+  percentile = NA, data.thresh = 0, alpha = 0.05, dec.place = 2,
+  xlab = "year", lab.frac = 0.99, lab.cex = 0.8,
+  x.relation = "same", y.relation = "same",
+  data.col = "cornflowerblue", trend = list(lty = c(1, 5), lwd = c(2,
+  1), col = c("red", "red")), text.col = "darkgreen",
+  slope.text = NULL, cols = NULL, shade = "grey95",
+  auto.text = TRUE, autocor = FALSE, slope.percent = FALSE,
+  date.breaks = 7, plot = TRUE, silent = FALSE, ...)
 }
 \arguments{
 \item{mydata}{A data frame containing the field \code{date} and at
