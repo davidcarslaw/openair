@@ -414,7 +414,7 @@ one more label than date")
 ##'   \dQuote{weekday} (Monday - Friday) and \dQuote{weekend} for convenience.
 ##' @param hour An hour or hours to select from 0-23 e.g. \code{hour = 0:12} to
 ##'   select hours 0 to 12 inclusive.
-##' @importFrom lubridate dst year month hour force_tz day as_date dmy ymd_hm
+##' @importFrom lubridate dst year month hour wday force_tz day as_date dmy ymd_hm
 ##'   round_date parse_date_time floor_date ceiling_date
 ##' @export
 ##' @author David Carslaw
