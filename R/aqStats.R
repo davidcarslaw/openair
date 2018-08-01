@@ -109,7 +109,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 
     ## file any missing hours
     mydata <- date.pad(mydata, type = "site")
-    mydata$year <- format(mydata$date, "%Y")
+    mydata$year <- year(mydata$date)
 
 
     Mean <- group_by(mydata, year) %>%

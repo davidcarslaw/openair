@@ -596,7 +596,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
   ## if stacking of plots by year is needed
   if (stack) {
-    mydata$year <- format(mydata$date, "%Y")
+    mydata$year <- year(mydata$date)
     if (is.null(Args$layout)) {
       Args$layout <- c(1, length(unique(mydata$year)))
     }
