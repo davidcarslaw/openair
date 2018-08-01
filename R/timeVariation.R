@@ -505,13 +505,13 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
   }
 
   ## calculate temporal components
-  mydata <- within(mydata, {
-    wkday <- format(date, "%A")
-    wkday <- ordered(wkday, levels = day.ord)
-    hour <- as.numeric(format(date, "%H"))
-    mnth <- as.numeric(format(date, "%m"))
-  })
-
+  mydata <- mutate(mydata,
+                   wkday = wday(date, label = TRUE, abbr = FALSE),
+                   wkday = ordered(wkday, levels = day.ord),
+                   hour= hour(date),
+                   mnth = month(date)
+  )
+  
 
   ## y range taking account of expanded uncertainties
   rng <- function(x) {
