@@ -137,9 +137,11 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     mutate(traj_len = length(date))
   
   if (length(unique(traj$traj_len)) > 1) {
-    warning("Trajectory lengths differ, using lowest length.")
+    warning("Trajectory lengths differ, using most common length.")
+    ux <- unique(traj$traj_len)
+    nmax <- ux[which.max(tabulate(match(traj$traj_len, ux)))]
     traj <- ungroup(traj) %>% 
-      filter(traj_len == min(traj_len))
+      filter(traj_len == nmax)
   }
   
   Args <- list(...)
