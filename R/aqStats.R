@@ -380,9 +380,9 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
     results <- gather(results, key = variable, value = value, 
                       -c(site, pollutant, year, date))
     
-    results <- unite(res, site_pol, site, pollutant)
+    results <- unite(results, site_pol, site, pollutant)
     
-    results <- spread(res, site_pol, value)
+    results <- spread(results, site_pol, value)
     
     ## sort out names
     names(results) <- gsub("\\_", " ", names(results))
