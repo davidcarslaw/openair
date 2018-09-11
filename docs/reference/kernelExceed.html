@@ -21,10 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Kernel density plot for daily mean exceedance statistics — kernelExceed" />
 
 <meta property="og:description" content="This function is used to explore the conditions leading to exeedances of
@@ -33,6 +38,9 @@ under which daily limit values for PM10 are in excess of a specified
 threshold. Kernel density estimates are calculated and plotted to highlight
 those conditions." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +63,12 @@ those conditions." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">openair</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">openair</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -75,6 +87,7 @@ those conditions." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -82,13 +95,15 @@ those conditions." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Kernel density plot for daily mean exceedance statistics</h1>
-    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/kernelExceed.R'><code>R/kernelExceed.R</code></a></small>
+    
+    <div class="hidden name"><code>kernelExceed.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This function is used to explore the conditions leading to exeedances of
 air quality limits. Currently the focus is on understanding the conditions
@@ -96,13 +111,14 @@ under which daily limit values for PM10 are in excess of a specified
 threshold. Kernel density estimates are calculated and plotted to highlight
 those conditions.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>kernelExceed</span>(<span class='no'>polar</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"day"</span>, <span class='st'>"dayhour"</span>, <span class='st'>"all"</span>), <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>50</span>,
   <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>more.than</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>nbin</span> <span class='kw'>=</span> <span class='fl'>256</span>,
   <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -250,8 +266,8 @@ each level of <code>type</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='polarAnnulus.html'>polarAnnulus</a></code>, <code><a href='polarFreq.html'>polarFreq</a></code>,
-  <code><a href='polarPlot.html'>polarPlot</a></code></p>
+    <div class='dont-index'><p><code><a href='polarAnnulus.html'>polarAnnulus</a></code>, <code><a href='polarFreq.html'>polarFreq</a></code>,
+  <code><a href='polarPlot.html'>polarPlot</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -301,6 +317,8 @@ David Carslaw
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

@@ -21,14 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Calculate summary statistics for air pollution data by year — aqStats" />
 
 <meta property="og:description" content="Calculate a range of air pollution-relevant statistics by year and by site." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">openair</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">openair</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -71,6 +83,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -78,21 +91,24 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Calculate summary statistics for air pollution data by year</h1>
-    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/aqStats.R'><code>R/aqStats.R</code></a></small>
+    
+    <div class="hidden name"><code>aqStats.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Calculate a range of air pollution-relevant statistics by year and by site.</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>aqStats</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>95</span>,
-  <span class='fl'>99</span>), <span class='kw'>transpose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>aqStats</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>,
+  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>95</span>, <span class='fl'>99</span>), <span class='kw'>transpose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -106,10 +122,10 @@
     </tr>
     <tr>
       <th>data.thresh</th>
-      <td><p>The data capture threshold in <!-- %. No values are -->
-calculated if data capture over the period of interest is less than this
-value. <code>data.thresh</code> is used for example in the calculation of daily
-mean values from hourly data. If there are less than <code>data.thresh</code>
+      <td><p>The data capture threshold in <!-- %. No values are calculated -->
+if data capture over the period of interest is less than this value.
+<code>data.thresh</code> is used for example in the calculation of daily mean
+values from hourly data. If there are less than <code>data.thresh</code>
 percentage of measurements available in a period, <code>NA</code> is returned.</p></td>
     </tr>
     <tr>
@@ -132,15 +148,15 @@ have columns for each pollutant-site combination.</p></td>
 
     <p>This function calculates a range of common and air pollution-specific
 statistics from a data frame. The statistics are calculated on an annual
-basis and the input is assumed to be hourly data. The function can cope
-with several sites and years. The user can control the output by setting
+basis and the input is assumed to be hourly data. The function can cope with
+several sites and years. The user can control the output by setting
 <code>transpose</code> appropriately.</p>
 <p>Note that the input data is assumed to be in mass units e.g. ug/m3 for all
 species except CO (mg/m3).</p>
 <p>The following statistics are calculated:</p>
 <ul>
-<li><p><b>data.capture</b> --- percentage data capture
-over a full year.</p></li>
+<li><p><b>data.capture</b> --- percentage data capture over a full
+year.</p></li>
 <li><p><b>mean</b> --- annual mean.</p></li>
 <li><p><b>minimum</b> --- minimum hourly value.</p></li>
 <li><p><b>maximum</b> --- maximum hourly value.</p></li>
@@ -150,35 +166,38 @@ over a full year.</p></li>
 <li><p><b>max.rolling.24</b> --- maximum 24-hour rolling mean.</p></li>
 <li><p><b>percentile.95</b> --- 95th percentile. Note that several
 percentiles can be calculated.</p></li>
-<li><p><b>roll.8.O3.gt.100</b> --- number of days when the daily
-maximum rolling 8-hour mean ozone concentration is &gt;100
-ug/m3. This is the target value.</p></li>
-<li><p><b>roll.8.O3.gt.120</b> --- number of days when the daily
-maximum rolling 8-hour mean ozone concentration is &gt;120
-ug/m3. This is the Limit Value not to be exceeded &gt; 10 days a year.</p></li>
-<li><p><b>AOT40</b> --- is the accumulated amount of ozone over the
-threshold value of 40 ppb for daylight hours in the growing season
-(April to September). Note that <code>latitude</code> and
-<code>longitude</code> can also be passed to this calculation.</p></li>
+<li><p><b>roll.8.O3.gt.100</b> --- number of days when the daily maximum
+rolling 8-hour mean ozone concentration is &gt;100 ug/m3. This is the target
+value.</p></li>
+<li><p><b>roll.8.O3.gt.120</b> --- number of days when the daily maximum
+rolling 8-hour mean ozone concentration is &gt;120 ug/m3. This is the Limit
+Value not to be exceeded &gt; 10 days a year.</p></li>
+<li><p><b>AOT40</b> --- is the accumulated amount of ozone over the threshold
+value of 40 ppb for daylight hours in the growing season (April to
+September). Note that <code>latitude</code> and <code>longitude</code> can also be
+passed to this calculation.</p></li>
 <li><p><b>hours.gt.200</b> --- number of hours NO2 is more than 200 ug/m3.</p></li>
 <li><p><b>days.gt.50</b> --- number of days PM10 is more than 50 ug/m3.</p></li>
 </ul>
-    <p>There can be small discrepancies with the AURN due to the
-treatment of rounding data. The <code>aqStats</code> function does not
-round, whereas AURN data can be rounded at several stages during
-the calculations.</p>
+    <p>For the rolling means, the user can supply the option <code>align</code>, which
+can be "centre" (default), "left" or "right". See <code>rollingMean</code> for
+more details.</p>
+<p>There can be small discrepancies with the AURN due to the treatment of
+rounding data. The <code>aqStats</code> function does not round, whereas AURN data
+can be rounded at several stages during the calculations.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Statistics for 2004. NOTE! these data are in ppb/ppm so the</span>
 <span class='co'>## example is for illustrative purposes only</span>
-<span class='fu'>aqStats</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2004</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 15
+<span class='fu'>aqStats</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2004</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 15
 #&gt; # Groups:   site [1]
-#&gt;   site  pollutant  year date                dat.cap  mean minimum maximum
-#&gt;   &lt;fct&gt; &lt;chr&gt;     &lt;int&gt; &lt;dttm&gt;                &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;
-#&gt; 1 site  NO2        2004 2004-01-01 00:00:00    99.8  55.0       0     185
-#&gt; # ... with 7 more variables: median &lt;dbl&gt;, daily.max &lt;dbl&gt;, max.roll.8 &lt;dbl&gt;,
+#&gt;   site  pollutant  year date                dat.cap  mean minimum maximum median
+#&gt;   &lt;fct&gt; &lt;chr&gt;     &lt;int&gt; &lt;dttm&gt;                &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 site  NO2         100 2004-01-01 00:00:00    99.8  NA        NA      NA     NA
+#&gt; 2 site  NO2        2004 2004-01-01 00:00:00    NA    55.0       0     185     51
+#&gt; # ... with 6 more variables: daily.max &lt;dbl&gt;, max.roll.8 &lt;dbl&gt;,
 #&gt; #   max.roll.24 &lt;dbl&gt;, percentile.95 &lt;dbl&gt;, percentile.99 &lt;dbl&gt;, hours &lt;int&gt;</div><div class='input'>
 
 </div></pre>
@@ -211,6 +230,8 @@ David Carslaw
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

@@ -21,10 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Function to rapidly provide an overview of air quality data — summaryPlot" />
 
 <meta property="og:description" content="This function provides a quick graphical and numerical summary of
@@ -33,6 +38,9 @@ summary statistics and plots of variable distributions.
 summaryPlot can also provide summaries of a single
 pollutant across many sites." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +63,12 @@ pollutant across many sites." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">openair</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">openair</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -75,6 +87,7 @@ pollutant across many sites." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -82,13 +95,15 @@ pollutant across many sites." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Function to rapidly provide an overview of air quality data</h1>
-    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/summaryPlot.R'><code>R/summaryPlot.R</code></a></small>
+    
+    <div class="hidden name"><code>summaryPlot.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This function provides a quick graphical and numerical summary of
 data. The location presence/absence of data are shown, with
@@ -96,15 +111,16 @@ summary statistics and plots of variable distributions.
 <code>summaryPlot</code> can also provide summaries of a single
 pollutant across many sites.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>summaryPlot</span>(<span class='no'>mydata</span>, <span class='kw'>na.len</span> <span class='kw'>=</span> <span class='fl'>24</span>, <span class='kw'>clip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>0.99</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"histogram"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"years"</span>,
   <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>, <span class='kw'>print.datacap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>col.trend</span> <span class='kw'>=</span> <span class='st'>"darkgoldenrod2"</span>, <span class='kw'>col.data</span> <span class='kw'>=</span> <span class='st'>"lightblue"</span>,
-  <span class='kw'>col.mis</span> <span class='kw'>=</span> <span class='fu'>rgb</span>(<span class='fl'>0.65</span>, <span class='fl'>0.04</span>, <span class='fl'>0.07</span>), <span class='kw'>col.hist</span> <span class='kw'>=</span> <span class='st'>"forestgreen"</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>col.mis</span> <span class='kw'>=</span> <span class='fu'>rgb</span>(<span class='fl'>0.65</span>, <span class='fl'>0.04</span>, <span class='fl'>0.07</span>), <span class='kw'>col.hist</span> <span class='kw'>=</span> <span class='st'>"forestgreen"</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -328,6 +344,8 @@ David Carslaw
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

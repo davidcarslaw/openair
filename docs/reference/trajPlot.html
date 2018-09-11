@@ -21,16 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Trajectory line plots with conditioning — trajPlot" />
 
-<meta property="og:description" content="This function plots back trajectories. This function
-requires that data are imported using the importTraj
-function." />
+<meta property="og:description" content="This function plots back trajectories. This function requires that data are
+imported using the importTraj function." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -53,8 +60,12 @@ function." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">openair</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">openair</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -73,6 +84,7 @@ function." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -80,32 +92,34 @@ function." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Trajectory line plots with conditioning</h1>
-    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/trajPlot.R'><code>R/trajPlot.R</code></a></small>
+    
+    <div class="hidden name"><code>trajPlot.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>This function plots back trajectories. This function
-requires that data are imported using the <code>importTraj</code>
-function.</p>
+    <p>This function plots back trajectories. This function requires that data are
+imported using the <code>importTraj</code> function.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>trajPlot</span>(<span class='no'>mydata</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"lon"</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"lat"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"height"</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>map.fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>map.res</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>map.cols</span> <span class='kw'>=</span> <span class='st'>"grey40"</span>, <span class='kw'>map.alpha</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
-  <span class='kw'>projection</span> <span class='kw'>=</span> <span class='st'>"lambert"</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>51</span>, <span class='fl'>51</span>), <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>90</span>, <span class='fl'>0</span>,
-  <span class='fl'>0</span>), <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"deepskyblue"</span>, <span class='kw'>npoints</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>origin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>projection</span> <span class='kw'>=</span> <span class='st'>"lambert"</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>51</span>, <span class='fl'>51</span>), <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>90</span>,
+  <span class='fl'>0</span>, <span class='fl'>0</span>), <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"deepskyblue"</span>, <span class='kw'>npoints</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>origin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mydata</th>
-      <td><p>Data frame, the result of importing a trajectory
-file using <code>importTraj</code>.</p></td>
+      <td><p>Data frame, the result of importing a trajectory file using
+<code>importTraj</code>.</p></td>
     </tr>
     <tr>
       <th>lon</th>
@@ -117,151 +131,140 @@ file using <code>importTraj</code>.</p></td>
     </tr>
     <tr>
       <th>pollutant</th>
-      <td><p>Pollutant to be plotted. By default the
-trajectory height is used.</p></td>
+      <td><p>Pollutant to be plotted. By default the trajectory height
+is used.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p><code>type</code> determines how the data are split
-i.e. conditioned, and then plotted. The default is will produce a
-single plot using the entire data. Type can be one of the built-in
-types as detailed in <code>cutData</code> e.g. "season", "year",
-"weekday" and so on. For example, <code>type = "season"</code> will
-produce four plots --- one for each season.</p>
-<p>It is also possible to choose <code>type</code> as another variable in
-the data frame. If that variable is numeric, then the data will be
-split into four quantiles (if possible) and labelled
-accordingly. If type is an existing character or factor variable,
-then those categories/levels will be used directly. This offers
-great flexibility for understanding the variation of different
-variables and how they depend on one another.</p>
-<p><code>type</code> can be up length two e.g. <code>type = c("season",
-    "weekday")</code> will produce a 2x2 plot split by season and day of
-    the week. Note, when two types are provided the first forms
-    the columns and the second the rows.</p></td>
+      <td><p><code>type</code> determines how the data are split i.e. conditioned,
+  and then plotted. The default is will produce a single plot using the
+  entire data. Type can be one of the built-in types as detailed in
+  <code>cutData</code> e.g. "season", "year", "weekday" and so on. For example,
+  <code>type = "season"</code> will produce four plots --- one for each season.</p>
+<p>It is also possible to choose <code>type</code> as another variable in the data
+  frame. If that variable is numeric, then the data will be split into four
+  quantiles (if possible) and labelled accordingly. If type is an existing
+  character or factor variable, then those categories/levels will be used
+  directly. This offers great flexibility for understanding the variation of
+  different variables and how they depend on one another.</p>
+<p><code>type</code> can be up length two e.g. <code>type = c("season", "weekday")</code>
+  will produce a 2x2 plot split by season and day of the week. Note, when
+  two types are provided the first forms the columns and the second the
+  rows.</p></td>
     </tr>
     <tr>
       <th>map</th>
-      <td><p>Should a base map be drawn? If <code>TRUE</code> the world
-base map from the <code>maps</code> package is used.</p></td>
+      <td><p>Should a base map be drawn? If <code>TRUE</code> the world base map
+from the <code>maps</code> package is used.</p></td>
     </tr>
     <tr>
       <th>group</th>
-      <td><p>It is sometimes useful to group and colour
-trajectories according to a grouping variable. See example
-below.</p></td>
+      <td><p>It is sometimes useful to group and colour trajectories
+according to a grouping variable. See example below.</p></td>
     </tr>
     <tr>
       <th>map.fill</th>
-      <td><p>Should the base map be a filled polygon? Default
-is to fill countries.</p></td>
+      <td><p>Should the base map be a filled polygon? Default is to fill
+countries.</p></td>
     </tr>
     <tr>
       <th>map.res</th>
-      <td><p>The resolution of the base map. By default the
-function uses the &#8216;world&#8217; map from the <code>maps</code>
-package. If <code>map.res = "hires"</code> then the (much) more
-detailed base map &#8216;worldHires&#8217; from the <code>mapdata</code>
-package is used. Use <code>library(mapdata)</code>. Also available
-is a map showing the US states. In this case <code>map.res =
+      <td><p>The resolution of the base map. By default the function uses
+the &#8216;world&#8217; map from the <code>maps</code> package. If <code>map.res =
+"hires"</code> then the (much) more detailed base map &#8216;worldHires&#8217; from
+the <code>mapdata</code> package is used. Use <code>library(mapdata)</code>. Also
+available is a map showing the US states. In this case <code>map.res =
 "state"</code> should be used.</p></td>
     </tr>
     <tr>
       <th>map.cols</th>
-      <td><p>If <code>map.fill = TRUE</code> <code>map.cols</code> controls
-the fill colour. Examples include <code>map.fill = "grey40"</code>
-and <code>map.fill = openColours("default", 10)</code>. The latter
-colours the countries and can help differentiate them.</p></td>
+      <td><p>If <code>map.fill = TRUE</code> <code>map.cols</code> controls the fill
+colour. Examples include <code>map.fill = "grey40"</code> and <code>map.fill =
+openColours("default", 10)</code>. The latter colours the countries and can help
+differentiate them.</p></td>
     </tr>
     <tr>
       <th>map.alpha</th>
-      <td><p>The transpency level of the filled map which
-takes values from 0 (full transparency) to 1 (full
-opacity). Setting it below 1 can help view trajectories,
-trajectory surfaces etc. <em>and</em> a filled base map.</p></td>
+      <td><p>The transpency level of the filled map which takes values
+from 0 (full transparency) to 1 (full opacity). Setting it below 1 can
+help view trajectories, trajectory surfaces etc. <em>and</em> a filled base
+map.</p></td>
     </tr>
     <tr>
       <th>projection</th>
-      <td><p>The map projection to be used. Different map
-projections are possible through the <code>mapproj</code>
-package. See <code>?mapproject</code> for extensive details and
-information on setting other parameters and orientation (see
-below).</p></td>
+      <td><p>The map projection to be used. Different map projections
+are possible through the <code>mapproj</code> package. See <code>?mapproject</code>
+for extensive details and information on setting other parameters and
+orientation (see below).</p></td>
     </tr>
     <tr>
       <th>parameters</th>
-      <td><p>From the <code>mapproj</code> package. Optional
-numeric vector of parameters for use with the projection
-argument. This argument is optional only in the sense that
-certain projections do not require additional parameters. If a
-projection does not require additional parameters then set to
-null i.e. <code>parameters = NULL</code>.</p></td>
+      <td><p>From the <code>mapproj</code> package. Optional numeric vector
+of parameters for use with the projection argument. This argument is
+optional only in the sense that certain projections do not require
+additional parameters. If a projection does not require additional
+parameters then set to null i.e. <code>parameters = NULL</code>.</p></td>
     </tr>
     <tr>
       <th>orientation</th>
-      <td><p>From the <code>mapproj</code> package. An optional
-vector c(latitude, longitude, rotation) which describes where
-the "North Pole" should be when computing the
-projection. Normally this is c(90, 0), which is appropriate
-for cylindrical and conic projections. For a planar
-projection, you should set it to the desired point of
-tangency. The third value is a clockwise rotation (in
-degrees), which defaults to the midrange of the longitude
-coordinates in the map.</p></td>
+      <td><p>From the <code>mapproj</code> package. An optional vector
+c(latitude, longitude, rotation) which describes where the "North Pole"
+should be when computing the projection. Normally this is c(90, 0), which
+is appropriate for cylindrical and conic projections. For a planar
+projection, you should set it to the desired point of tangency. The third
+value is a clockwise rotation (in degrees), which defaults to the midrange
+of the longitude coordinates in the map.</p></td>
     </tr>
     <tr>
       <th>grid.col</th>
-      <td><p>The colour of the map grid to be used. To remove
-the grid set <code>grid.col = "transparent"</code>.</p></td>
+      <td><p>The colour of the map grid to be used. To remove the grid
+set <code>grid.col = "transparent"</code>.</p></td>
     </tr>
     <tr>
       <th>npoints</th>
-      <td><p>A dot is placed every <code>npoints</code> along each
-full trajectory. For hourly back trajectories points are
-plotted every <code>npoint</code> hours. This helps to understand
-where the air masses were at particular times and get a feel
-for the speed of the air (points closer togther correspond to
-slower moving air masses).</p></td>
+      <td><p>A dot is placed every <code>npoints</code> along each full
+trajectory. For hourly back trajectories points are plotted every
+<code>npoint</code> hours. This helps to understand where the air masses were at
+particular times and get a feel for the speed of the air (points closer
+togther correspond to slower moving air masses). If <code>npoints = NA</code>
+then no points are added.</p></td>
     </tr>
     <tr>
       <th>origin</th>
-      <td><p>If true a filled circle dot is shown to mark the
-receptor point.</p></td>
+      <td><p>If true a filled circle dot is shown to mark the receptor
+point.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>other arguments are passed to <code>cutData</code> and
-<code>scatterPlot</code>. This provides access to arguments used in
-both these functions and functions that they in turn pass
-arguments on to. For example, <code>plotTraj</code> passes the
-argument <code>cex</code> on to <code>scatterPlot</code> which in turn
-passes it on to the <code>lattice</code> function <code>xyplot</code>
-where it is applied to set the plot symbol size.</p></td>
+<code>scatterPlot</code>. This provides access to arguments used in both these
+functions and functions that they in turn pass arguments on to. For
+example, <code>plotTraj</code> passes the argument <code>cex</code> on to
+<code>scatterPlot</code> which in turn passes it on to the <code>lattice</code>
+function <code>xyplot</code> where it is applied to set the plot symbol size.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Several types of trajectory plot are available. <code>trajPlot</code> by
-default will plot each lat/lon location showing the origin of
-each trajectory, if no <code>pollutant</code> is supplied.</p>
-<p>If a pollutant is given, by merging the trajectory data with
-concentration data (see example below), the trajectories are
-colour-coded by the concentration of <code>pollutant</code>. With a long
-time series there can be lots of overplotting making it difficult
-to gauge the overall concentration pattern. In these cases setting
-<code>alpha</code> to a low value e.g. 0.1 can help.</p>
-<p>The user can aslo show points instead of lines by <code>plot.type
-= "p"</code>.</p>
-<p>Note that <code>trajPlot</code> will plot only the full length
-trajectories. This should be remembered when selecting only part
-of a year to plot.</p>
+    <p>Several types of trajectory plot are available. <code>trajPlot</code> by default
+will plot each lat/lon location showing the origin of each trajectory, if no
+<code>pollutant</code> is supplied.</p>
+<p>If a pollutant is given, by merging the trajectory data with concentration
+data (see example below), the trajectories are colour-coded by the
+concentration of <code>pollutant</code>. With a long time series there can be lots
+of overplotting making it difficult to gauge the overall concentration
+pattern. In these cases setting <code>alpha</code> to a low value e.g. 0.1 can
+help.</p>
+<p>The user can aslo show points instead of lines by <code>plot.type = "p"</code>.</p>
+<p>Note that <code>trajPlot</code> will plot only the full length trajectories. This
+should be remembered when selecting only part of a year to plot.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='importTraj.html'>importTraj</a></code> to import trajectory data from
-    the King's College server and <code><a href='trajLevel.html'>trajLevel</a></code> for
-    trajectory binning functions.</p>
+    <div class='dont-index'><p><code><a href='importTraj.html'>importTraj</a></code> to import trajectory data from the King's
+  College server and <code><a href='trajLevel.html'>trajLevel</a></code> for trajectory binning
+  functions.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -321,6 +324,8 @@ David Carslaw
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

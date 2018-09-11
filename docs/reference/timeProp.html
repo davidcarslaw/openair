@@ -21,10 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Time series plot with categories shown as a stacked bar chart — timeProp" />
 
 <meta property="og:description" content="This function shows time series plots as stacked bar charts. The
@@ -36,6 +41,9 @@ consider local and regional (back trajectory) cluster analysis
 respectively. However, the function has more general use for
 understanding time series data." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -58,8 +66,12 @@ understanding time series data." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">openair</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">openair</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -78,6 +90,7 @@ understanding time series data." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -85,13 +98,15 @@ understanding time series data." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Time series plot with categories shown as a stacked bar chart</h1>
-    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/timeProp.R'><code>R/timeProp.R</code></a></small>
+    
+    <div class="hidden name"><code>timeProp.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This function shows time series plots as stacked bar charts. The
 different categories in the bar chart are made up from a character
@@ -102,14 +117,15 @@ consider local and regional (back trajectory) cluster analysis
 respectively. However, the function has more general use for
 understanding time series data.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>timeProp</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>proportion</span> <span class='kw'>=</span> <span class='st'>"cluster"</span>,
   <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
-  <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"Set1"</span>, <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>date.format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>key.title</span> <span class='kw'>=</span> <span class='no'>proportion</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"Set1"</span>, <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>,
+  <span class='kw'>date.format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
+  <span class='kw'>key.title</span> <span class='kw'>=</span> <span class='no'>proportion</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -256,10 +272,10 @@ for any time interval.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>See <code><a href='timePlot.html'>timePlot</a></code> for time series plotting,
+    <div class='dont-index'><p>See <code><a href='timePlot.html'>timePlot</a></code> for time series plotting,
   <code><a href='polarCluster.html'>polarCluster</a></code> for cluster analysis of bivariate
   polar plots and <code><a href='trajCluster.html'>trajCluster</a></code> for cluster analysis
-  of HYSPLIT back trajectories.</p>
+  of HYSPLIT back trajectories.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -268,7 +284,7 @@ for any time interval.</p>
 
 
 <span class='co'>## monthly plot of SO2 showing the contribution by wind sector</span>
-<span class='fu'>timeProp</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"so2"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>proportion</span> <span class='kw'>=</span> <span class='st'>"wd"</span>)</div><div class='img'><img src='timeProp-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>timeProp</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"so2"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>proportion</span> <span class='kw'>=</span> <span class='st'>"wd"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 219 missing wind direction line(s) removed</span></div><div class='img'><img src='timeProp-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>
@@ -302,6 +318,8 @@ David Carslaw
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

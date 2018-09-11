@@ -21,15 +21,23 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Subset a data frame based on date — selectByDate" />
 
 <meta property="og:description" content="Utility function to make it easier to select periods from a data frame
 before sending to a function" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,8 +60,12 @@ before sending to a function" />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">openair</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">openair</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -72,6 +84,7 @@ before sending to a function" />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -79,22 +92,25 @@ before sending to a function" />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Subset a data frame based on date</h1>
-    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/utilities.R'><code>R/utilities.R</code></a></small>
+    
+    <div class="hidden name"><code>selectByDate.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Utility function to make it easier to select periods from a data frame
 before sending to a function</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1/1/2008"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"31/12/2008"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2008</span>,
-  <span class='kw'>month</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>day</span> <span class='kw'>=</span> <span class='st'>"weekday"</span>, <span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1/1/2008"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"31/12/2008"</span>,
+  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2008</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>day</span> <span class='kw'>=</span> <span class='st'>"weekday"</span>, <span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -158,19 +174,23 @@ dates</p>
     <pre class="examples"><div class='input'>
 <span class='co'>## select all of 1999</span>
 <span class='no'>data.1999</span> <span class='kw'>&lt;-</span> <span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1/1/1999"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"31/12/1999"</span>)
-<span class='fu'>head</span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt;                     date   ws  wd nox no2 o3 pm10      so2       co pm25
-#&gt; 8761 1999-01-01 00:00:00 5.04 140  88  35  4   21 3.835000 1.025000   18
-#&gt; 8762 1999-01-01 01:00:00 4.08 160 132  41  3   17 5.243333 2.700000   11
-#&gt; 8763 1999-01-01 02:00:00 4.80 160 168  40  4   17 6.513333 2.866667    8
-#&gt; 8764 1999-01-01 03:00:00 4.92 150  85  36  3   15 4.180000 1.625000   10
-#&gt; 8765 1999-01-01 04:00:00 4.68 150  93  37  3   16 4.250000 1.025000   11
-#&gt; 8766 1999-01-01 05:00:00 3.96 160  74  29  5   14 3.882500 0.725000   NA</div><div class='input'><span class='fu'>tail</span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt;                      date   ws  wd nox no2 o3 pm10    so2    co pm25
-#&gt; 17515 1999-12-31 18:00:00 4.68 190 226  39 NA   29 5.4550 2.375   23
-#&gt; 17516 1999-12-31 19:00:00 3.96 180 202  37 NA   27 4.7850 2.150   23
-#&gt; 17517 1999-12-31 20:00:00 3.36 190 246  44 NA   30 5.8750 2.450   23
-#&gt; 17518 1999-12-31 21:00:00 3.72 220 231  35 NA   28 5.2800 2.225   23
-#&gt; 17519 1999-12-31 22:00:00 4.08 200 217  41 NA   31 4.7875 2.175   26
-#&gt; 17520 1999-12-31 23:00:00 3.24 200 181  37 NA   28 3.4825 1.775   22</div><div class='input'>
+<span class='fu'>head</span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 10
+#&gt;   date                   ws    wd   nox   no2    o3  pm10   so2    co  pm25
+#&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+#&gt; 1 1999-01-01 00:00:00  5.04   140    88    35     4    21  3.84 1.02     18
+#&gt; 2 1999-01-01 01:00:00  4.08   160   132    41     3    17  5.24 2.7      11
+#&gt; 3 1999-01-01 02:00:00  4.8    160   168    40     4    17  6.51 2.87      8
+#&gt; 4 1999-01-01 03:00:00  4.92   150    85    36     3    15  4.18 1.62     10
+#&gt; 5 1999-01-01 04:00:00  4.68   150    93    37     3    16  4.25 1.02     11
+#&gt; 6 1999-01-01 05:00:00  3.96   160    74    29     5    14  3.88 0.725    NA</div><div class='input'><span class='fu'>tail</span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 10
+#&gt;   date                   ws    wd   nox   no2    o3  pm10   so2    co  pm25
+#&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+#&gt; 1 1999-12-31 18:00:00  4.68   190   226    39    NA    29  5.46  2.38    23
+#&gt; 2 1999-12-31 19:00:00  3.96   180   202    37    NA    27  4.78  2.15    23
+#&gt; 3 1999-12-31 20:00:00  3.36   190   246    44    NA    30  5.88  2.45    23
+#&gt; 4 1999-12-31 21:00:00  3.72   220   231    35    NA    28  5.28  2.22    23
+#&gt; 5 1999-12-31 22:00:00  4.08   200   217    41    NA    31  4.79  2.17    26
+#&gt; 6 1999-12-31 23:00:00  3.24   200   181    37    NA    28  3.48  1.78    22</div><div class='input'>
 <span class='co'># or...</span>
 <span class='no'>data.1999</span> <span class='kw'>&lt;-</span> <span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1999-01-01"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1999-12-31"</span>)
 
@@ -213,6 +233,8 @@ David Carslaw
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

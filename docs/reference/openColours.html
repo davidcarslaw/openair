@@ -21,14 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="openair colours — openColours" />
 
 <meta property="og:description" content="Pre-defined openair colours and definition of user-defined colours" />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,8 +59,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">openair</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">openair</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -71,6 +83,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -78,49 +91,55 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>openair colours</h1>
-    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/openColours.R'><code>R/openColours.R</code></a></small>
+    
+    <div class="hidden name"><code>openColours.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Pre-defined openair colours and definition of user-defined colours</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>openColours</span>(<span class='kw'>scheme</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>scheme</th>
-      <td><p>The pre-defined schemes are "increment", "default",
-"brewer1", "heat", "jet", "hue", "greyscale", or a vector of R
-colour names e.g. c("green", "blue"). It is also possible to
-supply colour schemes from the <code>RColorBrewer</code> package. This
-package defines three types of colour schemes: sequential,
-diverging or qualitative. See <a href='http://colorbrewer2.org'>http://colorbrewer2.org</a> for
-more details concerning the orginal work on which this is based.</p>
-<p>Sequential colours are useful for ordered data where there is a
-need to show a difference between low and high values with colours
-going from light to dark. The pre-defined colours that can be
-supplied are: "Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys",
-"Oranges", "OrRd", "PuBu", "PuBuGn", "PuRd", "Purples", "RdPu",
-"Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd".</p>
-<p>Diverging palettes put equal emphasis on mid-range critical
-values and extremes at both ends of the data range. Pre-defined
-values are: "BrBG", "PiYG", "PRGn", "PuOr", "RdBu", "RdGy",
-"RdYlBu", "RdYlGn", "Spectral".</p>
-<p>Qualitative palettes are useful for differentiating between
-categorical data types. The pre-defined schemes are "Accent",
-"Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3".</p>
-<p>Note that because of the way these schemes have been developed
-they only exist over certain number of colour gradations
-(typically 3--10) --- see ?<code>brewer.pal</code> for actual
-details. If less than or more than the required number of colours
-is supplied then <code>openair</code> will interpolate the colours.</p></td>
+      <td><p>The pre-defined schemes are "increment", "default", "brewer1",
+  "heat", "jet", "hue", "greyscale", or a vector of R colour names e.g.
+  c("green", "blue"). It is also possible to supply colour schemes from the
+  <code>RColorBrewer</code> package. This package defines three types of colour
+  schemes: sequential, diverging or qualitative. See
+  <a href='http://colorbrewer2.org'>http://colorbrewer2.org</a> for more details concerning the orginal work
+  on which this is based.</p>
+<p>Simplified versions of the <code>viridis</code> colours are also available.
+  These include "viridis", "plasma", "magma", "inferno" and "cividis".</p>
+<p>Sequential colours are useful for ordered data where there is a need to
+  show a difference between low and high values with colours going from
+  light to dark. The pre-defined colours that can be supplied are: "Blues",
+  "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
+  "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr",
+  "YlOrRd".</p>
+<p>Diverging palettes put equal emphasis on mid-range critical values and
+  extremes at both ends of the data range. Pre-defined values are: "BrBG",
+  "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral".</p>
+<p>Qualitative palettes are useful for differentiating between categorical
+  data types. The pre-defined schemes are "Accent", "Dark2", "Paired",
+  "Pastel1", "Pastel2", "Set1", "Set2", "Set3".</p>
+<p>A colorblind safe pallette "cbPalette" is available based on the work of:
+  http://jfly.iam.u-tokyo.ac.jp/color/</p>
+<p>Note that because of the way these schemes have been developed they only
+  exist over certain number of colour gradations (typically 3--10) --- see
+  ?<code>brewer.pal</code> for actual details. If less than or more than the
+  required number of colours is supplied then <code>openair</code> will
+  interpolate the colours.</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -137,20 +156,19 @@ is supplied then <code>openair</code> will interpolate the colours.</p></td>
     <p>This in primarily an internal openair function to make it easy for users to
 select particular colour schemes, or define their own range of colours of a
 user-defined length.</p>
-<p>Each of the pre-defined schemes have merits and their use will
-depend on a particular situation. For showing incrementing
-concentrations e.g. high concentrations emphasised, then
-"default", "heat", "jet" and "increment" are very useful. See also
-the description of <code>RColorBrewer</code> schemes for the option
-<code>scheme</code>.</p>
+<p>Each of the pre-defined schemes have merits and their use will depend on a
+particular situation. For showing incrementing concentrations e.g. high
+concentrations emphasised, then "default", "heat", "jet" and "increment" are
+very useful. See also the description of <code>RColorBrewer</code> schemes for the
+option <code>scheme</code>.</p>
 <p>To colour-code categorical-type problems e.g. colours for different
 pollutants, "hue" and "brewer1" are useful.</p>
 <p>When publishing in black and white, "greyscale" is often convenient.  With
 most openair functions, as well as generating a greyscale colour gradient,
 it also resets strip background and other coloured text and lines to
 greyscale values.</p>
-<p>Failing that, the user can define their own schemes based on R colour
-names. To see the full list of names, type <code>colors()</code> into R.</p>
+<p>Failing that, the user can define their own schemes based on R colour names.
+To see the full list of names, type <code>colors()</code> into R.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -202,6 +220,8 @@ David Carslaw
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

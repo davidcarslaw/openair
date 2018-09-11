@@ -8,8 +8,8 @@
 <title>Tools for the Analysis of Air Pollution Data • openair</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Tools for the Analysis of Air Pollution Data">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Tools for the Analysis of Air Pollution Data">
 <meta property="og:description" content="Tools to analyse, interpret and understand air
     pollution data. Data are typically hourly time series
     and both monitoring data and dispersion model output
@@ -22,7 +22,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -31,8 +31,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">openair</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="index.html">openair</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
@@ -59,12 +63,11 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     
 
     
     
-<div class="contents">
 <!-- Edit the README.Rmd only!!! The README.md is generated automatically from README.Rmd. -->
 <div id="openair-open-source-tools-for-air-quality-data-analysis" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
@@ -78,8 +81,8 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Installation of openair from GitHub is easy using the devtools package. Note, because openair contains C++ code a compiler is also needed. For Windows - for example, <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> is needed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(devtools)
-<span class="kw">install_github</span>(<span class="st">'davidcarslaw/openair'</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">require</span>(devtools)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">'davidcarslaw/openair'</span>)</a></code></pre></div>
 <p>I also try to keep up to date versions of the package <a href="https://www.dropbox.com/sh/x8mmf5d54wfo5vq/AACpKqsrPkTC0guiu5ftiKNna?dl=0">here</a> if you can’t build the package yourself.</p>
 </div>
 <div id="description" class="section level2">
@@ -106,46 +109,46 @@
 <h3 class="hasAnchor">
 <a href="#import-data-from-the-uk-automatic-urban-and-rural-network" class="anchor"></a>Import data from the UK Automatic Urban and Rural Network</h3>
 <p>It is easy to import hourly data from 100s of sites and to import several sites at one time and several years of data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(openair)
-kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN.html">importAURN</a></span>(<span class="dt">site =</span> <span class="st">"kc1"</span>, <span class="dt">year =</span> <span class="dv">2011</span><span class="op">:</span><span class="dv">2012</span>)
-<span class="kw">head</span>(kc1)
-##                  date o3 no2  co so2 pm10 nox no pm2.5 nv2.5 v2.5 nv10 v10
-## 1 2011-01-01 00:00:00 14  38 0.2   5   40  44  4    39    32    7   32   8
-## 2 2011-01-01 01:00:00 28  29 0.2   3   36  38  6    30    24    6   29   7
-## 3 2011-01-01 02:00:00 18  31 0.2   3   31  32  1    31    23    8   24   7
-## 4 2011-01-01 03:00:00 14  29 0.2   3   31  31  1    29    21    8   23   8
-## 5 2011-01-01 04:00:00 16  29 0.2   3   29  31  1    25    19    6   21   8
-## 6 2011-01-01 05:00:00 24  27 0.1   3   25  29  1    23    16    7   18   7
-##    ws    wd                 site code
-## 1 1.1 266.7 London N. Kensington  KC1
-## 2 1.2 271.9 London N. Kensington  KC1
-## 3 1.5 276.3 London N. Kensington  KC1
-## 4 2.1 278.7 London N. Kensington  KC1
-## 5 2.7 289.6 London N. Kensington  KC1
-## 6 2.8 303.6 London N. Kensington  KC1</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(openair)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN.html">importAURN</a></span>(<span class="dt">site =</span> <span class="st">"kc1"</span>, <span class="dt">year =</span> <span class="dv">2011</span><span class="op">:</span><span class="dv">2012</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">head</span>(kc1)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">##                  date code                 site o3 no2  co so2 pm10 nox no</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">## 1 2011-01-01 00:00:00  KC1 London N. Kensington 14  38 0.2   5   40  44  4</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">## 2 2011-01-01 01:00:00  KC1 London N. Kensington 28  29 0.2   3   36  38  6</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">## 3 2011-01-01 02:00:00  KC1 London N. Kensington 18  31 0.2   3   31  32  1</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">## 4 2011-01-01 03:00:00  KC1 London N. Kensington 14  29 0.2   3   31  31  1</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">## 5 2011-01-01 04:00:00  KC1 London N. Kensington 16  29 0.2   3   29  31  1</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">## 6 2011-01-01 05:00:00  KC1 London N. Kensington 24  27 0.1   3   25  29  1</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">##   pm2.5 nv2.5 v2.5 nv10 v10  ws    wd</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">## 1    39    32    7   32   8 1.1 266.7</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">## 2    30    24    6   29   7 1.2 271.9</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">## 3    31    23    8   24   7 1.5 276.3</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">## 4    29    21    8   23   8 2.1 278.7</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">## 5    25    19    6   21   8 2.7 289.6</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">## 6    23    16    7   18   7 2.8 303.6</a></code></pre></div>
 </div>
 <div id="utility-functions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#utility-functions" class="anchor"></a>Utility functions</h3>
 <p>Using the <code>selectByDate</code> function it is easy to select quite complex time-based periods. For example, to select weekday (Monday to Friday) data from June to September for 2012 <em>and</em> for the hours 7am to 7pm inclusive:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sub &lt;-<span class="st"> </span><span class="kw"><a href="reference/selectByDate.html">selectByDate</a></span>(kc1, <span class="dt">day =</span> <span class="st">"weekday"</span>, <span class="dt">year =</span> <span class="dv">2012</span>, <span class="dt">month =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">hour =</span> <span class="dv">7</span><span class="op">:</span><span class="dv">19</span>)
-<span class="kw">head</span>(sub)
-##                      date o3 no2   co so2 pm10 nox no pm2.5 nv2.5 v2.5
-## 12416 2012-06-01 07:00:00 24  23 0.23   3    6  36  9    21    14    7
-## 12417 2012-06-01 08:00:00 34  21 0.23   3    9  33  7    NA    NA   NA
-## 12418 2012-06-01 09:00:00 52  19 0.23   3    6  23  2    NA    NA   NA
-## 12419 2012-06-01 10:00:00 62  13 0.23   3    7  17  2    NA    NA   NA
-## 12420 2012-06-01 11:00:00 70  13 0.23   3    9  17  2    14     7    7
-## 12421 2012-06-01 12:00:00 78  19 0.23   3    8  21  1    13     7    6
-##       nv10 v10  ws    wd                 site code
-## 12416    5   1 1.4 307.4 London N. Kensington  KC1
-## 12417    8   1 1.6 313.6 London N. Kensington  KC1
-## 12418    3   3 1.6 330.0 London N. Kensington  KC1
-## 12419    4   3 1.5 348.9 London N. Kensington  KC1
-## 12420    6   3 1.4 181.1 London N. Kensington  KC1
-## 12421    4   4 1.6   2.9 London N. Kensington  KC1</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">sub &lt;-<span class="st"> </span><span class="kw"><a href="reference/selectByDate.html">selectByDate</a></span>(kc1, <span class="dt">day =</span> <span class="st">"weekday"</span>, <span class="dt">year =</span> <span class="dv">2012</span>, <span class="dt">month =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">hour =</span> <span class="dv">7</span><span class="op">:</span><span class="dv">19</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">head</span>(sub)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">##                      date code                 site o3 no2   co so2 pm10</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">## 12416 2012-06-01 07:00:00  KC1 London N. Kensington 24  23 0.23   3    6</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">## 12417 2012-06-01 08:00:00  KC1 London N. Kensington 34  21 0.23   3    9</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">## 12418 2012-06-01 09:00:00  KC1 London N. Kensington 52  19 0.23   3    6</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">## 12419 2012-06-01 10:00:00  KC1 London N. Kensington 62  13 0.23   3    7</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">## 12420 2012-06-01 11:00:00  KC1 London N. Kensington 70  13 0.23   3    9</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">## 12421 2012-06-01 12:00:00  KC1 London N. Kensington 78  19 0.23   3    8</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">##       nox no pm2.5 nv2.5 v2.5 nv10 v10  ws    wd</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">## 12416  36  9    21    14    7    5   1 1.4 307.4</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">## 12417  33  7    NA    NA   NA    8   1 1.6 313.6</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">## 12418  23  2    NA    NA   NA    3   3 1.6 330.0</a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">## 12419  17  2    NA    NA   NA    4   3 1.5 348.9</a>
+<a class="sourceLine" id="cb3-15" data-line-number="15">## 12420  17  2    14     7    7    6   3 1.4 181.1</a>
+<a class="sourceLine" id="cb3-16" data-line-number="16">## 12421  21  1    13     7    6    4   4 1.6   2.9</a></code></pre></div>
 <p>Similarly it is easy to time-average data in many flexible ways. For example, 2-week means can be calculated as</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sub2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/timeAverage.html">timeAverage</a></span>(kc1, <span class="dt">avg.time =</span> <span class="st">"2 week"</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">sub2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/timeAverage.html">timeAverage</a></span>(kc1, <span class="dt">avg.time =</span> <span class="st">"2 week"</span>)</a></code></pre></div>
 </div>
 <div id="the-type-option" class="section level3">
 <h3 class="hasAnchor">
@@ -162,7 +165,7 @@ kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN
 </li>
 <li>“dst” splits variables by daylight saving time and non-daylight saving time (see manual for more details)</li>
 <li>“wd” if wind direction (<code>wd</code>) is available <code>type = "wd"</code> will split the data up into 8 sectors: N, NE, E, SE, S, SW, W, NW.</li>
-<li>“seasonyear (or”yearseason“) will split the data into year-season intervals, keeping the months of a season together. For example, December 2010 is considered as part of winter 2011 (with January and February 2011). This makes it easier to consider contiguous seasons. In contrast, <code>type = "season"</code> will just split the data into four seasons regardless of the year.</li>
+<li>“seasonyear (or”yearseason") will split the data into year-season intervals, keeping the months of a season together. For example, December 2010 is considered as part of winter 2011 (with January and February 2011). This makes it easier to consider contiguous seasons. In contrast, <code>type = "season"</code> will just split the data into four seasons regardless of the year.</li>
 </ul>
 <p>If a categorical variable is present in a data frame e.g. <code>site</code> then that variables can be used directly e.g. <code>type = "site"</code>.</p>
 <p><code>type</code> can also be a numeric variable. In this case the numeric variable is split up into 4 <em>quantiles</em> i.e. four partitions containing equal numbers of points. Note the user can supply the option <code>n.levels</code> to indicate how many quantiles to use.</p>
@@ -171,12 +174,11 @@ kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN
 <h3 class="hasAnchor">
 <a href="#wind-roses-and-pollution-roses" class="anchor"></a>Wind roses and pollution roses</h3>
 <p><strong>openair</strong> can plot basic wind roses very easily provided the variables <code>ws</code> (wind speed) and <code>wd</code> (wind direction) are available.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/windRose.html">windRose</a></span>(mydata)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/windRose.html">windRose</a></span>(mydata)</a></code></pre></div>
 <p><img src="tools/unnamed-chunk-6-1.png" width="384"></p>
 <p>However, the real flexibility comes from being able to use the <code>type</code> option.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/windRose.html">windRose</a></span>(mydata, <span class="dt">type =</span> <span class="st">"year"</span>, <span class="dt">layout =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>))</code></pre></div>
-<p><img src="tools/unnamed-chunk-7-1.png" width="672"></p>
-</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/windRose.html">windRose</a></span>(mydata, <span class="dt">type =</span> <span class="st">"year"</span>, <span class="dt">layout =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>))</a></code></pre></div>
+<p><img src="tools/unnamed-chunk-7-1.png" width="700"></p>
 </div>
 </div>
 </div>
@@ -187,8 +189,6 @@ kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN
 <h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=openair">https://​cloud.r-project.org/​package=openair</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/davidcarslaw/openair">https://​github.com/​davidcarslaw/​openair</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/davidcarslaw/openair/issues">https://​github.com/​davidcarslaw/​openair/​issues</a>
 </li>
@@ -229,6 +229,8 @@ kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN
 
       </footer>
 </div>
+
+  
 
   </body>
 </html>

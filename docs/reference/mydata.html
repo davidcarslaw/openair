@@ -21,18 +21,26 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Example data for openair — mydata" />
 
 <meta property="og:description" content="The mydata dataset is provided as an example dataset as part of the openair
 package. The dataset contains hourly measurements of air pollutant
 concentrations, wind speed and wind direction collected at the Marylebone
 (London) air quality monitoring supersite between 1st January 1998 and 23rd
-June 2005." />
+June 2005. The data set is a tibble." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -55,8 +63,12 @@ June 2005." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">openair</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">openair</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -75,6 +87,7 @@ June 2005." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -82,20 +95,23 @@ June 2005." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Example data for openair</h1>
-    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/mydata.R'><code>R/mydata.R</code></a></small>
+    
+    <div class="hidden name"><code>mydata.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>The mydata dataset is provided as an example dataset as part of the openair
 package. The dataset contains hourly measurements of air pollutant
 concentrations, wind speed and wind direction collected at the Marylebone
 (London) air quality monitoring supersite between 1st January 1998 and 23rd
-June 2005.</p>
+June 2005. The data set is a tibble.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -140,13 +156,15 @@ dataset for use with documented examples.</p>
     <pre class="examples"><div class='input'>
 
 <span class='co'>#basic structure</span>
-<span class='fu'>head</span>(<span class='no'>mydata</span>)</div><div class='output co'>#&gt;                  date   ws  wd nox no2 o3 pm10    so2      co pm25
-#&gt; 1 1998-01-01 00:00:00 0.60 280 285  39  1   29 4.7225  3.3725   NA
-#&gt; 2 1998-01-01 01:00:00 2.16 230  NA  NA NA   37     NA      NA   NA
-#&gt; 3 1998-01-01 02:00:00 2.76 190  NA  NA  3   34 6.8300  9.6025   NA
-#&gt; 4 1998-01-01 03:00:00 2.16 170 493  52  3   35 7.6625 10.2175   NA
-#&gt; 5 1998-01-01 04:00:00 2.40 180 468  78  2   34 8.0700  8.9125   NA
-#&gt; 6 1998-01-01 05:00:00 3.00 190 264  42  0   16 5.5050  3.0525   NA</div><div class='input'>
+<span class='fu'>head</span>(<span class='no'>mydata</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 10
+#&gt;   date                   ws    wd   nox   no2    o3  pm10   so2    co  pm25
+#&gt;   &lt;dttm&gt;              &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+#&gt; 1 1998-01-01 00:00:00  0.6    280   285    39     1    29  4.72  3.37    NA
+#&gt; 2 1998-01-01 01:00:00  2.16   230    NA    NA    NA    37 NA    NA       NA
+#&gt; 3 1998-01-01 02:00:00  2.76   190    NA    NA     3    34  6.83  9.60    NA
+#&gt; 4 1998-01-01 03:00:00  2.16   170   493    52     3    35  7.66 10.2     NA
+#&gt; 5 1998-01-01 04:00:00  2.4    180   468    78     2    34  8.07  8.91    NA
+#&gt; 6 1998-01-01 05:00:00  3      190   264    42     0    16  5.50  3.05    NA</div><div class='input'>
 
 </div></pre>
   </div>
@@ -179,6 +197,8 @@ dataset for use with documented examples.</p>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

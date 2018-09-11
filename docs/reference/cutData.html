@@ -21,10 +21,15 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Function to split data in different ways for conditioning — cutData" />
 
 <meta property="og:description" content="Utility function to split data frames up in various ways for
@@ -32,6 +37,9 @@ conditioning plots. Users would generally not be expected to call
 this function directly.  Widely used by many openair
 functions usually through the option type." />
 <meta name="twitter:card" content="summary" />
+
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -54,8 +62,12 @@ functions usually through the option type." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">openair</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">openair</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -74,6 +86,7 @@ functions usually through the option type." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -81,25 +94,28 @@ functions usually through the option type." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Function to split data in different ways for conditioning</h1>
-    <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/cutData.R'><code>R/cutData.R</code></a></small>
+    
+    <div class="hidden name"><code>cutData.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Utility function to split data frames up in various ways for
 conditioning plots. Users would generally not be expected to call
 this function directly.  Widely used by many <code>openair</code>
 functions usually through the option <code>type</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>cutData</span>(<span class='no'>x</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>hemisphere</span> <span class='kw'>=</span> <span class='st'>"northern"</span>, <span class='kw'>n.levels</span> <span class='kw'>=</span> <span class='fl'>4</span>,
   <span class='kw'>start.day</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>is.axis</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>local.tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>latitude</span> <span class='kw'>=</span> <span class='fl'>51</span>,
   <span class='kw'>longitude</span> <span class='kw'>=</span> -<span class='fl'>0.5</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -281,6 +297,8 @@ David Carslaw (cutData) and Karl Ropkins (cutDaylight)
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>
