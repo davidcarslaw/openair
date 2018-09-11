@@ -501,27 +501,28 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     }
 
 
-    if ("wd" %in% names(mydata) && statistic != "data.cap") {
-      if (is.numeric(mydata$wd)) {
+    if ("wd" %in% names(mydata)){
+      if (statistic != "data.cap") {
+        if (is.numeric(mydata$wd)) {
 
-        ## mean wd
-        avmet <- transform(avmet,
-          wd = as.vector(atan2(Uu, Vv) * 360 / 2 / pi)
-        )
+          ## mean wd
+          avmet <- transform(avmet,
+            wd = as.vector(atan2(Uu, Vv) * 360 / 2 / pi)
+          )
 
-        ## correct for negative wind directions
-        ids <- which(avmet$wd < 0) ## ids where wd < 0
-        avmet$wd[ids] <- avmet$wd[ids] + 360
+          ## correct for negative wind directions
+          ids <- which(avmet$wd < 0) ## ids where wd < 0
+          avmet$wd[ids] <- avmet$wd[ids] + 360
 
-        ## vector average ws
-        if ("ws" %in% names(mydata)) {
-          if (vector.ws) {
-            avmet <- transform(avmet, ws = (Uu ^ 2 + Vv ^ 2) ^ 0.5)
+          ## vector average ws
+          if ("ws" %in% names(mydata)) {
+           if (vector.ws) {
+              avmet <- transform(avmet, ws = (Uu ^ 2 + Vv ^ 2) ^ 0.5)
+            }
           }
         }
-
-        avmet <- subset(avmet, select = c(-Uu, -Vv))
       }
+      avmet <- subset(avmet, select = c(-Uu, -Vv))
     }
 
     ## fill missing gaps
