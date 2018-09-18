@@ -162,7 +162,7 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
       do(timeAverage(
         .,
         avg.time = "year", statistic = "data.cap",
-        type = "site"
+        type = c("site", "year")
       )) %>%
       rename_(dat.cap = pollutant)
 
