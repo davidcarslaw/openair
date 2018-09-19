@@ -90,10 +90,10 @@
 ##' ## example is for illustrative purposes only
 ##' aqStats(selectByDate(mydata, year = 2004), pollutant = "no2")
 ##'
-##' 
-aqStats <- function(mydata, pollutant = "no2", 
+##'
+aqStats <- function(mydata, pollutant = "no2",
                     type = "default",
-                    data.thresh = 0, 
+                    data.thresh = 0,
                     percentile = c(95, 99),
                     transpose = FALSE, ...) {
 
@@ -104,14 +104,16 @@ aqStats <- function(mydata, pollutant = "no2",
 
   # variables we need
   vars <- c("date", pollutant, type)
-  
+
   # cut data by type
   mydata <- cutData(mydata, type)
-  
+
   # check we have teh variables
-  mydata <- checkPrep(mydata, vars, "default", remove.calm = FALSE, 
-                      strip.white = FALSE)
-  
+  mydata <- checkPrep(mydata, vars, "default",
+    remove.calm = FALSE,
+    strip.white = FALSE
+  )
+
 
   ## pre-defined lits of pollutants that need special treatment
   thePolls <- c("no2", "o3", "pm10", "co")
@@ -120,49 +122,50 @@ aqStats <- function(mydata, pollutant = "no2",
 
     ## select only data needed
     mydata <- mydata[c("date", pollutant, type)]
-    
+
     Type <- mydata[[type]][1] # need to know this in case we need to pad data
 
-    ## file any missing hours
+    ## fill any missing hours
     start.date <- floor_date(min(mydata$date), "year")
     end.date <- ceiling_date(max(mydata$date), "year") - 3600
-    
+
     ## find time interval of data and pad any missing times
     interval <- find.time.interval(mydata$date)
     all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
-    mydata <- full_join(mydata, all.dates, by = "date") 
+    mydata <- full_join(mydata, all.dates, by = "date")
     mydata[[type]] <- Type
-    
+
     # year is needed for some calculations
     mydata$year <- year(mydata$date)
 
-
+  # statistics
+    
     Mean <- timeAverage(
-        mydata,
-        avg.time = "year", statistic = "mean", data.thresh,
-        print.int = FALSE, type = type
-      ) %>%
+      mydata,
+      avg.time = "year", statistic = "mean", data.thresh,
+      print.int = FALSE, type = type
+    ) %>%
       rename_(mean = pollutant)
 
     Min <- timeAverage(
-        mydata,
-        avg.time = "year", statistic = "min", data.thresh,
-        print.int = FALSE, type = type
-      ) %>%
+      mydata,
+      avg.time = "year", statistic = "min", data.thresh,
+      print.int = FALSE, type = type
+    ) %>%
       rename_(minimum = pollutant)
 
     Max <- timeAverage(
-        mydata,
-        avg.time = "year", statistic = "max", data.thresh,
-        print.int = FALSE, type = type
-      ) %>%
+      mydata,
+      avg.time = "year", statistic = "max", data.thresh,
+      print.int = FALSE, type = type
+    ) %>%
       rename_(maximum = pollutant)
 
     maxDaily <- timeAverage(
-        mydata,
-        avg.time = "day", statistic = "mean", data.thresh,
-        print.int = FALSE, type = type
-      ) %>%
+      mydata,
+      avg.time = "day", statistic = "mean", data.thresh,
+      print.int = FALSE, type = type
+    ) %>%
       timeAverage(
         avg.time = "year", statistic = "max",
         data.thresh, print.int = FALSE,
@@ -171,22 +174,25 @@ aqStats <- function(mydata, pollutant = "no2",
       rename_(daily.max = pollutant)
 
     Median <- timeAverage(
-        mydata,
-        avg.time = "year", statistic = "median", data.thresh,
-        type = type
-      ) %>%
+      mydata,
+      avg.time = "year", statistic = "median", data.thresh,
+      type = type
+    ) %>%
       rename_(median = pollutant)
 
-   
-    dataCapture <- group_by(mydata, UQS(syms(type)), year) %>% 
-      summarise(date = min(date), 
-                dat.cap = 100 * length(na.omit(UQ(sym(pollutant)))) / 
-                  length(UQ(sym(pollutant)))) 
-    
-    if (type == "default") 
-      dataCapture <- ungroup(dataCapture) %>% 
+
+    dataCapture <- group_by(mydata, UQS(syms(type)), year) %>%
+      summarise(
+        date = min(date),
+        dat.cap = 100 * length(na.omit(UQ(sym(pollutant)))) /
+          length(UQ(sym(pollutant)))
+      )
+
+    if (type == "default") {
+      dataCapture <- ungroup(dataCapture) %>%
         select(-default)
-    
+    }
+
 
     rollMax8 <- group_by(mydata, year) %>%
       do(rollingMean(
@@ -220,12 +226,12 @@ aqStats <- function(mydata, pollutant = "no2",
         avg.time = "year", pollutant = pollutant,
         data.thresh = data.thresh, percentile = percentile
       ))
-    
+
     if (type == "default") vars <- c("year", "date") else vars <- c(type, "year", "date")
 
-
+  # specific treatment of pollutants
+    
     if (length(grep("o3", pollutant, ignore.case = TRUE)) == 1) {
-      
       rollingO3 <- group_by(mydata, year) %>%
         do(rollingMean(., pollutant, data.thresh = data.thresh, ...)) %>%
         do(timeAverage(
@@ -271,17 +277,16 @@ aqStats <- function(mydata, pollutant = "no2",
     }
 
     if (length(grep("no2", pollutant, ignore.case = TRUE)) == 1) {
-      
       hours <- group_by(mydata, UQS(syms(type)), year) %>%
         summarise(hours = length(which(UQ(sym(pollutant)) > 200)))
 
-        hours$date <- Mean$date
+      hours$date <- Mean$date
 
       no2.results <- list(
         dataCapture, Mean, Min, Max, Median, maxDaily, rollMax8,
         rollMax24, Percentile, hours
       )
-      
+
       no2.results <- Reduce(function(x, y) merge(
           x, y,
           by = vars,
@@ -302,7 +307,7 @@ aqStats <- function(mydata, pollutant = "no2",
         )) %>%
         summarise(days = length(which(UQ(sym(pollutant)) > 50)))
 
- 
+
       days$date <- Mean$date
 
       pm10.results <- list(
@@ -358,10 +363,11 @@ aqStats <- function(mydata, pollutant = "no2",
     results
   }
 
-  ## function to go through sites
+  ## function to go through type
 
-  byPollutant <- function(mydata, type, pollutant, data.thresh = data.thresh,
-                     percentile = percentile, ...) {
+  byPollutant <- function(mydata, type, pollutant,
+                            data.thresh = data.thresh,
+                            percentile = percentile, ...) {
 
     ## dates should be unique; issue warning if not
     if (any(duplicated(mydata$date))) {
@@ -371,20 +377,19 @@ aqStats <- function(mydata, pollutant = "no2",
       )
     }
 
-
+    # process each pollutant
     results <- lapply(pollutant, function(x) calcStats(
         mydata = mydata, type, pollutant = x,
         data.thresh = data.thresh,
         percentile = percentile, ...
       ))
 
-    ## supress warnings about binding factors
     results <- bind_rows(results)
- 
+
     results
   }
-
-
+  
+  # process data by type
   results <- group_by(mydata, UQS(syms(type))) %>%
     do(byPollutant(
       .,
@@ -396,23 +401,25 @@ aqStats <- function(mydata, pollutant = "no2",
 
   ## transpose if requested
   if (transpose) {
-    
-    results <- gather(results, key = variable, value = value, 
-                      -c(UQS(syms(type)), pollutant, year, date))
-    
+    results <- gather(results,
+      key = variable, value = value,
+      -c(UQS(syms(type)), pollutant, year, date)
+    )
+
     results <- unite(results, site_pol, site, pollutant)
-    
+
     results <- spread(results, site_pol, value)
-    
+
     ## sort out names
     names(results) <- gsub("\\_", " ", names(results))
   }
-  
+
   # remove default type
-  if (type == "default")
-    results <- ungroup(results) %>% 
-    select(-default)
-  
+  if (type == "default") {
+    results <- ungroup(results) %>%
+      select(-default)
+  }
+
   results
 }
 
