@@ -84,7 +84,7 @@
 ##' aqStats(selectByDate(mydata, year = 2004), pollutant = "no2")
 ##'
 ##' 
-aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(95, 99),
+aqStats <- function(mydata, pollutant = "no2", data.thresh = 0, percentile = c(95, 99),
                     transpose = FALSE, ...) {
 
   ## get rid of R check annoyances
@@ -106,9 +106,19 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
 
     ## select only data needed
     mydata <- mydata[c("date", pollutant, "site")]
+    
+    site <- mydata$site[1] # need to know this in case we need to pad data
 
     ## file any missing hours
-    mydata <- date.pad(mydata, type = "site")
+    start.date <- floor_date(min(mydata$date), "year")
+    end.date <- ceiling_date(max(mydata$date), "year") - 3600
+    
+    ## find time interval of data and pad any missing times
+    interval <- find.time.interval(mydata$date)
+    all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
+    mydata <- full_join(mydata, all.dates, by = "date") 
+    mydata$site <- site
+    
     mydata$year <- year(mydata$date)
 
 
@@ -158,13 +168,11 @@ aqStats <- function(mydata, pollutant = "no2", data.thresh = 75, percentile = c(
       )) %>%
       rename_(median = pollutant)
 
-    dataCapture <- group_by(mydata, year) %>%
-      do(timeAverage(
-        .,
-        avg.time = "year", statistic = "data.cap",
-        type = c("site", "year")
-      )) %>%
-      rename_(dat.cap = pollutant)
+   
+    dataCapture <- group_by(mydata, site, year) %>% 
+      summarise(date = min(date), 
+                dat.cap = 100 * length(na.omit(UQ(sym(pollutant)))) / length(UQ(sym(pollutant)))) #%>%
+    
 
     rollMax8 <- group_by(mydata, year) %>%
       do(rollingMean(

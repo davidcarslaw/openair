@@ -1,3 +1,7 @@
+## openair 2.5-99
+
+- In `aqStats` use default `data.thresh = 0` rather than 75% to ensure summaries are calculated
+
 ## openair 2.5-0
 
 - add simple versions of **viridis** colour palettes: "viridis", "plasma", "magma", "inferno" and "cividis" e.g. `polarPlot(mydata, cols = "plasma")`
