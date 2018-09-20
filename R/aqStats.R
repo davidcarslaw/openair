@@ -152,6 +152,8 @@ aqStats <- function(mydata, pollutant = "no2",
 # function to calculate statistics
 calcStats <- function(mydata, data.thresh, percentile, ...) {
   
+  rolling8value <- NULL # keep R check happy
+  
   # check to see if dates duplicate
   if (length(unique(mydata$date)) != length(mydata$date))
     warning("Duplicate dates detected, more than one site? Use type = 'site'", call. = FALSE)
