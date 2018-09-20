@@ -256,6 +256,10 @@ calcStats <- function(mydata, data.thresh, percentile, ...) {
       data.thresh = data.thresh, percentile = percentile
     ))
   
+  # FIX ME - because pecentile checks for presence of 'site' that we don't need here
+  if ("site" %in% names(Percentile))
+    Percentile <- select(Percentile, -site)
+  
   vars <- c("year", "date") 
   
   # specific treatment of pollutants
