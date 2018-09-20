@@ -50,12 +50,7 @@
 ##'
 calcPercentile <- function(mydata, pollutant = "o3", avg.time = "month", percentile = 50,
                            data.thresh = 0, start = NA) {
-  site <- FALSE
-  if ("site" %in% names(mydata)) {
-    site <- TRUE
-    site.name <- mydata$site[1]
-  }
-
+ 
   make.percentile <- function(mydata, pollutant = "o3", avg.time = "month", percentile = 50,
                               data.thresh = 0, start = NA) {
     mydata <- timeAverage(
@@ -81,6 +76,6 @@ calcPercentile <- function(mydata, pollutant = "o3", avg.time = "month", percent
 
   mydata <- Reduce(function(x, y, by = "date") merge(x, y, by = "date", all = TRUE), mydata)
 
-  if (site) mydata$site <- site.name
+  
   mydata
 }
