@@ -8,7 +8,7 @@
 ##' This function calculates a range of common and air pollution-specific
 ##' statistics from a data frame. The statistics are calculated on an annual
 ##' basis and the input is assumed to be hourly data. The function can cope with
-##' several sites and years e.g. using \code{type = "site"). The user can control the output by setting
+##' several sites and years e.g. using \code{type = "site"}. The user can control the output by setting
 ##' \code{transpose} appropriately.
 ##'
 ##' Note that the input data is assumed to be in mass units e.g. ug/m3 for all
