@@ -137,7 +137,7 @@ aqStats <- function(mydata, pollutant = "no2",
       -c(UQS(syms(type)), pollutant, year, date)
     )
 
-    results <- unite(results, site_pol, site, pollutant)
+    results <- unite(results, site_pol, UQS(syms(type)), pollutant)
 
     results <- spread(results, site_pol, value)
 
@@ -145,13 +145,8 @@ aqStats <- function(mydata, pollutant = "no2",
     names(results) <- gsub("\\_", " ", names(results))
   }
 
-  # remove default type
-  if (type == "default") {
-    results <- ungroup(results) %>%
-      select(-default)
-  }
-
-  results
+  return(results)
+  
 }
 
 # function to calculate statistics
