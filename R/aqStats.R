@@ -98,7 +98,7 @@ aqStats <- function(mydata, pollutant = "no2",
                     transpose = FALSE, ...) {
 
   ## get rid of R check annoyances
-  year <- rolling8o3 <- NULL
+  year <- rolling8value <- NULL
   daylight <- NULL
   . <- NULL
 
