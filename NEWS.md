@@ -1,6 +1,7 @@
 ## openair 2.5-99
 
 - In `aqStats` use default `data.thresh = 0` rather than 75% to ensure summaries are calculated
+- Fix confidence intervals in `timeVariation` when statistic - "median". Revision will result in narrower range.
 
 ## openair 2.5-0
 

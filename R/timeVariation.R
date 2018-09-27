@@ -1145,8 +1145,7 @@ errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
 
 ## function to calculate median and lower/upper quantiles
 median.hilow <- function(x, conf.int = 0.95, na.rm = TRUE, ...) {
-  quant <- quantile(x, probs = c(0.5, (1 - conf.int) / 2, (1 +
-    conf.int) / 2), na.rm = na.rm)
+  quant <- quantile(x, probs = c(0.5, (1 - conf.int), conf.int), na.rm = na.rm)
   names(quant) <- c("Mean", "Lower", "Upper")
   quant
 }
