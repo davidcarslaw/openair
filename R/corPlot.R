@@ -62,6 +62,7 @@
 ##' @param dendrogram Should a dendrogram be plotted? When \code{TRUE}
 ##' a dendrogram is shown on the right of the plot. Note that this
 ##' will only work for \code{type = "default"}.
+##' @param lower Should only the lower triangle be plotted? 
 ##' @param cols Colours to be used for plotting. Options include
 ##' \dQuote{default}, \dQuote{increment}, \dQuote{heat},
 ##' \dQuote{spectral}, \dQuote{hue}, \dQuote{greyscale} and user
@@ -126,7 +127,9 @@
 ##'
 ##'
 corPlot <- function(mydata, pollutants = NULL, type = "default",
-                    cluster = TRUE, dendrogram = FALSE, cols = "default",
+                    cluster = TRUE, dendrogram = FALSE, 
+                    lower = FALSE,
+                    cols = "default",
                     r.thresh = 0.8, text.col =
                     c("black", "black"), auto.text = TRUE, ...) {
   if (length(type) > 1) stop("Only one 'type' allowed in this function.")
@@ -373,7 +376,7 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
     panel = function(x, y, z, ...) {
       panel.abline(v = 1:sqrt(length(z)), col = "grey95")
       panel.abline(h = 1:sqrt(length(z)), col = "grey95")
-      panel.corrgram(x, y, z, ...)
+      panel.corrgram(x, y, z, lower = lower, ...)
     }
   )
 
@@ -406,7 +409,7 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
 }
 
 panel.corrgram <- function(x, y, z, subscripts, at, level = 0.9, text.col,
-                           r.thresh = r.thresh, label = FALSE, ...) {
+                           r.thresh = r.thresh, label = FALSE, lower = lower, ...) {
   x <- as.numeric(x)[subscripts]
   y <- as.numeric(y)[subscripts]
   z <- as.numeric(z)[subscripts]
@@ -416,7 +419,10 @@ panel.corrgram <- function(x, y, z, subscripts, at, level = 0.9, text.col,
   # just do lower triangle
   len <- length(z)
   tmp <- matrix(seq_along(z), nrow = len ^ (1 / 2))
-  id <- which(lower.tri(tmp, diag = TRUE))
+  
+  if (lower)
+    id <- which(lower.tri(tmp, diag = TRUE)) else 
+      id <- 1:length(tmp)
 
   for (i in seq(along = id)) {
     ell <- ellipse(

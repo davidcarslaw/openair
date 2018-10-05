@@ -2,6 +2,7 @@
 
 - In `aqStats` use default `data.thresh = 0` rather than 75% to ensure summaries are calculated
 - Fix confidence intervals in `timeVariation` when statistic - "median". Revision will result in narrower range.
+- Change defualt in `corPlot` to plot lower and upper triangles; add `lower` as an option.
 
 ## openair 2.5-0
 

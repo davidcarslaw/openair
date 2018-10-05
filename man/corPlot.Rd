@@ -5,8 +5,9 @@
 \title{corrgram plot with conditioning}
 \usage{
 corPlot(mydata, pollutants = NULL, type = "default", cluster = TRUE,
-  dendrogram = FALSE, cols = "default", r.thresh = 0.8,
-  text.col = c("black", "black"), auto.text = TRUE, ...)
+  dendrogram = FALSE, lower = FALSE, cols = "default",
+  r.thresh = 0.8, text.col = c("black", "black"), auto.text = TRUE,
+  ...)
 }
 \arguments{
 \item{mydata}{A data frame which should consist of some numeric
@@ -40,6 +41,8 @@ assist interpretation.}
 \item{dendrogram}{Should a dendrogram be plotted? When \code{TRUE}
 a dendrogram is shown on the right of the plot. Note that this
 will only work for \code{type = "default"}.}
+
+\item{lower}{Should only the lower triangle be plotted?}
 
 \item{cols}{Colours to be used for plotting. Options include
 \dQuote{default}, \dQuote{increment}, \dQuote{heat},
