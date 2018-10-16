@@ -58,12 +58,12 @@ importMeta <- function(source = "aurn", all = FALSE) {
     location_type = SiteCode = SiteName = Classification = Latitude = Longitude = NULL
 
     ## meta data sources
-    meta.source <- c("aurn", "kcl", "saqn")
+    meta.source <- c("aurn", "kcl", "saqn", "saqd")
 
     ## ensure lower case
     source <- tolower(source)
 
-    if (!source %in% meta.source) stop ("Meta data sources are 'aurn', 'kcl' and 'saqn.")
+    if (!source %in% meta.source) stop("Meta data sources are 'aurn', 'kcl' and 'saqn.")
 
     if (source == "aurn") {
         
@@ -86,25 +86,23 @@ importMeta <- function(source = "aurn", all = FALSE) {
 
     }
 
-    if (source == "saqn") {
+    if (source %in% tolower(c("saqn", "saqd"))) {
         
         tmp <- tempfile()
         
-        fileName <- "http://www.scottishairquality.co.uk/openair/R_data/SCOT_metadata.RData"
+        fileName <- "http://www.scottishairquality.co.uk/openair/R_data/scotarc_metadata.RData"
         download.file(fileName, method = "libcurl", destfile = tmp)
         load(tmp)
         
-        meta <- SCOT_metadata
-        
+        meta <- metadata %>% 
+          filter(network_id == "saun") %>% 
+          distinct(site, .keep_all = TRUE)
+      
         ## only extract one line per site to make it easier to use file
         ## mostly interested in coordinates
 
-        ## unique ids
-        ids <- which(!duplicated(meta$site_id))
-        meta <- meta[ids, ]
-
         ## rename to match imported names e.g. importAURN
-        meta <- rename(meta, code = site_id, site = site_name, site.type = location_type)
+        meta <- rename(meta, code = site, site = site_name, site.type = site_type)
         
     }
 
