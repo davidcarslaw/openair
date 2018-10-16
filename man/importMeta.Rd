@@ -7,12 +7,13 @@
 importMeta(source = "aurn", all = FALSE)
 }
 \arguments{
-\item{source}{The data source for the meta data. Can be "aurn",
-"kcl" or "saqn"; upper or lower case.}
+\item{source}{The data source for the meta data. Can be "aurn", "kcl" or
+"saqn" (or "saqd"); upper or lower case.}
 
-\item{all}{When \code{all = FALSE} only the site code, site name,
-latitude and longitude and site type are imported. Setting
-\code{all = TRUE} will import all available meta data.}
+\item{all}{When \code{all = FALSE} only the site code, site name, latitude
+and longitude and site type are imported. Setting \code{all = TRUE} will
+import all available meta data and provide details (when available) or the
+individual pollutants measured at each site.}
 }
 \value{
 A data frame with meta data.
@@ -21,21 +22,20 @@ A data frame with meta data.
 Function to import meta data from UK air pollution monitoring sites
 }
 \details{
-This function imports site meta data from three networks in the
-UK: the Defra Automatic Urban and Rural Network (AURN), King's
-College London networks and the Scottish Air Quality Network. The
-meta data includes site location (latitude, longitude and OS
-easting and northing --- the latter for KCL networks), site type
-and it's start/close data, as well as other information.
+This function imports site meta data from three networks in the UK: the
+Defra Automatic Urban and Rural Network (AURN), King's College London
+networks and the Scottish Air Quality Network. The meta data includes site
+location (latitude, longitude and OS easting and northing --- the latter for
+KCL networks), site type and it's start/close data, as well as other
+information.
 
-The meta information can usefully be combined with matching air
-pollution data and produce maps of concentration --- see examples
-below. Note if many sites and/or years of hourly data are imported
-it may be better to aggregate first and then combine with the meta
-data information.
+The meta information can usefully be combined with matching air pollution
+data and produce maps of concentration --- see examples below. Note if many
+sites and/or years of hourly data are imported it may be better to aggregate
+first and then combine with the meta data information.
 
-Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (AEA) for
-making these data available.
+Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (AEA) for making these
+data available.
 }
 \examples{
 ## import AQ data and add meta data to data frame
@@ -56,8 +56,7 @@ annual <- merge(annual, meta, by = "site")
 }
 \seealso{
 \code{\link{importAURN}}, \code{\link{importKCL}} and
-\code{\link{importSAQN}} for importing air quality data from each
-network.
+  \code{\link{importSAQN}} for importing air quality data from each network.
 }
 \author{
 David Carslaw

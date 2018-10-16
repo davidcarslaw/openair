@@ -3,31 +3,30 @@
 ##'
 ##' Function to import meta data from UK air pollution monitoring sites
 ##'
-##' This function imports site meta data from three networks in the
-##' UK: the Defra Automatic Urban and Rural Network (AURN), King's
-##' College London networks and the Scottish Air Quality Network. The
-##' meta data includes site location (latitude, longitude and OS
-##' easting and northing --- the latter for KCL networks), site type
-##' and it's start/close data, as well as other information.
+##' This function imports site meta data from three networks in the UK: the
+##' Defra Automatic Urban and Rural Network (AURN), King's College London
+##' networks and the Scottish Air Quality Network. The meta data includes site
+##' location (latitude, longitude and OS easting and northing --- the latter for
+##' KCL networks), site type and it's start/close data, as well as other
+##' information.
 ##'
-##' The meta information can usefully be combined with matching air
-##' pollution data and produce maps of concentration --- see examples
-##' below. Note if many sites and/or years of hourly data are imported
-##' it may be better to aggregate first and then combine with the meta
-##' data information.
+##' The meta information can usefully be combined with matching air pollution
+##' data and produce maps of concentration --- see examples below. Note if many
+##' sites and/or years of hourly data are imported it may be better to aggregate
+##' first and then combine with the meta data information.
 ##'
-##' Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (AEA) for
-##' making these data available.
-##' @param source The data source for the meta data. Can be "aurn",
-##' "kcl" or "saqn"; upper or lower case.
-##' @param all When \code{all = FALSE} only the site code, site name,
-##' latitude and longitude and site type are imported. Setting
-##' \code{all = TRUE} will import all available meta data.
+##' Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (AEA) for making these
+##' data available.
+##' @param source The data source for the meta data. Can be "aurn", "kcl" or
+##'   "saqn" (or "saqd"); upper or lower case.
+##' @param all When \code{all = FALSE} only the site code, site name, latitude
+##'   and longitude and site type are imported. Setting \code{all = TRUE} will
+##'   import all available meta data and provide details (when available) or the
+##'   individual pollutants measured at each site.
 ##' @return A data frame with meta data.
 ##' @author David Carslaw
 ##' @seealso \code{\link{importAURN}}, \code{\link{importKCL}} and
-##' \code{\link{importSAQN}} for importing air quality data from each
-##' network.
+##'   \code{\link{importSAQN}} for importing air quality data from each network.
 ##' @keywords methods
 ##' @export
 ##' @examples
@@ -78,8 +77,7 @@ importMeta <- function(source = "aurn", all = FALSE) {
         ## mostly interested in coordinates
 
         ## unique ids
-        ids <- which(!duplicated(meta$site_id))
-        meta <- meta[ids, ]
+        if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
 
         ## rename to match imported names e.g. importAURN
         meta <- rename(meta, code = site_id, site = site_name, site.type = location_type)
@@ -95,11 +93,11 @@ importMeta <- function(source = "aurn", all = FALSE) {
         load(tmp)
         
         meta <- metadata %>% 
-          filter(network_id == "saun") %>% 
-          distinct(site, .keep_all = TRUE)
+          filter(network_id == "saun") 
       
         ## only extract one line per site to make it easier to use file
         ## mostly interested in coordinates
+        if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
 
         ## rename to match imported names e.g. importAURN
         meta <- rename(meta, code = site, site = site_name, site.type = site_type)
