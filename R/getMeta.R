@@ -92,7 +92,8 @@ importMeta <- function(source = "aurn", all = FALSE) {
         load(url("http://www.scottishairquality.co.uk/openair/R_data/scotarc_metadata.RData"))
         
         meta <- metadata %>% 
-          filter(network_id == "saun") 
+          filter(network_id == "saun") %>% 
+          mutate(date_ended = ifelse(date_ended == "0000-00-00", NA, date_ended))
       
         ## only extract one line per site to make it easier to use file
         ## mostly interested in coordinates
