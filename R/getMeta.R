@@ -88,9 +88,8 @@ importMeta <- function(source = "aurn", all = FALSE) {
         
         tmp <- tempfile()
         
-        fileName <- "http://www.scottishairquality.co.uk/openair/R_data/scotarc_metadata.RData"
-        download.file(fileName, method = "libcurl", destfile = tmp)
-        load(tmp)
+        # load data
+        load(url("http://www.scottishairquality.co.uk/openair/R_data/scotarc_metadata.RData"))
         
         meta <- metadata %>% 
           filter(network_id == "saun") 
