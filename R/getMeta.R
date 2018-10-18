@@ -75,12 +75,13 @@ importMeta <- function(source = "aurn", all = FALSE) {
         meta <- AURN_metadata
         ## only extract one line per site to make it easier to use file
         ## mostly interested in coordinates
+        
+        ## rename to match imported names e.g. importAURN
+        meta <- rename(meta, code = site_id, site = site_name, site.type = location_type)
 
         ## unique ids
         if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
 
-        ## rename to match imported names e.g. importAURN
-        meta <- rename(meta, code = site_id, site = site_name, site.type = location_type)
 
     }
 
