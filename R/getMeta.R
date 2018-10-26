@@ -55,6 +55,7 @@ importMeta <- function(source = "aurn", all = FALSE) {
     ## get rid of R check annoyances
     site = code = latitude = longitude = site.type = site_name = site_id = NULL
     location_type = SiteCode = SiteName = Classification = Latitude = Longitude = NULL
+    metadata = site_type = date_ended = network_id = NULL
 
     ## meta data sources
     meta.source <- c("aurn", "kcl", "saqn", "saqd")
