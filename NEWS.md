@@ -4,6 +4,7 @@
 - Fix confidence intervals in `timeVariation` when statistic - "median". Revision will result in narrower range.
 - Change defualt in `corPlot` to plot lower and upper triangles; add `lower` as an option.
 - Update meta data for Scottish Air Quality Network ("saqn"); was badly out of date
+- fix bug in `timeAverage` when interval more than one time unit e.g. "10 day"
 
 ## openair 2.5-0
 
