@@ -44,7 +44,6 @@ openair can be found in the package itself and the
 which provides an introduction to R with a focus on air quality data
 as well as extensive reproducible examples. An archive of newsletters in also available at the same location.
 
-The current newsletter (Issue 18) summarises some of the recent changes to the package and is available [here](http://rpubs.com/carslaw/newsletter18).
 
 ## Installation
 
