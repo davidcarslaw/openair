@@ -64,7 +64,7 @@ variables." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.0</span>
       </span>
     </div>
 
@@ -112,8 +112,9 @@ variables.</p>
     </div>
 
     <pre class="usage"><span class='fu'>corPlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutants</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>cluster</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>dendrogram</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>r.thresh</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
-  <span class='kw'>text.col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"black"</span>, <span class='st'>"black"</span>), <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>dendrogram</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
+  <span class='kw'>r.thresh</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>text.col</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"black"</span>, <span class='st'>"black"</span>), <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,6 +159,10 @@ assist interpretation.</p></td>
       <td><p>Should a dendrogram be plotted? When <code>TRUE</code>
 a dendrogram is shown on the right of the plot. Note that this
 will only work for <code>type = "default"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>lower</th>
+      <td><p>Should only the lower triangle be plotted?</p></td>
     </tr>
     <tr>
       <th>cols</th>

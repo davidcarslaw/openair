@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.0</span>
       </span>
     </div>
 
@@ -112,14 +112,15 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>source</th>
-      <td><p>The data source for the meta data. Can be "aurn",
-"kcl" or "saqn"; upper or lower case.</p></td>
+      <td><p>The data source for the meta data. Can be "aurn", "kcl" or
+"saqn" (or "saqd"); upper or lower case.</p></td>
     </tr>
     <tr>
       <th>all</th>
-      <td><p>When <code>all = FALSE</code> only the site code, site name,
-latitude and longitude and site type are imported. Setting
-<code>all = TRUE</code> will import all available meta data.</p></td>
+      <td><p>When <code>all = FALSE</code> only the site code, site name, latitude
+and longitude and site type are imported. Setting <code>all = TRUE</code> will
+import all available meta data and provide details (when available) or the
+individual pollutants measured at each site.</p></td>
     </tr>
     </table>
     
@@ -129,25 +130,23 @@ latitude and longitude and site type are imported. Setting
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function imports site meta data from three networks in the
-UK: the Defra Automatic Urban and Rural Network (AURN), King's
-College London networks and the Scottish Air Quality Network. The
-meta data includes site location (latitude, longitude and OS
-easting and northing --- the latter for KCL networks), site type
-and it's start/close data, as well as other information.</p>
-<p>The meta information can usefully be combined with matching air
-pollution data and produce maps of concentration --- see examples
-below. Note if many sites and/or years of hourly data are imported
-it may be better to aggregate first and then combine with the meta
-data information.</p>
-<p>Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (AEA) for
-making these data available.</p>
+    <p>This function imports site meta data from three networks in the UK: the
+Defra Automatic Urban and Rural Network (AURN), King's College London
+networks and the Scottish Air Quality Network. The meta data includes site
+location (latitude, longitude and OS easting and northing --- the latter for
+KCL networks), site type and it's start/close data, as well as other
+information.</p>
+<p>The meta information can usefully be combined with matching air pollution
+data and produce maps of concentration --- see examples below. Note if many
+sites and/or years of hourly data are imported it may be better to aggregate
+first and then combine with the meta data information.</p>
+<p>Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (AEA) for making these
+data available.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='importAURN.html'>importAURN</a></code>, <code><a href='importKCL.html'>importKCL</a></code> and
-<code><a href='importSAQN.html'>importSAQN</a></code> for importing air quality data from each
-network.</p></div>
+  <code><a href='importSAQN.html'>importSAQN</a></code> for importing air quality data from each network.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

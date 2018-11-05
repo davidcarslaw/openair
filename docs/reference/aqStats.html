@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Calculate summary statistics for air pollution data by year — aqStats" />
 
-<meta property="og:description" content="Calculate a range of air pollution-relevant statistics by year and by site." />
+<meta property="og:description" content="Calculate a range of air pollution-relevant statistics by year." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -61,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.0</span>
       </span>
     </div>
 
@@ -101,11 +101,11 @@
 
     <div class="ref-description">
     
-    <p>Calculate a range of air pollution-relevant statistics by year and by site.</p>
+    <p>Calculate a range of air pollution-relevant statistics by year.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>aqStats</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>,
+    <pre class="usage"><span class='fu'>aqStats</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>95</span>, <span class='fl'>99</span>), <span class='kw'>transpose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -119,6 +119,16 @@
       <th>pollutant</th>
       <td><p>The name of a pollutant e.g. <code>pollutant = c("o3",
 "pm10")</code>.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p><code>type</code> allows <code>timeAverage</code> to be applied to
+cases where there are groups of data that need to be split and
+the function applied to each group. The most common example is
+data with multiple sites identified with a column representing
+site name e.g. <code>type = "site"</code>. More generally, <code>type</code>
+should be used where the date repeats for a particular grouping
+variable.</p></td>
     </tr>
     <tr>
       <th>data.thresh</th>
@@ -149,7 +159,7 @@ have columns for each pollutant-site combination.</p></td>
     <p>This function calculates a range of common and air pollution-specific
 statistics from a data frame. The statistics are calculated on an annual
 basis and the input is assumed to be hourly data. The function can cope with
-several sites and years. The user can control the output by setting
+several sites and years e.g. using <code>type = "site"</code>. The user can control the output by setting
 <code>transpose</code> appropriately.</p>
 <p>Note that the input data is assumed to be in mass units e.g. ug/m3 for all
 species except CO (mg/m3).</p>
@@ -191,14 +201,13 @@ can be rounded at several stages during the calculations.</p>
     <pre class="examples"><div class='input'>
 <span class='co'>## Statistics for 2004. NOTE! these data are in ppb/ppm so the</span>
 <span class='co'>## example is for illustrative purposes only</span>
-<span class='fu'>aqStats</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2004</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 15
-#&gt; # Groups:   site [1]
-#&gt;   site  pollutant  year date                dat.cap  mean minimum maximum median
-#&gt;   &lt;fct&gt; &lt;chr&gt;     &lt;int&gt; &lt;dttm&gt;                &lt;dbl&gt; &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;  &lt;dbl&gt;
-#&gt; 1 site  NO2         100 2004-01-01 00:00:00    99.8  NA        NA      NA     NA
-#&gt; 2 site  NO2        2004 2004-01-01 00:00:00    NA    55.0       0     185     51
-#&gt; # ... with 6 more variables: daily.max &lt;dbl&gt;, max.roll.8 &lt;dbl&gt;,
-#&gt; #   max.roll.24 &lt;dbl&gt;, percentile.95 &lt;dbl&gt;, percentile.99 &lt;dbl&gt;, hours &lt;int&gt;</div><div class='input'>
+<span class='fu'>aqStats</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2004</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 15
+#&gt; # Groups:   default, pollutant, year [1]
+#&gt;   default pollutant  year date                dat.cap  mean   min   max median
+#&gt;   &lt;fct&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dttm&gt;                &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 01 Jan~ no2        2004 2004-01-01 00:00:00    99.8  55.0     0   185     51
+#&gt; # ... with 6 more variables: max_daily &lt;dbl&gt;, roll_8_max &lt;dbl&gt;,
+#&gt; #   roll_24_max &lt;dbl&gt;, percentile.95 &lt;dbl&gt;, percentile.99 &lt;dbl&gt;, hours &lt;int&gt;</div><div class='input'>
 
 </div></pre>
   </div>

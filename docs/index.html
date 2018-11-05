@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">openair</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.5.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">2.6.0</span>
       </span>
     </div>
 
@@ -112,20 +112,20 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(openair)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN.html">importAURN</a></span>(<span class="dt">site =</span> <span class="st">"kc1"</span>, <span class="dt">year =</span> <span class="dv">2011</span><span class="op">:</span><span class="dv">2012</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">head</span>(kc1)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">##                  date code                 site o3 no2  co so2 pm10 nox no</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">## 1 2011-01-01 00:00:00  KC1 London N. Kensington 14  38 0.2   5   40  44  4</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">## 2 2011-01-01 01:00:00  KC1 London N. Kensington 28  29 0.2   3   36  38  6</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">## 3 2011-01-01 02:00:00  KC1 London N. Kensington 18  31 0.2   3   31  32  1</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">## 4 2011-01-01 03:00:00  KC1 London N. Kensington 14  29 0.2   3   31  31  1</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">## 5 2011-01-01 04:00:00  KC1 London N. Kensington 16  29 0.2   3   29  31  1</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">## 6 2011-01-01 05:00:00  KC1 London N. Kensington 24  27 0.1   3   25  29  1</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">##   pm2.5 nv2.5 v2.5 nv10 v10  ws    wd</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">## 1    39    32    7   32   8 1.1 266.7</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">## 2    30    24    6   29   7 1.2 271.9</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">## 3    31    23    8   24   7 1.5 276.3</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">## 4    29    21    8   23   8 2.1 278.7</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">## 5    25    19    6   21   8 2.7 289.6</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">## 6    23    16    7   18   7 2.8 303.6</a></code></pre></div>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">##                  date code                 site o3 no2  co so2 pm10 nox no</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">## 1 2011-01-01 00:00:00  KC1 London N. Kensington 14  38 0.2   5   40  44  4</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">## 2 2011-01-01 01:00:00  KC1 London N. Kensington 28  29 0.2   3   36  38  6</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">## 3 2011-01-01 02:00:00  KC1 London N. Kensington 18  31 0.2   3   31  32  1</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">## 4 2011-01-01 03:00:00  KC1 London N. Kensington 14  29 0.2   3   31  31  1</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">## 5 2011-01-01 04:00:00  KC1 London N. Kensington 16  29 0.2   3   29  31  1</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">## 6 2011-01-01 05:00:00  KC1 London N. Kensington 24  27 0.1   3   25  29  1</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">##   pm2.5 nv2.5 v2.5 nv10 v10  ws    wd</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">## 1    39    32    7   32   8 1.1 266.7</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">## 2    30    24    6   29   7 1.2 271.9</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">## 3    31    23    8   24   7 1.5 276.3</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">## 4    29    21    8   23   8 2.1 278.7</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">## 5    25    19    6   21   8 2.7 289.6</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">## 6    23    16    7   18   7 2.8 303.6</span></a></code></pre></div>
 </div>
 <div id="utility-functions" class="section level3">
 <h3 class="hasAnchor">
@@ -133,20 +133,20 @@
 <p>Using the <code>selectByDate</code> function it is easy to select quite complex time-based periods. For example, to select weekday (Monday to Friday) data from June to September for 2012 <em>and</em> for the hours 7am to 7pm inclusive:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">sub &lt;-<span class="st"> </span><span class="kw"><a href="reference/selectByDate.html">selectByDate</a></span>(kc1, <span class="dt">day =</span> <span class="st">"weekday"</span>, <span class="dt">year =</span> <span class="dv">2012</span>, <span class="dt">month =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">hour =</span> <span class="dv">7</span><span class="op">:</span><span class="dv">19</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">head</span>(sub)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">##                      date code                 site o3 no2   co so2 pm10</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">## 12416 2012-06-01 07:00:00  KC1 London N. Kensington 24  23 0.23   3    6</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">## 12417 2012-06-01 08:00:00  KC1 London N. Kensington 34  21 0.23   3    9</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">## 12418 2012-06-01 09:00:00  KC1 London N. Kensington 52  19 0.23   3    6</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">## 12419 2012-06-01 10:00:00  KC1 London N. Kensington 62  13 0.23   3    7</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">## 12420 2012-06-01 11:00:00  KC1 London N. Kensington 70  13 0.23   3    9</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">## 12421 2012-06-01 12:00:00  KC1 London N. Kensington 78  19 0.23   3    8</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">##       nox no pm2.5 nv2.5 v2.5 nv10 v10  ws    wd</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">## 12416  36  9    21    14    7    5   1 1.4 307.4</a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">## 12417  33  7    NA    NA   NA    8   1 1.6 313.6</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">## 12418  23  2    NA    NA   NA    3   3 1.6 330.0</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">## 12419  17  2    NA    NA   NA    4   3 1.5 348.9</a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">## 12420  17  2    14     7    7    6   3 1.4 181.1</a>
-<a class="sourceLine" id="cb3-16" data-line-number="16">## 12421  21  1    13     7    6    4   4 1.6   2.9</a></code></pre></div>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">##                      date code                 site o3 no2   co so2 pm10</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">## 12416 2012-06-01 07:00:00  KC1 London N. Kensington 24  23 0.23   3    6</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">## 12417 2012-06-01 08:00:00  KC1 London N. Kensington 34  21 0.23   3    9</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">## 12418 2012-06-01 09:00:00  KC1 London N. Kensington 52  19 0.23   3    6</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">## 12419 2012-06-01 10:00:00  KC1 London N. Kensington 62  13 0.23   3    7</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">## 12420 2012-06-01 11:00:00  KC1 London N. Kensington 70  13 0.23   3    9</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">## 12421 2012-06-01 12:00:00  KC1 London N. Kensington 78  19 0.23   3    8</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">##       nox no pm2.5 nv2.5 v2.5 nv10 v10  ws    wd</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">## 12416  36  9    21    14    7    5   1 1.4 307.4</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">## 12417  33  7    NA    NA   NA    8   1 1.6 313.6</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">## 12418  23  2    NA    NA   NA    3   3 1.6 330.0</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">## 12419  17  2    NA    NA   NA    4   3 1.5 348.9</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">## 12420  17  2    14     7    7    6   3 1.4 181.1</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">## 12421  21  1    13     7    6    4   4 1.6   2.9</span></a></code></pre></div>
 <p>Similarly it is easy to time-average data in many flexible ways. For example, 2-week means can be calculated as</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">sub2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/timeAverage.html">timeAverage</a></span>(kc1, <span class="dt">avg.time =</span> <span class="st">"2 week"</span>)</a></code></pre></div>
 </div>
