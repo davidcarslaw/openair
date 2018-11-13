@@ -37,6 +37,8 @@ data from the Scottish Air Quality Network (SAQN) ---
 These files are updated on a daily basis. This approach requires a link to
 the Internet to work.
 
+For a list of up to date site codes and site information, see \code{\link{importMeta}} and in particular \code{importMeta{source = "saqn}}.
+
 There are several advantages over the web portal approach where .csv files
 are downloaded. First, it is quick to select a range of sites, pollutants
 and periods (see examples below). Second, storing the data as .RData
@@ -86,75 +88,6 @@ changes.
 
 No corrections have been made to teh PM2.5 data. The volatile component of
 FDMS PM2.5 (where available) is shown in the 'v2.5' column.
-
-While the function is being developed, the following site codes should help
-with selection. \itemize{ \item | ABD | Aberdeen Errol Place | URBAN
-BACKGROUND | \item | ABD0 | Aberdeen Market Street 2 | ROADSIDE | \item |
-ABD1 | Aberdeen Anderson Dr | ROADSIDE | \item | ABD2 | Aberdeen Market St
-| ROADSIDE | \item | ABD3 | Aberdeen Union Street Roadside | ROADSIDE |
-\item | ABD8 | Aberdeen Wellington Road | ROADSIDE | \item | ACTH |
-Auchencorth Moss | RURAL | \item | AD1 | Aberdeen King Street | ROADSIDE |
-\item | ALOA | Alloa | ROADSIDE | \item | AYR | South Ayrshire Ayr High St
-| ROADSIDE | \item | BRX | West Lothian Broxburn | ROADSIDE | \item | BUSH
-| Bush Estate | RURAL | \item | CUMN | East Ayrshire New Cumnock | URBAN
-BACKGROUND | \item | CUPA | Fife Cupar | ROADSIDE | \item | DUMF | Dumfries
-| ROADSIDE | \item | DUN1 | Dundee Mains Loan | URBAN BACKGROUND | \item |
-DUN3 | Dundee Union Street | URBAN CENTRE | \item | DUN4 | Dundee Broughty
-Ferry Road | URBAN INDUSTRIAL | \item | DUN5 | Dundee Seagate | KERBSIDE |
-\item | DUN6 | Dundee Lochee Road | KERBSIDE | \item | DUN7 | Dundee
-Whitehall Street | ROADSIDE | \item | DUNF | Fife Dunfermline | ROADSIDE |
-\item | ED | Edinburgh Centre | URBAN CENTRE | \item | ED1 | Edinburgh St
-John's Road | KERBSIDE | \item | ED2 | Edinburgh Med. Sch. | URBAN
-BACKGROUND | \item | ED3 | Edinburgh St Leonards | URBAN BACKGROUND | \item
-| ED4 | Edinburgh Roseburn | ROADSIDE | \item | ED5 | Edinburgh Gorgie Road
-| ROADSIDE | \item | ED6 | Edinburgh Haymarket | ROADSIDE | \item | ED7 |
-Edinburgh Queen Street | ROADSIDE | \item | ED8 | Edinburgh Salamander St |
-ROADSIDE | \item | EDB1 | East Dunbartonshire Bishopbriggs | ROADSIDE |
-\item | EDB2 | East Dunbartonshire Bearsden | ROADSIDE | \item | EDB3 |
-East Dunbartonshire Kirkintilloch | ROADSIDE | \item | EK | East Kilbride |
-SUBURBAN | \item | EK0 | South Lanarkshire East Kilbride | ROADSIDE | \item
-| ESK | Eskdalemuir | RURAL | \item | FAL2 | Falkirk Park St | ROADSIDE |
-\item | FAL3 | Falkirk Hope St | ROADSIDE | \item | FAL5 | Falkirk Haggs |
-ROADSIDE | \item | FAL6 | Falkirk West Bridge Street | ROADSIDE | \item |
-FALK | Falkirk Grangemouth MC | URBAN BACKGROUND | \item | FFAR | Angus
-Forfar | ROADSIDE | \item | FINI | East Ayrshire Kilmarnock John Finnie St
-| ROADSIDE | \item | FW | Fort William | SUBURBAN | \item | GL1 | Glasgow
-Abercromby Street | ROADSIDE | \item | GL2 | Glasgow Nithsdale Road |
-ROADSIDE | \item | GL3 | Glasgow Broomhill | ROADSIDE | \item | GLA |
-Glasgow City Chambers | URBAN BACKGROUND | \item | GLA3 | Glasgow Centre |
-URBAN CENTRE | \item | GLA4 | Glasgow Kerbside | KERBSIDE | \item | GLA5 |
-Glasgow Anderston | URBAN BACKGROUND | \item | GLA6 | Glasgow Byres Road |
-ROADSIDE | \item | GLA7 | Glasgow Waulkmillglen Reservoir | RURAL | \item |
-GLA8 | Glasgow Battlefield Road | ROADSIDE | \item | GLAS | Glasgow Hope St
-| KERBSIDE | \item | GRA2 | Grangemouth Moray | URBAN BACKGROUND | \item |
-GRAN | Grangemouth | URBAN INDUSTRIAL | \item | INV2 | Inverness | ROADSIDE
-| \item | IRV | North Ayrshire Irvine High St | KERBSIDE | \item | KILM |
-East Ayrshire Kilmarnock | URBAN BACKGROUND | \item | KINC | Fife
-Kincardine | ROADSIDE | \item | KIR | Fife Kirkcaldy | ROADSIDE | \item |
-LER3 | Lerwick Staney Hill | URBAN BACKGROUND | \item | LERW | Lerwick |
-RURAL | \item | LING | West Lothian Linlithgow High Street | ROADSIDE |
-\item | MID1 | Midlothian Pathhead | KERBSIDE | \item | MID2 | Midlothian
-Dalkeith | ROADSIDE | \item | MUSS | East Lothian Musselburgh N High St |
-ROADSIDE | \item | NL1 | N Lanarkshire Coatbridge Whifflet | URBAN
-BACKGROUND | \item | NL2 | N Lanarkshire Coatbridge Ellis St | ROADSIDE |
-\item | NL3 | N Lanarkshire Chapelhall | ROADSIDE | \item | NL4 | N
-Lanarkshire Croy | ROADSIDE | \item | NL5 | N Lanarkshire Harthill |
-ROADSIDE | \item | NL6 | N Lanarkshire Motherwell | ROADSIDE | \item | NL7
-| N Lanarkshire Shawhead Coatbridge | ROADSIDE | \item | NL8 | N
-Lanarkshire Harthill West | URBAN BACKGROUND | \item | NL9 | N Lanarkshire
-Moodiesburn | ROADSIDE | \item | PAI2 | Paisley Glasgow Airport | AIRPORT |
-\item | PAI3 | Paisley Gordon Street | ROADSIDE | \item | PAIS | Paisley
-Central Road | ROADSIDE | \item | PEEB | Peebles | SUBURBAN | \item | PET1
-| Perth Crieff | ROADSIDE | \item | PET2 | Perth Atholl Street | ROADSIDE |
-\item | PETH | Perth High Street | ROADSIDE | \item | ROSY | Fife Rosyth |
-ROADSIDE | \item | SHED | East Renfrewshire Sheddens | ROADSIDE | \item |
-STRL | Stirling Craig's Roundabout | ROADSIDE | \item | SV | Strath Vaich |
-RURAL | \item | TARB | South Ayrshire Tarbolton | ROADSIDE | \item | UPH |
-West Lothian Uphall | ROADSIDE | \item | WDB1 | West Dunbartonshire John
-Knox St | AIRPORT | \item | WDB2 | West Dunbartonshire Balloch | ROADSIDE |
-\item | WDB3 | West Dunbartonshire Clydebank | ROADSIDE | \item | WDB4 |
-West Dunbartonshire Glasgow Road | ROADSIDE | \item | WHIT | West Lothian
-Whitburn | URBAN BACKGROUND | }
 }
 \examples{
 
