@@ -222,7 +222,7 @@ importSAQN <- function(site = "gla4", year = 2009, pollutant = "all") {
   ## no hydrocarbons - therefore select conventional pollutants
   theNames <- c(
     "date", "co", "nox", "no2", "no", "o3", "so2", "pm10", "pm2.5",
-    "v10", "v2.5", "ws", "code", "site"
+    "v10", "v2.5", "ws", "wd", "code", "site"
   )
 
   thedata <- thedata[, which(names(thedata) %in% theNames)]
