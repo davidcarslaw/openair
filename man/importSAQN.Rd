@@ -38,8 +38,8 @@ These files are updated on a daily basis. This approach requires a link to
 the Internet to work.
 
 For a list of up to date site codes and site information, see
-\code{\link{importMeta}} and in particular \code{importMeta{source =
-"saqn}}.
+\code{\link{importMeta}} and in particular \code{importMeta(source =
+"saqn")}.
 
 There are several advantages over the web portal approach where .csv files
 are downloaded. First, it is quick to select a range of sites, pollutants
