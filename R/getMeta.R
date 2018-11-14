@@ -119,6 +119,16 @@ importMeta <- function(source = "aurn", all = FALSE) {
     }
 
     if (!all) meta <-  subset(meta, select = c(site, code, latitude, longitude, site.type))
+    
+    # change some names
+    if ("variable" %in% names(meta)) {
+      
+      id <- which(meta$variable == "NOXasNO2")
+      
+      if (length(id) > 0)
+        meta$variable[id] <- "NOx"
+      
+    }
 
     meta
 
