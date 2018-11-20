@@ -1,5 +1,9 @@
 ## openair 2.6-99
 
+## openair 2.6-1
+
+- Update handling of meta data in `importMeta`.
+
 ## openair 2.6-0
 
 - In `aqStats` use default `data.thresh = 0` rather than 75% to ensure summaries are calculated
