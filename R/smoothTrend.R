@@ -353,7 +353,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
   process.cond <- function(mydata) {
 
     ## return if nothing to analyse
-    if (all(is.na(mydata$value))) return()
+    if (all(is.na(mydata$value))) return(data.frame(date = NA, conc = NA))
 
     ## sometimes data have long trailing NAs, so start and end at
     ## first and last data
