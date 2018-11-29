@@ -433,7 +433,19 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
     }
 
     ## now calculate trend, uncertainties etc ###########################
-    if (nrow(results) < 6) return(results) ## need enough data to calculate trend
+    if (nrow(results) < 6) { ## need enough data to calculate trend, set missing if not
+      
+      results <- mutate(results,
+                           b = NA, a = NA,
+                           lower.a = NA, upper.a = NA,
+                           lower.b = NA, upper.b = NA,
+                           p.stars = NA
+      )
+      
+      return(results) 
+      
+    }
+    
     MKresults <- MKstats(results$date, results$conc, alpha, autocor, silent = silent)
 
     ## make sure missing data are put back in for plotting
@@ -484,16 +496,6 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   pol.name <- strip.dat[[3]]
 
   #### calculate slopes etc ###########################################
-
-  # don't have trend information if <6 rows
-  if (nrow(split.data) < 6) {
-    split.data <- mutate(split.data,
-      b = NA, a = NA,
-      lower.a = NA, upper.a = NA,
-      lower.b = NA, upper.b = NA,
-      p.stars = NA
-    )
-  }
 
   split.data <- transform(split.data,
     slope = 365 * b, intercept = a,

@@ -1,5 +1,7 @@
 ## openair 2.6-99
 
+- fix issue with `TheilSen` when conditioning and < 6 annual measurements
+
 ## openair 2.6-1
 
 - Update handling of meta data in `importMeta`.
