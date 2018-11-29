@@ -373,7 +373,13 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
 
 
   process.cond <- function(mydata) {
-    if (all(is.na(mydata[[pollutant]]))) return()
+    if (all(is.na(mydata[[pollutant]]))) 
+      return(data.frame(
+        b = NA, a = NA,
+        lower.a = NA, upper.a = NA,
+        lower.b = NA, upper.b = NA,
+        p.stars = NA
+      ))
 
     ## sometimes data have long trailing NAs, so start and end at
     ## first and last data
@@ -450,7 +456,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
 
     ## make sure missing data are put back in for plotting
     results <- merge(all.results, MKresults, by = "date", all = TRUE)
-
+  
     results
   }
 
@@ -748,5 +754,6 @@ MKstats <- function(x, y, alpha, autocor, silent) {
       p.stars = stars,
       stringsAsFactors = FALSE
     )
+  
   results
 }
