@@ -1,6 +1,7 @@
 ## openair 2.6-99
 
 - fix issue with `TheilSen` when conditioning and < 6 annual measurements
+- remove arrow heads in `polarPlot` axes.
 
 ## openair 2.6-1
 

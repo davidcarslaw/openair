@@ -1082,8 +1082,8 @@ polarPlot <-
         )
 
         ## add axis line to central polarPlot
-        larrows(-upper, 0, upper, 0, code = 3, length = 0.1)
-        larrows(0, -upper, 0, upper, code = 3, length = 0.1)
+        lsegments(-upper, 0, upper, 0)
+        lsegments(0, -upper, 0, upper)
 
         ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
         ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
