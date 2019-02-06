@@ -151,7 +151,6 @@ importTraj <- function(site = "london", year = 2009, local = NA) {
 
         con <- url(fileName)
         load(con)
-        close(con)
       } else { ## load from local file system
 
         con <- paste(local, x, ".RData", sep = "")
@@ -163,6 +162,9 @@ importTraj <- function(site = "london", year = 2009, local = NA) {
     },
     error = function(ex) {
       cat(x, "does not exist - ignoring that one.\n")
+    },
+    finally = {
+        close(con)
     }
     )
   }
