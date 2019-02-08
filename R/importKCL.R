@@ -544,7 +544,6 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
       fileName <- paste("http://www.londonair.org.uk/r_data/", x, ".RData", sep = "")
       con <- url(fileName)
       load(con)
-      close(con)
 
       ## need to check the date starts at start of year...
       start <- ISOdatetime(
@@ -563,6 +562,9 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
     },
     error = function(ex) {
       cat(x, "does not exist - ignoring that one.\n")
+    },
+    finally = {
+      close(con)
     }
     )
   }
