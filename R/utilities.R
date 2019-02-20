@@ -623,8 +623,12 @@ panel.gam <- function(x, y, form = y ~ x, method = "loess", k = k, Args, ..., si
       }
 
       panel.lines(xseq, pred, col = col, alpha = alpha, lty = lty, lwd = 2)
+      
     } else { ## simulations required
 
+      x <- thedata$x
+      y <- thedata$y
+      
       sam.size <- length(x)
 
       lims <- current.panel.limits()
