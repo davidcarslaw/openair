@@ -170,6 +170,7 @@ As well as generating the plot itself, \code{smoothTrend}
   original data) and \code{fit} (the smooth fit that has details
   of the fit and teh uncertainties). If retained, e.g. using
   \code{output <- smoothTrend(mydata, "nox")}, this output can be
+  \code{output <- smoothTrend(mydata, "nox")}, this output can be
   used to recover the data, reproduce or rework the original plot
   or undertake further analysis.
 

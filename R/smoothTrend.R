@@ -146,6 +146,7 @@
 ##'   One special case here is that many graphical parameters can be
 ##'   vectors when used with \code{statistic = "percentile"} and a
 ##'   vector of \code{percentile} values, see examples below.
+##' @importFrom stats KalmanRun arima as.ts fitted frequency residuals tsp
 ##' @export
 ##' @return As well as generating the plot itself, \code{smoothTrend}
 ##'   also returns an object of class ``openair''. The object includes
@@ -155,6 +156,7 @@
 ##'   that \code{data} is a list of two data frames: \code{data} (the
 ##'   original data) and \code{fit} (the smooth fit that has details
 ##'   of the fit and teh uncertainties). If retained, e.g. using
+##'   \code{output <- smoothTrend(mydata, "nox")}, this output can be
 ##'   \code{output <- smoothTrend(mydata, "nox")}, this output can be
 ##'   used to recover the data, reproduce or rework the original plot
 ##'   or undertake further analysis.
@@ -371,15 +373,29 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     if (nrow(mydata) <= 24) deseason <- FALSE
 
     if (deseason) {
-      ## interpolate missing data
-      mydata[["value"]] <- approx(mydata[["value"]], n = length(mydata$value))$y
-
+     
       myts <- ts(
         mydata[["value"]],
         start = c(start.year, start.month),
         end = c(end.year, end.month), frequency = 12
       )
-
+      
+      # fill any missing data using a Kalman filter
+      
+      if (any(is.na(myts))) {
+        
+        # use forecast package to get best arima
+        fit <- auto.arima(myts)
+        # Kalman filter
+        kr <- KalmanRun(myts, fit$model)
+        # impute missing values Z %*% alpha at each missing observation
+        id.na <- which(is.na(myts))
+        
+        myts[id.na] <- sapply(id.na, FUN = function(x, Z, alpha) Z %*% alpha[x,], 
+                              Z = fit$model$Z, alpha = kr$states)
+        
+      }
+    
       ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
 
       deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
