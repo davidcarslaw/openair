@@ -2,6 +2,7 @@
 
 - fix issue with `TheilSen` when conditioning and < 6 annual measurements
 - remove arrow heads in `polarPlot` axes.
+- Use `auto.arima` function from the `forecast` package with a Kalman filter to impute missing monthly means when `deseason = TRUE` in `smoothTrend` and `TheilSen`. This replaces simple linear interpolation.
 
 ## openair 2.6-1
 

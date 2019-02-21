@@ -23,11 +23,11 @@ typically (but not necessarily) a pollutant.}
 \item{pollutant}{The parameter for which a trend test is required.
 Mandatory.}
 
-\item{deseason}{Should the data be de-deasonalized first? If
-\code{TRUE} the function \code{stl} is used (seasonal trend
-decomposition using loess). Note that if \code{TRUE} missing
-data are first linearly interpolated because \code{stl} cannot
-handle missing data.}
+\item{deseason}{Should the data be de-deasonalized first? If \code{TRUE} the
+function \code{stl} is used (seasonal trend decomposition using loess).
+Note that if \code{TRUE} missing data are first imputed using the
+\code{auto.arima} function in the \code{forecast} package together with a
+Kalman filter.}
 
 \item{type}{\code{type} determines how the data are split i.e.
   conditioned, and then plotted. The default is will produce a
