@@ -50,9 +50,9 @@
 ##' numerical information presented.
 ##'
 ##' @aliases TheilSen
-##' @param mydata A data frame containing the field \code{date} and at
-##'   least one other parameter for which a trend test is required;
-##'   typically (but not necessarily) a pollutant.
+##' @param mydata A data frame containing the field \code{date} and at least one
+##'   other parameter for which a trend test is required; typically (but not
+##'   necessarily) a pollutant.
 ##' @param pollutant The parameter for which a trend test is required.
 ##'   Mandatory.
 ##' @param deseason Should the data be de-deasonalized first? If \code{TRUE} the
@@ -60,147 +60,135 @@
 ##'   Note that if \code{TRUE} missing data are first imputed using the
 ##'   \code{auto.arima} function in the \code{forecast} package together with a
 ##'   Kalman filter.
-##' @param type \code{type} determines how the data are split i.e.
-##'   conditioned, and then plotted. The default is will produce a
-##'   single plot using the entire data. Type can be one of the
-##'   built-in types as detailed in \code{cutData} e.g.
-##'   \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so on. For
-##'   example, \code{type = "season"} will produce four plots --- one
+##' @param type \code{type} determines how the data are split i.e. conditioned,
+##'   and then plotted. The default is will produce a single plot using the
+##'   entire data. Type can be one of the built-in types as detailed in
+##'   \code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and
+##'   so on. For example, \code{type = "season"} will produce four plots --- one
 ##'   for each season.
 ##'
-##'   It is also possible to choose \code{type} as another variable in
-##'   the data frame. If that variable is numeric, then the data will
-##'   be split into four quantiles (if possible) and labelled
-##'   accordingly. If type is an existing character or factor
-##'   variable, then those categories/levels will be used directly.
-##'   This offers great flexibility for understanding the variation of
+##'   It is also possible to choose \code{type} as another variable in the data
+##'   frame. If that variable is numeric, then the data will be split into four
+##'   quantiles (if possible) and labelled accordingly. If type is an existing
+##'   character or factor variable, then those categories/levels will be used
+##'   directly. This offers great flexibility for understanding the variation of
 ##'   different variables and how they depend on one another.
 ##'
-##'   Type can be up length two e.g. \code{type = c("season",
-##'   "weekday")} will produce a 2x2 plot split by season and day of
-##'   the week. Note, when two types are provided the first forms the
-##'   columns and the second the rows.
-##' @param avg.time Can be \dQuote{month} (the default),
-##'   \dQuote{season} or \dQuote{year}. Determines the time over which
-##'   data should be averaged. Note that for \dQuote{year}, six or
-##'   more years are required. For \dQuote{season} the data are split
-##'   up into spring: March, April, May etc. Note that December is
-##'   considered as belonging to winter of the following year.
-##' @param statistic Statistic used for calculating monthly values.
-##'   Default is \dQuote{mean}, but can also be \dQuote{percentile}.
-##'   See \code{timeAverage} for more details.
-##' @param percentile Single percentile value to use if
-##'   \code{statistic = "percentile"} is chosen.
-##' @param data.thresh The data capture threshold to use (%) when
-##'   aggregating the data using \code{avg.time}. A value of zero
-##'   means that all available data will be used in a particular
-##'   period regardless if of the number of values available.
-##'   Conversely, a value of 100 will mean that all data will need to
-##'   be present for the average to be calculated, else it is recorded
+##'   Type can be up length two e.g. \code{type = c("season", "weekday")} will
+##'   produce a 2x2 plot split by season and day of the week. Note, when two
+##'   types are provided the first forms the columns and the second the rows.
+##' @param avg.time Can be \dQuote{month} (the default), \dQuote{season} or
+##'   \dQuote{year}. Determines the time over which data should be averaged.
+##'   Note that for \dQuote{year}, six or more years are required. For
+##'   \dQuote{season} the data are split up into spring: March, April, May etc.
+##'   Note that December is considered as belonging to winter of the following
+##'   year.
+##' @param statistic Statistic used for calculating monthly values. Default is
+##'   \dQuote{mean}, but can also be \dQuote{percentile}. See \code{timeAverage}
+##'   for more details.
+##' @param percentile Single percentile value to use if \code{statistic =
+##'   "percentile"} is chosen.
+##' @param data.thresh The data capture threshold to use (%) when aggregating
+##'   the data using \code{avg.time}. A value of zero means that all available
+##'   data will be used in a particular period regardless if of the number of
+##'   values available. Conversely, a value of 100 will mean that all data will
+##'   need to be present for the average to be calculated, else it is recorded
 ##'   as \code{NA}.
-##' @param alpha For the confidence interval calculations of the
-##'   slope. The default is 0.05. To show 99\% confidence intervals
-##'   for the value of the trend, choose alpha = 0.01 etc.
-##' @param dec.place The number of decimal places to display the trend
-##'   estimate at. The default is 2.
+##' @param alpha For the confidence interval calculations of the slope. The
+##'   default is 0.05. To show 99\% confidence intervals for the value of the
+##'   trend, choose alpha = 0.01 etc.
+##' @param dec.place The number of decimal places to display the trend estimate
+##'   at. The default is 2.
 ##' @param xlab x-axis label, by default \code{"year"}.
-##' @param lab.frac Fraction along the y-axis that the trend
-##'   information should be printed at, default 0.99.
+##' @param lab.frac Fraction along the y-axis that the trend information should
+##'   be printed at, default 0.99.
 ##' @param lab.cex Size of text for trend information.
 ##' @param x.relation This determines how the x-axis scale is plotted.
-##'   \dQuote{same} ensures all panels use the same scale and
-##'   \dQuote{free} will use panel-specfic scales. The latter is a
-##'   useful setting when plotting data with very different values.
+##'   \dQuote{same} ensures all panels use the same scale and \dQuote{free} will
+##'   use panel-specfic scales. The latter is a useful setting when plotting
+##'   data with very different values.
 ##' @param y.relation This determines how the y-axis scale is plotted.
-##'   \dQuote{same} ensures all panels use the same scale and
-##'   \dQuote{free} will use panel-specfic scales. The latter is a
-##'   useful setting when plotting data with very different values.
+##'   \dQuote{same} ensures all panels use the same scale and \dQuote{free} will
+##'   use panel-specfic scales. The latter is a useful setting when plotting
+##'   data with very different values.
 ##' @param data.col Colour name for the data
-##' @param trend list containing information on the line width, line
-##'   type and line colour for the main trend line and confidence
-##'   intervals respectively.
-##' @param text.col Colour name for the slope/uncertainty numeric
-##'   estimates
+##' @param trend list containing information on the line width, line type and
+##'   line colour for the main trend line and confidence intervals respectively.
+##' @param text.col Colour name for the slope/uncertainty numeric estimates
 ##' @param slope.text The text shown for the slope (default is
 ##'   \sQuote{units/year}).
 ##' @param cols Predefined colour scheme, currently only enabled for
 ##'   \code{"greyscale"}.
-##' @param shade The colour used for marking alternate years. Use
-##'   \dQuote{white} or \dQuote{transparent} to remove shading.
+##' @param shade The colour used for marking alternate years. Use \dQuote{white}
+##'   or \dQuote{transparent} to remove shading.
 ##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
-##'   \code{TRUE} titles and axis labels will automatically try and
-##'   format pollutant names and units properly e.g.  by subscripting
-##'   the \sQuote{2} in NO2.
-##' @param autocor Should autocorrelation be considered in the trend
-##'   uncertainty estimates? The default is \code{FALSE}. Generally,
-##'   accounting for autocorrelation increases the uncertainty of the
-##'   trend estimate --- sometimes by a large amount.
-##' @param slope.percent Should the slope and the slope uncertainties
-##'   be expressed as a percentage change per year? The default is
-##'   \code{FALSE} and the slope is expressed as an average units/year
-##'   change e.g. ppb.  Percentage changes can often be confusing and
-##'   should be clearly defined.  Here the percentage change is
-##'   expressed as 100 * (C.end/C.start - 1) / (end.year -
-##'   start.year). Where C.start is the concentration at the start
+##'   \code{TRUE} titles and axis labels will automatically try and format
+##'   pollutant names and units properly e.g.  by subscripting the \sQuote{2} in
+##'   NO2.
+##' @param autocor Should autocorrelation be considered in the trend uncertainty
+##'   estimates? The default is \code{FALSE}. Generally, accounting for
+##'   autocorrelation increases the uncertainty of the trend estimate ---
+##'   sometimes by a large amount.
+##' @param slope.percent Should the slope and the slope uncertainties be
+##'   expressed as a percentage change per year? The default is \code{FALSE} and
+##'   the slope is expressed as an average units/year change e.g. ppb.
+##'   Percentage changes can often be confusing and should be clearly defined.
+##'   Here the percentage change is expressed as 100 * (C.end/C.start - 1) /
+##'   (end.year - start.year). Where C.start is the concentration at the start
 ##'   date and C.end is the concentration at the end date.
 ##'
-##'   For \code{avg.time = "year"} (end.year - start.year) will be the
-##'   total number of years - 1. For example, given a concentration in
-##'   year 1 of 100 units and a percentage reduction of 5%/yr, after 5
-##'   years there will be 75 units but the actual time span will be 6
-##'   years i.e. year 1 is used as a reference year. Things are
-##'   slightly different for monthly values e.g.  \code{avg.time =
-##'   "month"}, which will use the total number of months as a basis
-##'   of the time span and is therefore able to deal with partial
-##'   years.  There can be slight differences in the %/yr trend
-##'   estimate therefore, depending on whether monthly or annual
-##'   values are considered.
-##' @param date.breaks Number of major x-axis intervals to use. The
-##'   function will try and choose a sensible number of dates/times as
-##'   well as formatting the date/time appropriately to the range
-##'   being considered. This does not always work as desired
-##'   automatically. The user can therefore increase or decrease the
-##'   number of intervals by adjusting the value of \code{date.breaks}
-##'   up or down.
+##'   For \code{avg.time = "year"} (end.year - start.year) will be the total
+##'   number of years - 1. For example, given a concentration in year 1 of 100
+##'   units and a percentage reduction of 5%/yr, after 5 years there will be 75
+##'   units but the actual time span will be 6 years i.e. year 1 is used as a
+##'   reference year. Things are slightly different for monthly values e.g.
+##'   \code{avg.time = "month"}, which will use the total number of months as a
+##'   basis of the time span and is therefore able to deal with partial years.
+##'   There can be slight differences in the %/yr trend estimate therefore,
+##'   depending on whether monthly or annual values are considered.
+##' @param date.breaks Number of major x-axis intervals to use. The function
+##'   will try and choose a sensible number of dates/times as well as formatting
+##'   the date/time appropriately to the range being considered. This does not
+##'   always work as desired automatically. The user can therefore increase or
+##'   decrease the number of intervals by adjusting the value of
+##'   \code{date.breaks} up or down.
 ##' @param plot Should a plot be produced. \code{FALSE} can be useful when
 ##'   analysing data to extract trend components and plotting them in other
 ##'   ways.
-##' @param silent When \code{FALSE} the function will give updates on trend-fitting progress.
-##' @param ... Other graphical parameters passed onto \code{cutData}
-##'   and \code{lattice:xyplot}. For example, \code{TheilSen} passes
-##'   the option \code{hemisphere = "southern"} on to \code{cutData}
-##'   to provide southern (rather than default northern) hemisphere
-##'   handling of \code{type = "season"}. Similarly, common axis and
-##'   title labelling options (such as \code{xlab}, \code{ylab},
-##'   \code{main}) are passed to \code{xyplot} via \code{quickText} to
-##'   handle routine formatting.
+##' @param silent When \code{FALSE} the function will give updates on
+##'   trend-fitting progress.
+##' @param ... Other graphical parameters passed onto \code{cutData} and
+##'   \code{lattice:xyplot}. For example, \code{TheilSen} passes the option
+##'   \code{hemisphere = "southern"} on to \code{cutData} to provide southern
+##'   (rather than default northern) hemisphere handling of \code{type =
+##'   "season"}. Similarly, common axis and title labelling options (such as
+##'   \code{xlab}, \code{ylab}, \code{main}) are passed to \code{xyplot} via
+##'   \code{quickText} to handle routine formatting.
 ##' @export TheilSen
-##' @return As well as generating the plot itself, \code{TheilSen}
-##'   also returns an object of class ``openair''. The object includes
-##'   three main components: \code{call}, the command used to generate
-##'   the plot; \code{data}, the data frame of summarised information
-##'   used to make the plot; and \code{plot}, the plot itself. If
-##'   retained, e.g. using \code{output <- TheilSen(mydata, "nox")},
-##'   this output can be used to recover the data, reproduce or rework
+##' @return As well as generating the plot itself, \code{TheilSen} also returns
+##'   an object of class ``openair''. The object includes three main components:
+##'   \code{call}, the command used to generate the plot; \code{data}, the data
+##'   frame of summarised information used to make the plot; and \code{plot},
+##'   the plot itself. If retained, e.g. using \code{output <- TheilSen(mydata,
+##'   "nox")}, this output can be used to recover the data, reproduce or rework
 ##'   the original plot or undertake further analysis.
 ##'
-##'   An openair output can be manipulated using a number of generic
-##'   operations, including \code{print}, \code{plot} and
-##'   \code{summary}.
+##'   An openair output can be manipulated using a number of generic operations,
+##'   including \code{print}, \code{plot} and \code{summary}.
 ##'
-##'   The \code{data} component of the \code{TheilSen} output includes
-##'   two subsets: \code{main.data}, the monthly data \code{res2} the
-##'   trend statistics. For \code{output <- TheilSen(mydata, "nox")},
-##'   these can be extracted as \code{object$data$main.data} and
-##'   \code{object$data$res2}, respectively.
+##'   The \code{data} component of the \code{TheilSen} output includes two
+##'   subsets: \code{main.data}, the monthly data \code{res2} the trend
+##'   statistics. For \code{output <- TheilSen(mydata, "nox")}, these can be
+##'   extracted as \code{object$data$main.data} and \code{object$data$res2},
+##'   respectively.
 ##'
-##' Note: In the case of the intercept, it is assumed the y-axis crosses the
+##'   Note: In the case of the intercept, it is assumed the y-axis crosses the
 ##'   x-axis on 1/1/1970.
 ##' @author David Carslaw with some trend code from Rand Wilcox
-##' @seealso See \code{\link{smoothTrend}} for a flexible approach to
-##'   estimating trends using nonparametric regression. The \code{smoothTrend}
-##'   function is suitable for cases where trends are not monotonic and is
-##'   probably better for exploring the shape of trends.
+##' @seealso See \code{\link{smoothTrend}} for a flexible approach to estimating
+##'   trends using nonparametric regression. The \code{smoothTrend} function is
+##'   suitable for cases where trends are not monotonic and is probably better
+##'   for exploring the shape of trends.
 ##' @references
 ##'
 ##' Helsel, D., Hirsch, R., 2002. Statistical methods in water resources. US
