@@ -390,10 +390,10 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
       if (nrow(mydata) <= 24) deseason <- FALSE
 
       if (deseason) {
-
+        
         myts <- ts(mydata[[pollutant]],
-          start = c(start.year, start.month),
-          end = c(end.year, end.month), frequency = 12
+                   start = c(start.year, start.month),
+                   end = c(end.year, end.month), frequency = 12
         )
         
         # fill any missing data using a Kalman filter
@@ -401,35 +401,46 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
         if (any(is.na(myts))) {
           
           # use forecast package to get best arima
-          fit <- auto.arima(myts)
-          # Kalman filter
-          kr <- KalmanRun(myts, fit$model)
-          # impute missing values Z %*% alpha at each missing observation
-          id.na <- which(is.na(myts))
+          fit <- try(auto.arima(myts), TRUE)
           
-          myts[id.na] <- sapply(id.na, FUN = function(x, Z, alpha) Z %*% alpha[x,], 
-                                Z = fit$model$Z, alpha = kr$states)
+          if (!inherits(fit, "try-error")) {
+            
+            # Kalman filter
+            kr <- KalmanRun(myts, fit$model)
+            # impute missing values Z %*% alpha at each missing observation
+            id.na <- which(is.na(myts))
+            
+            myts[id.na] <- sapply(id.na, FUN = function(x, Z, alpha) Z %*% alpha[x,], 
+                                  Z = fit$model$Z, alpha = kr$states)
+            
+            ## key thing is to allow the seanonal cycle to vary, hence
+            ## s.window should not be "periodic"; set quite high to avoid
+            ## overly fitted seasonal cycle
+            ## robustness also makes sense for sometimes noisy data
+            ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
+            
+            deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
+            
+            deseas <- as.vector(deseas)
+            
+          } else {
+            
+            warning(call. = FALSE, paste("Not enough data to deseasonailise."))
+            deseas <- mydata[[pollutant]]
+            
+          }
           
         }
         
-        ## key thing is to allow the seanonal cycle to vary, hence
-        ## s.window should not be "periodic"; set quite high to avoid
-        ## overly fitted seasonal cycle
-        ## robustness also makes sense for sometimes noisy data
-        ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
-
-        deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
-
-        deseas <- as.vector(deseas)
       }
-
+      
       all.results <- data.frame(
         date = mydata$date, conc = deseas,
         stringsAsFactors = FALSE
       )
       results <- na.omit(all.results)
     } else {
-
+      
       ## assume annual
       all.results <- data.frame(
         date = as_date(mydata$date),
