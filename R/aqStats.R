@@ -136,8 +136,16 @@ aqStats <- function(mydata, pollutant = "no2",
       key = variable, value = value,
       -c(UQS(syms(type)), pollutant, year, date)
     )
-
-    results <- unite(results, site_pol, UQS(syms(type)), pollutant)
+  
+    if (type != "default") {
+      
+      results <- unite(results, site_pol, UQS(syms(type)), pollutant)
+      
+    } else {
+      
+      results <- unite(results, site_pol, pollutant)
+      
+    }
 
     results <- spread(results, site_pol, value)
 
@@ -363,7 +371,6 @@ calcStats <- function(mydata, data.thresh, percentile, ...) {
       by = vars,
       all = TRUE
     ), co.results)
-    co.results$pollutant <- "CO"
     results <- co.results
     results
   }
