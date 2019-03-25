@@ -604,8 +604,9 @@ panel.gam <- function(x, y, form = y ~ x, method = "loess", k = k, Args, ..., si
       ## for uncertainties
       std <- qnorm(level / 2 + 0.5)
 
-      pred <- predict(mod, data.frame(x = xseq), se = se)
+      pred <- predict(mod, data.frame(x = xseq), se = TRUE)
 
+      panel.lines(xseq, pred$fit, col = col, alpha = alpha, lty = lty, lwd = 2)
 
       results <- data.frame(
         date = xseq, pred = pred$fit,
@@ -621,8 +622,6 @@ panel.gam <- function(x, y, form = y ~ x, method = "loess", k = k, Args, ..., si
         )
         pred <- pred$fit
       }
-
-      panel.lines(xseq, pred, col = col, alpha = alpha, lty = lty, lwd = 2)
       
     } else { ## simulations required
 
