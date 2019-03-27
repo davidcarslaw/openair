@@ -4,6 +4,8 @@
 - remove arrow heads in `polarPlot` axes.
 - Use a Kalman filter and Kalman smooth to impute missing monthly means when `deseason = TRUE` in `smoothTrend` and `TheilSen`. This replaces simple linear interpolation.
 - fix bug in `smoothTrend` when `ci = FALSE` (no smooth was fitted).
+- Add `importWAQN` to access data from the [Welsh air quality network](https://airquality.gov.wales/).
+- Add "waqn" as a data source to `importMeta`.
 
 ## openair 2.6-1
 
