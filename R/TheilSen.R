@@ -163,6 +163,7 @@
 ##'   "season"}. Similarly, common axis and title labelling options (such as
 ##'   \code{xlab}, \code{ylab}, \code{main}) are passed to \code{xyplot} via
 ##'   \code{quickText} to handle routine formatting.
+##' @importFrom stats StructTS tsSmooth
 ##' @export TheilSen
 ##' @return As well as generating the plot itself, \code{TheilSen} also returns
 ##'   an object of class ``openair''. The object includes three main components:

@@ -353,7 +353,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     vars <- c("pred.cut", statistic)
     
       res <- group_by(res, UQS(syms(vars))) %>% 
-        summarise(Freq = n())
+        summarise(Freq = dplyr::n())
 
       ## calculate proportions by interval
 
