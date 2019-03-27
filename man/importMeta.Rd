@@ -2,7 +2,7 @@
 % Please edit documentation in R/getMeta.R
 \name{importMeta}
 \alias{importMeta}
-\title{Import monitoring site meta data for the AURN, KCL and SAQN networks}
+\title{Import monitoring site meta data for the AURN, KCL, SAQN, WAQN networks}
 \usage{
 importMeta(source = "aurn", all = FALSE)
 }
@@ -22,19 +22,21 @@ A data frame with meta data.
 Function to import meta data from UK air pollution monitoring sites
 }
 \details{
-This function imports site meta data from three networks in the UK: the
+This function imports site meta data from four networks in the UK: the
 Defra Automatic Urban and Rural Network (AURN), King's College London
 networks and the Scottish Air Quality Network. The meta data includes site
 location (latitude, longitude and OS easting and northing --- the latter for
 KCL networks), site type and it's start/close data, as well as other
 information.
 
+The Scottish and Welsh air quality networks are available as SAQN (or SAQD) and WAQN.
+
 The meta information can usefully be combined with matching air pollution
 data and produce maps of concentration --- see examples below. Note if many
 sites and/or years of hourly data are imported it may be better to aggregate
 first and then combine with the meta data information.
 
-Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (AEA) for making these
+Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (Riacrdo) for making these
 data available.
 }
 \examples{
