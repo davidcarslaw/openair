@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Automatic text formatting for openair — quickText • openair</title>
+<title>Welsh Air Quality Network data import for openair — importWAQN • openair</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,12 @@
 
 
 
-<meta property="og:title" content="Automatic text formatting for openair — quickText" />
+<meta property="og:title" content="Welsh Air Quality Network data import for openair — importWAQN" />
 
-<meta property="og:description" content="Workhorse function that automatically applies routine text formatting to
-common expressions and data names used in openair." />
+<meta property="og:description" content="Function for importing hourly mean Welsh Air Quality Network (WAQN)
+archive data files for use with the openair package. Files are
+imported from a remote server operated by Ricardo that provides air quality data
+files as R data objects." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -97,59 +99,89 @@ common expressions and data names used in openair." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Automatic text formatting for openair</h1>
+    <h1>Welsh Air Quality Network data import for openair</h1>
     
-    <div class="hidden name"><code>quickText.Rd</code></div>
+    <div class="hidden name"><code>importWAQN.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Workhorse function that automatically applies routine text formatting to
-common expressions and data names used in openair.</p>
+    <p>Function for importing hourly mean Welsh Air Quality Network (WAQN)
+archive data files for use with the <code>openair</code> package. Files are
+imported from a remote server operated by Ricardo that provides air quality data
+files as R data objects.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>quickText</span>(<span class='no'>text</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>importWAQN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"card"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2018</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>text</th>
-      <td><p>A character vector.</p></td>
+      <th>site</th>
+      <td><p>Site code of the WAQN site to import e.g. "card" is Cardiff Centre. 
+Several sites can be imported with <code>site = c("card", "cae6")</code>
+  --- to import Cardiff Centre and Hafod-yr-ynys Roadside for example.</p></td>
     </tr>
     <tr>
-      <th>auto.text</th>
-      <td><p>A logical option. The default, <code>TRUE</code>, applies
-<code>quickText</code> to <code>text</code> and returns the result. The alternative,
-<code>FALSE</code>, returns <code>text</code> unchanged. (A number of <code>openair</code>
-functions enable/unenable <code>quickText</code> using this option.</p></td>
+      <th>year</th>
+      <td><p>Year or years to import. To import a sequence of years from 1990
+to 2000 use <code>year = 1990:2000</code>. To import several specfic years use
+<code>year = c(1990, 1995, 2000)</code> for example.</p></td>
+    </tr>
+    <tr>
+      <th>pollutant</th>
+      <td><p>Pollutants to import. If omitted will import all pollutants
+from a site. To import only NOx and NO2 for example use <code>pollutant =
+c("nox", "no2")</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The function returns an expression for graphical evaluation.</p>
+    <p>Returns a data frame of hourly mean values with date in POSIXct
+  class and time zone GMT.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>quickText</code> is routine formatting lookup table. It screens the
-supplied character vector <code>text</code> and automatically applies formatting
-to any recognised character sub-series. The function is used in a number of
-<code>openair</code> functions and can also be used directly by users to format
-text components of their own graphs (see below).</p>
+    <p>The <code>importWAQN</code> function has been written to make it easy to import
+data from the Welsh Air Quality Network (WAQN) ---
+<a href='https://airquality.gov.wales/'>https://airquality.gov.wales/</a>. Ricardo have provided
+.RData files (R workspaces) of all individual sites and years for the WAQN.
+These files are updated on a daily basis. This approach requires a link to
+the Internet to work.</p>
+<p>For a list of up to date site codes and site information, see
+<code><a href='importMeta.html'>importMeta</a></code> and in particular <code><a href='importMeta.html'>importMeta(source =
+"waqn")</a></code>.</p>
+<p>The site codes and pollutant names can be upper or lower case. The function
+will issue a warning when data less than six months old is downloaded, which
+may not be ratified.</p>
+<p>The function also returns wind speed (ws) and direction (wd) for more recent
+years derived from WRF (regional meteorological model).</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>See <code><a href='importAURN.html'>importAURN</a></code> for data elsewhere in the UK and
+  <code><a href='importKCL.html'>importKCL</a></code> for importing comprehensive data in and around
+  London.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-
-<span class='co'>#example 1</span>
-<span class='co'>##see axis formatting in an openair plot, e.g.:</span>
-<span class='fu'><a href='scatterPlot.html'>scatterPlot</a></span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>)</div><div class='img'><img src='quickText-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>#example 2</span>
-<span class='co'>##using quickText in other plots</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>mydata</span>$<span class='no'>no2</span>, <span class='no'>mydata</span>$<span class='no'>pm10</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'>quickText</span>(<span class='st'>"my no2 label"</span>),
-     <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'>quickText</span>(<span class='st'>"pm10 [ ug.m-3 ]"</span>))</div><div class='img'><img src='quickText-2.png' alt='' width='700' height='433' /></div><div class='input'>
+## see what sites are available
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>meta</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importMeta.html'>importMeta</a></span>(<span class='st'>"waqn"</span>)
+<span class='co'># }</span><div class='input'>
+## import all pollutants from Cardiff Centre
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>cardiff</span> <span class='kw'>&lt;-</span> <span class='fu'>importWAQN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"card"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>:<span class='fl'>2018</span>)
+<span class='co'># }</span><div class='input'>
+## import all pollutants from two sites for 2018
+</div># NOT RUN {
+all <- importWAQN(site = site = c("card", "cae6"), year = 2018)
+# }
+<div class='input'>
 
 </div></pre>
   </div>
@@ -161,12 +193,14 @@ text components of their own graphs (see below).</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
-    <p>Karl Ropkins.</p>
+    <p>David Carslaw and Trevor Davies</p>
   </div>
 </div>
 
