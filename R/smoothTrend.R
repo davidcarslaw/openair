@@ -29,9 +29,8 @@
 ##'   Mandatory.
 ##' @param deseason Should the data be de-deasonalized first? If \code{TRUE} the
 ##'   function \code{stl} is used (seasonal trend decomposition using loess).
-##'   Note that if \code{TRUE} missing data are first imputed using the
-##'   \code{auto.arima} function in the \code{forecast} package together with a
-##'   Kalman filter.
+##'   Note that if \code{TRUE} missing data are first imputed using a
+##'   Kalman filter and Kalman smooth.
 ##' @param type \code{type} determines how the data are split i.e. conditioned,
 ##'   and then plotted. The default is will produce a single plot using the
 ##'   entire data. Type can be one of the built-in types as detailed in
@@ -369,14 +368,10 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
       if (any(is.na(myts))) {
         
         # use forecast package to get best arima
-        fit <- auto.arima(myts)
-        # Kalman filter
-        kr <- KalmanRun(myts, fit$model)
-        # impute missing values Z %*% alpha at each missing observation
-        id.na <- which(is.na(myts))
+        fit <- ts(rowSums(tsSmooth(StructTS(myts))[,-2]))
+        id <- which(is.na(myts))
         
-        myts[id.na] <- sapply(id.na, FUN = function(x, Z, alpha) Z %*% alpha[x,], 
-                              Z = fit$model$Z, alpha = kr$states)
+        myts[id] <- fit[id]
         
       }
     

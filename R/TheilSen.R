@@ -57,9 +57,8 @@
 ##'   Mandatory.
 ##' @param deseason Should the data be de-deasonalized first? If \code{TRUE} the
 ##'   function \code{stl} is used (seasonal trend decomposition using loess).
-##'   Note that if \code{TRUE} missing data are first imputed using the
-##'   \code{auto.arima} function in the \code{forecast} package together with a
-##'   Kalman filter.
+##'   Note that if \code{TRUE} missing data are first imputed using a
+##'   Kalman filter and Kalman smooth.
 ##' @param type \code{type} determines how the data are split i.e. conditioned,
 ##'   and then plotted. The default is will produce a single plot using the
 ##'   entire data. Type can be one of the built-in types as detailed in
@@ -383,12 +382,12 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
 
     if (avg.time == "month") {
       mydata$date <- as_date(mydata$date)
-
+      
       deseas <- mydata[[pollutant]]
-
+      
       ## can't deseason less than 2 years of data
       if (nrow(mydata) <= 24) deseason <- FALSE
-
+      
       if (deseason) {
         
         myts <- ts(mydata[[pollutant]],
@@ -400,56 +399,40 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
         
         if (any(is.na(myts))) {
           
-          # use forecast package to get best arima
-          fit <- try(auto.arima(myts), TRUE)
+          fit <- ts(rowSums(tsSmooth(StructTS(myts))[,-2]))
+          id <- which(is.na(myts))
           
-          if (!inherits(fit, "try-error")) {
-            
-            # Kalman filter
-            kr <- KalmanRun(myts, fit$model)
-            # impute missing values Z %*% alpha at each missing observation
-            id.na <- which(is.na(myts))
-            
-            myts[id.na] <- sapply(id.na, FUN = function(x, Z, alpha) Z %*% alpha[x,], 
-                                  Z = fit$model$Z, alpha = kr$states)
-            
-            ## key thing is to allow the seanonal cycle to vary, hence
-            ## s.window should not be "periodic"; set quite high to avoid
-            ## overly fitted seasonal cycle
-            ## robustness also makes sense for sometimes noisy data
-            ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
-            
-            deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
-            
-            deseas <- as.vector(deseas)
-            
-          } else {
-            
-            warning(call. = FALSE, paste("Not enough data to deseasonailise."))
-            deseas <- mydata[[pollutant]]
-            
-          }
+          myts[id] <- fit[id]
+          
+          ## key thing is to allow the seanonal cycle to vary, hence
+          ## s.window should not be "periodic"; set quite high to avoid
+          ## overly fitted seasonal cycle
+          ## robustness also makes sense for sometimes noisy data
+          ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
+          
+          deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
+          
+          deseas <- as.vector(deseas)
+          
+          
+          all.results <- data.frame(
+            date = mydata$date, conc = deseas,
+            stringsAsFactors = FALSE
+          )
+          results <- na.omit(all.results)
           
         }
+      } else {
         
+        ## assume annual
+        all.results <- data.frame(
+          date = as_date(mydata$date),
+          conc = mydata[[pollutant]],
+          stringsAsFactors = FALSE
+        )
+        results <- na.omit(all.results)
       }
-      
-      all.results <- data.frame(
-        date = mydata$date, conc = deseas,
-        stringsAsFactors = FALSE
-      )
-      results <- na.omit(all.results)
-    } else {
-      
-      ## assume annual
-      all.results <- data.frame(
-        date = as_date(mydata$date),
-        conc = mydata[[pollutant]],
-        stringsAsFactors = FALSE
-      )
-      results <- na.omit(all.results)
-    }
-
+}
     ## now calculate trend, uncertainties etc ###########################
     if (nrow(results) < 6) { ## need enough data to calculate trend, set missing if not
       
