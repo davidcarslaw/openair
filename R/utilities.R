@@ -1141,8 +1141,7 @@ binData <- function(mydata, bin = "nox", uncer = "no2", n = 40, interval = NA,
   
   # calculate 95% CI in mean
   uncert <- group_by(mydata, interval) %>%
-    group_map(~ bootMeanDF(.[[uncer]], B = 250)) %>% 
-    ungroup()
+    do(bootMeanDF(.[[uncer]], B = 250)) 
 
   mydata <- group_by(mydata, interval) %>%
     summarise_if(is.numeric, mean, na.rm = TRUE)
