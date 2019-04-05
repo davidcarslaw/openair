@@ -390,7 +390,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
       if (nrow(mydata) <= 24) deseason <- FALSE
       
       if (deseason) {
-        
+   
         myts <- ts(mydata[[pollutant]],
                    start = c(start.year, start.month),
                    end = c(end.year, end.month), frequency = 12
@@ -405,6 +405,8 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
           
           myts[id] <- fit[id]
           
+        }
+          
           ## key thing is to allow the seanonal cycle to vary, hence
           ## s.window should not be "periodic"; set quite high to avoid
           ## overly fitted seasonal cycle
@@ -415,14 +417,13 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
           
           deseas <- as.vector(deseas)
           
-          
           all.results <- data.frame(
             date = mydata$date, conc = deseas,
             stringsAsFactors = FALSE
           )
           results <- na.omit(all.results)
           
-        }
+        
       } else {
         
         ## assume annual
