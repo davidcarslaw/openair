@@ -382,6 +382,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
     end.month <- endMonth(mydata$date)
 
     if (avg.time == "month") {
+      
       mydata$date <- as_date(mydata$date)
       
       deseas <- mydata[[pollutant]]
@@ -390,7 +391,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
       if (nrow(mydata) <= 24) deseason <- FALSE
       
       if (deseason) {
-   
+        
         myts <- ts(mydata[[pollutant]],
                    start = c(start.year, start.month),
                    end = c(end.year, end.month), frequency = 12
@@ -406,44 +407,46 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
           myts[id] <- fit[id]
           
         }
-          
-          ## key thing is to allow the seanonal cycle to vary, hence
-          ## s.window should not be "periodic"; set quite high to avoid
-          ## overly fitted seasonal cycle
-          ## robustness also makes sense for sometimes noisy data
-          ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
-          
-          deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
-          
-          deseas <- as.vector(deseas)
-          
-          all.results <- data.frame(
-            date = mydata$date, conc = deseas,
-            stringsAsFactors = FALSE
-          )
-          results <- na.omit(all.results)
-      }
-          
         
-      } else {
+        ## key thing is to allow the seanonal cycle to vary, hence
+        ## s.window should not be "periodic"; set quite high to avoid
+        ## overly fitted seasonal cycle
+        ## robustness also makes sense for sometimes noisy data
+        ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
         
-        ## assume annual
-        all.results <- data.frame(
-          date = as_date(mydata$date),
-          conc = mydata[[pollutant]],
-          stringsAsFactors = FALSE
-        )
-        results <- na.omit(all.results)
+        deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
+        
+        deseas <- as.vector(deseas)
+        
       }
-
+      
+      all.results <- data.frame(
+        date = mydata$date, conc = deseas,
+        stringsAsFactors = FALSE
+      )
+      results <- na.omit(all.results)
+      
+      
+      
+    } else {
+      
+      ## assume annual
+      all.results <- data.frame(
+        date = as_date(mydata$date),
+        conc = mydata[[pollutant]],
+        stringsAsFactors = FALSE
+      )
+      results <- na.omit(all.results)
+    }
+    
     ## now calculate trend, uncertainties etc ###########################
     if (nrow(results) < 6) { ## need enough data to calculate trend, set missing if not
       
       results <- mutate(results,
-                           b = NA, a = NA,
-                           lower.a = NA, upper.a = NA,
-                           lower.b = NA, upper.b = NA,
-                           p.stars = NA
+                        b = NA, a = NA,
+                        lower.a = NA, upper.a = NA,
+                        lower.b = NA, upper.b = NA,
+                        p.stars = NA
       )
       
       return(results) 
@@ -451,21 +454,21 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
     }
     
     MKresults <- MKstats(results$date, results$conc, alpha, autocor, silent = silent)
-
+    
     ## make sure missing data are put back in for plotting
     results <- merge(all.results, MKresults, by = "date", all = TRUE)
-  
+    
     results
   }
-
+  
   # need to work out how to use dplyr if it does not return a data frame due to too few data
   split.data <- group_by(mydata, UQS(syms(type))) %>%
     do(process.cond(.))
-
-
+  
+  
   if (nrow(split.data) < 2) return()
-
-
+  
+  
   ## special wd layout
   # (type field in results.grid called type not wd)
   if (length(type) == 1 &
