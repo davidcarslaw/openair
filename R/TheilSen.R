@@ -422,6 +422,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
             stringsAsFactors = FALSE
           )
           results <- na.omit(all.results)
+      }
           
         
       } else {
@@ -434,7 +435,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
         )
         results <- na.omit(all.results)
       }
-}
+
     ## now calculate trend, uncertainties etc ###########################
     if (nrow(results) < 6) { ## need enough data to calculate trend, set missing if not
       
