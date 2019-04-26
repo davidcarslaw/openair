@@ -10,7 +10,7 @@
 ##' individual sites and years for the AURN. These files are updated on a daily
 ##' basis. This approach requires a link to the Internet to work.
 ##'
-##' For an up to date list of available sites that can be imported, see \code{importMeta}.
+##' For an up to date list of available sites that can be imported, see \code{\link{importMeta}}.
 ##'
 ##' There are several advantages over the web portal approach where .csv files
 ##' are downloaded. First, it is quick to select a range of sites, pollutants
@@ -88,7 +88,7 @@
 ##'   class and time zone GMT.
 ##' @author David Carslaw
 ##' @seealso \code{\link{importKCL}}, \code{\link{importADMS}},
-##'   \code{\link{importSAQN}}
+##'   \code{\link{importSAQN}}, \code{\link{importMeta}}
 ##' @keywords methods
 ##' @examples
 ##'
