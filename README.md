@@ -19,10 +19,13 @@ The project was initially funded by the UK Natural Environment Research
 Council ([NERC](http://www.nerc.ac.uk/)), with additional funds from
 Defra. The most up to date information on openair can be found in the
 package itself and the
-[manual](https://www.dropbox.com/s/2n7wdyursdul8dk/openairManual.pdf?dl=0)
-which provides an introduction to R with a focus on air quality data as
-well as extensive reproducible examples. An archive of newsletters in
-also available at the same location.
+[manual](https://davidcarslaw.com/files/openairmanual.pdf) which
+provides an introduction to R with a focus on air quality data as well
+as extensive reproducible examples. An archive of newsletters in also
+available at the same location.
+
+Further details, including blogs on openair can be found at
+[davidcarslaw.com](https://davidcarslaw.com/)
 
 ## Installation
 
@@ -159,8 +162,8 @@ different date values. A summary of in-built values of type are:
     In contrast, `type = "season"` will just split the data into four
     seasons regardless of the year.
 
-If a categorical variable is present in a data frame e.g. `site` then
-that variables can be used directly e.g. `type = "site"`.
+If a categorical variable is present in a data frame e.g. `site` then
+that variables can be used directly e.g. `type = "site"`.
 
 `type` can also be a numeric variable. In this case the numeric variable
 is split up into 4 *quantiles* i.e. four partitions containing equal
