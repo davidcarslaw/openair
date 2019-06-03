@@ -164,7 +164,7 @@ importTraj <- function(site = "london", year = 2009, local = NA) {
       cat(x, "does not exist - ignoring that one.\n")
     },
     finally = {
-        close(con)
+        if (is.na(local)) close(con)
     }
     )
   }
