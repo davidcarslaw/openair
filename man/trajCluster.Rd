@@ -125,10 +125,10 @@ openair manual.
 ## import trajectories
 traj <- importTraj(site = "london", year = 2009)
 ## calculate clusters
-clust <- trajCluster(traj, n.clusters = 5)
+clust <- trajCluster(traj, n.cluster = 5)
 head(clust$data) ## note new variable 'cluster'
 ## use different distance matrix calculation, and calculate by season
-traj <- trajCluster(traj, method = "Angle", type = "season", n.clusters = 4)
+traj <- trajCluster(traj, method = "Angle", type = "season", n.cluster = 4)
 }
 }
 \references{
