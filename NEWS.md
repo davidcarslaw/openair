@@ -1,6 +1,7 @@
 ## openair 2.6-99
 
 - fix bug in `TheilSen` when no missing data and `deseason = TRUE`
+- fix bug in `timeAverage` when interval padding dates and date is "Date" class and not "POSIXct"
 
 ## openair 2.6-4
 
