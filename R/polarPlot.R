@@ -483,6 +483,11 @@ polarPlot <-
       warning("percentile value missing, using 50")
       percentile <- 50
     }
+    
+    if (statistic == "cpf" & is.na(percentile[1])) {
+      warning("percentile value missing, using 75")
+      percentile <- 75
+    }
 
     # Allow for period notation
     statistic <- gsub("\\.| ", "_", statistic)
