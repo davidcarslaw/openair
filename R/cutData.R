@@ -279,17 +279,17 @@ cutData <- function(x, type = "default", hemisphere = "northern",
       }
 
       if (hemisphere == "northern") {
-        x[[type]] <- "winter (DJF)" ## define all as winter first, then assign others
+        x[[type]] <- "Winter (JF)" ## define all as winter first, then assign others
         ids <- which(as.numeric(format(x$date, "%m")) %in% 3:5)
-        x[[type]][ids] <- "spring (MAM)"
-        ids <- which(as.numeric(format(x$date, "%m")) %in% 6:8)
-        x[[type]][ids] <- "summer (JJA)"
+        x[[type]][ids] <- "Pre Monsoon (MAM)"
+        ids <- which(as.numeric(format(x$date, "%m")) %in% 6:9)
+        x[[type]][ids] <- "Monsoon (JJAS)"
         ids <- which(as.numeric(format(x$date, "%m")) %in% 9:11)
-        x[[type]][ids] <- "autumn (SON)"
+        x[[type]][ids] <- "Post Monsoon (OND)"
 
         seasons <- c(
-          "spring (MAM)", "summer (JJA)", "autumn (SON)",
-          "winter (DJF)"
+          "Pre Monsoon (MAM)", "Monsoon (JJAS)", " Post Monsoon (OND)",
+          "Winter (JF)"
         )
 
         ## might only be partial year...
