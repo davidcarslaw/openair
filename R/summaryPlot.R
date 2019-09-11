@@ -261,26 +261,24 @@ summaryPlot <- function(mydata,
   if ("site" %in% names(mydata) & len.all != len.unique) {
     ## the data here ar ein "long" format, so make it "wide" and treat it like
     ## the usual data frame
-    if (length(levels(mydata$site)) > 1) {
+    if (length(unique(mydata$site)) > 1) {
       ## get rid of unused factor levels if subset previously used
       mydata$site <- factor(mydata$site)
       ## id of first numeric column (pollutant)
       id <- which(sapply(mydata, class) %in% c("numeric", "integer"))[1]
       if (missing(pollutant)) pollutant <- names(mydata)[id]
-
+      
       if (pollutant %in% names(mydata) == FALSE) {
         stop(cat("Can't find the variable", pollutant, "\n"))
       }
-
+      
       mydata <- subset(mydata, select = c("date", "site", pollutant))
       names(mydata) <- c("date", "variable", "value")
-
-      site.names <- as.character(unique(mydata$variable))
-
-      mydata <- reshape(mydata, idvar = "date", timevar = "variable", direction = "wide")
-
-      names(mydata)[2:ncol(mydata)] <- site.names
-
+      
+      
+      mydata <- tidyr::spread(mydata, 
+                              key = variable, value = value)
+      
       warning(paste("More than one site detected, using", pollutant))
     }
   }
