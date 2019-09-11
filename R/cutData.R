@@ -444,7 +444,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
 
       x[id.nondst, type] <- "Non-DST"
       x[id.dst, type] <- "DST"
-      x[, type] <- factor(x[, type])
+      x[[type]] <- factor(x[[type]])
     }
 
     if (type == "daylight") {
