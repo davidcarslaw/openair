@@ -4,6 +4,7 @@
 - fix bug in `timeAverage` when interval padding dates and date is "Date" class and not "POSIXct"
 - fix example for `trajCluster`, should be `n.cluster` not `n.clusters`
 - fix issue with DST in `cutData`
+- allow 'hemisphere' to be supplied as an argument to `timeAverage`, used for avg.time = "season". 
 
 ## openair 2.6-4
 

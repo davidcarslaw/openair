@@ -420,7 +420,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       ## special case for season
       ## need to group specific months: Dec/Jan/Feb etc
 
-      mydata <- cutData(mydata, type = "season")
+      mydata <- cutData(mydata, type = "season", ...)
       ## remove any missing seasons e.g. through type = "season"
       mydata <- mydata[!is.na(mydata$season), ]
 
