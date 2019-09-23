@@ -85,7 +85,7 @@ date.pad2 <- function(mydata, type = NULL, interval = "month") {
   end.date <- max(mydata$date, na.rm = TRUE)
   
   # interval is in seconds, so convert to days if Date class and not POSIXct
-  if (class(mydata$date) == "Date")
+  if (class(mydata$date)[1] == "Date")
     interval <- paste(as.numeric(strsplit(interval, " ")[[1]][1]) / 3600 / 24, "days")
 
   all.dates <- data.frame(date = seq(start.date, end.date, by = interval))

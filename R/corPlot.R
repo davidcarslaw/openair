@@ -303,7 +303,7 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
   results.grid <- results.grid %>% 
     mutate(out = map(results, 1)) %>% 
     select(UQS(syms(type)), out) %>% 
-    unnest()
+    unnest(cols = c(out))
 
   div.col <- function(x) openColours(cols, x)
 
