@@ -8,21 +8,25 @@
 
 <title>Changelog • openair</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,7 +34,9 @@
 
 
 
+
 <meta property="og:title" content="Changelog" />
+
 
 
 
@@ -42,6 +48,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -73,7 +80,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
@@ -88,6 +94,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -97,17 +104,23 @@
       
     </div>
 
-    <div id="openair-26-99" class="section level2">
+    <div id="openair-2-6-99" class="section level2">
 <h2 class="hasAnchor">
-<a href="#openair-26-99" class="anchor"></a>openair 2.6-99</h2>
+<a href="#openair-2-6-99" class="anchor"></a>openair 2.6-99</h2>
 <ul>
 <li>fix bug in <code>TheilSen</code> when no missing data and <code>deseason = TRUE</code>
 </li>
+<li>fix bug in <code>timeAverage</code> when interval padding dates and date is “Date” class and not “POSIXct”</li>
+<li>fix example for <code>trajCluster</code>, should be <code>n.cluster</code> not <code>n.clusters</code>
+</li>
+<li>fix issue with DST in <code>cutData</code>
+</li>
+<li>allow ‘hemisphere’ to be supplied as an argument to <code>timeAverage</code>, used for avg.time = “season”.</li>
 </ul>
 </div>
-    <div id="openair-26-4" class="section level2">
+    <div id="openair-2-6-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#openair-26-4" class="anchor"></a>openair 2.6-4</h2>
+<a href="#openair-2-6-4" class="anchor"></a>openair 2.6-4</h2>
 <ul>
 <li>fix issue with <code>TheilSen</code> when conditioning and &lt; 6 annual measurements</li>
 <li>remove arrow heads in <code>polarPlot</code> axes.</li>
@@ -117,29 +130,29 @@
 <li>Add “waqn” as a data source to <code>importMeta</code>.</li>
 </ul>
 </div>
-    <div id="openair-26-1" class="section level2">
+    <div id="openair-2-6-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#openair-26-1" class="anchor"></a>openair 2.6-1</h2>
+<a href="#openair-2-6-1" class="anchor"></a>openair 2.6-1</h2>
 <ul>
 <li>Update handling of meta data in <code>importMeta</code>.</li>
 </ul>
 </div>
-    <div id="openair-26-0" class="section level2">
+    <div id="openair-2-6-0" class="section level2">
 <h2 class="hasAnchor">
-<a href="#openair-26-0" class="anchor"></a>openair 2.6-0</h2>
+<a href="#openair-2-6-0" class="anchor"></a>openair 2.6-0</h2>
 <ul>
 <li>In <code>aqStats</code> use default <code>data.thresh = 0</code> rather than 75% to ensure summaries are calculated</li>
 <li>Fix confidence intervals in <code>timeVariation</code> when statistic - “median”. Revision will result in narrower range.</li>
 <li>Change default in <code>corPlot</code> to plot lower and upper triangles; add <code>lower</code> as an option.</li>
 <li>Update meta data for Scottish Air Quality Network (“saqn”); was badly out of date</li>
-<li>fix bug in <code>timeAverage</code> when interval more than one time unit e.g. “10 day”</li>
+<li>fix bug in <code>timeAverage</code> when interval more than one time unit e.g. “10 day”</li>
 </ul>
 </div>
-    <div id="openair-25-0" class="section level2">
+    <div id="openair-2-5-0" class="section level2">
 <h2 class="hasAnchor">
-<a href="#openair-25-0" class="anchor"></a>openair 2.5-0</h2>
+<a href="#openair-2-5-0" class="anchor"></a>openair 2.5-0</h2>
 <ul>
-<li>add simple versions of <strong>viridis</strong> colour palettes: “viridis”, “plasma”, “magma”, “inferno” and “cividis” e.g. <code><a href="../reference/polarPlot.html">polarPlot(mydata, cols = "plasma")</a></code>
+<li>add simple versions of <strong>viridis</strong> colour palettes: “viridis”, “plasma”, “magma”, “inferno” and “cividis” e.g. <code><a href="../reference/polarPlot.html">polarPlot(mydata, cols = "plasma")</a></code>
 </li>
 <li>allow option <code>align</code> to be used in <code>aqStats</code> to determine how rolling means are calculated. Can take the values “center” (default), “left” and “right”.</li>
 <li>make sure full year present in <code>importAURN</code>
@@ -149,9 +162,9 @@
 <li>fix issues in trajectory functions due to <code>dplyr</code>.</li>
 </ul>
 </div>
-    <div id="openair-24-0" class="section level2">
+    <div id="openair-2-4-0" class="section level2">
 <h2 class="hasAnchor">
-<a href="#openair-24-0" class="anchor"></a>openair 2.4-0</h2>
+<a href="#openair-2-4-0" class="anchor"></a>openair 2.4-0</h2>
 <ul>
 <li>use <code>lubridate</code> in <code>timeAverage</code> to improve speed / simplicity</li>
 <li>make sure all strip colours are white for <code>openair</code> objects</li>
@@ -162,12 +175,12 @@
 <li>fix bias correction bug in <code>windRose</code> when ws/wd have different names</li>
 <li>fix bug in <code>timeAverage</code> for wind direction (<code>wd</code>) when <code>statistic = "data.cap"</code>
 </li>
-<li>New built-in colour palette for the colour blind “cbPalette”. Note maximum number of colours is 8 e.g. <code><a href="../reference/windRose.html">windRose(mydata, col = "cbPalette", breaks = 6)</a></code>. Thanks to Jerry Martin.</li>
+<li>New built-in colour palette for the colour blind “cbPalette”. Note maximum number of colours is 8 e.g. <code><a href="../reference/windRose.html">windRose(mydata, col = "cbPalette", breaks = 6)</a></code>. Thanks to Jerry Martin.</li>
 </ul>
 </div>
-    <div id="openair-23-0" class="section level2">
+    <div id="openair-2-3-0" class="section level2">
 <h2 class="hasAnchor">
-<a href="#openair-23-0" class="anchor"></a>openair 2.3-0</h2>
+<a href="#openair-2-3-0" class="anchor"></a>openair 2.3-0</h2>
 <ul>
 <li>add option <code>plot</code> to <code>TheilSen</code>. <code>FALSE</code> can be useful when analysing data to extract the trend components and plot in otherways and when the <code>TheilSen</code> plot is not required.</li>
 <li>add option <code>silent</code> to <code>TheilSen</code> to avoid printing updates to trend fitting. By default it is <code>FALSE</code>.</li>
@@ -179,9 +192,9 @@
 <li>add option <code>col.arrow</code> to <code>calendarPlot</code> to control colour of the wind speed / direction annotation arrows.</li>
 </ul>
 </div>
-    <div id="openair-22-3" class="section level1">
+    <div id="openair-2-2-3" class="section level1">
 <h1 class="page-header">
-<a href="#openair-22-3" class="anchor"></a>openair 2.2-3<small> 2018-02-26 </small>
+<a href="#openair-2-2-3" class="anchor"></a>openair 2.2-3<small> 2018-02-26 </small>
 </h1>
 <div id="main-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -201,9 +214,9 @@
 </ul>
 </div>
 </div>
-    <div id="openair-21-5" class="section level1">
+    <div id="openair-2-1-5" class="section level1">
 <h1 class="page-header">
-<a href="#openair-21-5" class="anchor"></a>openair 2.1-5<small> 2017-08-31 </small>
+<a href="#openair-2-1-5" class="anchor"></a>openair 2.1-5<small> 2017-08-31 </small>
 </h1>
 <div id="main-changes-1" class="section level2">
 <h2 class="hasAnchor">
@@ -221,9 +234,9 @@
 </ul>
 </div>
 </div>
-    <div id="openair-21-0" class="section level1">
+    <div id="openair-2-1-0" class="section level1">
 <h1 class="page-header">
-<a href="#openair-21-0" class="anchor"></a>openair 2.1-0<small> 2017-04-12 </small>
+<a href="#openair-2-1-0" class="anchor"></a>openair 2.1-0<small> 2017-04-12 </small>
 </h1>
 <div id="main-changes-2" class="section level2">
 <h2 class="hasAnchor">
@@ -245,9 +258,9 @@
 </ul>
 </div>
 </div>
-    <div id="openair-20-0" class="section level1">
+    <div id="openair-2-0-0" class="section level1">
 <h1 class="page-header">
-<a href="#openair-20-0" class="anchor"></a>openair 2.0-0<small> 2016-11-23 </small>
+<a href="#openair-2-0-0" class="anchor"></a>openair 2.0-0<small> 2016-11-23 </small>
 </h1>
 <div id="main-changes-3" class="section level2">
 <h2 class="hasAnchor">
@@ -274,9 +287,9 @@
 </ul>
 </div>
 </div>
-    <div id="openair-19-9" class="section level1">
+    <div id="openair-1-9-9" class="section level1">
 <h1 class="page-header">
-<a href="#openair-19-9" class="anchor"></a>openair 1.9-9<small> Unreleased </small>
+<a href="#openair-1-9-9" class="anchor"></a>openair 1.9-9<small> Unreleased </small>
 </h1>
 <div id="main-changes-4" class="section level2">
 <h2 class="hasAnchor">
@@ -305,9 +318,9 @@
 </ul>
 </div>
 </div>
-    <div id="openair-18-6" class="section level1">
+    <div id="openair-1-8-6" class="section level1">
 <h1 class="page-header">
-<a href="#openair-18-6" class="anchor"></a>openair 1.8-6<small> 2016-06-15 </small>
+<a href="#openair-1-8-6" class="anchor"></a>openair 1.8-6<small> 2016-06-15 </small>
 </h1>
 <ul>
 <li>Only plot lower triangle for <code>corPlot</code>
@@ -326,9 +339,9 @@
 <li>fix <code>TheilSen</code> bug when two types.</li>
 </ul>
 </div>
-    <div id="openair-18-2" class="section level1">
+    <div id="openair-1-8-2" class="section level1">
 <h1 class="page-header">
-<a href="#openair-18-2" class="anchor"></a>openair 1.8-2<small> 2016-04-25 </small>
+<a href="#openair-1-8-2" class="anchor"></a>openair 1.8-2<small> 2016-04-25 </small>
 </h1>
 <ul>
 <li>fixes for new version of <code>dplyr</code>
@@ -339,9 +352,9 @@
 <li>update <code>importAURN</code> meta data in help function.</li>
 </ul>
 </div>
-    <div id="openair-18-0" class="section level1">
+    <div id="openair-1-8-0" class="section level1">
 <h1 class="page-header">
-<a href="#openair-18-0" class="anchor"></a>openair 1.8-0<small> 2016-03-24 </small>
+<a href="#openair-1-8-0" class="anchor"></a>openair 1.8-0<small> 2016-03-24 </small>
 </h1>
 <ul>
 <li>Allow <code>scatterPlot</code> to have control over plot symbol fill and colour (for symbols 21 to 25). Use <code>cols</code> and <code>fill</code> to control.</li>
@@ -356,9 +369,9 @@
 <li>add <code>w.shift</code> option to <code>calendarPlot</code> to control the first day of the week and subsequent order (thanks to Giovanni Bonafè)</li>
 </ul>
 </div>
-    <div id="openair-173" class="section level1">
+    <div id="openair-1-7-3" class="section level1">
 <h1 class="page-header">
-<a href="#openair-173" class="anchor"></a>openair 1.7.3<small> Unreleased </small>
+<a href="#openair-1-7-3" class="anchor"></a>openair 1.7.3<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix regression in <code>timeAverage</code> when expanding time series</li>
@@ -374,9 +387,9 @@
 </li>
 </ul>
 </div>
-    <div id="openair-17" class="section level1">
+    <div id="openair-1-7" class="section level1">
 <h1 class="page-header">
-<a href="#openair-17" class="anchor"></a>openair 1.7<small> 2016-02-22 </small>
+<a href="#openair-1-7" class="anchor"></a>openair 1.7<small> 2016-02-22 </small>
 </h1>
 <ul>
 <li>Allow <code>linearRelation</code> to use any arbitrary time averaging period.</li>
@@ -398,9 +411,9 @@
 <li>correct order of labels in <code>timeVariation</code> when <code>difference = TRUE</code> for some factor levels (were in alphabetical)</li>
 </ul>
 </div>
-    <div id="openair-166" class="section level1">
+    <div id="openair-1-6-6" class="section level1">
 <h1 class="page-header">
-<a href="#openair-166" class="anchor"></a>openair 1.6.6<small> Unreleased </small>
+<a href="#openair-1-6-6" class="anchor"></a>openair 1.6.6<small> Unreleased </small>
 </h1>
 <ul>
 <li>Not all labels shown if &gt;25 in <code>trendLevel</code>; make sure strip is white</li>
@@ -408,18 +421,18 @@
 <li>fix some cases where background strip was not white</li>
 </ul>
 </div>
-    <div id="openair-165" class="section level1">
+    <div id="openair-1-6-5" class="section level1">
 <h1 class="page-header">
-<a href="#openair-165" class="anchor"></a>openair 1.6.5<small> 2015-11-04 </small>
+<a href="#openair-1-6-5" class="anchor"></a>openair 1.6.5<small> 2015-11-04 </small>
 </h1>
 <ul>
 <li>changes to fix examples not run during the R CMD check</li>
 <li>make <code>TaylorDiagram</code> more flexible when using two groups and the second is date-based</li>
 </ul>
 </div>
-    <div id="openair-164" class="section level1">
+    <div id="openair-1-6-4" class="section level1">
 <h1 class="page-header">
-<a href="#openair-164" class="anchor"></a>openair 1.6.4<small> 2015-10-23 </small>
+<a href="#openair-1-6-4" class="anchor"></a>openair 1.6.4<small> 2015-10-23 </small>
 </h1>
 <ul>
 <li>fix bug in <code>GoogleMapsPlot</code> when pollutant not given</li>
@@ -439,9 +452,9 @@
 </li>
 </ul>
 </div>
-    <div id="openair-16" class="section level1">
+    <div id="openair-1-6" class="section level1">
 <h1 class="page-header">
-<a href="#openair-16" class="anchor"></a>openair 1.6<small> 2015-07-23 </small>
+<a href="#openair-1-6" class="anchor"></a>openair 1.6<small> 2015-07-23 </small>
 </h1>
 <ul>
 <li>Don’t force integer results for <code>importAURN</code>
@@ -462,7 +475,7 @@
 <li>fix bug in some functions when type more than one</li>
 <li>add support in <code>pollutionRose</code> for option <code>normalise</code> to show probability by wind sector (0 to 1).</li>
 <li>
-<code>timeAverage</code> now has an option <code>type</code> similar to other functions. A common use would be to apply <code>timeAverage</code> to a data frame with multiple sites where there is a column representing site name e.g. <code>type = "site"</code>.</li>
+<code>timeAverage</code> now has an option <code>type</code> similar to other functions. A common use would be to apply <code>timeAverage</code> to a data frame with multiple sites where there is a column representing site name e.g. <code>type = "site"</code>.</li>
 <li>Add receptor location for trajectory plots <code>trajLevel</code> and <code>trajPlot</code>.</li>
 <li>Add an option <code>trend</code> to <code>TheilSen</code> to control how the trend lines are drawn.</li>
 <li>fix bug in <code>calendarPlot</code> when partial month available</li>
@@ -474,13 +487,13 @@
 <li>fix bug in <code>timeVariation</code> with <code>type = "season"</code> when space in pollutant name</li>
 </ul>
 </div>
-    <div id="openair-15" class="section level1">
+    <div id="openair-1-5" class="section level1">
 <h1 class="page-header">
-<a href="#openair-15" class="anchor"></a>openair 1.5<small> 2015-04-14 </small>
+<a href="#openair-1-5" class="anchor"></a>openair 1.5<small> 2015-04-14 </small>
 </h1>
 <ul>
 <li>Add ‘days’ as a time unit to <code>summaryPlot</code> - useful for shorter time series</li>
-<li>Initial changes to use <code>dplyr</code> to speed up some of the code e.g. <code>timeAverage</code>
+<li>Initial changes to use <code>dplyr</code> to speed up some of the code e.g. <code>timeAverage</code>
 </li>
 <li>Automate <code>x.inc</code> and <code>y.inc</code> if not supplied by user in <code>scatterPlot</code>
 </li>
@@ -498,9 +511,9 @@
 <li>Fix bug in <code>importKCL</code> when date was not at beginning of the year</li>
 </ul>
 </div>
-    <div id="openair-11" class="section level1">
+    <div id="openair-1-1" class="section level1">
 <h1 class="page-header">
-<a href="#openair-11" class="anchor"></a>openair 1.1<small> Unreleased </small>
+<a href="#openair-1-1" class="anchor"></a>openair 1.1<small> Unreleased </small>
 </h1>
 <ul>
 <li>Add ref.y option to <code>timeVariation</code> for y references line(s)</li>
@@ -530,9 +543,9 @@
 <li>Fix trajectory frequency calculation - underestimated frequencies.</li>
 </ul>
 </div>
-    <div id="openair-10-0" class="section level1">
+    <div id="openair-1-0-0" class="section level1">
 <h1 class="page-header">
-<a href="#openair-10-0" class="anchor"></a>openair 1.0-0<small> Unreleased </small>
+<a href="#openair-1-0-0" class="anchor"></a>openair 1.0-0<small> Unreleased </small>
 </h1>
 <ul>
 <li>Pass all arguments in <code>corPlot</code>
@@ -564,9 +577,9 @@
 </li>
 </ul>
 </div>
-    <div id="openair-09-0" class="section level1">
+    <div id="openair-0-9-0" class="section level1">
 <h1 class="page-header">
-<a href="#openair-09-0" class="anchor"></a>openair 0.9-0<small> 2013-11-12 </small>
+<a href="#openair-0-9-0" class="anchor"></a>openair 0.9-0<small> 2013-11-12 </small>
 </h1>
 <ul>
 <li>Fix bug introduced in 0.8-0 for <code>scatterPlot</code> surfaces</li>
@@ -607,9 +620,9 @@
 </li>
 </ul>
 </div>
-    <div id="openair-08-0" class="section level1">
+    <div id="openair-0-8-0" class="section level1">
 <h1 class="page-header">
-<a href="#openair-08-0" class="anchor"></a>openair 0.8-0<small> 2013-02-13 </small>
+<a href="#openair-0-8-0" class="anchor"></a>openair 0.8-0<small> 2013-02-13 </small>
 </h1>
 <ul>
 <li>make sure missing dates are plotted properly in <code>scatterPlot</code>
@@ -647,9 +660,9 @@
 <li>Update trajectory analysis to allow Potential Source Contribution Function (PSCF) and Concentration Weighted Trajectory (CWT) to be considered</li>
 </ul>
 </div>
-    <div id="openair-07-0" class="section level1">
+    <div id="openair-0-7-0" class="section level1">
 <h1 class="page-header">
-<a href="#openair-07-0" class="anchor"></a>openair 0.7-0<small> 2012-09-19 </small>
+<a href="#openair-0-7-0" class="anchor"></a>openair 0.7-0<small> 2012-09-19 </small>
 </h1>
 <ul>
 <li>Allow more flexible layout when two or more pollutants are used with <code>polarPlot</code> and type is default</li>
@@ -678,9 +691,9 @@
 <li>Fix bug in <code>summaryPlot</code>: type = “density” broken in recent versions</li>
 </ul>
 </div>
-    <div id="openair-06-0" class="section level1">
+    <div id="openair-0-6-0" class="section level1">
 <h1 class="page-header">
-<a href="#openair-06-0" class="anchor"></a>openair 0.6-0<small> 2012-05-11 </small>
+<a href="#openair-0-6-0" class="anchor"></a>openair 0.6-0<small> 2012-05-11 </small>
 </h1>
 <ul>
 <li>Add y.relation option to <code>timePlot</code>
@@ -700,9 +713,9 @@
 <li>Allow better annotation of <code>calendarPlot</code> - highlight values above/below a certain threshold.</li>
 </ul>
 </div>
-    <div id="openair-05-25" class="section level1">
+    <div id="openair-0-5-25" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-25" class="anchor"></a>openair 0.5-25<small> 2012-03-19 </small>
+<a href="#openair-0-5-25" class="anchor"></a>openair 0.5-25<small> 2012-03-19 </small>
 </h1>
 <ul>
 <li>Fix bug when type = “wd” - would add missing data to north sector</li>
@@ -711,17 +724,17 @@
 <li>Temporaryfix to GoogleMapsPlot documentation due to new package version</li>
 </ul>
 </div>
-    <div id="openair-05-23" class="section level1">
+    <div id="openair-0-5-23" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-23" class="anchor"></a>openair 0.5-23<small> 2012-03-05 </small>
+<a href="#openair-0-5-23" class="anchor"></a>openair 0.5-23<small> 2012-03-05 </small>
 </h1>
 <ul>
 <li>Fix bug in <code>windRose</code> when paddle = FALSE</li>
 </ul>
 </div>
-    <div id="openair-05-22" class="section level1">
+    <div id="openair-0-5-22" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-22" class="anchor"></a>openair 0.5-22<small> Unreleased </small>
+<a href="#openair-0-5-22" class="anchor"></a>openair 0.5-22<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fix scaling bug that could sometime affect <code>polarPlot</code> grid lines</li>
@@ -733,45 +746,45 @@
 <li>add otion date.format to <code>timePlot</code> for more control over date format on axis</li>
 </ul>
 </div>
-    <div id="openair-05-21" class="section level1">
+    <div id="openair-0-5-21" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-21" class="anchor"></a>openair 0.5-21<small> 2012-02-22 </small>
+<a href="#openair-0-5-21" class="anchor"></a>openair 0.5-21<small> 2012-02-22 </small>
 </h1>
 <ul>
-<li><p>Use C++ code for rolling mean calcs. Much faster, more to follow</p></li>
-<li><p>NEW function trajCluster to carry out cluster analysis on back trajectories</p></li>
+<li>Use C++ code for rolling mean calcs. Much faster, more to follow</li>
+<li>NEW function trajCluster to carry out cluster analysis on back trajectories</li>
 <li>
 <p>Simple model ranking available in modStats</p>
-<h1 id="changes-in-openair-05-18-2012-01-16" class="page-header">Changes in openair 0.5-18 [2012-01-16]<small> 2012-02-22 </small>
+<h1 id="changes-in-openair-0.5-18-2012-01-16" class="page-header">Changes in openair 0.5-18 [2012-01-16]<small> 2012-02-22 </small>
 </h1>
 </li>
-<li><p>Update trajectory files to 2011 and add Berlin, Paris</p></li>
-<li><p>Add option seg to <code>pollutionRose</code> to control the width of the segments</p></li>
-<li><p>Add option start.day to <code>timeVariation</code> to control the order of weekdays.</p></li>
-<li><p>Fixed bug in polarAnnulus where 360 degree winds were absent.</p></li>
-<li><p>Remove dependency on zoo and proto.</p></li>
+<li>Update trajectory files to 2011 and add Berlin, Paris</li>
+<li>Add option seg to <code>pollutionRose</code> to control the width of the segments</li>
+<li>Add option start.day to <code>timeVariation</code> to control the order of weekdays.</li>
+<li>Fixed bug in polarAnnulus where 360 degree winds were absent.</li>
+<li>Remove dependency on zoo and proto.</li>
 <li><p>Allow <code>importAURN</code> to import new ws/wd from pre-calculated WRF data at AURN sites</p></li>
 </ul>
 </div>
-    <div id="openair-05-17" class="section level1">
+    <div id="openair-0-5-17" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-17" class="anchor"></a>openair 0.5-17<small> Unreleased </small>
+<a href="#openair-0-5-17" class="anchor"></a>openair 0.5-17<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update to [IN DEVELOPMENT] GoogleMapsPlot. (1 lat,lon default handling)</li>
 </ul>
 </div>
-    <div id="openair-05-15" class="section level1">
+    <div id="openair-0-5-15" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-15" class="anchor"></a>openair 0.5-15<small> Unreleased </small>
+<a href="#openair-0-5-15" class="anchor"></a>openair 0.5-15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update imports etc.</li>
 </ul>
 </div>
-    <div id="openair-05-15-1" class="section level1">
+    <div id="openair-0-5-15-1" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-15-1" class="anchor"></a>openair 0.5-15<small> Unreleased </small>
+<a href="#openair-0-5-15-1" class="anchor"></a>openair 0.5-15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Update to [IN DEVELOPMENT] GoogleMapsPlot.</li>
@@ -780,18 +793,18 @@
 <li>Add vector averaging option to <code>timeAverage</code> for wind speed.</li>
 </ul>
 </div>
-    <div id="openair-05-14" class="section level1">
+    <div id="openair-0-5-14" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-14" class="anchor"></a>openair 0.5-14<small> Unreleased </small>
+<a href="#openair-0-5-14" class="anchor"></a>openair 0.5-14<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>NEW FUNCTION polarCluster for undertaking k-means clustering of bivariate polar plots</p></li>
 <li><p>Remove any considerations of time zones in selectByDate. If start and end are supplied, whole days based on Date format are used to select. Now accepts start/end in the form “YYYY-mm-dd” as well as UK format e.g. dd/mm/YYYY.</p></li>
 </ul>
 </div>
-    <div id="openair-05-13" class="section level1">
+    <div id="openair-0-5-13" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-13" class="anchor"></a>openair 0.5-13<small> Unreleased </small>
+<a href="#openair-0-5-13" class="anchor"></a>openair 0.5-13<small> Unreleased </small>
 </h1>
 <ul>
 <li>Major update to <code>polarPlot</code> allowing variables other than “ws” to be plotted with wind direction.</li>
@@ -799,9 +812,9 @@
 <li>Update openair citation information to Journal article</li>
 </ul>
 </div>
-    <div id="openair-05-12" class="section level1">
+    <div id="openair-0-5-12" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-12" class="anchor"></a>openair 0.5-12<small> Unreleased </small>
+<a href="#openair-0-5-12" class="anchor"></a>openair 0.5-12<small> Unreleased </small>
 </h1>
 <ul>
 <li>do not clip <code>polarPlot</code> concentrations unless upper is supplied</li>
@@ -821,9 +834,9 @@
 <li>Include all colour schemes defined in the RColorBrewer package</li>
 </ul>
 </div>
-    <div id="openair-05-11" class="section level1">
+    <div id="openair-0-5-11" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-11" class="anchor"></a>openair 0.5-11<small> 2011-10-05 </small>
+<a href="#openair-0-5-11" class="anchor"></a>openair 0.5-11<small> 2011-10-05 </small>
 </h1>
 <ul>
 <li>update to <code>corPlot</code>, <code>scatterPlot</code>, <code>smoothTrend</code>, linearRelation, <code>percentileRose</code>, <code>trajPlot</code>, <code>trajLevel</code>, <code>timeVariation</code>, TaylorDiagram, <code>timePlot</code>, <code>summaryPlot</code> improved … handling</li>
@@ -833,18 +846,18 @@
 <li>change MannKendall to use <code>TheilSen</code> for all estimates for consistency. May slightly affect some p estimates.</li>
 </ul>
 </div>
-    <div id="openair-05-10" class="section level1">
+    <div id="openair-0-5-10" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-10" class="anchor"></a>openair 0.5-10<small> Unreleased </small>
+<a href="#openair-0-5-10" class="anchor"></a>openair 0.5-10<small> Unreleased </small>
 </h1>
 <ul>
 <li>update to <code>calendarPlot</code>, kernelExceed, MannKendall and conditionalQuantile improved … handling</li>
-<li><div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">  minor update to GoogleMapsPlot</a></code></pre></div></li>
+<li><div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">  minor update to GoogleMapsPlot</a></code></pre></div></li>
 </ul>
 </div>
-    <div id="openair-05-9" class="section level1">
+    <div id="openair-0-5-9" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-9" class="anchor"></a>openair 0.5-9<small> Unreleased </small>
+<a href="#openair-0-5-9" class="anchor"></a>openair 0.5-9<small> Unreleased </small>
 </h1>
 <ul>
 <li>allow model performance change to be considered in TaylorDiagram</li>
@@ -852,26 +865,26 @@
 <li>update to <code>polarPlot</code>, ploarFreq and polarAnnulus improved … handling</li>
 </ul>
 </div>
-    <div id="openair-05-8" class="section level1">
+    <div id="openair-0-5-8" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-8" class="anchor"></a>openair 0.5-8<small> Unreleased </small>
+<a href="#openair-0-5-8" class="anchor"></a>openair 0.5-8<small> Unreleased </small>
 </h1>
 <ul>
 <li>NEW FUNCTION <code>importMeta</code> to import site meta data from air pollution networks</li>
 </ul>
 </div>
-    <div id="openair-05-7" class="section level1">
+    <div id="openair-0-5-7" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-7" class="anchor"></a>openair 0.5-7<small> Unreleased </small>
+<a href="#openair-0-5-7" class="anchor"></a>openair 0.5-7<small> Unreleased </small>
 </h1>
 <ul>
 <li>update to trendLevel: improved … handling</li>
 <li>update to <code>windRose</code>/<code>pollutionRose</code>: added statistic option “abs.count”; improved scaling of segment widths; improved … handling</li>
 </ul>
 </div>
-    <div id="openair-05-6" class="section level1">
+    <div id="openair-0-5-6" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-6" class="anchor"></a>openair 0.5-6<small> Unreleased </small>
+<a href="#openair-0-5-6" class="anchor"></a>openair 0.5-6<small> Unreleased </small>
 </h1>
 <ul>
 <li>NEW FUNCTIONS importTraj, <code>trajPlot</code>, <code>trajLevel</code> for importing and plotting pre-defined HYSPLIT back trajectories. These functions are under active development and are for testing purposes only!</li>
@@ -883,9 +896,9 @@
 </li>
 </ul>
 </div>
-    <div id="openair-05-4" class="section level1">
+    <div id="openair-0-5-4" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-4" class="anchor"></a>openair 0.5-4<small> Unreleased </small>
+<a href="#openair-0-5-4" class="anchor"></a>openair 0.5-4<small> Unreleased </small>
 </h1>
 <ul>
 <li>Use roxygen2 for package documentation and future maintainability</li>
@@ -893,18 +906,18 @@
 <li>More options for MannKendall: control of colour and variable x-axis scales</li>
 </ul>
 </div>
-    <div id="openair-05-0" class="section level1">
+    <div id="openair-0-5-0" class="section level1">
 <h1 class="page-header">
-<a href="#openair-05-0" class="anchor"></a>openair 0.5-0<small> Unreleased </small>
+<a href="#openair-0-5-0" class="anchor"></a>openair 0.5-0<small> Unreleased </small>
 </h1>
 <ul>
 <li>NEW FUNCTION <code>corPlot</code> for correlation matrices</li>
 <li>add sep argument to import</li>
 </ul>
 </div>
-    <div id="openair-04-23" class="section level1">
+    <div id="openair-0-4-23" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-23" class="anchor"></a>openair 0.4-23<small> 2011-07-26 </small>
+<a href="#openair-0-4-23" class="anchor"></a>openair 0.4-23<small> 2011-07-26 </small>
 </h1>
 <ul>
 <li>enhance ‘normalise’ option in <code>timePlot</code>
@@ -914,9 +927,9 @@
 <li>NEW FUNCTION TaylorDiagram for model evaluation.</li>
 </ul>
 </div>
-    <div id="openair-04-22" class="section level1">
+    <div id="openair-0-4-22" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-22" class="anchor"></a>openair 0.4-22<small> Unreleased </small>
+<a href="#openair-0-4-22" class="anchor"></a>openair 0.4-22<small> Unreleased </small>
 </h1>
 <ul>
 <li>NOTE - use reshape2 in place of reshape for speed and reliability</li>
@@ -930,9 +943,9 @@
 <li>do not remove calm wind speed conditions in any functions where this is unecessary</li>
 </ul>
 </div>
-    <div id="openair-04-21" class="section level1">
+    <div id="openair-0-4-21" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-21" class="anchor"></a>openair 0.4-21<small> Unreleased </small>
+<a href="#openair-0-4-21" class="anchor"></a>openair 0.4-21<small> Unreleased </small>
 </h1>
 <ul>
 <li>fixed bug in polarAnnulus that resulsted in a failure to annotate the plot properly with period = “trend” and less than 1 year of data; improved smoothing default options used</li>
@@ -949,9 +962,9 @@
 <li>Add avg.time to <code>smoothTrend</code> for “month” or “year” averages</li>
 </ul>
 </div>
-    <div id="openair-04-20" class="section level1">
+    <div id="openair-0-4-20" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-20" class="anchor"></a>openair 0.4-20<small> Unreleased </small>
+<a href="#openair-0-4-20" class="anchor"></a>openair 0.4-20<small> Unreleased </small>
 </h1>
 <ul>
 <li>Do not remove calms in <code>timeAverage</code>
@@ -959,9 +972,9 @@
 <li>NEW FUNCTION importSAQN to import data from the Scottish Air Quality Network</li>
 </ul>
 </div>
-    <div id="openair-04-19" class="section level1">
+    <div id="openair-0-4-19" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-19" class="anchor"></a>openair 0.4-19<small> Unreleased </small>
+<a href="#openair-0-4-19" class="anchor"></a>openair 0.4-19<small> Unreleased </small>
 </h1>
 <ul>
 <li>improved import date.name/time.name handling of spaces</li>
@@ -973,9 +986,9 @@
 <li>updated import/import.2</li>
 </ul>
 </div>
-    <div id="openair-04-18" class="section level1">
+    <div id="openair-0-4-18" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-18" class="anchor"></a>openair 0.4-18<small> Unreleased </small>
+<a href="#openair-0-4-18" class="anchor"></a>openair 0.4-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Better handling of missing data in <code>smoothTrend</code>/MannKendall; particularly when there are mutiple sites</li>
@@ -985,9 +998,9 @@
 <li>return NA in aqStats when no data present; previously it tried to calculate quanities, returning -Inf etc</li>
 </ul>
 </div>
-    <div id="openair-04-17" class="section level1">
+    <div id="openair-0-4-17" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-17" class="anchor"></a>openair 0.4-17<small> 2011-04-24 </small>
+<a href="#openair-0-4-17" class="anchor"></a>openair 0.4-17<small> 2011-04-24 </small>
 </h1>
 <ul>
 <li>use readRDS and not .readRDS (caused failure on R Dev)</li>
@@ -996,9 +1009,9 @@
 <li>Changed option data.capture in rollingMean to data.thresh to be consistent with other functions.</li>
 </ul>
 </div>
-    <div id="openair-04-16" class="section level1">
+    <div id="openair-0-4-16" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-16" class="anchor"></a>openair 0.4-16<small> Unreleased </small>
+<a href="#openair-0-4-16" class="anchor"></a>openair 0.4-16<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fixed bugs in cutData when a partial year was used with type = “month”. Also affected type = “season” and “weekday”. The plots were labelled in the wrong order.</li>
@@ -1006,34 +1019,34 @@
 </li>
 </ul>
 </div>
-    <div id="openair-04-15" class="section level1">
+    <div id="openair-0-4-15" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-15" class="anchor"></a>openair 0.4-15<small> 2011-04-12 </small>
+<a href="#openair-0-4-15" class="anchor"></a>openair 0.4-15<small> 2011-04-12 </small>
 </h1>
 <ul>
 <li>Preparation for CRAN release</li>
 <li>removed some restrictions on type/period combinations in polarAnnulus</li>
 </ul>
 </div>
-    <div id="openair-04-14" class="section level1">
+    <div id="openair-0-4-14" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-14" class="anchor"></a>openair 0.4-14<small> Unreleased </small>
+<a href="#openair-0-4-14" class="anchor"></a>openair 0.4-14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added preliminary greyscale method to openColours and linked in strip background and other text and line colour control for standard openair plots.</li>
 </ul>
 </div>
-    <div id="openair-04-13" class="section level1">
+    <div id="openair-0-4-13" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-13" class="anchor"></a>openair 0.4-13<small> Unreleased </small>
+<a href="#openair-0-4-13" class="anchor"></a>openair 0.4-13<small> Unreleased </small>
 </h1>
 <ul>
 <li>Removed ad-hoc sites from <code>importKCL</code>, added site classification to the help file and ensured GMT is exported.</li>
 </ul>
 </div>
-    <div id="openair-04-12" class="section level1">
+    <div id="openair-0-4-12" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-12" class="anchor"></a>openair 0.4-12<small> Unreleased </small>
+<a href="#openair-0-4-12" class="anchor"></a>openair 0.4-12<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added y.relation option to <code>smoothTrend</code> and MannKendall to allow flexible y-scales.</li>
@@ -1041,24 +1054,24 @@
 <li>NEW FUNCTION <code>selectRunning</code> for selecting run lengths of a numeric variable above a certain threshold.</li>
 <li>Modified plot layout in <code>polarPlot</code> to maximise plotting area</li>
 <li>Initial fixes to functions affected by time zone settings</li>
-<li>polarFreq now has consistent annotation cf. <code>windRose</code> and <code>percentileRose</code>; new option grid.line to control radial axes.</li>
+<li>polarFreq now has consistent annotation cf. <code>windRose</code> and <code>percentileRose</code>; new option grid.line to control radial axes.</li>
 <li>Fixed couple of minor auto.text bugs in <code>summaryPlot</code> and <code>timePlot</code>
 </li>
 <li>Removed dependency of date for polar functions where time-based types are not required.</li>
 </ul>
 </div>
-    <div id="openair-04-11" class="section level1">
+    <div id="openair-0-4-11" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-11" class="anchor"></a>openair 0.4-11<small> Unreleased </small>
+<a href="#openair-0-4-11" class="anchor"></a>openair 0.4-11<small> Unreleased </small>
 </h1>
 <ul>
 <li>More consistent use of strips in default plot (remove them)</li>
 <li>Add percentage units to <code>windRose</code> and <code>pollutionRose</code> on radial scale</li>
 </ul>
 </div>
-    <div id="openair-04-10" class="section level1">
+    <div id="openair-0-4-10" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-10" class="anchor"></a>openair 0.4-10<small> 2011-03-08 </small>
+<a href="#openair-0-4-10" class="anchor"></a>openair 0.4-10<small> 2011-03-08 </small>
 </h1>
 <ul>
 <li>Fixed <code>calendarPlot</code> main/quickText handling.</li>
@@ -1066,31 +1079,31 @@
 <li>Fixed <code>summaryPlot</code> site ordering when more than one site.</li>
 </ul>
 </div>
-    <div id="openair-04-9" class="section level1">
+    <div id="openair-0-4-9" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-9" class="anchor"></a>openair 0.4-9<small> Unreleased </small>
+<a href="#openair-0-4-9" class="anchor"></a>openair 0.4-9<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added new options to <code>scatterPlot</code> (plot.type, lwd, and lty) making it possible to add points and/or lines</li>
 </ul>
 </div>
-    <div id="openair-04-8" class="section level1">
+    <div id="openair-0-4-8" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-8" class="anchor"></a>openair 0.4-8<small> Unreleased </small>
+<a href="#openair-0-4-8" class="anchor"></a>openair 0.4-8<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added new cutData type option ‘daylight’, enabled using new function cutDaylight.</li>
 </ul>
 </div>
-    <div id="openair-04-7" class="section level1">
+    <div id="openair-0-4-7" class="section level1">
 <h1 class="page-header">
-<a href="#openair-04-7" class="anchor"></a>openair 0.4-7<small> 2011-02-17 </small>
+<a href="#openair-0-4-7" class="anchor"></a>openair 0.4-7<small> 2011-02-17 </small>
 </h1>
 <ul>
-<li><div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">Added new <span class="cf">function</span> conditionalQuantile <span class="cf">for</span> model</a>
-<a class="sourceLine" id="cb2-2" title="2">evaluation purposes.</a></code></pre></div></li>
-<li><div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">Fixed <span class="st">`</span><span class="dt">importAURN</span><span class="st">`</span> to account <span class="cf">for</span> a change <span class="cf">in</span> web domain</a>
-<a class="sourceLine" id="cb3-2" title="2">address at AEA.</a></code></pre></div></li>
+<li><div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">Added new <span class="cf">function</span> conditionalQuantile <span class="cf">for</span> model</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">evaluation purposes.</a></code></pre></div></li>
+<li><div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">Fixed <span class="st">`</span><span class="dt">importAURN</span><span class="st">`</span> to account <span class="cf">for</span> a change <span class="cf">in</span> web domain</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">address at AEA.</a></code></pre></div></li>
 </ul>
 </div>
   </div>
@@ -1099,74 +1112,75 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#openair-26-99">2.6-99</a></li>
-        <li><a href="#openair-26-4">2.6-4</a></li>
-        <li><a href="#openair-26-1">2.6-1</a></li>
-        <li><a href="#openair-26-0">2.6-0</a></li>
-        <li><a href="#openair-25-0">2.5-0</a></li>
-        <li><a href="#openair-24-0">2.4-0</a></li>
-        <li><a href="#openair-23-0">2.3-0</a></li>
-        <li><a href="#openair-22-3">2.2-3</a></li>
-        <li><a href="#openair-21-5">2.1-5</a></li>
-        <li><a href="#openair-21-0">2.1-0</a></li>
-        <li><a href="#openair-20-0">2.0-0</a></li>
-        <li><a href="#openair-19-9">1.9-9</a></li>
-        <li><a href="#openair-18-6">1.8-6</a></li>
-        <li><a href="#openair-18-2">1.8-2</a></li>
-        <li><a href="#openair-18-0">1.8-0</a></li>
-        <li><a href="#openair-173">1.7.3</a></li>
-        <li><a href="#openair-17">1.7</a></li>
-        <li><a href="#openair-166">1.6.6</a></li>
-        <li><a href="#openair-165">1.6.5</a></li>
-        <li><a href="#openair-164">1.6.4</a></li>
-        <li><a href="#openair-16">1.6</a></li>
-        <li><a href="#openair-15">1.5</a></li>
-        <li><a href="#openair-11">1.1</a></li>
-        <li><a href="#openair-10-0">1.0-0</a></li>
-        <li><a href="#openair-09-0">0.9-0</a></li>
-        <li><a href="#openair-08-0">0.8-0</a></li>
-        <li><a href="#openair-07-0">0.7-0</a></li>
-        <li><a href="#openair-06-0">0.6-0</a></li>
-        <li><a href="#openair-05-25">0.5-25</a></li>
-        <li><a href="#openair-05-23">0.5-23</a></li>
-        <li><a href="#openair-05-22">0.5-22</a></li>
-        <li><a href="#openair-05-21">0.5-21</a></li>
-        <li><a href="#openair-05-17">0.5-17</a></li>
-        <li><a href="#openair-05-15">0.5-15</a></li>
-        <li><a href="#openair-05-15-1">0.5-15</a></li>
-        <li><a href="#openair-05-14">0.5-14</a></li>
-        <li><a href="#openair-05-13">0.5-13</a></li>
-        <li><a href="#openair-05-12">0.5-12</a></li>
-        <li><a href="#openair-05-11">0.5-11</a></li>
-        <li><a href="#openair-05-10">0.5-10</a></li>
-        <li><a href="#openair-05-9">0.5-9</a></li>
-        <li><a href="#openair-05-8">0.5-8</a></li>
-        <li><a href="#openair-05-7">0.5-7</a></li>
-        <li><a href="#openair-05-6">0.5-6</a></li>
-        <li><a href="#openair-05-4">0.5-4</a></li>
-        <li><a href="#openair-05-0">0.5-0</a></li>
-        <li><a href="#openair-04-23">0.4-23</a></li>
-        <li><a href="#openair-04-22">0.4-22</a></li>
-        <li><a href="#openair-04-21">0.4-21</a></li>
-        <li><a href="#openair-04-20">0.4-20</a></li>
-        <li><a href="#openair-04-19">0.4-19</a></li>
-        <li><a href="#openair-04-18">0.4-18</a></li>
-        <li><a href="#openair-04-17">0.4-17</a></li>
-        <li><a href="#openair-04-16">0.4-16</a></li>
-        <li><a href="#openair-04-15">0.4-15</a></li>
-        <li><a href="#openair-04-14">0.4-14</a></li>
-        <li><a href="#openair-04-13">0.4-13</a></li>
-        <li><a href="#openair-04-12">0.4-12</a></li>
-        <li><a href="#openair-04-11">0.4-11</a></li>
-        <li><a href="#openair-04-10">0.4-10</a></li>
-        <li><a href="#openair-04-9">0.4-9</a></li>
-        <li><a href="#openair-04-8">0.4-8</a></li>
-        <li><a href="#openair-04-7">0.4-7</a></li>
+        <li><a href="#openair-2-6-99">2.6-99</a></li>
+        <li><a href="#openair-2-6-4">2.6-4</a></li>
+        <li><a href="#openair-2-6-1">2.6-1</a></li>
+        <li><a href="#openair-2-6-0">2.6-0</a></li>
+        <li><a href="#openair-2-5-0">2.5-0</a></li>
+        <li><a href="#openair-2-4-0">2.4-0</a></li>
+        <li><a href="#openair-2-3-0">2.3-0</a></li>
+        <li><a href="#openair-2-2-3">2.2-3</a></li>
+        <li><a href="#openair-2-1-5">2.1-5</a></li>
+        <li><a href="#openair-2-1-0">2.1-0</a></li>
+        <li><a href="#openair-2-0-0">2.0-0</a></li>
+        <li><a href="#openair-1-9-9">1.9-9</a></li>
+        <li><a href="#openair-1-8-6">1.8-6</a></li>
+        <li><a href="#openair-1-8-2">1.8-2</a></li>
+        <li><a href="#openair-1-8-0">1.8-0</a></li>
+        <li><a href="#openair-1-7-3">1.7.3</a></li>
+        <li><a href="#openair-1-7">1.7</a></li>
+        <li><a href="#openair-1-6-6">1.6.6</a></li>
+        <li><a href="#openair-1-6-5">1.6.5</a></li>
+        <li><a href="#openair-1-6-4">1.6.4</a></li>
+        <li><a href="#openair-1-6">1.6</a></li>
+        <li><a href="#openair-1-5">1.5</a></li>
+        <li><a href="#openair-1-1">1.1</a></li>
+        <li><a href="#openair-1-0-0">1.0-0</a></li>
+        <li><a href="#openair-0-9-0">0.9-0</a></li>
+        <li><a href="#openair-0-8-0">0.8-0</a></li>
+        <li><a href="#openair-0-7-0">0.7-0</a></li>
+        <li><a href="#openair-0-6-0">0.6-0</a></li>
+        <li><a href="#openair-0-5-25">0.5-25</a></li>
+        <li><a href="#openair-0-5-23">0.5-23</a></li>
+        <li><a href="#openair-0-5-22">0.5-22</a></li>
+        <li><a href="#openair-0-5-21">0.5-21</a></li>
+        <li><a href="#openair-0-5-17">0.5-17</a></li>
+        <li><a href="#openair-0-5-15">0.5-15</a></li>
+        <li><a href="#openair-0-5-15-1">0.5-15</a></li>
+        <li><a href="#openair-0-5-14">0.5-14</a></li>
+        <li><a href="#openair-0-5-13">0.5-13</a></li>
+        <li><a href="#openair-0-5-12">0.5-12</a></li>
+        <li><a href="#openair-0-5-11">0.5-11</a></li>
+        <li><a href="#openair-0-5-10">0.5-10</a></li>
+        <li><a href="#openair-0-5-9">0.5-9</a></li>
+        <li><a href="#openair-0-5-8">0.5-8</a></li>
+        <li><a href="#openair-0-5-7">0.5-7</a></li>
+        <li><a href="#openair-0-5-6">0.5-6</a></li>
+        <li><a href="#openair-0-5-4">0.5-4</a></li>
+        <li><a href="#openair-0-5-0">0.5-0</a></li>
+        <li><a href="#openair-0-4-23">0.4-23</a></li>
+        <li><a href="#openair-0-4-22">0.4-22</a></li>
+        <li><a href="#openair-0-4-21">0.4-21</a></li>
+        <li><a href="#openair-0-4-20">0.4-20</a></li>
+        <li><a href="#openair-0-4-19">0.4-19</a></li>
+        <li><a href="#openair-0-4-18">0.4-18</a></li>
+        <li><a href="#openair-0-4-17">0.4-17</a></li>
+        <li><a href="#openair-0-4-16">0.4-16</a></li>
+        <li><a href="#openair-0-4-15">0.4-15</a></li>
+        <li><a href="#openair-0-4-14">0.4-14</a></li>
+        <li><a href="#openair-0-4-13">0.4-13</a></li>
+        <li><a href="#openair-0-4-12">0.4-12</a></li>
+        <li><a href="#openair-0-4-11">0.4-11</a></li>
+        <li><a href="#openair-0-4-10">0.4-10</a></li>
+        <li><a href="#openair-0-4-9">0.4-9</a></li>
+        <li><a href="#openair-0-4-8">0.4-8</a></li>
+        <li><a href="#openair-0-4-7">0.4-7</a></li>
       </ul>
     </div>
   </div>
 
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -1174,13 +1188,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

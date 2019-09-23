@@ -8,21 +8,25 @@
 
 <title>Subset a data frame based on date — selectByDate • openair</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,11 +34,12 @@
 
 
 
-<meta property="og:title" content="Subset a data frame based on date — selectByDate" />
 
+<meta property="og:title" content="Subset a data frame based on date — selectByDate" />
 <meta property="og:description" content="Utility function to make it easier to select periods from a data frame
 before sending to a function" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -46,6 +51,7 @@ before sending to a function" />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -77,7 +83,6 @@ before sending to a function" />
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
@@ -92,6 +97,7 @@ before sending to a function" />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -103,15 +109,13 @@ before sending to a function" />
     </div>
 
     <div class="ref-description">
-    
     <p>Utility function to make it easier to select periods from a data frame
 before sending to a function</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1/1/2008"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"31/12/2008"</span>,
   <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2008</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>day</span> <span class='kw'>=</span> <span class='st'>"weekday"</span>, <span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -156,7 +160,7 @@ abbreviated to 3 letters and be in lower or upper case. Also accepts
 select hours 0 to 12 inclusive.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function makes it much easier to select periods of interest from a data
@@ -170,13 +174,12 @@ be in standard R format as a string i.e. "YYYY-mm-dd", so <code>start =
 "1999-01-01"</code> is fine.</p>
 <p>All options are applied in turn making it possible to select quite complex
 dates</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## select all of 1999</span>
 <span class='no'>data.1999</span> <span class='kw'>&lt;-</span> <span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1/1/1999"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"31/12/1999"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 10</span><span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 10</span><span>
 #&gt;   date                   ws    wd   nox   no2    o3  pm10   so2    co  pm25
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 1999-01-01 </span><span style='color: #555555;'>00:00:00</span><span>  5.04   140    88    35     4    21  3.84 1.02     18
@@ -184,7 +187,7 @@ dates</p>
 #&gt; </span><span style='color: #555555;'>3</span><span> 1999-01-01 </span><span style='color: #555555;'>02:00:00</span><span>  4.8    160   168    40     4    17  6.51 2.87      8
 #&gt; </span><span style='color: #555555;'>4</span><span> 1999-01-01 </span><span style='color: #555555;'>03:00:00</span><span>  4.92   150    85    36     3    15  4.18 1.62     10
 #&gt; </span><span style='color: #555555;'>5</span><span> 1999-01-01 </span><span style='color: #555555;'>04:00:00</span><span>  4.68   150    93    37     3    16  4.25 1.02     11
-#&gt; </span><span style='color: #555555;'>6</span><span> 1999-01-01 </span><span style='color: #555555;'>05:00:00</span><span>  3.96   160    74    29     5    14  3.88 0.725    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>tail</a></span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 10</span><span>
+#&gt; </span><span style='color: #555555;'>6</span><span> 1999-01-01 </span><span style='color: #555555;'>05:00:00</span><span>  3.96   160    74    29     5    14  3.88 0.725    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 10</span><span>
 #&gt;   date                   ws    wd   nox   no2    o3  pm10   so2    co  pm25
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 1999-12-31 </span><span style='color: #555555;'>18:00:00</span><span>  4.68   190   226    39    </span><span style='color: #BB0000;'>NA</span><span>    29  5.46  2.38    23
@@ -205,15 +208,13 @@ dates</p>
 
 <span class='co'># select weekends between the hours of 7 am to 7 pm in winter (Dec, Jan, Feb)</span>
 <span class='no'>sub.data</span> <span class='kw'>&lt;-</span> <span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>day</span> <span class='kw'>=</span> <span class='st'>"weekend"</span>, <span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>7</span>:<span class='fl'>19</span>, <span class='kw'>month</span> <span class='kw'>=</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"dec"</span>, <span class='st'>"jan"</span>, <span class='st'>"feb"</span>))</div></span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dec"</span>, <span class='st'>"jan"</span>, <span class='st'>"feb"</span>))</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -222,19 +223,23 @@ dates</p>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by David Carslaw, Karl Ropkins.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
