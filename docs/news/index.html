@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
       </span>
     </div>
 
@@ -116,6 +116,8 @@
 <li>fix issue with DST in <code>cutData</code>
 </li>
 <li>allow ‘hemisphere’ to be supplied as an argument to <code>timeAverage</code>, used for avg.time = “season”.</li>
+<li>add option <code>to_narrow</code> to <code>importAURN</code>, <code>importSAQN</code> and <code>importWAQN</code> to stack data into a tidy format. The data are now returned as a ‘tibble’</li>
+<li>Allow meta data to be returned in <code>importSAQN</code> and <code>importWAQN</code>.</li>
 </ul>
 </div>
     <div id="openair-2-6-4" class="section level2">

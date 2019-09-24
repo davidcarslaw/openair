@@ -72,7 +72,7 @@ files as R data objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
       </span>
     </div>
 
@@ -117,7 +117,8 @@ imported from a remote server operated by Ricardo that provides air quality data
 files as R data objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>importWAQN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"card"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2018</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</pre>
+    <pre class="usage"><span class='fu'>importWAQN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"card"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2018</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
+  <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>to_narrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,6 +140,17 @@ to 2000 use <code>year = 1990:2000</code>. To import several specfic years use
       <td><p>Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use <code>pollutant =
 c("nox", "no2")</code>.</p></td>
+    </tr>
+    <tr>
+      <th>meta</th>
+      <td><p>Should meta data be returned? If <code>TRUE</code> the site type,
+latitude and longitude are returned.</p></td>
+    </tr>
+    <tr>
+      <th>to_narrow</th>
+      <td><p>By default the returned data has a column for each
+pollutant/variable. When <code>to_narrow = TRUE</code> the data are stacked into
+a narrow format with a column identifying the pollutant name.</p></td>
     </tr>
     </table>
 

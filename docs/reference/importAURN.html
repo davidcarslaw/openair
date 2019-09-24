@@ -72,7 +72,7 @@ provides air quality data files as R data objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
       </span>
     </div>
 
@@ -118,7 +118,7 @@ provides air quality data files as R data objects.</p>
     </div>
 
     <pre class="usage"><span class='fu'>importAURN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>to_narrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,26 +131,33 @@ Road. Several sites can be imported with <code>site = c("my1", "nott")</code>
     </tr>
     <tr>
       <th>year</th>
-      <td><p>Year or years to import. To import a sequence of years from
-1990 to 2000 use <code>year = 1990:2000</code>. To import several specfic years
-use <code>year = c(1990, 1995, 2000)</code> for example.</p></td>
+      <td><p>Year or years to import. To import a sequence of years from 1990
+to 2000 use <code>year = 1990:2000</code>. To import several specfic years use
+<code>year = c(1990, 1995, 2000)</code> for example.</p></td>
     </tr>
     <tr>
       <th>pollutant</th>
-      <td><p>Pollutants to import. If omitted will import all
-pollutants ffrom a site. To import only NOx and NO2 for example use
-<code>pollutant = c("nox", "no2")</code>.</p></td>
+      <td><p>Pollutants to import. If omitted will import all pollutants
+ffrom a site. To import only NOx and NO2 for example use <code>pollutant =
+c("nox", "no2")</code>.</p></td>
     </tr>
     <tr>
       <th>hc</th>
       <td><p>A few sites have hydrocarbon measurements available and setting
-<code>hc = TRUE</code> will ensure hydrocarbon data are imported. The default
-is however not to as most users will not be interested in using
-hydrocarbon data and the resulting data frames are considerably larger.</p></td>
+<code>hc = TRUE</code> will ensure hydrocarbon data are imported. The default is
+however not to as most users will not be interested in using hydrocarbon
+data and the resulting data frames are considerably larger.</p></td>
     </tr>
     <tr>
       <th>meta</th>
-      <td><p>Should meta data be returned? If <code>TRUE</code> the site type, latitude and longitude are returned.</p></td>
+      <td><p>Should meta data be returned? If <code>TRUE</code> the site type,
+latitude and longitude are returned.</p></td>
+    </tr>
+    <tr>
+      <th>to_narrow</th>
+      <td><p>By default the returned data has a column for each
+pollutant/variable. When <code>to_narrow = TRUE</code> the data are stacked into
+a narrow format with a column identifying the pollutant name.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -169,51 +176,49 @@ Default is <code>FALSE</code>.</p></td>
 data from the UK AURN. AEA have provided .RData files (R workspaces) of all
 individual sites and years for the AURN. These files are updated on a daily
 basis. This approach requires a link to the Internet to work.</p>
-<p>For an up to date list of available sites that can be imported, see <code>importMeta</code>.</p>
+<p>For an up to date list of available sites that can be imported, see
+<code>importMeta</code>.</p>
 <p>There are several advantages over the web portal approach where .csv files
 are downloaded. First, it is quick to select a range of sites, pollutants
-and periods (see examples below). Second, storing the data as .RData
-objects is very efficient as they are about four times smaller than .csv
-files --- which means the data downloads quickly and saves bandwidth.
-Third, the function completely avoids any need for data manipulation or
-setting time formats, time zones etc. Finally, it is easy to import many
-years of data beyond the current limit of about 64,000 lines. The final
-point makes it possible to download several long time series in one go. The
-function also has the advantage that the proper site name is imported and
-used in <code>openair</code> functions.</p>
+and periods (see examples below). Second, storing the data as .RData objects
+is very efficient as they are about four times smaller than .csv files ---
+which means the data downloads quickly and saves bandwidth. Third, the
+function completely avoids any need for data manipulation or setting time
+formats, time zones etc. Finally, it is easy to import many years of data
+beyond the current limit of about 64,000 lines. The final point makes it
+possible to download several long time series in one go. The function also
+has the advantage that the proper site name is imported and used in
+<code>openair</code> functions.</p>
 <p>The site codes and pollutant names can be upper or lower case. The function
-will issue a warning when data less than six months old is downloaded,
-which may not be ratified.</p>
+will issue a warning when data less than six months old is downloaded, which
+may not be ratified.</p>
 <p>The data are imported by stacking sites on top of one another and will have
 field names <code>site</code>, <code>code</code> (the site code) and <code>pollutant</code>.
 Sometimes it is useful to have columns of site data. This can be done using
 the <code>reshape</code> function --- see examples below.</p>
-<p>All units are expressed in mass terms for gaseous species (ug/m3
-for NO, NO2, NOx (as NO2), SO2 and hydrocarbons; and mg/m3 for
-CO). PM10 concentrations are provided in gravimetric units of
-ug/m3 or scaled to be comparable with these units. Over the years
-a variety of instruments have been used to measure particulate
-matter and the technical issues of measuring PM10 are complex. In
-recent years the measurements rely on FDMS (Filter Dynamics
-Measurement System), which is able to measure the volatile
-component of PM. In cases where the FDMS system is in use there
-will be a separate volatile component recorded as 'v10' and
-non-volatile component 'nv10', which is already included in the
-absolute PM10 measurement. Prior to the use of FDMS the
-measurements used TEOM (Tapered Element Oscillating. Microbalance)
-and these concentrations have been multiplied by 1.3 to provide an
-estimate of the total mass including the volatile fraction.</p>
+<p>All units are expressed in mass terms for gaseous species (ug/m3 for NO,
+NO2, NOx (as NO2), SO2 and hydrocarbons; and mg/m3 for CO). PM10
+concentrations are provided in gravimetric units of ug/m3 or scaled to be
+comparable with these units. Over the years a variety of instruments have
+been used to measure particulate matter and the technical issues of
+measuring PM10 are complex. In recent years the measurements rely on FDMS
+(Filter Dynamics Measurement System), which is able to measure the volatile
+component of PM. In cases where the FDMS system is in use there will be a
+separate volatile component recorded as 'v10' and non-volatile component
+'nv10', which is already included in the absolute PM10 measurement. Prior to
+the use of FDMS the measurements used TEOM (Tapered Element Oscillating.
+Microbalance) and these concentrations have been multiplied by 1.3 to
+provide an estimate of the total mass including the volatile fraction.</p>
 <p>The few BAM (Beta-Attenuation Monitor) instruments that have been
-incorporated into the network throughout its history have been scaled by
-1.3 if they have a heated inlet (to account for loss of volatile particles)
-and 0.83 if they do not have a heated inlet. The few TEOM instruments in
-the network after 2008 have been scaled using VCM (Volatile Correction
-Model) values to account for the loss of volatile particles. The object of
-all these scaling processes is to provide a reasonable degree of comparison
+incorporated into the network throughout its history have been scaled by 1.3
+if they have a heated inlet (to account for loss of volatile particles) and
+0.83 if they do not have a heated inlet. The few TEOM instruments in the
+network after 2008 have been scaled using VCM (Volatile Correction Model)
+values to account for the loss of volatile particles. The object of all
+these scaling processes is to provide a reasonable degree of comparison
 between data sets and with the reference method and to produce a consistent
-data record over the operational period of the network, however there may
-be some discontinuity in the time series associated with instrument
-changes.</p>
+data record over the operational period of the network, however there may be
+some discontinuity in the time series associated with instrument changes.</p>
 <p>No corrections have been made to the PM2.5 data. The volatile component of
 FDMS PM2.5 (where available) is shown in the 'v2.5' column.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -235,18 +240,7 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.</p>
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>o3</span> <span class='kw'>&lt;-</span> <span class='fu'>importAURN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"mh"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>1987</span>:<span class='fl'>2009</span>)
 
 <span class='co'>## import hydrocarbon (and other) data from Marylebone Road</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>mary</span> <span class='kw'>&lt;-</span> <span class='fu'>importAURN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span><span class='fl'>1998</span>, <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='co'>## reshape the data so that each column represents a pollutant/site</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>reshape2</span>)
-<span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'>importAURN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"nott"</span>, <span class='st'>"kc1"</span>), <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2008</span>,
-<span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>)
-<span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/reshape2/man/melt.html'>melt</a></span>(<span class='no'>thedata</span>, <span class='kw'>measure.vars</span> <span class='kw'>=</span> <span class='st'>"o3"</span>)
-<span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/reshape2/man/cast.html'>dcast</a></span>(<span class='no'>thedata</span>, <span class='no'>...</span> ~ <span class='no'>variable</span> + <span class='no'>site</span> + <span class='no'>code</span>)
-<span class='co'>## thedata now has columns  o3_Nottingham Centre_NOTT o3_London N. Kensington_KC1</span>
-
-}</div></pre>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>mary</span> <span class='kw'>&lt;-</span> <span class='fu'>importAURN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span><span class='fl'>1998</span>, <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

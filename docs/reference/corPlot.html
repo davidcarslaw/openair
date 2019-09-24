@@ -72,7 +72,7 @@ variables." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
       </span>
     </div>
 
@@ -262,12 +262,9 @@ difficult to visualise with too many panels.</p>
 <span class='co'># load openair data if not loaded already</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>mydata</span>)
 <span class='co'>## basic corrgram plot</span>
-<span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `cols` is now required.</span>
-#&gt; <span class='warning'>Please use `cols = c(out)`</span></div><div class='img'><img src='corPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## plot by season ... and so on</span>
-<span class='fu'>corPlot</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `cols` is now required.</span>
-#&gt; <span class='warning'>Please use `cols = c(out)`</span></div><div class='img'><img src='corPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## recover dendogram when cluster = TRUE and plot it</span>
-<span class='no'>res</span> <span class='kw'>&lt;-</span><span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `cols` is now required.</span>
-#&gt; <span class='warning'>Please use `cols = c(out)`</span></div><div class='img'><img src='corPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>res</span>$<span class='no'>clust</span>)</div><div class='img'><img src='corPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='corPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## plot by season ... and so on</span>
+<span class='fu'>corPlot</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)</div><div class='img'><img src='corPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## recover dendogram when cluster = TRUE and plot it</span>
+<span class='no'>res</span> <span class='kw'>&lt;-</span><span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='corPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>res</span>$<span class='no'>clust</span>)</div><div class='img'><img src='corPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## a more interesting are hydrocarbon measurements</span>
 <span class='no'>hc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importAURN.html'>importAURN</a></span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2005</span>, <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='co'>## now it is possible to see the hydrocarbons that behave most</span>
