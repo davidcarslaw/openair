@@ -5,27 +5,32 @@
 \title{Import data from the UK Automatic Urban and Rural Network (AURN)}
 \usage{
 importAURN(site = "my1", year = 2009, pollutant = "all",
-  hc = FALSE, meta = FALSE, verbose = FALSE)
+  hc = FALSE, meta = FALSE, to_narrow = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{site}{Site code of the AURN site to import e.g. "my1" is Marylebone
 Road. Several sites can be imported with \code{site = c("my1", "nott")}
 --- to import Marylebone Road and Nottingham for example.}
 
-\item{year}{Year or years to import. To import a sequence of years from
-1990 to 2000 use \code{year = 1990:2000}. To import several specfic years
-use \code{year = c(1990, 1995, 2000)} for example.}
+\item{year}{Year or years to import. To import a sequence of years from 1990
+to 2000 use \code{year = 1990:2000}. To import several specfic years use
+\code{year = c(1990, 1995, 2000)} for example.}
 
-\item{pollutant}{Pollutants to import. If omitted will import all
-pollutants ffrom a site. To import only NOx and NO2 for example use
-\code{pollutant = c("nox", "no2")}.}
+\item{pollutant}{Pollutants to import. If omitted will import all pollutants
+ffrom a site. To import only NOx and NO2 for example use \code{pollutant =
+c("nox", "no2")}.}
 
 \item{hc}{A few sites have hydrocarbon measurements available and setting
-\code{hc = TRUE} will ensure hydrocarbon data are imported. The default
-is however not to as most users will not be interested in using
-hydrocarbon data and the resulting data frames are considerably larger.}
+\code{hc = TRUE} will ensure hydrocarbon data are imported. The default is
+however not to as most users will not be interested in using hydrocarbon
+data and the resulting data frames are considerably larger.}
 
-\item{meta}{Should meta data be returned? If \code{TRUE} the site type, latitude and longitude are returned.}
+\item{meta}{Should meta data be returned? If \code{TRUE} the site type,
+latitude and longitude are returned.}
+
+\item{to_narrow}{By default the returned data has a column for each
+pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
+a narrow format with a column identifying the pollutant name.}
 
 \item{verbose}{Should the function give messages when downloading files?
 Default is \code{FALSE}.}
@@ -46,56 +51,54 @@ data from the UK AURN. AEA have provided .RData files (R workspaces) of all
 individual sites and years for the AURN. These files are updated on a daily
 basis. This approach requires a link to the Internet to work.
 
-For an up to date list of available sites that can be imported, see \code{importMeta}.
+For an up to date list of available sites that can be imported, see
+\code{importMeta}.
 
 There are several advantages over the web portal approach where .csv files
 are downloaded. First, it is quick to select a range of sites, pollutants
-and periods (see examples below). Second, storing the data as .RData
-objects is very efficient as they are about four times smaller than .csv
-files --- which means the data downloads quickly and saves bandwidth.
-Third, the function completely avoids any need for data manipulation or
-setting time formats, time zones etc. Finally, it is easy to import many
-years of data beyond the current limit of about 64,000 lines. The final
-point makes it possible to download several long time series in one go. The
-function also has the advantage that the proper site name is imported and
-used in \code{openair} functions.
+and periods (see examples below). Second, storing the data as .RData objects
+is very efficient as they are about four times smaller than .csv files ---
+which means the data downloads quickly and saves bandwidth. Third, the
+function completely avoids any need for data manipulation or setting time
+formats, time zones etc. Finally, it is easy to import many years of data
+beyond the current limit of about 64,000 lines. The final point makes it
+possible to download several long time series in one go. The function also
+has the advantage that the proper site name is imported and used in
+\code{openair} functions.
 
 The site codes and pollutant names can be upper or lower case. The function
-will issue a warning when data less than six months old is downloaded,
-which may not be ratified.
+will issue a warning when data less than six months old is downloaded, which
+may not be ratified.
 
 The data are imported by stacking sites on top of one another and will have
 field names \code{site}, \code{code} (the site code) and \code{pollutant}.
 Sometimes it is useful to have columns of site data. This can be done using
 the \code{reshape} function --- see examples below.
 
-All units are expressed in mass terms for gaseous species (ug/m3
-for NO, NO2, NOx (as NO2), SO2 and hydrocarbons; and mg/m3 for
-CO). PM10 concentrations are provided in gravimetric units of
-ug/m3 or scaled to be comparable with these units. Over the years
-a variety of instruments have been used to measure particulate
-matter and the technical issues of measuring PM10 are complex. In
-recent years the measurements rely on FDMS (Filter Dynamics
-Measurement System), which is able to measure the volatile
-component of PM. In cases where the FDMS system is in use there
-will be a separate volatile component recorded as 'v10' and
-non-volatile component 'nv10', which is already included in the
-absolute PM10 measurement. Prior to the use of FDMS the
-measurements used TEOM (Tapered Element Oscillating. Microbalance)
-and these concentrations have been multiplied by 1.3 to provide an
-estimate of the total mass including the volatile fraction.
+All units are expressed in mass terms for gaseous species (ug/m3 for NO,
+NO2, NOx (as NO2), SO2 and hydrocarbons; and mg/m3 for CO). PM10
+concentrations are provided in gravimetric units of ug/m3 or scaled to be
+comparable with these units. Over the years a variety of instruments have
+been used to measure particulate matter and the technical issues of
+measuring PM10 are complex. In recent years the measurements rely on FDMS
+(Filter Dynamics Measurement System), which is able to measure the volatile
+component of PM. In cases where the FDMS system is in use there will be a
+separate volatile component recorded as 'v10' and non-volatile component
+'nv10', which is already included in the absolute PM10 measurement. Prior to
+the use of FDMS the measurements used TEOM (Tapered Element Oscillating.
+Microbalance) and these concentrations have been multiplied by 1.3 to
+provide an estimate of the total mass including the volatile fraction.
 
 The few BAM (Beta-Attenuation Monitor) instruments that have been
-incorporated into the network throughout its history have been scaled by
-1.3 if they have a heated inlet (to account for loss of volatile particles)
-and 0.83 if they do not have a heated inlet. The few TEOM instruments in
-the network after 2008 have been scaled using VCM (Volatile Correction
-Model) values to account for the loss of volatile particles. The object of
-all these scaling processes is to provide a reasonable degree of comparison
+incorporated into the network throughout its history have been scaled by 1.3
+if they have a heated inlet (to account for loss of volatile particles) and
+0.83 if they do not have a heated inlet. The few TEOM instruments in the
+network after 2008 have been scaled using VCM (Volatile Correction Model)
+values to account for the loss of volatile particles. The object of all
+these scaling processes is to provide a reasonable degree of comparison
 between data sets and with the reference method and to produce a consistent
-data record over the operational period of the network, however there may
-be some discontinuity in the time series associated with instrument
-changes.
+data record over the operational period of the network, however there may be
+some discontinuity in the time series associated with instrument changes.
 
 No corrections have been made to the PM2.5 data. The volatile component of
 FDMS PM2.5 (where available) is shown in the 'v2.5' column.
