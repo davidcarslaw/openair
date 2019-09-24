@@ -5,7 +5,7 @@
 \title{Welsh Air Quality Network data import for openair}
 \usage{
 importWAQN(site = "card", year = 2018, pollutant = "all",
-  to_narrow = FALSE)
+  meta = FALSE, to_narrow = FALSE)
 }
 \arguments{
 \item{site}{Site code of the WAQN site to import e.g. "card" is Cardiff Centre. 
@@ -19,6 +19,9 @@ to 2000 use \code{year = 1990:2000}. To import several specfic years use
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use \code{pollutant =
 c("nox", "no2")}.}
+
+\item{meta}{Should meta data be returned? If \code{TRUE} the site type,
+latitude and longitude are returned.}
 
 \item{to_narrow}{By default the returned data has a column for each
 pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
