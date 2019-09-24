@@ -4,7 +4,8 @@
 \alias{importSAQN}
 \title{Scottish Air Quality Network data import for openair}
 \usage{
-importSAQN(site = "gla4", year = 2009, pollutant = "all")
+importSAQN(site = "gla4", year = 2009, pollutant = "all",
+  to_narrow = FALSE)
 }
 \arguments{
 \item{site}{Site code of the SAQN site to import e.g. "gla4" is Glasgow
@@ -16,8 +17,12 @@ to 2000 use \code{year = 1990:2000}. To import several specfic years use
 \code{year = c(1990, 1995, 2000)} for example.}
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
-ffrom a site. To import only NOx and NO2 for example use \code{pollutant =
+from a site. To import only NOx and NO2 for example use \code{pollutant =
 c("nox", "no2")}.}
+
+\item{to_narrow}{By default the returned data has a column for each
+pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
+a narrow format with a column identifying the pollutant name.}
 }
 \value{
 Returns a data frame of hourly mean values with date in POSIXct

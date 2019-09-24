@@ -32,6 +32,9 @@
 ##' @param pollutant Pollutants to import. If omitted will import all pollutants
 ##'   from a site. To import only NOx and NO2 for example use \code{pollutant =
 ##'   c("nox", "no2")}.
+##' @param to_narrow By default the returned data has a column for each
+##'   pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
+##'   a narrow format with a column identifying the pollutant name.  
 ##' @return Returns a data frame of hourly mean values with date in POSIXct
 ##'   class and time zone GMT.
 ##' @author David Carslaw and Trevor Davies 
@@ -52,7 +55,7 @@
 ##' \dontrun{all <- importWAQN(site = site = c("card", "cae6"), year = 2018)}
 ##'
 ##' 
-importWAQN <- function(site = "card", year = 2018, pollutant = "all") {
+importWAQN <- function(site = "card", year = 2018, pollutant = "all", to_narrow = FALSE) {
   site <- toupper(site)
 
 
@@ -136,6 +139,12 @@ importWAQN <- function(site = "card", year = 2018, pollutant = "all") {
 
   ## make sure it is in GMT
   attr(thedata$date, "tzone") <- "GMT"
+  
+  if (to_narrow) {
+    
+    thedata <- pivot_longer(thedata, -c(date, site, code), names_to = "pollutant") %>% 
+      arrange(site, code, pollutant, date)
+  }
 
-  thedata
+  as_tibble(thedata)
 }

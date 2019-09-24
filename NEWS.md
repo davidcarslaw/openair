@@ -5,7 +5,7 @@
 - fix example for `trajCluster`, should be `n.cluster` not `n.clusters`
 - fix issue with DST in `cutData`
 - allow 'hemisphere' to be supplied as an argument to `timeAverage`, used for avg.time = "season". 
-- add option `to_narrow` to `importAURN` to stack data into a tidy format. The data are now returned as a 'tibble'
+- add option `to_narrow` to `importAURN`, `importSAQN` and `importWAQN` to stack data into a tidy format. The data are now returned as a 'tibble'
 
 ## openair 2.6-4
 
