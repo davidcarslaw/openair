@@ -177,15 +177,25 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all",
   class(thedata$date) <- c("POSIXct", "POSIXt")
 
   if (meta) {
-    meta <- importMeta(source = "aurn")
+    meta_data <- importMeta(source = "aurn")
     # suppress warnings about factors
-    thedata <- suppressWarnings(inner_join(thedata, meta, by = c("code", "site")))
+    thedata <- suppressWarnings(inner_join(thedata, meta_data, by = c("code", "site")))
   }
 
   if (to_narrow) {
     
+    if (meta) {
+      
+      thedata <- pivot_longer(thedata, -c(date, site, code, latitude, longitude, site.type), 
+                              names_to = "pollutant") %>% 
+        arrange(site, code, pollutant, date)
+      
+    } else {
+    
     thedata <- pivot_longer(thedata, -c(date, site, code), names_to = "pollutant") %>% 
       arrange(site, code, pollutant, date)
+    
+    }
   }
   
   as_tibble(thedata)
