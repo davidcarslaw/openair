@@ -272,9 +272,9 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
   }
 
   # main results in lists
-  results.grid <- group_by(mydata, UQS(syms(type))) %>% 
-    nest() %>% 
-    mutate(results = map(data, prepare.cond))
+   results.grid <- group_by(mydata, UQS(syms(type))) %>% 
+     group_nest() %>% 
+     mutate(results = map(data, prepare.cond))
   
   # cluster model
   clust <- results.grid %>% 

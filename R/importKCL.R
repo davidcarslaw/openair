@@ -456,11 +456,6 @@
 ##' ## import met data too...
 ##' \dontrun{my1 <- importKCL(site = "my1", year = 2008, met = TRUE)}
 ##'
-##'
-##' }
-##'
-##'
-##'
 ##' 
 importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
                       units = "mass", extra = FALSE, meta = FALSE,

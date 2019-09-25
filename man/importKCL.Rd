@@ -454,6 +454,21 @@ Sheerness | Urban Background \item ZW3 | Swale Roadside 2 - Ospringe Street
 \item ZY2 | Canterbury Roadside - St Dunstans | Roadside \item ZY4 |
 Canterbury St Peters Place | Roadside }
 }
+\examples{
+
+
+## import all pollutants from Marylebone Rd from 1990:2009
+\dontrun{mary <- importKCL(site = "my1", year = 2000:2009)}
+
+## import nox, no2, o3 from Marylebone Road and North Kensignton for 2000
+\dontrun{thedata <- importKCL(site = c("my1", "kc1"), year = 2000,
+pollutant = c("nox", "no2", "o3"))}
+
+## import met data too...
+\dontrun{my1 <- importKCL(site = "my1", year = 2008, met = TRUE)}
+
+
+}
 \seealso{
 \code{\link{importAURN}}, \code{\link{importADMS}},
   \code{\link{importSAQN}}
