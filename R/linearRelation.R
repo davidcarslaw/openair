@@ -230,7 +230,7 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
     my_lm <- function(data) lm(y ~ x, data = data)
     
     results <- data %>% 
-      nest() %>%
+      group_nest() %>%
       mutate(fit = map(data, my_lm), sum = map(fit, summary)) %>% 
       mutate(rsquare = map_dbl(sum, "r.squared"), 
              coef = map(sum, "coefficients"),
