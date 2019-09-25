@@ -308,7 +308,7 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
   div.col <- function(x) openColours(cols, x)
 
   ## labelleing of strips
-  pol.name <- sapply(levels(results.grid[, type]), function(x) quickText(x, auto.text))
+  pol.name <- sapply(levels(results.grid[[type]]), function(x) quickText(x, auto.text))
   strip <- strip.custom(factor.levels = pol.name)
   if (type == "default") strip <- FALSE
 
