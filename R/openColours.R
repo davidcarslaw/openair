@@ -59,7 +59,6 @@
 ##'   interpolate the colours.
 ##' @param n number of colours required.
 ##' @export
-##' @import RColorBrewer
 ##' @return Returns colour values - see examples below.
 ##' @author David Carslaw
 ##' @references \url{http://colorbrewer2.org}
