@@ -1,5 +1,9 @@
 ## openair 2.6-99
 
+- fix `calendarPlot` slowness
+
+## openair 2.6-6
+
 - fix bug in `TheilSen` when no missing data and `deseason = TRUE`
 - fix bug in `timeAverage` when interval padding dates and date is "Date" class and not "POSIXct"
 - fix example for `trajCluster`, should be `n.cluster` not `n.clusters`

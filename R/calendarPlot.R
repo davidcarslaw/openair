@@ -465,7 +465,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
 
       if (annotate == "date") {
         ltext(
-          x, y,
+          x[subscripts], y[subscripts],
           labels = mydata$date.mat[subscripts], cex = 0.6,
           col = as.character(mydata$dateColour[subscripts])
         )
