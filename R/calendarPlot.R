@@ -477,7 +477,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
         ids <- which(date.col == "black")
         date.col[ids] <- "transparent"
         ltext(
-          x, y,
+          x[subscripts], y[subscripts],
           labels = mydata$date.mat[subscripts], cex = 0.6,
           col = date.col
         )
@@ -504,7 +504,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
           the.labs[id] <- ""
         }
         ltext(
-          x, y,
+          x[subscripts], y[subscripts],
           labels = the.labs, cex = the.cex,
           font = the.font, col = the.cols
         )
