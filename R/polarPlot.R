@@ -518,7 +518,7 @@ polarPlot <-
 
     if (!statistic %in% c(
       "mean", "median", "frequency", "max", "stdev",
-      "weighted_mean", "percentile", "cpf", correlation_stats
+      "weighted_mean", "percentile", "cpf", "nwr", correlation_stats
     )) {
       stop(paste0("statistic '", statistic, "' not recognised."), call. = FALSE)
     }
@@ -732,7 +732,7 @@ polarPlot <-
         include.lowest = TRUE
       )
 
-      if (!statistic %in% correlation_stats) {
+      if (!statistic %in% c(correlation_stats, "nwr")) {
         binned <- switch(
           statistic,
           frequency = tapply(mydata[[pollutant]], list(wd, x), function(x)
@@ -769,6 +769,18 @@ polarPlot <-
         )
 
         binned <- as.vector(t(binned))
+        
+      } else if (toupper(statistic) == "NWR") {
+        
+        binned <- rowwise(ws.wd) %>%
+          do(simple_kernel(
+            ., mydata,
+            x = nam.x, y = nam.wd,  pollutant = pollutant,
+            ws_spread = ws_spread, wd_spread = wd_spread, kernel
+          ))
+        
+        binned <- binned$conc
+        
       } else {
         binned <- rowwise(ws.wd) %>%
           do(calculate_weighted_statistics(
@@ -1133,6 +1145,47 @@ polarPlot <-
     # Final return
     invisible(output)
   }
+
+# NWR kernel calculations
+simple_kernel <- function(data, mydata, x = "ws",
+                         y = "wd", pollutant,
+                         ws_spread, wd_spread, kernel) {
+  # Centres
+  ws1 <- data[[1]]
+  wd1 <- data[[2]]
+  
+  # Gaussian kernel for wd
+  
+  # Scale wd
+  mydata$wd.scale <- mydata[[y]] - wd1
+  
+  # Make non-real scale real
+  mydata$wd.scale <- ifelse(
+    mydata$wd.scale < 0, mydata$wd.scale + 360, mydata$wd.scale
+  )
+  
+  mydata$wd.scale <- ifelse(
+    mydata$wd.scale > 180, mydata$wd.scale - 360, mydata$wd.scale
+  )
+  
+  # Scale with kernel
+  mydata$wd.scale <- mydata$wd.scale * 2 * pi / 360
+  
+  # Scale with kernel
+  mydata$wd.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * mydata$wd.scale ^ 2 / (2 * pi * wd_spread / 360))
+  
+  # Scale ws
+  mydata$ws.scale <- ws_spread * (mydata[[x]] - ws1) /
+    (max(mydata[[x]], na.rm = TRUE) - min(mydata[[x]], na.rm = TRUE))
+  
+  # Apply kernel smoother
+  mydata$ws.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * mydata$ws.scale ^ 2 / (ws_spread))
+  
+  conc <- sum(mydata$nox * mydata$wd.scale * mydata$ws.scale) / (sum(mydata$wd.scale * mydata$ws.scale))
+  
+  return(data.frame(conc = conc))
+  
+}
 
 
 # No export
