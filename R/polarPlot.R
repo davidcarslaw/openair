@@ -622,6 +622,8 @@ polarPlot <-
     }
     
     if (toupper(statistic) == "NWR") ws_bins <- 40 else ws_bins <- 30 
+    
+    if (statistic == "nwr") k <- 200 # limit any smoothing
 
     ws.seq <- seq(min.ws, max.ws, length = ws_bins)
     wd.seq <- seq(from = wd.int, to = 360, by = wd.int) ## wind directions from wd.int to 360
@@ -802,7 +804,7 @@ polarPlot <-
         } else {
           results <- data.frame(u = u, v = v, z = binned)
           exclude.missing <- FALSE
-          warning(call. = FALSE, paste("Not enough data to fit surface.\nTry reducing the value of the smoothing parameter, k to less than ", k, ".", sep = ""))
+          warning(call. = FALSE, paste("Not enough data to fit surface.\nTry reducing the value of the smoothing parameter, k to less than ", k, ". \nOr use statistic = 'nwr'.", sep = ""))
         }
       } else {
 
