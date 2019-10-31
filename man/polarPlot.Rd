@@ -12,7 +12,7 @@ polarPlot(mydata, pollutant = "nox", x = "ws", wd = "wd",
   angle.scale = 315, units = x, force.positive = TRUE, k = 100,
   normalise = FALSE, key.header = "", key.footer = pollutant,
   key.position = "right", key = TRUE, auto.text = TRUE,
-  ws_spread = 1, wd_spread = 4, kernel = "gaussian", tau = 0.5,
+  ws_spread = 0.5, wd_spread = 4, kernel = "gaussian", tau = 0.5,
   ...)
 }
 \arguments{
@@ -252,7 +252,7 @@ and units properly e.g.  by subscripting the `2' in NO2.}
 
 \item{ws_spread}{An integer used for the weighting kernel spread for wind
 speed when correlation or regression techniques are used. Default is
-\code{1}.}
+\code{0.5}.}
 
 \item{wd_spread}{An integer used for the weighting kernel spread for wind
 direction when correlation or regression techniques are used. Default is

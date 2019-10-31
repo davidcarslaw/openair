@@ -299,7 +299,7 @@
 #'
 #' @param ws_spread An integer used for the weighting kernel spread for wind
 #'   speed when correlation or regression techniques are used. Default is
-#'   \code{1}.
+#'   \code{0.5}.
 #'
 #' @param wd_spread An integer used for the weighting kernel spread for wind
 #'   direction when correlation or regression techniques are used. Default is
@@ -438,7 +438,7 @@ polarPlot <-
            min.bin = 1, mis.col = "grey", alpha = 1, upper = NA, angle.scale = 315,
            units = x, force.positive = TRUE, k = 100, normalise = FALSE,
            key.header = "", key.footer = pollutant, key.position = "right",
-           key = TRUE, auto.text = TRUE, ws_spread = 1, wd_spread = 4,
+           key = TRUE, auto.text = TRUE, ws_spread = 0.5, wd_spread = 4,
            kernel = "gaussian", tau = 0.5, ...) {
 
     ## get rid of R check annoyances
