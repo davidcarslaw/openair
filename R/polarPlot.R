@@ -1128,14 +1128,8 @@ simple_kernel <- function(data, mydata, x = "ws",
   # Scale wd
   mydata$wd.scale <- mydata[[y]] - wd1
   
-  # Make non-real scale real
-  mydata$wd.scale <- ifelse(
-    mydata$wd.scale < 0, mydata$wd.scale + 360, mydata$wd.scale
-  )
-  
-  mydata$wd.scale <- ifelse(
-    mydata$wd.scale > 180, mydata$wd.scale - 360, mydata$wd.scale
-  )
+  # get correct angular distance
+  mydata$wd.scale <- (mydata$wd.scale + 180) %% 360 - 180
   
   # Scale with kernel
   mydata$wd.scale <- mydata$wd.scale * 2 * pi / 360
