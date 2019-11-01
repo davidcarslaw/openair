@@ -75,7 +75,8 @@ coordinates, the default is wind speed, \dQuote{ws}.}
   \item \code{statistic = "nwr"} Implements the Non-parametric Wind
   Regression approach of Henry et al. (2009) that uses kernel smoothers. The
   \code{openair} implementation is not identical because Gaussian kernels are
-  used for both wind direction and speed.
+  used for both wind direction and speed. The smoothing is controlled by
+  \code{ws_spread} and \code{wd_spread}.
 
   \item \code{statistic = "cpf"} the conditional probability function (CPF)
   is plotted and a single (usually high) percentile level is supplied. The
@@ -250,12 +251,13 @@ and \code{"left"}.}
 titles and axis labels will automatically try and format pollutant names
 and units properly e.g.  by subscripting the `2' in NO2.}
 
-\item{ws_spread}{An integer used for the weighting kernel spread for wind
-speed when correlation or regression techniques are used. Default is
-\code{0.5}.}
+\item{ws_spread}{The value of sigma used for Gaussian kernel weighting of
+wind speed when \code{statistic = "nwr"} or when correlation and regression
+statistics are used such as \emph{r}. Default is \code{0.5}.}
 
-\item{wd_spread}{An integer used for the weighting kernel spread for wind
-direction when correlation or regression techniques are used. Default is
+\item{wd_spread}{The value of sigma used for Gaussian kernel weighting of
+wind direction when \code{statistic = "nwr"} or when correlation and regression
+statistics are used such as \emph{r}. Default is
 \code{4}.}
 
 \item{kernel}{Type of kernel used for the weighting procedure for when
