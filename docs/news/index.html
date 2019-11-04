@@ -108,6 +108,16 @@
 <h2 class="hasAnchor">
 <a href="#openair-2-6-99" class="anchor"></a>openair 2.6-99</h2>
 <ul>
+<li>fix <code>calendarPlot</code> slowness on MacOS</li>
+<li>Refine use of Gaussian kernels when to pollutant statistics are considered in <code>polarPlot</code>
+</li>
+<li>Add option <code>statistic = "nwr"</code> in <code>polarPlot</code> that implements the Non-parametric Wind Regression based on Henry et al. (2009). The the <code>openair</code> implmentation is not identical but should yield similar results.</li>
+</ul>
+</div>
+    <div id="openair-2-6-6" class="section level2">
+<h2 class="hasAnchor">
+<a href="#openair-2-6-6" class="anchor"></a>openair 2.6-6</h2>
+<ul>
 <li>fix bug in <code>TheilSen</code> when no missing data and <code>deseason = TRUE</code>
 </li>
 <li>fix bug in <code>timeAverage</code> when interval padding dates and date is “Date” class and not “POSIXct”</li>
@@ -116,7 +126,7 @@
 <li>fix issue with DST in <code>cutData</code>
 </li>
 <li>allow ‘hemisphere’ to be supplied as an argument to <code>timeAverage</code>, used for avg.time = “season”.</li>
-<li>add option <code>to_narrow</code> to <code>importAURN</code>, <code>importSAQN</code> and <code>importWAQN</code> to stack data into a tidy format. The data are now returned as a ‘tibble’</li>
+<li>add option <code>to_narrow</code> to <code>importAURN</code>, <code>importSAQN</code>, <code>importKCL</code> and <code>importWAQN</code> to stack data into a tidy format. The data are now returned as a ‘tibble’</li>
 <li>Allow meta data to be returned in <code>importSAQN</code> and <code>importWAQN</code>.</li>
 </ul>
 </div>
@@ -1115,6 +1125,7 @@
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#openair-2-6-99">2.6-99</a></li>
+        <li><a href="#openair-2-6-6">2.6-6</a></li>
         <li><a href="#openair-2-6-4">2.6-4</a></li>
         <li><a href="#openair-2-6-1">2.6-1</a></li>
         <li><a href="#openair-2-6-0">2.6-0</a></li>
