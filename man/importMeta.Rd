@@ -7,8 +7,8 @@
 importMeta(source = "aurn", all = FALSE)
 }
 \arguments{
-\item{source}{The data source for the meta data. Can be "aurn", "kcl" or
-"saqn" (or "saqd"); upper or lower case.}
+\item{source}{The data source for the meta data. Can be "aurn", "kcl",
+"saqn" (or "saqd") and "aqe"; upper or lower case.}
 
 \item{all}{When \code{all = FALSE} only the site code, site name, latitude
 and longitude and site type are imported. Setting \code{all = TRUE} will
