@@ -3,24 +3,25 @@
 ##'
 ##' Function to import meta data from UK air pollution monitoring sites
 ##'
-##' This function imports site meta data from four networks in the UK: the
-##' Defra Automatic Urban and Rural Network (AURN), King's College London
-##' networks and the Scottish Air Quality Network. The meta data includes site
-##' location (latitude, longitude and OS easting and northing --- the latter for
-##' KCL networks), site type and it's start/close data, as well as other
-##' information.
-##' 
-##' The Scottish and Welsh air quality networks are available as SAQN (or SAQD) and WAQN.
+##' This function imports site meta data from four networks in the UK: the Defra
+##' Automatic Urban and Rural Network (AURN), King's College London networks,
+##' the Scottish Air Quality Network, Welsh Air Quality Network and Air Quality
+##' England sites. The meta data includes site location (latitude, longitude and
+##' OS easting and northing --- the latter for KCL networks), site type and it's
+##' start/close data, as well as other information.
+##'
+##' The Scottish and Welsh air quality networks are available as SAQN (or SAQD)
+##' and WAQN.
 ##'
 ##' The meta information can usefully be combined with matching air pollution
 ##' data and produce maps of concentration --- see examples below. Note if many
 ##' sites and/or years of hourly data are imported it may be better to aggregate
 ##' first and then combine with the meta data information.
 ##'
-##' Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (Riacrdo) for making these
-##' data available.
-##' @param source The data source for the meta data. Can be "aurn", "kcl" or
-##'   "saqn" (or "saqd"); upper or lower case.
+##' Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (Riacrdo) for making
+##' these data available.
+##' @param source The data source for the meta data. Can be "aurn", "kcl",
+##'   "saqn" (or "saqd") and "aqe"; upper or lower case.
 ##' @param all When \code{all = FALSE} only the site code, site name, latitude
 ##'   and longitude and site type are imported. Setting \code{all = TRUE} will
 ##'   import all available meta data and provide details (when available) or the
@@ -60,7 +61,7 @@ importMeta <- function(source = "aurn", all = FALSE) {
     metadata = site_type = date_ended = network_id = NULL
 
     ## meta data sources
-    meta.source <- c("aurn", "kcl", "saqn", "saqd", "waqn")
+    meta.source <- c("aurn", "kcl", "saqn", "saqd", "waqn", "aqe")
 
     ## ensure lower case
     source <- tolower(source)
@@ -93,7 +94,7 @@ importMeta <- function(source = "aurn", all = FALSE) {
         tmp <- tempfile()
         
         # load data
-        load(url("http://www.scottishairquality.co.uk/openair/R_data/scotarc_metadata.RData"))
+        load(url("http://www.scottishairquality.scot/openair/R_data/scotarc_metadata.RData"))
         
         meta <- metadata %>% 
           filter(network_id == "saun") %>% 
@@ -117,6 +118,25 @@ importMeta <- function(source = "aurn", all = FALSE) {
       
       meta <- metadata %>% 
         filter(network_id == "waun") %>% 
+        mutate(date_ended = ifelse(date_ended == "0000-00-00", NA, date_ended))
+      
+      ## only extract one line per site to make it easier to use file
+      ## mostly interested in coordinates
+      if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
+      
+      ## rename to match imported names e.g. importAURN
+      meta <- rename(meta, code = site, site = site_name, site.type = site_type)
+      
+    }
+    
+    if (source %in% tolower(c("aqe"))) {
+      
+      tmp <- tempfile()
+      
+      # load data
+      load(url("https://airqualityengland.co.uk/assets/openair/R_data/aqengland_metadata.RData"))
+      
+      meta <- metadata %>% 
         mutate(date_ended = ifelse(date_ended == "0000-00-00", NA, date_ended))
       
       ## only extract one line per site to make it easier to use file

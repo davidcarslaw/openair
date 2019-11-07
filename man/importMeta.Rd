@@ -22,22 +22,23 @@ A data frame with meta data.
 Function to import meta data from UK air pollution monitoring sites
 }
 \details{
-This function imports site meta data from four networks in the UK: the
-Defra Automatic Urban and Rural Network (AURN), King's College London
-networks and the Scottish Air Quality Network. The meta data includes site
-location (latitude, longitude and OS easting and northing --- the latter for
-KCL networks), site type and it's start/close data, as well as other
-information.
+This function imports site meta data from four networks in the UK: the Defra
+Automatic Urban and Rural Network (AURN), King's College London networks,
+the Scottish Air Quality Network, Welsh Air Quality Network and Air Quality
+England sites. The meta data includes site location (latitude, longitude and
+OS easting and northing --- the latter for KCL networks), site type and it's
+start/close data, as well as other information.
 
-The Scottish and Welsh air quality networks are available as SAQN (or SAQD) and WAQN.
+The Scottish and Welsh air quality networks are available as SAQN (or SAQD)
+and WAQN.
 
 The meta information can usefully be combined with matching air pollution
 data and produce maps of concentration --- see examples below. Note if many
 sites and/or years of hourly data are imported it may be better to aggregate
 first and then combine with the meta data information.
 
-Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (Riacrdo) for making these
-data available.
+Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (Riacrdo) for making
+these data available.
 }
 \examples{
 ## import AQ data and add meta data to data frame

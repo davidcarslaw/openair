@@ -114,7 +114,7 @@ importSAQN <- function(site = "gla4", year = 2009, pollutant = "all",
 
   loadData <- function(x) {
     tryCatch({
-      fileName <- paste("http://www.scottishairquality.co.uk/openair/R_data/", x, ".RData", sep = "")
+      fileName <- paste("http://www.scottishairquality.scot/openair/R_data/", x, ".RData", sep = "")
       con <- url(fileName)
       load(con, envir = .GlobalEnv)
       x
