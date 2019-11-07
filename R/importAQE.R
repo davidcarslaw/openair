@@ -52,6 +52,9 @@
 ##'
 ##' ## import all pollutants from York Fulford Road
 ##' \dontrun{yk16 <- importAQE(site = "yk16", year = 2010:2018)}
+##' 
+##' ## return meta data also
+##' \dontrun{yk16 <- importAQE(site = "yk16", year = 2018, meta = TRUE)}
 ##'
 ##' ## import all pollutants from two sites for 2018
 ##' \dontrun{all <- importAQE(site = c("yk13", "yk16"), year = 2018)}
