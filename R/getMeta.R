@@ -81,7 +81,8 @@ importMeta <- function(source = "aurn", all = FALSE) {
         ## mostly interested in coordinates
         
         ## rename to match imported names e.g. importAURN
-        meta <- rename(meta, code = site_id, site = site_name, site.type = location_type)
+        meta <- rename(meta, code = site_id, site = site_name, 
+                       site_type = location_type, variable = parameter)
 
         ## unique ids
         if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
