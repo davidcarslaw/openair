@@ -50,130 +50,121 @@
 ##' }
 
 importMeta <- function(source = "aurn", all = FALSE) {
-  
+
   # keep R check quiet
   AURN_metadata <- NULL
   SCOT_metadata <- NULL
 
-    ## get rid of R check annoyances
-    site = code = latitude = longitude = site.type = site_name = site_id = NULL
-    location_type = SiteCode = SiteName = Classification = Latitude = Longitude = NULL
-    metadata = site_type = date_ended = network_id = NULL
+  ## get rid of R check annoyances
+  site <- code <- latitude <- longitude <- site.type <- site_name <- site_id <- NULL
+  location_type <- SiteCode <- SiteName <- Classification <- Latitude <- Longitude <- NULL
+  metadata <- site_type <- date_ended <- network_id <- NULL
 
-    ## meta data sources
-    meta.source <- c("aurn", "kcl", "saqn", "saqd", "waqn", "aqe")
+  ## meta data sources
+  meta.source <- c("aurn", "kcl", "saqn", "saqd", "waqn", "aqe")
 
-    ## ensure lower case
-    source <- tolower(source)
+  ## ensure lower case
+  source <- tolower(source)
 
-    if (!source %in% meta.source) stop("Meta data sources are 'aurn', 'kcl' and 'saqn.")
+  if (!source %in% meta.source) stop("Meta data sources are 'aurn', 'kcl' and 'saqn.")
 
-    if (source == "aurn") {
-        
-        tmp <- tempfile()
-        
-        fileName <- "http://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData"
-        download.file(fileName, method = "libcurl", destfile = tmp)
-        load(tmp)
-        
-        meta <- AURN_metadata
-        ## only extract one line per site to make it easier to use file
-        ## mostly interested in coordinates
-        
-        ## rename to match imported names e.g. importAURN
-        meta <- rename(meta, code = site_id, site = site_name, 
-                       site_type = location_type, variable = parameter)
+  if (source == "aurn") {
+    tmp <- tempfile()
 
-        ## unique ids
-        if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
+    fileName <- "http://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData"
+    download.file(fileName, method = "libcurl", destfile = tmp)
+    load(tmp)
+
+    meta <- AURN_metadata
+    ## only extract one line per site to make it easier to use file
+    ## mostly interested in coordinates
+
+    ## rename to match imported names e.g. importAURN
+    meta <- rename(meta,
+      code = site_id, site = site_name,
+      site_type = location_type, variable = parameter
+    )
+
+    ## unique ids
+    if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
+  }
+
+  if (source %in% tolower(c("saqn", "saqd"))) {
+    tmp <- tempfile()
+
+    # load data
+    load(url("http://www.scottishairquality.scot/openair/R_data/scotarc_metadata.RData"))
+
+    meta <- metadata %>%
+      filter(network_id == "saun") %>%
+      mutate(date_ended = ifelse(date_ended == "0000-00-00", NA, date_ended))
+
+    ## only extract one line per site to make it easier to use file
+    ## mostly interested in coordinates
+    if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
+
+    ## rename to match imported names e.g. importAURN
+    meta <- rename(meta, code = site, site = site_name, site.type = site_type)
+  }
+
+  if (source %in% tolower(c("waqn"))) {
+    tmp <- tempfile()
+
+    # load data
+    load(url("https://airquality.gov.wales/sites/default/files/openair/R_data/waq_metadata.RData"))
+
+    meta <- metadata %>%
+      filter(network_id == "waun") %>%
+      mutate(date_ended = ifelse(date_ended == "0000-00-00", NA, date_ended))
+
+    ## only extract one line per site to make it easier to use file
+    ## mostly interested in coordinates
+    if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
+
+    ## rename to match imported names e.g. importAURN
+    meta <- rename(meta, code = site, site = site_name, site.type = site_type)
+  }
+
+  if (source %in% tolower(c("aqe"))) {
+    tmp <- tempfile()
+
+    # load data
+    load(url("https://airqualityengland.co.uk/assets/openair/R_data/aqengland_metadata.RData"))
+
+    meta <- metadata %>%
+      mutate(date_ended = ifelse(date_ended == "0000-00-00", NA, date_ended))
+
+    ## only extract one line per site to make it easier to use file
+    ## mostly interested in coordinates
+    if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
+
+    ## rename to match imported names e.g. importAURN
+    meta <- rename(meta, code = site, site = site_name, site.type = site_type)
+  }
 
 
+  if (source == "kcl") {
+    con <- url("http://www.londonair.org.uk/r_data/sites.RData")
+    meta <- get(load(con))
+    close(con)
+
+    ## rename to match imported names e.g. importKCL
+    meta <- rename(meta,
+      code = SiteCode, site = SiteName, site.type = Classification,
+      latitude = Latitude, longitude = Longitude
+    )
+  }
+
+  if (!all) meta <- subset(meta, select = c(site, code, latitude, longitude, site.type))
+
+  # change some names
+  if ("variable" %in% names(meta)) {
+    id <- which(meta$variable == "NOXasNO2")
+
+    if (length(id) > 0) {
+      meta$variable[id] <- "NOx"
     }
+  }
 
-    if (source %in% tolower(c("saqn", "saqd"))) {
-        
-        tmp <- tempfile()
-        
-        # load data
-        load(url("http://www.scottishairquality.scot/openair/R_data/scotarc_metadata.RData"))
-        
-        meta <- metadata %>% 
-          filter(network_id == "saun") %>% 
-          mutate(date_ended = ifelse(date_ended == "0000-00-00", NA, date_ended))
-      
-        ## only extract one line per site to make it easier to use file
-        ## mostly interested in coordinates
-        if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
-
-        ## rename to match imported names e.g. importAURN
-        meta <- rename(meta, code = site, site = site_name, site.type = site_type)
-        
-    }
-    
-    if (source %in% tolower(c("waqn"))) {
-      
-      tmp <- tempfile()
-      
-      # load data
-      load(url("https://airquality.gov.wales/sites/default/files/openair/R_data/waq_metadata.RData"))
-      
-      meta <- metadata %>% 
-        filter(network_id == "waun") %>% 
-        mutate(date_ended = ifelse(date_ended == "0000-00-00", NA, date_ended))
-      
-      ## only extract one line per site to make it easier to use file
-      ## mostly interested in coordinates
-      if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
-      
-      ## rename to match imported names e.g. importAURN
-      meta <- rename(meta, code = site, site = site_name, site.type = site_type)
-      
-    }
-    
-    if (source %in% tolower(c("aqe"))) {
-      
-      tmp <- tempfile()
-      
-      # load data
-      load(url("https://airqualityengland.co.uk/assets/openair/R_data/aqengland_metadata.RData"))
-      
-      meta <- metadata %>% 
-        mutate(date_ended = ifelse(date_ended == "0000-00-00", NA, date_ended))
-      
-      ## only extract one line per site to make it easier to use file
-      ## mostly interested in coordinates
-      if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
-      
-      ## rename to match imported names e.g. importAURN
-      meta <- rename(meta, code = site, site = site_name, site.type = site_type)
-      
-    }
-    
-
-    if (source == "kcl") {
-        con <- url("http://www.londonair.org.uk/r_data/sites.RData")
-        meta <- get(load(con))
-        close(con)
-
-        ## rename to match imported names e.g. importKCL
-        meta <- rename(meta, code = SiteCode, site = SiteName,  site.type = Classification,
-                               latitude = Latitude, longitude = Longitude)
-
-        
-    }
-
-    if (!all) meta <-  subset(meta, select = c(site, code, latitude, longitude, site.type))
-    
-    # change some names
-    if ("variable" %in% names(meta)) {
-      
-      id <- which(meta$variable == "NOXasNO2")
-      
-      if (length(id) > 0)
-        meta$variable[id] <- "NOx"
-      
-    }
-
-    as_tibble(meta)
-
+  as_tibble(meta)
 }
