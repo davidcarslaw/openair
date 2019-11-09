@@ -402,7 +402,6 @@
 #'
 #' # basic plot
 #' polarPlot(openair::mydata, pollutant = "nox")
-#'
 #' \dontrun{
 #'
 #' # polarPlots by year on same scale
@@ -428,7 +427,6 @@
 #' # Least squares regression works too but it is not recommended, use robust
 #' # regression
 #' # polarPlot(mydata, pollutant = c("pm25", "pm10"), statistic = "slope")
-#'
 #' }
 #'
 #' @export
@@ -450,7 +448,7 @@ polarPlot <-
       warning("percentile value missing, using 50")
       percentile <- 50
     }
-    
+
     if (statistic == "cpf" & is.na(percentile[1])) {
       warning("percentile value missing, using 75")
       percentile <- 75
@@ -512,7 +510,6 @@ polarPlot <-
 
     ## reset graphic parameters
     on.exit(trellis.par.set(
-       
       fontsize = current.font
     ))
 
@@ -584,8 +581,10 @@ polarPlot <-
       }
 
       ## use pollutants as conditioning variables
-      mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)), 
-                       factor_key = TRUE)
+      mydata <- gather(mydata,
+        key = variable, value = value, UQS(syms(pollutant)),
+        factor_key = TRUE
+      )
       ## now set pollutant to "value"
       pollutant <- "value"
 
@@ -620,11 +619,11 @@ polarPlot <-
     if (all(mydata[[wd]] %% 10 == 0, na.rm = TRUE)) {
       wd.int <- 10
     } else {
-      if (toupper(statistic) == "NWR") wd.int <- 2 else wd.int = 5 ## how to split wd
+      if (toupper(statistic) == "NWR") wd.int <- 2 else wd.int <- 5 ## how to split wd
     }
-    
-    if (toupper(statistic) == "NWR") ws_bins <- 40 else ws_bins <- 30 
-    
+
+    if (toupper(statistic) == "NWR") ws_bins <- 40 else ws_bins <- 30
+
     if (statistic == "nwr") k <- 200 # limit any smoothing
 
     ws.seq <- seq(min.ws, max.ws, length = ws_bins)
@@ -707,52 +706,58 @@ polarPlot <-
       if (!statistic %in% c(correlation_stats, "nwr")) {
         binned <- switch(
           statistic,
-          frequency = tapply(mydata[[pollutant]], list(wd, x), function(x)
-            length(na.omit(x))),
-          mean = tapply(mydata[[pollutant]], list(wd, x), function(x)
-            mean(x, na.rm = TRUE)),
-          median = tapply(mydata[[pollutant]], list(wd, x), function(x)
-            median(x, na.rm = TRUE)),
-          max = tapply(mydata[[pollutant]], list(wd, x), function(x)
-            max(x, na.rm = TRUE)),
-          stdev = tapply(mydata[[pollutant]], list(wd, x), function(x)
-            sd(x, na.rm = TRUE)),
+          frequency = tapply(mydata[[pollutant]], list(wd, x), function(x) {
+            length(na.omit(x))
+          }),
+          mean = tapply(mydata[[pollutant]], list(wd, x), function(x) {
+            mean(x, na.rm = TRUE)
+          }),
+          median = tapply(mydata[[pollutant]], list(wd, x), function(x) {
+            median(x, na.rm = TRUE)
+          }),
+          max = tapply(mydata[[pollutant]], list(wd, x), function(x) {
+            max(x, na.rm = TRUE)
+          }),
+          stdev = tapply(mydata[[pollutant]], list(wd, x), function(x) {
+            sd(x, na.rm = TRUE)
+          }),
           cpf = tapply(
             mydata[[pollutant]], list(wd, x),
-            function(x)
+            function(x) {
               (length(which(
                 x > Pval
               )) / length(x))
+            }
           ),
           cpfi = tapply(
             mydata[[pollutant]], list(wd, x),
-            function(x)
+            function(x) {
               (length(
                 which(x > Pval[1] & x <= Pval[2])
               ) / length(x))
+            }
           ),
           weighted_mean = tapply(
             mydata[[pollutant]], list(wd, x),
-            function(x)
+            function(x) {
               (mean(x) * length(x) / nrow(mydata))
+            }
           ),
-          percentile = tapply(mydata[[pollutant]], list(wd, x), function(x)
-            quantile(x, probs = percentile / 100, na.rm = TRUE))
+          percentile = tapply(mydata[[pollutant]], list(wd, x), function(x) {
+            quantile(x, probs = percentile / 100, na.rm = TRUE)
+          })
         )
 
         binned <- as.vector(t(binned))
-        
       } else if (toupper(statistic) == "NWR") {
-        
         binned <- rowwise(ws.wd) %>%
           do(simple_kernel(
             ., mydata,
-            x = nam.x, y = nam.wd,  pollutant = pollutant,
+            x = nam.x, y = nam.wd, pollutant = pollutant,
             ws_spread = ws_spread, wd_spread = wd_spread, kernel
           ))
-        
+
         binned <- binned$conc
-        
       } else {
         binned <- rowwise(ws.wd) %>%
           do(calculate_weighted_statistics(
@@ -796,11 +801,11 @@ polarPlot <-
       if (!uncertainty) {
 
         ## catch errors when not enough data to calculate surface
-        Mgam <- try(gam(binned ^ n ~ s(u, v, k = k), weights = W), TRUE)
+        Mgam <- try(gam(binned^n ~ s(u, v, k = k), weights = W), TRUE)
 
         if (!inherits(Mgam, "try-error")) {
           pred <- predict.gam(Mgam, input.data)
-          pred <- pred ^ (1 / n)
+          pred <- pred^(1 / n)
           pred <- as.vector(pred)
           results <- data.frame(u = input.data$u, v = input.data$v, z = pred)
         } else {
@@ -811,18 +816,18 @@ polarPlot <-
       } else {
 
         ## uncertainties calculated, weighted by number of points in each bin
-        Mgam <- gam(binned ^ n ~ s(u, v, k = k), weights = binned.len)
+        Mgam <- gam(binned^n ~ s(u, v, k = k), weights = binned.len)
         pred <- predict.gam(Mgam, input.data, se.fit = TRUE)
         uncer <- 2 * as.vector(pred[[2]]) ## for approx 95% CI
-        pred <- as.vector(pred[[1]]) ^ (1 / n)
+        pred <- as.vector(pred[[1]])^(1 / n)
 
         ## do not weight for central prediction
-        Mgam <- gam(binned ^ n ~ s(u, v, k = k))
+        Mgam <- gam(binned^n ~ s(u, v, k = k))
         pred <- predict.gam(Mgam, input.data)
         pred <- as.vector(pred)
-        Lower <- (pred - uncer) ^ (1 / n)
-        Upper <- (pred + uncer) ^ (1 / n)
-        pred <- pred ^ (1 / n)
+        Lower <- (pred - uncer)^(1 / n)
+        Upper <- (pred + uncer)^(1 / n)
+        pred <- pred^(1 / n)
 
         n <- length(pred)
 
@@ -889,7 +894,7 @@ polarPlot <-
     }
 
     ## remove wind speeds > upper to make a circle
-    if (clip) res$z[(res$u ^ 2 + res$v ^ 2) ^ 0.5 > upper] <- NA
+    if (clip) res$z[(res$u^2 + res$v^2)^0.5 > upper] <- NA
 
     ## proper names of labelling
     strip.dat <- strip.fun(res, type, auto.text)
@@ -1051,11 +1056,12 @@ polarPlot <-
 
         angles <- seq(0, 2 * pi, length = 360)
 
-        sapply(intervals, function(x)
+        sapply(intervals, function(x) {
           llines(
             x * sin(angles), x * cos(angles),
             col = "grey", lty = 5
-          ))
+          )
+        })
 
 
         ltext(
@@ -1063,8 +1069,9 @@ polarPlot <-
           1.07 * intervals * cos(pi * angle.scale / 180),
           sapply(
             paste(labels, c("", "", units, rep("", 7))),
-            function(x)
+            function(x) {
               quickText(x, auto.text)
+            }
           ),
           cex = 0.7, pos = 4
         )
@@ -1119,37 +1126,36 @@ polarPlot <-
 
 # NWR kernel calculations
 simple_kernel <- function(data, mydata, x = "ws",
-                         y = "wd", pollutant,
-                         ws_spread, wd_spread, kernel) {
+                          y = "wd", pollutant,
+                          ws_spread, wd_spread, kernel) {
   # Centres
   ws1 <- data[[1]]
   wd1 <- data[[2]]
-  
+
   # Gaussian kernel for wd
-  
+
   # Scale wd
   mydata$wd.scale <- mydata[[y]] - wd1
-  
+
   # get correct angular distance
   mydata$wd.scale <- (mydata$wd.scale + 180) %% 360 - 180
-  
+
   # Scale with kernel
   mydata$wd.scale <- mydata$wd.scale * 2 * pi / 360
-  
+
   # Scale with kernel
-  mydata$wd.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * (mydata$wd.scale  / (2 * pi * wd_spread / 360)) ^ 2)
-  
+  mydata$wd.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$wd.scale / (2 * pi * wd_spread / 360))^2)
+
   # Scale ws
   mydata$ws.scale <- (mydata[[x]] - ws1) / (max(mydata[[x]]) - min(mydata[[x]]))
-  
+
   # Apply kernel smoother
-  mydata$ws.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * (mydata$ws.scale  / (ws_spread / (max(mydata[[x]]) - min(mydata[[x]])))) ^ 2)
-  
-  conc <- sum(mydata[[pollutant]] * mydata$wd.scale * mydata$ws.scale) / 
+  mydata$ws.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$ws.scale / (ws_spread / (max(mydata[[x]]) - min(mydata[[x]]))))^2)
+
+  conc <- sum(mydata[[pollutant]] * mydata$wd.scale * mydata$ws.scale) /
     (sum(mydata$wd.scale * mydata$ws.scale))
 
   return(data.frame(conc = conc))
-  
 }
 
 
@@ -1164,10 +1170,10 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
 
   # Scale ws
   mydata$ws.scale <- (mydata[[x]] - ws1) / (max(mydata[[x]]) - min(mydata[[x]]))
-  
+
   # Apply kernel smoother
-  mydata$ws.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * (mydata$ws.scale  / (ws_spread / (max(mydata[[x]]) - min(mydata[[x]])))) ^ 2)
-  
+  mydata$ws.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$ws.scale / (ws_spread / (max(mydata[[x]]) - min(mydata[[x]]))))^2)
+
   # Scale wd
   mydata$wd.scale <- mydata[[y]] - wd1
 
@@ -1179,7 +1185,7 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   mydata$wd.scale <- mydata$wd.scale * 2 * pi / 360
 
   # Apply kernel smoother
-  mydata$wd.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * (mydata$wd.scale  / (2 * pi * wd_spread / 360)) ^ 2)
+  mydata$wd.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$wd.scale / (2 * pi * wd_spread / 360))^2)
 
   # Final weighting multiplies two kernels for ws and wd
   mydata$weight <- mydata$ws.scale * mydata$wd.scale
@@ -1300,7 +1306,7 @@ corr <- function(d, w = rep(1, nrow(d)) / nrow(d)) {
   m1 <- sum(d[, 1L] * w) / s
   m2 <- sum(d[, 2L] * w) / s
   (sum(d[, 1L] * d[, 2L] * w) / s - m1 * m2) /
-    sqrt((sum(d[, 1L] ^ 2 * w) / s - m1 ^ 2) * (sum(d[, 2L] ^ 2 * w) / s - m2 ^ 2))
+    sqrt((sum(d[, 1L]^2 * w) / s - m1^2) * (sum(d[, 2L]^2 * w) / s - m2^2))
 }
 
 
@@ -1308,10 +1314,10 @@ corr <- function(d, w = rep(1, nrow(d)) / nrow(d)) {
 kernel_smoother <- function(x, kernel = "gaussian") {
   kernel <- tolower(kernel)
   if (kernel %in% c("gaussian", "normal")) {
-    x <- (2 * pi) ^ -0.5 * exp(-0.5 * x ^ 2)
+    x <- (2 * pi)^-0.5 * exp(-0.5 * x^2)
   }
   if (kernel == "epanechnikov") {
-    x <- 3 / 4 * (1 - x ^ 2) * indicator_function(x)
+    x <- 3 / 4 * (1 - x^2) * indicator_function(x)
   }
   if (kernel == "logistic") {
     x <- 1 / (exp(x) + 2 + exp(-x))
@@ -1326,13 +1332,13 @@ kernel_smoother <- function(x, kernel = "gaussian") {
     x <- 1 / 2 * indicator_function(x)
   }
   if (kernel == "tricube") {
-    x <- 70 / 81 * (1 - abs(x) ^ 3) ^ 3 * indicator_function(x)
+    x <- 70 / 81 * (1 - abs(x)^3)^3 * indicator_function(x)
   }
   if (kernel == "triweight") {
-    x <- 35 / 32 * (1 - x ^ 2) ^ 3 * indicator_function(x)
+    x <- 35 / 32 * (1 - x^2)^3 * indicator_function(x)
   }
   if (kernel %in% c("biweight", "quartic")) {
-    x <- 15 / 16 * (1 - x ^ 2) ^ 2 * indicator_function(x)
+    x <- 15 / 16 * (1 - x^2)^2 * indicator_function(x)
   }
   x
 }
