@@ -174,6 +174,6 @@ importMeta <- function(source = "aurn", all = FALSE) {
       
     }
 
-    meta
+    as_tibble(meta)
 
 }
