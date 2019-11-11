@@ -366,7 +366,6 @@ Variants on \code{polarPlot} include \code{polarAnnulus} and
 
 # basic plot
 polarPlot(openair::mydata, pollutant = "nox")
-
 \dontrun{
 
 # polarPlots by year on same scale
@@ -392,7 +391,6 @@ polarPlot(mydata, pollutant = c("pm25", "pm10"), statistic = "robust.slope")
 # Least squares regression works too but it is not recommended, use robust
 # regression
 # polarPlot(mydata, pollutant = c("pm25", "pm10"), statistic = "slope")
-
 }
 
 }

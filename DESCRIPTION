@@ -15,6 +15,7 @@ Imports:
     dplyr,
     purrr,
     tidyr,
+    readr,
     mgcv,
     lattice,
     latticeExtra,

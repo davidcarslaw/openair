@@ -2,13 +2,14 @@
 % Please edit documentation in R/getMeta.R
 \name{importMeta}
 \alias{importMeta}
-\title{Import monitoring site meta data for the AURN, KCL, SAQN, WAQN networks}
+\title{Import monitoring site meta data for the UK and European networks}
 \usage{
 importMeta(source = "aurn", all = FALSE)
 }
 \arguments{
-\item{source}{The data source for the meta data. Can be "aurn", "kcl",
-"saqn" (or "saqd") and "aqe"; upper or lower case.}
+\item{source}{The data source for the meta data. Can be \dQuote{aurn},
+\dQuote{kcl}, \dQuote{saqn} (or "\dQuote{aqd}), \dQuote{aqe} or
+\dQuote{europe}; upper or lower case.}
 
 \item{all}{When \code{all = FALSE} only the site code, site name, latitude
 and longitude and site type are imported. Setting \code{all = TRUE} will
@@ -19,26 +20,26 @@ individual pollutants measured at each site.}
 A data frame with meta data.
 }
 \description{
-Function to import meta data from UK air pollution monitoring sites
+Function to import meta data for air quality monitoring sites
 }
 \details{
 This function imports site meta data from four networks in the UK: the Defra
 Automatic Urban and Rural Network (AURN), King's College London networks,
 the Scottish Air Quality Network, Welsh Air Quality Network and Air Quality
-England sites. The meta data includes site location (latitude, longitude and
-OS easting and northing --- the latter for KCL networks), site type and it's
-start/close data, as well as other information.
+England sites. Additionally, meta data are available for Airbase/e-reporting
+sites across Europe based on the \code{saqgetr} package. The meta data
+includes site location (latitude, longitude and OS easting and northing ---
+the latter for KCL networks), site type and it's start/close data, as well
+as other information.
 
 The Scottish and Welsh air quality networks are available as SAQN (or SAQD)
 and WAQN.
 
 The meta information can usefully be combined with matching air pollution
-data and produce maps of concentration --- see examples below. Note if many
-sites and/or years of hourly data are imported it may be better to aggregate
-first and then combine with the meta data information.
+data and produce maps of concentration --- see examples below.
 
-Thanks go to Dr Ben Barratt (KCL) and Trevor Davies (Riacrdo) for making
-these data available.
+Thanks go to Trevor Davies (Ricardo), Dr Stuart Grange (EMPA) and Dr Ben
+Barratt (KCL) and  for making these data available.
 }
 \examples{
 ## import AQ data and add meta data to data frame
