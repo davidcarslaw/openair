@@ -32,7 +32,7 @@
 #'  # import data for Stuttgart Am Neckartor (S)	
 #' \dontrun{stuttgart <- importEurope("debw118", year = 2010:2019, meta = TRUE)}
 #' 
-importEurope <- function(site, year = 2018,  tz = "UTC",
+importEurope <- function(site = "debw118", year = 2018,  tz = "UTC",
                                  meta = FALSE, to_narrow = FALSE
                                  ) {
 

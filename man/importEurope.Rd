@@ -4,8 +4,8 @@
 \alias{importEurope}
 \title{Import air quality data from European database}
 \usage{
-importEurope(site, year = 2018, tz = "UTC", meta = FALSE,
-  to_narrow = FALSE)
+importEurope(site = "debw118", year = 2018, tz = "UTC",
+  meta = FALSE, to_narrow = FALSE)
 }
 \arguments{
 \item{site}{The code of the site(s).}
