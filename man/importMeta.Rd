@@ -8,7 +8,7 @@ importMeta(source = "aurn", all = FALSE)
 }
 \arguments{
 \item{source}{The data source for the meta data. Can be \dQuote{aurn},
-\dQuote{kcl}, \dQuote{saqn} (or "\dQuote{aqd}), \dQuote{aqe} or
+\dQuote{kcl}, \dQuote{saqn} (or \dQuote{aqd}), \dQuote{aqe} or
 \dQuote{europe}; upper or lower case.}
 
 \item{all}{When \code{all = FALSE} only the site code, site name, latitude

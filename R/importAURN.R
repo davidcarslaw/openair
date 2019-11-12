@@ -63,7 +63,7 @@
 ##' FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 ##'
 ##'
-##' @param site Site code of the AURN site to import e.g. "my1" is Marylebone
+##' @param site Site code of the AURN site to import e.g. \dQuote{my1} is Marylebone
 ##'   Road. Several sites can be imported with \code{site = c("my1", "nott")}
 ##'   --- to import Marylebone Road and Nottingham for example.
 ##' @param year Year or years to import. To import a sequence of years from 1990
@@ -220,17 +220,17 @@ loadData <- function(x, verbose) {
     )
 
     # No warnings needed, function gives message if file is not present
-    suppressWarnings(
-      download.file(
-        fileName,
-        method = "libcurl", destfile = tmp,
-        quiet = !verbose
-      )
-    )
+    ## suppressWarnings(
+    ##   download.file(
+    ##     fileName,
+    ##     method = "libcurl", destfile = tmp,
+    ##     quiet = !verbose
+    ##   )
+    ## )
 
     # Load the rdata object
-    load(tmp)
-
+    load(url(fileName))
+    
     # Reasign
     dat <- get(x)
     

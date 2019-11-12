@@ -8,7 +8,7 @@ importAURN(site = "my1", year = 2009, pollutant = "all",
   hc = FALSE, meta = FALSE, to_narrow = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{site}{Site code of the AURN site to import e.g. "my1" is Marylebone
+\item{site}{Site code of the AURN site to import e.g. \dQuote{my1} is Marylebone
 Road. Several sites can be imported with \code{site = c("my1", "nott")}
 --- to import Marylebone Road and Nottingham for example.}
 

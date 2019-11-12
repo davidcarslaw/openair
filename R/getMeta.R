@@ -21,7 +21,7 @@
 ##' Thanks go to Trevor Davies (Ricardo), Dr Stuart Grange (EMPA) and Dr Ben
 ##' Barratt (KCL) and  for making these data available.
 ##' @param source The data source for the meta data. Can be \dQuote{aurn},
-##'   \dQuote{kcl}, \dQuote{saqn} (or "\dQuote{aqd}), \dQuote{aqe} or
+##'   \dQuote{kcl}, \dQuote{saqn} (or \dQuote{aqd}), \dQuote{aqe} or
 ##'   \dQuote{europe}; upper or lower case.
 ##' @param all When \code{all = FALSE} only the site code, site name, latitude
 ##'   and longitude and site type are imported. Setting \code{all = TRUE} will
