@@ -220,16 +220,16 @@ loadData <- function(x, verbose) {
     )
 
     # No warnings needed, function gives message if file is not present
-    ## suppressWarnings(
-    ##   download.file(
-    ##     fileName,
-    ##     method = "libcurl", destfile = tmp,
-    ##     quiet = !verbose
-    ##   )
-    ## )
+    suppressWarnings(
+      download.file(
+        fileName,
+        method = "libcurl", destfile = tmp,
+        quiet = !verbose
+      )
+    )
 
     # Load the rdata object
-    load(url(fileName))
+    load(tmp)
     
     # Reasign
     dat <- get(x)
