@@ -596,7 +596,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
   ## if stacking of plots by year is needed
   if (stack) {
-    mydata$year <- year(mydata$date)
+    mydata$year <- as.character(year(mydata$date))
     if (is.null(Args$layout)) {
       Args$layout <- c(1, length(unique(mydata$year)))
     }
@@ -606,7 +606,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
     ##  dates <- unique(dateTrunc(mydata$date, "months")) - this does not work?
     dates <- as.POSIXct(unique(paste(format(mydata$date, "%Y-%m"), "-01", sep = "")), "GMT")
 
-    scales <- list(x = list(at = dates, format = "%d-%b", relation = "sliced"), y = list(log = nlog))
+    scales <- list(x = list(format = "%d-%b", relation = "sliced"), y = list(log = nlog))
 
 
     xlim <- lapply(split(mydata, mydata["year"]), function(x) range(x$date))
