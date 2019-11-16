@@ -4,8 +4,13 @@
 \alias{importWAQN}
 \title{Welsh Air Quality Network data import for openair}
 \usage{
-importWAQN(site = "card", year = 2018, pollutant = "all",
-  meta = FALSE, to_narrow = FALSE)
+importWAQN(
+  site = "card",
+  year = 2018,
+  pollutant = "all",
+  meta = FALSE,
+  to_narrow = FALSE
+)
 }
 \arguments{
 \item{site}{Site code of the WAQN site to import e.g. "card" is Cardiff Centre. 

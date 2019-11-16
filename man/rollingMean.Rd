@@ -4,8 +4,15 @@
 \alias{rollingMean}
 \title{Calculate rollingMean values}
 \usage{
-rollingMean(mydata, pollutant = "o3", width = 8,
-  new.name = "rolling", data.thresh = 75, align = "centre", ...)
+rollingMean(
+  mydata,
+  pollutant = "o3",
+  width = 8,
+  new.name = "rolling",
+  data.thresh = 75,
+  align = "centre",
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame containing a \code{date}

@@ -4,10 +4,21 @@
 \alias{kernelExceed}
 \title{Kernel density plot for daily mean exceedance statistics}
 \usage{
-kernelExceed(polar, x = "wd", y = "ws", pollutant = "pm10",
-  type = "default", by = c("day", "dayhour", "all"), limit = 50,
-  data.thresh = 0, more.than = TRUE, cols = "default", nbin = 256,
-  auto.text = TRUE, ...)
+kernelExceed(
+  polar,
+  x = "wd",
+  y = "ws",
+  pollutant = "pm10",
+  type = "default",
+  by = c("day", "dayhour", "all"),
+  limit = 50,
+  data.thresh = 0,
+  more.than = TRUE,
+  cols = "default",
+  nbin = 256,
+  auto.text = TRUE,
+  ...
+)
 }
 \arguments{
 \item{polar}{A data frame minimally containing \code{date} and at least

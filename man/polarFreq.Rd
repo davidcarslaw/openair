@@ -4,13 +4,28 @@
 \alias{polarFreq}
 \title{Function to plot wind speed/direction frequencies and other statistics}
 \usage{
-polarFreq(mydata, pollutant = "", statistic = "frequency",
-  ws.int = 1, wd.nint = 36, grid.line = 5, breaks = seq(0, 5000,
-  500), cols = "default", trans = TRUE, type = "default",
-  min.bin = 1, ws.upper = NA, offset = 10,
-  border.col = "transparent", key.header = statistic,
-  key.footer = pollutant, key.position = "right", key = TRUE,
-  auto.text = TRUE, ...)
+polarFreq(
+  mydata,
+  pollutant = "",
+  statistic = "frequency",
+  ws.int = 1,
+  wd.nint = 36,
+  grid.line = 5,
+  breaks = seq(0, 5000, 500),
+  cols = "default",
+  trans = TRUE,
+  type = "default",
+  min.bin = 1,
+  ws.upper = NA,
+  offset = 10,
+  border.col = "transparent",
+  key.header = statistic,
+  key.footer = pollutant,
+  key.position = "right",
+  key = TRUE,
+  auto.text = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{ws}, \code{wd} and
@@ -194,7 +209,7 @@ polarFreq(mydata)
 min.bin = 2)}
 
 #windRose for just 2000 and 2003 with different colours
-\dontrun{polarFreq(subset(mydata, format(date, "\%Y") \%in\% c(2000, 2003)),
+\dontrun{polarFreq(subset(mydata, format(date, "%Y") %in% c(2000, 2003)),
 type = "year", cols = "jet")}
 
 # user defined breaks from 0-700 in intervals of 100 (note linear scale)

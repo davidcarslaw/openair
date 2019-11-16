@@ -4,9 +4,16 @@
 \alias{importKCL}
 \title{Import data from King's College London networks}
 \usage{
-importKCL(site = "my1", year = 2009, pollutant = "all",
-  met = FALSE, units = "mass", extra = FALSE, meta = FALSE,
-  to_narrow = FALSE)
+importKCL(
+  site = "my1",
+  year = 2009,
+  pollutant = "all",
+  met = FALSE,
+  units = "mass",
+  extra = FALSE,
+  meta = FALSE,
+  to_narrow = FALSE
+)
 }
 \arguments{
 \item{site}{Site code of the network site to import e.g. "my1" is Marylebone

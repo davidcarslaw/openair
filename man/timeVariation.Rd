@@ -4,13 +4,29 @@
 \alias{timeVariation}
 \title{Diurnal, day of the week and monthly variation}
 \usage{
-timeVariation(mydata, pollutant = "nox", local.tz = NULL,
-  normalise = FALSE, xlab = c("hour", "hour", "month", "weekday"),
-  name.pol = pollutant, type = "default", group = NULL,
-  difference = FALSE, statistic = "mean", conf.int = 0.95, B = 100,
-  ci = TRUE, cols = "hue", ref.y = NULL, key = NULL,
-  key.columns = 1, start.day = 1, auto.text = TRUE, alpha = 0.4,
-  ...)
+timeVariation(
+  mydata,
+  pollutant = "nox",
+  local.tz = NULL,
+  normalise = FALSE,
+  xlab = c("hour", "hour", "month", "weekday"),
+  name.pol = pollutant,
+  type = "default",
+  group = NULL,
+  difference = FALSE,
+  statistic = "mean",
+  conf.int = 0.95,
+  B = 100,
+  ci = TRUE,
+  cols = "hue",
+  ref.y = NULL,
+  key = NULL,
+  key.columns = 1,
+  start.day = 1,
+  auto.text = TRUE,
+  alpha = 0.4,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame of hourly (or higher temporal resolution data).

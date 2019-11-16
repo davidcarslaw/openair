@@ -4,16 +4,40 @@
 \alias{polarPlot}
 \title{Function for plotting bivariate polar plots with smoothing.}
 \usage{
-polarPlot(mydata, pollutant = "nox", x = "ws", wd = "wd",
-  type = "default", statistic = "mean", resolution = "fine",
-  limits = NA, exclude.missing = TRUE, uncertainty = FALSE,
-  percentile = NA, cols = "default", weights = c(0.25, 0.5, 0.75),
-  min.bin = 1, mis.col = "grey", alpha = 1, upper = NA,
-  angle.scale = 315, units = x, force.positive = TRUE, k = 100,
-  normalise = FALSE, key.header = "", key.footer = pollutant,
-  key.position = "right", key = TRUE, auto.text = TRUE,
-  ws_spread = 0.5, wd_spread = 4, kernel = "gaussian", tau = 0.5,
-  ...)
+polarPlot(
+  mydata,
+  pollutant = "nox",
+  x = "ws",
+  wd = "wd",
+  type = "default",
+  statistic = "mean",
+  resolution = "fine",
+  limits = NA,
+  exclude.missing = TRUE,
+  uncertainty = FALSE,
+  percentile = NA,
+  cols = "default",
+  weights = c(0.25, 0.5, 0.75),
+  min.bin = 1,
+  mis.col = "grey",
+  alpha = 1,
+  upper = NA,
+  angle.scale = 315,
+  units = x,
+  force.positive = TRUE,
+  k = 100,
+  normalise = FALSE,
+  key.header = "",
+  key.footer = pollutant,
+  key.position = "right",
+  key = TRUE,
+  auto.text = TRUE,
+  ws_spread = 0.5,
+  wd_spread = 4,
+  kernel = "gaussian",
+  tau = 0.5,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{wd}, another variable
@@ -377,7 +401,7 @@ polarPlot(mydata, pollutant = "nox", min.bin = 3)
 # plot by day of the week
 polarPlot(mydata, pollutant = "pm10", type = "weekday")
 
-# show the 95\% confidence intervals in the surface fitting
+# show the 95% confidence intervals in the surface fitting
 polarPlot(mydata, pollutant = "so2", uncertainty = TRUE)
 
 

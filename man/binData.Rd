@@ -4,8 +4,7 @@
 \alias{binData}
 \title{Bin data, calculate mean and bootstrap 95\% confidence interval in the mean}
 \usage{
-binData(mydata, bin = "nox", uncer = "no2", n = 40, interval = NA,
-  breaks = NA)
+binData(mydata, bin = "nox", uncer = "no2", n = 40, interval = NA, breaks = NA)
 }
 \arguments{
 \item{mydata}{Name of the data frame to process.}

@@ -4,14 +4,36 @@
 \alias{timePlot}
 \title{Plot time series}
 \usage{
-timePlot(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
-  normalise = NULL, avg.time = "default", data.thresh = 0,
-  statistic = "mean", percentile = NA, date.pad = FALSE,
-  type = "default", cols = "brewer1", plot.type = "l", key = TRUE,
-  log = FALSE, windflow = NULL, smooth = FALSE, ci = TRUE,
-  y.relation = "same", ref.x = NULL, ref.y = NULL, key.columns = 1,
-  key.position = "bottom", name.pol = pollutant, date.breaks = 7,
-  date.format = NULL, auto.text = TRUE, ...)
+timePlot(
+  mydata,
+  pollutant = "nox",
+  group = FALSE,
+  stack = FALSE,
+  normalise = NULL,
+  avg.time = "default",
+  data.thresh = 0,
+  statistic = "mean",
+  percentile = NA,
+  date.pad = FALSE,
+  type = "default",
+  cols = "brewer1",
+  plot.type = "l",
+  key = TRUE,
+  log = FALSE,
+  windflow = NULL,
+  smooth = FALSE,
+  ci = TRUE,
+  y.relation = "same",
+  ref.x = NULL,
+  ref.y = NULL,
+  key.columns = 1,
+  key.position = "bottom",
+  name.pol = pollutant,
+  date.breaks = 7,
+  date.format = NULL,
+  auto.text = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame of time series. Must include a

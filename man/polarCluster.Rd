@@ -4,9 +4,18 @@
 \alias{polarCluster}
 \title{K-means clustering of bivariate polar plots}
 \usage{
-polarCluster(mydata, pollutant = "nox", x = "ws", wd = "wd",
-  n.clusters = 6, cols = "Paired", angle.scale = 315, units = x,
-  auto.text = TRUE, ...)
+polarCluster(
+  mydata,
+  pollutant = "nox",
+  x = "ws",
+  wd = "wd",
+  n.clusters = 6,
+  cols = "Paired",
+  angle.scale = 315,
+  units = x,
+  auto.text = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{wd}, another
@@ -156,7 +165,7 @@ table(results$data$cluster)
 
 ## plot clusters 3 and 4 as a timeVariation plot using SAME colours as in
 ## cluster plot
-timeVariation(subset(results$data, cluster \%in\% c("3", "4")), pollutant = "nox",
+timeVariation(subset(results$data, cluster %in% c("3", "4")), pollutant = "nox",
 group = "cluster", col = openColours("Paired", 6)[c(3, 4)])
 }
 

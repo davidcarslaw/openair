@@ -4,14 +4,31 @@
 \alias{polarAnnulus}
 \title{Bivariate polarAnnulus plot}
 \usage{
-polarAnnulus(mydata, pollutant = "nox", resolution = "fine",
-  local.tz = NULL, period = "hour", type = "default",
-  statistic = "mean", percentile = NA, limits = c(0, 100),
-  cols = "default", width = "normal", min.bin = 1,
-  exclude.missing = TRUE, date.pad = FALSE, force.positive = TRUE,
-  k = c(20, 10), normalise = FALSE, key.header = "",
-  key.footer = pollutant, key.position = "right", key = TRUE,
-  auto.text = TRUE, ...)
+polarAnnulus(
+  mydata,
+  pollutant = "nox",
+  resolution = "fine",
+  local.tz = NULL,
+  period = "hour",
+  type = "default",
+  statistic = "mean",
+  percentile = NA,
+  limits = c(0, 100),
+  cols = "default",
+  width = "normal",
+  min.bin = 1,
+  exclude.missing = TRUE,
+  date.pad = FALSE,
+  force.positive = TRUE,
+  k = c(20, 10),
+  normalise = FALSE,
+  key.header = "",
+  key.footer = pollutant,
+  key.position = "right",
+  key = TRUE,
+  auto.text = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{date}, \code{wd} and

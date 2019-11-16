@@ -4,10 +4,20 @@
 \alias{linearRelation}
 \title{Linear relations between pollutants}
 \usage{
-linearRelation(mydata, x = "nox", y = "no2", period = "month",
-  condition = FALSE, n = 20, rsq.thresh = 0,
+linearRelation(
+  mydata,
+  x = "nox",
+  y = "no2",
+  period = "month",
+  condition = FALSE,
+  n = 20,
+  rsq.thresh = 0,
   ylab = paste0("slope from ", y, " = m.", x, " + c"),
-  auto.text = TRUE, cols = "grey30", date.breaks = 5, ...)
+  auto.text = TRUE,
+  cols = "grey30",
+  date.breaks = 5,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame minimally containing \code{date} and

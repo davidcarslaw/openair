@@ -4,8 +4,13 @@
 \alias{importSAQN}
 \title{Scottish Air Quality Network data import for openair}
 \usage{
-importSAQN(site = "gla4", year = 2009, pollutant = "all",
-  meta = FALSE, to_narrow = FALSE)
+importSAQN(
+  site = "gla4",
+  year = 2009,
+  pollutant = "all",
+  meta = FALSE,
+  to_narrow = FALSE
+)
 }
 \arguments{
 \item{site}{Site code of the SAQN site to import e.g. "gla4" is Glasgow

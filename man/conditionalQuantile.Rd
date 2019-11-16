@@ -4,11 +4,21 @@
 \alias{conditionalQuantile}
 \title{Conditional quantile estimates for model evaluation}
 \usage{
-conditionalQuantile(mydata, obs = "obs", mod = "mod",
-  type = "default", bins = 31, min.bin = c(10, 20),
-  xlab = "predicted value", ylab = "observed value",
-  col = brewer.pal(5, "YlOrRd"), key.columns = 2,
-  key.position = "bottom", auto.text = TRUE, ...)
+conditionalQuantile(
+  mydata,
+  obs = "obs",
+  mod = "mod",
+  type = "default",
+  bins = 31,
+  min.bin = c(10, 20),
+  xlab = "predicted value",
+  ylab = "observed value",
+  col = brewer.pal(5, "YlOrRd"),
+  key.columns = 2,
+  key.position = "bottom",
+  auto.text = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame containing the field \code{obs} and \code{mod}

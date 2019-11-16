@@ -4,13 +4,33 @@
 \alias{smoothTrend}
 \title{Calculate nonparametric smooth trends}
 \usage{
-smoothTrend(mydata, pollutant = "nox", deseason = FALSE,
-  type = "default", statistic = "mean", avg.time = "month",
-  percentile = NA, data.thresh = 0, simulate = FALSE, n = 200,
-  autocor = FALSE, cols = "brewer1", shade = "grey95",
-  xlab = "year", y.relation = "same", ref.x = NULL, ref.y = NULL,
-  key.columns = length(percentile), name.pol = pollutant, ci = TRUE,
-  alpha = 0.2, date.breaks = 7, auto.text = TRUE, k = NULL, ...)
+smoothTrend(
+  mydata,
+  pollutant = "nox",
+  deseason = FALSE,
+  type = "default",
+  statistic = "mean",
+  avg.time = "month",
+  percentile = NA,
+  data.thresh = 0,
+  simulate = FALSE,
+  n = 200,
+  autocor = FALSE,
+  cols = "brewer1",
+  shade = "grey95",
+  xlab = "year",
+  y.relation = "same",
+  ref.x = NULL,
+  ref.y = NULL,
+  key.columns = length(percentile),
+  name.pol = pollutant,
+  ci = TRUE,
+  alpha = 0.2,
+  date.breaks = 7,
+  auto.text = TRUE,
+  k = NULL,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame containing the field \code{date} and at least one

@@ -3,7 +3,6 @@
 \docType{package}
 \name{openair}
 \alias{openair}
-\alias{openair-package}
 \title{Tools for the analysis of air pollution data}
 \description{
 This is a UK Natural Environment Research Council (NERC)

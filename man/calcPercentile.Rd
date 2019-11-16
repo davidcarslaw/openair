@@ -4,8 +4,14 @@
 \alias{calcPercentile}
 \title{Calculate percentile values from a time series}
 \usage{
-calcPercentile(mydata, pollutant = "o3", avg.time = "month",
-  percentile = 50, data.thresh = 0, start = NA)
+calcPercentile(
+  mydata,
+  pollutant = "o3",
+  avg.time = "month",
+  percentile = 50,
+  data.thresh = 0,
+  start = NA
+)
 }
 \arguments{
 \item{mydata}{A data frame of data with a \code{date} field in the format

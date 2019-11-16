@@ -4,8 +4,13 @@
 \alias{importAQE}
 \title{Air Quality England Network data import for openair}
 \usage{
-importAQE(site = "yk13", year = 2018, pollutant = "all",
-  meta = FALSE, to_narrow = FALSE)
+importAQE(
+  site = "yk13",
+  year = 2018,
+  pollutant = "all",
+  meta = FALSE,
+  to_narrow = FALSE
+)
 }
 \arguments{
 \item{site}{Site code of the AQE site to import e.g. "yk13" is York Heworth

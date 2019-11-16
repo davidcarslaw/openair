@@ -4,9 +4,18 @@
 \alias{cutData}
 \title{Function to split data in different ways for conditioning}
 \usage{
-cutData(x, type = "default", hemisphere = "northern", n.levels = 4,
-  start.day = 1, is.axis = FALSE, local.tz = NULL, latitude = 51,
-  longitude = -0.5, ...)
+cutData(
+  x,
+  type = "default",
+  hemisphere = "northern",
+  n.levels = 4,
+  start.day = 1,
+  is.axis = FALSE,
+  local.tz = NULL,
+  latitude = 51,
+  longitude = -0.5,
+  ...
+)
 }
 \arguments{
 \item{x}{A data frame containing a field \code{date}.}

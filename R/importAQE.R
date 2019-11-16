@@ -82,7 +82,7 @@ importAQE <- function(site = "yk13", year = 2018, pollutant = "all",
         )
 
         suppressWarnings(
-          download.file(fileName, method = "libcurl", dest = tmp, quiet = TRUE)
+          download.file(fileName, method = "libcurl", destfile = tmp, quiet = TRUE)
         )
 
         load(tmp)

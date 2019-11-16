@@ -8,10 +8,19 @@
 \alias{importADMSPst}
 \title{CERC Atmospheric Dispersion Modelling System (ADMS) data import function(s) for openair}
 \usage{
-importADMS(file = file.choose(), file.type = "unknown",
-  drop.case = TRUE, drop.input.dates = TRUE, keep.units = TRUE,
-  simplify.names = TRUE, test.file.structure = TRUE,
-  drop.delim = TRUE, add.prefixes = TRUE, names = NULL, ...)
+importADMS(
+  file = file.choose(),
+  file.type = "unknown",
+  drop.case = TRUE,
+  drop.input.dates = TRUE,
+  keep.units = TRUE,
+  simplify.names = TRUE,
+  test.file.structure = TRUE,
+  drop.delim = TRUE,
+  add.prefixes = TRUE,
+  names = NULL,
+  ...
+)
 }
 \arguments{
 \item{file}{The ADMS file to be imported. Default, \code{file.choose()}

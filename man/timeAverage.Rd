@@ -4,10 +4,20 @@
 \alias{timeAverage}
 \title{Function to calculate time averages for data frames}
 \usage{
-timeAverage(mydata, avg.time = "day", data.thresh = 0,
-  statistic = "mean", type = "default", percentile = NA,
-  start.date = NA, end.date = NA, interval = NA, vector.ws = FALSE,
-  fill = FALSE, ...)
+timeAverage(
+  mydata,
+  avg.time = "day",
+  data.thresh = 0,
+  statistic = "mean",
+  type = "default",
+  percentile = NA,
+  start.date = NA,
+  end.date = NA,
+  interval = NA,
+  vector.ws = FALSE,
+  fill = FALSE,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame containing a \code{date} field . Can be

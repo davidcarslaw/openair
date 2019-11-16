@@ -4,10 +4,19 @@
 \alias{corPlot}
 \title{corrgram plot with conditioning}
 \usage{
-corPlot(mydata, pollutants = NULL, type = "default", cluster = TRUE,
-  dendrogram = FALSE, lower = FALSE, cols = "default",
-  r.thresh = 0.8, text.col = c("black", "black"), auto.text = TRUE,
-  ...)
+corPlot(
+  mydata,
+  pollutants = NULL,
+  type = "default",
+  cluster = TRUE,
+  dendrogram = FALSE,
+  lower = FALSE,
+  cols = "default",
+  r.thresh = 0.8,
+  text.col = c("black", "black"),
+  auto.text = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame which should consist of some numeric

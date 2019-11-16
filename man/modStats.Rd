@@ -4,9 +4,15 @@
 \alias{modStats}
 \title{Calculate common model evaluation statistics}
 \usage{
-modStats(mydata, mod = "mod", obs = "obs", statistic = c("n", "FAC2",
-  "MB", "MGE", "NMB", "NMGE", "RMSE", "r", "COE", "IOA"),
-  type = "default", rank.name = NULL, ...)
+modStats(
+  mydata,
+  mod = "mod",
+  obs = "obs",
+  statistic = c("n", "FAC2", "MB", "MGE", "NMB", "NMGE", "RMSE", "r", "COE", "IOA"),
+  type = "default",
+  rank.name = NULL,
+  ...
+)
 }
 \arguments{
 \item{mydata}{A data frame.}
