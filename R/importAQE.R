@@ -52,17 +52,17 @@
 ##'
 ##' ## import all pollutants from York Fulford Road
 ##' \dontrun{yk16 <- importAQE(site = "yk16", year = 2010:2018)}
-##' 
+##'
 ##' ## return meta data also
 ##' \dontrun{yk16 <- importAQE(site = "yk16", year = 2018, meta = TRUE)}
 ##'
 ##' ## import all pollutants from two sites for 2018
 ##' \dontrun{all <- importAQE(site = c("yk13", "yk16"), year = 2018)}
 ##'
-##' 
-importAQE <- function(site = "yk13", year = 2018, pollutant = "all", 
-                       meta = FALSE,
-                       to_narrow = FALSE) {
+##'
+importAQE <- function(site = "yk13", year = 2018, pollutant = "all",
+                      meta = FALSE,
+                      to_narrow = FALSE) {
   site <- toupper(site)
 
 
@@ -72,36 +72,38 @@ importAQE <- function(site = "yk13", year = 2018, pollutant = "all",
 
 
   loadData <- function(x) {
-    tryCatch({
-      fileName <- paste("https://airqualityengland.co.uk/assets/openair/R_data/", x, ".RData", sep = "")
-      con <- url(fileName)
-      load(con, envir = .GlobalEnv)
-      x
-    },
-    error = function(ex) {
-      cat(x, "does not exist - ignoring that one.\n")
-    },
-    finally = {
-        close(con)
-    }
+    tryCatch(
+      {
+        tmp <- tempfile()
+
+        fileName <- paste("https://airqualityengland.co.uk/assets/openair/R_data/",
+          x, ".RData",
+          sep = ""
+        )
+
+        suppressWarnings(
+          download.file(fileName, method = "libcurl", dest = tmp, quiet = TRUE)
+        )
+
+        load(tmp)
+        dat <- get(x)
+        dat$code <- as.character(dat$code)
+        return(dat)
+      },
+      error = function(ex) {
+        cat(x, "does not exist - ignoring that one.\n")
+      }
     )
   }
 
-  thedata <- lapply(files, loadData)
-
+  thedata <- map_dfr(files, loadData)
+  
   # Return if no data
-  if (length(thedata) == 0) return() ## no data
+  if (length(thedata) == 0) {
+    return()
+  } ## no data
 
-  theObjs <- unlist(thedata)
-  ## note unlist will drop NULLs from non-existant sites/years
-  mylist <- lapply(theObjs, get)
-
-  thedata <- suppressWarnings(do.call(bind_rows, mylist))
-  if (is.null(thedata) || nrow(thedata) == 0) stop("No data to import - check site codes and year.", call. = FALSE)
-
-  thedata$site <- factor(thedata$site, levels = unique(thedata$site))
-
-  ## change names
+   ## change names
   names(thedata) <- tolower(names(thedata))
 
   ## change nox as no2
@@ -136,7 +138,7 @@ importAQE <- function(site = "yk13", year = 2018, pollutant = "all",
     thedata <- thedata[, c("date", pollutant, "site", "code")]
   }
 
-  rm(list = theObjs, pos = 1)
+  #  rm(list = theObjs, pos = 1)
 
   ## warning about recent, possibly unratified data
   timeDiff <- difftime(Sys.time(), max(thedata$date), units = "days")
@@ -146,26 +148,22 @@ importAQE <- function(site = "yk13", year = 2018, pollutant = "all",
 
   ## make sure it is in GMT
   attr(thedata$date, "tzone") <- "GMT"
-  
+
   if (meta) {
     meta_data <- importMeta(source = "aqe")
     # suppress warnings about factors
     thedata <- suppressWarnings(inner_join(thedata, meta_data, by = c("code", "site")))
   }
-  
+
   if (to_narrow) {
-    
     if (meta) {
-      
-      thedata <- pivot_longer(thedata, -c(date, site, code, latitude, longitude, site.type), 
-                              names_to = "pollutant") %>% 
+      thedata <- pivot_longer(thedata, -c(date, site, code, latitude, longitude, site.type),
+        names_to = "pollutant"
+      ) %>%
         arrange(site, code, pollutant, date)
-      
     } else {
-      
-      thedata <- pivot_longer(thedata, -c(date, site, code), names_to = "pollutant") %>% 
+      thedata <- pivot_longer(thedata, -c(date, site, code), names_to = "pollutant") %>%
         arrange(site, code, pollutant, date)
-      
     }
   }
 
