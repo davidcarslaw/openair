@@ -1,9 +1,16 @@
-## openair 2.6-99
+## openair 2.7-0
 
 - fix `calendarPlot` slowness on MacOS
-- Refine use of Gaussian kernels when two pollutant statistics are considered in `polarPlot`
-- Add option `statistic = "nwr"` in `polarPlot` that implements the Non-parametric Wind Regression based on Henry et al. (2009). The `openair` implmentation is not identical but should yield similar results.
-- NEW `importAQE` function to import data from [Air Quality England](https://www.airqualityengland.co.uk/) sites.
+- Refine use of Gaussian kernels when two pollutant statistics are
+  considered in `polarPlot`
+- Add option `statistic = "nwr"` in `polarPlot` that implements the
+  Non-parametric Wind Regression based on Henry et al. (2009). The
+  `openair` implmentation is not identical but should yield similar
+  results.
+- NEW `importAQE` function to import data from [Air Quality
+  England](https://www.airqualityengland.co.uk/) sites.
+- NEW `importEurope` to provide access to some the data from the
+  `saqgetr` package.
 
 
 ## openair 2.6-6
