@@ -1,3 +1,7 @@
+## openair 2.7-99
+
+- fix shading issue in lowest percentile range in `percentileRose`.
+
 ## openair 2.7-0
 
 - fix `calendarPlot` slowness on MacOS
