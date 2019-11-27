@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -111,16 +111,36 @@
     <p>Theil-Sen slope estimates and tests for trend.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>deseason</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
-  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>dec.place</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>lab.frac</span> <span class='kw'>=</span> <span class='fl'>0.99</span>, <span class='kw'>lab.cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
-  <span class='kw'>x.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>, <span class='kw'>y.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
-  <span class='kw'>data.col</span> <span class='kw'>=</span> <span class='st'>"cornflowerblue"</span>, <span class='kw'>trend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>lty</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,
-  <span class='fl'>1</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"red"</span>)), <span class='kw'>text.col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>,
-  <span class='kw'>slope.text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>shade</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>autocor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>slope.percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>TheilSen</span>(
+  <span class='no'>mydata</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
+  <span class='kw'>deseason</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
+  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>,
+  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
+  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>dec.place</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"year"</span>,
+  <span class='kw'>lab.frac</span> <span class='kw'>=</span> <span class='fl'>0.99</span>,
+  <span class='kw'>lab.cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
+  <span class='kw'>x.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
+  <span class='kw'>y.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
+  <span class='kw'>data.col</span> <span class='kw'>=</span> <span class='st'>"cornflowerblue"</span>,
+  <span class='kw'>trend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>lty</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"red"</span>)),
+  <span class='kw'>text.col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>,
+  <span class='kw'>slope.text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>shade</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
+  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>autocor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>slope.percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>,
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

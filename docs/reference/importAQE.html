@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Welsh Air Quality Network data import for openair — importWAQN • openair</title>
+<title>Air Quality England Network data import for openair — importAQE • openair</title>
 
 
 <!-- jquery -->
@@ -35,11 +35,11 @@
 
 
 
-<meta property="og:title" content="Welsh Air Quality Network data import for openair — importWAQN" />
-<meta property="og:description" content="Function for importing hourly mean Welsh Air Quality Network (WAQN)
-archive data files for use with the openair package. Files are
-imported from a remote server operated by Ricardo that provides air quality data
-files as R data objects." />
+<meta property="og:title" content="Air Quality England Network data import for openair — importAQE" />
+<meta property="og:description" content="Function for importing hourly mean Air Quality England (AQE) archive data
+files for use with the openair package. Files are imported from a
+remote server operated by Ricardo that provides air quality data files as R
+data objects." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,20 +105,20 @@ files as R data objects." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Welsh Air Quality Network data import for openair</h1>
+    <h1>Air Quality England Network data import for openair</h1>
     
-    <div class="hidden name"><code>importWAQN.Rd</code></div>
+    <div class="hidden name"><code>importAQE.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Function for importing hourly mean Welsh Air Quality Network (WAQN)
-archive data files for use with the <code>openair</code> package. Files are
-imported from a remote server operated by Ricardo that provides air quality data
-files as R data objects.</p>
+    <p>Function for importing hourly mean Air Quality England (AQE) archive data
+files for use with the <code>openair</code> package. Files are imported from a
+remote server operated by Ricardo that provides air quality data files as R
+data objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>importWAQN</span>(
-  <span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"card"</span>,
+    <pre class="usage"><span class='fu'>importAQE</span>(
+  <span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"yk13"</span>,
   <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2018</span>,
   <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
   <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -130,14 +130,15 @@ files as R data objects.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>site</th>
-      <td><p>Site code of the WAQN site to import e.g. "card" is Cardiff Centre. 
-Several sites can be imported with <code>site = c("card", "cae6")</code>
-  --- to import Cardiff Centre and Hafod-yr-ynys Roadside for example.</p></td>
+      <td><p>Site code of the AQE site to import e.g. "yk13" is York Heworth
+Green. Several sites can be imported with <code>site = c("yk13", "yk16")</code>
+--- to import York Heworth Green and York Fulford Road Roadside for
+example.</p></td>
     </tr>
     <tr>
       <th>year</th>
       <td><p>Year or years to import. To import a sequence of years from 1990
-to 2000 use <code>year = 1990:2000</code>. To import several specfic years use
+to 2000 use <code>year = 1990:2000</code>. To import several specific years use
 <code>year = c(1990, 1995, 2000)</code> for example.</p></td>
     </tr>
     <tr>
@@ -165,28 +166,38 @@ a narrow format with a column identifying the pollutant name.</p></td>
   class and time zone GMT.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>importWAQN</code> function has been written to make it easy to import
-data from the Welsh Air Quality Network (WAQN) ---
-<a href='https://airquality.gov.wales/'>https://airquality.gov.wales/</a>. Ricardo have provided
-.RData files (R workspaces) of all individual sites and years for the WAQN.
-These files are updated on a daily basis. This approach requires a link to
-the Internet to work.</p>
+    <p>The <code>importAQE</code> function has been written to make it easy to import
+data from the Air Quality England (AQE) ---
+<a href='https://www.airqualityengland.co.uk/'>https://www.airqualityengland.co.uk/</a>. Ricardo have provided .RData
+files (R workspaces) of all individual sites and years for the AQE. These
+files are updated on a daily basis. This approach requires a link to the
+Internet to work.</p>
 <p>For a list of up to date site codes and site information, see
 <code><a href='importMeta.html'>importMeta</a></code> and in particular <code><a href='importMeta.html'>importMeta(source =
-"waqn")</a></code>.</p>
+"aqe")</a></code>.</p>
 <p>The site codes and pollutant names can be upper or lower case. The function
 will issue a warning when data less than six months old is downloaded, which
 may not be ratified.</p>
-<p>The function also returns wind speed (ws) and direction (wd) for more recent
-years derived from WRF (regional meteorological model).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='importAURN.html'>importAURN</a></code> for data elsewhere in the UK and
+    <div class='dont-index'><p>See family of air quality neiwork import functions including
+  <code><a href='importAURN.html'>importAURN</a></code> for data elsewhere in the UK and
   <code><a href='importKCL.html'>importKCL</a></code> for importing comprehensive data in and around
   London.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'>
+<span class='co'>## see what sites are available</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>meta</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importMeta.html'>importMeta</a></span>(<span class='st'>"aqe"</span>)
+
+<span class='co'>## import all pollutants from York Fulford Road</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>yk16</span> <span class='kw'>&lt;-</span> <span class='fu'>importAQE</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"yk16"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>:<span class='fl'>2018</span>)
+
+<span class='co'>## return meta data also</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>yk16</span> <span class='kw'>&lt;-</span> <span class='fu'>importAQE</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"yk16"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2018</span>, <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='co'>## import all pollutants from two sites for 2018</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>all</span> <span class='kw'>&lt;-</span> <span class='fu'>importAQE</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"yk13"</span>, <span class='st'>"yk16"</span>), <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2018</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -73,7 +73,7 @@ column and time in another." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -119,11 +119,24 @@ either a date or date/time in a single column or a date in one
 column and time in another.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>import</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span>(), <span class='kw'>file.type</span> <span class='kw'>=</span> <span class='st'>"csv"</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>","</span>,
-  <span class='kw'>header.at</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>data.at</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='st'>"date"</span>,
-  <span class='kw'>date.format</span> <span class='kw'>=</span> <span class='st'>"%d/%m/%Y %H:%M"</span>, <span class='kw'>time</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>time.format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tzone</span> <span class='kw'>=</span> <span class='st'>"GMT"</span>, <span class='kw'>na.strings</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
-  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>, <span class='kw'>ws</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>wd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>correct.time</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>import</span>(
+  <span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span>(),
+  <span class='kw'>file.type</span> <span class='kw'>=</span> <span class='st'>"csv"</span>,
+  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>","</span>,
+  <span class='kw'>header.at</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>data.at</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>date</span> <span class='kw'>=</span> <span class='st'>"date"</span>,
+  <span class='kw'>date.format</span> <span class='kw'>=</span> <span class='st'>"%d/%m/%Y %H:%M"</span>,
+  <span class='kw'>time</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>time.format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>tzone</span> <span class='kw'>=</span> <span class='st'>"GMT"</span>,
+  <span class='kw'>na.strings</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>, <span class='st'>"NA"</span>),
+  <span class='kw'>quote</span> <span class='kw'>=</span> <span class='st'>"\""</span>,
+  <span class='kw'>ws</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>wd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>correct.time</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

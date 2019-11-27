@@ -74,7 +74,7 @@ relationships are consistent with emissions inventories." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -121,10 +121,20 @@ function is particularly useful when considering whether
 relationships are consistent with emissions inventories.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"month"</span>,
-  <span class='kw'>condition</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>rsq.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+    <pre class="usage"><span class='fu'>linearRelation</span>(
+  <span class='no'>mydata</span>,
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"no2"</span>,
+  <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"month"</span>,
+  <span class='kw'>condition</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>rsq.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"slope from "</span>, <span class='no'>y</span>, <span class='st'>" = m."</span>, <span class='no'>x</span>, <span class='st'>" + c"</span>),
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"grey30"</span>, <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"grey30"</span>,
+  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

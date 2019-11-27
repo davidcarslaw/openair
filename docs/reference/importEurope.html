@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Divide up a data frame by time — splitByDate • openair</title>
+<title>Import air quality data from European database — importEurope • openair</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,14 @@
 
 
 
-<meta property="og:title" content="Divide up a data frame by time — splitByDate" />
-<meta property="og:description" content="Utility function to prepare input data for use in openair functions" />
+<meta property="og:title" content="Import air quality data from European database — importEurope" />
+<meta property="og:description" content="This function is a simplified version of the saqgetr package (see
+https://github.com/skgrange/saqgetr) for accessing European air quality
+data. The function only returns valid hourly data and is meant as a fast and
+convenient way of accessing the most common type of hourly air quality data.
+The function works in the same way as other openair functions that
+import air quality data that generally need a site code and year to be
+supplied." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -102,71 +108,82 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Divide up a data frame by time</h1>
+    <h1>Import air quality data from European database</h1>
     
-    <div class="hidden name"><code>splitByDate.Rd</code></div>
+    <div class="hidden name"><code>importEurope.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Utility function to prepare input data for use in openair functions</p>
+    <p>This function is a simplified version of the <code>saqgetr</code> package (see
+<a href='https://github.com/skgrange/saqgetr'>https://github.com/skgrange/saqgetr</a>) for accessing European air quality
+data. The function only returns valid hourly data and is meant as a fast and
+convenient way of accessing the most common type of hourly air quality data.
+The function works in the same way as other <code>openair</code> functions that
+import air quality data that generally need a site code and year to be
+supplied.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>splitByDate</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>dates</span> <span class='kw'>=</span> <span class='st'>"1/1/2003"</span>,
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"before"</span>, <span class='st'>"after"</span>),
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"split.by"</span>
+    <pre class="usage"><span class='fu'>importEurope</span>(
+  <span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"debw118"</span>,
+  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2018</span>,
+  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
+  <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>to_narrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mydata</th>
-      <td><p>A data frame containing a <code>date</code> field in hourly or high
-resolution format.</p></td>
+      <th>site</th>
+      <td><p>The code of the site(s).</p></td>
     </tr>
     <tr>
-      <th>dates</th>
-      <td><p>A date or dates to split data by.</p></td>
+      <th>year</th>
+      <td><p>Year or years to import. To import a sequence of years from 1990
+to 2000 use <code>year = 1990:2000</code>. To import several specific years use
+<code>year = c(1990, 1995, 2000)</code> for example.</p></td>
     </tr>
     <tr>
-      <th>labels</th>
-      <td><p>Labels for each time partition.</p></td>
+      <th>tz</th>
+      <td><p>Not used</p></td>
     </tr>
     <tr>
-      <th>name</th>
-      <td><p>The name to give the new column to identify the periods split</p></td>
+      <th>meta</th>
+      <td><p>Should meta data be returned? If <code>TRUE</code> the site type,
+latitude and longitude are returned.</p></td>
+    </tr>
+    <tr>
+      <th>to_narrow</th>
+      <td><p>By default the returned data has a column for each
+pollutant/variable. When <code>to_narrow = TRUE</code> the data are stacked into
+a narrow format with a column identifying the pollutant name.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A tibble of data.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function partitions a data frame up into different time segments. It
-produces a new column called controlled by <code>name</code> that can be used in many
-<code>openair</code> functions. Note that there must be one more label than there
-are dates. See examples below and in full <code>openair</code> documentation.</p>
+    <p>The function can however return key site meta data.</p>
+<p>The <code>saqgetr</code> package is much more comprehensive and provides data at
+other time averages e.g. daily data.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>## split data up into "before" and "after"</span>
-<span class='no'>mydata</span> <span class='kw'>&lt;-</span> <span class='fu'>splitByDate</span>(<span class='no'>mydata</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='st'>"1/04/2000"</span>,
-<span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"before"</span>, <span class='st'>"after"</span>))
-
-<span class='co'>## split data into 3 partitions:</span>
-<span class='no'>mydata</span> <span class='kw'>&lt;-</span> <span class='fu'>splitByDate</span>(<span class='no'>mydata</span>, <span class='kw'>dates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1/1/2000"</span>, <span class='st'>"1/3/2003"</span>),
-<span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"before"</span>, <span class='st'>"during"</span>, <span class='st'>"after"</span>))</div></pre>
+ <span class='co'># import data for Stuttgart Am Neckartor (S)	</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>stuttgart</span> <span class='kw'>&lt;-</span> <span class='fu'>importEurope</span>(<span class='st'>"debw118"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>:<span class='fl'>2019</span>, <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
-    <h2>Author</h2>
-    <p>David Carslaw</p>
   </div>
 </div>
 

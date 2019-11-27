@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -111,8 +111,15 @@
     <p>Calculate rollingMean values taking account of data capture thresholds</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rollingMean</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>8</span>,
-  <span class='kw'>new.name</span> <span class='kw'>=</span> <span class='st'>"rolling"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>, <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"centre"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>rollingMean</span>(
+  <span class='no'>mydata</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>8</span>,
+  <span class='kw'>new.name</span> <span class='kw'>=</span> <span class='st'>"rolling"</span>,
+  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>,
+  <span class='kw'>align</span> <span class='kw'>=</span> <span class='st'>"centre"</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

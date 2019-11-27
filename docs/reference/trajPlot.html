@@ -70,7 +70,7 @@ imported using the importTraj function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -113,11 +113,26 @@ imported using the importTraj function." />
 imported using the <code>importTraj</code> function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trajPlot</span>(<span class='no'>mydata</span>, <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"lon"</span>, <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"lat"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"height"</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>map.fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>map.res</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>map.cols</span> <span class='kw'>=</span> <span class='st'>"grey40"</span>, <span class='kw'>map.alpha</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
-  <span class='kw'>projection</span> <span class='kw'>=</span> <span class='st'>"lambert"</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>51</span>, <span class='fl'>51</span>), <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>90</span>,
-  <span class='fl'>0</span>, <span class='fl'>0</span>), <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"deepskyblue"</span>, <span class='kw'>npoints</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>origin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>trajPlot</span>(
+  <span class='no'>mydata</span>,
+  <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"lon"</span>,
+  <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"lat"</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"height"</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
+  <span class='kw'>map</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>map.fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>map.res</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
+  <span class='kw'>map.cols</span> <span class='kw'>=</span> <span class='st'>"grey40"</span>,
+  <span class='kw'>map.alpha</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
+  <span class='kw'>projection</span> <span class='kw'>=</span> <span class='st'>"lambert"</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>51</span>, <span class='fl'>51</span>),
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>90</span>, <span class='fl'>0</span>, <span class='fl'>0</span>),
+  <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"deepskyblue"</span>,
+  <span class='kw'>npoints</span> <span class='kw'>=</span> <span class='fl'>12</span>,
+  <span class='kw'>origin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

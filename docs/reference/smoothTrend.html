@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -111,13 +111,33 @@
     <p>Use non-parametric methods to calculate time series trends</p>
     </div>
 
-    <pre class="usage"><span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>deseason</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>,
-  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>simulate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>200</span>,
-  <span class='kw'>autocor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>, <span class='kw'>shade</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>y.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>, <span class='kw'>ref.x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ref.y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>percentile</span>), <span class='kw'>name.pol</span> <span class='kw'>=</span> <span class='no'>pollutant</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>smoothTrend</span>(
+  <span class='no'>mydata</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
+  <span class='kw'>deseason</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
+  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
+  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>,
+  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>simulate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>200</span>,
+  <span class='kw'>autocor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>,
+  <span class='kw'>shade</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"year"</span>,
+  <span class='kw'>y.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
+  <span class='kw'>ref.x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ref.y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>percentile</span>),
+  <span class='kw'>name.pol</span> <span class='kw'>=</span> <span class='no'>pollutant</span>,
+  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>,
+  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>k</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

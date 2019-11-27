@@ -73,7 +73,7 @@ pollutant across many sites." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -119,12 +119,26 @@ summary statistics and plots of variable distributions.
 pollutant across many sites.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>summaryPlot</span>(<span class='no'>mydata</span>, <span class='kw'>na.len</span> <span class='kw'>=</span> <span class='fl'>24</span>, <span class='kw'>clip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>0.99</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"histogram"</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"years"</span>,
-  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>, <span class='kw'>print.datacap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col.trend</span> <span class='kw'>=</span> <span class='st'>"darkgoldenrod2"</span>, <span class='kw'>col.data</span> <span class='kw'>=</span> <span class='st'>"lightblue"</span>,
-  <span class='kw'>col.mis</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></span>(<span class='fl'>0.65</span>, <span class='fl'>0.04</span>, <span class='fl'>0.07</span>), <span class='kw'>col.hist</span> <span class='kw'>=</span> <span class='st'>"forestgreen"</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>summaryPlot</span>(
+  <span class='no'>mydata</span>,
+  <span class='kw'>na.len</span> <span class='kw'>=</span> <span class='fl'>24</span>,
+  <span class='kw'>clip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>0.99</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"histogram"</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
+  <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"years"</span>,
+  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>,
+  <span class='kw'>print.datacap</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col.trend</span> <span class='kw'>=</span> <span class='st'>"darkgoldenrod2"</span>,
+  <span class='kw'>col.data</span> <span class='kw'>=</span> <span class='st'>"lightblue"</span>,
+  <span class='kw'>col.mis</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></span>(<span class='fl'>0.65</span>, <span class='fl'>0.04</span>, <span class='fl'>0.07</span>),
+  <span class='kw'>col.hist</span> <span class='kw'>=</span> <span class='st'>"forestgreen"</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>,
+  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

@@ -72,7 +72,7 @@ uncertainties shown." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -117,17 +117,46 @@ also has options for fitting smooth fits and linear models with
 uncertainties shown.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scatterPlot</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"scatter"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>spline</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>linear</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>mod.line</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"hue"</span>, <span class='kw'>plot.type</span> <span class='kw'>=</span> <span class='st'>"p"</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>key.title</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>, <span class='kw'>strip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>log.x</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>log.y</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x.inc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y.inc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>windflow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>, <span class='kw'>x.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
-  <span class='kw'>ref.x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ref.y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.02</span>, <span class='kw'>map</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>scatterPlot</span>(
+  <span class='no'>mydata</span>,
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"no2"</span>,
+  <span class='kw'>z</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"scatter"</span>,
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
+  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
+  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
+  <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>spline</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>linear</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>mod.line</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"hue"</span>,
+  <span class='kw'>plot.type</span> <span class='kw'>=</span> <span class='st'>"p"</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>key.title</span> <span class='kw'>=</span> <span class='no'>group</span>,
+  <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
+  <span class='kw'>strip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>log.x</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>log.y</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x.inc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y.inc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>windflow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>y.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
+  <span class='kw'>x.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
+  <span class='kw'>ref.x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ref.y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>dist</span> <span class='kw'>=</span> <span class='fl'>0.02</span>,
+  <span class='kw'>map</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

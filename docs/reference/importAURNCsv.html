@@ -73,7 +73,7 @@ reshape)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -119,12 +119,23 @@ uses <code>read.table</code> (in <code>utils</code>) and <code>rbind</code> (in
 <code>reshape</code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>importAURNCsv</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span>(), <span class='kw'>header.at</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>data.at</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-  <span class='kw'>na.strings</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"No data"</span>, <span class='st'>""</span>, <span class='st'>"NA"</span>), <span class='kw'>date.name</span> <span class='kw'>=</span> <span class='st'>"Date"</span>,
-  <span class='kw'>date.break</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='kw'>time.name</span> <span class='kw'>=</span> <span class='st'>"time"</span>, <span class='kw'>misc.info</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>),
-  <span class='kw'>is.site</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>bad.24</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>correct.time</span> <span class='kw'>=</span> -<span class='fl'>3600</span>,
-  <span class='kw'>output</span> <span class='kw'>=</span> <span class='st'>"final"</span>, <span class='kw'>data.order</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"value"</span>, <span class='st'>"status"</span>, <span class='st'>"unit"</span>),
-  <span class='kw'>simplify.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>importAURNCsv</span>(
+  <span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span>(),
+  <span class='kw'>header.at</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>data.at</span> <span class='kw'>=</span> <span class='fl'>7</span>,
+  <span class='kw'>na.strings</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"No data"</span>, <span class='st'>""</span>, <span class='st'>"NA"</span>),
+  <span class='kw'>date.name</span> <span class='kw'>=</span> <span class='st'>"Date"</span>,
+  <span class='kw'>date.break</span> <span class='kw'>=</span> <span class='st'>"-"</span>,
+  <span class='kw'>time.name</span> <span class='kw'>=</span> <span class='st'>"time"</span>,
+  <span class='kw'>misc.info</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>),
+  <span class='kw'>is.site</span> <span class='kw'>=</span> <span class='fl'>4</span>,
+  <span class='kw'>bad.24</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>correct.time</span> <span class='kw'>=</span> -<span class='fl'>3600</span>,
+  <span class='kw'>output</span> <span class='kw'>=</span> <span class='st'>"final"</span>,
+  <span class='kw'>data.order</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"value"</span>, <span class='st'>"status"</span>, <span class='st'>"unit"</span>),
+  <span class='kw'>simplify.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

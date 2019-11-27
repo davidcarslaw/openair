@@ -70,7 +70,7 @@ or in separate panels." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -113,14 +113,36 @@ or in separate panels." />
 or in separate panels.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>date.pad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>, <span class='kw'>plot.type</span> <span class='kw'>=</span> <span class='st'>"l"</span>, <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>windflow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>y.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>, <span class='kw'>ref.x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ref.y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>, <span class='kw'>name.pol</span> <span class='kw'>=</span> <span class='no'>pollutant</span>, <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-  <span class='kw'>date.format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>timePlot</span>(
+  <span class='no'>mydata</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
+  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
+  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>date.pad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>,
+  <span class='kw'>plot.type</span> <span class='kw'>=</span> <span class='st'>"l"</span>,
+  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>windflow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>y.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
+  <span class='kw'>ref.x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ref.y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>,
+  <span class='kw'>name.pol</span> <span class='kw'>=</span> <span class='no'>pollutant</span>,
+  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>,
+  <span class='kw'>date.format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -444,7 +466,7 @@ the plotting area and therefore the information shown.</p>
 <span class='co'># alternative by normalising concentrations and plotting on the same</span>
   <span class='no'>scale</span></div><div class='output co'>#&gt; function (x, center = TRUE, scale = TRUE) 
 #&gt; UseMethod("scale")
-#&gt; &lt;bytecode: 0x7fb7324dcc50&gt;
+#&gt; &lt;bytecode: 0x7fd8232c5968&gt;
 #&gt; &lt;environment: namespace:base&gt;</div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"nox"</span>, <span class='st'>"co"</span>, <span class='st'>"pm10"</span>, <span class='st'>"so2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span>
   <span class='st'>"year"</span>, <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='st'>"1/1/1998"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>)

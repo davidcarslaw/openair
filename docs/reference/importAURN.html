@@ -72,7 +72,7 @@ provides air quality data files as R data objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -117,15 +117,22 @@ package. Files are imported from a remote server operated by AEA that
 provides air quality data files as R data objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>importAURN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>to_narrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>importAURN</span>(
+  <span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>,
+  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
+  <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>to_narrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>site</th>
-      <td><p>Site code of the AURN site to import e.g. "my1" is Marylebone
+      <td><p>Site code of the AURN site to import e.g. &#8220;my1&#8221; is Marylebone
 Road. Several sites can be imported with <code>site = c("my1", "nott")</code>
 --- to import Marylebone Road and Nottingham for example.</p></td>
     </tr>

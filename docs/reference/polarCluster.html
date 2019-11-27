@@ -71,7 +71,7 @@ subsequent processing." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -115,9 +115,18 @@ subsequent processing." />
 subsequent processing.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>polarCluster</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>wd</span> <span class='kw'>=</span> <span class='st'>"wd"</span>,
-  <span class='kw'>n.clusters</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"Paired"</span>, <span class='kw'>angle.scale</span> <span class='kw'>=</span> <span class='fl'>315</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='no'>x</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>polarCluster</span>(
+  <span class='no'>mydata</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"ws"</span>,
+  <span class='kw'>wd</span> <span class='kw'>=</span> <span class='st'>"wd"</span>,
+  <span class='kw'>n.clusters</span> <span class='kw'>=</span> <span class='fl'>6</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"Paired"</span>,
+  <span class='kw'>angle.scale</span> <span class='kw'>=</span> <span class='fl'>315</span>,
+  <span class='kw'>units</span> <span class='kw'>=</span> <span class='no'>x</span>,
+  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -272,31 +281,7 @@ k-means clustering. Environmental Modelling &amp; Software, 40,
     <div class='dont-index'><p><code><a href='polarPlot.html'>polarPlot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'># load example data from package</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>mydata</span>)
-
-<span class='co'>## plot 2-8 clusters. Warning! This can take several minutes...</span>
-
-<span class='fu'>polarCluster</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>n.clusters</span> <span class='kw'>=</span> <span class='fl'>2</span>:<span class='fl'>8</span>)
-
-
-<span class='co'># basic plot with 6 clusters</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>polarCluster</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>n.clusters</span> <span class='kw'>=</span> <span class='fl'>6</span>)
-
-<span class='co'>## get results, could read into a new data frame to make it easier to refer to</span>
-<span class='co'>## e.g. results &lt;- results$data...</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>results</span>$<span class='no'>data</span>)
-
-<span class='co'>## how many points are there in each cluster?</span>
-<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>results</span>$<span class='no'>data</span>$<span class='no'>cluster</span>)
-
-<span class='co'>## plot clusters 3 and 4 as a timeVariation plot using SAME colours as in</span>
-<span class='co'>## cluster plot</span>
-<span class='fu'><a href='timeVariation.html'>timeVariation</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>results</span>$<span class='no'>data</span>, <span class='no'>cluster</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"3"</span>, <span class='st'>"4"</span>)), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
-<span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"cluster"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='openColours.html'>openColours</a></span>(<span class='st'>"Paired"</span>, <span class='fl'>6</span>)[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>)])
-}</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

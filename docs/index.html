@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
       </span>
     </div>
 
@@ -79,8 +79,8 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Installation of openair from GitHub is easy using the devtools package. Note, because openair contains C++ code a compiler is also needed. For Windows - for example, <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> is needed.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(devtools)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">'davidcarslaw/openair'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(devtools)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">'davidcarslaw/openair'</span>)</span></code></pre></div>
 <p>I also try to keep up to date versions of the package <a href="https://www.dropbox.com/sh/x8mmf5d54wfo5vq/AACpKqsrPkTC0guiu5ftiKNna?dl=0">here</a> if you can’t build the package yourself.</p>
 </div>
 <div id="description" class="section level2">
@@ -107,46 +107,46 @@
 <h3 class="hasAnchor">
 <a href="#import-data-from-the-uk-automatic-urban-and-rural-network" class="anchor"></a>Import data from the UK Automatic Urban and Rural Network</h3>
 <p>It is easy to import hourly data from 100s of sites and to import several sites at one time and several years of data.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(openair)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN.html">importAURN</a></span>(<span class="dt">site =</span> <span class="st">"kc1"</span>, <span class="dt">year =</span> <span class="dv">2011</span><span class="op">:</span><span class="dv">2012</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(kc1)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">##                  date code                 site o3 no2  co so2 pm10 nox no</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">## 1 2011-01-01 00:00:00  KC1 London N. Kensington 14  38 0.2   5   40  44  4</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">## 2 2011-01-01 01:00:00  KC1 London N. Kensington 28  29 0.2   3   36  38  6</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">## 3 2011-01-01 02:00:00  KC1 London N. Kensington 18  31 0.2   3   31  32  1</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">## 4 2011-01-01 03:00:00  KC1 London N. Kensington 14  29 0.2   3   31  31  1</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">## 5 2011-01-01 04:00:00  KC1 London N. Kensington 16  29 0.2   3   29  31  1</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">## 6 2011-01-01 05:00:00  KC1 London N. Kensington 24  27 0.1   3   25  29  1</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">##   pm2.5 nv2.5 v2.5 nv10 v10  ws    wd</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">## 1    39    32    7   32   8 1.1 266.7</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">## 2    30    24    6   29   7 1.2 271.9</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">## 3    31    23    8   24   7 1.5 276.3</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">## 4    29    21    8   23   8 2.1 278.7</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">## 5    25    19    6   21   8 2.7 289.6</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">## 6    23    16    7   18   7 2.8 303.6</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(openair)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>kc1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/importAURN.html">importAURN</a></span>(<span class="dt">site =</span> <span class="st">"kc1"</span>, <span class="dt">year =</span> <span class="dv">2011</span><span class="op">:</span><span class="dv">2012</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(kc1)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">##                  date code                 site o3 no2  co so2 pm10 nox no</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">## 1 2011-01-01 00:00:00  KC1 London N. Kensington 14  38 0.2   5   40  44  4</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">## 2 2011-01-01 01:00:00  KC1 London N. Kensington 28  29 0.2   3   36  38  6</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">## 3 2011-01-01 02:00:00  KC1 London N. Kensington 18  31 0.2   3   31  32  1</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">## 4 2011-01-01 03:00:00  KC1 London N. Kensington 14  29 0.2   3   31  31  1</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">## 5 2011-01-01 04:00:00  KC1 London N. Kensington 16  29 0.2   3   29  31  1</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">## 6 2011-01-01 05:00:00  KC1 London N. Kensington 24  27 0.1   3   25  29  1</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">##   pm2.5 nv2.5 v2.5 nv10 v10  ws    wd</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">## 1    39    32    7   32   8 1.1 266.7</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">## 2    30    24    6   29   7 1.2 271.9</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">## 3    31    23    8   24   7 1.5 276.3</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">## 4    29    21    8   23   8 2.1 278.7</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">## 5    25    19    6   21   8 2.7 289.6</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">## 6    23    16    7   18   7 2.8 303.6</span></span></code></pre></div>
 </div>
 <div id="utility-functions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#utility-functions" class="anchor"></a>Utility functions</h3>
 <p>Using the <code>selectByDate</code> function it is easy to select quite complex time-based periods. For example, to select weekday (Monday to Friday) data from June to September for 2012 <em>and</em> for the hours 7am to 7pm inclusive:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">sub &lt;-<span class="st"> </span><span class="kw"><a href="reference/selectByDate.html">selectByDate</a></span>(kc1, <span class="dt">day =</span> <span class="st">"weekday"</span>, <span class="dt">year =</span> <span class="dv">2012</span>, <span class="dt">month =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">hour =</span> <span class="dv">7</span><span class="op">:</span><span class="dv">19</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(sub)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">##                      date code                 site o3 no2   co so2 pm10</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">## 12416 2012-06-01 07:00:00  KC1 London N. Kensington 24  23 0.23   3    6</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">## 12417 2012-06-01 08:00:00  KC1 London N. Kensington 34  21 0.23   3    9</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">## 12418 2012-06-01 09:00:00  KC1 London N. Kensington 52  19 0.23   3    6</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">## 12419 2012-06-01 10:00:00  KC1 London N. Kensington 62  13 0.23   3    7</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">## 12420 2012-06-01 11:00:00  KC1 London N. Kensington 70  13 0.23   3    9</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">## 12421 2012-06-01 12:00:00  KC1 London N. Kensington 78  19 0.23   3    8</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">##       nox no pm2.5 nv2.5 v2.5 nv10 v10  ws    wd</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">## 12416  36  9    21    14    7    5   1 1.4 307.4</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">## 12417  33  7    NA    NA   NA    8   1 1.6 313.6</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">## 12418  23  2    NA    NA   NA    3   3 1.6 330.0</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">## 12419  17  2    NA    NA   NA    4   3 1.5 348.9</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">## 12420  17  2    14     7    7    6   3 1.4 181.1</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">## 12421  21  1    13     7    6    4   4 1.6   2.9</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>sub &lt;-<span class="st"> </span><span class="kw"><a href="reference/selectByDate.html">selectByDate</a></span>(kc1, <span class="dt">day =</span> <span class="st">"weekday"</span>, <span class="dt">year =</span> <span class="dv">2012</span>, <span class="dt">month =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">hour =</span> <span class="dv">7</span><span class="op">:</span><span class="dv">19</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(sub)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">##                      date code                 site o3 no2   co so2 pm10</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">## 12416 2012-06-01 07:00:00  KC1 London N. Kensington 24  23 0.23   3    6</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">## 12417 2012-06-01 08:00:00  KC1 London N. Kensington 34  21 0.23   3    9</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">## 12418 2012-06-01 09:00:00  KC1 London N. Kensington 52  19 0.23   3    6</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">## 12419 2012-06-01 10:00:00  KC1 London N. Kensington 62  13 0.23   3    7</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">## 12420 2012-06-01 11:00:00  KC1 London N. Kensington 70  13 0.23   3    9</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">## 12421 2012-06-01 12:00:00  KC1 London N. Kensington 78  19 0.23   3    8</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">##       nox no pm2.5 nv2.5 v2.5 nv10 v10  ws    wd</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">## 12416  36  9    21    14    7    5   1 1.4 307.4</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">## 12417  33  7    NA    NA   NA    8   1 1.6 313.6</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">## 12418  23  2    NA    NA   NA    3   3 1.6 330.0</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">## 12419  17  2    NA    NA   NA    4   3 1.5 348.9</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">## 12420  17  2    14     7    7    6   3 1.4 181.1</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">## 12421  21  1    13     7    6    4   4 1.6   2.9</span></span></code></pre></div>
 <p>Similarly it is easy to time-average data in many flexible ways. For example, 2-week means can be calculated as</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">sub2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/timeAverage.html">timeAverage</a></span>(kc1, <span class="dt">avg.time =</span> <span class="st">"2 week"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>sub2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/timeAverage.html">timeAverage</a></span>(kc1, <span class="dt">avg.time =</span> <span class="st">"2 week"</span>)</span></code></pre></div>
 </div>
 <div id="the-type-option" class="section level3">
 <h3 class="hasAnchor">
@@ -172,10 +172,10 @@
 <h3 class="hasAnchor">
 <a href="#wind-roses-and-pollution-roses" class="anchor"></a>Wind roses and pollution roses</h3>
 <p><strong>openair</strong> can plot basic wind roses very easily provided the variables <code>ws</code> (wind speed) and <code>wd</code> (wind direction) are available.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/windRose.html">windRose</a></span>(mydata)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="reference/windRose.html">windRose</a></span>(mydata)</span></code></pre></div>
 <p><img src="tools/unnamed-chunk-6-1.png"><!-- --></p>
 <p>However, the real flexibility comes from being able to use the <code>type</code> option.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/windRose.html">windRose</a></span>(mydata, <span class="dt">type =</span> <span class="st">"year"</span>, <span class="dt">layout =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="reference/windRose.html">windRose</a></span>(mydata, <span class="dt">type =</span> <span class="st">"year"</span>, <span class="dt">layout =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="dv">2</span>))</span></code></pre></div>
 <p><img src="tools/unnamed-chunk-7-1.png"><!-- --></p>
 </div>
 </div>
