@@ -48,4 +48,4 @@ BugReports: https://github.com/davidcarslaw/openair/issues
 LazyLoad: yes
 LazyData: yes
 Encoding: UTF-8
-RoxygenNote: 7.0.0
+RoxygenNote: 7.0.2

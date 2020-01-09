@@ -223,7 +223,7 @@ dat <- data.frame(date = mydata$date, obs = mydata$nox, mod = mydata$nox)
 
 ## now make mod worse by adding bias and noise according to the month
 ## do this for 3 different models
-dat <- transform(dat, month = as.numeric(format(date, "%m")))
+dat <- transform(dat, month = as.numeric(format(date, "\%m")))
 mod1 <- transform(dat, mod = mod + 10 * month + 10 * month * rnorm(nrow(dat)),
 model = "model 1")
 ## lag the results for mod1 to make the correlation coefficient worse

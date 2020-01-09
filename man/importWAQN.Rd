@@ -70,7 +70,7 @@ years derived from WRF (regional meteorological model).
 \dontrun{cardiff <- importWAQN(site = "card", year = 2010:2018)}
 
 ## import all pollutants from two sites for 2018
-\dontrun{all <- importWAQN(site = site = c("card", "cae6"), year = 2018)}
+\dontrun{all <- importWAQN(site = c("card", "cae6"), year = 2018)}
 
 
 }

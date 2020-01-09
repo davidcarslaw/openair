@@ -1,6 +1,7 @@
 ## openair 2.7-99
 
 - fix shading issue in lowest percentile range in `percentileRose`.
+- fix strange bug in `importWAQN` that would intermittently fail; sometimes crashing R.
 
 ## openair 2.7-0
 

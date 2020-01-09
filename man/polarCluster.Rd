@@ -165,7 +165,7 @@ table(results$data$cluster)
 
 ## plot clusters 3 and 4 as a timeVariation plot using SAME colours as in
 ## cluster plot
-timeVariation(subset(results$data, cluster %in% c("3", "4")), pollutant = "nox",
+timeVariation(subset(results$data, cluster \%in\% c("3", "4")), pollutant = "nox",
 group = "cluster", col = openColours("Paired", 6)[c(3, 4)])
 }
 

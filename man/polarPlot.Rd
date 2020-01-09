@@ -401,7 +401,7 @@ polarPlot(mydata, pollutant = "nox", min.bin = 3)
 # plot by day of the week
 polarPlot(mydata, pollutant = "pm10", type = "weekday")
 
-# show the 95% confidence intervals in the surface fitting
+# show the 95\% confidence intervals in the surface fitting
 polarPlot(mydata, pollutant = "so2", uncertainty = TRUE)
 
 

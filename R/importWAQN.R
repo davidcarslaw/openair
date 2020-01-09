@@ -54,7 +54,7 @@
 ##' \dontrun{cardiff <- importWAQN(site = "card", year = 2010:2018)}
 ##'
 ##' ## import all pollutants from two sites for 2018
-##' \dontrun{all <- importWAQN(site = site = c("card", "cae6"), year = 2018)}
+##' \dontrun{all <- importWAQN(site = c("card", "cae6"), year = 2018)}
 ##'
 ##' 
 importWAQN <- function(site = "card", year = 2018, pollutant = "all", 
@@ -69,31 +69,40 @@ importWAQN <- function(site = "card", year = 2018, pollutant = "all",
 
 
   loadData <- function(x) {
-    tryCatch({
-      fileName <- paste("https://airquality.gov.wales/sites/default/files/openair/R_data/", x, ".RData", sep = "")
-      con <- url(fileName)
-      load(con, envir = .GlobalEnv)
-      x
-    },
-    error = function(ex) {
-      cat(x, "does not exist - ignoring that one.\n")
-    },
-    finally = {
-        close(con)
-    }
+    tryCatch(
+      {
+        tmp <- tempfile()
+        
+        fileName <- paste("https://airquality.gov.wales/sites/default/files/openair/R_data/",
+                          x, ".RData",
+                          sep = ""
+        )
+        
+        suppressWarnings(
+          download.file(fileName, method = "libcurl", destfile = tmp, quiet = TRUE)
+        )
+        
+        load(tmp)
+        dat <- get(x)
+        dat$code <- as.character(dat$code)
+        
+        # re-order names
+        dat <- dat[, c(c("date", "code", "site"), setdiff(names(dat), c("date", "code", "site")))]
+        
+        return(dat)
+      },
+      error = function(ex) {
+        cat(x, "does not exist - ignoring that one.\n")
+      }
     )
   }
+  
 
-  thedata <- lapply(files, loadData)
+  thedata <- map_df(files, loadData)
 
   # Return if no data
   if (length(thedata) == 0) return() ## no data
 
-  theObjs <- unlist(thedata)
-  ## note unlist will drop NULLs from non-existant sites/years
-  mylist <- lapply(theObjs, get)
-
-  thedata <- suppressWarnings(do.call(bind_rows, mylist))
   if (is.null(thedata) || nrow(thedata) == 0) stop("No data to import - check site codes and year.", call. = FALSE)
 
   thedata$site <- factor(thedata$site, levels = unique(thedata$site))
@@ -132,8 +141,6 @@ importWAQN <- function(site = "card", year = 2018, pollutant = "all",
   if (!missing(pollutant) && pollutant != "all") {
     thedata <- thedata[, c("date", pollutant, "site", "code")]
   }
-
-  rm(list = theObjs, pos = 1)
 
   ## warning about recent, possibly unratified data
   timeDiff <- difftime(Sys.time(), max(thedata$date), units = "days")

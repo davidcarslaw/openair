@@ -209,7 +209,7 @@ polarFreq(mydata)
 min.bin = 2)}
 
 #windRose for just 2000 and 2003 with different colours
-\dontrun{polarFreq(subset(mydata, format(date, "%Y") %in% c(2000, 2003)),
+\dontrun{polarFreq(subset(mydata, format(date, "\%Y") \%in\% c(2000, 2003)),
 type = "year", cols = "jet")}
 
 # user defined breaks from 0-700 in intervals of 100 (note linear scale)
