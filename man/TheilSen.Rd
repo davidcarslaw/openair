@@ -30,6 +30,7 @@ TheilSen(
   autocor = FALSE,
   slope.percent = FALSE,
   date.breaks = 7,
+  date.format = NULL,
   plot = TRUE,
   silent = FALSE,
   ...
@@ -161,6 +162,13 @@ the date/time appropriately to the range being considered. This does not
 always work as desired automatically. The user can therefore increase or
 decrease the number of intervals by adjusting the value of
 \code{date.breaks} up or down.}
+
+\item{date.format}{This option controls the date format on the
+x-axis. While \code{TheilSen} generally sets the date format
+sensibly there can be some situations where the user wishes to
+have more control. For format types see \code{strptime}. For
+example, to format the date like \dQuote{Jan-2012} set
+\code{date.format = "\%b-\%Y"}.}
 
 \item{plot}{Should a plot be produced. \code{FALSE} can be useful when
 analysing data to extract trend components and plotting them in other

@@ -151,6 +151,12 @@
 ##'   always work as desired automatically. The user can therefore increase or
 ##'   decrease the number of intervals by adjusting the value of
 ##'   \code{date.breaks} up or down.
+##' @param date.format This option controls the date format on the
+##'   x-axis. While \code{TheilSen} generally sets the date format
+##'   sensibly there can be some situations where the user wishes to
+##'   have more control. For format types see \code{strptime}. For
+##'   example, to format the date like \dQuote{Jan-2012} set
+##'   \code{date.format = "\%b-\%Y"}.
 ##' @param plot Should a plot be produced. \code{FALSE} can be useful when
 ##'   analysing data to extract trend components and plotting them in other
 ##'   ways.
@@ -246,6 +252,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
                      text.col = "darkgreen", slope.text = NULL, cols = NULL,
                      shade = "grey95", auto.text = TRUE,
                      autocor = FALSE, slope.percent = FALSE, date.breaks = 7,
+                     date.format = NULL,
                      plot = TRUE, silent = FALSE,  ...) {
 
   ## get rid of R check annoyances
@@ -333,8 +340,14 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   ## date formatting for plot
   date.at <- as_date(dateBreaks(mydata$date, date.breaks)$major)
-  date.format <- dateBreaks(mydata$date)$format
-
+  
+  ## date axis formating
+  if (is.null(date.format)) {
+    formats <- dateBreaks(mydata$date, date.breaks)$format
+  } else {
+    formats <- date.format
+  }
+  
 
   ## cutData depending on type
   mydata <- cutData(mydata, type, ...)
