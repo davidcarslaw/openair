@@ -217,7 +217,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
   if (length(ids) > 0 & smooth != TRUE) {
     extra <- mydata[rep(1, length(ids)), ]
     extra[[wd]] <- seq(angle, 360, by = angle)[ids]
-    extra[pollutant, ] <- NA
+    extra[[pollutant]] <- NA
     mydata <- rbind(mydata, extra)
   }
 
@@ -384,8 +384,9 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
         do(data.frame(V1 = quantile(.[[pollutant]], probs = percentile / 100, na.rm = TRUE)))
 
       names(percentiles)[names(percentiles) == "V1"] <- pollutant
-
-      percentiles$percentile <- percentile
+  
+      percentiles$percentile <- rep(percentile, nrow(percentiles) / length(percentile))
+     # percentiles$percentile <- percentile
     }
 
     if (tolower(method) == "cpf") {

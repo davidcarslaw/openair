@@ -1,5 +1,8 @@
 ## openair 2.7-99
 
+## openair 2.7-2
+
+- fix tibble recycling issue
 - fix shading issue in lowest percentile range in `percentileRose`.
 - fix strange bug in `importWAQN` that would intermittently fail; sometimes crashing R.
 - add option `date.format` to `TheilSen`.

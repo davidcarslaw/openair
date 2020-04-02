@@ -249,17 +249,18 @@
 ##' @examples
 ##'
 ##' # load openair data if not loaded already
-##' data(mydata)
+##' dat2004 <- selectByDate(mydata, year = 2004)
 ##'
 ##' # basic use, single pollutant
 ##'
-##' scatterPlot(mydata, x = "nox", y = "no2")
-##'
+##' scatterPlot(dat2004, x = "nox", y = "no2")
+##' \dontrun{
 ##' # scatterPlot by year
 ##' scatterPlot(mydata, x = "nox", y = "no2", type = "year")
+##' }
 ##'
 ##' # scatterPlot by day of the week, removing key at bottom
-##' scatterPlot(mydata, x = "nox", y = "no2", type = "weekday", key =
+##' scatterPlot(dat2004, x = "nox", y = "no2", type = "weekday", key =
 ##' FALSE)
 ##'
 ##' # example of the use of continuous where colour is used to show
@@ -267,7 +268,7 @@
 ##' # plot daily averages and choose a filled plot symbol (pch = 16)
 ##' # select only 2004
 ##' \dontrun{
-##' dat2004 <- selectByDate(mydata, year = 2004)
+##' 
 ##' scatterPlot(dat2004, x = "nox", y = "no2", z = "co", avg.time = "day", pch = 16)
 ##'
 ##' # show linear fit, by year

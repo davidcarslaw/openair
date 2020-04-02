@@ -4,7 +4,8 @@
 \name{mydata}
 \alias{mydata}
 \title{Example data for openair}
-\format{Data frame with 65533 observations (rows) on the following 10
+\format{
+Data frame with 65533 observations (rows) on the following 10
   variables: \describe{ \item{list("date")}{Observation date/time stamp in
   year-month-day hour:minute:second format (POSIXct). }
   \item{list("ws")}{Wind speed, in m/s, as numeric vector.}
@@ -17,7 +18,8 @@
   \item{list("so2")}{Sulfur dioxide concentration, in ppb, as a numeric
   vector.} \item{list("co")}{Carbon monoxide concentration, in ppm, as a
   numeric vector.} \item{list("pm25")}{Particulate PM2.5 fraction
-  measurement, in ug/m3, as a numeric vector.} }}
+  measurement, in ug/m3, as a numeric vector.} }
+}
 \source{
 \code{mydata} was compiled from data archived in the London Air
   Quality Archive.  See \url{http://www.londonair.org.uk} for site details.
