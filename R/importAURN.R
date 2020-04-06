@@ -48,6 +48,10 @@
 ##' Microbalance) and these concentrations have been multiplied by 1.3 to
 ##' provide an estimate of the total mass including the volatile fraction.
 ##'
+##' The function returns modelled hourly values of wind speed (\code{ws}), wind
+##' direction (\code{wd}) and ambient temperature (\code{air_temp}) if available
+##' (generally from around 2010). These values are modelled using the WRF model.
+##'
 ##' The few BAM (Beta-Attenuation Monitor) instruments that have been
 ##' incorporated into the network throughout its history have been scaled by 1.3
 ##' if they have a heated inlet (to account for loss of volatile particles) and
@@ -63,9 +67,9 @@
 ##' FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 ##'
 ##'
-##' @param site Site code of the AURN site to import e.g. \dQuote{my1} is Marylebone
-##'   Road. Several sites can be imported with \code{site = c("my1", "nott")}
-##'   --- to import Marylebone Road and Nottingham for example.
+##' @param site Site code of the AURN site to import e.g. \dQuote{my1} is
+##'   Marylebone Road. Several sites can be imported with \code{site = c("my1",
+##'   "nott")} --- to import Marylebone Road and Nottingham for example.
 ##' @param year Year or years to import. To import a sequence of years from 1990
 ##'   to 2000 use \code{year = 1990:2000}. To import several specfic years use
 ##'   \code{year = c(1990, 1995, 2000)} for example.
@@ -152,11 +156,14 @@ importAURN <- function(site = "my1", year = 2009, pollutant = "all",
     ## no hydrocarbons - therefore select conventional pollutants
     theNames <- c(
       "date", "co", "nox", "no2", "no", "o3", "so2", "pm10", "pm2.5",
-      "v10", "v2.5", "nv10", "nv2.5", "ws", "wd", "code", "site"
+      "v10", "v2.5", "nv10", "nv2.5", "ws", "wd", "temp", "code", "site"
     )
 
     thedata <- thedata[, which(names(thedata) %in% theNames)]
   }
+  
+  if ("temp" %in% names(thedata))
+    thedata <- rename(thedata, air_temp = temp)
 
   ## if particular pollutants have been selected
   if (pollutant != "all") {

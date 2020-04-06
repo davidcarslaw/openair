@@ -15,9 +15,9 @@ importAURN(
 )
 }
 \arguments{
-\item{site}{Site code of the AURN site to import e.g. \dQuote{my1} is Marylebone
-Road. Several sites can be imported with \code{site = c("my1", "nott")}
---- to import Marylebone Road and Nottingham for example.}
+\item{site}{Site code of the AURN site to import e.g. \dQuote{my1} is
+Marylebone Road. Several sites can be imported with \code{site = c("my1",
+"nott")} --- to import Marylebone Road and Nottingham for example.}
 
 \item{year}{Year or years to import. To import a sequence of years from 1990
 to 2000 use \code{year = 1990:2000}. To import several specfic years use
@@ -95,6 +95,10 @@ separate volatile component recorded as 'v10' and non-volatile component
 the use of FDMS the measurements used TEOM (Tapered Element Oscillating.
 Microbalance) and these concentrations have been multiplied by 1.3 to
 provide an estimate of the total mass including the volatile fraction.
+
+The function returns modelled hourly values of wind speed (\code{ws}), wind
+direction (\code{wd}) and ambient temperature (\code{air_temp}) if available
+(generally from around 2010). These values are modelled using the WRF model.
 
 The few BAM (Beta-Attenuation Monitor) instruments that have been
 incorporated into the network throughout its history have been scaled by 1.3
