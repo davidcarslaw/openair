@@ -1,5 +1,7 @@
 ## openair 2.7-99
 
+- add ambient temperature (`air_temp`) to meteorological variables returned from `importAURN` (using WRF model)
+
 ## openair 2.7-2
 
 - fix tibble recycling issue
