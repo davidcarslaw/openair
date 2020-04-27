@@ -621,7 +621,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       }
 
       weights <- bind_cols(
-        as_data_frame(weights),
+        as_tibble(weights),
         data_frame(
           wd = as.numeric(row.names(weights)),
           calm = calm, panel.fun = panel.fun,
