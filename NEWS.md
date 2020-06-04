@@ -1,6 +1,7 @@
 ## openair 2.7-99
 
 - add ambient temperature (`air_temp`) to meteorological variables returned from `importAURN`, `importSAQN` and `importWAQN` (using WRF model).
+- re-format date returned in `importAQE` due to strange `dplyr` join issues
 
 ## openair 2.7-2
 
