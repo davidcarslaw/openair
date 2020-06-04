@@ -132,7 +132,7 @@ importAQE <- function(site = "yk13", year = 2018, pollutant = "all",
 
   thedata <- thedata[, which(names(thedata) %in% theNames)]
   
-  thedata$date <- ymd_hms(thedata$date) # to avoid strange join issues in dplyr
+  thedata$date <- lubridate::ymd_hms(thedata$date) # to avoid strange join issues in dplyr
 
 
   ## if particular pollutants have been selected
