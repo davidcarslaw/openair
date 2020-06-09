@@ -134,13 +134,23 @@
 #'   1985). Note that percentile intervals can also be considered; see
 #'   \code{percentile} for details.
 #'
-#'   \item When \code{statistic = "r"}, the Pearson correlation coefficient is
-#'   calculated for \emph{two} pollutants. The calculation involves a weighted
-#'   Pearson correlation coefficient, which is weighted by Gaussian kernels for
-#'   wind direction an the radial variable (by default wind speed). More weight
-#'   is assigned to values close to a wind speed-direction interval. Kernel
-#'   weighting is used to ensure that all data are used rather than relying on
-#'   the potentially small number of values in a wind speed-direction interval.
+#'   \item When \code{statistic = "r"} or \code{statistic = "Pearson"}, the
+#'   Pearson correlation coefficient is calculated for \emph{two} pollutants.
+#'   The calculation involves a weighted Pearson correlation coefficient, which
+#'   is weighted by Gaussian kernels for wind direction an the radial variable
+#'   (by default wind speed). More weight is assigned to values close to a wind
+#'   speed-direction interval. Kernel weighting is used to ensure that all data
+#'   are used rather than relying on the potentially small number of values in a
+#'   wind speed-direction interval.
+#'
+#'   \item When \code{statistic = "Spearman"}, the Spearman correlation
+#'   coefficient is calculated for \emph{two} pollutants. The calculation
+#'   involves a weighted Spearman correlation coefficient, which is weighted by
+#'   Gaussian kernels for wind direction an the radial variable (by default wind
+#'   speed). More weight is assigned to values close to a wind speed-direction
+#'   interval. Kernel weighting is used to ensure that all data are used rather
+#'   than relying on the potentially small number of values in a wind
+#'   speed-direction interval.
 #'
 #'   \item \code{"robust.slope"} is another option for pair-wise statisitics and
 #'   \code{"quantile.slope"}, which uses quantile regression to estimate the
@@ -461,7 +471,7 @@ polarPlot <-
     correlation_stats <- c(
       "r", "slope", "intercept", "robust_slope",
       "robust_intercept", "quantile_slope",
-      "quantile_intercept"
+      "quantile_intercept", "Pearson", "Spearman"
     )
 
     if (statistic %in% correlation_stats && length(pollutant) != 2) {
@@ -911,7 +921,7 @@ polarPlot <-
     }
 
     # correlation notation
-    if (statistic == "r") {
+    if (statistic %in% c("r", "Pearson", "Spearman")) {
       if (missing(key.footer)) {
         key.footer <- paste0("corr(", pollutant[1], ", ", pollutant[2], ")")
       }
@@ -926,7 +936,9 @@ polarPlot <-
     }
 
     # Labels for correlation and regression, keep lower case like other labels
-    if (statistic == "r") key.header <- expression(italic("r"))
+    if (statistic %in% c("r", "Pearson")) key.header <- expression(italic("Pearson\ncorrelation"))
+    
+    if (statistic == "Spearman") key.header <- expression(italic("Spearman\ncorrelation"))
 
     if (statistic == "robust_slope") key.header <- "robust\nslope"
 
@@ -1203,14 +1215,26 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   # useful for showing what the weighting looks like as a surface
   # openair::scatterPlot(mydata, x = "ws", y = "wd", z = "weight", method = "level")
 
-  if (statistic == "r") {
-
+  # if (statistic == "r") {
+  # 
+  #   # Weighted Pearson correlation
+  #   stat_weighted <- corr(
+  #     cbind(thedata[[pol_1]], thedata[[pol_2]]),
+  #     w = thedata$weight
+  #   )
+  # 
+  #   result <- data.frame(ws1, wd1, stat_weighted)
+  # }
+  # 
+  if (statistic %in% c("r", "Pearson","Spearman")) {
+    
+    if (statistic == "r") statistic <- "Pearson"
+    
     # Weighted Pearson correlation
-    stat_weighted <- corr(
-      cbind(thedata[[pol_1]], thedata[[pol_2]]),
-      w = thedata$weight
+    stat_weighted <- contCorr(thedata[[pol_1]], thedata[[pol_2]],
+      w = thedata$weight, method = statistic
     )
-
+    
     result <- data.frame(ws1, wd1, stat_weighted)
   }
 
@@ -1345,3 +1369,71 @@ kernel_smoother <- function(x, kernel = "gaussian") {
 
 
 indicator_function <- function(x) ifelse(abs(x) <= 1, 1, 0)
+
+# weighted Pearson and Spearman correlations, based on wCorr package
+contCorr <- function(x, y, w, method = c("Pearson", "Spearman")) {
+  if (!is.numeric(x)) {
+    x <- as.numeric(x)
+  }
+  if (!is.numeric(y)) {
+    y <- as.numeric(y)
+  }
+  if (!is.numeric(w)) {
+    w <- as.numeric(w)
+  }
+  pm <- pmatch(tolower(method[[1]]), tolower(c("Pearson", "Spearman")))
+  if (pm == 2) {
+    # x <- rank(x) # rank gives averages for ties
+    # y <- rank(y)
+    x <- wrank(x, w)
+    y <- wrank(y, w)
+  }
+  xb <- sum(w * x) / sum(w)
+  yb <- sum(w * y) / sum(w)
+  numerator <- sum(w * (x - xb) * (y - yb))
+  denom <- sqrt(sum(w * (x - xb)^2) * sum(w * (y - yb)^2))
+  numerator / denom
+}
+
+
+wrank <- function(x, w = rep(1, length(x))) {
+  # sort by x so we can just traverse once
+  ord <- order(x)
+  rord <- (1:length(x))[order(ord)] # reverse order
+  xp <- x[ord] # x, permuted
+  wp <- w[ord] # weights, permuted
+  rnk <- rep(NA, length(x)) # blank ranks vector
+  # setup first itteration
+  t1 <- 0 # total weight of lower ranked elements
+  i <- 1 # index
+  t2 <- 0 # total weight of tied elements (including self)
+  n <- 0 # number of tied elements
+  while (i < length(x)) {
+    t2 <- t2 + wp[i] # tied weight increases by this unit
+    n <- n + 1 # one additional tied unit
+    if (xp[i + 1] != xp[i]) { # the next one is not a tie
+      # find the rank of all tied elements
+      rnki <- t1 + (n + 1) / (2 * n) * t2
+      # push that rank to all tied units
+      for (ii in 1:n) {
+        rnk[i - ii + 1] <- rnki
+      }
+      # reset for next itteration
+      t1 <- t1 + t2 # new total weight for lower values
+      t2 <- 0 # new tied weight starts at 0
+      n <- 0 # no tied units
+    }
+    i <- i + 1
+  }
+  # final row
+  n <- n + 1 # add final tie
+  t2 <- t2 + wp[i] # add final weight to tied weight
+  rnki <- t1 + (n + 1) / (2 * n) * t2 # final rank
+  # push that rank to all final tied units
+  for (ii in 1:n) {
+    rnk[i - ii + 1] <- rnki
+  }
+  # order by incoming index, so put in the original order
+  rnk[rord]
+}
+
