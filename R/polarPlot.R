@@ -1206,7 +1206,7 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   mydata$weight <- mydata$weight / max(mydata$weight, na.rm = TRUE)
 
   # Select and filter
-  thedata <- select_(mydata, pol_1, pol_2, "weight")
+  thedata <- select(mydata, pol_1, pol_2, "weight")
   thedata <- thedata[complete.cases(thedata), ]
 
   # don't fit all data - takes too long with no gain
@@ -1215,17 +1215,7 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   # useful for showing what the weighting looks like as a surface
   # openair::scatterPlot(mydata, x = "ws", y = "wd", z = "weight", method = "level")
 
-  # if (statistic == "r") {
-  # 
-  #   # Weighted Pearson correlation
-  #   stat_weighted <- corr(
-  #     cbind(thedata[[pol_1]], thedata[[pol_2]]),
-  #     w = thedata$weight
-  #   )
-  # 
-  #   result <- data.frame(ws1, wd1, stat_weighted)
-  # }
-  # 
+
   if (statistic %in% c("r", "Pearson","Spearman")) {
     
     if (statistic == "r") statistic <- "Pearson"
