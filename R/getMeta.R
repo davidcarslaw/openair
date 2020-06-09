@@ -142,7 +142,7 @@ importMeta <- function(source = "aurn", all = FALSE) {
     if (!all) meta <- distinct(meta, site, .keep_all = TRUE)
     
     ## rename to match imported names e.g. importAURN
-    meta <- rename(meta, code = site, site = site_name, site.type = site_type)
+    meta <- rename(meta, code = site, site = site_name)
   }
   
   
