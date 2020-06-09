@@ -2,6 +2,7 @@
 
 - add ambient temperature (`air_temp`) to meteorological variables returned from `importAURN`, `importSAQN` and `importWAQN` (using WRF model).
 - re-format date returned in `importAQE` due to strange `dplyr` join issues
+- add `statistic = "Spearman"` to `polarPlot` as an option when considering two pollutants.
 
 ## openair 2.7-2
 
