@@ -218,7 +218,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
 
   # overall averages by time interval
   aves <- timeAverage(
-    select_(mydata, "date", type, pollutant),
+    select(mydata, "date", type, pollutant),
     avg.time = avg.time, type = type,
     start.date = min(mydata$date)
   )
@@ -291,7 +291,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   # join with aves to get date2
   id <- which(is.na(results[[proportion]]))
   if (length(id) > 0) results <- results[-id, ]
-  results <- left_join(results, select_(aves, type, "date", "date2"), by = c(type, "date"))
+  results <- left_join(results, select(aves, type, "date", "date2"), by = c(type, "date"))
 
   ## proper names of labelling ###################################################
   strip.dat <- strip.fun(results, type, auto.text)
@@ -309,7 +309,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   )
 
   # make sure we know order of data frame for adding other dates
-  results <- arrange_(results, type, "date")
+  results <- arrange(results, type, "date")
 
   # xleft, xright used by plot function
   results$xleft <- results$date
