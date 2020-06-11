@@ -1,100 +1,91 @@
 ##' corrgram plot with conditioning
 ##'
-##' Function to to draw and visualise correlation matrices using
-##' lattice. The primary purpose is as a tool for exploratory data
-##' analysis. Hierarchical clustering is used to group similar
-##' variables.
+##' Function to to draw and visualise correlation matrices using lattice. The
+##' primary purpose is as a tool for exploratory data analysis. Hierarchical
+##' clustering is used to group similar variables.
 ##'
-##' The \code{corPlot} function plots correlation matrices. The
-##' implementation relies heavily on that shown in Sarkar (2007), with
-##' a few extensions.
+##' The \code{corPlot} function plots correlation matrices. The implementation
+##' relies heavily on that shown in Sarkar (2007), with a few extensions.
 ##'
-##' Correlation matrices are a very effective way of understating
-##' relationships between many variables. The \code{corPlot} shows the
-##' correlation coded in three ways: by shape (ellipses), colour and
-##' the numeric value. The ellipses can be thought of as visual
-##' representations of scatter plot. With a perfect positive
-##' correlation a line at 45 degrees positive slope is drawn. For zero
+##' Correlation matrices are a very effective way of understating relationships
+##' between many variables. The \code{corPlot} shows the correlation coded in
+##' three ways: by shape (ellipses), colour and the numeric value. The ellipses
+##' can be thought of as visual representations of scatter plot. With a perfect
+##' positive correlation a line at 45 degrees positive slope is drawn. For zero
 ##' correlation the shape becomes a circle. See examples below.
 ##'
-##' With many different variables it can be difficult to see
-##' relationships between variables i.e. which variables tend to
-##' behave most like one another. For this reason hierarchical
-##' clustering is applied to the correlation matrices to group
-##' variables that are most similar to one another (if \code{cluster =
-##' TRUE}).
+##' With many different variables it can be difficult to see relationships
+##' between variables i.e. which variables tend to behave most like one another.
+##' For this reason hierarchical clustering is applied to the correlation
+##' matrices to group variables that are most similar to one another (if
+##' \code{cluster = TRUE}).
 ##'
-##' If clustering is chosen it is also possible to add a dendrogram
-##' using the option \code{dendrogram = TRUE}. Note that
-##' dendrogramscan only be plotted for \code{type = "default"}
-##' i.e. when there is only a single panel. The dendrogram can also be
-##' recovered from the plot object itself and plotted more clearly;
-##' see examples below.
+##' If clustering is chosen it is also possible to add a dendrogram using the
+##' option \code{dendrogram = TRUE}. Note that dendrogramscan only be plotted
+##' for \code{type = "default"} i.e. when there is only a single panel. The
+##' dendrogram can also be recovered from the plot object itself and plotted
+##' more clearly; see examples below.
 ##'
-##' It is also possible to use the \code{openair} type option to
-##' condition the data in many flexible ways, although this may become
-##' difficult to visualise with too many panels.
+##' It is also possible to use the \code{openair} type option to condition the
+##' data in many flexible ways, although this may become difficult to visualise
+##' with too many panels.
 ##'
-##' @param mydata A data frame which should consist of some numeric
-##' columns.
-##' @param pollutants the names of data-series in \code{mydata} to be
-##' plotted by \code{corPlot}. The default option \code{NULL} and the
-##' alternative \dQuote{all} use all available valid (numeric) data.
-##' @param type \code{type} determines how the data are split
-##' i.e. conditioned, and then plotted. The default is will produce a
-##' single plot using the entire data. Type can be one of the built-in
-##' types as detailed in \code{cutData} e.g. \dQuote{season},
-##' \dQuote{year}, \dQuote{weekday} and so on. For example, \code{type
-##' = "season"} will produce four plots --- one for each season.
+##' @param mydata A data frame which should consist of some numeric columns.
+##' @param pollutants the names of data-series in \code{mydata} to be plotted by
+##'   \code{corPlot}. The default option \code{NULL} and the alternative
+##'   \dQuote{all} use all available valid (numeric) data.
+##' @param type \code{type} determines how the data are split i.e. conditioned,
+##'   and then plotted. The default is will produce a single plot using the
+##'   entire data. Type can be one of the built-in types as detailed in
+##'   \code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and
+##'   so on. For example, \code{type = "season"} will produce four plots --- one
+##'   for each season.
 ##'
-##' It is also possible to choose \code{type} as another variable in
-##' the data frame. If that variable is numeric, then the data will be
-##' split into four quantiles (if possible) and labelled
-##' accordingly. If type is an existing character or factor variable,
-##' then those categories/levels will be used directly. This offers
-##' great flexibility for understanding the variation of different
-##' variables and how they depend on one another.
-##' @param cluster Should the data be ordered according to cluster
-##' analysis. If \code{TRUE} hierarchical clustering is applied to the
-##' correlation matrices using \code{hclust} to group similar
-##' variables together. With many variables clustering can greatly
-##' assist interpretation.
-##' @param dendrogram Should a dendrogram be plotted? When \code{TRUE}
-##' a dendrogram is shown on the right of the plot. Note that this
-##' will only work for \code{type = "default"}.
-##' @param lower Should only the lower triangle be plotted? 
+##'   It is also possible to choose \code{type} as another variable in the data
+##'   frame. If that variable is numeric, then the data will be split into four
+##'   quantiles (if possible) and labelled accordingly. If type is an existing
+##'   character or factor variable, then those categories/levels will be used
+##'   directly. This offers great flexibility for understanding the variation of
+##'   different variables and how they depend on one another.
+##' @param cluster Should the data be ordered according to cluster analysis. If
+##'   \code{TRUE} hierarchical clustering is applied to the correlation matrices
+##'   using \code{hclust} to group similar variables together. With many
+##'   variables clustering can greatly assist interpretation.
+##' @param method The correlation method to use. Can be \dQuote{pearson},
+##'   \dQuote{spearman} or \dQuote{kendall}.
+##' @param dendrogram Should a dendrogram be plotted? When \code{TRUE} a
+##'   dendrogram is shown on the right of the plot. Note that this will only
+##'   work for \code{type = "default"}.
+##' @param lower Should only the lower triangle be plotted?
 ##' @param cols Colours to be used for plotting. Options include
-##' \dQuote{default}, \dQuote{increment}, \dQuote{heat},
-##' \dQuote{spectral}, \dQuote{hue}, \dQuote{greyscale} and user
-##' defined (see \code{openColours} for more details).
-##' @param r.thresh Values of greater than \code{r.thresh} will be
-##' shown in bold type. This helps to highlight high correlations.
-##' @param text.col The colour of the text used to show the
-##' correlation values. The first value controls the colour of
-##' negative correlations and the second positive.
+##'   \dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{spectral},
+##'   \dQuote{hue}, \dQuote{greyscale} and user defined (see \code{openColours}
+##'   for more details).
+##' @param r.thresh Values of greater than \code{r.thresh} will be shown in bold
+##'   type. This helps to highlight high correlations.
+##' @param text.col The colour of the text used to show the correlation values.
+##'   The first value controls the colour of negative correlations and the
+##'   second positive.
 ##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
-##' \code{TRUE} titles and axis labels will automatically try and
-##' format pollutant names and units properly e.g.  by subscripting
-##' the `2' in NO2.
-##' @param ... Other graphical parameters passed onto
-##' \code{lattice:levelplot}, with common axis and title labelling
-##' options (such as \code{xlab}, \code{ylab}, \code{main}) being
-##' passed via \code{quickText} to handle routine formatting.
+##'   \code{TRUE} titles and axis labels will automatically try and format
+##'   pollutant names and units properly e.g.  by subscripting the `2' in NO2.
+##' @param ... Other graphical parameters passed onto \code{lattice:levelplot},
+##'   with common axis and title labelling options (such as \code{xlab},
+##'   \code{ylab}, \code{main}) being passed via \code{quickText} to handle
+##'   routine formatting.
 ##' @export
-##' @return As well as generating the plot itself, \code{corPlot}
-##' also returns an object of class \dQuote{openair}. The object
-##' includes three main components: \code{call}, the command used to
-##' generate the plot; \code{data}, the data frame of summarised
-##' information used to make the plot; and \code{plot}, the plot
-##' itself. If retained, e.g. using \code{output <- corPlot(mydata)},
-##' this output can be used to recover the data, reproduce or rework
-##' the original plot or undertake further analysis. Note the denogram
-##' when \code{cluster = TRUE} can aslo be returned and plotted. See
-##' examples.
+##' @return As well as generating the plot itself, \code{corPlot} also returns
+##'   an object of class \dQuote{openair}. The object includes three main
+##'   components: \code{call}, the command used to generate the plot;
+##'   \code{data}, the data frame of summarised information used to make the
+##'   plot; and \code{plot}, the plot itself. If retained, e.g. using
+##'   \code{output <- corPlot(mydata)}, this output can be used to recover the
+##'   data, reproduce or rework the original plot or undertake further analysis.
+##'   Note the denogram when \code{cluster = TRUE} can aslo be returned and
+##'   plotted. See examples.
 ##'
-##' An openair output can be manipulated using a number of generic
-##' operations, including \code{print}, \code{plot} and
-##' \code{summary}.
+##'   An openair output can be manipulated using a number of generic operations,
+##'   including \code{print}, \code{plot} and \code{summary}.
 ##'
 ##' @author David Carslaw --- but mostly based on code contained in Sarkar
 ##'   (2007)
@@ -103,7 +94,7 @@
 ##' @references Sarkar, D. (2007). Lattice Multivariate Data Visualization with
 ##'   R. New York: Springer.
 ##'
-##' Friendly, M. (2002). Corrgrams : Exploratory displays for correlation
+##'   Friendly, M. (2002). Corrgrams : Exploratory displays for correlation
 ##'   matrices. American Statistician, 2002(4), 1-16. doi:10.1198/000313002533
 ##' @keywords methods
 ##' @examples
@@ -125,9 +116,11 @@
 ##' corPlot(hc)
 ##' }
 ##'
-##'
+##' 
 corPlot <- function(mydata, pollutants = NULL, type = "default",
-                    cluster = TRUE, dendrogram = FALSE, 
+                    cluster = TRUE, 
+                    method = "pearson",
+                    dendrogram = FALSE, 
                     lower = FALSE,
                     cols = "default",
                     r.thresh = 0.8, text.col =
@@ -172,11 +165,6 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
     quickText(extra.args$main, auto.text)
   } else {
     quickText("", auto.text)
-  }
-  extra.args$method <- if ("method" %in% names(extra.args)) {
-    extra.args$method
-  } else {
-    "pearson"
   }
 
   if ("fontsize" %in% names(extra.args)) {
@@ -235,7 +223,7 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
     thedata <- suppressWarnings(cor(
       mydata[, sapply(mydata, is.numeric)],
       use = "pairwise.complete.obs",
-      method = extra.args$method
+      method = method
     ))
 
     ## remove columns/rows where all are NA
