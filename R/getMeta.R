@@ -75,7 +75,7 @@ importMeta <- function(source = "aurn", all = FALSE) {
     tmp <- tempfile()
     
     fileName <- "http://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData"
-    download.file(fileName, method = "libcurl", destfile = tmp)
+    download.file(fileName, method = "libcurl", destfile = tmp, quiet = TRUE)
     load(tmp)
     
     meta <- AURN_metadata
@@ -83,10 +83,12 @@ importMeta <- function(source = "aurn", all = FALSE) {
     ## mostly interested in coordinates
     
     ## rename to match imported names e.g. importAURN
+    # ratified_to - parse fail means not ratified
     meta <- rename(meta,
                    code = site_id, site = site_name,
-                   site_type = location_type, variable = parameter
-    )
+                   site_type = location_type, variable = parameter) %>% 
+      mutate(start_date = ymd(start_date, tz = "GMT"),
+             ratified_to = ymd(ratified_to, tz = "GMT", quiet = TRUE))
     
     ## unique ids
     if (!all) meta <- distinct(meta, site, .keep_all = TRUE)

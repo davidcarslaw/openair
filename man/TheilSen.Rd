@@ -274,7 +274,7 @@ TheilSen(mydata, pollutant = "nox")
 }
 \references{
 Helsel, D., Hirsch, R., 2002. Statistical methods in water resources. US
-  Geological Survey.  \url{http://pubs.usgs.gov/twri/twri4a3/}. Note that
+  Geological Survey. Note that
   this is a very good resource for statistics as applied to environmental
   data.
 

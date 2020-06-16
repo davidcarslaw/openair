@@ -4,6 +4,7 @@
 - re-format date returned in `importAQE` due to strange `dplyr` join issues
 - add `statistic = "Spearman"` to `polarPlot` as an option when considering two pollutants.
 - add `method` option to `corPlot` to allow different correlation methods ("pearson", "spearman" or "kendall")
+- add option `ratified` to `importAURN` to return information on whether individual pollutants have been quality-assured.
 
 ## openair 2.7-2
 
@@ -19,7 +20,7 @@
   considered in `polarPlot`
 - Add option `statistic = "nwr"` in `polarPlot` that implements the
   Non-parametric Wind Regression based on Henry et al. (2009). The
-  `openair` implmentation is not identical but should yield similar
+  `openair` implementation is not identical but should yield similar
   results.
 - NEW `importAQE` function to import data from [Air Quality
   England](https://www.airqualityengland.co.uk/) sites.
@@ -63,7 +64,7 @@
 - add simple versions of **viridis** colour palettes: "viridis", "plasma", "magma", "inferno" and "cividis" e.g. `polarPlot(mydata, cols = "plasma")`
 - allow option `align` to be used in `aqStats` to determine how rolling means are calculated. Can take the values "center" (default), "left" and "right".
 - make sure full year present in `importAURN`
-- fix issue with mutiple pollutants in `polarAnnulus`
+- fix issue with multiple pollutants in `polarAnnulus`
 - fix issues in trajectory functions due to `dplyr`.
 
 ## openair 2.4-0
@@ -98,7 +99,7 @@
 - fixed bug in `scatterPlot` when `method = "level"` due to NSE
 - use `tidyr` in place of `reshape2`
 - remove dependency of `plyr` and `reshape2`
-- fix bug in `percentileRose` for `method = "cpf"` with mutiple pollutants
+- fix bug in `percentileRose` for `method = "cpf"` with multiple pollutants
 
 # openair 2.1-5
 

@@ -10,6 +10,7 @@ importAURN(
   pollutant = "all",
   hc = FALSE,
   meta = FALSE,
+  ratified = FALSE,
   to_narrow = FALSE,
   verbose = FALSE
 )
@@ -35,6 +36,9 @@ data and the resulting data frames are considerably larger.}
 \item{meta}{Should meta data be returned? If \code{TRUE} the site type,
 latitude and longitude are returned.}
 
+\item{ratified}{If \code{TRUE} columns are returned indicating when each
+species was ratified i.e. quality-checked.}
+
 \item{to_narrow}{By default the returned data has a column for each
 pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 a narrow format with a column identifying the pollutant name.}
@@ -49,17 +53,19 @@ Returns a data frame of hourly mean values with date in POSIXct
 \description{
 Function for importing hourly mean UK Automatic Urban and Rural Network
 (AURN) air quality archive data files for use with the \code{openair}
-package. Files are imported from a remote server operated by AEA that
+package. Files are imported from a remote server operated by Ricardo that
 provides air quality data files as R data objects.
 }
 \details{
 The \code{importAURN} function has been written to make it easy to import
-data from the UK AURN. AEA have provided .RData files (R workspaces) of all
-individual sites and years for the AURN. These files are updated on a daily
-basis. This approach requires a link to the Internet to work.
+data from the UK AURN. Ricardo have provided .RData files (R workspaces) of
+all individual sites and years for the AURN. These files are updated on a
+daily basis. This approach requires a link to the Internet to work.
 
 For an up to date list of available sites that can be imported, see
 \code{importMeta}.
+
+The site codes and pollutant names can be upper or lower case. 
 
 There are several advantages over the web portal approach where .csv files
 are downloaded. First, it is quick to select a range of sites, pollutants
@@ -67,15 +73,8 @@ and periods (see examples below). Second, storing the data as .RData objects
 is very efficient as they are about four times smaller than .csv files ---
 which means the data downloads quickly and saves bandwidth. Third, the
 function completely avoids any need for data manipulation or setting time
-formats, time zones etc. Finally, it is easy to import many years of data
-beyond the current limit of about 64,000 lines. The final point makes it
-possible to download several long time series in one go. The function also
-has the advantage that the proper site name is imported and used in
-\code{openair} functions.
-
-The site codes and pollutant names can be upper or lower case. The function
-will issue a warning when data less than six months old is downloaded, which
-may not be ratified.
+formats, time zones etc. The function also has the advantage that the proper
+site name is imported and used in \code{openair} functions.
 
 The data are imported by stacking sites on top of one another and will have
 field names \code{site}, \code{code} (the site code) and \code{pollutant}.

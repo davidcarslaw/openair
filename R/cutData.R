@@ -159,10 +159,10 @@ cutData <- function(x, type = "default", hemisphere = "northern",
     ## if type is time based and already exists in data,
     ## just return data
 
-    if (type %in% dateTypes & type %in% names(x) & attr(x, "source") != "openair") {
-      message(paste0("\nUsing ", "'", type, "'", " in data frame and not date-based openair version. \nThis may result in different behaviour compared with openair calculations."))
-      return(x)
-    }
+    # if (type %in% dateTypes & type %in% names(x) & attr(x, "source") != "openair") {
+    #   message(paste0("\nUsing ", "'", type, "'", " in data frame and not date-based openair version. \nThis may result in different behaviour compared with openair calculations."))
+    #   return(x)
+    # }
 
     conds <- c(
       "default", "year", "hour", "month", "season",
