@@ -4,7 +4,10 @@
 - re-format date returned in `importAQE` due to strange `dplyr` join issues
 - add `statistic = "Spearman"` to `polarPlot` as an option when considering two pollutants.
 - add `method` option to `corPlot` to allow different correlation methods ("pearson", "spearman" or "kendall")
-- add option `ratified` to `importAURN` to return information on whether individual pollutants have been quality-assured.
+- refactor all UK air quality data import functions i.e. `importAURN`, `importSAQN`, `importWAQN`, `importAQE`.
+- Add `importNI` to import data from Northern Ireland.
+- Add option to UK air quality import functions to return information on whether individual pollutants have been quality-assured using option `ratified`. These functions include `importAURN`, `importSAQN`, `importWAQN`, `importAQE` and `importNI`
+- Clean up what is returned from `importMeta`.
 
 ## openair 2.7-2
 
