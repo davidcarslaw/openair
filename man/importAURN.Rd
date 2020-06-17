@@ -82,7 +82,8 @@ a narrow format with a column identifying the pollutant name.}
 \item{hc}{A few sites have hydrocarbon measurements available and setting
 \code{hc = TRUE} will ensure hydrocarbon data are imported. The default is
 however not to as most users will not be interested in using hydrocarbon
-data and the resulting data frames are considerably larger.}
+data and the resulting data frames are considerably larger. This option is
+only available for \code{importAURN}.}
 
 \item{verbose}{Should the function give messages when downloading files?
 Default is \code{FALSE}.}

@@ -22,6 +22,7 @@
 ##'
 ##' \item \dQuote{europe}, Import hourly European data (Airbase/e-reporting)
 ##' based on a simplified version of the \code{saqgetr} package.
+##' }
 ##'
 ##' By default, the function will return the site latitude, longitude and site
 ##' type. If the option \code{all = TRUE} is used, much more detailed

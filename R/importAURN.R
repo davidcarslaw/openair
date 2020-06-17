@@ -76,7 +76,8 @@
 ##' @param hc A few sites have hydrocarbon measurements available and setting
 ##'   \code{hc = TRUE} will ensure hydrocarbon data are imported. The default is
 ##'   however not to as most users will not be interested in using hydrocarbon
-##'   data and the resulting data frames are considerably larger.
+##'   data and the resulting data frames are considerably larger. This option is
+##'   only available for \code{importAURN}.
 ##' @param meta Should meta data be returned? If \code{TRUE} the site type,
 ##'   latitude and longitude are returned.
 ##' @param ratified If \code{TRUE} columns are returned indicating when each

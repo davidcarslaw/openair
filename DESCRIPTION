@@ -12,7 +12,7 @@ Depends:
 Imports:
     grid,
     rlang,
-    dplyr,
+    dplyr (>= 1.0),
     purrr,
     tidyr,
     readr,

@@ -23,7 +23,34 @@ A data frame with meta data.
 Function to import meta data for air quality monitoring sites
 }
 \details{
+This function imports site meta data from several networks in the UK and
+Europe:
 
+\itemize{
+
+\item \dQuote{aurn}, The UK Automatic Urban and Rural Network.
+
+\item \dQuote{saqn}, The Scottish Air Quality Network.
+
+\item \dQuote{waqn}, The Welsh Air Quality Network.
+
+\item \dQuote{ni}, The Northern Ireland Air Quality Network.
+
+\item \dQuote{aqe}, The Air Quality England Network.
+
+\item \dQuote{kcl}, King's College London networks.
+
+\item \dQuote{europe}, Import hourly European data (Airbase/e-reporting)
+based on a simplified version of the \code{saqgetr} package.
+}
+
+By default, the function will return the site latitude, longitude and site
+type. If the option \code{all = TRUE} is used, much more detailed
+information is returned. For most networks, this detailed information
+includes per-pollutant summaries, opening and closing dates of sites etc.
+
+Thanks go to Trevor Davies (Ricardo), Dr Stuart Grange (EMPA) and Dr Ben
+Barratt (KCL) and  for making these data available.
 }
 \examples{
 ## basic data
