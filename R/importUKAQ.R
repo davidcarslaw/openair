@@ -54,8 +54,7 @@ importUKAQ <- function(site = "my1", year = 2009, pollutant = "all",
   files <- do.call(c, files)
   
   # Download and load data
-  thedata <- lapply(files, loadData, verbose, ratified, meta_data, url_data)
-  thedata <- suppressWarnings(do.call(bind_rows, thedata))
+  thedata <- map_df(files, ~ loadData(.x, verbose, ratified, meta_data, url_data))
   
   # Return if no data
   if (nrow(thedata) == 0) return() ## no data
@@ -111,7 +110,7 @@ importUKAQ <- function(site = "my1", year = 2009, pollutant = "all",
     meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>% 
       select(site, code, latitude, longitude, site_type)
     # suppress warnings about factors
-    thedata <- suppressWarnings(inner_join(thedata, meta_data, by = c("code", "site")))
+    thedata <- left_join(thedata, meta_data, by = c("code", "site"))
   }
   
   
