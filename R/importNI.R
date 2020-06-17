@@ -1,17 +1,17 @@
-##' Air Quality England Network data import for openair
+##' Northern Ireland Network data import for openair
 ##'
 ##' @keywords methods
-##' @describeIn importAURN Import data from the Air Quality England
+##' @describeIn importAURN Import data from the Northern Ireland Air Quality Network
 ##' @export
 ##'
-importAQE <- function(site = "yk13", year = 2018, pollutant = "all",
+importNI <- function(site = "bel0", year = 2018, pollutant = "all",
                       meta = FALSE, ratified = FALSE,
                       to_narrow = FALSE) {
   
   aq_data <- importUKAQ(site, year, pollutant,
                         meta, ratified,
                         to_narrow, 
-                        source = "aqe")  
+                        source = "ni")  
   
   return(aq_data)
   

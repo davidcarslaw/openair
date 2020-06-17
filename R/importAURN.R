@@ -1,19 +1,20 @@
-##' Import data from the UK Automatic Urban and Rural Network (AURN)
+##' Import data from the UK Air Pollution Networks
 ##'
-##' Function for importing hourly mean UK Automatic Urban and Rural Network
-##' (AURN) air quality archive data files for use with the \code{openair}
-##' package. Files are imported from a remote server operated by Ricardo that
-##' provides air quality data files as R data objects.
+##' Functions for importing hourly mean air pollution data from a range of UK
+##' networks including the Automatic Urban and Rural Network. Files are imported
+##' from a remote server operated by Ricardo that provides air quality data
+##' files as R data objects.
 ##'
-##' The \code{importAURN} function has been written to make it easy to import
-##' data from the UK AURN. Ricardo have provided .RData files (R workspaces) of
-##' all individual sites and years for the AURN. These files are updated on a
-##' daily basis. This approach requires a link to the Internet to work.
+##' This family of functions has been written to make it easy to import data
+##' from across several UK air quality networks. Ricardo have provided .RData
+##' files (R workspaces) of all individual sites and years, as well as up to
+##' date meta data. These files are updated on a daily basis. This approach
+##' requires a link to the Internet to work.
 ##'
 ##' For an up to date list of available sites that can be imported, see
-##' \code{importMeta}.
-##' 
-##' The site codes and pollutant names can be upper or lower case. 
+##' \code{\link{importMeta}}.
+##'
+##' The site codes and pollutant names can be upper or lower case.
 ##'
 ##' There are several advantages over the web portal approach where .csv files
 ##' are downloaded. First, it is quick to select a range of sites, pollutants
@@ -45,7 +46,8 @@
 ##'
 ##' The function returns modelled hourly values of wind speed (\code{ws}), wind
 ##' direction (\code{wd}) and ambient temperature (\code{air_temp}) if available
-##' (generally from around 2010). These values are modelled using the WRF model.
+##' (generally from around 2010). These values are modelled using the WRF model
+##' operated by Ricardo.
 ##'
 ##' The few BAM (Beta-Attenuation Monitor) instruments that have been
 ##' incorporated into the network throughout its history have been scaled by 1.3
@@ -62,11 +64,11 @@
 ##' FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 ##'
 ##'
-##' @param site Site code of the AURN site to import e.g. \dQuote{my1} is
-##'   Marylebone Road. Several sites can be imported with \code{site = c("my1",
-##'   "nott")} --- to import Marylebone Road and Nottingham for example.
+##' @param site Site code of the site to import e.g. \dQuote{my1} is Marylebone
+##'   Road. Several sites can be imported with \code{site = c("my1", "nott")}
+##'   --- to import Marylebone Road and Nottingham for example.
 ##' @param year Year or years to import. To import a sequence of years from 1990
-##'   to 2000 use \code{year = 1990:2000}. To import several specfic years use
+##'   to 2000 use \code{year = 1990:2000}. To import several specific years use
 ##'   \code{year = c(1990, 1995, 2000)} for example.
 ##' @param pollutant Pollutants to import. If omitted will import all pollutants
 ##'   ffrom a site. To import only NOx and NO2 for example use \code{pollutant =
@@ -89,9 +91,8 @@
 ##' @importFrom utils download.file
 ##' @return Returns a data frame of hourly mean values with date in POSIXct
 ##'   class and time zone GMT.
-##' @author David Carslaw
-##' @seealso \code{\link{importKCL}}, \code{\link{importADMS}},
-##'   \code{\link{importSAQN}}
+##' @author David Carslaw and Trevor Davies
+##' @seealso \code{\link{importKCL}}, \code{\link{importADMS}}
 ##' @keywords methods
 ##' @examples
 ##'
@@ -103,183 +104,19 @@
 ##' \dontrun{thedata <- importAURN(site = c("my1", "nott"), year = 2000,
 ##' pollutant = c("nox", "no2", "o3"))}
 ##'
-##' ## import over 20 years of Mace Head O3 data!
-##' \dontrun{o3 <- importAURN(site = "mh", year = 1987:2009)}
+##' # Other functions work in the same way e.g. to import Cardiff Centre data:
 ##'
-##' ## import hydrocarbon (and other) data from Marylebone Road
-##' \dontrun{mary <- importAURN(site = "my1", year =1998, hc = TRUE)}
-##'
-##'
-##' 
+##' \dontrun{cardiff <- importWAQN(site = "card", year = 2020)}
 importAURN <- function(site = "my1", year = 2009, pollutant = "all",
                        hc = FALSE, meta = FALSE, ratified = FALSE,
                        to_narrow = FALSE, verbose = FALSE) {
 
-  # For file name matching, needs to be exact
-  site <- toupper(site)
+  aq_data <- importUKAQ(site, year, pollutant,
+                        hc, meta, ratified,
+                        to_narrow, verbose, 
+                        source = "aurn")  
   
-  if (meta | ratified)
-    meta_data <- importMeta(source = "aurn", all = TRUE)
-
-  # Create file name vector
-  files <- lapply(site, function(x) paste(x, "_", year, sep = ""))
-  files <- do.call(c, files)
-
-  # Download and load data
-  thedata <- lapply(files, loadData, verbose, ratified, meta_data)
-  thedata <- suppressWarnings(do.call(bind_rows, thedata))
-
-  # Return if no data
-  if (nrow(thedata) == 0) return() ## no data
-
-  ## suppress warnings for now - unequal factors, harmless
-
-  if (is.null(thedata)) {
-    stop("No data to import - check site codes and year.", call. = FALSE)
-  }
-
-  thedata$site <- factor(thedata$site, levels = unique(thedata$site))
-
-  ## change names
-  names(thedata) <- tolower(names(thedata))
-
-  ## change nox as no2
-  id <- which(names(thedata) %in% "noxasno2")
-  if (length(id) == 1) names(thedata)[id] <- "nox"
-
-
-  ## should hydrocarbons be imported?
-  if (hc) {
-    thedata <- thedata
-  } else {
-
-    
-    ## no hydrocarbons - therefore select conventional pollutants
-    theNames <- c(
-      "site", "code", "date", "co", "nox", "no2", "no", "o3", "so2", "pm10", 
-      "pm2.5", "v10", "v2.5", "nv10", "nv2.5", "ws", "wd", "temp"
-    )
-    
-    thedata <- select(thedata, any_of(theNames) | matches("_qc"))
-    
-  }
-  
-  if ("temp" %in% names(thedata))
-    thedata <- rename(thedata, air_temp = temp)
-
-  ## if particular pollutants have been selected
-  if (pollutant != "all") {
-    thedata <- thedata[, c("date", pollutant, "site", "code")]
-  }
-
-  ## make sure it is in GMT
-  attr(thedata$date, "tzone") <- "GMT"
-
-  # make sure class is correct for lubridate
-  class(thedata$date) <- c("POSIXct", "POSIXt")
+  return(aq_data)
   
 
-  if (meta) {
-    meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>% 
-      select(site, code, latitude, longitude, site_type)
-    # suppress warnings about factors
-    thedata <- suppressWarnings(inner_join(thedata, meta_data, by = c("code", "site")))
-  }
-  
- 
-  if (to_narrow) {
-    
-    if (ratified) {
-      warning("Cannot re-shape if ratified is TRUE")
-      return()
-    }
-    
-    if (meta) {
-      
-      thedata <- pivot_longer(thedata, -c(date, site, code, latitude, longitude, site_type), 
-                              names_to = "pollutant") %>% 
-        arrange(site, code, pollutant, date)
-      
-    } else {
-    
-    thedata <- pivot_longer(thedata, -c(date, site, code), names_to = "pollutant") %>% 
-      arrange(site, code, pollutant, date)
-    
-    }
-  }
-  
-  as_tibble(thedata)
-}
-
-
-
-# Define downloading and loading function
-# No export
-loadData <- function(x, verbose, ratified, meta_data) {
-  tryCatch({
-
-    # Download file to temp directory
-    # need to do this because of https, certificate problems
-    tmp <- tempfile()
-
-    # Build the file name
-    fileName <- paste(
-      "https://uk-air.defra.gov.uk/openair/R_data/", x,
-      ".RData",
-      sep = ""
-    )
-
-    # No warnings needed, function gives message if file is not present
-    suppressWarnings(
-      download.file(
-        fileName,
-        method = "libcurl", destfile = tmp,
-        quiet = !verbose
-      )
-    )
-
-    # Load the rdata object
-    load(tmp)
-    
-    # Reasign
-    dat <- get(x)
-    
-    # add ratification information
-    if (ratified) {
-      
-      site_code <- strsplit(x, split = "_")[[1]][1]
-      
-      meta_data <- filter(meta_data, code == site_code, 
-               !variable %in% c("V10", "NV10", "V2.5", "NV2.5",
-                                "ws", "wd", "temp")) %>% 
-        select(variable, ratified_to)
-
-      for (i in 1:nrow(meta_data)) {
-
-        dat <- add_ratified(dat, variable = meta_data$variable[i],
-                            ratified_to = meta_data$ratified_to[i])
-
-      }
-
-      
-    }
-    
-
-    return(dat)
-    
-  }, error = function(ex) {
-
-    # Print a message
-    if (verbose) {
-      message(x, "does not exist - ignoring that one.")
-    }
-  })
-}
-
-add_ratified <- function(data, variable, ratified_to) {
-
-  new_var <- paste0(variable, "_qc")
-  data <- mutate(data, {{new_var}} := ifelse(date <= ratified_to, TRUE, FALSE))
-
-  return(data)
 }
