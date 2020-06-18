@@ -50,8 +50,8 @@ importUKAQ <- function(site = "my1", year = 2009, pollutant = "all",
     meta_data <- importMeta(source = source_meta, all = TRUE)
   
   # Create file name vector
-  files <- lapply(site, function(x) paste(x, "_", year, sep = ""))
-  files <- do.call(c, files)
+  files <- map(site, ~ paste0(.x, "_", year)) %>% 
+    flatten_chr()
   
   # Download and load data
   thedata <- map_df(files, ~ loadData(.x, verbose, ratified, meta_data, url_data))
@@ -65,7 +65,6 @@ importUKAQ <- function(site = "my1", year = 2009, pollutant = "all",
     stop("No data to import - check site codes and year.", call. = FALSE)
   }
   
-  thedata$site <- factor(thedata$site, levels = unique(thedata$site))
   
   ## change names
   names(thedata) <- tolower(names(thedata))

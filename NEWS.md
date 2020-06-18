@@ -1,5 +1,7 @@
 ## openair 2.7-99
 
+## openair 2.7-4
+
 - add ambient temperature (`air_temp`) to meteorological variables returned from `importAURN`, `importSAQN` and `importWAQN` (using WRF model).
 - re-format date returned in `importAQE` due to strange `dplyr` join issues
 - add `statistic = "Spearman"` to `polarPlot` as an option when considering two pollutants.
@@ -7,7 +9,8 @@
 - refactor all UK air quality data import functions i.e. `importAURN`, `importSAQN`, `importWAQN`, `importAQE`.
 - Add `importNI` to import data from Northern Ireland.
 - Add option to UK air quality import functions to return information on whether individual pollutants have been quality-assured using option `ratified`. These functions include `importAURN`, `importSAQN`, `importWAQN`, `importAQE` and `importNI`
-- Clean up what is returned from `importMeta`.
+- Clean up what is returned from `importMeta`
+- Return air quality data site name and code as character rather than factor
 
 ## openair 2.7-2
 
