@@ -107,7 +107,7 @@ importMeta <- function(source = "aurn", all = FALSE) {
     # load data
     load(url("http://www.scottishairquality.scot/openair/R_data/SCOT_metadata.RData"))
     
-    meta <- rename(metadata,
+    meta <- rename(meta,
                    code = site_id, site = site_name,
                    site_type = location_type, variable = parameter) %>% 
       mutate(start_date = ymd(start_date, tz = "GMT"),
