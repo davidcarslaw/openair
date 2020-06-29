@@ -166,7 +166,9 @@ importMeta <- function(source = "aurn", all = FALSE) {
                    code = site_id, site = site_name,
                    site_type = location_type, variable = parameter) %>% 
       mutate(start_date = ymd(start_date, tz = "GMT"),
-             ratified_to = ymd(ratified_to, tz = "GMT", quiet = TRUE))
+             ratified_to = ymd(ratified_to, tz = "GMT", quiet = TRUE),
+             site_type = gsub(pattern = "Urban traffic", 
+                              replacement = "Urban Traffic", site_type))
     
     ## only extract one line per site to make it easier to use file
     ## mostly interested in coordinates
