@@ -4,7 +4,7 @@
 # openair: open source tools for air quality data analysis
 
 For the main **openair** website, see
-<http://davidcarslaw.github.io/openair/>.
+<https://davidcarslaw.github.io/openair/>.
 
 [![Travis-CI Build
 Status](https://travis-ci.org/davidcarslaw/openair.svg?branch=master)](https://travis-ci.org/davidcarslaw/openair)
