@@ -1,0 +1,1169 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.7.18)  18 JUL 2020 08:54
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**"/Users/davidcarslaw/Dropbox/Apps/ShareLaTeX/Ammonia emissions/ammonia.tex"
+(/Users/davidcarslaw/Dropbox/Apps/ShareLaTeX/Ammonia emissions/ammonia.tex
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-07-17> (/Users/davidcarslaw/Library/TinyTeX/texmf-di
+st/tex/latex/achemso/achemso.cls
+Document Class: achemso 2020-05-27 v3.13a Submission to ACS journals
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count168
+\c@section=\count169
+\c@subsection=\count170
+\c@subsubsection=\count171
+\c@paragraph=\count172
+\c@subparagraph=\count173
+\c@figure=\count174
+\c@table=\count175
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvutils.te
+x
+\XKV@toks=\toks15
+\XKV@tempa@toks=\toks16
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/xkeyval/keyval.tex)
+)
+\XKV@depth=\count176
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+\acs@bib@file=\write3
+\c@bibnote=\count177
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count178
+\Gm@cntv=\count179
+\c@Gm@tempcnt=\count180
+\Gm@bindingoffset=\dimen135
+\Gm@wd@mp=\dimen136
+\Gm@odd@mp=\dimen137
+\Gm@even@mp=\dimen138
+\Gm@layoutwidth=\dimen139
+\Gm@layoutheight=\dimen140
+\Gm@layouthoffset=\dimen141
+\Gm@layoutvoffset=\dimen142
+\Gm@dimlist=\toks17
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2020/05/30 v3.4k Customizing captions (AR)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2020/05/30 v1.12 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 61.
+\captionmargin=\dimen143
+\captionmargin@=\dimen144
+\captionwidth=\dimen145
+\caption@tempdima=\dimen146
+\caption@indent=\dimen147
+\caption@parindent=\dimen148
+\caption@hangindent=\dimen149
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count181
+\c@continuedfloat=\count182
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count183
+\float@exts=\toks18
+\float@box=\box45
+\@float@everytoks=\toks19
+\@floatcapt=\box46
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics
+.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.d
+ef
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen150
+\Gin@req@width=\dimen151
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+\acs@author@cnt=\count184
+\acs@affil@cnt=\count185
+\acs@affil@alt@cnt=\count186
+\acs@footnote@cnt=\count187
+\acs@affil@marker@cnt=\count188
+\acs@space@pre@title=\skip49
+\acs@space@post@title=\skip50
+\acs@space@post@author=\skip51
+\acs@space@post@address=\skip52
+\acs@space@post@email=\skip53
+\acs@maketitle@width=\skip54
+\@float@every@scheme=\toks20
+\c@scheme=\count189
+\@float@every@chart=\toks21
+\c@chart=\count190
+\@float@every@graph=\toks22
+\c@graph=\count191
+\@float@every@table=\toks23
+\acs@collect@toks=\toks24
+\acs@collect@empty@toks=\toks25
+\acs@tocentry@height=\skip55
+\acs@tocentry@width=\skip56
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/achemso/achemso-estha
+g.cfg
+File: achemso-esthag.cfg 2020-05-27 v3.13a achemso configuration: Environ. Sci.
+ Technol.
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip57
+\bibsep=\skip58
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count192
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/achemso/natmove.sty
+Package: natmove 2010/01/15 v1.1a Automatic citation moving with natbib
+))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/chemformula/chemformu
+la.sty (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3
+.sty
+Package: expl3 2020-07-17 L3 programming layer (loader) 
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-p
+dfmode.def
+File: l3backend-pdfmode.def 2020-06-29 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count193
+\l__pdf_internal_box=\box47
+))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xpa
+rse.sty
+Package: xparse 2020-05-15 L3 Experimental document command parser
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xpa
+rse-generic.tex
+\l__xparse_current_arg_int=\count194
+\g__xparse_grabber_int=\count195
+\l__xparse_m_args_int=\count196
+\l__xparse_v_nesting_int=\count197
+))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/l3packages/l3keys2e/l
+3keys2e.sty
+Package: l3keys2e 2020-05-15 LaTeX2e option processing using LaTeX3 keys
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/pgf/frontendlayer/tik
+z.sty
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgf.st
+y
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfrcs.
+sty
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfut
+il-common.tex
+\pgfutil@everybye=\toks26
+\pgfutil@tempdima=\dimen152
+\pgfutil@tempdimb=\dimen153
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfut
+il-common-lists.tex))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfut
+il-latex.def
+\pgfutil@abb=\box48
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/ms/everyshi.sty
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfrc
+s.code.tex
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/pgf.revision.te
+x)
+Package: pgfrcs 2020/01/08 v3.1.5b (3.1.5b)
+))
+Package: pgf 2020/01/08 v3.1.5b (3.1.5b)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgfcor
+e.sty
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/pgf/systemlayer/pgfsy
+s.sty
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf
+sys.code.tex
+Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfke
+ys.code.tex
+\pgfkeys@pathtoks=\toks27
+\pgfkeys@temptoks=\toks28
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfke
+ysfiltered.code.tex
+\pgfkeys@tmptoks=\toks29
+))
+\pgf@x=\dimen154
+\pgf@y=\dimen155
+\pgf@xa=\dimen156
+\pgf@ya=\dimen157
+\pgf@xb=\dimen158
+\pgf@yb=\dimen159
+\pgf@xc=\dimen160
+\pgf@yc=\dimen161
+\pgf@xd=\dimen162
+\pgf@yd=\dimen163
+\w@pgf@writea=\write4
+\r@pgf@reada=\read2
+\c@pgf@counta=\count198
+\c@pgf@countb=\count199
+\c@pgf@countc=\count266
+\c@pgf@countd=\count267
+\t@pgf@toka=\toks30
+\t@pgf@tokb=\toks31
+\t@pgf@tokc=\toks32
+\pgf@sys@id@count=\count268
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf
+.cfg
+File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf
+sys-pdftex.def
+File: pgfsys-pdftex.def 2020/01/08 v3.1.5b (3.1.5b)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf
+sys-common-pdf.def
+File: pgfsys-common-pdf.def 2020/01/08 v3.1.5b (3.1.5b)
+)))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf
+syssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfsyssoftpath@smallbuffer@items=\count269
+\pgfsyssoftpath@bigbuffer@items=\count270
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf
+sysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cf
+g
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+ore.code.tex
+Package: pgfcore 2020/01/08 v3.1.5b (3.1.5b)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.co
+de.tex
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathcal
+c.code.tex
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathuti
+l.code.tex)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathpar
+ser.code.tex
+\pgfmath@dimen=\dimen164
+\pgfmath@count=\count271
+\pgfmath@box=\box49
+\pgfmath@toks=\toks33
+\pgfmath@stack@operand=\toks34
+\pgfmath@stack@operation=\toks35
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfun
+ctions.code.tex
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfun
+ctions.basic.code.tex)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfun
+ctions.trigonometric.code.tex)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfun
+ctions.random.code.tex)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfun
+ctions.comparison.code.tex)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfun
+ctions.base.code.tex)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfun
+ctions.round.code.tex)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfun
+ctions.misc.code.tex)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfun
+ctions.integerarithmetics.code.tex)))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathflo
+at.code.tex
+\c@pgfmathroundto@lastzeros=\count272
+))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfint.cod
+e.tex)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+orepoints.code.tex
+File: pgfcorepoints.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@picminx=\dimen165
+\pgf@picmaxx=\dimen166
+\pgf@picminy=\dimen167
+\pgf@picmaxy=\dimen168
+\pgf@pathminx=\dimen169
+\pgf@pathmaxx=\dimen170
+\pgf@pathminy=\dimen171
+\pgf@pathmaxy=\dimen172
+\pgf@xx=\dimen173
+\pgf@xy=\dimen174
+\pgf@yx=\dimen175
+\pgf@yy=\dimen176
+\pgf@zx=\dimen177
+\pgf@zy=\dimen178
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+orepathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@path@lastx=\dimen179
+\pgf@path@lasty=\dimen180
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+orepathusage.code.tex
+File: pgfcorepathusage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@shorten@end@additional=\dimen181
+\pgf@shorten@start@additional=\dimen182
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+orescopes.code.tex
+File: pgfcorescopes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfpic=\box50
+\pgf@hbox=\box51
+\pgf@layerbox@main=\box52
+\pgf@picture@serial@count=\count273
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+oregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgflinewidth=\dimen183
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+oretransformations.code.tex
+File: pgfcoretransformations.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@pt@x=\dimen184
+\pgf@pt@y=\dimen185
+\pgf@pt@temp=\dimen186
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+orequick.code.tex
+File: pgfcorequick.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+oreobjects.code.tex
+File: pgfcoreobjects.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+orepathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+orearrows.code.tex
+File: pgfcorearrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfarrowsep=\dimen187
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+oreshade.code.tex
+File: pgfcoreshade.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@max=\dimen188
+\pgf@sys@shading@range@num=\count274
+\pgf@shadingcount=\count275
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+oreimage.code.tex
+File: pgfcoreimage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+oreexternal.code.tex
+File: pgfcoreexternal.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfexternal@startupbox=\box53
+))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+orelayers.code.tex
+File: pgfcorelayers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+oretransparency.code.tex
+File: pgfcoretransparency.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+orepatterns.code.tex
+File: pgfcorepatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfc
+orerdf.code.tex
+File: pgfcorerdf.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmodu
+leshapes.code.tex
+File: pgfmoduleshapes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfnodeparttextbox=\box54
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmodu
+leplot.code.tex
+File: pgfmoduleplot.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/pgf/compatibility/pgf
+comp-version-0-65.sty
+Package: pgfcomp-version-0-65 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@nodesepstart=\dimen189
+\pgf@nodesepend=\dimen190
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/pgf/compatibility/pgf
+comp-version-1-18.sty
+Package: pgfcomp-version-1-18 2020/01/08 v3.1.5b (3.1.5b)
+))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgffor.
+sty
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfkeys
+.sty
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfke
+ys.code.tex)) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/pgf/mat
+h/pgfmath.sty
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.co
+de.tex))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgffo
+r.code.tex
+Package: pgffor 2020/01/08 v3.1.5b (3.1.5b)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.co
+de.tex)
+\pgffor@iter=\dimen191
+\pgffor@skip=\dimen192
+\pgffor@stack=\toks36
+\pgffor@toks=\toks37
+))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/t
+ikz/tikz.code.tex
+Package: tikz 2020/01/08 v3.1.5b (3.1.5b)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgfli
+braryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@plot@mark@count=\count276
+\pgfplotmarksize=\dimen193
+)
+\tikz@lastx=\dimen194
+\tikz@lasty=\dimen195
+\tikz@lastxsaved=\dimen196
+\tikz@lastysaved=\dimen197
+\tikz@lastmovetox=\dimen198
+\tikz@lastmovetoy=\dimen199
+\tikzleveldistance=\dimen256
+\tikzsiblingdistance=\dimen257
+\tikz@figbox=\box55
+\tikz@figbox@bg=\box56
+\tikz@tempbox=\box57
+\tikz@tempbox@bg=\box58
+\tikztreelevel=\count277
+\tikznumberofchildren=\count278
+\tikznumberofcurrentchild=\count279
+\tikz@fig@count=\count280
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmodu
+lematrix.code.tex
+File: pgfmodulematrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfmatrixcurrentrow=\count281
+\pgfmatrixcurrentcolumn=\count282
+\pgf@matrix@numberofcolumns=\count283
+)
+\tikz@expandcount=\count284
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/t
+ikz/libraries/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+))) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.s
+ty
+Package: amsmath 2020/01/20 v2.17e AMS math features
+\@mathmargin=\skip59
+For additional information on amsmath, use the `?' option.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks38
+\ex@=\dimen258
+)) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen259
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count285
+LaTeX Info: Redefining \frac on input line 227.
+\uproot@=\count286
+\leftroot@=\count287
+LaTeX Info: Redefining \overline on input line 389.
+\classnum@=\count288
+\DOTSCASE@=\count289
+LaTeX Info: Redefining \ldots on input line 486.
+LaTeX Info: Redefining \dots on input line 489.
+LaTeX Info: Redefining \cdots on input line 610.
+\Mathstrutbox@=\box59
+\strutbox@=\box60
+\big@size=\dimen260
+LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
+\macc@depth=\count290
+\c@MaxMatrixCols=\count291
+\dotsspace@=\muskip17
+\c@parentequation=\count292
+\dspbrk@lvl=\count293
+\tag@help=\toks39
+\row@=\count294
+\column@=\count295
+\maxfields@=\count296
+\andhelp@=\toks40
+\eqnshift@=\dimen261
+\alignsep@=\dimen262
+\tagshift@=\dimen263
+\tagwidth@=\dimen264
+\totwidth@=\dimen265
+\lineht@=\dimen266
+\@envbody=\toks41
+\multlinegap=\skip60
+\multlinetaggap=\skip61
+\mathdisplay@stack=\toks42
+LaTeX Info: Redefining \[ on input line 2859.
+LaTeX Info: Redefining \] on input line 2860.
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/l3packages/xfrac/xfra
+c.sty (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/base/textcomp.s
+ty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/l3packages/xtemplate/
+xtemplate.sty
+Package: xtemplate 2020-05-15 L3 Experimental prototype document functions
+\l__xtemplate_tmp_dim=\dimen267
+\l__xtemplate_tmp_int=\count297
+\l__xtemplate_tmp_muskip=\muskip18
+\l__xtemplate_tmp_skip=\skip62
+)
+Package: xfrac 2020-05-15 L3 Experimental split-level fractions
+\l__xfrac_slash_box=\box61
+\l__xfrac_tmp_box=\box62
+\l__xfrac_denominator_bot_sep_dim=\dimen268
+\l__xfrac_numerator_bot_sep_dim=\dimen269
+\l__xfrac_numerator_top_sep_dim=\dimen270
+\l__xfrac_slash_left_sep_dim=\dimen271
+\l__xfrac_slash_right_sep_dim=\dimen272
+\l__xfrac_slash_left_muskip=\muskip19
+\l__xfrac_slash_right_muskip=\muskip20
+
+Package xtemplate Info: Declaring object type 'xfrac' taking 3 argument(s) on
+(xtemplate)             line 80.
+
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/units/nicefrac.sty
+Package: nicefrac 1998/08/04 v0.9b Nice fractions
+\L@UnitsRaiseDisplaystyle=\skip63
+\L@UnitsRaiseTextstyle=\skip64
+\L@UnitsRaiseScriptstyle=\skip65
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/koma-script/scrlfile.
+sty
+Package: scrlfile 2020/04/19 v3.30 KOMA-Script package (loading files)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgfli
+braryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfarrowinset=\dimen273
+\pgfarrowlength=\dimen274
+\pgfarrowwidth=\dimen275
+\pgfarrowlinewidth=\dimen276
+)
+Package: chemformula 2020/03/07 v4.15j typeset chemical compounds and reactions
+ (CN)
+\l__chemformula_tmpa_dim=\dimen277
+\l__chemformula_tmpb_dim=\dimen278
+\l__chemformula_tmpc_dim=\dimen279
+\l__chemformula_tmpa_int=\count298
+\l__chemformula_tmpb_int=\count299
+\l__chemformula_tmpc_int=\count300
+\l__chemformula_tmpa_box=\box63
+\l__chemformula_tmpb_box=\box64
+\l__chemformula_arrow_length_dim=\dimen280
+\l__chemformula_arrow_label_height_dim=\dimen281
+\l__chemformula_arrow_label_offset_dim=\dimen282
+\l__chemformula_arrow_minimum_length_dim=\dimen283
+\l__chemformula_arrow_shortage_dim=\dimen284
+\l__chemformula_arrow_offset_dim=\dimen285
+\l__chemformula_arrow_yshift_dim=\dimen286
+\l__chemformula_radical_radius_dim=\dimen287
+\l__chemformula_radical_hshift_dim=\dimen288
+\l__chemformula_radical_vshift_dim=\dimen289
+\l__chemformula_radical_space_dim=\dimen290
+\l__chemformula_arrow_head_dim=\dimen291
+\l__chemformula_name_dim=\dimen292
+\l__chemformula_adduct_space_dim=\dimen293
+\l__chemformula_charge_shift_dim=\dimen294
+\l__chemformula_subscript_shift_dim=\dimen295
+\l__chemformula_superscript_shift_dim=\dimen296
+\l__chemformula_subscript_dim=\dimen297
+\l__chemformula_superscript_dim=\dimen298
+\l__chemformula_bond_dim=\dimen299
+\l__chemformula_bond_space_dim=\dimen300
+\l__chemformula_elspec_pair_distance_dim=\dimen301
+\l__chemformula_elspec_pair_line_length_dim=\dimen302
+\l__chemformula_elspec_pair_width_dim=\dimen303
+\l__chemformula_kroegervink_positive_radius_dim=\dimen304
+\l__chemformula_kroegervink_positive_hshift_dim=\dimen305
+\l__chemformula_kroegervink_positive_vshift_dim=\dimen306
+\l__chemformula_kroegervink_positive_space_dim=\dimen307
+\l__chemformula_stoich_space_skip=\skip66
+\l__chemformula_math_space_skip=\skip67
+\l__chemformula_count_tokens_int=\count301
+\g__chemformula_lewis_int=\count302
+\l__chemformula_arrow_arg_i_box=\box65
+\l__chemformula_arrow_arg_ii_box=\box66
+\l__chemformula_superscript_box=\box67
+\l__chemformula_subscript_box=\box68
+\l__chemformula_additions_symbol_space_skip=\skip68
+\l__chemformula_plus_space_skip=\skip69
+\l__chemformula_minus_space_skip=\skip70
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty
+Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/lineno/lineno.sty
+Package: lineno 2005/11/02 line numbers on paragraphs v4.41
+\linenopenalty=\count303
+\output=\toks43
+\linenoprevgraf=\count304
+\linenumbersep=\dimen308
+\linenumberwidth=\dimen309
+\c@linenumber=\count305
+\c@pagewiselinenumber=\count306
+\c@LN@truepage=\count307
+\c@internallinenumber=\count308
+\c@internallinenumbers=\count309
+\quotelinenumbersep=\dimen310
+\bframerule=\dimen311
+\bframesep=\dimen312
+\bframebox=\box69
+LaTeX Info: Redefining \\ on input line 3056.
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks44
+\inpenc@posthook=\toks45
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2020-05-15 v7.00e Hypertext links for LaTeX
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcm
+ds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr
+.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetkeys
+.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefi
+nekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape
+.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmac
+ro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.s
+ty
+Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
+)
+\@linkdim=\dimen313
+\Hy@linkcounter=\count310
+\Hy@pagecounter=\count311
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2020-05-15 v7.00e Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.s
+ty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count312
+Package hyperref Info: Hyper figures OFF on input line 4464.
+Package hyperref Info: Link nesting OFF on input line 4469.
+Package hyperref Info: Hyper index ON on input line 4472.
+Package hyperref Info: Plain pages OFF on input line 4479.
+Package hyperref Info: Backreferencing OFF on input line 4484.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4717.
+\c@Hy@tempcnt=\count313
+LaTeX Info: Redefining \url on input line 5076.
+\XeTeXLinkMargin=\dimen314
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintca
+lc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count314
+\Field@Width=\dimen315
+\Fld@charsize=\dimen316
+Package hyperref Info: Hyper figures OFF on input line 6347.
+Package hyperref Info: Link nesting OFF on input line 6352.
+Package hyperref Info: Hyper index ON on input line 6355.
+Package hyperref Info: backreferencing OFF on input line 6362.
+Package hyperref Info: Link coloring OFF on input line 6367.
+Package hyperref Info: Link coloring with OCG OFF on input line 6372.
+Package hyperref Info: PDF/A mode OFF on input line 6377.
+LaTeX Info: Redefining \ref on input line 6417.
+LaTeX Info: Redefining \pageref on input line 6421.
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/atbegshi/atbegshi.s
+ty
+Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
+)
+\Hy@abspage=\count315
+\c@Item=\count316
+\c@Hfootnote=\count317
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2020-05-15 v7.00e Hyperref driver for pdfTeX
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/atveryend/atveryend.s
+ty
+Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+)
+\Fld@listcount=\count318
+\c@bookmark@seq@number=\count319
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunf
+ilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniqu
+ecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+)
+\Hy@SectionHShift=\skip71
+) (/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.s
+ty
+Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
+\MT@toks=\toks46
+\MT@count=\count320
+LaTeX Info: Redefining \textls on input line 790.
+\MT@outer@kern=\dimen317
+LaTeX Info: Redefining \textmicrotypecontext on input line 1354.
+\MT@listname@count=\count321
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype-p
+dftex.def
+File: microtype-pdftex.def 2019/11/18 v2.7d Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 914.
+LaTeX Info: Redefining \lslig on input line 914.
+\MT@outer@space=\skip72
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.c
+fg
+File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
+))
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/IEEEtran/IEEEtrantool
+s.sty
+Package: IEEEtrantools 2015/08/26 V1.5 by Michael Shell
+-- See the "IEEEtrantools_doc.txt" manual for usage information.
+-- http://www.michaelshell.org/tex/ieeetran/tools/
+\@IEEEtrantmpdimenA=\dimen318
+\@IEEEtrantmpdimenB=\dimen319
+\@IEEEtrantmpdimenC=\dimen320
+\@IEEEtrantmpcountA=\count322
+\@IEEEtrantmpcountB=\count323
+\@IEEEtrantmpcountC=\count324
+\@IEEEtrantmptoksA=\toks47
+\IEEEnormaljot=\dimen321
+\IEEEquantizedlength=\dimen322
+\IEEEquantizedlengthdiff=\dimen323
+\IEEEquantizedtextheightdiff=\dimen324
+\IEEEilabelindentA=\dimen325
+\IEEEilabelindentB=\dimen326
+\IEEEilabelindent=\dimen327
+\IEEEelabelindent=\dimen328
+\IEEEdlabelindent=\dimen329
+\IEEElabelindent=\dimen330
+\IEEEiednormlabelsep=\dimen331
+\IEEEiedmathlabelsep=\dimen332
+\IEEEiedtopsep=\skip73
+\c@IEEEsubequation=\count325
+\@IEEEeqnnumcols=\count326
+\@IEEEeqncolcnt=\count327
+\@IEEEsubeqnnumrollback=\count328
+\IEEEPARstartletwidth=\dimen333
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 24.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/xargs/xargs.sty
+Package: xargs 2008/03/22 v1.1  extended macro definitions  (mpg)
+\xargs@max=\count329
+\xargs@toksa=\toks48
+\xargs@toksb=\toks49
+)
+No file ammonia.aux.
+\openout1 = `ammonia.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 77.
+LaTeX Font Info:    ... okay on input line 77.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 77
+.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+\openout3 = `acs-ammonia.bib'.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(72.2698pt, 469.75539pt, 72.2698pt)
+* v-part:(T,H,B)=(72.2698pt, 650.43037pt, 72.2698pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75539pt
+* \textheight=650.43037pt
+* \oddsidemargin=-0.00018pt
+* \evensidemargin=-0.00018pt
+* \topmargin=-37.00018pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: End \AtBeginDocument code.
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf
+-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-
+sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)) ABD: EveryShipout initializing macros
+\AtBeginShipoutBox=\box70
+Package hyperref Info: Link coloring ON on input line 77.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gett
+itlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count330
+)
+LaTeX Info: Redefining \ref on input line 77.
+LaTeX Info: Redefining \pageref on input line 77.
+LaTeX Info: Redefining \nameref on input line 77.
+\@outlinefile=\write5
+\openout5 = `ammonia.out'.
+
+LaTeX Info: Redefining \microtypecontext on input line 77.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `basictext'.
+LaTeX Info: Redefining \showhyphens on input line 77.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 7
+8.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmss.fd
+File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmss' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 7
+8.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 7
+8.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+78.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+78.
+(/Users/davidcarslaw/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <20.74> on input line 78.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 78.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 78.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 78.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 78.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 78.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 78.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 78.
+[1
+
+{/Users/davidcarslaw/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.m
+ap}]
+
+Package natbib Warning: Citation `EEA2016d' on page 2 undefined on input line 1
+17.
+
+
+Package natbib Warning: Citation `Grange2017c' on page 2 undefined on input lin
+e 117.
+
+[2] [3]
+
+LaTeX Warning: Reference `eq: example' on page 4 undefined on input line 161.
+
+
+Package natbib Warning: Citation `Davison2020' on page 4 undefined on input lin
+e 179.
+
+
+LaTeX Warning: Reference `eq:davison_vsp' on page 4 undefined on input line 181
+.
+
+
+Package natbib Warning: Citation `Davison2020' on page 4 undefined on input lin
+e 187.
+
+[4]
+
+Package natbib Warning: Citation `PHEM' on page 5 undefined on input line 189.
+
+
+LaTeX Warning: Reference `eq:davison_FC' on page 5 undefined on input line 189.
+
+
+
+LaTeX Warning: Reference `eq:davison_EF' on page 5 undefined on input line 189.
+
+
+
+Package natbib Warning: Citation `DepartmentforTransport2016' on page 5 undefin
+ed on input line 194.
+
+[5] [6] [7]
+No file ammonia.bbl.
+
+Package natbib Warning: There were undefined citations.
+
+[8
+
+
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 278.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 278.
+(./ammonia.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 278.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 278.
+
+Package rerunfilecheck Warning: File `ammonia.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `ammonia.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 278.
+ ) 
+Here is how much of TeX's memory you used:
+ 23222 strings out of 482854
+ 457242 string characters out of 5955462
+ 744814 words of memory out of 5000000
+ 37965 multiletter control sequences out of 15000+600000
+ 629590 words of font info for 127 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 68i,9n,100p,1283b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}
+{/Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.en
+c}{/Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.
+enc}{/Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-maths
+y.enc}{/Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.
+enc}</Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx1
+0.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmb
+x12.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/l
+mbx8.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/
+lmex10.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1/public/l
+m/lmmi10.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1/public
+/lm/lmmi12.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1/publ
+ic/lm/lmmi5.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1/pub
+lic/lm/lmmi7.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1/pu
+blic/lm/lmmi8.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1/p
+ublic/lm/lmr10.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1/
+public/lm/lmr12.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1
+/public/lm/lmr7.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1
+/public/lm/lmr8.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/type1
+/public/lm/lmri12.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/typ
+e1/public/lm/lmss10.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts/t
+ype1/public/lm/lmss12.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/fonts
+/type1/public/lm/lmss8.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/font
+s/type1/public/lm/lmssbx10.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dist/
+fonts/type1/public/lm/lmsy10.pfb></Users/davidcarslaw/Library/TinyTeX/texmf-dis
+t/fonts/type1/public/lm/lmsy8.pfb>
+Output written on ammonia.pdf (8 pages, 318945 bytes).
+PDF statistics:
+ 162 PDF objects out of 1000 (max. 8388607)
+ 130 compressed objects within 2 object streams
+ 29 named destinations out of 1000 (max. 500000)
+ 31245 words of extra memory for PDF output out of 35830 (max. 10000000)
+
