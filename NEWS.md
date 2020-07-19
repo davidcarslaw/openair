@@ -1,5 +1,7 @@
 ## openair 2.7-99
 
+- fix bug with `percentileRose` when `statistic = "cpf"` and multiple pollutants
+
 ## openair 2.7-4
 
 - add ambient temperature (`air_temp`) to meteorological variables returned from `importAURN`, `importSAQN` and `importWAQN` (using WRF model).

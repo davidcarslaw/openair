@@ -204,7 +204,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE, wd = wd)
 
   ## round wd
-  mydata[, wd] <- angle * ceiling(mydata[, wd] / angle - 0.5)
+  mydata[[wd]] <- angle * ceiling(mydata[[wd]] / angle - 0.5)
 
   # when it generates angle at 0 and 360, make all 360
   if (0 %in% mydata$wd) {
@@ -213,7 +213,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
   }
 
   ## make sure all wds are present
-  ids <- which(!seq(angle, 360, by = angle) %in% unique(mydata[, wd]))
+  ids <- which(!seq(angle, 360, by = angle) %in% unique(mydata[[wd]]))
   if (length(ids) > 0 & smooth != TRUE) {
     extra <- mydata[rep(1, length(ids)), ]
     extra[[wd]] <- seq(angle, 360, by = angle)[ids]
