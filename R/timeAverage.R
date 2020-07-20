@@ -419,8 +419,11 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     if (avg.time == "season") {
       ## special case for season
       ## need to group specific months: Dec/Jan/Feb etc
-
-      mydata <- cutData(mydata, type = "season", ...)
+      
+      # don't cut again if type = "season"
+      if (!"season" %in% type)
+        mydata <- cutData(mydata, type = "season", ...)
+      
       ## remove any missing seasons e.g. through type = "season"
       mydata <- mydata[!is.na(mydata$season), ]
 
@@ -447,7 +450,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     ## variables to split by
     vars <- c(type, "date")
 
-    if (avg.time == "season") vars <- c(vars, "season")
+    if (avg.time == "season") vars <- unique(c(vars, "season"))
 
     if (data.thresh != 0) { ## take account of data capture
 

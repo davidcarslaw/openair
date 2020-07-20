@@ -1,6 +1,7 @@
 ## openair 2.7-99
 
 - fix bug with `percentileRose` when `statistic = "cpf"` and multiple pollutants
+- fix bug in `timeAverage` when `type = "season"` and `avg.time = "season"`
 
 ## openair 2.7-4
 

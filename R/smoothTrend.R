@@ -318,7 +318,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     
    
   } else {
-    # suppress unequal factor warnings due to attr
+    
     mydata <- suppressWarnings(timeAverage(
       mydata,
       type = c(type, "variable"),
