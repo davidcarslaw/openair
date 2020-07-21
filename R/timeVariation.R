@@ -399,7 +399,7 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     }
 
     if (!missing(group)) {
-      if (length(unique(mydata[[group]])) != 2) {
+      if (length(unique(na.omit(mydata[[group]]))) != 2) {
         stop("Need to specify two pollutants to calculate their difference.")
       }
     }

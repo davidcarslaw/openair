@@ -2,6 +2,8 @@
 
 - fix bug with `percentileRose` when `statistic = "cpf"` and multiple pollutants
 - fix bug in `timeAverage` when `type = "season"` and `avg.time = "season"`
+- add `week` to openair default types
+- fix bug in `timeVariation` when considering difference plots with missing data
 
 ## openair 2.7-4
 

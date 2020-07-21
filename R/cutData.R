@@ -165,7 +165,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
     # }
 
     conds <- c(
-      "default", "year", "hour", "month", "season",
+      "default", "year", "hour", "month", "season", "week",
       "weekday", "wd", "site", "weekend", "monthyear",
       "bstgmt", "gmtbst", "dst", "daylight", "seasonyear",
       "yearseason"
@@ -270,6 +270,11 @@ cutData <- function(x, type = "default", hemisphere = "northern",
 
     if (type == "monthyear") {
       x[[type]] <- format(x$date, "%B %Y")
+      x[[type]] <- ordered(x[[type]], levels = unique(x[[type]]))
+    }
+    
+    if (type == "week") {
+      x[[type]] <- format(x$date, "%W")
       x[[type]] <- ordered(x[[type]], levels = unique(x[[type]]))
     }
 
