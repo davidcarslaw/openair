@@ -9,6 +9,8 @@ output:
 openair: open source tools for air quality data analysis
 ========================================================
 
+**NOTE** An online **openair** book is being developed, see <https://openair-book.netlify.app>. This will in time appear on the [Bookdown](https://bookdown.org) website.
+
 For the main **openair** website, see <http://davidcarslaw.github.io/openair/>.
 
 ```{r echo=FALSE}

@@ -3,8 +3,12 @@
 
 # openair: open source tools for air quality data analysis
 
+**NOTE** An online **openair** book is being developed, see
+<https://openair-book.netlify.app>. This will in time appear on the
+[Bookdown](https://bookdown.org) website.
+
 For the main **openair** website, see
-<https://davidcarslaw.github.io/openair/>.
+<http://davidcarslaw.github.io/openair/>.
 
 [![Travis-CI Build
 Status](https://travis-ci.org/davidcarslaw/openair.svg?branch=master)](https://travis-ci.org/davidcarslaw/openair)
@@ -84,20 +88,17 @@ several sites at one time and several years of data.
 library(openair)
 kc1 <- importAURN(site = "kc1", year = 2011:2012)
 head(kc1)
-##                  date code                 site o3 no2  co so2 pm10 nox no
-## 1 2011-01-01 00:00:00  KC1 London N. Kensington 14  38 0.2   5   40  44  4
-## 2 2011-01-01 01:00:00  KC1 London N. Kensington 28  29 0.2   3   36  38  6
-## 3 2011-01-01 02:00:00  KC1 London N. Kensington 18  31 0.2   3   31  32  1
-## 4 2011-01-01 03:00:00  KC1 London N. Kensington 14  29 0.2   3   31  31  1
-## 5 2011-01-01 04:00:00  KC1 London N. Kensington 16  29 0.2   3   29  31  1
-## 6 2011-01-01 05:00:00  KC1 London N. Kensington 24  27 0.1   3   25  29  1
-##   pm2.5 nv2.5 v2.5 nv10 v10  ws    wd
-## 1    39    32    7   32   8 1.1 266.7
-## 2    30    24    6   29   7 1.2 271.9
-## 3    31    23    8   24   7 1.5 276.3
-## 4    29    21    8   23   8 2.1 278.7
-## 5    25    19    6   21   8 2.7 289.6
-## 6    23    16    7   18   7 2.8 303.6
+## # A tibble: 6 x 18
+##   site  code  date                   co   nox   no2    no    o3   so2  pm10
+##   <chr> <fct> <dttm>              <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1 Lond… KC1   2011-01-01 00:00:00   0.2    44    38     4    14     5    40
+## 2 Lond… KC1   2011-01-01 01:00:00   0.2    38    29     6    28     3    36
+## 3 Lond… KC1   2011-01-01 02:00:00   0.2    32    31     1    18     3    31
+## 4 Lond… KC1   2011-01-01 03:00:00   0.2    31    29     1    14     3    31
+## 5 Lond… KC1   2011-01-01 04:00:00   0.2    31    29     1    16     3    29
+## 6 Lond… KC1   2011-01-01 05:00:00   0.1    29    27     1    24     3    25
+## # … with 8 more variables: pm2.5 <dbl>, v10 <dbl>, v2.5 <dbl>, nv10 <dbl>,
+## #   nv2.5 <dbl>, ws <dbl>, wd <dbl>, air_temp <dbl>
 ```
 
 ### Utility functions
@@ -110,20 +111,17 @@ inclusive:
 ``` r
 sub <- selectByDate(kc1, day = "weekday", year = 2012, month = 6:9, hour = 7:19)
 head(sub)
-##                      date code                 site o3 no2   co so2 pm10
-## 12416 2012-06-01 07:00:00  KC1 London N. Kensington 24  23 0.23   3    6
-## 12417 2012-06-01 08:00:00  KC1 London N. Kensington 34  21 0.23   3    9
-## 12418 2012-06-01 09:00:00  KC1 London N. Kensington 52  19 0.23   3    6
-## 12419 2012-06-01 10:00:00  KC1 London N. Kensington 62  13 0.23   3    7
-## 12420 2012-06-01 11:00:00  KC1 London N. Kensington 70  13 0.23   3    9
-## 12421 2012-06-01 12:00:00  KC1 London N. Kensington 78  19 0.23   3    8
-##       nox no pm2.5 nv2.5 v2.5 nv10 v10  ws    wd
-## 12416  36  9    21    14    7    5   1 1.4 307.4
-## 12417  33  7    NA    NA   NA    8   1 1.6 313.6
-## 12418  23  2    NA    NA   NA    3   3 1.6 330.0
-## 12419  17  2    NA    NA   NA    4   3 1.5 348.9
-## 12420  17  2    14     7    7    6   3 1.4 181.1
-## 12421  21  1    13     7    6    4   4 1.6   2.9
+## # A tibble: 6 x 18
+##   date                site  code     co   nox   no2    no    o3   so2  pm10
+##   <dttm>              <chr> <fct> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+## 1 2012-06-01 07:00:00 Lond… KC1    0.23    36    23     9    24     3     6
+## 2 2012-06-01 08:00:00 Lond… KC1    0.23    33    21     7    34     3     9
+## 3 2012-06-01 09:00:00 Lond… KC1    0.23    23    19     2    52     3     6
+## 4 2012-06-01 10:00:00 Lond… KC1    0.23    17    13     2    62     3     7
+## 5 2012-06-01 11:00:00 Lond… KC1    0.23    17    13     2    70     3     9
+## 6 2012-06-01 12:00:00 Lond… KC1    0.23    21    19     1    78     3     8
+## # … with 8 more variables: pm2.5 <dbl>, v10 <dbl>, v2.5 <dbl>, nv10 <dbl>,
+## #   nv2.5 <dbl>, ws <dbl>, wd <dbl>, air_temp <dbl>
 ```
 
 Similarly it is easy to time-average data in many flexible ways. For
