@@ -6,27 +6,31 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Import data from the UK Automatic Urban and Rural Network (AURN) — importAURN • openair</title>
+<title>Air Quality England Network data import for openair — importAQE • openair</title>
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -35,12 +39,11 @@
 
 
 
-<meta property="og:title" content="Import data from the UK Automatic Urban and Rural Network (AURN) — importAURN" />
-<meta property="og:description" content="Function for importing hourly mean UK Automatic Urban and Rural Network
-(AURN) air quality archive data files for use with the openair
-package. Files are imported from a remote server operated by AEA that
-provides air quality data files as R data objects." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Air Quality England Network data import for openair — importAQE" />
+<meta property="og:description" content="Functions for importing hourly mean air pollution data from a range of UK
+networks including the Automatic Urban and Rural Network. Files are imported
+from a remote server operated by Ricardo that provides air quality data
+files as R data objects." />
 
 
 
@@ -58,7 +61,7 @@ provides air quality data files as R data objects." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -72,7 +75,7 @@ provides air quality data files as R data objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
       </span>
     </div>
 
@@ -105,26 +108,63 @@ provides air quality data files as R data objects." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Import data from the UK Automatic Urban and Rural Network (AURN)</h1>
-    
+    <h1>Air Quality England Network data import for openair</h1>
+    <small class="dont-index">Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/importAQE.R'><code>R/importAQE.R</code></a>, <a href='https://github.com/davidcarslaw/openair/blob/master/R/importAURN.R'><code>R/importAURN.R</code></a>, <a href='https://github.com/davidcarslaw/openair/blob/master/R/importNI.R'><code>R/importNI.R</code></a>, and 2 more</small>
     <div class="hidden name"><code>importAURN.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Function for importing hourly mean UK Automatic Urban and Rural Network
-(AURN) air quality archive data files for use with the <code>openair</code>
-package. Files are imported from a remote server operated by AEA that
-provides air quality data files as R data objects.</p>
+    <p>Functions for importing hourly mean air pollution data from a range of UK
+networks including the Automatic Urban and Rural Network. Files are imported
+from a remote server operated by Ricardo that provides air quality data
+files as R data objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>importAURN</span>(
+    <pre class="usage"><span class='fu'>importAQE</span>(
+  <span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"yk13"</span>,
+  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2018</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
+  <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ratified</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>to_narrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
+
+<span class='fu'>importAURN</span>(
   <span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>,
   <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>,
   <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
   <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ratified</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>to_narrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
+
+<span class='fu'>importNI</span>(
+  <span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"bel0"</span>,
+  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2018</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
+  <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ratified</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>to_narrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
+
+<span class='fu'>importSAQN</span>(
+  <span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"gla4"</span>,
+  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
+  <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ratified</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>to_narrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
+
+<span class='fu'>importWAQN</span>(
+  <span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"card"</span>,
+  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2018</span>,
+  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
+  <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ratified</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>to_narrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -132,14 +172,14 @@ provides air quality data files as R data objects.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>site</th>
-      <td><p>Site code of the AURN site to import e.g. &#8220;my1&#8221; is Marylebone
+      <td><p>Site code of the site to import e.g. &#8220;my1&#8221; is Marylebone
 Road. Several sites can be imported with <code>site = c("my1", "nott")</code>
 --- to import Marylebone Road and Nottingham for example.</p></td>
     </tr>
     <tr>
       <th>year</th>
       <td><p>Year or years to import. To import a sequence of years from 1990
-to 2000 use <code>year = 1990:2000</code>. To import several specfic years use
+to 2000 use <code>year = 1990:2000</code>. To import several specific years use
 <code>year = c(1990, 1995, 2000)</code> for example.</p></td>
     </tr>
     <tr>
@@ -149,22 +189,28 @@ ffrom a site. To import only NOx and NO2 for example use <code>pollutant =
 c("nox", "no2")</code>.</p></td>
     </tr>
     <tr>
-      <th>hc</th>
-      <td><p>A few sites have hydrocarbon measurements available and setting
-<code>hc = TRUE</code> will ensure hydrocarbon data are imported. The default is
-however not to as most users will not be interested in using hydrocarbon
-data and the resulting data frames are considerably larger.</p></td>
-    </tr>
-    <tr>
       <th>meta</th>
       <td><p>Should meta data be returned? If <code>TRUE</code> the site type,
 latitude and longitude are returned.</p></td>
+    </tr>
+    <tr>
+      <th>ratified</th>
+      <td><p>If <code>TRUE</code> columns are returned indicating when each
+species was ratified i.e. quality-checked.</p></td>
     </tr>
     <tr>
       <th>to_narrow</th>
       <td><p>By default the returned data has a column for each
 pollutant/variable. When <code>to_narrow = TRUE</code> the data are stacked into
 a narrow format with a column identifying the pollutant name.</p></td>
+    </tr>
+    <tr>
+      <th>hc</th>
+      <td><p>A few sites have hydrocarbon measurements available and setting
+<code>hc = TRUE</code> will ensure hydrocarbon data are imported. The default is
+however not to as most users will not be interested in using hydrocarbon
+data and the resulting data frames are considerably larger. This option is
+only available for <code>importAURN</code>.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -179,26 +225,22 @@ Default is <code>FALSE</code>.</p></td>
   class and time zone GMT.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>importAURN</code> function has been written to make it easy to import
-data from the UK AURN. AEA have provided .RData files (R workspaces) of all
-individual sites and years for the AURN. These files are updated on a daily
-basis. This approach requires a link to the Internet to work.</p>
+    <p>This family of functions has been written to make it easy to import data
+from across several UK air quality networks. Ricardo have provided .RData
+files (R workspaces) of all individual sites and years, as well as up to
+date meta data. These files are updated on a daily basis. This approach
+requires a link to the Internet to work.</p>
 <p>For an up to date list of available sites that can be imported, see
-<code>importMeta</code>.</p>
+<code><a href='importMeta.html'>importMeta</a></code>.</p>
+<p>The site codes and pollutant names can be upper or lower case.</p>
 <p>There are several advantages over the web portal approach where .csv files
 are downloaded. First, it is quick to select a range of sites, pollutants
 and periods (see examples below). Second, storing the data as .RData objects
 is very efficient as they are about four times smaller than .csv files ---
 which means the data downloads quickly and saves bandwidth. Third, the
 function completely avoids any need for data manipulation or setting time
-formats, time zones etc. Finally, it is easy to import many years of data
-beyond the current limit of about 64,000 lines. The final point makes it
-possible to download several long time series in one go. The function also
-has the advantage that the proper site name is imported and used in
-<code>openair</code> functions.</p>
-<p>The site codes and pollutant names can be upper or lower case. The function
-will issue a warning when data less than six months old is downloaded, which
-may not be ratified.</p>
+formats, time zones etc. The function also has the advantage that the proper
+site name is imported and used in <code>openair</code> functions.</p>
 <p>The data are imported by stacking sites on top of one another and will have
 field names <code>site</code>, <code>code</code> (the site code) and <code>pollutant</code>.
 Sometimes it is useful to have columns of site data. This can be done using
@@ -216,6 +258,10 @@ separate volatile component recorded as 'v10' and non-volatile component
 the use of FDMS the measurements used TEOM (Tapered Element Oscillating.
 Microbalance) and these concentrations have been multiplied by 1.3 to
 provide an estimate of the total mass including the volatile fraction.</p>
+<p>The function returns modelled hourly values of wind speed (<code>ws</code>), wind
+direction (<code>wd</code>) and ambient temperature (<code>air_temp</code>) if available
+(generally from around 2010). These values are modelled using the WRF model
+operated by Ricardo.</p>
 <p>The few BAM (Beta-Attenuation Monitor) instruments that have been
 incorporated into the network throughout its history have been scaled by 1.3
 if they have a heated inlet (to account for loss of volatile particles) and
@@ -228,10 +274,18 @@ data record over the operational period of the network, however there may be
 some discontinuity in the time series associated with instrument changes.</p>
 <p>No corrections have been made to the PM2.5 data. The volatile component of
 FDMS PM2.5 (where available) is shown in the 'v2.5' column.</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>importAQE</code>: Import data from the Air Quality England</p></li>
+<li><p><code>importNI</code>: Import data from the Northern Ireland Air Quality Network</p></li>
+<li><p><code>importSAQN</code>: Import data from the Scottish Air Quality Network</p></li>
+<li><p><code>importWAQN</code>: Import data from the Welsh Air Quality Network</p></li>
+</ul>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='importKCL.html'>importKCL</a></code>, <code><a href='importADMS.html'>importADMS</a></code>,
-  <code><a href='importSAQN.html'>importSAQN</a></code></p></div>
+    <div class='dont-index'><p><code><a href='importKCL.html'>importKCL</a></code>, <code><a href='importADMS.html'>importADMS</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -243,24 +297,14 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.</p>
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>thedata</span> <span class='kw'>&lt;-</span> <span class='fu'>importAURN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"my1"</span>, <span class='st'>"nott"</span>), <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2000</span>,
 <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>, <span class='st'>"o3"</span>))
 
-<span class='co'>## import over 20 years of Mace Head O3 data!</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>o3</span> <span class='kw'>&lt;-</span> <span class='fu'>importAURN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"mh"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>1987</span>:<span class='fl'>2009</span>)
+<span class='co'># Other functions work in the same way e.g. to import Cardiff Centre data:</span>
 
-<span class='co'>## import hydrocarbon (and other) data from Marylebone Road</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>mary</span> <span class='kw'>&lt;-</span> <span class='fu'>importAURN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span><span class='fl'>1998</span>, <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>cardiff</span> <span class='kw'>&lt;-</span> <span class='fu'>importWAQN</span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"card"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2020</span>)</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>David Carslaw</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -271,7 +315,7 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

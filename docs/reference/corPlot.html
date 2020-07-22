@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,11 +40,9 @@
 
 
 <meta property="og:title" content="corrgram plot with conditioning — corPlot" />
-<meta property="og:description" content="Function to to draw and visualise correlation matrices using
-lattice. The primary purpose is as a tool for exploratory data
-analysis. Hierarchical clustering is used to group similar
-variables." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:description" content="Function to to draw and visualise correlation matrices using lattice. The
+primary purpose is as a tool for exploratory data analysis. Hierarchical
+clustering is used to group similar variables." />
 
 
 
@@ -58,7 +60,7 @@ variables." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -72,7 +74,7 @@ variables." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
       </span>
     </div>
 
@@ -106,15 +108,14 @@ variables." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>corrgram plot with conditioning</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/davidcarslaw/openair/blob/master/R/corPlot.R'><code>R/corPlot.R</code></a></small>
     <div class="hidden name"><code>corPlot.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Function to to draw and visualise correlation matrices using
-lattice. The primary purpose is as a tool for exploratory data
-analysis. Hierarchical clustering is used to group similar
-variables.</p>
+    <p>Function to to draw and visualise correlation matrices using lattice. The
+primary purpose is as a tool for exploratory data analysis. Hierarchical
+clustering is used to group similar variables.</p>
     </div>
 
     <pre class="usage"><span class='fu'>corPlot</span>(
@@ -122,6 +123,7 @@ variables.</p>
   <span class='kw'>pollutants</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
   <span class='kw'>cluster</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>,
   <span class='kw'>dendrogram</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
@@ -136,44 +138,46 @@ variables.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mydata</th>
-      <td><p>A data frame which should consist of some numeric
-columns.</p></td>
+      <td><p>A data frame which should consist of some numeric columns.</p></td>
     </tr>
     <tr>
       <th>pollutants</th>
-      <td><p>the names of data-series in <code>mydata</code> to be
-plotted by <code>corPlot</code>. The default option <code>NULL</code> and the
-alternative &#8220;all&#8221; use all available valid (numeric) data.</p></td>
+      <td><p>the names of data-series in <code>mydata</code> to be plotted by
+<code>corPlot</code>. The default option <code>NULL</code> and the alternative
+&#8220;all&#8221; use all available valid (numeric) data.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p><code>type</code> determines how the data are split
-i.e. conditioned, and then plotted. The default is will produce a
-single plot using the entire data. Type can be one of the built-in
-types as detailed in <code>cutData</code> e.g. &#8220;season&#8221;,
-&#8220;year&#8221;, &#8220;weekday&#8221; and so on. For example, <code>type
-= "season"</code> will produce four plots --- one for each season.</p>
-<p>It is also possible to choose <code>type</code> as another variable in
-the data frame. If that variable is numeric, then the data will be
-split into four quantiles (if possible) and labelled
-accordingly. If type is an existing character or factor variable,
-then those categories/levels will be used directly. This offers
-great flexibility for understanding the variation of different
-variables and how they depend on one another.</p></td>
+      <td><p><code>type</code> determines how the data are split i.e. conditioned,
+  and then plotted. The default is will produce a single plot using the
+  entire data. Type can be one of the built-in types as detailed in
+  <code>cutData</code> e.g. &#8220;season&#8221;, &#8220;year&#8221;, &#8220;weekday&#8221; and
+  so on. For example, <code>type = "season"</code> will produce four plots --- one
+  for each season.</p>
+<p>It is also possible to choose <code>type</code> as another variable in the data
+  frame. If that variable is numeric, then the data will be split into four
+  quantiles (if possible) and labelled accordingly. If type is an existing
+  character or factor variable, then those categories/levels will be used
+  directly. This offers great flexibility for understanding the variation of
+  different variables and how they depend on one another.</p></td>
     </tr>
     <tr>
       <th>cluster</th>
-      <td><p>Should the data be ordered according to cluster
-analysis. If <code>TRUE</code> hierarchical clustering is applied to the
-correlation matrices using <code>hclust</code> to group similar
-variables together. With many variables clustering can greatly
-assist interpretation.</p></td>
+      <td><p>Should the data be ordered according to cluster analysis. If
+<code>TRUE</code> hierarchical clustering is applied to the correlation matrices
+using <code>hclust</code> to group similar variables together. With many
+variables clustering can greatly assist interpretation.</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>The correlation method to use. Can be &#8220;pearson&#8221;,
+&#8220;spearman&#8221; or &#8220;kendall&#8221;.</p></td>
     </tr>
     <tr>
       <th>dendrogram</th>
-      <td><p>Should a dendrogram be plotted? When <code>TRUE</code>
-a dendrogram is shown on the right of the plot. Note that this
-will only work for <code>type = "default"</code>.</p></td>
+      <td><p>Should a dendrogram be plotted? When <code>TRUE</code> a
+dendrogram is shown on the right of the plot. Note that this will only
+work for <code>type = "default"</code>.</p></td>
     </tr>
     <tr>
       <th>lower</th>
@@ -182,79 +186,72 @@ will only work for <code>type = "default"</code>.</p></td>
     <tr>
       <th>cols</th>
       <td><p>Colours to be used for plotting. Options include
-&#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;,
-&#8220;spectral&#8221;, &#8220;hue&#8221;, &#8220;greyscale&#8221; and user
-defined (see <code>openColours</code> for more details).</p></td>
+&#8220;default&#8221;, &#8220;increment&#8221;, &#8220;heat&#8221;, &#8220;spectral&#8221;,
+&#8220;hue&#8221;, &#8220;greyscale&#8221; and user defined (see <code>openColours</code>
+for more details).</p></td>
     </tr>
     <tr>
       <th>r.thresh</th>
-      <td><p>Values of greater than <code>r.thresh</code> will be
-shown in bold type. This helps to highlight high correlations.</p></td>
+      <td><p>Values of greater than <code>r.thresh</code> will be shown in bold
+type. This helps to highlight high correlations.</p></td>
     </tr>
     <tr>
       <th>text.col</th>
-      <td><p>The colour of the text used to show the
-correlation values. The first value controls the colour of
-negative correlations and the second positive.</p></td>
+      <td><p>The colour of the text used to show the correlation values.
+The first value controls the colour of negative correlations and the
+second positive.</p></td>
     </tr>
     <tr>
       <th>auto.text</th>
       <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
-<code>TRUE</code> titles and axis labels will automatically try and
-format pollutant names and units properly e.g.  by subscripting
-the `2' in NO2.</p></td>
+<code>TRUE</code> titles and axis labels will automatically try and format
+pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other graphical parameters passed onto
-<code>lattice:levelplot</code>, with common axis and title labelling
-options (such as <code>xlab</code>, <code>ylab</code>, <code>main</code>) being
-passed via <code>quickText</code> to handle routine formatting.</p></td>
+      <td><p>Other graphical parameters passed onto <code>lattice:levelplot</code>,
+with common axis and title labelling options (such as <code>xlab</code>,
+<code>ylab</code>, <code>main</code>) being passed via <code>quickText</code> to handle
+routine formatting.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>As well as generating the plot itself, <code>corPlot</code>
-also returns an object of class &#8220;openair&#8221;. The object
-includes three main components: <code>call</code>, the command used to
-generate the plot; <code>data</code>, the data frame of summarised
-information used to make the plot; and <code>plot</code>, the plot
-itself. If retained, e.g. using <code>output &lt;- corPlot(mydata)</code>,
-this output can be used to recover the data, reproduce or rework
-the original plot or undertake further analysis. Note the denogram
-when <code>cluster = TRUE</code> can aslo be returned and plotted. See
-examples.</p>
-<p>An openair output can be manipulated using a number of generic
-operations, including <code>print</code>, <code>plot</code> and
-<code>summary</code>.</p>
+    <p>As well as generating the plot itself, <code>corPlot</code> also returns
+  an object of class &#8220;openair&#8221;. The object includes three main
+  components: <code>call</code>, the command used to generate the plot;
+  <code>data</code>, the data frame of summarised information used to make the
+  plot; and <code>plot</code>, the plot itself. If retained, e.g. using
+  <code>output &lt;- corPlot(mydata)</code>, this output can be used to recover the
+  data, reproduce or rework the original plot or undertake further analysis.
+  Note the denogram when <code>cluster = TRUE</code> can aslo be returned and
+  plotted. See examples.</p>
+<p>An openair output can be manipulated using a number of generic operations,
+  including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>corPlot</code> function plots correlation matrices. The
-implementation relies heavily on that shown in Sarkar (2007), with
-a few extensions.</p>
-<p>Correlation matrices are a very effective way of understating
-relationships between many variables. The <code>corPlot</code> shows the
-correlation coded in three ways: by shape (ellipses), colour and
-the numeric value. The ellipses can be thought of as visual
-representations of scatter plot. With a perfect positive
-correlation a line at 45 degrees positive slope is drawn. For zero
+    <p>The <code>corPlot</code> function plots correlation matrices. The implementation
+relies heavily on that shown in Sarkar (2007), with a few extensions.</p>
+<p>Correlation matrices are a very effective way of understating relationships
+between many variables. The <code>corPlot</code> shows the correlation coded in
+three ways: by shape (ellipses), colour and the numeric value. The ellipses
+can be thought of as visual representations of scatter plot. With a perfect
+positive correlation a line at 45 degrees positive slope is drawn. For zero
 correlation the shape becomes a circle. See examples below.</p>
-<p>With many different variables it can be difficult to see
-relationships between variables i.e. which variables tend to
-behave most like one another. For this reason hierarchical
-clustering is applied to the correlation matrices to group
-variables that are most similar to one another (if <code>cluster =
-TRUE</code>).</p>
-<p>If clustering is chosen it is also possible to add a dendrogram
-using the option <code>dendrogram = TRUE</code>. Note that
-dendrogramscan only be plotted for <code>type = "default"</code>
-i.e. when there is only a single panel. The dendrogram can also be
-recovered from the plot object itself and plotted more clearly;
-see examples below.</p>
-<p>It is also possible to use the <code>openair</code> type option to
-condition the data in many flexible ways, although this may become
-difficult to visualise with too many panels.</p>
+<p>With many different variables it can be difficult to see relationships
+between variables i.e. which variables tend to behave most like one another.
+For this reason hierarchical clustering is applied to the correlation
+matrices to group variables that are most similar to one another (if
+<code>cluster = TRUE</code>).</p>
+<p>If clustering is chosen it is also possible to add a dendrogram using the
+option <code>dendrogram = TRUE</code>. Note that dendrogramscan only be plotted
+for <code>type = "default"</code> i.e. when there is only a single panel. The
+dendrogram can also be recovered from the plot object itself and plotted
+more clearly; see examples below.</p>
+<p>It is also possible to use the <code>openair</code> type option to condition the
+data in many flexible ways, although this may become difficult to visualise
+with too many panels.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Sarkar, D. (2007). Lattice Multivariate Data Visualization with
@@ -273,7 +270,7 @@ difficult to visualise with too many panels.</p>
 <span class='co'>## basic corrgram plot</span>
 <span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='corPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## plot by season ... and so on</span>
 <span class='fu'>corPlot</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)</div><div class='img'><img src='corPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## recover dendogram when cluster = TRUE and plot it</span>
-<span class='no'>res</span> <span class='kw'>&lt;-</span><span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='corPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>res</span>$<span class='no'>clust</span>)</div><div class='img'><img src='corPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>res</span> <span class='kw'>&lt;-</span><span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='corPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>res</span>$<span class='no'>clust</span>)</div><div class='img'><img src='corPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## a more interesting are hydrocarbon measurements</span>
 <span class='no'>hc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importAURN.html'>importAURN</a></span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2005</span>, <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='co'>## now it is possible to see the hydrocarbons that behave most</span>
@@ -281,20 +278,10 @@ difficult to visualise with too many panels.</p>
 <span class='fu'>corPlot</span>(<span class='no'>hc</span>)
 }</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>David Carslaw --- but mostly based on code contained in Sarkar
-  (2007)</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -305,7 +292,7 @@ difficult to visualise with too many panels.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

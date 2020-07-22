@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -53,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
       </span>
     </div>
 
@@ -100,15 +104,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="openair-27-99" class="section level2">
 <h2 class="hasAnchor">
 <a href="#openair-27-99" class="anchor"></a>openair 2.7-99</h2>
 <ul>
+<li>fix bug with <code>percentileRose</code> when <code>statistic = "cpf"</code> and multiple pollutants</li>
+<li>fix bug in <code>timeAverage</code> when <code>type = "season"</code> and <code>avg.time = "season"</code>
+</li>
+<li>add <code>week</code> to openair default types</li>
+<li>fix bug in <code>timeVariation</code> when considering difference plots with missing data</li>
+</ul>
+</div>
+    <div id="openair-27-4" class="section level2">
+<h2 class="hasAnchor">
+<a href="#openair-27-4" class="anchor"></a>openair 2.7-4</h2>
+<ul>
+<li>add ambient temperature (<code>air_temp</code>) to meteorological variables returned from <code>importAURN</code>, <code>importSAQN</code> and <code>importWAQN</code> (using WRF model).</li>
+<li>re-format date returned in <code>importAQE</code> due to strange <code>dplyr</code> join issues</li>
+<li>add <code>statistic = "Spearman"</code> to <code>polarPlot</code> as an option when considering two pollutants.</li>
+<li>add <code>method</code> option to <code>corPlot</code> to allow different correlation methods (“pearson”, “spearman” or “kendall”)</li>
+<li>refactor all UK air quality data import functions i.e. <code>importAURN</code>, <code>importSAQN</code>, <code>importWAQN</code>, <code>importAQE</code>.</li>
+<li>Add <code>importNI</code> to import data from Northern Ireland.</li>
+<li>Add option to UK air quality import functions to return information on whether individual pollutants have been quality-assured using option <code>ratified</code>. These functions include <code>importAURN</code>, <code>importSAQN</code>, <code>importWAQN</code>, <code>importAQE</code> and <code>importNI</code>
+</li>
+<li>Clean up what is returned from <code>importMeta</code>
+</li>
+<li>Return air quality data site name and code as character rather than factor</li>
+</ul>
+</div>
+    <div id="openair-27-2" class="section level2">
+<h2 class="hasAnchor">
+<a href="#openair-27-2" class="anchor"></a>openair 2.7-2</h2>
+<ul>
+<li>fix tibble recycling issue</li>
 <li>fix shading issue in lowest percentile range in <code>percentileRose</code>.</li>
+<li>fix strange bug in <code>importWAQN</code> that would intermittently fail; sometimes crashing R.</li>
+<li>add option <code>date.format</code> to <code>TheilSen</code>.</li>
 </ul>
 </div>
     <div id="openair-27-0" class="section level2">
@@ -118,7 +153,7 @@
 <li>fix <code>calendarPlot</code> slowness on MacOS</li>
 <li>Refine use of Gaussian kernels when two pollutant statistics are considered in <code>polarPlot</code>
 </li>
-<li>Add option <code>statistic = "nwr"</code> in <code>polarPlot</code> that implements the Non-parametric Wind Regression based on Henry et al. (2009). The <code>openair</code> implmentation is not identical but should yield similar results.</li>
+<li>Add option <code>statistic = "nwr"</code> in <code>polarPlot</code> that implements the Non-parametric Wind Regression based on Henry et al. (2009). The <code>openair</code> implementation is not identical but should yield similar results.</li>
 <li>NEW <code>importAQE</code> function to import data from <a href="https://www.airqualityengland.co.uk/">Air Quality England</a> sites.</li>
 <li>NEW <code>importEurope</code> to provide access to some the data from the <code>saqgetr</code> package.</li>
 </ul>
@@ -178,7 +213,7 @@
 <li>allow option <code>align</code> to be used in <code>aqStats</code> to determine how rolling means are calculated. Can take the values “center” (default), “left” and “right”.</li>
 <li>make sure full year present in <code>importAURN</code>
 </li>
-<li>fix issue with mutiple pollutants in <code>polarAnnulus</code>
+<li>fix issue with multiple pollutants in <code>polarAnnulus</code>
 </li>
 <li>fix issues in trajectory functions due to <code>dplyr</code>.</li>
 </ul>
@@ -214,7 +249,7 @@
 </ul>
 </div>
     <div id="openair-22-3" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.2-3">
 <a href="#openair-22-3" class="anchor"></a>openair 2.2-3<small> 2018-02-26 </small>
 </h1>
 <div id="main-changes" class="section level2">
@@ -231,12 +266,12 @@
 </li>
 <li>remove dependency of <code>plyr</code> and <code>reshape2</code>
 </li>
-<li>fix bug in <code>percentileRose</code> for <code>method = "cpf"</code> with mutiple pollutants</li>
+<li>fix bug in <code>percentileRose</code> for <code>method = "cpf"</code> with multiple pollutants</li>
 </ul>
 </div>
 </div>
     <div id="openair-21-5" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.1-5">
 <a href="#openair-21-5" class="anchor"></a>openair 2.1-5<small> 2017-08-31 </small>
 </h1>
 <div id="main-changes-1" class="section level2">
@@ -256,7 +291,7 @@
 </div>
 </div>
     <div id="openair-21-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.1-0">
 <a href="#openair-21-0" class="anchor"></a>openair 2.1-0<small> 2017-04-12 </small>
 </h1>
 <div id="main-changes-2" class="section level2">
@@ -280,7 +315,7 @@
 </div>
 </div>
     <div id="openair-20-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.0-0">
 <a href="#openair-20-0" class="anchor"></a>openair 2.0-0<small> 2016-11-23 </small>
 </h1>
 <div id="main-changes-3" class="section level2">
@@ -309,7 +344,7 @@
 </div>
 </div>
     <div id="openair-19-9" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.9-9">
 <a href="#openair-19-9" class="anchor"></a>openair 1.9-9<small> Unreleased </small>
 </h1>
 <div id="main-changes-4" class="section level2">
@@ -340,7 +375,7 @@
 </div>
 </div>
     <div id="openair-18-6" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.8-6">
 <a href="#openair-18-6" class="anchor"></a>openair 1.8-6<small> 2016-06-15 </small>
 </h1>
 <ul>
@@ -361,7 +396,7 @@
 </ul>
 </div>
     <div id="openair-18-2" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.8-2">
 <a href="#openair-18-2" class="anchor"></a>openair 1.8-2<small> 2016-04-25 </small>
 </h1>
 <ul>
@@ -374,7 +409,7 @@
 </ul>
 </div>
     <div id="openair-18-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.8-0">
 <a href="#openair-18-0" class="anchor"></a>openair 1.8-0<small> 2016-03-24 </small>
 </h1>
 <ul>
@@ -391,7 +426,7 @@
 </ul>
 </div>
     <div id="openair-173" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.7.3">
 <a href="#openair-173" class="anchor"></a>openair 1.7.3<small> Unreleased </small>
 </h1>
 <ul>
@@ -409,7 +444,7 @@
 </ul>
 </div>
     <div id="openair-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.7">
 <a href="#openair-17" class="anchor"></a>openair 1.7<small> 2016-02-22 </small>
 </h1>
 <ul>
@@ -433,7 +468,7 @@
 </ul>
 </div>
     <div id="openair-166" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.6.6">
 <a href="#openair-166" class="anchor"></a>openair 1.6.6<small> Unreleased </small>
 </h1>
 <ul>
@@ -443,7 +478,7 @@
 </ul>
 </div>
     <div id="openair-165" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.6.5">
 <a href="#openair-165" class="anchor"></a>openair 1.6.5<small> 2015-11-04 </small>
 </h1>
 <ul>
@@ -452,7 +487,7 @@
 </ul>
 </div>
     <div id="openair-164" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.6.4">
 <a href="#openair-164" class="anchor"></a>openair 1.6.4<small> 2015-10-23 </small>
 </h1>
 <ul>
@@ -474,7 +509,7 @@
 </ul>
 </div>
     <div id="openair-16" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.6">
 <a href="#openair-16" class="anchor"></a>openair 1.6<small> 2015-07-23 </small>
 </h1>
 <ul>
@@ -509,7 +544,7 @@
 </ul>
 </div>
     <div id="openair-15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.5">
 <a href="#openair-15" class="anchor"></a>openair 1.5<small> 2015-04-14 </small>
 </h1>
 <ul>
@@ -533,7 +568,7 @@
 </ul>
 </div>
     <div id="openair-11" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1">
 <a href="#openair-11" class="anchor"></a>openair 1.1<small> Unreleased </small>
 </h1>
 <ul>
@@ -565,7 +600,7 @@
 </ul>
 </div>
     <div id="openair-10-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0-0">
 <a href="#openair-10-0" class="anchor"></a>openair 1.0-0<small> Unreleased </small>
 </h1>
 <ul>
@@ -599,7 +634,7 @@
 </ul>
 </div>
     <div id="openair-09-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.9-0">
 <a href="#openair-09-0" class="anchor"></a>openair 0.9-0<small> 2013-11-12 </small>
 </h1>
 <ul>
@@ -642,7 +677,7 @@
 </ul>
 </div>
     <div id="openair-08-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8-0">
 <a href="#openair-08-0" class="anchor"></a>openair 0.8-0<small> 2013-02-13 </small>
 </h1>
 <ul>
@@ -682,7 +717,7 @@
 </ul>
 </div>
     <div id="openair-07-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7-0">
 <a href="#openair-07-0" class="anchor"></a>openair 0.7-0<small> 2012-09-19 </small>
 </h1>
 <ul>
@@ -713,7 +748,7 @@
 </ul>
 </div>
     <div id="openair-06-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6-0">
 <a href="#openair-06-0" class="anchor"></a>openair 0.6-0<small> 2012-05-11 </small>
 </h1>
 <ul>
@@ -735,7 +770,7 @@
 </ul>
 </div>
     <div id="openair-05-25" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-25">
 <a href="#openair-05-25" class="anchor"></a>openair 0.5-25<small> 2012-03-19 </small>
 </h1>
 <ul>
@@ -746,7 +781,7 @@
 </ul>
 </div>
     <div id="openair-05-23" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-23">
 <a href="#openair-05-23" class="anchor"></a>openair 0.5-23<small> 2012-03-05 </small>
 </h1>
 <ul>
@@ -754,7 +789,7 @@
 </ul>
 </div>
     <div id="openair-05-22" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-22">
 <a href="#openair-05-22" class="anchor"></a>openair 0.5-22<small> Unreleased </small>
 </h1>
 <ul>
@@ -768,7 +803,7 @@
 </ul>
 </div>
     <div id="openair-05-21" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-21">
 <a href="#openair-05-21" class="anchor"></a>openair 0.5-21<small> 2012-02-22 </small>
 </h1>
 <ul>
@@ -776,7 +811,7 @@
 <li><p>NEW function trajCluster to carry out cluster analysis on back trajectories</p></li>
 <li>
 <p>Simple model ranking available in modStats</p>
-<h1 id="changes-in-openair-05-18-2012-01-16" class="page-header">Changes in openair 0.5-18 [2012-01-16]<small> 2012-02-22 </small>
+<h1 id="changes-in-openair-05-18-2012-01-16" class="page-header" data-toc-text="0.5-21">Changes in openair 0.5-18 [2012-01-16]<small> 2012-02-22 </small>
 </h1>
 </li>
 <li><p>Update trajectory files to 2011 and add Berlin, Paris</p></li>
@@ -788,7 +823,7 @@
 </ul>
 </div>
     <div id="openair-05-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-17">
 <a href="#openair-05-17" class="anchor"></a>openair 0.5-17<small> Unreleased </small>
 </h1>
 <ul>
@@ -796,7 +831,7 @@
 </ul>
 </div>
     <div id="openair-05-15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-15">
 <a href="#openair-05-15" class="anchor"></a>openair 0.5-15<small> Unreleased </small>
 </h1>
 <ul>
@@ -804,7 +839,7 @@
 </ul>
 </div>
     <div id="openair-05-15-1" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-15">
 <a href="#openair-05-15-1" class="anchor"></a>openair 0.5-15<small> Unreleased </small>
 </h1>
 <ul>
@@ -815,7 +850,7 @@
 </ul>
 </div>
     <div id="openair-05-14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-14">
 <a href="#openair-05-14" class="anchor"></a>openair 0.5-14<small> Unreleased </small>
 </h1>
 <ul>
@@ -824,7 +859,7 @@
 </ul>
 </div>
     <div id="openair-05-13" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-13">
 <a href="#openair-05-13" class="anchor"></a>openair 0.5-13<small> Unreleased </small>
 </h1>
 <ul>
@@ -834,7 +869,7 @@
 </ul>
 </div>
     <div id="openair-05-12" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-12">
 <a href="#openair-05-12" class="anchor"></a>openair 0.5-12<small> Unreleased </small>
 </h1>
 <ul>
@@ -856,7 +891,7 @@
 </ul>
 </div>
     <div id="openair-05-11" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-11">
 <a href="#openair-05-11" class="anchor"></a>openair 0.5-11<small> 2011-10-05 </small>
 </h1>
 <ul>
@@ -868,16 +903,16 @@
 </ul>
 </div>
     <div id="openair-05-10" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-10">
 <a href="#openair-05-10" class="anchor"></a>openair 0.5-10<small> Unreleased </small>
 </h1>
 <ul>
 <li>update to <code>calendarPlot</code>, kernelExceed, MannKendall and conditionalQuantile improved … handling</li>
-<li><div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>  minor update to GoogleMapsPlot</span></code></pre></div></li>
+<li><div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>  minor update to GoogleMapsPlot</span></code></pre></div></li>
 </ul>
 </div>
     <div id="openair-05-9" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-9">
 <a href="#openair-05-9" class="anchor"></a>openair 0.5-9<small> Unreleased </small>
 </h1>
 <ul>
@@ -887,7 +922,7 @@
 </ul>
 </div>
     <div id="openair-05-8" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-8">
 <a href="#openair-05-8" class="anchor"></a>openair 0.5-8<small> Unreleased </small>
 </h1>
 <ul>
@@ -895,7 +930,7 @@
 </ul>
 </div>
     <div id="openair-05-7" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-7">
 <a href="#openair-05-7" class="anchor"></a>openair 0.5-7<small> Unreleased </small>
 </h1>
 <ul>
@@ -904,7 +939,7 @@
 </ul>
 </div>
     <div id="openair-05-6" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-6">
 <a href="#openair-05-6" class="anchor"></a>openair 0.5-6<small> Unreleased </small>
 </h1>
 <ul>
@@ -918,7 +953,7 @@
 </ul>
 </div>
     <div id="openair-05-4" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-4">
 <a href="#openair-05-4" class="anchor"></a>openair 0.5-4<small> Unreleased </small>
 </h1>
 <ul>
@@ -928,7 +963,7 @@
 </ul>
 </div>
     <div id="openair-05-0" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5-0">
 <a href="#openair-05-0" class="anchor"></a>openair 0.5-0<small> Unreleased </small>
 </h1>
 <ul>
@@ -937,7 +972,7 @@
 </ul>
 </div>
     <div id="openair-04-23" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-23">
 <a href="#openair-04-23" class="anchor"></a>openair 0.4-23<small> 2011-07-26 </small>
 </h1>
 <ul>
@@ -949,7 +984,7 @@
 </ul>
 </div>
     <div id="openair-04-22" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-22">
 <a href="#openair-04-22" class="anchor"></a>openair 0.4-22<small> Unreleased </small>
 </h1>
 <ul>
@@ -965,7 +1000,7 @@
 </ul>
 </div>
     <div id="openair-04-21" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-21">
 <a href="#openair-04-21" class="anchor"></a>openair 0.4-21<small> Unreleased </small>
 </h1>
 <ul>
@@ -984,7 +1019,7 @@
 </ul>
 </div>
     <div id="openair-04-20" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-20">
 <a href="#openair-04-20" class="anchor"></a>openair 0.4-20<small> Unreleased </small>
 </h1>
 <ul>
@@ -994,7 +1029,7 @@
 </ul>
 </div>
     <div id="openair-04-19" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-19">
 <a href="#openair-04-19" class="anchor"></a>openair 0.4-19<small> Unreleased </small>
 </h1>
 <ul>
@@ -1008,7 +1043,7 @@
 </ul>
 </div>
     <div id="openair-04-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-18">
 <a href="#openair-04-18" class="anchor"></a>openair 0.4-18<small> Unreleased </small>
 </h1>
 <ul>
@@ -1020,7 +1055,7 @@
 </ul>
 </div>
     <div id="openair-04-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-17">
 <a href="#openair-04-17" class="anchor"></a>openair 0.4-17<small> 2011-04-24 </small>
 </h1>
 <ul>
@@ -1031,7 +1066,7 @@
 </ul>
 </div>
     <div id="openair-04-16" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-16">
 <a href="#openair-04-16" class="anchor"></a>openair 0.4-16<small> Unreleased </small>
 </h1>
 <ul>
@@ -1041,7 +1076,7 @@
 </ul>
 </div>
     <div id="openair-04-15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-15">
 <a href="#openair-04-15" class="anchor"></a>openair 0.4-15<small> 2011-04-12 </small>
 </h1>
 <ul>
@@ -1050,7 +1085,7 @@
 </ul>
 </div>
     <div id="openair-04-14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-14">
 <a href="#openair-04-14" class="anchor"></a>openair 0.4-14<small> Unreleased </small>
 </h1>
 <ul>
@@ -1058,7 +1093,7 @@
 </ul>
 </div>
     <div id="openair-04-13" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-13">
 <a href="#openair-04-13" class="anchor"></a>openair 0.4-13<small> Unreleased </small>
 </h1>
 <ul>
@@ -1066,7 +1101,7 @@
 </ul>
 </div>
     <div id="openair-04-12" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-12">
 <a href="#openair-04-12" class="anchor"></a>openair 0.4-12<small> Unreleased </small>
 </h1>
 <ul>
@@ -1082,7 +1117,7 @@
 </ul>
 </div>
     <div id="openair-04-11" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-11">
 <a href="#openair-04-11" class="anchor"></a>openair 0.4-11<small> Unreleased </small>
 </h1>
 <ul>
@@ -1091,7 +1126,7 @@
 </ul>
 </div>
     <div id="openair-04-10" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-10">
 <a href="#openair-04-10" class="anchor"></a>openair 0.4-10<small> 2011-03-08 </small>
 </h1>
 <ul>
@@ -1101,7 +1136,7 @@
 </ul>
 </div>
     <div id="openair-04-9" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-9">
 <a href="#openair-04-9" class="anchor"></a>openair 0.4-9<small> Unreleased </small>
 </h1>
 <ul>
@@ -1109,7 +1144,7 @@
 </ul>
 </div>
     <div id="openair-04-8" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-8">
 <a href="#openair-04-8" class="anchor"></a>openair 0.4-8<small> Unreleased </small>
 </h1>
 <ul>
@@ -1117,89 +1152,22 @@
 </ul>
 </div>
     <div id="openair-04-7" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4-7">
 <a href="#openair-04-7" class="anchor"></a>openair 0.4-7<small> 2011-02-17 </small>
 </h1>
 <ul>
-<li><div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>Added new <span class="cf">function</span> conditionalQuantile <span class="cf">for</span> model</span>
-<span id="cb2-2"><a href="#cb2-2"></a>evaluation purposes.</span></code></pre></div></li>
-<li><div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>Fixed <span class="st">`</span><span class="dt">importAURN</span><span class="st">`</span> to account <span class="cf">for</span> a change <span class="cf">in</span> web domain</span>
-<span id="cb3-2"><a href="#cb3-2"></a>address at AEA.</span></code></pre></div></li>
+<li><div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>Added new <span class="cf">function</span> conditionalQuantile <span class="cf">for</span> model</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>evaluation purposes.</span></code></pre></div></li>
+<li><div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>Fixed <span class="st">`</span><span class="dt">importAURN</span><span class="st">`</span> to account <span class="cf">for</span> a change <span class="cf">in</span> web domain</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>address at AEA.</span></code></pre></div></li>
 </ul>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#openair-27-99">2.7-99</a></li>
-        <li><a href="#openair-27-0">2.7-0</a></li>
-        <li><a href="#openair-26-6">2.6-6</a></li>
-        <li><a href="#openair-26-4">2.6-4</a></li>
-        <li><a href="#openair-26-1">2.6-1</a></li>
-        <li><a href="#openair-26-0">2.6-0</a></li>
-        <li><a href="#openair-25-0">2.5-0</a></li>
-        <li><a href="#openair-24-0">2.4-0</a></li>
-        <li><a href="#openair-23-0">2.3-0</a></li>
-        <li><a href="#openair-22-3">2.2-3</a></li>
-        <li><a href="#openair-21-5">2.1-5</a></li>
-        <li><a href="#openair-21-0">2.1-0</a></li>
-        <li><a href="#openair-20-0">2.0-0</a></li>
-        <li><a href="#openair-19-9">1.9-9</a></li>
-        <li><a href="#openair-18-6">1.8-6</a></li>
-        <li><a href="#openair-18-2">1.8-2</a></li>
-        <li><a href="#openair-18-0">1.8-0</a></li>
-        <li><a href="#openair-173">1.7.3</a></li>
-        <li><a href="#openair-17">1.7</a></li>
-        <li><a href="#openair-166">1.6.6</a></li>
-        <li><a href="#openair-165">1.6.5</a></li>
-        <li><a href="#openair-164">1.6.4</a></li>
-        <li><a href="#openair-16">1.6</a></li>
-        <li><a href="#openair-15">1.5</a></li>
-        <li><a href="#openair-11">1.1</a></li>
-        <li><a href="#openair-10-0">1.0-0</a></li>
-        <li><a href="#openair-09-0">0.9-0</a></li>
-        <li><a href="#openair-08-0">0.8-0</a></li>
-        <li><a href="#openair-07-0">0.7-0</a></li>
-        <li><a href="#openair-06-0">0.6-0</a></li>
-        <li><a href="#openair-05-25">0.5-25</a></li>
-        <li><a href="#openair-05-23">0.5-23</a></li>
-        <li><a href="#openair-05-22">0.5-22</a></li>
-        <li><a href="#openair-05-21">0.5-21</a></li>
-        <li><a href="#openair-05-17">0.5-17</a></li>
-        <li><a href="#openair-05-15">0.5-15</a></li>
-        <li><a href="#openair-05-15-1">0.5-15</a></li>
-        <li><a href="#openair-05-14">0.5-14</a></li>
-        <li><a href="#openair-05-13">0.5-13</a></li>
-        <li><a href="#openair-05-12">0.5-12</a></li>
-        <li><a href="#openair-05-11">0.5-11</a></li>
-        <li><a href="#openair-05-10">0.5-10</a></li>
-        <li><a href="#openair-05-9">0.5-9</a></li>
-        <li><a href="#openair-05-8">0.5-8</a></li>
-        <li><a href="#openair-05-7">0.5-7</a></li>
-        <li><a href="#openair-05-6">0.5-6</a></li>
-        <li><a href="#openair-05-4">0.5-4</a></li>
-        <li><a href="#openair-05-0">0.5-0</a></li>
-        <li><a href="#openair-04-23">0.4-23</a></li>
-        <li><a href="#openair-04-22">0.4-22</a></li>
-        <li><a href="#openair-04-21">0.4-21</a></li>
-        <li><a href="#openair-04-20">0.4-20</a></li>
-        <li><a href="#openair-04-19">0.4-19</a></li>
-        <li><a href="#openair-04-18">0.4-18</a></li>
-        <li><a href="#openair-04-17">0.4-17</a></li>
-        <li><a href="#openair-04-16">0.4-16</a></li>
-        <li><a href="#openair-04-15">0.4-15</a></li>
-        <li><a href="#openair-04-14">0.4-14</a></li>
-        <li><a href="#openair-04-13">0.4-13</a></li>
-        <li><a href="#openair-04-12">0.4-12</a></li>
-        <li><a href="#openair-04-11">0.4-11</a></li>
-        <li><a href="#openair-04-10">0.4-10</a></li>
-        <li><a href="#openair-04-9">0.4-9</a></li>
-        <li><a href="#openair-04-8">0.4-8</a></li>
-        <li><a href="#openair-04-7">0.4-7</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -1211,7 +1179,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
