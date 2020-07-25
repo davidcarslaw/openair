@@ -22,11 +22,8 @@ package is extensively used in academia, the public and private sectors.
 The project was initially funded by the UK Natural Environment Research
 Council ([NERC](http://www.nerc.ac.uk/)), with additional funds from
 Defra. The most up to date information on openair can be found in the
-package itself and the
-[manual](https://davidcarslaw.com/files/openairmanual.pdf) which
-provides an introduction to R with a focus on air quality data as well
-as extensive reproducible examples. An archive of newsletters in also
-available at the same location.
+package itself and at the book website
+[here](https://openair-book.netlify.app).
 
 Further details, including blogs on openair can be found at
 [davidcarslaw.com](https://davidcarslaw.com/)
