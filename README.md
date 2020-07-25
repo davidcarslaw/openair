@@ -174,7 +174,7 @@ indicate how many quantiles to use.
 windRose(mydata)
 ```
 
-![](tools/unnamed-chunk-6-1.png)<!-- -->
+<img src="tools/unnamed-chunk-6-1.png" width="50%" />
 
 However, the real flexibility comes from being able to use the `type`
 option.
@@ -183,4 +183,4 @@ option.
 windRose(mydata, type = "year", layout = c(4, 2))
 ```
 
-![](tools/unnamed-chunk-7-1.png)<!-- -->
+<img src="tools/unnamed-chunk-7-1.png" width="100%" />
