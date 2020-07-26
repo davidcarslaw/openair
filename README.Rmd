@@ -9,7 +9,7 @@ output:
 openair: open source tools for air quality data analysis
 ========================================================
 
-**NOTE** An online **openair** book is being developed, see <https://openair-book.netlify.app>. This will in time appear on the [Bookdown](https://bookdown.org) website.
+**NOTE** An online **openair** book is being developed, see <https://bookdown.org/david_carslaw/openair/>. 
 
 For the main **openair** website, see <http://davidcarslaw.github.io/openair/>.
 
@@ -40,7 +40,7 @@ package is extensively used in academia, the public and private
 sectors. The project was initially funded by the UK Natural
 Environment Research Council ([NERC](http://www.nerc.ac.uk/)), with
 additional funds from Defra. The most up to date information on openair can be found in the
-package itself and at the book website [here](https://openair-book.netlify.app).
+package itself and at the book website [here](https://bookdown.org/david_carslaw/openair/).
 
 Further details, including blogs on openair can be found at [davidcarslaw.com](https://davidcarslaw.com/)
 
