@@ -1484,7 +1484,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
             lpolygon(
               x = c(sub$x1[i], sub$x2[i], sub$x3[i], sub$x4[i]),
               y = c(sub$y1[i], sub$y2[i], sub$y3[i], sub$y4[i]),
-              col = sub$col[i], ...
+              col = sub$col[i], border = Args$border
             )
           }
         } else {
