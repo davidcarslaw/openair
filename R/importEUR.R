@@ -110,6 +110,8 @@ get_saq_observations_worker <- function(file, tz) {
   
   # Read data
   df <- read_saq_observations(file, tz)
+  
+  if (nrow(df) == 0) return()
 
   df <- filter(df, validity %in% c(1, 2, 3) | is.na(validity))
   
