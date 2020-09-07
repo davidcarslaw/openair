@@ -340,9 +340,10 @@ RMSE <- function(x, mod = "mod", obs = "obs") {
 }
 
 ## correlation coefficient
+# when SD=0; will return(NA)
 r <- function(x, mod = "mod", obs = "obs", ...) {
   x <- na.omit(x[, c(mod, obs)])
-  res <- suppressWarnings(cor(x[[mod]], x[[obs]], ...)) ## when SD=0; will return NA
+  res <- suppressWarnings(cor(x[[mod]], x[[obs]], ...)) 
 
   data.frame(r = res)
 }
