@@ -19,7 +19,7 @@
 ##' quantify the amount of NO2 formed through these two processes by seeking
 ##' the optimum level of primary NO2 that gives the least error.
 ##'
-##' Test data is provided at \url{http://www.openair-project.org}.
+##' Test data is provided at \url{https://davidcarslaw.github.io/openair/}.
 ##'
 ##' @param input A data frame with the following fields. \code{nox}
 ##'   and\code{no2} (roadside NOX and NO2 concentrations), \code{back_nox},
