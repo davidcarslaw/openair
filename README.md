@@ -8,7 +8,7 @@ openair: open source tools for air quality data analysis
 <a href="https://bookdown.org/david_carslaw/openair/" class="uri">https://bookdown.org/david_carslaw/openair/</a>.
 
 For the main **openair** website, see
-<a href="http://davidcarslaw.github.io/openair/" class="uri">http://davidcarslaw.github.io/openair/</a>.
+<a href="https://davidcarslaw.github.io/openair/" class="uri">https://davidcarslaw.github.io/openair/</a>.
 
 [![Travis-CI Build
 Status](https://travis-ci.org/davidcarslaw/openair.svg?branch=master)](https://travis-ci.org/davidcarslaw/openair)
@@ -20,7 +20,7 @@ Status](https://travis-ci.org/davidcarslaw/openair.svg?branch=master)](https://t
 quality data — or more generally atmospheric composition data. The
 package is extensively used in academia, the public and private sectors.
 The project was initially funded by the UK Natural Environment Research
-Council ([NERC](http://www.nerc.ac.uk/)), with additional funds from
+Council ([NERC](https://nerc.ukri.org/)), with additional funds from
 Defra. The most up to date information on openair can be found in the
 package itself and at the book website
 [here](https://bookdown.org/david_carslaw/openair/).
@@ -64,7 +64,7 @@ be welcome. A summary of some of the features are:
 -   More sophisticated **bivariate polar plots** and conditional
     probability functions to help characterise different sources of
     pollution. A paper on the latter is available
-    [here](http://www.sciencedirect.com/science/article/pii/S1364815214001339).
+    [here](https://www.sciencedirect.com/science/article/pii/S1364815214001339).
 -   Access to NOAA [Hysplit](http://ready.arl.noaa.gov/HYSPLIT.php)
     pre-calculated annual 96-hour back **trajectories** and many
     plotting and analysis functions e.g. trajectory frequencies,

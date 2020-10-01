@@ -11,7 +11,7 @@ openair: open source tools for air quality data analysis
 
 **NOTE** An online **openair** book is being developed, see <https://bookdown.org/david_carslaw/openair/>. 
 
-For the main **openair** website, see <http://davidcarslaw.github.io/openair/>.
+For the main **openair** website, see <https://davidcarslaw.github.io/openair/>.
 
 ```{r echo=FALSE}
 knitr::opts_chunk$set(
@@ -38,7 +38,7 @@ knitr::opts_chunk$set(
 quality data --- or more generally atmospheric composition data. The
 package is extensively used in academia, the public and private
 sectors. The project was initially funded by the UK Natural
-Environment Research Council ([NERC](http://www.nerc.ac.uk/)), with
+Environment Research Council ([NERC](https://nerc.ukri.org/)), with
 additional funds from Defra. The most up to date information on openair can be found in the
 package itself and at the book website [here](https://bookdown.org/david_carslaw/openair/).
 

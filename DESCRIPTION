@@ -43,7 +43,7 @@ Description: Tools to analyse, interpret and understand air
     can be analysed.  Many functions can also be applied to
     other data, including meteorological and traffic data.
 License: GPL (>= 2)
-URL: http://davidcarslaw.github.io/openair/
+URL: https://davidcarslaw.github.io/openair/
 BugReports: https://github.com/davidcarslaw/openair/issues
 LazyLoad: yes
 LazyData: yes
