@@ -25,7 +25,7 @@ Data frame with 65533 observations (rows) on the following 10
   Quality Archive.  See \url{http://www.londonair.org.uk} for site details.
 
 The same data is also provide in \code{'.csv'} format via the openair
-  project web site \url{http://www.openair-project.org}.
+  project web site \url{https://davidcarslaw.github.io/openair/}.
 }
 \description{
 The mydata dataset is provided as an example dataset as part of the openair

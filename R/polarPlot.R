@@ -403,7 +403,7 @@
 #' Grange, S. K., Carslaw, D. C., & Lewis, A. C. 2016. Source apportionment
 #' advances with bivariate polar plots, correlation, and regression techniques.
 #' Atmospheric Environment. 145, 128-134.
-#' \url{http://www.sciencedirect.com/science/article/pii/S1352231016307166}
+#' \url{https://www.sciencedirect.com/science/article/pii/S1352231016307166}
 #'
 #' @keywords methods
 #' @examples

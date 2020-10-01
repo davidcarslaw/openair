@@ -50,7 +50,7 @@ request shortened cut labels for axes.}
 savings time (DST) applied or not. Examples include
 \code{local.tz = "Europe/London"}, \code{local.tz =
 "America/New_York"} i.e. time zones that assume DST.
-\url{http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones}
+\url{https://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones}
 shows time zones that should be valid for most systems. It is
 important that the original data are in GMT (UTC) or a fixed
 offset from GMT. See \code{import} and the openair manual for

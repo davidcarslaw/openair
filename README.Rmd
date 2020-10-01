@@ -79,7 +79,7 @@ This package continues to develop and input from other developers would be welco
 - More sophisticated **bivariate polar plots** and conditional
   probability functions to help characterise different sources of
   pollution. A paper on the latter is available
-  [here](http://www.sciencedirect.com/science/article/pii/S1364815214001339).
+  [here](https://www.sciencedirect.com/science/article/pii/S1364815214001339).
 - Access to NOAA [Hysplit](http://ready.arl.noaa.gov/HYSPLIT.php)
   pre-calculated annual 96-hour back **trajectories** and many
   plotting and analysis functions e.g. trajectory frequencies,

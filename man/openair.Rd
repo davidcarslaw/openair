@@ -15,9 +15,6 @@ meteorological data at the same time resolution greatly enhances the
 capabilities of these tools.
 }
 \details{
-The project code is also developed using R-Forge
-(\url{http://r-forge.r-project.org/projects/openair/}).
-
 \code{openair} contains collection of functions to analyse air pollution
 data. Typically it is expected that data are hourly means, although most
 functions consider other time periods. The principal aim to make
@@ -33,7 +30,7 @@ Quality Network (SAQN).
 
 The package has a number of requirements for input data and these are
 discussed in the manual (available on the \code{openair} website at
-\url{http://www.openair-project.org}). The key requirements are that a
+\url{https://davidcarslaw.github.io/openair/}). The key requirements are that a
 date or date-time field must have the name `date' (and can be
 \code{Date} or \code{POSIXct} format), that wind speed is represented as
 `ws' and that wind direction is `wd'.
@@ -48,7 +45,7 @@ To ensure that these other packages are available, they need to be
 installed, and this requires a connection to the internet. Other
 packages required come with the R base system.  If there are problems
 with the automatic download of these packages, see
-\url{http://www.openair-project.org} for more details.
+\url{https://davidcarslaw.github.io/openair/} for more details.
 
 NOTE: openair assumes that data are not expressed in local time where
 'Daylight Saving Time' is used. All functions check that this is the
@@ -84,7 +81,7 @@ Carslaw, D.C. and K. Ropkins, (2012) openair --- an R package for air
   27-28, 52-61.
 }
 \seealso{
-See \url{http://www.openair-project.org} for up to date information on
+See \url{https://davidcarslaw.github.io/openair/} for up to date information on
   the project.
 }
 \author{

@@ -28,7 +28,7 @@
 ##'   c("green", "blue"). It is also possible to supply colour schemes from the
 ##'   \code{RColorBrewer} package. This package defines three types of colour
 ##'   schemes: sequential, diverging or qualitative. See
-##'   \url{http://colorbrewer2.org} for more details concerning the orginal work
+##'   \url{https://colorbrewer2.org/} for more details concerning the orginal work
 ##'   on which this is based.
 ##'
 ##'   Simplified versions of the \code{viridis} colours are also available.
@@ -61,7 +61,7 @@
 ##' @export
 ##' @return Returns colour values - see examples below.
 ##' @author David Carslaw
-##' @references \url{http://colorbrewer2.org}
+##' @references \url{https://colorbrewer2.org/}
 ##' @keywords methods
 ##' @examples
 ##'
