@@ -1819,7 +1819,7 @@ panel.linear <- function(x, y, x.nam = "x", y.nam = "y",
       cex = 0.7, pos = 4,
       col = myColors[group.number]
     )
-  }, error = function(x) return)
+  }, error = function(x) return())
 }
 
 

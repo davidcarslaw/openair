@@ -688,7 +688,7 @@ panel.gam <- function(x, y, form = y ~ x, method = "loess", k = k, Args, ..., si
       panel.lines(xseq, pred.input, col = col, alpha = alpha, lty = lty, lwd = 2)
     }
     results
-  }, error = function(x) return)
+  }, error = function(x) return())
 }
 
 
