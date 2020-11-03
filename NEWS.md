@@ -1,5 +1,7 @@
 ## openair 2.7-99
 
+- New function `polarDiff` to consider the difference surface between two polar plots.
+
 ## openair 2.7-6
 
 - fix bug with `percentileRose` when `statistic = "cpf"` and multiple pollutants

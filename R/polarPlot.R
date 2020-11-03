@@ -957,7 +957,7 @@ polarPlot <-
 
     ## handle missing breaks arguments
 
-    if (missing(limits)) {
+    if (is.na(limits[1])) {
 
       # breaks <- pretty(res$z, n = nlev)
       breaks <- seq(
