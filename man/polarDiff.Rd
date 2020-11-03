@@ -25,8 +25,8 @@ Only plot at the moment.
 \description{
 This function provides a way of showing the differences in concentrations
 between two time periods as a polar plot. There are several uses of this
-function, but the most common will be to see how source(s) change between two
-periods.
+function, but the most common will be to see how source(s) may have changed
+between two periods.
 }
 \details{
 The analysis works by calculating the polar plot surface for the

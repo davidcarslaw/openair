@@ -2,8 +2,8 @@
 #'
 #' This function provides a way of showing the differences in concentrations
 #' between two time periods as a polar plot. There are several uses of this
-#' function, but the most common will be to see how source(s) change between two
-#' periods.
+#' function, but the most common will be to see how source(s) may have changed
+#' between two periods.
 #'
 #' The analysis works by calculating the polar plot surface for the
 #' \code{before} and \code{after} periods and then subtracting the \code{before}
@@ -21,17 +21,17 @@
 #' @export
 #'
 #' @examples
-#' 
+#'
 #' \dontrun{
-#' 
+#'
 #' before_data <- selectByDate(mydata, year = 2002)
 #' after_data <- selectByDate(mydata, year = 2003)
-#' 
+#'
 #' polarDiff(before, after, pollutant = "no2")
-#' 
+#'
 #' # with some options
 #' polarDiff(before, after, pollutant = "no2", cols = "RdYlBu", limits = c(-20, 20))
-#' 
+#'
 #' }
 polarDiff <- function(before, after, pollutant = "nox", 
                       limits = NA, ...) {
