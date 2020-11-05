@@ -5,6 +5,11 @@
 #' function, but the most common will be to see how source(s) may have changed
 #' between two periods.
 #'
+#' While the function is primarily intended to compare two time periods at the
+#' same location, it can be used for any two data sets that contain the same
+#' pollutant. For example, data from two sites that are close to one another, or
+#' two co-located instruments.
+#'
 #' The analysis works by calculating the polar plot surface for the
 #' \code{before} and \code{after} periods and then subtracting the \code{before}
 #' surface from the \code{after} surface.
@@ -30,7 +35,7 @@
 #' polarDiff(before, after, pollutant = "no2")
 #'
 #' # with some options
-#' polarDiff(before, after, pollutant = "no2", cols = "RdYlBu", limits = c(-20, 20))
+#' polarDiff(before_data, after_data, pollutant = "no2", cols = "RdYlBu", limits = c(-20, 20))
 #'
 #' }
 polarDiff <- function(before, after, pollutant = "nox", 
