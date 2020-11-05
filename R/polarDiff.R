@@ -32,7 +32,7 @@
 #' before_data <- selectByDate(mydata, year = 2002)
 #' after_data <- selectByDate(mydata, year = 2003)
 #'
-#' polarDiff(before, after, pollutant = "no2")
+#' polarDiff(before_data, after_data, pollutant = "no2")
 #'
 #' # with some options
 #' polarDiff(before_data, after_data, pollutant = "no2", cols = "RdYlBu", limits = c(-20, 20))
@@ -41,9 +41,17 @@
 polarDiff <- function(before, after, pollutant = "nox", 
                       limits = NA, ...) {
   
-  ## extra.args setup
+  # check variables exists
+  before <- checkPrep(before, c("ws", "wd", pollutant), 
+                      "default", remove.calm = FALSE)
+  
+  after <- checkPrep(after, c("ws", "wd", pollutant), 
+                     "default", remove.calm = FALSE)
+  
+  # extra args setup
   Args <- list(...)
   
+  # need to pass on use limits only to final plot
   Args$new_limits <- limits
   Args$limits <- NA
   

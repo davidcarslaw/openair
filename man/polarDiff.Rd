@@ -45,7 +45,7 @@ surface from the \code{after} surface.
 before_data <- selectByDate(mydata, year = 2002)
 after_data <- selectByDate(mydata, year = 2003)
 
-polarDiff(before, after, pollutant = "no2")
+polarDiff(before_data, after_data, pollutant = "no2")
 
 # with some options
 polarDiff(before_data, after_data, pollutant = "no2", cols = "RdYlBu", limits = c(-20, 20))
