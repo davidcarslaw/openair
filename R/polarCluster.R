@@ -228,14 +228,8 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
     extra.args$layout <- NULL
   }
   
+  # if considering differences
   if (is.data.frame(after)) {
-    
-    results.grid <- polarPlot(mydata,
-                              pollutant = pollutant, x = x,
-                              resolution = "normal", ...
-    )$data
-    
-  } else {
     
     results.grid <- polarDiff(before = mydata,
                               after = after,
@@ -243,6 +237,13 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
                               resolution = "normal", ...)$data
     
     results.grid$z <- results.grid[[pollutant]]
+    
+  } else {
+    
+    results.grid <- polarPlot(mydata,
+                              pollutant = pollutant, x = x,
+                              resolution = "normal", ...
+    )$data
     
   }
 
