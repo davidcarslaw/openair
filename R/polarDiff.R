@@ -98,5 +98,9 @@ polarDiff <- function(before, after, pollutant = "nox",
             limits = Args$limits,
             force.positive = FALSE)
   
+  output <- list(data = polar_data, call = match.call())
+  
+  invisible(output)
+  
 }
 
