@@ -19,6 +19,7 @@
 #' @param after A data frame that represents the "after" case. See
 #'   \code{\link{polarPlot}} for details of different input requirements.
 #' @param pollutant The pollutant to analyse.
+#' @param x The variable used for the radial axis (default = "ws").
 #' @param limits The colour scale limits e.g. \code{limits = c(-10, 10)}.
 #' @param ... Other arguments to \code{\link{polarPlot}}.
 #'
@@ -39,17 +40,18 @@
 #'
 #' }
 polarDiff <- function(before, after, pollutant = "nox", 
+                      x = "ws",
                       limits = NA, ...) {
-  
-  # check variables exists
-  before <- checkPrep(before, c("ws", "wd", pollutant), 
-                      "default", remove.calm = FALSE)
-  
-  after <- checkPrep(after, c("ws", "wd", pollutant), 
-                     "default", remove.calm = FALSE)
   
   # extra args setup
   Args <- list(...)
+  
+  # check variables exists
+  before <- checkPrep(before, c(x, "wd", pollutant), 
+                      "default", remove.calm = FALSE)
+  
+  after <- checkPrep(after, c(x, "wd", pollutant), 
+                     "default", remove.calm = FALSE)
   
   # need to pass on use limits only to final plot
   Args$new_limits <- limits
@@ -62,6 +64,7 @@ polarDiff <- function(before, after, pollutant = "nox",
 
   polar_plt <- polarPlot(all_data, 
                       pollutant = pollutant,
+                      x = x, 
                       type = "period",
                       ...)
   
@@ -70,7 +73,7 @@ polarDiff <- function(before, after, pollutant = "nox",
                             names_from = period, 
                             values_from = z) %>% 
     mutate(!!(sym(pollutant)) := after - before,
-           ws = (u ^ 2 + v ^ 2) ^ 0.5,
+           !!(sym(x)) := (u ^ 2 + v ^ 2) ^ 0.5,
            wd = 180 * atan2(u, v) / pi,
            wd = ifelse(wd < 0, wd + 360, wd)) 
   
@@ -94,6 +97,7 @@ polarDiff <- function(before, after, pollutant = "nox",
   
   
   polarPlot(polar_data, pollutant = pollutant, 
+            x = x,
             cols = Args$cols,
             limits = Args$limits,
             force.positive = FALSE)
