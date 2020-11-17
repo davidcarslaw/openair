@@ -877,7 +877,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
       ## annotations e.g. calms, means etc
       if (is_annotated) { ## don't add calms for prop.mean for now...
-        if (annotate == "TRUE") {
+        if (annotate[1] == "TRUE") {
           if (!diff) annotate <- c("statistic" , "calm")
           if (diff) annotate <- c("mean_ws" , "mean_wd")
         }
