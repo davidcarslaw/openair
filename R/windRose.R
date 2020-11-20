@@ -423,7 +423,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       stat.unit <- "%"
       stat.scale <- "all"
       stat.lab <- "Frequency of counts by wind direction (%)"
-      stat.fun2 <- function(x) format(mean(x, na.rm = TRUE), digits = 5)
+      stat.fun2 <- function(x) format(mean(x, na.rm = TRUE), digits = dig.lab)
       stat.lab2 <- "mean"
       stat.labcalm <- function(x) round(x, 1)
     }
@@ -829,72 +829,76 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
             lty = grid.lty
           )
       )
-
+      
       dat <- results[subscripts, ] ## subset of data
       dat <- filter(dat, wd <= 360, wd >= 0)
-
+      
       upper <- max.freq + off.set
-
+      
       ## add axis lines
       lsegments(-upper, 0, upper, 0)
       lsegments(0, -upper, 0, upper)
-
+      
       ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
       ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
       ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
       ltext(upper * 0.95, 0.07 * upper, "E", cex = 0.7)
-
+      
       if (nrow(dat) > 0) {
         dat$Interval0 <- 0 ## make a lower bound to refer to
-
+        
         for (i in 1:nrow(dat)) { ## go through wind angles 30, 60, ...
-
+          
           for (j in seq_along(labs)) { ## go through paddles x1, x2, ...
-
+            
             tmp <- paste(
               "poly(dat$wd[i], dat$Interval", j - 1,
               "[i], dat$Interval", j, "[i], width * box.widths[",
               j, "], col[", j, "])",
               sep = ""
             )
-
-
+            
+            
             eval(parse(text = tmp))
           }
         }
       }
-
+      
       if (normalise) {
         panel.wdprob(dat, seg, angle, off.set)
       }
-
+      
       ltext(
         seq((myby + off.set), mymax, myby) * sin(pi * angle.scale / 180),
         seq((myby + off.set), mymax, myby) * cos(pi * angle.scale / 180),
         paste(seq(myby, mymax, by = myby), stat.unit, sep = ""),
         cex = 0.7
       )
-
-      ## annotations e.g. calms, means etc
-      if (is_annotated) { ## don't add calms for prop.mean for now...
-        if (annotate[1] == "TRUE") {
-          if (!diff) annotate <- c("statistic" , "calm")
-          if (diff) annotate <- c("mean_ws" , "mean_wd")
+      
+      # annotations
+      if (annotate[1] == TRUE || length(annotate) == 2L || annotate[1] == " ") {
+        
+        if (annotate[1] == TRUE) {
+          
+          annotations_to_place <- 
+            paste0(stat.lab2, " = ", 
+                   dat$panel.fun[1], "\n",
+                   "calm = ", dat$calm[1], stat.unit
+            )
         }
         
-        annotations_to_place <- NULL
-        for(annotate.index in annotate){
-          annotations_to_place <- paste(
-            annotations_to_place, 
-            switch(
-              annotate.index,
-              statistic = paste(stat.lab2, " = ", dat$panel.fun[1]),
-              calm = paste("calm = ", dat$calm[1], stat.unit),
-              mean_ws = paste("mean ws = ", round(as.numeric(dat$panel.fun[1]), 1)),
-              mean_wd = paste("mean wd = ", round(dat$mean.wd[1], 1)),
-              annotate.index
-            ), sep = "\n"
-          )
+        if (annotate[1] == " ") {
+          annotations_to_place <- 
+            paste0(stat.lab2, " = ", dat$panel.fun[1])
+        }
+        
+        if (length(annotate) == 2L) {
+          
+          annotations_to_place <- 
+            paste0(annotate[1], " = ", 
+                   dat$panel.fun[1], "\n",
+                   annotate[2], " = ", dat$calm[1], stat.unit
+            )
         }
         
         ltext(
@@ -906,26 +910,26 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       }
     }, legend = legend
   )
-
+  
   ## reset for extra
   xy.args <- listUpdate(xy.args, extra)
-
+  
   ## plot
   plt <- do.call(xyplot, xy.args)
-
-
+  
+  
   ## output ################################################################################
-
+  
   if (length(type) == 1) {
     plot(plt)
   } else {
     plt <- useOuterStrips(plt, strip = strip, strip.left = strip.left)
     plot(plt)
   }
-
-
+  
+  
   newdata <- results
-
+  
   output <- list(plot = plt, data = newdata, call = match.call())
   class(output) <- "openair"
   invisible(output)
@@ -936,10 +940,10 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
 panel.wdprob <- function(dat, seg, angle, off.set) {
   len1 <- off.set
-
+  
   x.off <- 0
   y.off <- 0
-
+  
   makeline <- function(i, dat) {
     theta <- seq(
       (dat$wd[i] - seg * angle / 2), (dat$wd[i] + seg * angle / 2),
@@ -953,6 +957,6 @@ panel.wdprob <- function(dat, seg, angle, off.set) {
     y2 <- rev((dat$norm[i] + off.set) * cos(theta) + x.off)
     lpolygon(c(x1, x2), c(y1, y2), col = "transparent", border = "black", lwd = 2)
   }
-
+  
   lapply(1:nrow(dat), makeline, dat)
 }

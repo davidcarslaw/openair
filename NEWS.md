@@ -2,6 +2,7 @@
 
 - New function `polarDiff` to consider the difference surface between two polar plots.
 - Modify `polarCluster` to consider clustering of differences in polar plot surfaces.
+- Fix user annotation in `windRose` and pass on option for number of significant figures used to annotate plots (`dig.lab`)
 
 ## openair 2.7-6
 
