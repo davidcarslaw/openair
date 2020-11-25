@@ -1,4 +1,6 @@
-## openair 2.7-99
+# openair 2.8-99
+
+## openair 2.8-0
 
 - New function `polarDiff` to consider the difference surface between two polar plots.
 - Modify `polarCluster` to consider clustering of differences in polar plot surfaces.
