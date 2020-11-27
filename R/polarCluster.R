@@ -193,7 +193,9 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
   vars <- c(vars, "date", ".id")
 
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
-  after <- checkPrep(after, vars, type, remove.calm = FALSE)
+  
+  if (is.data.frame(after))
+    after <- checkPrep(after, vars, type, remove.calm = FALSE)
 
   max.x <- ceiling(max(mydata[, x], na.rm = TRUE))
   min.ws <- floor(min(mydata[[x]], na.rm = TRUE))
