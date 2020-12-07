@@ -1,5 +1,9 @@
 # openair 2.8-99
 
+## openair 2.8-1
+
+- Fix bug that crept in for `polarCluster`
+
 ## openair 2.8-0
 
 - New function `polarDiff` to consider the difference surface between two polar plots.
