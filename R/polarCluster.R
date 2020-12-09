@@ -261,7 +261,7 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
   make.clust <- function(i, results.grid) {
     i <- n.clusters[i]
     dat.orig <- results.grid
-    clusters <- pam(results.grid, i, stand = TRUE)
+    clusters <- pam(results.grid, i, stand = TRUE, pamonce = 3)
     dat.orig$cluster <- clusters$clustering
     dat.orig$nclust <- paste(i, "clusters")
     dat.orig
