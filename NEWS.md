@@ -1,5 +1,7 @@
 # openair 2.8-99
 
+- fix bug in `windRose` where whole period is calm
+
 ## openair 2.8-1
 
 - Fix bug that crept in for `polarCluster`
