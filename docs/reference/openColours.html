@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -114,7 +114,7 @@
     <p>Pre-defined openair colours and definition of user-defined colours</p>
     </div>
 
-    <pre class="usage"><span class='fu'>openColours</span>(<span class='kw'>scheme</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>)</pre>
+    <pre class="usage"><span class='fu'>openColours</span><span class='op'>(</span>scheme <span class='op'>=</span> <span class='st'>"default"</span>, n <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -126,7 +126,7 @@
   c("green", "blue"). It is also possible to supply colour schemes from the
   <code>RColorBrewer</code> package. This package defines three types of colour
   schemes: sequential, diverging or qualitative. See
-  <a href='http://colorbrewer2.org'>http://colorbrewer2.org</a> for more details concerning the orginal work
+  <a href='https://colorbrewer2.org/'>https://colorbrewer2.org/</a> for more details concerning the orginal work
   on which this is based.</p>
 <p>Simplified versions of the <code>viridis</code> colours are also available.
   These include "viridis", "plasma", "magma", "inferno" and "cividis".</p>
@@ -179,17 +179,22 @@ greyscale values.</p>
 To see the full list of names, type <code><a href='https://rdrr.io/r/grDevices/colors.html'>colors()</a></code> into R.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><a href='http://colorbrewer2.org'>http://colorbrewer2.org</a></p>
+    <p><a href='https://colorbrewer2.org/'>https://colorbrewer2.org/</a></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># to return 5 colours from the "jet" scheme:</span>
-<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'>openColours</span>(<span class='st'>"jet"</span>, <span class='fl'>5</span>)
-<span class='no'>cols</span></div><div class='output co'>#&gt; [1] "#00007F" "#007FFF" "#7FFF7F" "#FF7F00" "#7F0000"</div><div class='input'>
+<span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'>openColours</span><span class='op'>(</span><span class='st'>"jet"</span>, <span class='fl'>5</span><span class='op'>)</span>
+<span class='va'>cols</span>
+</div><div class='output co'>#&gt; [1] "#00007F" "#007FFF" "#7FFF7F" "#FF7F00" "#7F0000"</div><div class='input'>
 <span class='co'># to interpolate between named colours e.g. 10 colours from yellow to</span>
 <span class='co'>#  green to red:</span>
-<span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'>openColours</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"yellow"</span>, <span class='st'>"green"</span>, <span class='st'>"red"</span>), <span class='fl'>10</span>)
-<span class='no'>cols</span></div><div class='output co'>#&gt;  [1] "#FFFF00" "#C6FF00" "#8DFF00" "#55FF00" "#1CFF00" "#1CE200" "#54AA00"
+<span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'>openColours</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"yellow"</span>, <span class='st'>"green"</span>, <span class='st'>"red"</span><span class='op'>)</span>, <span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>cols</span>
+</div><div class='output co'>#&gt;  [1] "#FFFF00" "#C6FF00" "#8DFF00" "#55FF00" "#1CFF00" "#1CE200" "#54AA00"
 #&gt;  [8] "#8D7100" "#C63800" "#FF0000"</div><div class='input'>
 
 </div></pre>
@@ -208,7 +213,7 @@ To see the full list of names, type <code><a href='https://rdrr.io/r/grDevices/c
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

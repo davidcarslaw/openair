@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -108,18 +108,45 @@
       <small>Source: <a href='https://github.com/davidcarslaw/openair/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="openair-27-99" class="section level2">
+    <div id="openair-28-99" class="section level1">
+<h1 class="page-header" data-toc-text="2.8-99">
+<a href="#openair-28-99" class="anchor"></a>openair 2.8-99<small> Unreleased </small>
+</h1>
+<ul>
+<li>fix bug in <code>windRose</code> where whole period is calm</li>
+<li>add optimisation to <code>polarCluster</code> to speed up clustering through option <code>pamonce = 3</code>. This should not appreciably affect results.</li>
+</ul>
+<div id="openair-28-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#openair-27-99" class="anchor"></a>openair 2.7-99</h2>
+<a href="#openair-28-1" class="anchor"></a>openair 2.8-1</h2>
+<ul>
+<li>Fix bug that crept in for <code>polarCluster</code>
+</li>
+</ul>
+</div>
+<div id="openair-28-0" class="section level2">
+<h2 class="hasAnchor">
+<a href="#openair-28-0" class="anchor"></a>openair 2.8-0</h2>
+<ul>
+<li>New function <code>polarDiff</code> to consider the difference surface between two polar plots.</li>
+<li>Modify <code>polarCluster</code> to consider clustering of differences in polar plot surfaces.</li>
+<li>Fix user annotation in <code>windRose</code> and pass on option for number of significant figures used to annotate plots (<code>dig.lab</code>)</li>
+</ul>
+</div>
+<div id="openair-27-6" class="section level2">
+<h2 class="hasAnchor">
+<a href="#openair-27-6" class="anchor"></a>openair 2.7-6</h2>
 <ul>
 <li>fix bug with <code>percentileRose</code> when <code>statistic = "cpf"</code> and multiple pollutants</li>
 <li>fix bug in <code>timeAverage</code> when <code>type = "season"</code> and <code>avg.time = "season"</code>
 </li>
 <li>add <code>week</code> to openair default types</li>
 <li>fix bug in <code>timeVariation</code> when considering difference plots with missing data</li>
+<li>fix CRAN check when using <code>return</code>
+</li>
 </ul>
 </div>
-    <div id="openair-27-4" class="section level2">
+<div id="openair-27-4" class="section level2">
 <h2 class="hasAnchor">
 <a href="#openair-27-4" class="anchor"></a>openair 2.7-4</h2>
 <ul>
@@ -136,7 +163,7 @@
 <li>Return air quality data site name and code as character rather than factor</li>
 </ul>
 </div>
-    <div id="openair-27-2" class="section level2">
+<div id="openair-27-2" class="section level2">
 <h2 class="hasAnchor">
 <a href="#openair-27-2" class="anchor"></a>openair 2.7-2</h2>
 <ul>
@@ -146,7 +173,7 @@
 <li>add option <code>date.format</code> to <code>TheilSen</code>.</li>
 </ul>
 </div>
-    <div id="openair-27-0" class="section level2">
+<div id="openair-27-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#openair-27-0" class="anchor"></a>openair 2.7-0</h2>
 <ul>
@@ -158,7 +185,7 @@
 <li>NEW <code>importEurope</code> to provide access to some the data from the <code>saqgetr</code> package.</li>
 </ul>
 </div>
-    <div id="openair-26-6" class="section level2">
+<div id="openair-26-6" class="section level2">
 <h2 class="hasAnchor">
 <a href="#openair-26-6" class="anchor"></a>openair 2.6-6</h2>
 <ul>
@@ -174,7 +201,7 @@
 <li>Allow meta data to be returned in <code>importSAQN</code> and <code>importWAQN</code>.</li>
 </ul>
 </div>
-    <div id="openair-26-4" class="section level2">
+<div id="openair-26-4" class="section level2">
 <h2 class="hasAnchor">
 <a href="#openair-26-4" class="anchor"></a>openair 2.6-4</h2>
 <ul>
@@ -186,14 +213,14 @@
 <li>Add “waqn” as a data source to <code>importMeta</code>.</li>
 </ul>
 </div>
-    <div id="openair-26-1" class="section level2">
+<div id="openair-26-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#openair-26-1" class="anchor"></a>openair 2.6-1</h2>
 <ul>
 <li>Update handling of meta data in <code>importMeta</code>.</li>
 </ul>
 </div>
-    <div id="openair-26-0" class="section level2">
+<div id="openair-26-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#openair-26-0" class="anchor"></a>openair 2.6-0</h2>
 <ul>
@@ -204,7 +231,7 @@
 <li>fix bug in <code>timeAverage</code> when interval more than one time unit e.g. “10 day”</li>
 </ul>
 </div>
-    <div id="openair-25-0" class="section level2">
+<div id="openair-25-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#openair-25-0" class="anchor"></a>openair 2.5-0</h2>
 <ul>
@@ -218,7 +245,7 @@
 <li>fix issues in trajectory functions due to <code>dplyr</code>.</li>
 </ul>
 </div>
-    <div id="openair-24-0" class="section level2">
+<div id="openair-24-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#openair-24-0" class="anchor"></a>openair 2.4-0</h2>
 <ul>
@@ -234,7 +261,7 @@
 <li>New built-in colour palette for the colour blind “cbPalette”. Note maximum number of colours is 8 e.g. <code><a href="../reference/windRose.html">windRose(mydata, col = "cbPalette", breaks = 6)</a></code>. Thanks to Jerry Martin.</li>
 </ul>
 </div>
-    <div id="openair-23-0" class="section level2">
+<div id="openair-23-0" class="section level2">
 <h2 class="hasAnchor">
 <a href="#openair-23-0" class="anchor"></a>openair 2.3-0</h2>
 <ul>
@@ -247,6 +274,7 @@
 <li>allow <code>calendarPlot</code> to span any time period. The function can now straddle parts of two years or several years.</li>
 <li>add option <code>col.arrow</code> to <code>calendarPlot</code> to control colour of the wind speed / direction annotation arrows.</li>
 </ul>
+</div>
 </div>
     <div id="openair-22-3" class="section level1">
 <h1 class="page-header" data-toc-text="2.2-3">
@@ -908,7 +936,7 @@
 </h1>
 <ul>
 <li>update to <code>calendarPlot</code>, kernelExceed, MannKendall and conditionalQuantile improved … handling</li>
-<li><div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>  minor update to GoogleMapsPlot</span></code></pre></div></li>
+<li><div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  minor update to GoogleMapsPlot</span></code></pre></div></li>
 </ul>
 </div>
     <div id="openair-05-9" class="section level1">
@@ -1156,10 +1184,10 @@
 <a href="#openair-04-7" class="anchor"></a>openair 0.4-7<small> 2011-02-17 </small>
 </h1>
 <ul>
-<li><div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>Added new <span class="cf">function</span> conditionalQuantile <span class="cf">for</span> model</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>evaluation purposes.</span></code></pre></div></li>
-<li><div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>Fixed <span class="st">`</span><span class="dt">importAURN</span><span class="st">`</span> to account <span class="cf">for</span> a change <span class="cf">in</span> web domain</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>address at AEA.</span></code></pre></div></li>
+<li><div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Added new <span class="cf">function</span> conditionalQuantile <span class="cf">for</span> model</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>evaluation purposes.</span></code></pre></div></li>
+<li><div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Fixed <span class="st">`</span><span class="at">importAURN</span><span class="st">`</span> to account <span class="cf">for</span> a change <span class="cf">in</span> web domain</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>address at AEA.</span></code></pre></div></li>
 </ul>
 </div>
   </div>
@@ -1179,7 +1207,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

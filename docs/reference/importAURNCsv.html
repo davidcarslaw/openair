@@ -76,7 +76,7 @@ reshape)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -122,23 +122,23 @@ uses <code>read.table</code> (in <code>utils</code>) and <code>rbind</code> (in
 <code>reshape</code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>importAURNCsv</span>(
-  <span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span>(),
-  <span class='kw'>header.at</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>data.at</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-  <span class='kw'>na.strings</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"No data"</span>, <span class='st'>""</span>, <span class='st'>"NA"</span>),
-  <span class='kw'>date.name</span> <span class='kw'>=</span> <span class='st'>"Date"</span>,
-  <span class='kw'>date.break</span> <span class='kw'>=</span> <span class='st'>"-"</span>,
-  <span class='kw'>time.name</span> <span class='kw'>=</span> <span class='st'>"time"</span>,
-  <span class='kw'>misc.info</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>),
-  <span class='kw'>is.site</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-  <span class='kw'>bad.24</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>correct.time</span> <span class='kw'>=</span> -<span class='fl'>3600</span>,
-  <span class='kw'>output</span> <span class='kw'>=</span> <span class='st'>"final"</span>,
-  <span class='kw'>data.order</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"value"</span>, <span class='st'>"status"</span>, <span class='st'>"unit"</span>),
-  <span class='kw'>simplify.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>importAURNCsv</span><span class='op'>(</span>
+  file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.choose.html'>file.choose</a></span><span class='op'>(</span><span class='op'>)</span>,
+  header.at <span class='op'>=</span> <span class='fl'>5</span>,
+  data.at <span class='op'>=</span> <span class='fl'>7</span>,
+  na.strings <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"No data"</span>, <span class='st'>""</span>, <span class='st'>"NA"</span><span class='op'>)</span>,
+  date.name <span class='op'>=</span> <span class='st'>"Date"</span>,
+  date.break <span class='op'>=</span> <span class='st'>"-"</span>,
+  time.name <span class='op'>=</span> <span class='st'>"time"</span>,
+  misc.info <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span><span class='op'>)</span>,
+  is.site <span class='op'>=</span> <span class='fl'>4</span>,
+  bad.24 <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  correct.time <span class='op'>=</span> <span class='op'>-</span><span class='fl'>3600</span>,
+  output <span class='op'>=</span> <span class='st'>"final"</span>,
+  data.order <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"value"</span>, <span class='st'>"status"</span>, <span class='st'>"unit"</span><span class='op'>)</span>,
+  simplify.names <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -263,72 +263,75 @@ argument modification.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Generic import function <code><a href='import.html'>import</a></code>, or direct (on-line)
-  data import function <code><a href='importAURN.html'>importAURN</a></code>. Other dedicated import
+  data import function <code><a href='importAQE.html'>importAURN</a></code>. Other dedicated import
   functions available for other file types, e.g.: <code><a href='importKCL.html'>importKCL</a></code>,
   <code><a href='importADMS.html'>importADMS</a></code>, etc.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Karl Ropkins</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
-##########
-#example 1
-##########
-#data obtained from email service:
-#http://www.airquality.co.uk/archive/data_selector.php
-#or
-#http://www.airquality.co.uk/archive/data_and_statistics.php?action=step_pre_1
-#example file "AirQualityDataHourly.csv" Brighton Roadside and Brighton Preston Park 2008.
+<span class='co'>##########</span>
+<span class='co'>#example 1</span>
+<span class='co'>##########</span>
+<span class='co'>#data obtained from email service:</span>
+<span class='co'>#http://www.airquality.co.uk/archive/data_selector.php</span>
+<span class='co'>#or</span>
+<span class='co'>#http://www.airquality.co.uk/archive/data_and_statistics.php?action=step_pre_1</span>
+<span class='co'>#example file "AirQualityDataHourly.csv" Brighton Roadside and Brighton Preston Park 2008.</span>
 
-#import data as mydata
-## mydata &lt;- importAURN.csv("AirQualityDataHourly.csv")
+<span class='co'>#import data as mydata</span>
+<span class='co'>## mydata &lt;- importAURN.csv("AirQualityDataHourly.csv")</span>
 
-#read additional information retained by importAURN
-## comment(mydata)
+<span class='co'>#read additional information retained by importAURN</span>
+<span class='co'>## comment(mydata)</span>
 
-#analysis data by site
-## boxplot(nox ~ site, data = mydata)
+<span class='co'>#analysis data by site</span>
+<span class='co'>## boxplot(nox ~ site, data = mydata)</span>
 
-##########
-#example 2
-##########
-#example using data from url
+<span class='co'>##########</span>
+<span class='co'>#example 2</span>
+<span class='co'>##########</span>
+<span class='co'>#example using data from url</span>
 
-#import data as otherdata
-## otherdata &lt;- importAURN.csv(
-##  "http://www.airquality.co.uk/archive/data_files/site_data/HG1_2007.csv")
+<span class='co'>#import data as otherdata</span>
+<span class='co'>## otherdata &lt;- importAURN.csv(</span>
+<span class='co'>##  "http://www.airquality.co.uk/archive/data_files/site_data/HG1_2007.csv")</span>
 
-#use openair function
-## summarise(otherdata)
+<span class='co'>#use openair function</span>
+<span class='co'>## summarise(otherdata)</span>
 
-##########
-#example 3
-##########
-#example of importing other similar data formats
+<span class='co'>##########</span>
+<span class='co'>#example 3</span>
+<span class='co'>##########</span>
+<span class='co'>#example of importing other similar data formats</span>
 
-#import 15 min average so2 data from Bexley using url
-## so2.15min.data &lt;- importAURN.csv(
-##  "http://www.airquality.co.uk/archive/data_files/15min_site_data/BEX_2008.csv",
-##  correct.time = -900)
+<span class='co'>#import 15 min average so2 data from Bexley using url</span>
+<span class='co'>## so2.15min.data &lt;- importAURN.csv(</span>
+<span class='co'>##  "http://www.airquality.co.uk/archive/data_files/15min_site_data/BEX_2008.csv",</span>
+<span class='co'>##  correct.time = -900)</span>
 
-#note: correct.time amended for 15 min offset/correction.
+<span class='co'>#note: correct.time amended for 15 min offset/correction.</span>
 
-#additional comments
-## comment(so2.15min.data)
+<span class='co'>#additional comments</span>
+<span class='co'>## comment(so2.15min.data)</span>
 
-#analysis
-## diurnal.error(so2.15min.data, pollutant="so2")
+<span class='co'>#analysis</span>
+<span class='co'>## diurnal.error(so2.15min.data, pollutant="so2")</span>
 
-#wrapper for above operation
-##(e.g. if you have to do this -or similar- a lot of time)
-## my.import.wrapper &lt;- function(file, correct.time = -900, ...)
-##  { importAURN.csv(file = file, correct.time = correct.time, ...) }
+<span class='co'>#wrapper for above operation</span>
+<span class='co'>##(e.g. if you have to do this -or similar- a lot of time)</span>
+<span class='co'>## my.import.wrapper &lt;- function(file, correct.time = -900, ...)</span>
+<span class='co'>##  { importAURN.csv(file = file, correct.time = correct.time, ...) }</span>
 
-#same as above
-## so2.15min.data.again &lt;- my.import.wrapper(
-##  "http://www.airquality.co.uk/archive/data_files/15min_site_data/BEX_2008.csv")
+<span class='co'>#same as above</span>
+<span class='co'>## so2.15min.data.again &lt;- my.import.wrapper(</span>
+<span class='co'>##  "http://www.airquality.co.uk/archive/data_files/15min_site_data/BEX_2008.csv")</span>
 
-#analysis
-## timeVariation(so2.15min.data.again, pollutant="so2")
+<span class='co'>#analysis</span>
+<span class='co'>## timeVariation(so2.15min.data.again, pollutant="so2")</span>
 
 
 </div></pre>
@@ -347,7 +350,7 @@ argument modification.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

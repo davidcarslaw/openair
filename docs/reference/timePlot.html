@@ -73,7 +73,7 @@ or in separate panels." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -116,36 +116,36 @@ or in separate panels." />
 or in separate panels.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>timePlot</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>stack</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
-  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>date.pad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>,
-  <span class='kw'>plot.type</span> <span class='kw'>=</span> <span class='st'>"l"</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>windflow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>y.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
-  <span class='kw'>ref.x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ref.y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>,
-  <span class='kw'>name.pol</span> <span class='kw'>=</span> <span class='no'>pollutant</span>,
-  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-  <span class='kw'>date.format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>timePlot</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  pollutant <span class='op'>=</span> <span class='st'>"nox"</span>,
+  group <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  stack <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  normalise <span class='op'>=</span> <span class='cn'>NULL</span>,
+  avg.time <span class='op'>=</span> <span class='st'>"default"</span>,
+  data.thresh <span class='op'>=</span> <span class='fl'>0</span>,
+  statistic <span class='op'>=</span> <span class='st'>"mean"</span>,
+  percentile <span class='op'>=</span> <span class='cn'>NA</span>,
+  date.pad <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  cols <span class='op'>=</span> <span class='st'>"brewer1"</span>,
+  plot.type <span class='op'>=</span> <span class='st'>"l"</span>,
+  key <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  log <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  windflow <span class='op'>=</span> <span class='cn'>NULL</span>,
+  smooth <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ci <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  y.relation <span class='op'>=</span> <span class='st'>"same"</span>,
+  ref.x <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ref.y <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key.columns <span class='op'>=</span> <span class='fl'>1</span>,
+  key.position <span class='op'>=</span> <span class='st'>"bottom"</span>,
+  name.pol <span class='op'>=</span> <span class='va'>pollutant</span>,
+  date.breaks <span class='op'>=</span> <span class='fl'>7</span>,
+  date.format <span class='op'>=</span> <span class='cn'>NULL</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -454,57 +454,64 @@ the plotting area and therefore the information shown.</p>
   <code><a href='linearRelation.html'>linearRelation</a></code>, <code><a href='selectByDate.html'>selectByDate</a></code> and
   <code><a href='timeAverage.html'>timeAverage</a></code> for details on selecting averaging
   times and other statistics in a flexible way</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
 <span class='co'># basic use, single pollutant</span>
-<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='timePlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>timePlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"nox"</span><span class='op'>)</span>
+</div><div class='img'><img src='timePlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># two pollutants in separate panels</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>))
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timePlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nox"</span>, <span class='st'>"no2"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># two pollutants in the same panel with the same scale</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timePlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nox"</span>, <span class='st'>"no2"</span><span class='op'>)</span>, group <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># alternative by normalising concentrations and plotting on the same</span>
-  <span class='no'>scale</span></div><div class='output co'>#&gt; function (x, center = TRUE, scale = TRUE) 
+  <span class='va'>scale</span>
+</div><div class='output co'>#&gt; function (x, center = TRUE, scale = TRUE) 
 #&gt; UseMethod("scale")
-#&gt; &lt;bytecode: 0x7f93758ed270&gt;
-#&gt; &lt;environment: namespace:base&gt;</div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"nox"</span>, <span class='st'>"co"</span>, <span class='st'>"pm10"</span>, <span class='st'>"so2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span>
-  <span class='st'>"year"</span>, <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='st'>"1/1/1998"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-}
+#&gt; &lt;bytecode: 0x7fefc9044200&gt;
+#&gt; &lt;environment: namespace:base&gt;</div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>timePlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nox"</span>, <span class='st'>"co"</span>, <span class='st'>"pm10"</span>, <span class='st'>"so2"</span><span class='op'>)</span>, group <span class='op'>=</span> <span class='cn'>TRUE</span>, avg.time <span class='op'>=</span>
+  <span class='st'>"year"</span>, normalise <span class='op'>=</span> <span class='st'>"1/1/1998"</span>, lwd <span class='op'>=</span> <span class='fl'>3</span>, lty <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># examples of selecting by date</span>
 
 <span class='co'># plot for nox in 1999</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timePlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>1999</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timePlot</span><span class='op'>(</span><span class='fu'><a href='selectByDate.html'>selectByDate</a></span><span class='op'>(</span><span class='va'>mydata</span>, year <span class='op'>=</span> <span class='fl'>1999</span><span class='op'>)</span>, pollutant <span class='op'>=</span> <span class='st'>"nox"</span><span class='op'>)</span>
 
 <span class='co'># select specific date range for two pollutants</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>timePlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"6/8/2003"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"13/8/2003"</span>),
-<span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"no2"</span>, <span class='st'>"o3"</span>))
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>timePlot</span><span class='op'>(</span><span class='fu'><a href='selectByDate.html'>selectByDate</a></span><span class='op'>(</span><span class='va'>mydata</span>, start <span class='op'>=</span> <span class='st'>"6/8/2003"</span>, end <span class='op'>=</span> <span class='st'>"13/8/2003"</span><span class='op'>)</span>,
+pollutant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"no2"</span>, <span class='st'>"o3"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># choose different line styles etc</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>), <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timePlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nox"</span>, <span class='st'>"no2"</span><span class='op'>)</span>, lty <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 
 <span class='co'># choose different line styles etc</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>timePlot</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2004</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fl'>6</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>timePlot</span><span class='op'>(</span><span class='fu'><a href='selectByDate.html'>selectByDate</a></span><span class='op'>(</span><span class='va'>mydata</span>, year <span class='op'>=</span> <span class='fl'>2004</span>, month <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>, pollutant <span class='op'>=</span>
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nox"</span>, <span class='st'>"no2"</span><span class='op'>)</span>, lwd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># different averaging times</span>
 
 <span class='co'>#daily mean O3</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timePlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, avg.time <span class='op'>=</span> <span class='st'>"day"</span><span class='op'>)</span>
 
 <span class='co'># daily mean O3 ensuring each day has data capture of at least 75%</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timePlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, avg.time <span class='op'>=</span> <span class='st'>"day"</span>, data.thresh <span class='op'>=</span> <span class='fl'>75</span><span class='op'>)</span>
 
 <span class='co'># 2-week average of O3 concentrations</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timePlot</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"2 week"</span>)</div></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timePlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, avg.time <span class='op'>=</span> <span class='st'>"2 week"</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -520,7 +527,7 @@ the plotting area and therefore the information shown.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

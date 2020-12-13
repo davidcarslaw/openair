@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -114,33 +114,33 @@
     <p>Use non-parametric methods to calculate time series trends</p>
     </div>
 
-    <pre class="usage"><span class='fu'>smoothTrend</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
-  <span class='kw'>deseason</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
-  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>,
-  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>simulate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>200</span>,
-  <span class='kw'>autocor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>,
-  <span class='kw'>shade</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"year"</span>,
-  <span class='kw'>y.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
-  <span class='kw'>ref.x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ref.y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>percentile</span>),
-  <span class='kw'>name.pol</span> <span class='kw'>=</span> <span class='no'>pollutant</span>,
-  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
-  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>k</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>smoothTrend</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  pollutant <span class='op'>=</span> <span class='st'>"nox"</span>,
+  deseason <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  statistic <span class='op'>=</span> <span class='st'>"mean"</span>,
+  avg.time <span class='op'>=</span> <span class='st'>"month"</span>,
+  percentile <span class='op'>=</span> <span class='cn'>NA</span>,
+  data.thresh <span class='op'>=</span> <span class='fl'>0</span>,
+  simulate <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  n <span class='op'>=</span> <span class='fl'>200</span>,
+  autocor <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cols <span class='op'>=</span> <span class='st'>"brewer1"</span>,
+  shade <span class='op'>=</span> <span class='st'>"grey95"</span>,
+  xlab <span class='op'>=</span> <span class='st'>"year"</span>,
+  y.relation <span class='op'>=</span> <span class='st'>"same"</span>,
+  ref.x <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ref.y <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>percentile</span><span class='op'>)</span>,
+  name.pol <span class='op'>=</span> <span class='va'>pollutant</span>,
+  ci <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.2</span>,
+  date.breaks <span class='op'>=</span> <span class='fl'>7</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  k <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -366,27 +366,33 @@ Residual resampling is used.</p>
 
     <div class='dont-index'><p><code><a href='TheilSen.html'>TheilSen</a></code> for an alternative method of
   calculating trends.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># load example data from package</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>mydata</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
 
 <span class='co'># trend plot for nox</span>
-<span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='smoothTrend-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>smoothTrend</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"nox"</span><span class='op'>)</span>
+</div><div class='img'><img src='smoothTrend-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># trend plot by each of 8 wind sectors</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"o3 (ppb)"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>smoothTrend</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, type <span class='op'>=</span> <span class='st'>"wd"</span>, ylab <span class='op'>=</span> <span class='st'>"o3 (ppb)"</span><span class='op'>)</span>
 
 <span class='co'># several pollutants, no plotting symbol</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"no2"</span>, <span class='st'>"o3"</span>, <span class='st'>"pm10"</span>, <span class='st'>"pm25"</span>), <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>smoothTrend</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"no2"</span>, <span class='st'>"o3"</span>, <span class='st'>"pm10"</span>, <span class='st'>"pm25"</span><span class='op'>)</span>, pch <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
 
 <span class='co'># percentiles</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"percentile"</span>,
-<span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>95</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>smoothTrend</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, statistic <span class='op'>=</span> <span class='st'>"percentile"</span>,
+percentile <span class='op'>=</span> <span class='fl'>95</span><span class='op'>)</span>
 
 <span class='co'># several percentiles with control over lines used</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>smoothTrend</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"percentile"</span>,
-<span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>50</span>, <span class='fl'>95</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span>), <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>1</span>, <span class='fl'>5</span>))</div></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>smoothTrend</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, statistic <span class='op'>=</span> <span class='st'>"percentile"</span>,
+percentile <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>50</span>, <span class='fl'>95</span><span class='op'>)</span>, lwd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>, lty <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>1</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -402,7 +408,7 @@ Residual resampling is used.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

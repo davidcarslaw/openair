@@ -41,8 +41,8 @@
 
 <meta property="og:title" content="K-means clustering of bivariate polar plots — polarCluster" />
 <meta property="og:description" content="Function for identifying clusters in bivariate polar plots
-(polarPlot); identifying clusters in the original data for
-subsequent processing." />
+(polarPlot); identifying clusters in the original data for subsequent
+processing." />
 
 
 
@@ -74,7 +74,7 @@ subsequent processing." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -114,38 +114,39 @@ subsequent processing." />
 
     <div class="ref-description">
     <p>Function for identifying clusters in bivariate polar plots
-(<code>polarPlot</code>); identifying clusters in the original data for
-subsequent processing.</p>
+(<code>polarPlot</code>); identifying clusters in the original data for subsequent
+processing.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>polarCluster</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"ws"</span>,
-  <span class='kw'>wd</span> <span class='kw'>=</span> <span class='st'>"wd"</span>,
-  <span class='kw'>n.clusters</span> <span class='kw'>=</span> <span class='fl'>6</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"Paired"</span>,
-  <span class='kw'>angle.scale</span> <span class='kw'>=</span> <span class='fl'>315</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='no'>x</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>polarCluster</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  pollutant <span class='op'>=</span> <span class='st'>"nox"</span>,
+  x <span class='op'>=</span> <span class='st'>"ws"</span>,
+  wd <span class='op'>=</span> <span class='st'>"wd"</span>,
+  n.clusters <span class='op'>=</span> <span class='fl'>6</span>,
+  after <span class='op'>=</span> <span class='cn'>NA</span>,
+  cols <span class='op'>=</span> <span class='st'>"Paired"</span>,
+  angle.scale <span class='op'>=</span> <span class='fl'>315</span>,
+  units <span class='op'>=</span> <span class='va'>x</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mydata</th>
-      <td><p>A data frame minimally containing <code>wd</code>, another
-variable to plot in polar coordinates (the default is a column
-&#8220;ws&#8221; --- wind speed) and a pollutant. Should also contain
-<code>date</code> if plots by time period are required.</p></td>
+      <td><p>A data frame minimally containing <code>wd</code>, another variable
+to plot in polar coordinates (the default is a column &#8220;ws&#8221; --- wind
+speed) and a pollutant. Should also contain <code>date</code> if plots by time
+period are required.</p></td>
     </tr>
     <tr>
       <th>pollutant</th>
-      <td><p>Mandatory. A pollutant name corresponding to a
-variable in a data frame should be supplied e.g. <code>pollutant =
-"nox"</code>. Only one pollutant can be chosen.</p></td>
+      <td><p>Mandatory. A pollutant name corresponding to a variable in
+a data frame should be supplied e.g. <code>pollutant = "nox"</code>. Only one
+pollutant can be chosen.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -158,32 +159,37 @@ coordinates, the default is wind speed, &#8220;ws&#8221;.</p></td>
     </tr>
     <tr>
       <th>n.clusters</th>
-      <td><p>Number of clusters to use. If <code>n.clusters</code>
-is more than length 1, then a <code>lattice</code> panel plot will be
-output showing the clusters identified for each one of
-<code>n.clusters</code>.</p></td>
+      <td><p>Number of clusters to use. If <code>n.clusters</code> is more
+than length 1, then a <code>lattice</code> panel plot will be output showing the
+clusters identified for each one of <code>n.clusters</code>.</p></td>
+    </tr>
+    <tr>
+      <th>after</th>
+      <td><p>The function can be applied to differences between polar plot
+surfaces (see <a href='polarDiff.html'>polarDiff</a> for details). If an <code>after</code> data frame
+is supplied, the clustering will be carried out on the differences between
+<code>after</code> and <code>mydata</code> in the same way as <a href='polarDiff.html'>polarDiff</a>.</p></td>
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>Colours to be used for plotting. Useful options for
-categorical data are avilable from <code>RColorBrewer</code> colours ---
-see the <code>openair</code> <code>openColours</code> function for more
-details. Useful schemes include &#8220;Accent&#8221;, &#8220;Dark2&#8221;,
-&#8220;Paired&#8221;, &#8220;Pastel1&#8221;, &#8220;Pastel2&#8221;,
-&#8220;Set1&#8221;, &#8220;Set2&#8221;, &#8220;Set3&#8221; --- but see
-?<code>brewer.pal</code> for the maximum useful colours in each. For
-user defined the user can supply a list of colour names recognised
-by R (type <code><a href='https://rdrr.io/r/grDevices/colors.html'>colours()</a></code> to see the full list). An example
-would be <code>cols = c("yellow", "green", "blue")</code>.</p></td>
+      <td><p>Colours to be used for plotting. Useful options for categorical
+data are avilable from <code>RColorBrewer</code> colours --- see the
+<code>openair</code> <code>openColours</code> function for more details. Useful
+schemes include &#8220;Accent&#8221;, &#8220;Dark2&#8221;, &#8220;Paired&#8221;,
+&#8220;Pastel1&#8221;, &#8220;Pastel2&#8221;, &#8220;Set1&#8221;, &#8220;Set2&#8221;,
+&#8220;Set3&#8221; --- but see ?<code>brewer.pal</code> for the maximum useful
+colours in each. For user defined the user can supply a list of colour
+names recognised by R (type <code><a href='https://rdrr.io/r/grDevices/colors.html'>colours()</a></code> to see the full list). An
+example would be <code>cols = c("yellow", "green", "blue")</code>.</p></td>
     </tr>
     <tr>
       <th>angle.scale</th>
-      <td><p>The wind speed scale is by default shown at a
-315 degree angle. Sometimes the placement of the scale may
-interfere with an interesting feature. The user can therefore set
-<code>angle.scale</code> to another value (between 0 and 360 degrees) to
-mitigate such problems. For example <code>angle.scale = 45</code> will
-draw the scale heading in a NE direction.</p></td>
+      <td><p>The wind speed scale is by default shown at a 315 degree
+angle. Sometimes the placement of the scale may interfere with an
+interesting feature. The user can therefore set <code>angle.scale</code> to
+another value (between 0 and 360 degrees) to mitigate such problems. For
+example <code>angle.scale = 45</code> will draw the scale heading in a NE
+direction.</p></td>
     </tr>
     <tr>
       <th>units</th>
@@ -192,123 +198,124 @@ draw the scale heading in a NE direction.</p></td>
     <tr>
       <th>auto.text</th>
       <td><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
-<code>TRUE</code> titles and axis labels will automatically try and
-format pollutant names and units properly e.g.  by subscripting
-the `2' in NO2.</p></td>
+<code>TRUE</code> titles and axis labels will automatically try and format
+pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other graphical parameters passed onto
-<code>polarPlot</code>, <code>lattice:levelplot</code> and
-<code>cutData</code>. Common axis and title labelling options (such as
-<code>xlab</code>, <code>ylab</code>, <code>main</code>) are passed via
-<code>quickText</code> to handle routine formatting.</p></td>
+      <td><p>Other graphical parameters passed onto <code>polarPlot</code>,
+<code>lattice:levelplot</code> and <code>cutData</code>. Common axis and title
+labelling options (such as <code>xlab</code>, <code>ylab</code>, <code>main</code>) are
+passed via <code>quickText</code> to handle routine formatting.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>As well as generating the plot itself, <code>polarCluster</code>
-also returns an object of class ``openair''. The object includes
-three main components: <code>call</code>, the command used to generate
-the plot; <code>data</code>, the original data frame with a new field
-<code>cluster</code> identifying the cluster; and <code>plot</code>, the plot
-itself. Note that any rows where the value of <code>pollutant</code> is
-<code>NA</code> are ignored so that the returned data frame may have
-fewer rows than the original.</p>
-<p>An openair output can be manipulated using a number of generic
-operations, including <code>print</code>, <code>plot</code> and
-<code>summary</code>.</p>
+    <p>As well as generating the plot itself, <code>polarCluster</code> also
+  returns an object of class ``openair''. The object includes three main
+  components: <code>call</code>, the command used to generate the plot;
+  <code>data</code>, the original data frame with a new field <code>cluster</code>
+  identifying the cluster; and <code>plot</code>, the plot itself. Note that any
+  rows where the value of <code>pollutant</code> is <code>NA</code> are ignored so that
+  the returned data frame may have fewer rows than the original.</p>
+<p>If the clustering is carried out considering differences i.e. an
+  <code>after</code> data frame is supplied, the output also includes the
+  <code>after</code> data frame with cluster identified.</p>
+<p>An openair output can be manipulated using a number of generic operations,
+  including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Bivariate polar plots generated using the <code>polarPlot</code>
-function provide a very useful graphical technique for identifying
-and characterising different air pollution sources. While
-bivariate polar plots provide a useful graphical indication of
-potential sources, their location and wind-speed or other variable
-dependence, they do have several limitations. Often, a `feature'
-will be detected in a plot but the subsequent analysis of data
-meeting particular wind speed/direction criteria will be based
-only on the judgement of the investigator concerning the wind
-speed-direction intervals of interest. Furthermore, the
-identification of a feature can depend on the choice of the colour
-scale used, making the process somewhat arbitrary.</p>
-<p><code>polarCluster</code> applies Partition Around Medoids (PAM)
-clustering techniques to <code>polarPlot</code> surfaces to help
-identify potentially interesting features for further
-analysis. Details of PAM can be found in the <code>cluster</code>
-package (a core R package that will be pre-installed on all R
-systems). PAM clustering is similar to k-means but has several
-advantages e.g. is more robust to outliers. The clustering is
-based on the equal contribution assumed from the u and v wind
-components and the associated concentration. The data are
-standardized before clustering takes place.</p>
-<p>The function works best by first trying different numbers of
-clusters and plotting them. This is achieved by setting
-<code>n.clusters</code> to be of length more than 1. For example, if
-<code>n.clusters = 2:10</code> then a plot will be output showing the 9
-cluster levels 2 to 10.</p>
-<p>Note that clustering is computationally intensive and the function
-can take a long time to run --- particularly when the number of
-clusters is increased. For this reason it can be a good idea to
-run a few clusters first to get a feel for it
-e.g. <code>n.clusters = 2:5</code>.</p>
-<p>Once the number of clusters has been decided, the user can then
-run <code>polarCluster</code> to return the original data frame together
-with a new column <code>cluster</code>, which gives the cluster number
-as a character (see example). Note that any rows where the value
-of <code>pollutant</code> is <code>NA</code> are ignored so that the returned
-data frame may have fewer rows than the original.</p>
-<p>Note that there are no automatic ways in ensuring the most
-appropriate number of clusters as this is application
-dependent. However, there is often a-priori information available
-on what different features in polar plots correspond
-to. Nevertheless, the appropriateness of different clusters is
-best determined by post-processing the data. The Carslaw and
-Beevers (2012) paper discusses these issues in more detail.</p>
+    <p>Bivariate polar plots generated using the <code>polarPlot</code> function provide
+a very useful graphical technique for identifying and characterising
+different air pollution sources. While bivariate polar plots provide a
+useful graphical indication of potential sources, their location and
+wind-speed or other variable dependence, they do have several limitations.
+Often, a `feature' will be detected in a plot but the subsequent analysis of
+data meeting particular wind speed/direction criteria will be based only on
+the judgement of the investigator concerning the wind speed-direction
+intervals of interest. Furthermore, the identification of a feature can
+depend on the choice of the colour scale used, making the process somewhat
+arbitrary.</p>
+<p><code>polarCluster</code> applies Partition Around Medoids (PAM) clustering
+techniques to <code>polarPlot</code> surfaces to help identify potentially
+interesting features for further analysis. Details of PAM can be found in
+the <code>cluster</code> package (a core R package that will be pre-installed on
+all R systems). PAM clustering is similar to k-means but has several
+advantages e.g. is more robust to outliers. The clustering is based on the
+equal contribution assumed from the u and v wind components and the
+associated concentration. The data are standardized before clustering takes
+place.</p>
+<p>The function works best by first trying different numbers of clusters and
+plotting them. This is achieved by setting <code>n.clusters</code> to be of length
+more than 1. For example, if <code>n.clusters = 2:10</code> then a plot will be
+output showing the 9 cluster levels 2 to 10.</p>
+<p>The clustering can also be applied to differences in polar plot surfaces
+(see <a href='polarDiff.html'>polarDiff</a>). On this case a second data frame (<code>after</code>)
+should be supplied.</p>
+<p>Note that clustering is computationally intensive and the function can take
+a long time to run --- particularly when the number of clusters is
+increased. For this reason it can be a good idea to run a few clusters first
+to get a feel for it e.g. <code>n.clusters = 2:5</code>.</p>
+<p>Once the number of clusters has been decided, the user can then run
+<code>polarCluster</code> to return the original data frame together with a new
+column <code>cluster</code>, which gives the cluster number as a character (see
+example). Note that any rows where the value of <code>pollutant</code> is
+<code>NA</code> are ignored so that the returned data frame may have fewer rows
+than the original.</p>
+<p>Note that there are no automatic ways in ensuring the most appropriate
+number of clusters as this is application dependent. However, there is often
+a-priori information available on what different features in polar plots
+correspond to. Nevertheless, the appropriateness of different clusters is
+best determined by post-processing the data. The Carslaw and Beevers (2012)
+paper discusses these issues in more detail.</p>
 <p>Note that unlike most other <code>openair</code> functions only a single
 <code>type</code> &#8220;default&#8221; is allowed.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Carslaw, D.C., Beevers, S.D, Ropkins, K and M.C. Bell (2006).
-Detecting and quantifying aircraft and other on-airport
-contributions to ambient nitrogen oxides in the vicinity of a
-large international airport.  Atmospheric Environment. 40/28 pp
-5424-5434.</p>
-<p>Carslaw, D.C., &amp; Beevers, S.D. (2013). Characterising and
-understanding emission sources using bivariate polar plots and
-k-means clustering. Environmental Modelling &amp; Software, 40,
-325-329. doi:10.1016/j.envsoft.2012.09.005</p>
+    <p>Carslaw, D.C., Beevers, S.D, Ropkins, K and M.C. Bell (2006). Detecting and
+quantifying aircraft and other on-airport contributions to ambient nitrogen
+oxides in the vicinity of a large international airport.  Atmospheric
+Environment. 40/28 pp 5424-5434.</p>
+<p>Carslaw, D.C., &amp; Beevers, S.D. (2013). Characterising and understanding
+emission sources using bivariate polar plots and k-means clustering.
+Environmental Modelling &amp; Software, 40, 325-329.
+doi:10.1016/j.envsoft.2012.09.005</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='polarPlot.html'>polarPlot</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># load example data from package</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>mydata</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
 
 <span class='co'>## plot 2-8 clusters. Warning! This can take several minutes...</span>
 
-<span class='fu'>polarCluster</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>n.clusters</span> <span class='kw'>=</span> <span class='fl'>2</span>:<span class='fl'>8</span>)
+<span class='fu'>polarCluster</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"nox"</span>, n.clusters <span class='op'>=</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>8</span><span class='op'>)</span>
 
 
 <span class='co'># basic plot with 6 clusters</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>polarCluster</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>n.clusters</span> <span class='kw'>=</span> <span class='fl'>6</span>)
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>polarCluster</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"nox"</span>, n.clusters <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
 
 <span class='co'>## get results, could read into a new data frame to make it easier to refer to</span>
 <span class='co'>## e.g. results &lt;- results$data...</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>results</span>$<span class='no'>data</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>$</span><span class='va'>data</span><span class='op'>)</span>
 
 <span class='co'>## how many points are there in each cluster?</span>
-<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>results</span>$<span class='no'>data</span>$<span class='no'>cluster</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>$</span><span class='va'>data</span><span class='op'>$</span><span class='va'>cluster</span><span class='op'>)</span>
 
 <span class='co'>## plot clusters 3 and 4 as a timeVariation plot using SAME colours as in</span>
 <span class='co'>## cluster plot</span>
-<span class='fu'><a href='timeVariation.html'>timeVariation</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>results</span>$<span class='no'>data</span>, <span class='no'>cluster</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"3"</span>, <span class='st'>"4"</span>)), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
-<span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"cluster"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='openColours.html'>openColours</a></span>(<span class='st'>"Paired"</span>, <span class='fl'>6</span>)[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>)])
-}</div></pre>
+<span class='fu'><a href='timeVariation.html'>timeVariation</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>$</span><span class='va'>data</span>, <span class='va'>cluster</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"3"</span>, <span class='st'>"4"</span><span class='op'>)</span><span class='op'>)</span>, pollutant <span class='op'>=</span> <span class='st'>"nox"</span>,
+group <span class='op'>=</span> <span class='st'>"cluster"</span>, col <span class='op'>=</span> <span class='fu'><a href='openColours.html'>openColours</a></span><span class='op'>(</span><span class='st'>"Paired"</span>, <span class='fl'>6</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -324,7 +331,7 @@ k-means clustering. Environmental Modelling &amp; Software, 40,
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

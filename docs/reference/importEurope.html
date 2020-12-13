@@ -78,7 +78,7 @@ supplied." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -126,13 +126,13 @@ import air quality data that generally need a site code and year to be
 supplied.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>importEurope</span>(
-  <span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"debw118"</span>,
-  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2018</span>,
-  <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
-  <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>to_narrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>importEurope</span><span class='op'>(</span>
+  site <span class='op'>=</span> <span class='st'>"debw118"</span>,
+  year <span class='op'>=</span> <span class='fl'>2018</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  meta <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  to_narrow <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,8 +175,10 @@ other time averages e.g. daily data.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
- <span class='co'># import data for Stuttgart Am Neckartor (S)	</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>stuttgart</span> <span class='kw'>&lt;-</span> <span class='fu'>importEurope</span>(<span class='st'>"debw118"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>:<span class='fl'>2019</span>, <span class='kw'>meta</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div></pre>
+ <span class='co'># import data for Stuttgart Am Neckartor (S)  </span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>stuttgart</span> <span class='op'>&lt;-</span> <span class='fu'>importEurope</span><span class='op'>(</span><span class='st'>"debw118"</span>, year <span class='op'>=</span> <span class='fl'>2010</span><span class='op'>:</span><span class='fl'>2019</span>, meta <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -192,7 +194,7 @@ other time averages e.g. daily data.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

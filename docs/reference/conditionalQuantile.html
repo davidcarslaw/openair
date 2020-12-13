@@ -74,7 +74,7 @@ understand forecast predictions and how well they agree with observations." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -118,21 +118,21 @@ function is for use in model evaluation and more generally to help better
 understand forecast predictions and how well they agree with observations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>conditionalQuantile</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>,
-  <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>31</span>,
-  <span class='kw'>min.bin</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>20</span>),
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"predicted value"</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"observed value"</span>,
-  <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>brewer.pal</span>(<span class='fl'>5</span>, <span class='st'>"YlOrRd"</span>),
-  <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>conditionalQuantile</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  obs <span class='op'>=</span> <span class='st'>"obs"</span>,
+  mod <span class='op'>=</span> <span class='st'>"mod"</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  bins <span class='op'>=</span> <span class='fl'>31</span>,
+  min.bin <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>20</span><span class='op'>)</span>,
+  xlab <span class='op'>=</span> <span class='st'>"predicted value"</span>,
+  ylab <span class='op'>=</span> <span class='st'>"observed value"</span>,
+  col <span class='op'>=</span> <span class='fu'>brewer.pal</span><span class='op'>(</span><span class='fl'>5</span>, <span class='st'>"YlOrRd"</span><span class='op'>)</span>,
+  key.columns <span class='op'>=</span> <span class='fl'>2</span>,
+  key.position <span class='op'>=</span> <span class='st'>"bottom"</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -275,15 +275,18 @@ Geophysics), 2nd Edition. Academic Press.</p>
     <div class='dont-index'><p>See <code><a href='modStats.html'>modStats</a></code> for model evaluation statistics and the
   package <code>verification</code> for comprehensive functions for forecast
   verification.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
 <span class='co'># load example data from package</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>mydata</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
 
 <span class='co'>## make some dummy prediction data based on 'nox'</span>
-<span class='no'>mydata</span>$<span class='no'>mod</span> <span class='kw'>&lt;-</span> <span class='no'>mydata</span>$<span class='no'>nox</span>*<span class='fl'>1.1</span> + <span class='no'>mydata</span>$<span class='no'>nox</span> * <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>mydata</span>))
+<span class='va'>mydata</span><span class='op'>$</span><span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='va'>mydata</span><span class='op'>$</span><span class='va'>nox</span><span class='op'>*</span><span class='fl'>1.1</span> <span class='op'>+</span> <span class='va'>mydata</span><span class='op'>$</span><span class='va'>nox</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># basic conditional quantile plot</span>
 <span class='co'>## A "perfect" model is shown by the blue line</span>
@@ -296,11 +299,16 @@ Geophysics), 2nd Edition. Academic Press.</p>
 <span class='co'>## the corresponding measurements. Note that the uncertainty bands</span>
 <span class='co'>## do not extend as far as the median line because there is insufficient</span>
 <span class='co'># to calculate them</span>
-<span class='fu'>conditionalQuantile</span>(<span class='no'>mydata</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>)</div><div class='img'><img src='conditionalQuantile-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>conditionalQuantile</span><span class='op'>(</span><span class='va'>mydata</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span>, mod <span class='op'>=</span> <span class='st'>"mod"</span><span class='op'>)</span>
+</div><div class='img'><img src='conditionalQuantile-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## can split by season to show seasonal performance (not very</span>
 <span class='co'>## enlightening in this case - try some real data and it will be!)</span>
 
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>conditionalQuantile</span>(<span class='no'>mydata</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)</div></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>conditionalQuantile</span><span class='op'>(</span><span class='va'>mydata</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span>, mod <span class='op'>=</span> <span class='st'>"mod"</span>, type <span class='op'>=</span> <span class='st'>"season"</span><span class='op'>)</span>
+
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -316,7 +324,7 @@ Geophysics), 2nd Edition. Academic Press.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

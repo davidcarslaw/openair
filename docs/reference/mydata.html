@@ -76,7 +76,7 @@ June 2005. The data set is a tibble." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -127,7 +127,7 @@ June 2005. The data set is a tibble.</p>
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>Data frame with 65533 observations (rows) on the following 10
-  variables:</p><dl'>
+  variables:</p><dl>
 <dt>list("date")</dt><dd><p>Observation date/time stamp in
   year-month-day hour:minute:second format (POSIXct).</p></dd>
   <dt>list("ws")</dt><dd><p>Wind speed, in m/s, as numeric vector.</p></dd>
@@ -148,7 +148,7 @@ June 2005. The data set is a tibble.</p>
     <p><code>mydata</code> was compiled from data archived in the London Air
   Quality Archive.  See <a href='http://www.londonair.org.uk'>http://www.londonair.org.uk</a> for site details.</p>
 <p>The same data is also provide in <code>'.csv'</code> format via the openair
-  project web site <a href='http://www.openair-project.org'>http://www.openair-project.org</a>.</p>
+  project web site <a href='https://davidcarslaw.github.io/openair/'>https://davidcarslaw.github.io/openair/</a>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>mydata</code> is supplied with the <code>openair</code> package as an example
@@ -164,7 +164,8 @@ dataset for use with documented examples.</p>
     <pre class="examples"><div class='input'>
 
 <span class='co'>#basic structure</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>mydata</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 10</span><span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 10</span><span>
 #&gt;   date                   ws    wd   nox   no2    o3  pm10   so2    co  pm25
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 1998-01-01 </span><span style='color: #555555;'>00:00:00</span><span>  0.6    280   285    39     1    29  4.72  3.37    </span><span style='color: #BB0000;'>NA</span><span>
@@ -190,7 +191,7 @@ dataset for use with documented examples.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

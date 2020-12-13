@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -71,17 +71,18 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#openair-open-source-tools-for-air-quality-data-analysis" class="anchor"></a>openair: open source tools for air quality data analysis</h1></div>
 <p><strong>NOTE</strong> An online <strong>openair</strong> book is being developed, see <a href="https://bookdown.org/david_carslaw/openair/" class="uri">https://bookdown.org/david_carslaw/openair/</a>.</p>
-<p>For the main <strong>openair</strong> website, see <a href="http://davidcarslaw.github.io/openair/" class="uri">http://davidcarslaw.github.io/openair/</a>.</p>
-<p><a href="https://travis-ci.org/davidcarslaw/openair"><img src="https://travis-ci.org/davidcarslaw/openair.svg?branch=master" alt="Travis-CI Build Status"></a> <img src="http://cranlogs.r-pkg.org/badges/grand-total/openair"></p>
+<p>For the main <strong>openair</strong> website, see <a href="https://davidcarslaw.github.io/openair/" class="uri">https://davidcarslaw.github.io/openair/</a>.</p>
+<p><a href="https://github.com/davidcarslaw/openair/actions"><img src="https://github.com/davidcarslaw/openair/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <img src="http://cranlogs.r-pkg.org/badges/grand-total/openair"></p>
 <p><img src="inst/plume.png" alt="openair logo" width="35%"></p>
-<p><strong>openair</strong> is an R package developed for the purpose of analysing air quality data — or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council (<a href="http://www.nerc.ac.uk/">NERC</a>), with additional funds from Defra. The most up to date information on openair can be found in the package itself and at the book website <a href="https://bookdown.org/david_carslaw/openair/">here</a>.</p>
+<p><strong>openair</strong> is an R package developed for the purpose of analysing air quality data — or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council (<a href="https://nerc.ukri.org/">NERC</a>), with additional funds from Defra. The most up to date information on openair can be found in the package itself and at the book website <a href="https://bookdown.org/david_carslaw/openair/">here</a>.</p>
 <p>Further details, including blogs on openair can be found at <a href="https://davidcarslaw.com/">davidcarslaw.com</a></p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Installation of openair from GitHub is easy using the devtools package. Note, because openair contains C++ code a compiler is also needed. For Windows - for example, <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> is needed.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">require</span>(devtools)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">install_github</span>(<span class="st">'davidcarslaw/openair'</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
+<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">'davidcarslaw/openair'</span><span class="op">)</span></code></pre></div>
 <p>I also try to keep up to date versions of the package <a href="https://www.dropbox.com/sh/x8mmf5d54wfo5vq/AACpKqsrPkTC0guiu5ftiKNna?dl=0">here</a> if you can’t build the package yourself.</p>
 </div>
 <div id="description" class="section level2">
@@ -96,7 +97,7 @@
 <strong>Utility functions</strong> such as <code>timeAverage</code> and <code>selectByDate</code> to make it easier to manipulate atmospheric composition data.</li>
 <li>Flexible <strong>wind and pollution roses</strong> through <code>windRose</code> and <code>pollutionRose</code>.</li>
 <li>Flexible plot conditioning to easily plot data by hour or the day, day of the week, season etc. through the openair <code>type</code> option available in most functions.</li>
-<li>More sophisticated <strong>bivariate polar plots</strong> and conditional probability functions to help characterise different sources of pollution. A paper on the latter is available <a href="http://www.sciencedirect.com/science/article/pii/S1364815214001339">here</a>.</li>
+<li>More sophisticated <strong>bivariate polar plots</strong> and conditional probability functions to help characterise different sources of pollution. A paper on the latter is available <a href="https://www.sciencedirect.com/science/article/pii/S1364815214001339">here</a>.</li>
 <li>Access to NOAA <a href="http://ready.arl.noaa.gov/HYSPLIT.php">Hysplit</a> pre-calculated annual 96-hour back <strong>trajectories</strong> and many plotting and analysis functions e.g. trajectory frequencies, Potential Source Contribution Function and trajectory clustering.</li>
 <li>Many functions for air quality <strong>model evaluation</strong> using the flexible methods described above e.g. the <code>type</code> option to easily evaluate models by season, hour of the day etc. These include key model statistics, Taylor Diagram, Conditional Quantile plots.</li>
 </ul>
@@ -108,40 +109,43 @@
 <h3 class="hasAnchor">
 <a href="#import-data-from-the-uk-automatic-urban-and-rural-network" class="anchor"></a>Import data from the UK Automatic Urban and Rural Network</h3>
 <p>It is easy to import hourly data from 100s of sites and to import several sites at one time and several years of data.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">library</span>(openair)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>kc1 &lt;-<span class="st"> </span><span class="kw">importAURN</span>(<span class="dt">site =</span> <span class="st">"kc1"</span>, <span class="dt">year =</span> <span class="dv">2011</span><span class="op">:</span><span class="dv">2012</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="kw">head</span>(kc1)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="co">## # A tibble: 6 x 18</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="co">##   site  code  date                   co   nox   no2    no    o3   so2  pm10</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="co">##   &lt;chr&gt; &lt;fct&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="co">## 1 Lond… KC1   2011-01-01 00:00:00   0.2    44    38     4    14     5    40</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="co">## 2 Lond… KC1   2011-01-01 01:00:00   0.2    38    29     6    28     3    36</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="co">## 3 Lond… KC1   2011-01-01 02:00:00   0.2    32    31     1    18     3    31</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="co">## 4 Lond… KC1   2011-01-01 03:00:00   0.2    31    29     1    14     3    31</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="co">## 5 Lond… KC1   2011-01-01 04:00:00   0.2    31    29     1    16     3    29</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a><span class="co">## 6 Lond… KC1   2011-01-01 05:00:00   0.1    29    27     1    24     3    25</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a><span class="co">## # … with 8 more variables: pm2.5 &lt;dbl&gt;, v10 &lt;dbl&gt;, v2.5 &lt;dbl&gt;, nv10 &lt;dbl&gt;,</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a><span class="co">## #   nv2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://davidcarslaw.github.io/openair/">openair</a></span><span class="op">)</span>
+<span class="va">kc1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/importAQE.html">importAURN</a></span><span class="op">(</span>site <span class="op">=</span> <span class="st">"kc1"</span>, year <span class="op">=</span> <span class="fl">2011</span><span class="op">:</span><span class="fl">2012</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">kc1</span><span class="op">)</span>
+<span class="co">## # A tibble: 6 x 18</span>
+<span class="co">##   site  code  date                   co   nox   no2    no    o3   so2  pm10</span>
+<span class="co">##   &lt;chr&gt; &lt;fct&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">## 1 Lond… KC1   2011-01-01 00:00:00   0.2    44    38     4    14     5    40</span>
+<span class="co">## 2 Lond… KC1   2011-01-01 01:00:00   0.2    38    29     6    28     3    36</span>
+<span class="co">## 3 Lond… KC1   2011-01-01 02:00:00   0.2    32    31     1    18     3    31</span>
+<span class="co">## 4 Lond… KC1   2011-01-01 03:00:00   0.2    31    29     1    14     3    31</span>
+<span class="co">## 5 Lond… KC1   2011-01-01 04:00:00   0.2    31    29     1    16     3    29</span>
+<span class="co">## 6 Lond… KC1   2011-01-01 05:00:00   0.1    29    27     1    24     3    25</span>
+<span class="co">## # … with 8 more variables: pm2.5 &lt;dbl&gt;, v10 &lt;dbl&gt;, v2.5 &lt;dbl&gt;, nv10 &lt;dbl&gt;,</span>
+<span class="co">## #   nv2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></code></pre></div>
 </div>
 <div id="utility-functions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#utility-functions" class="anchor"></a>Utility functions</h3>
 <p>Using the <code>selectByDate</code> function it is easy to select quite complex time-based periods. For example, to select weekday (Monday to Friday) data from June to September for 2012 <em>and</em> for the hours 7am to 7pm inclusive:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>sub &lt;-<span class="st"> </span><span class="kw">selectByDate</span>(kc1, <span class="dt">day =</span> <span class="st">"weekday"</span>, <span class="dt">year =</span> <span class="dv">2012</span>, <span class="dt">month =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">hour =</span> <span class="dv">7</span><span class="op">:</span><span class="dv">19</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">head</span>(sub)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="co">## # A tibble: 6 x 18</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="co">##   date                site  code     co   nox   no2    no    o3   so2  pm10</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="co">##   &lt;dttm&gt;              &lt;chr&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="co">## 1 2012-06-01 07:00:00 Lond… KC1    0.23    36    23     9    24     3     6</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="co">## 2 2012-06-01 08:00:00 Lond… KC1    0.23    33    21     7    34     3     9</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a><span class="co">## 3 2012-06-01 09:00:00 Lond… KC1    0.23    23    19     2    52     3     6</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="co">## 4 2012-06-01 10:00:00 Lond… KC1    0.23    17    13     2    62     3     7</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="co">## 5 2012-06-01 11:00:00 Lond… KC1    0.23    17    13     2    70     3     9</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a><span class="co">## 6 2012-06-01 12:00:00 Lond… KC1    0.23    21    19     1    78     3     8</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="co">## # … with 8 more variables: pm2.5 &lt;dbl&gt;, v10 &lt;dbl&gt;, v2.5 &lt;dbl&gt;, nv10 &lt;dbl&gt;,</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a><span class="co">## #   nv2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/selectByDate.html">selectByDate</a></span><span class="op">(</span><span class="va">kc1</span>, day <span class="op">=</span> <span class="st">"weekday"</span>, year <span class="op">=</span> <span class="fl">2012</span>, month <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">9</span>, hour <span class="op">=</span> <span class="fl">7</span><span class="op">:</span><span class="fl">19</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sub</span><span class="op">)</span>
+<span class="co">## # A tibble: 6 x 18</span>
+<span class="co">##   date                site  code     co   nox   no2    no    o3   so2  pm10</span>
+<span class="co">##   &lt;dttm&gt;              &lt;chr&gt; &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">## 1 2012-06-01 07:00:00 Lond… KC1    0.23    36    23     9    24     3     6</span>
+<span class="co">## 2 2012-06-01 08:00:00 Lond… KC1    0.23    33    21     7    34     3     9</span>
+<span class="co">## 3 2012-06-01 09:00:00 Lond… KC1    0.23    23    19     2    52     3     6</span>
+<span class="co">## 4 2012-06-01 10:00:00 Lond… KC1    0.23    17    13     2    62     3     7</span>
+<span class="co">## 5 2012-06-01 11:00:00 Lond… KC1    0.23    17    13     2    70     3     9</span>
+<span class="co">## 6 2012-06-01 12:00:00 Lond… KC1    0.23    21    19     1    78     3     8</span>
+<span class="co">## # … with 8 more variables: pm2.5 &lt;dbl&gt;, v10 &lt;dbl&gt;, v2.5 &lt;dbl&gt;, nv10 &lt;dbl&gt;,</span>
+<span class="co">## #   nv2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></code></pre></div>
 <p>Similarly it is easy to time-average data in many flexible ways. For example, 2-week means can be calculated as</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>sub2 &lt;-<span class="st"> </span><span class="kw">timeAverage</span>(kc1, <span class="dt">avg.time =</span> <span class="st">"2 week"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sub2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/timeAverage.html">timeAverage</a></span><span class="op">(</span><span class="va">kc1</span>, avg.time <span class="op">=</span> <span class="st">"2 week"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="the-type-option" class="section level3">
 <h3 class="hasAnchor">
@@ -167,10 +171,12 @@
 <h3 class="hasAnchor">
 <a href="#wind-roses-and-pollution-roses" class="anchor"></a>Wind roses and pollution roses</h3>
 <p><strong>openair</strong> can plot basic wind roses very easily provided the variables <code>ws</code> (wind speed) and <code>wd</code> (wind direction) are available.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">windRose</span>(mydata)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></code></pre></div>
 <p><img src="tools/unnamed-chunk-6-1.png" width="50%"></p>
 <p>However, the real flexibility comes from being able to use the <code>type</code> option.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">windRose</span>(mydata, <span class="dt">type =</span> <span class="st">"year"</span>, <span class="dt">layout =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span>, type <span class="op">=</span> <span class="st">"year"</span>, layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="tools/unnamed-chunk-7-1.png" width="100%"></p>
 </div>
 </div>
@@ -218,7 +224,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

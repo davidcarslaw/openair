@@ -79,7 +79,7 @@ understanding time series data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -128,23 +128,23 @@ respectively. However, the function has more general use for
 understanding time series data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>timeProp</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
-  <span class='kw'>proportion</span> <span class='kw'>=</span> <span class='st'>"cluster"</span>,
-  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
-  <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"Set1"</span>,
-  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-  <span class='kw'>date.format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
-  <span class='kw'>key.title</span> <span class='kw'>=</span> <span class='no'>proportion</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>timeProp</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  pollutant <span class='op'>=</span> <span class='st'>"nox"</span>,
+  proportion <span class='op'>=</span> <span class='st'>"cluster"</span>,
+  avg.time <span class='op'>=</span> <span class='st'>"day"</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  statistic <span class='op'>=</span> <span class='st'>"mean"</span>,
+  normalise <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cols <span class='op'>=</span> <span class='st'>"Set1"</span>,
+  date.breaks <span class='op'>=</span> <span class='fl'>7</span>,
+  date.format <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key.columns <span class='op'>=</span> <span class='fl'>1</span>,
+  key.position <span class='op'>=</span> <span class='st'>"right"</span>,
+  key.title <span class='op'>=</span> <span class='va'>proportion</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -296,6 +296,9 @@ for any time interval.</p>
   <code><a href='polarCluster.html'>polarCluster</a></code> for cluster analysis of bivariate
   polar plots and <code><a href='trajCluster.html'>trajCluster</a></code> for cluster analysis
   of HYSPLIT back trajectories.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -303,7 +306,8 @@ for any time interval.</p>
 
 
 <span class='co'>## monthly plot of SO2 showing the contribution by wind sector</span>
-<span class='fu'>timeProp</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"so2"</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>, <span class='kw'>proportion</span> <span class='kw'>=</span> <span class='st'>"wd"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 219 missing wind direction line(s) removed</span></div><div class='img'><img src='timeProp-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>timeProp</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"so2"</span>, avg.time <span class='op'>=</span> <span class='st'>"month"</span>, proportion <span class='op'>=</span> <span class='st'>"wd"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 219 missing wind direction line(s) removed</span></div><div class='img'><img src='timeProp-1.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>
@@ -321,7 +325,7 @@ for any time interval.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

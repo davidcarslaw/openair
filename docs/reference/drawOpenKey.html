@@ -76,7 +76,7 @@ and scaling." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -122,7 +122,7 @@ labelling to added, and provides some additional control of the appearance
 and scaling.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>drawOpenKey</span>(<span class='no'>key</span>, <span class='kw'>draw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>vp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>drawOpenKey</span><span class='op'>(</span><span class='va'>key</span>, draw <span class='op'>=</span> <span class='cn'>FALSE</span>, vp <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -240,6 +240,11 @@ itself can be controlled using <code>fit</code> options. These can be set in
     <div class='dont-index'><p>Functions using <code>drawOpenKey</code> currently include
   <code><a href='windRose.html'>windRose</a></code>, <code><a href='windRose.html'>pollutionRose</a></code>.</p>
 <p>For details of the original function, see <code>draw.colorkey</code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p><code>draw.colorkey</code> is part of the <code>lattice</code> package,
+  developed by Deepayan Sarkar.</p>
+<p>Additional modifications by Karl Ropkins.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -250,7 +255,8 @@ itself can be controlled using <code>fit</code> options. These can be set in
 
 <span class='co'>#paddle style scale key used by windRose</span>
 
-<span class='fu'><a href='windRose.html'>windRose</a></span>(<span class='no'>mydata</span>,)</div><div class='img'><img src='drawOpenKey-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='windRose.html'>windRose</a></span><span class='op'>(</span><span class='va'>mydata</span>,<span class='op'>)</span>
+</div><div class='img'><img src='drawOpenKey-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#adding text and changing style and position via key</span>
 
 <span class='co'>#note:</span>
@@ -258,19 +264,21 @@ itself can be controlled using <code>fit</code> options. These can be set in
 <span class='co'>#For example, below does same as</span>
 <span class='co'>#windRose(mydata, key.position="right")</span>
 
-<span class='fu'><a href='windRose.html'>windRose</a></span>(<span class='no'>mydata</span>,
-   <span class='kw'>key</span> <span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>space</span><span class='kw'>=</span><span class='st'>"right"</span>)
-)</div><div class='img'><img src='drawOpenKey-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='windRose.html'>windRose</a></span><span class='op'>(</span><span class='va'>mydata</span>,
+   key <span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>space<span class='op'>=</span><span class='st'>"right"</span><span class='op'>)</span>
+<span class='op'>)</span>
+</div><div class='img'><img src='drawOpenKey-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#however:</span>
 <span class='co'>#more detailed control possible working with</span>
 <span class='co'>#key and drawOpenKey. For example,</span>
 
-<span class='fu'><a href='windRose.html'>windRose</a></span>(<span class='no'>mydata</span>,
-   <span class='kw'>key</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>header</span><span class='kw'>=</span><span class='st'>"Title"</span>, <span class='kw'>footer</span><span class='kw'>=</span><span class='st'>"wind speed"</span>,
-              <span class='kw'>plot.style</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ticks"</span>, <span class='st'>"border"</span>),
-              <span class='kw'>fit</span> <span class='kw'>=</span> <span class='st'>"all"</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-              <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"top"</span>)
-)</div><div class='img'><img src='drawOpenKey-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='windRose.html'>windRose</a></span><span class='op'>(</span><span class='va'>mydata</span>,
+   key <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>header<span class='op'>=</span><span class='st'>"Title"</span>, footer<span class='op'>=</span><span class='st'>"wind speed"</span>,
+              plot.style <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ticks"</span>, <span class='st'>"border"</span><span class='op'>)</span>,
+              fit <span class='op'>=</span> <span class='st'>"all"</span>, height <span class='op'>=</span> <span class='fl'>1</span>,
+              space <span class='op'>=</span> <span class='st'>"top"</span><span class='op'>)</span>
+<span class='op'>)</span>
+</div><div class='img'><img src='drawOpenKey-3.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>
@@ -288,7 +296,7 @@ itself can be controlled using <code>fit</code> options. These can be set in
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

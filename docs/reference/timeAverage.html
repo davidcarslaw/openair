@@ -40,10 +40,9 @@
 
 
 <meta property="og:title" content="Function to calculate time averages for data frames — timeAverage" />
-<meta property="og:description" content="Function to flexibly aggregate or expand data frames by different
-time periods, calculating vector-averaged wind direction where
-appropriate. The averaged periods can also take account of data
-capture rates." />
+<meta property="og:description" content="Function to flexibly aggregate or expand data frames by different time
+periods, calculating vector-averaged wind direction where appropriate. The
+averaged periods can also take account of data capture rates." />
 
 
 
@@ -75,7 +74,7 @@ capture rates." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -114,162 +113,151 @@ capture rates." />
     </div>
 
     <div class="ref-description">
-    <p>Function to flexibly aggregate or expand data frames by different
-time periods, calculating vector-averaged wind direction where
-appropriate. The averaged periods can also take account of data
-capture rates.</p>
+    <p>Function to flexibly aggregate or expand data frames by different time
+periods, calculating vector-averaged wind direction where appropriate. The
+averaged periods can also take account of data capture rates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>timeAverage</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>,
-  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>start.date</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>end.date</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>vector.ws</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>timeAverage</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  avg.time <span class='op'>=</span> <span class='st'>"day"</span>,
+  data.thresh <span class='op'>=</span> <span class='fl'>0</span>,
+  statistic <span class='op'>=</span> <span class='st'>"mean"</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  percentile <span class='op'>=</span> <span class='cn'>NA</span>,
+  start.date <span class='op'>=</span> <span class='cn'>NA</span>,
+  end.date <span class='op'>=</span> <span class='cn'>NA</span>,
+  interval <span class='op'>=</span> <span class='cn'>NA</span>,
+  vector.ws <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  fill <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mydata</th>
-      <td><p>A data frame containing a <code>date</code> field . Can be
-class <code>POSIXct</code> or <code>Date</code>.</p></td>
+      <td><p>A data frame containing a <code>date</code> field . Can be class
+<code>POSIXct</code> or <code>Date</code>.</p></td>
     </tr>
     <tr>
       <th>avg.time</th>
       <td><p>This defines the time period to average to. Can be
-  &#8220;sec&#8221;, &#8220;min&#8221;, &#8220;hour&#8221;, &#8220;day&#8221;,
-  &#8220;DSTday&#8221;, &#8220;week&#8221;, &#8220;month&#8221;, &#8220;quarter&#8221;
-  or &#8220;year&#8221;. For much increased flexibility a number can
-  precede these options followed by a space. For example, a
-  timeAverage of 2 months would be <code>period = "2 month"</code>. In
-  addition, <code>avg.time</code> can equal &#8220;season&#8221;, in which
-  case 3-month seasonal values are calculated with spring defined
-  as March, April, May and so on.</p>
-<p>Note that <code>avg.time</code> can be <em>less</em> than the time
-  interval of the original series, in which case the series is
-  expanded to the new time interval. This is useful, for example,
-  for calculating a 15-minute time series from an hourly one where
-  an hourly value is repeated for each new 15-minute period. Note
-  that when expanding data in this way it is necessary to ensure
-  that the time interval of the original series is an exact
-  multiple of <code>avg.time</code> e.g. hour to 10 minutes, day to
-  hour. Also, the input time series must have consistent time gaps
-  between successive intervals so that <code>timeAverage</code> can work
-  out how much &#8216;padding&#8217; to apply. To pad-out data in this
-  way choose <code>fill = TRUE</code>.</p></td>
+  &#8220;sec&#8221;, &#8220;min&#8221;, &#8220;hour&#8221;, &#8220;day&#8221;, &#8220;DSTday&#8221;,
+  &#8220;week&#8221;, &#8220;month&#8221;, &#8220;quarter&#8221; or &#8220;year&#8221;. For much
+  increased flexibility a number can precede these options followed by a
+  space. For example, a timeAverage of 2 months would be <code>period = "2
+  month"</code>. In addition, <code>avg.time</code> can equal &#8220;season&#8221;, in which
+  case 3-month seasonal values are calculated with spring defined as March,
+  April, May and so on.</p>
+<p>Note that <code>avg.time</code> can be <em>less</em> than the time interval of the
+  original series, in which case the series is expanded to the new time
+  interval. This is useful, for example, for calculating a 15-minute time
+  series from an hourly one where an hourly value is repeated for each new
+  15-minute period. Note that when expanding data in this way it is
+  necessary to ensure that the time interval of the original series is an
+  exact multiple of <code>avg.time</code> e.g. hour to 10 minutes, day to hour.
+  Also, the input time series must have consistent time gaps between
+  successive intervals so that <code>timeAverage</code> can work out how much
+  &#8216;padding&#8217; to apply. To pad-out data in this way choose <code>fill =
+  TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>data.thresh</th>
-      <td><p>The data capture threshold to use (%). A value
-of zero means that all available data will be used in a
-particular period regardless if of the number of values
-available. Conversely, a value of 100 will mean that all data
-will need to be present for the average to be calculated, else
-it is recorded as <code>NA</code>. See also <code>interval</code>,
-<code>start.date</code> and <code>end.date</code> to see whether it is
-advisable to set these other options.</p></td>
+      <td><p>The data capture threshold to use (%). A value of zero
+means that all available data will be used in a particular period
+regardless if of the number of values available. Conversely, a value of
+100 will mean that all data will need to be present for the average to be
+calculated, else it is recorded as <code>NA</code>. See also <code>interval</code>,
+<code>start.date</code> and <code>end.date</code> to see whether it is advisable to
+set these other options.</p></td>
     </tr>
     <tr>
       <th>statistic</th>
-      <td><p>The statistic to apply when aggregating the data;
-default is the mean. Can be one of &#8220;mean&#8221;, &#8220;max&#8221;,
-&#8220;min&#8221;, &#8220;median&#8221;, &#8220;frequency&#8221;, &#8220;sd&#8221;,
-&#8220;percentile&#8221;. Note that &#8220;sd&#8221; is the standard
-deviation, &#8220;frequency&#8221; is the number (frequency) of valid
-records in the period and &#8220;data.cap&#8221; is the percentage
-data capture. &#8220;percentile&#8221; is the percentile level (%)
-between 0-100, which can be set using the &#8220;percentile&#8221;
-option --- see below. Not used if <code>avg.time = "default"</code>.</p></td>
+      <td><p>The statistic to apply when aggregating the data; default
+is the mean. Can be one of &#8220;mean&#8221;, &#8220;max&#8221;, &#8220;min&#8221;,
+&#8220;median&#8221;, &#8220;frequency&#8221;, &#8220;sum&#8221;, &#8220;sd&#8221;,
+&#8220;percentile&#8221;. Note that &#8220;sd&#8221; is the standard deviation,
+&#8220;frequency&#8221; is the number (frequency) of valid records in the
+period and &#8220;data.cap&#8221; is the percentage data capture.
+&#8220;percentile&#8221; is the percentile level (%) between 0-100, which can
+be set using the &#8220;percentile&#8221; option --- see below. Not used if
+<code>avg.time = "default"</code>.</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p><code>type</code> allows <code>timeAverage</code> to be applied to
-cases where there are groups of data that need to be split and
-the function applied to each group. The most common example is
-data with multiple sites identified with a column representing
-site name e.g. <code>type = "site"</code>. More generally, <code>type</code>
-should be used where the date repeats for a particular grouping
-variable. However, if type is not supplied the data will still
-be averaged but the grouping variables (character or factor)
+      <td><p><code>type</code> allows <code>timeAverage</code> to be applied to cases
+where there are groups of data that need to be split and the function
+applied to each group. The most common example is data with multiple sites
+identified with a column representing site name e.g. <code>type = "site"</code>.
+More generally, <code>type</code> should be used where the date repeats for a
+particular grouping variable. However, if type is not supplied the data
+will still be averaged but the grouping variables (character or factor)
 will be dropped.</p></td>
     </tr>
     <tr>
       <th>percentile</th>
-      <td><p>The percentile level in % used when
-<code>statistic = "percentile"</code>. The default is 95.</p></td>
+      <td><p>The percentile level in % used when <code>statistic =
+"percentile"</code>. The default is 95.</p></td>
     </tr>
     <tr>
       <th>start.date</th>
-      <td><p>A string giving a start date to use. This is
-sometimes useful if a time series starts between obvious
-intervals. For example, for a 1-minute time series that starts
-&#8220;2009-11-29 12:07:00&#8221; that needs to be averaged up to
-15-minute means, the intervals would be &#8220;2009-11-29
-12:07:00&#8221;, &#8220;2009-11-29 12:22:00&#8221; etc. Often, however, it
-is better to round down to a more obvious start point e.g.
+      <td><p>A string giving a start date to use. This is sometimes
+useful if a time series starts between obvious intervals. For example, for
+a 1-minute time series that starts &#8220;2009-11-29 12:07:00&#8221; that needs
+to be averaged up to 15-minute means, the intervals would be
+&#8220;2009-11-29 12:07:00&#8221;, &#8220;2009-11-29 12:22:00&#8221; etc. Often,
+however, it is better to round down to a more obvious start point e.g.
 &#8220;2009-11-29 12:00:00&#8221; such that the sequence is then
-&#8220;2009-11-29 12:00:00&#8221;, &#8220;2009-11-29 12:15:00&#8221;
-... <code>start.date</code> is therefore used to force this type
-of sequence.</p></td>
+&#8220;2009-11-29 12:00:00&#8221;, &#8220;2009-11-29 12:15:00&#8221; ...
+<code>start.date</code> is therefore used to force this type of sequence.</p></td>
     </tr>
     <tr>
       <th>end.date</th>
-      <td><p>A string giving an end date to use. This is
-sometimes useful to make sure a time series extends to a known
-end point and is useful when <code>data.thresh</code> &gt; 0 but the
-input time series does not extend up to the final full interval.
-For example, if a time series ends sometime in October but
-annual means are required with a data capture of &gt;75% then it
-is necessary to extend the time series up until the end of the
-year. Input in the format yyyy-mm-dd HH:MM.</p></td>
+      <td><p>A string giving an end date to use. This is sometimes useful
+to make sure a time series extends to a known end point and is useful when
+<code>data.thresh</code> &gt; 0 but the input time series does not extend up to the
+final full interval. For example, if a time series ends sometime in
+October but annual means are required with a data capture of &gt;75% then it
+is necessary to extend the time series up until the end of the year. Input
+in the format yyyy-mm-dd HH:MM.</p></td>
     </tr>
     <tr>
       <th>interval</th>
-      <td><p>The <code>timeAverage</code> function tries to determine
-  the interval of the original time series (e.g. hourly) by
-  calculating the most common interval between time steps. The
-  interval is needed for calculations where the <code>data.thresh</code>
-  &gt;0. For the vast majority of regular time series this works
-  fine. However, for data with very poor data capture or irregular
-  time series the automatic detection may not work. Also, for time
-  series such as monthly time series where there is a variable
-  difference in time between months users should specify the time
-  interval explicitly e.g. <code>interval = "month"</code>. Users can
-  also supply a time interval to <em>force</em> on the time series.
-  See <code>avg.time</code> for the format.</p>
+      <td><p>The <code>timeAverage</code> function tries to determine the
+  interval of the original time series (e.g. hourly) by calculating the most
+  common interval between time steps. The interval is needed for
+  calculations where the <code>data.thresh</code> &gt;0. For the vast majority of
+  regular time series this works fine. However, for data with very poor data
+  capture or irregular time series the automatic detection may not work.
+  Also, for time series such as monthly time series where there is a
+  variable difference in time between months users should specify the time
+  interval explicitly e.g. <code>interval = "month"</code>. Users can also supply
+  a time interval to <em>force</em> on the time series. See <code>avg.time</code>
+  for the format.</p>
 <p>This option can sometimes be useful with <code>start.date</code> and
-  <code>end.date</code> to ensure full periods are considered e.g. a
-  full year when <code>avg.time = "year"</code>.</p></td>
+  <code>end.date</code> to ensure full periods are considered e.g. a full year
+  when <code>avg.time = "year"</code>.</p></td>
     </tr>
     <tr>
       <th>vector.ws</th>
-      <td><p>Should vector averaging be carried out on wind
-speed if available? The default is <code>FALSE</code> and scalar
-averages are calculated. Vector averaging of the wind speed is
-carried out on the u and v wind components. For example,
-consider the average of two hours where the wind direction and
-speed of the first hour is 0 degrees and 2m/s and 180 degrees
-and 2m/s for the second hour. The scalar average of the wind
-speed is simply the arithmetic average = 2m/s and the vector
-average is 0m/s. Vector-averaged wind speeds will always be
-lower than scalar-averaged values.</p></td>
+      <td><p>Should vector averaging be carried out on wind speed if
+available? The default is <code>FALSE</code> and scalar averages are calculated.
+Vector averaging of the wind speed is carried out on the u and v wind
+components. For example, consider the average of two hours where the wind
+direction and speed of the first hour is 0 degrees and 2m/s and 180
+degrees and 2m/s for the second hour. The scalar average of the wind speed
+is simply the arithmetic average = 2m/s and the vector average is 0m/s.
+Vector-averaged wind speeds will always be lower than scalar-averaged
+values.</p></td>
     </tr>
     <tr>
       <th>fill</th>
-      <td><p>When time series are expanded i.e. when a time
-interval is less than the original time series, data are
-&#8216;padded out&#8217; with <code>NA</code>. To &#8216;pad-out&#8217; the
-additional data with the first row in each original time
-interval, choose <code>fill = TRUE</code>.</p></td>
+      <td><p>When time series are expanded i.e. when a time interval is less
+than the original time series, data are &#8216;padded out&#8217; with
+<code>NA</code>. To &#8216;pad-out&#8217; the additional data with the first row in
+each original time interval, choose <code>fill = TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -283,76 +271,74 @@ interval, choose <code>fill = TRUE</code>.</p></td>
     <p>Returns a data frame with date in class <code>POSIXct</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function calculates time averages for a data frame. It also
-treats wind direction correctly through vector-averaging. For
-example, the average of 350 degrees and 10 degrees is either 0 or
-360 - not 180. The calculations therefore average the wind
-components.</p>
-<p>When a data capture threshold is set through <code>data.thresh</code> it
-is necessary for <code>timeAverage</code> to know what the original time
-interval of the input time series is. The function will try and
-calculate this interval based on the most common time gap (and
-will print the assumed time gap to the screen). This works fine
-most of the time but there are occasions where it may not e.g.
-when very few data exist in a data frame or the data are monthly
-(i.e. non-regular time interval between months). In this case the
-user can explicitly specify the interval through <code>interval</code>
-in the same format as <code>avg.time</code> e.g. <code>interval =
-"month"</code>. It may also be useful to set <code>start.date</code> and
-<code>end.date</code> if the time series do not span the entire period
-of interest. For example, if a time series ended in October and
-annual means are required, setting <code>end.date</code> to the end of
-the year will ensure that the whole period is covered and that
-<code>data.thresh</code> is correctly calculated. The same also goes for
-a time series that starts later in the year where
-<code>start.date</code> should be set to the beginning of the year.</p>
-<p><code>timeAverage</code> should be useful in many circumstances where it
-is necessary to work with different time average data. For
-example, hourly air pollution data and 15-minute meteorological
-data. To merge the two data sets <code>timeAverage</code> can be used to
-make the meteorological data 1-hour means first. Alternatively,
-<code>timeAverage</code> can be used to expand the hourly data to 15
-minute data - see example below.</p>
-<p>For the research community <code>timeAverage</code> should be useful for
-dealing with outputs from instruments where there are a range of
-time periods used.</p>
-<p>It is also very useful for plotting data using
-<code><a href='timePlot.html'>timePlot</a></code>.  Often the data are too dense to see
-patterns and setting different averaging periods easily helps with
-interpretation.</p>
+    <p>This function calculates time averages for a data frame. It also treats wind
+direction correctly through vector-averaging. For example, the average of
+350 degrees and 10 degrees is either 0 or 360 - not 180. The calculations
+therefore average the wind components.</p>
+<p>When a data capture threshold is set through <code>data.thresh</code> it is
+necessary for <code>timeAverage</code> to know what the original time interval of
+the input time series is. The function will try and calculate this interval
+based on the most common time gap (and will print the assumed time gap to
+the screen). This works fine most of the time but there are occasions where
+it may not e.g. when very few data exist in a data frame or the data are
+monthly (i.e. non-regular time interval between months). In this case the
+user can explicitly specify the interval through <code>interval</code> in the same
+format as <code>avg.time</code> e.g. <code>interval = "month"</code>. It may also be
+useful to set <code>start.date</code> and <code>end.date</code> if the time series do
+not span the entire period of interest. For example, if a time series ended
+in October and annual means are required, setting <code>end.date</code> to the end
+of the year will ensure that the whole period is covered and that
+<code>data.thresh</code> is correctly calculated. The same also goes for a time
+series that starts later in the year where <code>start.date</code> should be set
+to the beginning of the year.</p>
+<p><code>timeAverage</code> should be useful in many circumstances where it is
+necessary to work with different time average data. For example, hourly air
+pollution data and 15-minute meteorological data. To merge the two data sets
+<code>timeAverage</code> can be used to make the meteorological data 1-hour means
+first. Alternatively, <code>timeAverage</code> can be used to expand the hourly
+data to 15 minute data - see example below.</p>
+<p>For the research community <code>timeAverage</code> should be useful for dealing
+with outputs from instruments where there are a range of time periods used.</p>
+<p>It is also very useful for plotting data using <code><a href='timePlot.html'>timePlot</a></code>.
+Often the data are too dense to see patterns and setting different averaging
+periods easily helps with interpretation.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='timePlot.html'>timePlot</a></code> that plots time series data
-  and uses <code>timeAverage</code> to aggregate data where necessary.</p></div>
+    <div class='dont-index'><p>See <code><a href='timePlot.html'>timePlot</a></code> that plots time series data and uses
+  <code>timeAverage</code> to aggregate data where necessary.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## daily average values</span>
-<span class='no'>daily</span> <span class='kw'>&lt;-</span> <span class='fu'>timeAverage</span>(<span class='no'>mydata</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>)
+<span class='va'>daily</span> <span class='op'>&lt;-</span> <span class='fu'>timeAverage</span><span class='op'>(</span><span class='va'>mydata</span>, avg.time <span class='op'>=</span> <span class='st'>"day"</span><span class='op'>)</span>
 
 <span class='co'>## daily average values ensuring at least 75 % data capture</span>
 <span class='co'>## i.e. at least 18 valid hours</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>daily</span> <span class='kw'>&lt;-</span> <span class='fu'>timeAverage</span>(<span class='no'>mydata</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"day"</span>, <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>75</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>daily</span> <span class='op'>&lt;-</span> <span class='fu'>timeAverage</span><span class='op'>(</span><span class='va'>mydata</span>, avg.time <span class='op'>=</span> <span class='st'>"day"</span>, data.thresh <span class='op'>=</span> <span class='fl'>75</span><span class='op'>)</span>
 
 <span class='co'>## 2-weekly averages</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='no'>fortnight</span> <span class='kw'>&lt;-</span> <span class='fu'>timeAverage</span>(<span class='no'>mydata</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"2 week"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>fortnight</span> <span class='op'>&lt;-</span> <span class='fu'>timeAverage</span><span class='op'>(</span><span class='va'>mydata</span>, avg.time <span class='op'>=</span> <span class='st'>"2 week"</span><span class='op'>)</span>
 
 <span class='co'>## make a 15-minute time series from an hourly one</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>min15</span> <span class='kw'>&lt;-</span>  <span class='fu'>timeAverage</span>(<span class='no'>mydata</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"15 min"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>min15</span> <span class='op'>&lt;-</span>  <span class='fu'>timeAverage</span><span class='op'>(</span><span class='va'>mydata</span>, avg.time <span class='op'>=</span> <span class='st'>"15 min"</span>, fill <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># average by grouping variable</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importAURN.html'>importAURN</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"kc1"</span>, <span class='st'>"my1"</span>), <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2011</span>:<span class='fl'>2013</span>)
-<span class='fu'>timeAverage</span>(<span class='no'>dat</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"site"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='importAQE.html'>importAURN</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"kc1"</span>, <span class='st'>"my1"</span><span class='op'>)</span>, year <span class='op'>=</span> <span class='fl'>2011</span><span class='op'>:</span><span class='fl'>2013</span><span class='op'>)</span>
+<span class='fu'>timeAverage</span><span class='op'>(</span><span class='va'>dat</span>, avg.time <span class='op'>=</span> <span class='st'>"year"</span>, type <span class='op'>=</span> <span class='st'>"site"</span><span class='op'>)</span>
 
 <span class='co'># can also retain site code</span>
-<span class='fu'>timeAverage</span>(<span class='no'>dat</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"site"</span>, <span class='st'>"code"</span>))
+<span class='fu'>timeAverage</span><span class='op'>(</span><span class='va'>dat</span>, avg.time <span class='op'>=</span> <span class='st'>"year"</span>, type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"site"</span>, <span class='st'>"code"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># or just average all the data, dropping site/code</span>
-<span class='fu'>timeAverage</span>(<span class='no'>dat</span>, <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"year"</span>)
-}</div></pre>
+<span class='fu'>timeAverage</span><span class='op'>(</span><span class='va'>dat</span>, avg.time <span class='op'>=</span> <span class='st'>"year"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -368,7 +354,7 @@ interpretation.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

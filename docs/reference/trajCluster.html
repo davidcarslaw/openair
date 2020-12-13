@@ -76,7 +76,7 @@ trajectories at specific receptor locations." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -122,24 +122,24 @@ the trajectories imported using the <code>openair</code>
 trajectories at specific receptor locations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trajCluster</span>(
-  <span class='no'>traj</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"Euclid"</span>,
-  <span class='kw'>n.cluster</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"Set1"</span>,
-  <span class='kw'>split.after</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>map.fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>map.cols</span> <span class='kw'>=</span> <span class='st'>"grey40"</span>,
-  <span class='kw'>map.alpha</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
-  <span class='kw'>projection</span> <span class='kw'>=</span> <span class='st'>"lambert"</span>,
-  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>51</span>, <span class='fl'>51</span>),
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>90</span>, <span class='fl'>0</span>, <span class='fl'>0</span>),
-  <span class='kw'>by.type</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>origin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>trajCluster</span><span class='op'>(</span>
+  <span class='va'>traj</span>,
+  method <span class='op'>=</span> <span class='st'>"Euclid"</span>,
+  n.cluster <span class='op'>=</span> <span class='fl'>5</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  cols <span class='op'>=</span> <span class='st'>"Set1"</span>,
+  split.after <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  map.fill <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  map.cols <span class='op'>=</span> <span class='st'>"grey40"</span>,
+  map.alpha <span class='op'>=</span> <span class='fl'>0.4</span>,
+  projection <span class='op'>=</span> <span class='st'>"lambert"</span>,
+  parameters <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>51</span>, <span class='fl'>51</span><span class='op'>)</span>,
+  orientation <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>90</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
+  by.type <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  origin <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -289,17 +289,21 @@ Scotia. Journal of Geophysical Research, 100: 2867-2881.</p>
 
     <div class='dont-index'><p><code><a href='importTraj.html'>importTraj</a></code>, <code><a href='trajPlot.html'>trajPlot</a></code>,
   <code><a href='trajLevel.html'>trajLevel</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## import trajectories</span>
-<span class='no'>traj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importTraj.html'>importTraj</a></span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"london"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2009</span>)
+<span class='va'>traj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='importTraj.html'>importTraj</a></span><span class='op'>(</span>site <span class='op'>=</span> <span class='st'>"london"</span>, year <span class='op'>=</span> <span class='fl'>2009</span><span class='op'>)</span>
 <span class='co'>## calculate clusters</span>
-<span class='no'>clust</span> <span class='kw'>&lt;-</span> <span class='fu'>trajCluster</span>(<span class='no'>traj</span>, <span class='kw'>n.cluster</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>clust</span>$<span class='no'>data</span>) <span class='co'>## note new variable 'cluster'</span>
+<span class='va'>clust</span> <span class='op'>&lt;-</span> <span class='fu'>trajCluster</span><span class='op'>(</span><span class='va'>traj</span>, n.cluster <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>clust</span><span class='op'>$</span><span class='va'>data</span><span class='op'>)</span> <span class='co'>## note new variable 'cluster'</span>
 <span class='co'>## use different distance matrix calculation, and calculate by season</span>
-<span class='no'>traj</span> <span class='kw'>&lt;-</span> <span class='fu'>trajCluster</span>(<span class='no'>traj</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"Angle"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>, <span class='kw'>n.cluster</span> <span class='kw'>=</span> <span class='fl'>4</span>)
-}</div></pre>
+<span class='va'>traj</span> <span class='op'>&lt;-</span> <span class='fu'>trajCluster</span><span class='op'>(</span><span class='va'>traj</span>, method <span class='op'>=</span> <span class='st'>"Angle"</span>, type <span class='op'>=</span> <span class='st'>"season"</span>, n.cluster <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -315,7 +319,7 @@ Scotia. Journal of Geophysical Research, 100: 2867-2881.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

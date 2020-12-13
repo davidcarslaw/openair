@@ -74,7 +74,7 @@ clustering is used to group similar variables." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -118,20 +118,20 @@ primary purpose is as a tool for exploratory data analysis. Hierarchical
 clustering is used to group similar variables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>corPlot</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>pollutants</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>cluster</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>,
-  <span class='kw'>dendrogram</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>r.thresh</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
-  <span class='kw'>text.col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"black"</span>, <span class='st'>"black"</span>),
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>corPlot</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  pollutants <span class='op'>=</span> <span class='cn'>NULL</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  cluster <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  method <span class='op'>=</span> <span class='st'>"pearson"</span>,
+  dendrogram <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  lower <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cols <span class='op'>=</span> <span class='st'>"default"</span>,
+  r.thresh <span class='op'>=</span> <span class='fl'>0.8</span>,
+  text.col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"black"</span>, <span class='st'>"black"</span><span class='op'>)</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -262,21 +262,32 @@ with too many panels.</p>
 
     <div class='dont-index'><p><code>taylor.diagram</code> from the <code>plotrix</code> package from which
   some of the annotation code was used.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw --- but mostly based on code contained in Sarkar
+  (2007)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># load openair data if not loaded already</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>mydata</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
 <span class='co'>## basic corrgram plot</span>
-<span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='corPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## plot by season ... and so on</span>
-<span class='fu'>corPlot</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)</div><div class='img'><img src='corPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## recover dendogram when cluster = TRUE and plot it</span>
-<span class='no'>res</span> <span class='kw'>&lt;-</span><span class='fu'>corPlot</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='corPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>res</span>$<span class='no'>clust</span>)</div><div class='img'><img src='corPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>corPlot</span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
+</div><div class='img'><img src='corPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## plot by season ... and so on</span>
+<span class='fu'>corPlot</span><span class='op'>(</span><span class='va'>mydata</span>, type <span class='op'>=</span> <span class='st'>"season"</span><span class='op'>)</span>
+</div><div class='img'><img src='corPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'>## recover dendogram when cluster = TRUE and plot it</span>
+<span class='va'>res</span> <span class='op'>&lt;-</span><span class='fu'>corPlot</span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
+</div><div class='img'><img src='corPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>$</span><span class='va'>clust</span><span class='op'>)</span>
+</div><div class='img'><img src='corPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## a more interesting are hydrocarbon measurements</span>
-<span class='no'>hc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importAURN.html'>importAURN</a></span>(<span class='kw'>site</span> <span class='kw'>=</span> <span class='st'>"my1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2005</span>, <span class='kw'>hc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='va'>hc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='importAQE.html'>importAURN</a></span><span class='op'>(</span>site <span class='op'>=</span> <span class='st'>"my1"</span>, year <span class='op'>=</span> <span class='fl'>2005</span>, hc <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='co'>## now it is possible to see the hydrocarbons that behave most</span>
 <span class='co'>## similarly to one another</span>
-<span class='fu'>corPlot</span>(<span class='no'>hc</span>)
-}</div></pre>
+<span class='fu'>corPlot</span><span class='op'>(</span><span class='va'>hc</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -292,7 +303,7 @@ with too many panels.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

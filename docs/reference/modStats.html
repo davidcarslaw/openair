@@ -73,7 +73,7 @@ flexible conditioning" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -116,15 +116,15 @@ flexible conditioning" />
 flexible conditioning</p>
     </div>
 
-    <pre class="usage"><span class='fu'>modStats</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>,
-  <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>,
-  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"n"</span>, <span class='st'>"FAC2"</span>, <span class='st'>"MB"</span>, <span class='st'>"MGE"</span>, <span class='st'>"NMB"</span>, <span class='st'>"NMGE"</span>, <span class='st'>"RMSE"</span>, <span class='st'>"r"</span>, <span class='st'>"COE"</span>, <span class='st'>"IOA"</span>),
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>rank.name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>modStats</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  mod <span class='op'>=</span> <span class='st'>"mod"</span>,
+  obs <span class='op'>=</span> <span class='st'>"obs"</span>,
+  statistic <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"n"</span>, <span class='st'>"FAC2"</span>, <span class='st'>"MB"</span>, <span class='st'>"MGE"</span>, <span class='st'>"NMB"</span>, <span class='st'>"NMGE"</span>, <span class='st'>"RMSE"</span>, <span class='st'>"r"</span>, <span class='st'>"COE"</span>, <span class='st'>"IOA"</span><span class='op'>)</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  rank.name <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -245,19 +245,24 @@ performance: a rejoinder, International Journal of Climatology.</p>
 <p>Willmott, C.J., Robeson, S.M., Matsuura, K., 2011. A
 refined index of model performance. International Journal of
 Climatology.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## the example below is somewhat artificial --- assuming the observed</span>
 <span class='co'>## values are given by NOx and the predicted values by NO2.</span>
 
-<span class='fu'>modStats</span>(<span class='no'>mydata</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt;    default     n      FAC2        MB      MGE        NMB     NMGE     RMSE
+<span class='fu'>modStats</span><span class='op'>(</span><span class='va'>mydata</span>, mod <span class='op'>=</span> <span class='st'>"no2"</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    default     n      FAC2        MB      MGE        NMB     NMGE     RMSE
 #&gt; 1 all data 63095 0.1703868 -129.6739 129.7277 -0.7252306 0.725532 166.6203
 #&gt;           r        COE       IOA
 #&gt; 1 0.7874487 -0.3374671 0.3312664</div><div class='input'>
 <span class='co'>## evaluation stats by season</span>
 
-<span class='fu'>modStats</span>(<span class='no'>mydata</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)</div><div class='output co'>#&gt;         season     n       FAC2        MB      MGE        NMB      NMGE
+<span class='fu'>modStats</span><span class='op'>(</span><span class='va'>mydata</span>, mod <span class='op'>=</span> <span class='st'>"no2"</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span>, type <span class='op'>=</span> <span class='st'>"season"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         season     n       FAC2        MB      MGE        NMB      NMGE
 #&gt; 2 spring (MAM) 17343 0.25763083 -107.5466 107.5466 -0.6846951 0.6846951
 #&gt; 3 summer (JJA) 14658 0.17140113 -116.2004 116.2004 -0.7053470 0.7053470
 #&gt; 1 autumn (SON) 14775 0.09825963 -154.1534 154.1534 -0.7526324 0.7526324
@@ -284,7 +289,7 @@ Climatology.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -75,7 +75,7 @@ by month, day of week." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -120,31 +120,31 @@ concentrations of pollutants vary by wind direction and a time period e.g.
 by month, day of week.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>polarAnnulus</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
-  <span class='kw'>resolution</span> <span class='kw'>=</span> <span class='st'>"fine"</span>,
-  <span class='kw'>local.tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"hour"</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
-  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>100</span>),
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='st'>"normal"</span>,
-  <span class='kw'>min.bin</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>exclude.missing</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>date.pad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>force.positive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>k</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>10</span>),
-  <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>key.header</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>key.footer</span> <span class='kw'>=</span> <span class='no'>pollutant</span>,
-  <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>polarAnnulus</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  pollutant <span class='op'>=</span> <span class='st'>"nox"</span>,
+  resolution <span class='op'>=</span> <span class='st'>"fine"</span>,
+  local.tz <span class='op'>=</span> <span class='cn'>NULL</span>,
+  period <span class='op'>=</span> <span class='st'>"hour"</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  statistic <span class='op'>=</span> <span class='st'>"mean"</span>,
+  percentile <span class='op'>=</span> <span class='cn'>NA</span>,
+  limits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>,
+  cols <span class='op'>=</span> <span class='st'>"default"</span>,
+  width <span class='op'>=</span> <span class='st'>"normal"</span>,
+  min.bin <span class='op'>=</span> <span class='fl'>1</span>,
+  exclude.missing <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  date.pad <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  force.positive <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  k <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>10</span><span class='op'>)</span>,
+  normalise <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  key.header <span class='op'>=</span> <span class='st'>""</span>,
+  key.footer <span class='op'>=</span> <span class='va'>pollutant</span>,
+  key.position <span class='op'>=</span> <span class='st'>"right"</span>,
+  key <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -410,25 +410,31 @@ through the smoothing parameter <code>k</code>.</p>
 
     <div class='dont-index'><p><code><a href='polarPlot.html'>polarPlot</a></code>, <code><a href='polarFreq.html'>polarFreq</a></code>,
   <code><a href='windRose.html'>pollutionRose</a></code> and <code><a href='percentileRose.html'>percentileRose</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
 <span class='co'># load example data from package</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>mydata</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
 
 <span class='co'># diurnal plot for PM10 at Marylebone Rd</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>polarAnnulus</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>,
-<span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"diurnal variation in pm10 at Marylebone Road"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>polarAnnulus</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"pm10"</span>,
+main <span class='op'>=</span> <span class='st'>"diurnal variation in pm10 at Marylebone Road"</span><span class='op'>)</span>
 
 <span class='co'># seasonal plot for PM10 at Marylebone Rd</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>polarAnnulus</span>(<span class='no'>mydata</span>, <span class='kw'>poll</span><span class='kw'>=</span><span class='st'>"pm10"</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"season"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>polarAnnulus</span><span class='op'>(</span><span class='va'>mydata</span>, poll<span class='op'>=</span><span class='st'>"pm10"</span>, period <span class='op'>=</span> <span class='st'>"season"</span><span class='op'>)</span>
 
 <span class='co'># trend in coarse particles (PMc = PM10 - PM2.5), calculate PMc first</span>
 
-<span class='no'>mydata</span>$<span class='no'>pmc</span> <span class='kw'>&lt;-</span> <span class='no'>mydata</span>$<span class='no'>pm10</span> - <span class='no'>mydata</span>$<span class='no'>pm25</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>polarAnnulus</span>(<span class='no'>mydata</span>, <span class='kw'>poll</span><span class='kw'>=</span><span class='st'>"pmc"</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"trend"</span>,
-<span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"trend in pmc at Marylebone Road"</span>)</div></pre>
+<span class='va'>mydata</span><span class='op'>$</span><span class='va'>pmc</span> <span class='op'>&lt;-</span> <span class='va'>mydata</span><span class='op'>$</span><span class='va'>pm10</span> <span class='op'>-</span> <span class='va'>mydata</span><span class='op'>$</span><span class='va'>pm25</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>polarAnnulus</span><span class='op'>(</span><span class='va'>mydata</span>, poll<span class='op'>=</span><span class='st'>"pmc"</span>, period <span class='op'>=</span> <span class='st'>"trend"</span>,
+main <span class='op'>=</span> <span class='st'>"trend in pmc at Marylebone Road"</span><span class='op'>)</span>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -444,7 +450,7 @@ through the smoothing parameter <code>k</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

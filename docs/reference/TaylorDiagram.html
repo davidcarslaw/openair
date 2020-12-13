@@ -74,7 +74,7 @@ function very flexible." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -118,26 +118,26 @@ conditioning by any categorical or numeric variables, which makes the
 function very flexible.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>TaylorDiagram</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>,
-  <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>,
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"brewer1"</span>,
-  <span class='kw'>rms.col</span> <span class='kw'>=</span> <span class='st'>"darkgoldenrod"</span>,
-  <span class='kw'>cor.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>arrow.lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>annotate</span> <span class='kw'>=</span> <span class='st'>"centred\nRMS error"</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>key.title</span> <span class='kw'>=</span> <span class='no'>group</span>,
-  <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>key.pos</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
-  <span class='kw'>strip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>TaylorDiagram</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  obs <span class='op'>=</span> <span class='st'>"obs"</span>,
+  mod <span class='op'>=</span> <span class='st'>"mod"</span>,
+  group <span class='op'>=</span> <span class='cn'>NULL</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  normalise <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cols <span class='op'>=</span> <span class='st'>"brewer1"</span>,
+  rms.col <span class='op'>=</span> <span class='st'>"darkgoldenrod"</span>,
+  cor.col <span class='op'>=</span> <span class='st'>"black"</span>,
+  arrow.lwd <span class='op'>=</span> <span class='fl'>3</span>,
+  annotate <span class='op'>=</span> <span class='st'>"centred\nRMS error"</span>,
+  key <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  key.title <span class='op'>=</span> <span class='va'>group</span>,
+  key.columns <span class='op'>=</span> <span class='fl'>1</span>,
+  key.pos <span class='op'>=</span> <span class='st'>"right"</span>,
+  strip <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -366,66 +366,72 @@ e.g. <code><a href='https://rdrr.io/r/base/subset.html'>subset(mydata, site == "
 
     <div class='dont-index'><p><code>taylor.diagram</code> from the <code>plotrix</code> package from which
   some of the annotation code was used.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## in the examples below, most effort goes into making some artificial data</span>
 <span class='co'>## the function itself can be run very simply</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## dummy model data for 2003</span>
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2003</span>)
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='no'>mydata</span>$<span class='no'>date</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='no'>mydata</span>$<span class='no'>nox</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mydata</span>$<span class='no'>nox</span>)
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='selectByDate.html'>selectByDate</a></span><span class='op'>(</span><span class='va'>mydata</span>, year <span class='op'>=</span> <span class='fl'>2003</span><span class='op'>)</span>
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>date <span class='op'>=</span> <span class='va'>mydata</span><span class='op'>$</span><span class='va'>date</span>, obs <span class='op'>=</span> <span class='va'>mydata</span><span class='op'>$</span><span class='va'>nox</span>, mod <span class='op'>=</span> <span class='va'>mydata</span><span class='op'>$</span><span class='va'>nox</span><span class='op'>)</span>
 
 <span class='co'>## now make mod worse by adding bias and noise according to the month</span>
 <span class='co'>## do this for 3 different models</span>
-<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='no'>dat</span>, <span class='kw'>month</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>date</span>, <span class='st'>"%m"</span>)))
-<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>10</span> * <span class='no'>month</span> + <span class='fl'>10</span> * <span class='no'>month</span> * <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>dat</span>)),
-<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 1"</span>)
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span><span class='op'>(</span><span class='va'>dat</span>, month <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='st'>"%m"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>mod1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span><span class='op'>(</span><span class='va'>dat</span>, mod <span class='op'>=</span> <span class='va'>mod</span> <span class='op'>+</span> <span class='fl'>10</span> <span class='op'>*</span> <span class='va'>month</span> <span class='op'>+</span> <span class='fl'>10</span> <span class='op'>*</span> <span class='va'>month</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span>,
+model <span class='op'>=</span> <span class='st'>"model 1"</span><span class='op'>)</span>
 <span class='co'>## lag the results for mod1 to make the correlation coefficient worse</span>
 <span class='co'>## without affecting the sd</span>
-<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='no'>mod1</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>mod</span>[<span class='fl'>5</span>:<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>mod</span>)], <span class='no'>mod</span>[(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>mod</span>) - <span class='fl'>3</span>) :
-<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>mod</span>)]))
+<span class='va'>mod1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span><span class='op'>(</span><span class='va'>mod1</span>, mod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>[</span><span class='fl'>5</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span><span class='op'>]</span>, <span class='va'>mod</span><span class='op'>[</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span> <span class='op'>-</span> <span class='fl'>3</span><span class='op'>)</span> <span class='op'>:</span>
+<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## model 2</span>
-<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>7</span> * <span class='no'>month</span> + <span class='fl'>7</span> * <span class='no'>month</span> * <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>dat</span>)),
-<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 2"</span>)
+<span class='va'>mod2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span><span class='op'>(</span><span class='va'>dat</span>, mod <span class='op'>=</span> <span class='va'>mod</span> <span class='op'>+</span> <span class='fl'>7</span> <span class='op'>*</span> <span class='va'>month</span> <span class='op'>+</span> <span class='fl'>7</span> <span class='op'>*</span> <span class='va'>month</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span>,
+model <span class='op'>=</span> <span class='st'>"model 2"</span><span class='op'>)</span>
 <span class='co'>## model 3</span>
-<span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>3</span> * <span class='no'>month</span> + <span class='fl'>3</span> * <span class='no'>month</span> * <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>dat</span>)),
-<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 3"</span>)
+<span class='va'>mod3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span><span class='op'>(</span><span class='va'>dat</span>, mod <span class='op'>=</span> <span class='va'>mod</span> <span class='op'>+</span> <span class='fl'>3</span> <span class='op'>*</span> <span class='va'>month</span> <span class='op'>+</span> <span class='fl'>3</span> <span class='op'>*</span> <span class='va'>month</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span>,
+model <span class='op'>=</span> <span class='st'>"model 3"</span><span class='op'>)</span>
 
-<span class='no'>mod.dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>mod1</span>, <span class='no'>mod2</span>, <span class='no'>mod3</span>)
+<span class='va'>mod.dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>mod1</span>, <span class='va'>mod2</span>, <span class='va'>mod3</span><span class='op'>)</span>
 
 <span class='co'>## basic Taylor plot</span>
 
-<span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>)
+<span class='fu'>TaylorDiagram</span><span class='op'>(</span><span class='va'>mod.dat</span>, obs <span class='op'>=</span> <span class='st'>"obs"</span>, mod <span class='op'>=</span> <span class='st'>"mod"</span>, group <span class='op'>=</span> <span class='st'>"model"</span><span class='op'>)</span>
 
 <span class='co'>## Taylor plot by season</span>
-<span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)
+<span class='fu'>TaylorDiagram</span><span class='op'>(</span><span class='va'>mod.dat</span>, obs <span class='op'>=</span> <span class='st'>"obs"</span>, mod <span class='op'>=</span> <span class='st'>"mod"</span>, group <span class='op'>=</span> <span class='st'>"model"</span>, type <span class='op'>=</span> <span class='st'>"season"</span><span class='op'>)</span>
 
 <span class='co'>## now show how to evaluate model improvement (or otherwise)</span>
-<span class='no'>mod1a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>2</span> * <span class='no'>month</span> + <span class='fl'>2</span> * <span class='no'>month</span> * <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>dat</span>)),
-<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 1"</span>)
-<span class='no'>mod2a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='no'>mod2</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> * <span class='fl'>1.3</span>)
-<span class='no'>mod3a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span>(<span class='no'>dat</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='no'>mod</span> + <span class='fl'>10</span> * <span class='no'>month</span> + <span class='fl'>10</span> * <span class='no'>month</span> * <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>dat</span>)),
-<span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"model 3"</span>)
-<span class='no'>mod.dat2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>mod1a</span>, <span class='no'>mod2a</span>, <span class='no'>mod3a</span>)
-<span class='no'>mod.dat</span>$<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='no'>mod.dat2</span>$<span class='no'>mod</span>
+<span class='va'>mod1a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span><span class='op'>(</span><span class='va'>dat</span>, mod <span class='op'>=</span> <span class='va'>mod</span> <span class='op'>+</span> <span class='fl'>2</span> <span class='op'>*</span> <span class='va'>month</span> <span class='op'>+</span> <span class='fl'>2</span> <span class='op'>*</span> <span class='va'>month</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span>,
+model <span class='op'>=</span> <span class='st'>"model 1"</span><span class='op'>)</span>
+<span class='va'>mod2a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span><span class='op'>(</span><span class='va'>mod2</span>, mod <span class='op'>=</span> <span class='va'>mod</span> <span class='op'>*</span> <span class='fl'>1.3</span><span class='op'>)</span>
+<span class='va'>mod3a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span><span class='op'>(</span><span class='va'>dat</span>, mod <span class='op'>=</span> <span class='va'>mod</span> <span class='op'>+</span> <span class='fl'>10</span> <span class='op'>*</span> <span class='va'>month</span> <span class='op'>+</span> <span class='fl'>10</span> <span class='op'>*</span> <span class='va'>month</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span><span class='op'>)</span>,
+model <span class='op'>=</span> <span class='st'>"model 3"</span><span class='op'>)</span>
+<span class='va'>mod.dat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>mod1a</span>, <span class='va'>mod2a</span>, <span class='va'>mod3a</span><span class='op'>)</span>
+<span class='va'>mod.dat</span><span class='op'>$</span><span class='va'>mod2</span> <span class='op'>&lt;-</span> <span class='va'>mod.dat2</span><span class='op'>$</span><span class='va'>mod</span>
 
 <span class='co'>## now we have a data frame with 3 models, 1 set of observations</span>
 <span class='co'>## and TWO sets of model predictions (mod and mod2)</span>
 
 <span class='co'>## do for all models</span>
-<span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mod"</span>, <span class='st'>"mod2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>)
-}
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>TaylorDiagram</span><span class='op'>(</span><span class='va'>mod.dat</span>, obs <span class='op'>=</span> <span class='st'>"obs"</span>, mod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mod"</span>, <span class='st'>"mod2"</span><span class='op'>)</span>, group <span class='op'>=</span> <span class='st'>"model"</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## all models, by season</span>
-<span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mod"</span>, <span class='st'>"mod2"</span>), <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"model"</span>,
-<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)
+<span class='fu'>TaylorDiagram</span><span class='op'>(</span><span class='va'>mod.dat</span>, obs <span class='op'>=</span> <span class='st'>"obs"</span>, mod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mod"</span>, <span class='st'>"mod2"</span><span class='op'>)</span>, group <span class='op'>=</span> <span class='st'>"model"</span>,
+type <span class='op'>=</span> <span class='st'>"season"</span><span class='op'>)</span>
 
 <span class='co'>## consider two groups (model/month). In this case all months are shown by model</span>
 <span class='co'>## but are only differentiated by model.</span>
 
-<span class='fu'>TaylorDiagram</span>(<span class='no'>mod.dat</span>, <span class='kw'>obs</span> <span class='kw'>=</span> <span class='st'>"obs"</span>, <span class='kw'>mod</span> <span class='kw'>=</span> <span class='st'>"mod"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"model"</span>, <span class='st'>"month"</span>))
-}</div></pre>
+<span class='fu'>TaylorDiagram</span><span class='op'>(</span><span class='va'>mod.dat</span>, obs <span class='op'>=</span> <span class='st'>"obs"</span>, mod <span class='op'>=</span> <span class='st'>"mod"</span>, group <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"model"</span>, <span class='st'>"month"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -441,7 +447,7 @@ e.g. <code><a href='https://rdrr.io/r/base/subset.html'>subset(mydata, site == "
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -114,15 +114,15 @@
     <p>Calculate a range of air pollution-relevant statistics by year.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aqStats</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>95</span>, <span class='fl'>99</span>),
-  <span class='kw'>transpose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>aqStats</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  pollutant <span class='op'>=</span> <span class='st'>"no2"</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  data.thresh <span class='op'>=</span> <span class='fl'>0</span>,
+  percentile <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>95</span>, <span class='fl'>99</span><span class='op'>)</span>,
+  transpose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,12 +212,16 @@ more details.</p>
 <p>There can be small discrepancies with the AURN due to the treatment of
 rounding data. The <code>aqStats</code> function does not round, whereas AURN data
 can be rounded at several stages during the calculations.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Statistics for 2004. NOTE! these data are in ppb/ppm so the</span>
 <span class='co'>## example is for illustrative purposes only</span>
-<span class='fu'>aqStats</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2004</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 15</span><span>
+<span class='fu'>aqStats</span><span class='op'>(</span><span class='fu'><a href='selectByDate.html'>selectByDate</a></span><span class='op'>(</span><span class='va'>mydata</span>, year <span class='op'>=</span> <span class='fl'>2004</span><span class='op'>)</span>, pollutant <span class='op'>=</span> <span class='st'>"no2"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 15</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   default, pollutant, year [1]</span><span>
 #&gt;   default pollutant  year date                dat.cap  mean   min   max median
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>                </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -241,7 +245,7 @@ can be rounded at several stages during the calculations.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

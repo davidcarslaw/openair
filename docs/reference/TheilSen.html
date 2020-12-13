@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -114,37 +114,37 @@
     <p>Theil-Sen slope estimates and tests for trend.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>TheilSen</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
-  <span class='kw'>deseason</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>avg.time</span> <span class='kw'>=</span> <span class='st'>"month"</span>,
-  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
-  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>data.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>dec.place</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"year"</span>,
-  <span class='kw'>lab.frac</span> <span class='kw'>=</span> <span class='fl'>0.99</span>,
-  <span class='kw'>lab.cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
-  <span class='kw'>x.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
-  <span class='kw'>y.relation</span> <span class='kw'>=</span> <span class='st'>"same"</span>,
-  <span class='kw'>data.col</span> <span class='kw'>=</span> <span class='st'>"cornflowerblue"</span>,
-  <span class='kw'>trend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>lty</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>), <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"red"</span>)),
-  <span class='kw'>text.col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>,
-  <span class='kw'>slope.text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>shade</span> <span class='kw'>=</span> <span class='st'>"grey95"</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>autocor</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>slope.percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-  <span class='kw'>date.format</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>silent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>TheilSen</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  pollutant <span class='op'>=</span> <span class='st'>"nox"</span>,
+  deseason <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  avg.time <span class='op'>=</span> <span class='st'>"month"</span>,
+  statistic <span class='op'>=</span> <span class='st'>"mean"</span>,
+  percentile <span class='op'>=</span> <span class='cn'>NA</span>,
+  data.thresh <span class='op'>=</span> <span class='fl'>0</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.05</span>,
+  dec.place <span class='op'>=</span> <span class='fl'>2</span>,
+  xlab <span class='op'>=</span> <span class='st'>"year"</span>,
+  lab.frac <span class='op'>=</span> <span class='fl'>0.99</span>,
+  lab.cex <span class='op'>=</span> <span class='fl'>0.8</span>,
+  x.relation <span class='op'>=</span> <span class='st'>"same"</span>,
+  y.relation <span class='op'>=</span> <span class='st'>"same"</span>,
+  data.col <span class='op'>=</span> <span class='st'>"cornflowerblue"</span>,
+  trend <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>lty <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span><span class='op'>)</span>, lwd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>,
+  text.col <span class='op'>=</span> <span class='st'>"darkgreen"</span>,
+  slope.text <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cols <span class='op'>=</span> <span class='cn'>NULL</span>,
+  shade <span class='op'>=</span> <span class='st'>"grey95"</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  autocor <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  slope.percent <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  date.breaks <span class='op'>=</span> <span class='fl'>7</span>,
+  date.format <span class='op'>=</span> <span class='cn'>NULL</span>,
+  plot <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  silent <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -427,32 +427,39 @@ Nederlandse Akademie Wetenschappen, Series A - Mathematical
 Sciences 53, 386-392, 521-525, 1397-1412.</p>
 <p>... see also several of the Air Quality Expert Group (AQEG) reports for
   the use of similar tests applied to UK/European air quality data, see
-  <a href='http://uk-air.defra.gov.uk/library/aqeg/'>http://uk-air.defra.gov.uk/library/aqeg/</a>.</p>
+  <a href='https://uk-air.defra.gov.uk/library/aqeg/'>https://uk-air.defra.gov.uk/library/aqeg/</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='smoothTrend.html'>smoothTrend</a></code> for a flexible approach to estimating
   trends using nonparametric regression. The <code>smoothTrend</code> function is
   suitable for cases where trends are not monotonic and is probably better
   for exploring the shape of trends.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw with some trend code from Rand Wilcox</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
 <span class='co'># load example data from package</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>mydata</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
 
 <span class='co'># trend plot for nox</span>
-<span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='output co'>#&gt; [1] "Taking bootstrap samples. Please wait."</div><div class='img'><img src='TheilSen-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>TheilSen</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"nox"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Taking bootstrap samples. Please wait."</div><div class='img'><img src='TheilSen-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># trend plot for ozone with p=0.01 i.e. uncertainty in slope shown at</span>
 <span class='co'># 99 % confidence interval</span>
 
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"o3 (ppb)"</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>TheilSen</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, ylab <span class='op'>=</span> <span class='st'>"o3 (ppb)"</span>, alpha <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>
 
 <span class='co'># trend plot by each of 8 wind sectors</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>TheilSen</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"wd"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"o3 (ppb)"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>TheilSen</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, type <span class='op'>=</span> <span class='st'>"wd"</span>, ylab <span class='op'>=</span> <span class='st'>"o3 (ppb)"</span><span class='op'>)</span>
 
 <span class='co'># and for a subset of data (from year 2000 onwards)</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>TheilSen</span>(<span class='fu'><a href='selectByDate.html'>selectByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2000</span>:<span class='fl'>2005</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"o3 (ppb)"</span>)</div></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>TheilSen</span><span class='op'>(</span><span class='fu'><a href='selectByDate.html'>selectByDate</a></span><span class='op'>(</span><span class='va'>mydata</span>, year <span class='op'>=</span> <span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2005</span><span class='op'>)</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, ylab <span class='op'>=</span> <span class='st'>"o3 (ppb)"</span><span class='op'>)</span>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -468,7 +475,7 @@ Sciences 53, 386-392, 521-525, 1397-1412.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

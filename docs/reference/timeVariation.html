@@ -74,7 +74,7 @@ separate plots are produced." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -118,29 +118,29 @@ different variables, typically pollutant concentrations. Four
 separate plots are produced.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>timeVariation</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
-  <span class='kw'>local.tz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"hour"</span>, <span class='st'>"hour"</span>, <span class='st'>"month"</span>, <span class='st'>"weekday"</span>),
-  <span class='kw'>name.pol</span> <span class='kw'>=</span> <span class='no'>pollutant</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>,
-  <span class='kw'>conf.int</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>B</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"hue"</span>,
-  <span class='kw'>ref.y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>key.columns</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>start.day</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>timeVariation</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  pollutant <span class='op'>=</span> <span class='st'>"nox"</span>,
+  local.tz <span class='op'>=</span> <span class='cn'>NULL</span>,
+  normalise <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  xlab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"hour"</span>, <span class='st'>"hour"</span>, <span class='st'>"month"</span>, <span class='st'>"weekday"</span><span class='op'>)</span>,
+  name.pol <span class='op'>=</span> <span class='va'>pollutant</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  group <span class='op'>=</span> <span class='cn'>NULL</span>,
+  difference <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  statistic <span class='op'>=</span> <span class='st'>"mean"</span>,
+  conf.int <span class='op'>=</span> <span class='fl'>0.95</span>,
+  B <span class='op'>=</span> <span class='fl'>100</span>,
+  ci <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  cols <span class='op'>=</span> <span class='st'>"hue"</span>,
+  ref.y <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key <span class='op'>=</span> <span class='cn'>NULL</span>,
+  key.columns <span class='op'>=</span> <span class='fl'>1</span>,
+  start.day <span class='op'>=</span> <span class='fl'>1</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.4</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -331,7 +331,7 @@ and <code>cutData</code>. For example, in the case of <code>cutData</code> the o
   including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
 <p>The four components of timeVariation are: <code>day.hour</code>, <code>hour</code>,
   <code>day</code> and <code>month</code>. Associated data.frames can be extracted
-  directly using the <code>subset</code> option, e.g. as in <code><a href='https://rdrr.io/r/base/plot.html'>plot(object,
+  directly using the <code>subset</code> option, e.g. as in <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot(object,
   subset = "day.hour")</a></code>, <code><a href='https://rdrr.io/r/base/summary.html'>summary(output, subset = "hour")</a></code>, etc, for
   <code>output &lt;- timeVariation(mydata, "nox")</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -388,44 +388,48 @@ can control the text in the subheading through the use of
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='polarPlot.html'>polarPlot</a></code>, <code><a href='linearRelation.html'>linearRelation</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
 <span class='co'># basic use</span>
-<span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>)</div><div class='img'><img src='timeVariation-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>timeVariation</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"nox"</span><span class='op'>)</span>
+</div><div class='img'><img src='timeVariation-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># for a subset of conditions</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>timeVariation</span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>mydata</span>, <span class='no'>ws</span> <span class='kw'>&gt;</span> <span class='fl'>3</span> <span class='kw'>&amp;</span> <span class='no'>wd</span> <span class='kw'>&gt;</span> <span class='fl'>100</span> <span class='kw'>&amp;</span> <span class='no'>wd</span> <span class='kw'>&lt;</span> <span class='fl'>270</span>),
-<span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"pm10 (ug/m3)"</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>timeVariation</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>mydata</span>, <span class='va'>ws</span> <span class='op'>&gt;</span> <span class='fl'>3</span> <span class='op'>&amp;</span> <span class='va'>wd</span> <span class='op'>&gt;</span> <span class='fl'>100</span> <span class='op'>&amp;</span> <span class='va'>wd</span> <span class='op'>&lt;</span> <span class='fl'>270</span><span class='op'>)</span>,
+pollutant <span class='op'>=</span> <span class='st'>"pm10"</span>, ylab <span class='op'>=</span> <span class='st'>"pm10 (ug/m3)"</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'># multiple pollutants with concentrations normalised</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"nox"</span>, <span class='st'>"co"</span>), <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timeVariation</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nox"</span>, <span class='st'>"co"</span><span class='op'>)</span>, normalise <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># show BST/GMT variation (see ?cutData for more details)</span>
 <span class='co'># the NOx plot shows the profiles are very similar when expressed in</span>
 <span class='co'># local time, showing that the profile is dominated by a local source</span>
 <span class='co'># that varies by local time and not by GMT i.e. road vehicle emissions</span>
 
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"dst"</span>, <span class='kw'>local.tz</span> <span class='kw'>=</span> <span class='st'>"Europe/London"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timeVariation</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"nox"</span>, type <span class='op'>=</span> <span class='st'>"dst"</span>, local.tz <span class='op'>=</span> <span class='st'>"Europe/London"</span><span class='op'>)</span>
 
 <span class='co'>## In this case it is better to group the results for clarity:</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"dst"</span>, <span class='kw'>local.tz</span> <span class='kw'>=</span> <span class='st'>"Europe/London"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timeVariation</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"nox"</span>, group <span class='op'>=</span> <span class='st'>"dst"</span>, local.tz <span class='op'>=</span> <span class='st'>"Europe/London"</span><span class='op'>)</span>
 
 <span class='co'># By contrast, a variable such as wind speed shows a clear shift when</span>
 <span class='co'>#  expressed in local time. These two plots can help show whether the</span>
 <span class='co'>#  variation is dominated by man-made influences or natural processes</span>
 
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"ws"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"dst"</span>, <span class='kw'>local.tz</span> <span class='kw'>=</span> <span class='st'>"Europe/London"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timeVariation</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"ws"</span>, group <span class='op'>=</span> <span class='st'>"dst"</span>, local.tz <span class='op'>=</span> <span class='st'>"Europe/London"</span><span class='op'>)</span>
 
 <span class='co'>## It is also possible to plot several variables and set type. For</span>
 <span class='co'>## example, consider the NOx and NO2 split by levels of O3:</span>
 
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"nox"</span>, <span class='st'>"no2"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"o3"</span>, <span class='kw'>normalise</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timeVariation</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nox"</span>, <span class='st'>"no2"</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"o3"</span>, normalise <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'>## difference in concentrations</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>poll</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"pm25"</span>, <span class='st'>"pm10"</span>), <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>timeVariation</span><span class='op'>(</span><span class='va'>mydata</span>, poll<span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"pm25"</span>, <span class='st'>"pm10"</span><span class='op'>)</span>, difference <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># It is also useful to consider how concentrations vary by</span>
 <span class='co'># considering two different periods e.g. in intervention</span>
@@ -434,16 +438,16 @@ can control the text in the subheading through the use of
 <span class='co'># are important because flows of cars are approximately invariant by</span>
 <span class='co'># day of the week</span>
 
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>mydata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='splitByDate.html'>splitByDate</a></span>(<span class='no'>mydata</span>, <span class='kw'>dates</span><span class='kw'>=</span> <span class='st'>"1/1/2003"</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"before Jan. 2003"</span>, <span class='st'>"After Jan. 2003"</span>))
-<span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"split.by"</span>, <span class='kw'>difference</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>mydata</span> <span class='op'>&lt;-</span> <span class='fu'><a href='splitByDate.html'>splitByDate</a></span><span class='op'>(</span><span class='va'>mydata</span>, dates<span class='op'>=</span> <span class='st'>"1/1/2003"</span>, labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"before Jan. 2003"</span>, <span class='st'>"After Jan. 2003"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>timeVariation</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"no2"</span>, group <span class='op'>=</span> <span class='st'>"split.by"</span>, difference <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 <span class='co'>## sub plots can be extracted from the openair object</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>myplot</span> <span class='kw'>&lt;-</span> <span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"no2"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>myplot</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='st'>"day.hour"</span>) <span class='co'># top weekday and plot</span>
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>myplot</span> <span class='op'>&lt;-</span> <span class='fu'>timeVariation</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"no2"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>myplot</span>, subset <span class='op'>=</span> <span class='st'>"day.hour"</span><span class='op'>)</span> <span class='co'># top weekday and plot</span>
+<span class='op'>}</span>
 
 <span class='co'>## individual plots</span>
 <span class='co'>## plot(myplot, subset="day.hour") for the weekday and hours subplot (top)</span>
@@ -458,13 +462,15 @@ can control the text in the subheading through the use of
 <span class='co'>## tail(myplot, subset = "month") #tail/top of month data set</span>
 
 <span class='co'>## plot quantiles and median</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>stati</span><span class='kw'>=</span><span class='st'>"median"</span>, <span class='kw'>poll</span><span class='kw'>=</span><span class='st'>"pm10"</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"firebrick"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>timeVariation</span><span class='op'>(</span><span class='va'>mydata</span>, stati<span class='op'>=</span><span class='st'>"median"</span>, poll<span class='op'>=</span><span class='st'>"pm10"</span>, col <span class='op'>=</span> <span class='st'>"firebrick"</span><span class='op'>)</span>
 
 <span class='co'>## with different intervals</span>
-<span class='fu'>timeVariation</span>(<span class='no'>mydata</span>, <span class='kw'>stati</span><span class='kw'>=</span><span class='st'>"median"</span>, <span class='kw'>poll</span><span class='kw'>=</span><span class='st'>"pm10"</span>, <span class='kw'>conf.int</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.75</span>, <span class='fl'>0.99</span>),
-<span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"firebrick"</span>)
-}</div></pre>
+<span class='fu'>timeVariation</span><span class='op'>(</span><span class='va'>mydata</span>, stati<span class='op'>=</span><span class='st'>"median"</span>, poll<span class='op'>=</span><span class='st'>"pm10"</span>, conf.int <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.75</span>, <span class='fl'>0.99</span><span class='op'>)</span>,
+col <span class='op'>=</span> <span class='st'>"firebrick"</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -480,7 +486,7 @@ can control the text in the subheading through the use of
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

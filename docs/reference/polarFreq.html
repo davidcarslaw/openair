@@ -75,7 +75,7 @@ using a range of commonly used statistics." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -120,28 +120,28 @@ measurements. Bins can also be used to show the concentration of pollutants
 using a range of commonly used statistics.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>polarFreq</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"frequency"</span>,
-  <span class='kw'>ws.int</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>wd.nint</span> <span class='kw'>=</span> <span class='fl'>36</span>,
-  <span class='kw'>grid.line</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>5000</span>, <span class='fl'>500</span>),
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>min.bin</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>ws.upper</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>border.col</span> <span class='kw'>=</span> <span class='st'>"transparent"</span>,
-  <span class='kw'>key.header</span> <span class='kw'>=</span> <span class='no'>statistic</span>,
-  <span class='kw'>key.footer</span> <span class='kw'>=</span> <span class='no'>pollutant</span>,
-  <span class='kw'>key.position</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
-  <span class='kw'>key</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>polarFreq</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  pollutant <span class='op'>=</span> <span class='st'>""</span>,
+  statistic <span class='op'>=</span> <span class='st'>"frequency"</span>,
+  ws.int <span class='op'>=</span> <span class='fl'>1</span>,
+  wd.nint <span class='op'>=</span> <span class='fl'>36</span>,
+  grid.line <span class='op'>=</span> <span class='fl'>5</span>,
+  breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>5000</span>, <span class='fl'>500</span><span class='op'>)</span>,
+  cols <span class='op'>=</span> <span class='st'>"default"</span>,
+  trans <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  min.bin <span class='op'>=</span> <span class='fl'>1</span>,
+  ws.upper <span class='op'>=</span> <span class='cn'>NA</span>,
+  offset <span class='op'>=</span> <span class='fl'>10</span>,
+  border.col <span class='op'>=</span> <span class='st'>"transparent"</span>,
+  key.header <span class='op'>=</span> <span class='va'>statistic</span>,
+  key.footer <span class='op'>=</span> <span class='va'>pollutant</span>,
+  key.position <span class='op'>=</span> <span class='st'>"right"</span>,
+  key <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -344,37 +344,43 @@ user has fine control over both the range, interval and colour.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See Also as <code><a href='windRose.html'>windRose</a></code>, <code><a href='polarPlot.html'>polarPlot</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
 <span class='co'># basic wind frequency plot</span>
-<span class='fu'>polarFreq</span>(<span class='no'>mydata</span>)</div><div class='img'><img src='polarFreq-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>polarFreq</span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
+</div><div class='img'><img src='polarFreq-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># wind frequencies by year</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>polarFreq</span><span class='op'>(</span><span class='va'>mydata</span>, type <span class='op'>=</span> <span class='st'>"year"</span><span class='op'>)</span>
 
 
 <span class='co'># mean SO2 by year, showing only bins with at least 2 points</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"so2"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>min.bin</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>polarFreq</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"so2"</span>, type <span class='op'>=</span> <span class='st'>"year"</span>, statistic <span class='op'>=</span> <span class='st'>"mean"</span>, min.bin <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
 <span class='co'># weighted mean SO2 by year, showing only bins with at least 2 points</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"so2"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"weighted.mean"</span>,
-<span class='kw'>min.bin</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>polarFreq</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"so2"</span>, type <span class='op'>=</span> <span class='st'>"year"</span>, statistic <span class='op'>=</span> <span class='st'>"weighted.mean"</span>,
+min.bin <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
 <span class='co'>#windRose for just 2000 and 2003 with different colours</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>polarFreq</span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>mydata</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='no'>date</span>, <span class='st'>"%Y"</span>) <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2000</span>, <span class='fl'>2003</span>)),
-<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"year"</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"jet"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>polarFreq</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>mydata</span>, <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='st'>"%Y"</span><span class='op'>)</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2000</span>, <span class='fl'>2003</span><span class='op'>)</span><span class='op'>)</span>,
+type <span class='op'>=</span> <span class='st'>"year"</span>, cols <span class='op'>=</span> <span class='st'>"jet"</span><span class='op'>)</span>
 
 <span class='co'># user defined breaks from 0-700 in intervals of 100 (note linear scale)</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>700</span>, <span class='fl'>100</span>))
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>polarFreq</span><span class='op'>(</span><span class='va'>mydata</span>, breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>700</span>, <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># more complicated user-defined breaks - useful for highlighting bins</span>
 <span class='co'># with a certain number of data points</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>250</span>, <span class='fl'>500</span>, <span class='fl'>700</span>))
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>polarFreq</span><span class='op'>(</span><span class='va'>mydata</span>, breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>250</span>, <span class='fl'>500</span>, <span class='fl'>700</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># source contribution plot and use of offset option</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>polarFreq</span>(<span class='no'>mydata</span>, <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm25"</span>, <span class='kw'>statistic</span>
-<span class='kw'>=</span><span class='st'>"weighted.mean"</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>ws.int</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>polarFreq</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"pm25"</span>, statistic
+<span class='op'>=</span><span class='st'>"weighted.mean"</span>, offset <span class='op'>=</span> <span class='fl'>50</span>, ws.int <span class='op'>=</span> <span class='fl'>25</span>, trans <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> 
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -390,7 +396,7 @@ user has fine control over both the range, interval and colour.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

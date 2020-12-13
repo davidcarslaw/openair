@@ -74,7 +74,7 @@ function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -118,30 +118,30 @@ requires that data are imported using the <code>importTraj</code>
 function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trajLevel</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>lon</span> <span class='kw'>=</span> <span class='st'>"lon"</span>,
-  <span class='kw'>lat</span> <span class='kw'>=</span> <span class='st'>"lat"</span>,
-  <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"height"</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"frequency"</span>,
-  <span class='kw'>percentile</span> <span class='kw'>=</span> <span class='fl'>90</span>,
-  <span class='kw'>map</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>lon.inc</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>lat.inc</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>min.bin</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>map.fill</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>map.res</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>map.cols</span> <span class='kw'>=</span> <span class='st'>"grey40"</span>,
-  <span class='kw'>map.alpha</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
-  <span class='kw'>projection</span> <span class='kw'>=</span> <span class='st'>"lambert"</span>,
-  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>51</span>, <span class='fl'>51</span>),
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>90</span>, <span class='fl'>0</span>, <span class='fl'>0</span>),
-  <span class='kw'>grid.col</span> <span class='kw'>=</span> <span class='st'>"deepskyblue"</span>,
-  <span class='kw'>origin</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>trajLevel</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  lon <span class='op'>=</span> <span class='st'>"lon"</span>,
+  lat <span class='op'>=</span> <span class='st'>"lat"</span>,
+  pollutant <span class='op'>=</span> <span class='st'>"height"</span>,
+  type <span class='op'>=</span> <span class='st'>"default"</span>,
+  smooth <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  statistic <span class='op'>=</span> <span class='st'>"frequency"</span>,
+  percentile <span class='op'>=</span> <span class='fl'>90</span>,
+  map <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lon.inc <span class='op'>=</span> <span class='fl'>1</span>,
+  lat.inc <span class='op'>=</span> <span class='fl'>1</span>,
+  min.bin <span class='op'>=</span> <span class='fl'>1</span>,
+  map.fill <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  map.res <span class='op'>=</span> <span class='st'>"default"</span>,
+  map.cols <span class='op'>=</span> <span class='st'>"grey40"</span>,
+  map.alpha <span class='op'>=</span> <span class='fl'>0.3</span>,
+  projection <span class='op'>=</span> <span class='st'>"lambert"</span>,
+  parameters <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>51</span>, <span class='fl'>51</span><span class='op'>)</span>,
+  orientation <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>90</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
+  grid.col <span class='op'>=</span> <span class='st'>"deepskyblue"</span>,
+  origin <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -252,7 +252,7 @@ is to fill countries.</p></td>
 function uses the &#8216;world&#8217; map from the <code>maps</code>
 package. If <code>map.res = "hires"</code> then the (much) more detailed
 base map &#8216;worldHires&#8217; from the <code>mapdata</code> package is
-used. Use <code><a href='https://rdrr.io/pkg/mapdata/man'>library(mapdata)</a></code>. Also available is a map showing
+used. Use <code><a href='https://rdrr.io/r/base/library.html'>library(mapdata)</a></code>. Also available is a map showing
 the US states. In this case <code>map.res = "state"</code> should be
 used.</p></td>
     </tr>
@@ -389,6 +389,9 @@ emissions in Houston, Texas. Atmospheric Environment, 41(28),
 
     <div class='dont-index'><p><code><a href='importTraj.html'>importTraj</a></code> to import trajectory data from the King's
 College server and <code><a href='trajPlot.html'>trajPlot</a></code> for plotting back trajectory lines.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -397,30 +400,31 @@ College server and <code><a href='trajPlot.html'>trajPlot</a></code> for plottin
 <span class='co'># Heathrow Airport was closed due to the Icelandic volcanic eruption</span>
 <span class='co'># 15--21 April 2010.</span>
 <span class='co'># import trajectories for London and plot</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>lond</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importTraj.html'>importTraj</a></span>(<span class='st'>"london"</span>, <span class='fl'>2010</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>lond</span> <span class='op'>&lt;-</span> <span class='fu'><a href='importTraj.html'>importTraj</a></span><span class='op'>(</span><span class='st'>"london"</span>, <span class='fl'>2010</span><span class='op'>)</span>
+<span class='op'>}</span>
 <span class='co'># more examples to follow linking with concentration measurements...</span>
 
 <span class='co'># import some measurements from KC1 - London</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>kc1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='importAURN.html'>importAURN</a></span>(<span class='st'>"kc1"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>kc1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='importAQE.html'>importAURN</a></span><span class='op'>(</span><span class='st'>"kc1"</span>, year <span class='op'>=</span> <span class='fl'>2010</span><span class='op'>)</span>
 <span class='co'># now merge with trajectory data by 'date'</span>
-<span class='no'>lond</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span>(<span class='no'>lond</span>, <span class='no'>kc1</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"date"</span>)
+<span class='va'>lond</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span><span class='op'>(</span><span class='va'>lond</span>, <span class='va'>kc1</span>, by <span class='op'>=</span> <span class='st'>"date"</span><span class='op'>)</span>
 
 <span class='co'># trajectory plot, no smoothing - and limit lat/lon area of interest</span>
 <span class='co'># use PSCF</span>
-<span class='fu'>trajLevel</span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>lond</span>, <span class='no'>lat</span> <span class='kw'>&gt;</span> <span class='fl'>40</span> <span class='kw'>&amp;</span> <span class='no'>lat</span> <span class='kw'>&lt;</span> <span class='fl'>70</span> <span class='kw'>&amp;</span> <span class='no'>lon</span> <span class='kw'>&gt;</span>-<span class='fl'>20</span> <span class='kw'>&amp;</span> <span class='no'>lon</span> <span class='kw'>&lt;</span><span class='fl'>20</span>),
-<span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"pscf"</span>)
+<span class='fu'>trajLevel</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>lond</span>, <span class='va'>lat</span> <span class='op'>&gt;</span> <span class='fl'>40</span> <span class='op'>&amp;</span> <span class='va'>lat</span> <span class='op'>&lt;</span> <span class='fl'>70</span> <span class='op'>&amp;</span> <span class='va'>lon</span> <span class='op'>&gt;</span><span class='op'>-</span><span class='fl'>20</span> <span class='op'>&amp;</span> <span class='va'>lon</span> <span class='op'>&lt;</span><span class='fl'>20</span><span class='op'>)</span>,
+pollutant <span class='op'>=</span> <span class='st'>"pm10"</span>, statistic <span class='op'>=</span> <span class='st'>"pscf"</span><span class='op'>)</span>
 
 <span class='co'># can smooth surface, suing CWT approach:</span>
-<span class='fu'>trajLevel</span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>lond</span>, <span class='no'>lat</span> <span class='kw'>&gt;</span> <span class='fl'>40</span> <span class='kw'>&amp;</span> <span class='no'>lat</span> <span class='kw'>&lt;</span> <span class='fl'>70</span> <span class='kw'>&amp;</span> <span class='no'>lon</span> <span class='kw'>&gt;</span>-<span class='fl'>20</span> <span class='kw'>&amp;</span> <span class='no'>lon</span> <span class='kw'>&lt;</span><span class='fl'>20</span>),
-<span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm2.5"</span>, <span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"cwt"</span>,  <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>trajLevel</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>lond</span>, <span class='va'>lat</span> <span class='op'>&gt;</span> <span class='fl'>40</span> <span class='op'>&amp;</span> <span class='va'>lat</span> <span class='op'>&lt;</span> <span class='fl'>70</span> <span class='op'>&amp;</span> <span class='va'>lon</span> <span class='op'>&gt;</span><span class='op'>-</span><span class='fl'>20</span> <span class='op'>&amp;</span> <span class='va'>lon</span> <span class='op'>&lt;</span><span class='fl'>20</span><span class='op'>)</span>,
+pollutant <span class='op'>=</span> <span class='st'>"pm2.5"</span>, statistic <span class='op'>=</span> <span class='st'>"cwt"</span>,  smooth <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># plot by season:</span>
-<span class='fu'>trajLevel</span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>lond</span>, <span class='no'>lat</span> <span class='kw'>&gt;</span> <span class='fl'>40</span> <span class='kw'>&amp;</span> <span class='no'>lat</span> <span class='kw'>&lt;</span> <span class='fl'>70</span> <span class='kw'>&amp;</span> <span class='no'>lon</span> <span class='kw'>&gt;</span>-<span class='fl'>20</span> <span class='kw'>&amp;</span> <span class='no'>lon</span> <span class='kw'>&lt;</span><span class='fl'>20</span>), <span class='kw'>pollutant</span> <span class='kw'>=</span> <span class='st'>"pm2.5"</span>,
-<span class='kw'>statistic</span> <span class='kw'>=</span> <span class='st'>"pscf"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"season"</span>)
-}</div></pre>
+<span class='fu'>trajLevel</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>lond</span>, <span class='va'>lat</span> <span class='op'>&gt;</span> <span class='fl'>40</span> <span class='op'>&amp;</span> <span class='va'>lat</span> <span class='op'>&lt;</span> <span class='fl'>70</span> <span class='op'>&amp;</span> <span class='va'>lon</span> <span class='op'>&gt;</span><span class='op'>-</span><span class='fl'>20</span> <span class='op'>&amp;</span> <span class='va'>lon</span> <span class='op'>&lt;</span><span class='fl'>20</span><span class='op'>)</span>, pollutant <span class='op'>=</span> <span class='st'>"pm2.5"</span>,
+statistic <span class='op'>=</span> <span class='st'>"pscf"</span>, type <span class='op'>=</span> <span class='st'>"season"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -436,7 +440,7 @@ College server and <code><a href='trajPlot.html'>trajPlot</a></code> for plottin
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -77,7 +77,7 @@ relationships are consistent with emissions inventories." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -124,20 +124,20 @@ function is particularly useful when considering whether
 relationships are consistent with emissions inventories.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>linearRelation</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"no2"</span>,
-  <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"month"</span>,
-  <span class='kw'>condition</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>20</span>,
-  <span class='kw'>rsq.thresh</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"slope from "</span>, <span class='no'>y</span>, <span class='st'>" = m."</span>, <span class='no'>x</span>, <span class='st'>" + c"</span>),
-  <span class='kw'>auto.text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='st'>"grey30"</span>,
-  <span class='kw'>date.breaks</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>linearRelation</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  x <span class='op'>=</span> <span class='st'>"nox"</span>,
+  y <span class='op'>=</span> <span class='st'>"no2"</span>,
+  period <span class='op'>=</span> <span class='st'>"month"</span>,
+  condition <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  n <span class='op'>=</span> <span class='fl'>20</span>,
+  rsq.thresh <span class='op'>=</span> <span class='fl'>0</span>,
+  ylab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"slope from "</span>, <span class='va'>y</span>, <span class='st'>" = m."</span>, <span class='va'>x</span>, <span class='st'>" + c"</span><span class='op'>)</span>,
+  auto.text <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  cols <span class='op'>=</span> <span class='st'>"grey30"</span>,
+  date.breaks <span class='op'>=</span> <span class='fl'>5</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -273,24 +273,31 @@ alternative.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='calcFno2.html'>calcFno2</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 
 <span class='co'># monthly relationship between NOx and SO2 - note rapid fall in</span>
 <span class='co'># ratio at the beginning of the series</span>
-<span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"so2"</span>)</div><div class='img'><img src='linearRelation-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># monthly relationship between NOx and SO2 - note rapid fall in</span>
+<span class='fu'>linearRelation</span><span class='op'>(</span><span class='va'>mydata</span>, x <span class='op'>=</span> <span class='st'>"nox"</span>, y <span class='op'>=</span> <span class='st'>"so2"</span><span class='op'>)</span>
+</div><div class='img'><img src='linearRelation-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># monthly relationship between NOx and SO2 - note rapid fall in</span>
 <span class='co'># ratio at the beginning of the series</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ox"</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>linearRelation</span><span class='op'>(</span><span class='va'>mydata</span>, x <span class='op'>=</span> <span class='st'>"nox"</span>, y <span class='op'>=</span> <span class='st'>"ox"</span><span class='op'>)</span>
 
 <span class='co'># diurnal oxidant slope by year # clear change in magnitude</span>
 <span class='co'># starting 2003, but the diurnal profile has also changed: the</span>
 <span class='co'># morning and evening peak hours are more important, presumably</span>
 <span class='co'># due to change in certain vehicle types</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"nox"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"ox"</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='st'>"hour"</span>, <span class='kw'>condition</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>linearRelation</span><span class='op'>(</span><span class='va'>mydata</span>, x <span class='op'>=</span> <span class='st'>"nox"</span>, y <span class='op'>=</span> <span class='st'>"ox"</span>, period <span class='op'>=</span> <span class='st'>"hour"</span>, condition <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># PM2.5/PM10 ratio, but only plot where monthly R2 &gt;= 0.8</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) <span class='fu'>linearRelation</span>(<span class='no'>mydata</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"pm10"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"pm25"</span>, <span class='kw'>rsq.thresh</span> <span class='kw'>=</span> <span class='fl'>0.8</span>)</div></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>linearRelation</span><span class='op'>(</span><span class='va'>mydata</span>, x <span class='op'>=</span> <span class='st'>"pm10"</span>, y <span class='op'>=</span> <span class='st'>"pm25"</span>, rsq.thresh <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -306,7 +313,7 @@ alternative.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

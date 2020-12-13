@@ -73,7 +73,7 @@ before sending to a function" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7-6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
       </span>
     </div>
 
@@ -116,15 +116,15 @@ before sending to a function" />
 before sending to a function</p>
     </div>
 
-    <pre class="usage"><span class='fu'>selectByDate</span>(
-  <span class='no'>mydata</span>,
-  <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1/1/2008"</span>,
-  <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"31/12/2008"</span>,
-  <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2008</span>,
-  <span class='kw'>month</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>day</span> <span class='kw'>=</span> <span class='st'>"weekday"</span>,
-  <span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>1</span>
-)</pre>
+    <pre class="usage"><span class='fu'>selectByDate</span><span class='op'>(</span>
+  <span class='va'>mydata</span>,
+  start <span class='op'>=</span> <span class='st'>"1/1/2008"</span>,
+  end <span class='op'>=</span> <span class='st'>"31/12/2008"</span>,
+  year <span class='op'>=</span> <span class='fl'>2008</span>,
+  month <span class='op'>=</span> <span class='fl'>1</span>,
+  day <span class='op'>=</span> <span class='st'>"weekday"</span>,
+  hour <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,12 +184,16 @@ be in standard R format as a string i.e. "YYYY-mm-dd", so <code>start =
 "1999-01-01"</code> is fine.</p>
 <p>All options are applied in turn making it possible to select quite complex
 dates</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## select all of 1999</span>
-<span class='no'>data.1999</span> <span class='kw'>&lt;-</span> <span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1/1/1999"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"31/12/1999"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 10</span><span>
+<span class='va'>data.1999</span> <span class='op'>&lt;-</span> <span class='fu'>selectByDate</span><span class='op'>(</span><span class='va'>mydata</span>, start <span class='op'>=</span> <span class='st'>"1/1/1999"</span>, end <span class='op'>=</span> <span class='st'>"31/12/1999"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>data.1999</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 10</span><span>
 #&gt;   date                   ws    wd   nox   no2    o3  pm10   so2    co  pm25
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 1999-01-01 </span><span style='color: #555555;'>00:00:00</span><span>  5.04   140    88    35     4    21  3.84 1.02     18
@@ -197,7 +201,8 @@ dates</p>
 #&gt; </span><span style='color: #555555;'>3</span><span> 1999-01-01 </span><span style='color: #555555;'>02:00:00</span><span>  4.8    160   168    40     4    17  6.51 2.87      8
 #&gt; </span><span style='color: #555555;'>4</span><span> 1999-01-01 </span><span style='color: #555555;'>03:00:00</span><span>  4.92   150    85    36     3    15  4.18 1.62     10
 #&gt; </span><span style='color: #555555;'>5</span><span> 1999-01-01 </span><span style='color: #555555;'>04:00:00</span><span>  4.68   150    93    37     3    16  4.25 1.02     11
-#&gt; </span><span style='color: #555555;'>6</span><span> 1999-01-01 </span><span style='color: #555555;'>05:00:00</span><span>  3.96   160    74    29     5    14  3.88 0.725    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='no'>data.1999</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 10</span><span>
+#&gt; </span><span style='color: #555555;'>6</span><span> 1999-01-01 </span><span style='color: #555555;'>05:00:00</span><span>  3.96   160    74    29     5    14  3.88 0.725    </span><span style='color: #BB0000;'>NA</span><span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>data.1999</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 6 x 10</span><span>
 #&gt;   date                   ws    wd   nox   no2    o3  pm10   so2    co  pm25
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> 1999-12-31 </span><span style='color: #555555;'>18:00:00</span><span>  4.68   190   226    39    </span><span style='color: #BB0000;'>NA</span><span>    29  5.46  2.38    23
@@ -207,18 +212,20 @@ dates</p>
 #&gt; </span><span style='color: #555555;'>5</span><span> 1999-12-31 </span><span style='color: #555555;'>22:00:00</span><span>  4.08   200   217    41    </span><span style='color: #BB0000;'>NA</span><span>    31  4.79  2.17    26
 #&gt; </span><span style='color: #555555;'>6</span><span> 1999-12-31 </span><span style='color: #555555;'>23:00:00</span><span>  3.24   200   181    37    </span><span style='color: #BB0000;'>NA</span><span>    28  3.48  1.78    22</div><div class='input'>
 <span class='co'># or...</span>
-<span class='no'>data.1999</span> <span class='kw'>&lt;-</span> <span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"1999-01-01"</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='st'>"1999-12-31"</span>)
+<span class='va'>data.1999</span> <span class='op'>&lt;-</span> <span class='fu'>selectByDate</span><span class='op'>(</span><span class='va'>mydata</span>, start <span class='op'>=</span> <span class='st'>"1999-01-01"</span>, end <span class='op'>=</span> <span class='st'>"1999-12-31"</span><span class='op'>)</span>
 
 <span class='co'># easier way</span>
-<span class='no'>data.1999</span> <span class='kw'>&lt;-</span> <span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>1999</span>)
+<span class='va'>data.1999</span> <span class='op'>&lt;-</span> <span class='fu'>selectByDate</span><span class='op'>(</span><span class='va'>mydata</span>, year <span class='op'>=</span> <span class='fl'>1999</span><span class='op'>)</span>
 
 
 <span class='co'># more complex use: select weekdays between the hours of 7 am to 7 pm</span>
-<span class='no'>sub.data</span> <span class='kw'>&lt;-</span> <span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>day</span> <span class='kw'>=</span> <span class='st'>"weekday"</span>, <span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>7</span>:<span class='fl'>19</span>)
+<span class='va'>sub.data</span> <span class='op'>&lt;-</span> <span class='fu'>selectByDate</span><span class='op'>(</span><span class='va'>mydata</span>, day <span class='op'>=</span> <span class='st'>"weekday"</span>, hour <span class='op'>=</span> <span class='fl'>7</span><span class='op'>:</span><span class='fl'>19</span><span class='op'>)</span>
 
 <span class='co'># select weekends between the hours of 7 am to 7 pm in winter (Dec, Jan, Feb)</span>
-<span class='no'>sub.data</span> <span class='kw'>&lt;-</span> <span class='fu'>selectByDate</span>(<span class='no'>mydata</span>, <span class='kw'>day</span> <span class='kw'>=</span> <span class='st'>"weekend"</span>, <span class='kw'>hour</span> <span class='kw'>=</span> <span class='fl'>7</span>:<span class='fl'>19</span>, <span class='kw'>month</span> <span class='kw'>=</span>
-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dec"</span>, <span class='st'>"jan"</span>, <span class='st'>"feb"</span>))</div></span></pre>
+<span class='va'>sub.data</span> <span class='op'>&lt;-</span> <span class='fu'>selectByDate</span><span class='op'>(</span><span class='va'>mydata</span>, day <span class='op'>=</span> <span class='st'>"weekend"</span>, hour <span class='op'>=</span> <span class='fl'>7</span><span class='op'>:</span><span class='fl'>19</span>, month <span class='op'>=</span>
+<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dec"</span>, <span class='st'>"jan"</span>, <span class='st'>"feb"</span><span class='op'>)</span><span class='op'>)</span>
+
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -234,7 +241,7 @@ dates</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
