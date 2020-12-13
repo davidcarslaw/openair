@@ -11,3 +11,4 @@ NEWS\.md
 README_files
 README_cache
 ^README\.Rmd$
+^\.github$
