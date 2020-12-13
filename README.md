@@ -10,6 +10,7 @@ For the main **openair** website, see
 <https://davidcarslaw.github.io/openair/>.
 
 [![R-CMD-check](https://github.com/davidcarslaw/openair/workflows/R-CMD-check/badge.svg)](https://github.com/davidcarslaw/openair/actions)
+![](http://cranlogs.r-pkg.org/badges/grand-total/openair)
 
 <img src="inst/plume.png" alt="openair logo" width="35%" />
 
