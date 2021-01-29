@@ -104,6 +104,10 @@ aqStats <- function(mydata, pollutant = "no2",
 
   # variables we need
   vars <- c("date", pollutant, type)
+  
+  # some strange lubridate bug to do with time zones
+  if ("POSIXct" %in% class(mydata$date))
+    mydata <- mutate(mydata, date = ymd_hms(date))
 
   # cut data by type
   mydata <- cutData(mydata, type)
@@ -408,6 +412,6 @@ AOT40 <- function(mydata, pollutant, ...) {
   mydata <- subset(mydata, daylight == "daylight")
   AOT40 <- ifelse(mydata[[pollutant]] - 80 < 0, 0, mydata[[pollutant]] - 80)
   AOT40 <- sum(AOT40, na.rm = TRUE) * 0.50 ## for ppb
-  AOT40 <- data_frame(AOT40)
+  AOT40 <- tibble(AOT40)
   return(AOT40)
 }
