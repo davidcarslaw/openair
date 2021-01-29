@@ -419,7 +419,7 @@ one more label than date")
 ##' @param hour An hour or hours to select from 0-23 e.g. \code{hour = 0:12} to
 ##'   select hours 0 to 12 inclusive.
 ##' @importFrom lubridate dst year month hour wday force_tz day as_date dmy ymd_hm ymd
-##'   round_date parse_date_time floor_date ceiling_date
+##'   round_date parse_date_time floor_date ceiling_date ymd_hms
 ##' @export
 ##' @author David Carslaw
 ##' @keywords methods
