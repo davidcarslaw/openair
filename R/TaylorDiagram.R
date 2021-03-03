@@ -437,7 +437,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
   scales <- list(x = list(rot = 0), y = list(rot = 0))
 
-  pol.name <- sapply(levels(mydata[, group]), function(x) quickText(x, auto.text))
+  pol.name <- sapply(levels(mydata[[group]]), function(x) quickText(x, auto.text))
 
 
   if (key & npol > 1 & !combine) {
