@@ -253,7 +253,8 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       firstLine <- data.frame(date = as.POSIXct(start.date, tz = TZ))
 
       ## add in type
-      firstLine[[type]] <- mydata[[type]][1]
+      #firstLine[[type]] <- mydata[[type]][1]
+      firstLine[type] <- mydata[1, type]
       mydata <- bind_rows(firstLine, mydata)
 
       ## for cutting data must ensure it is in GMT because combining
