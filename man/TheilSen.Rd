@@ -295,8 +295,7 @@ Nederlandse Akademie Wetenschappen, Series A - Mathematical
 Sciences 53, 386-392, 521-525, 1397-1412.
 
 \dots{} see also several of the Air Quality Expert Group (AQEG) reports for
-  the use of similar tests applied to UK/European air quality data, see
-  \url{https://uk-air.defra.gov.uk/library/aqeg/}.
+  the use of similar tests applied to UK/European air quality data.
 }
 \seealso{
 See \code{\link{smoothTrend}} for a flexible approach to estimating
