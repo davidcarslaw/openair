@@ -4,6 +4,7 @@
 - add optimisation to `polarCluster` to speed up clustering through option `pamonce = 3`. This should not appreciably affect results.
 - fix strange bug in `aqStats` due to `lubridate` time zone issue.
 - fix bug in `TaylorDiagram` when group was present.
+- Do not convert times with Daylight Saving Time when checking data --- just report presence.
 
 ## openair 2.8-1
 
