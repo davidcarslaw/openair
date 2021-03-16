@@ -1117,8 +1117,21 @@ errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
 
   ## bootstrap mean difference confidence intervals
   ## rearrange data
+  
+  # it could be dates duplicate e.g. run function over several sites
+  
+  
+  if (anyDuplicated(mydata$date) > 0) {
+    
+    mydata$rowid <- 1:nrow(mydata)
+    
+  }
+  
+  mydata <- pivot_wider(mydata, id_cols = -value, 
+                        names_from = "variable", 
+                        values_from = "value")
+  
 
-  mydata <- spread(mydata, variable, value)
   if (vars == "hour") splits <- c("hour", type)
   if (vars == "day.hour") splits <- c("hour", "wkday", type)
   if (vars == "wkday") splits <- c("wkday", type)
