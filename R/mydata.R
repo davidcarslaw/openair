@@ -30,7 +30,7 @@
 ##'   should be GMT time zone. This can be hourly data or higher resolution
 ##'   data.
 ##' @source \code{mydata} was compiled from data archived in the London Air
-##'   Quality Archive.  See \url{http://www.londonair.org.uk} for site details.
+##'   Quality Archive.  See \url{https://www.londonair.org.uk} for site details.
 ##'
 ##' The same data is also provide in \code{'.csv'} format via the openair
 ##'   project web site \url{https://davidcarslaw.github.io/openair/}.

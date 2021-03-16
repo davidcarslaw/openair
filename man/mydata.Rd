@@ -22,7 +22,7 @@ Data frame with 65533 observations (rows) on the following 10
 }
 \source{
 \code{mydata} was compiled from data archived in the London Air
-  Quality Archive.  See \url{http://www.londonair.org.uk} for site details.
+  Quality Archive.  See \url{https://www.londonair.org.uk} for site details.
 
 The same data is also provide in \code{'.csv'} format via the openair
   project web site \url{https://davidcarslaw.github.io/openair/}.
