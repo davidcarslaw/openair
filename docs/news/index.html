@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-3</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -115,6 +115,9 @@
 <ul>
 <li>fix bug in <code>windRose</code> where whole period is calm</li>
 <li>add optimisation to <code>polarCluster</code> to speed up clustering through option <code>pamonce = 3</code>. This should not appreciably affect results.</li>
+<li>fix strange bug in <code>aqStats</code> due to <code>lubridate</code> time zone issue.</li>
+<li>fix bug in <code>TaylorDiagram</code> when group was present.</li>
+<li>Do not convert times with Daylight Saving Time when checking data — just report presence.</li>
 </ul>
 <div id="openair-28-1" class="section level2">
 <h2 class="hasAnchor">
