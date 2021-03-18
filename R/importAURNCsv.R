@@ -83,27 +83,8 @@
 ##' @keywords methods
 ##' @examples
 ##'
-##'
 ##' ##########
 ##' #example 1
-##' ##########
-##' #data obtained from email service:
-##' #http://www.airquality.co.uk/archive/data_selector.php
-##' #or
-##' #http://www.airquality.co.uk/archive/data_and_statistics.php?action=step_pre_1
-##' #example file "AirQualityDataHourly.csv" Brighton Roadside and Brighton Preston Park 2008.
-##'
-##' #import data as mydata
-##' ## mydata <- importAURN.csv("AirQualityDataHourly.csv")
-##'
-##' #read additional information retained by importAURN
-##' ## comment(mydata)
-##'
-##' #analysis data by site
-##' ## boxplot(nox ~ site, data = mydata)
-##'
-##' ##########
-##' #example 2
 ##' ##########
 ##' #example using data from url
 ##'
