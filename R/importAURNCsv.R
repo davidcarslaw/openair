@@ -96,7 +96,7 @@
 ##' ## summarise(otherdata)
 ##'
 ##' ##########
-##' #example 3
+##' #example 2
 ##' ##########
 ##' #example of importing other similar data formats
 ##'
