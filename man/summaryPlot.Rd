@@ -15,6 +15,7 @@ summaryPlot(
   avg.time = "day",
   print.datacap = TRUE,
   breaks = NULL,
+  plot.type = "l",
   col.trend = "darkgoldenrod2",
   col.data = "lightblue",
   col.mis = rgb(0.65, 0.04, 0.07),
@@ -72,6 +73,10 @@ space. For example, a timeAverage of 2 months would be
 \item{breaks}{Number of histogram bins. Sometime useful but not
 easy to set a single value for a range of very different
 variables.}
+
+\item{plot.type}{The \code{lattice} plot type, which is a line
+(\code{plot.type = "l"}) by default. Another useful option is
+\code{plot.type = "h"}, which draws vertical lines.}
 
 \item{col.trend}{Colour to be used to show the monthly trend of
 the data, shown as a shaded region. Type \code{colors()} into R

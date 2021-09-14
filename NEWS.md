@@ -5,6 +5,7 @@
 - fix strange bug in `aqStats` due to `lubridate` time zone issue.
 - fix bug in `TaylorDiagram` when group was present.
 - Do not convert times with Daylight Saving Time when checking data --- just report presence.
+- add option `plot.type` to `summaryPlot` to change line style; most useful for vertical lines in time series with `plot.type = "h"`
 
 ## openair 2.8-1
 

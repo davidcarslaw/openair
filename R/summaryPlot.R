@@ -83,6 +83,9 @@
 ##' @param breaks Number of histogram bins. Sometime useful but not
 ##'   easy to set a single value for a range of very different
 ##'   variables.
+##' @param plot.type The \code{lattice} plot type, which is a line
+##'   (\code{plot.type = "l"}) by default. Another useful option is
+##'   \code{plot.type = "h"}, which draws vertical lines.
 ##' @param col.trend Colour to be used to show the monthly trend of
 ##'   the data, shown as a shaded region. Type \code{colors()} into R
 ##'   to see the full range of colour names.
@@ -151,6 +154,7 @@ summaryPlot <- function(mydata,
                         avg.time = "day",
                         print.datacap = TRUE,
                         breaks = NULL,
+                        plot.type = "l",
                         col.trend = "darkgoldenrod2",
                         col.data = "lightblue",
                         col.mis = rgb(0.65, 0.04, 0.07),
@@ -435,7 +439,7 @@ summaryPlot <- function(mydata,
 
       panel.xyplot(
         meanLine[[panelNo]]$date, meanLine[[panelNo]]$value,
-        type = "l",
+        type = plot.type,
         col = col.trend, ...
       )
 
