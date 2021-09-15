@@ -1,5 +1,7 @@
 # openair 2.8-99
 
+# openair 2.8-4
+
 - fix bug in `windRose` where whole period is calm
 - add optimisation to `polarCluster` to speed up clustering through option `pamonce = 3`. This should not appreciably affect results.
 - fix strange bug in `aqStats` due to `lubridate` time zone issue.
