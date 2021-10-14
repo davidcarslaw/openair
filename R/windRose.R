@@ -895,6 +895,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
             )
         }
         
+        
         if (annotate[1] == " ") {
           annotations_to_place <- 
             paste0(stat.lab2, " = ", dat$panel.fun[1])
@@ -907,6 +908,17 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                    dat$panel.fun[1], "\n",
                    annotate[2], " = ", dat$calm[1], stat.unit
             )
+        }
+        
+        # comparing two wind roses
+        if (diff) {
+          
+          annotate <- c("mean_ws" , "mean_wd")
+          annotations_to_place <- paste0(
+          mean_ws = paste("mean ws = ", round(as.numeric(dat$panel.fun[1]), 1)),
+          "\n",
+          mean_wd = paste("mean wd = ", round(dat$mean.wd[1], 1))
+          )
         }
         
         ltext(

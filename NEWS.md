@@ -1,5 +1,7 @@
 # openair 2.8-99
 
+- fix annotation bug when comparing two data sets in `windRose`
+
 # openair 2.8-4
 
 - fix bug in `windRose` where whole period is calm
