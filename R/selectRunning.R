@@ -15,13 +15,17 @@
 ##' periods of rainfall --- which could be important for particle
 ##' concentrations.
 ##'
-##' @param mydata A data frame with a \code{date} field and at least one
-##'   numeric \code{pollutant} field to analyse.
+##' @param mydata A data frame with a \code{date} field and at least one numeric
+##'   \code{pollutant} field to analyse.
 ##' @param pollutant Name of variable to process. Mandatory.
+##' @param critereon Condition to select run lengths e.g. \code{">"} with select
+##'   data more than \code{threshold}.
 ##' @param run.len Run length for extracting contiguous values of
 ##'   \code{pollutant} above the \code{threshold} value.
 ##' @param threshold The threshold value for \code{pollutant} above which data
 ##'   should be extracted.
+##' @param result A new column \code{critereon} is returned with string to
+##'   identity whether condition was met.
 ##' @export
 ##' @return Returns a data frame that meets the chosen criteria. See examples
 ##'   below.
@@ -38,8 +42,11 @@
 ##' ## conditions are dominated by low wind speeds, not
 ##' ## in-canyon recirculation
 ##' \dontrun{polarPlot(mydata, pollutant = "nox")}
-##'
-selectRunning <- function(mydata, pollutant = "nox", run.len = 5, threshold = 500) {
+##' 
+selectRunning <- function(mydata, pollutant = "nox", 
+                          critereon = ">",
+                          run.len = 5, threshold = 500,
+                          result = c("yes", "no")) {
 
   ## function to return indices of running values above a certain threshold
   ## make sure the time series is continuous in time with NO gaps
@@ -51,7 +58,8 @@ selectRunning <- function(mydata, pollutant = "nox", run.len = 5, threshold = 50
   thedata <- checkPrep(mydata, vars, type = "default", remove.calm = FALSE)
 
   x <- thedata[[pollutant]]
-  rle.seq <- rle(x > threshold)
+  my_formula <- paste("x", critereon, threshold)
+  rle.seq <- rle(eval(str2lang(my_formula)))
   cumsum.seq <- cumsum(rle.seq$lengths)
   myruns <- which(rle.seq$values == 1 & rle.seq$lengths >= run.len)
 
@@ -64,8 +72,13 @@ selectRunning <- function(mydata, pollutant = "nox", run.len = 5, threshold = 50
   if (nrow(res) > 0) {
     ids <- lapply(1:nrow(res), function(x) seq(res[x, 1], res[x, 2]))
     ids <- do.call(c, ids)
-    mydata[ids, ]
+    
+    mydata$criteron <- result[2]
+    mydata$criteron[ids] <- result[1]
+    return(mydata)
   } else {
     print("No conditions found that match criteria")
   }
+  
+
 }

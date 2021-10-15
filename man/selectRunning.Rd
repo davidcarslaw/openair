@@ -4,19 +4,32 @@
 \alias{selectRunning}
 \title{Function to extract run lengths greater than a threshold}
 \usage{
-selectRunning(mydata, pollutant = "nox", run.len = 5, threshold = 500)
+selectRunning(
+  mydata,
+  pollutant = "nox",
+  critereon = ">",
+  run.len = 5,
+  threshold = 500,
+  result = c("yes", "no")
+)
 }
 \arguments{
-\item{mydata}{A data frame with a \code{date} field and at least one
-numeric \code{pollutant} field to analyse.}
+\item{mydata}{A data frame with a \code{date} field and at least one numeric
+\code{pollutant} field to analyse.}
 
 \item{pollutant}{Name of variable to process. Mandatory.}
+
+\item{critereon}{Condition to select run lengths e.g. \code{">"} with select
+data more than \code{threshold}.}
 
 \item{run.len}{Run length for extracting contiguous values of
 \code{pollutant} above the \code{threshold} value.}
 
 \item{threshold}{The threshold value for \code{pollutant} above which data
 should be extracted.}
+
+\item{result}{A new column \code{critereon} is returned with string to
+identity whether condition was met.}
 }
 \value{
 Returns a data frame that meets the chosen criteria. See examples
