@@ -77,7 +77,10 @@ selectRunning <- function(mydata, pollutant = "nox",
     mydata$criteron[ids] <- result[1]
     return(mydata)
   } else {
-    print("No conditions found that match criteria")
+    
+    mydata$criteron <- result[2]
+    return(mydata)
+    
   }
   
 
