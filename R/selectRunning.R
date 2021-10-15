@@ -41,7 +41,7 @@
 ##' ## make a polar plot of those conditions...shows that those
 ##' ## conditions are dominated by low wind speeds, not
 ##' ## in-canyon recirculation
-##' \dontrun{polarPlot(mydata, pollutant = "nox")}
+##' \dontrun{polarPlot(mydata, pollutant = "nox", type = "criteron")}
 ##' 
 selectRunning <- function(mydata, pollutant = "nox", 
                           critereon = ">",
