@@ -477,6 +477,10 @@ polarPlot <-
     if (statistic %in% correlation_stats && length(pollutant) != 2) {
       stop("Correlation statistic requires two pollutants.")
     }
+    
+    # if statistic is trend, then don't force to be positive
+    if (statistic == "trend")
+      force.positive <- FALSE
 
     # names of variables for use later
     nam.x <- x
