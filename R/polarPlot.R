@@ -1223,6 +1223,9 @@ simple_kernel_trend <- function(data, mydata, x = "ws",
   # quantreg is a Suggests package, so make sure it is there
   try_require("quantreg", "polarPlot")
   
+  # don't fit all data - takes too long with no gain
+  mydata <- filter(mydata, weights > 0.00001)
+  
   # Drop dplyr's data frame for formula
   mydata <- data.frame(mydata)
   
@@ -1263,7 +1266,7 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   mydata$ws.scale <- (mydata[[x]] - ws1) / (max(mydata[[x]]) - min(mydata[[x]]))
 
   # Apply kernel smoother
-  mydata$ws.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$ws.scale / (ws_spread / (max(mydata[[x]]) - min(mydata[[x]]))))^2)
+  mydata$ws.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * (mydata$ws.scale / (ws_spread / (max(mydata[[x]]) - min(mydata[[x]]))))^2)
 
   # Scale wd
   mydata$wd.scale <- mydata[[y]] - wd1
@@ -1276,7 +1279,7 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   mydata$wd.scale <- mydata$wd.scale * 2 * pi / 360
 
   # Apply kernel smoother
-  mydata$wd.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$wd.scale / (2 * pi * wd_spread / 360))^2)
+  mydata$wd.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * (mydata$wd.scale / (2 * pi * wd_spread / 360))^2)
 
   # Final weighting multiplies two kernels for ws and wd
   mydata$weight <- mydata$ws.scale * mydata$wd.scale
@@ -1289,7 +1292,7 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   thedata <- thedata[complete.cases(thedata), ]
 
   # don't fit all data - takes too long with no gain
-  thedata <- filter(thedata, weight > 0.001)
+  thedata <- filter(thedata, weight > 0.00001)
 
   # useful for showing what the weighting looks like as a surface
   # openair::scatterPlot(mydata, x = "ws", y = "wd", z = "weight", method = "level")
