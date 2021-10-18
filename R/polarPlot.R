@@ -471,7 +471,7 @@ polarPlot <-
     correlation_stats <- c(
       "r", "slope", "intercept", "robust_slope",
       "robust_intercept", "quantile_slope",
-      "quantile_intercept", "Pearson", "Spearman"
+      "quantile_intercept", "Pearson", "Spearman", "trend"
     )
 
     if (statistic %in% correlation_stats && length(pollutant) != 2) {
@@ -768,6 +768,18 @@ polarPlot <-
           ))
 
         binned <- binned$conc
+        
+      } else if (toupper(statistic) == "TREND") {
+        binned <- rowwise(ws.wd) %>%
+          do(simple_kernel_trend(
+            ., mydata,
+            x = nam.x, y = nam.wd, pollutant = pollutant, "date",
+            ws_spread = ws_spread, wd_spread = wd_spread, kernel,
+            tau = tau
+          ))
+        
+        binned <- binned$conc  
+        
       } else {
         binned <- rowwise(ws.wd) %>%
           do(calculate_weighted_statistics(
@@ -934,6 +946,14 @@ polarPlot <-
       id <- which(res$z < -1)
       if (length(id) > 0) res$z[id] <- -1
     }
+    
+    # annotation for trend statistic
+    if (statistic == "trend") {
+      if (missing(key.footer)) {
+        key.footer <- paste0(pollutant[1], " / year")
+      }
+    }
+    
 
     # Labels for correlation and regression, keep lower case like other labels
     if (statistic %in% c("r", "Pearson")) key.header <- expression(italic("Pearson\ncorrelation"))
@@ -1168,6 +1188,65 @@ simple_kernel <- function(data, mydata, x = "ws",
     (sum(mydata$wd.scale * mydata$ws.scale))
 
   return(data.frame(conc = conc))
+}
+
+# function to to kernel weighting of a quantile regression trend
+simple_kernel_trend <- function(data, mydata, x = "ws",
+                          y = "wd", pollutant, date,
+                          ws_spread, wd_spread, kernel, tau) {
+  # Centres
+  ws1 <- data[[1]]
+  wd1 <- data[[2]]
+  
+  # Gaussian kernel for wd
+  
+  # Scale wd
+  mydata$wd.scale <- mydata[[y]] - wd1
+  
+  # get correct angular distance
+  mydata$wd.scale <- (mydata$wd.scale + 180) %% 360 - 180
+  
+  # Scale with kernel
+  mydata$wd.scale <- mydata$wd.scale * 2 * pi / 360
+  
+  # Scale with kernel
+  mydata$wd.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$wd.scale / (2 * pi * wd_spread / 360))^2)
+  
+  # Scale ws
+  mydata$ws.scale <- (mydata[[x]] - ws1) / (max(mydata[[x]]) - min(mydata[[x]]))
+  
+  # Apply kernel smoother
+  mydata$ws.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$ws.scale / (ws_spread / (max(mydata[[x]]) - min(mydata[[x]]))))^2)
+  
+  mydata$weights <- mydata$wd.scale * mydata$ws.scale
+  
+  # quantreg is a Suggests package, so make sure it is there
+  try_require("quantreg", "polarPlot")
+  
+  # Drop dplyr's data frame for formula
+  mydata <- data.frame(mydata)
+  
+  # Build model
+  suppressWarnings(
+    fit <- try(quantreg::rq(
+      mydata[[pollutant[1]]] ~ mydata[[date]],
+      tau = tau,
+      weights = mydata[["weights"]], method = "fn"
+    ), TRUE)
+  )
+  
+  # Extract statistics
+  if (!inherits(fit, "try-error")) {
+    
+    # Extract statistics
+    slope = 365.25 * 24 * 3600 * fit$coefficients[2]
+    
+  } else {
+    slope <-  NA
+  }
+  
+  
+  return(data.frame(conc = slope))
 }
 
 
