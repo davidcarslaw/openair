@@ -8,5 +8,5 @@
                            "lat", "lon", "traj_len", "wkday", "date_end",
                            "validity", "process", "parameter", "date_start",
                            "site", "where", "ratified_to", "site_type", "start_date",
-                           "u", "v", "period", "z", "wd", "cluster", ".id"))
+                           "u", "v", "period", "z", "wd", "cluster", ".id", "weights"))
 }
