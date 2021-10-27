@@ -70,8 +70,19 @@
 ##' @param year Year or years to import. To import a sequence of years from 1990
 ##'   to 2000 use \code{year = 1990:2000}. To import several specific years use
 ##'   \code{year = c(1990, 1995, 2000)} for example.
+##' @param data_type For Data from the UK AURN, many different sources of data
+##'   are available. These include:
+##'   
+##'  \itemize{
+##'  \item{"hourly"}{Default is to return hourly data.}
+##'  \item{"daily"}{Daily average data.}
+##'  \item{"monthly"}{Monthly average data.}
+##'  \item{"annual"}{Annual average data with data capture information.}
+##'  \item{"15min"}{To import 15-minute average SO2 concentrations.}
+##'  \item{"NAMN"}{Data from the National Ammonia Monitoring Network (NAMN). See \url{https://uk-air.defra.gov.uk/networks/network-info?view=nh3}}
+##' }
 ##' @param pollutant Pollutants to import. If omitted will import all pollutants
-##'   ffrom a site. To import only NOx and NO2 for example use \code{pollutant =
+##'   from a site. To import only NOx and NO2 for example use \code{pollutant =
 ##'   c("nox", "no2")}.
 ##' @param hc A few sites have hydrocarbon measurements available and setting
 ##'   \code{hc = TRUE} will ensure hydrocarbon data are imported. The default is
@@ -108,16 +119,91 @@
 ##' # Other functions work in the same way e.g. to import Cardiff Centre data:
 ##'
 ##' \dontrun{cardiff <- importWAQN(site = "card", year = 2020)}
-importAURN <- function(site = "my1", year = 2009, pollutant = "all",
+importAURN <- function(site = "my1", year = 2009, 
+                       data_type = "hourly", pollutant = "all",
                        hc = FALSE, meta = FALSE, ratified = FALSE,
                        to_narrow = FALSE, verbose = FALSE) {
+  
+  if (!data_type %in% c("hourly", "daily", "15min", "monthly", "annual")) {
+    
+    warning("data_type should be one of 'hourly', 'daily', 'monthly', 'annual'")
+    data_type <- "hourly"
+    
+  }
+  
+  
+  if (data_type %in% c("annual", "monthly")) {
+    
+    files <- paste0("https://uk-air.defra.gov.uk/openair/R_data/summary_", 
+                    data_type, "_AURN_", year, ".rds")
+    
+   
+    aq_data <- map_df(files, readSummaryAURN, data_type = data_type, to_narrow = to_narrow)
+    
+    
+  } else {
 
-  aq_data <- importUKAQ(site, year, pollutant,
+  aq_data <- importUKAQ(site, year, 
+                        data_type,
+                        pollutant,
                         hc, meta, ratified,
                         to_narrow, verbose, 
                         source = "aurn")  
   
+  }
+  
   return(aq_data)
   
 
+}
+
+# function to read annual or monthly files
+
+readSummaryAURN <- function(fileName, data_type, to_narrow) {
+  
+ 
+  thedata <- try(readRDS(url(fileName)), TRUE)
+  
+  if (inherits(thedata, "try-error")) 
+    return()
+  
+  thedata <- rename(thedata, 
+                    nox = NOXasNO2.mean,
+                    nox_capture = NOXasNO2.capture)
+  names(thedata) <- tolower(names(thedata))
+  names(thedata) <- gsub(".mean", "", names(thedata))
+  names(thedata) <- gsub(".capture", "_capture", names(thedata))
+  
+  if (data_type == "monthly") {
+    
+    thedata <- mutate(thedata, date = ymd(date, tz = "UTC"))
+  }
+  
+  if (data_type == "annual") {
+    
+    thedata <- rename(thedata, date = year)
+    thedata <- mutate(thedata, date = ymd(paste0(date, "01-01"), tz = "UTC"))
+    
+  }
+  
+  if (to_narrow) {
+    
+    values <- select(thedata, !contains("capture"))
+    capture <- select(thedata, contains("capture") | date:site)
+    
+    values <- pivot_longer(values, -c(date, uka_code, code, site), 
+                           values_to = "value", names_to = "species")
+    
+    capture <- pivot_longer(capture, -c(date, uka_code, code, site), 
+                            values_to = "data_capture", names_to = "species")
+    
+    capture$species <- gsub("_capture", "", capture$species)
+    
+    thedata <- left_join(values, capture, 
+                         by = c("date", "uka_code", "code", "site", "species"))
+    
+  }
+    
+    
+  return(thedata)
 }

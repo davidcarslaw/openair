@@ -1,4 +1,5 @@
-importUKAQ <- function(site = "my1", year = 2009, pollutant = "all",
+importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
+                       pollutant = "all",
                        hc = FALSE, meta = FALSE, ratified = FALSE,
                        to_narrow = FALSE, verbose = FALSE,
                        source = "aurn") {
@@ -9,7 +10,7 @@ importUKAQ <- function(site = "my1", year = 2009, pollutant = "all",
   
   if (source == "aurn") {
     
-    url_data <- "https://uk-air.defra.gov.uk/openair/R_data/"
+    url_data <- "https://uk-air.defra.gov.uk/openair/R_data/new/"
     source_meta <- "aurn"
     
   } 
@@ -50,12 +51,21 @@ importUKAQ <- function(site = "my1", year = 2009, pollutant = "all",
     meta_data <- importMeta(source = source_meta, all = TRUE)
   
   # Create file name vector
+  if (data_type %in% c("annual", "monthly")) {
+    
+  } else {
+  
   files <- map(site, ~ paste0(.x, "_", year)) %>% 
     flatten_chr()
   
-  # Download and load data
-  thedata <- map_df(files, ~ loadData(.x, verbose, ratified, meta_data, url_data))
+  }
   
+  # Download and load data. 
+    
+    thedata <- map_df(files, ~ loadData(.x, verbose, ratified, meta_data, 
+                                        url_data, data_type))
+    
+   
   # Return if no data
   if (nrow(thedata) == 0) return() ## no data
   
@@ -122,13 +132,15 @@ importUKAQ <- function(site = "my1", year = 2009, pollutant = "all",
     
     if (meta) {
       
-      thedata <- pivot_longer(thedata, -c(date, site, code, latitude, longitude, site_type), 
+      thedata <- pivot_longer(thedata, -c(date, site, code, latitude, 
+                                          longitude, site_type), 
                               names_to = "pollutant") %>% 
         arrange(site, code, pollutant, date)
       
     } else {
       
-      thedata <- pivot_longer(thedata, -c(date, site, code), names_to = "pollutant") %>% 
+      thedata <- pivot_longer(thedata, -c(date, site, code), 
+                              names_to = "pollutant") %>% 
         arrange(site, code, pollutant, date)
       
     }
@@ -141,7 +153,7 @@ importUKAQ <- function(site = "my1", year = 2009, pollutant = "all",
 
 # Define downloading and loading function
 # No export
-loadData <- function(x, verbose, ratified, meta_data, url_data) {
+loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
   tryCatch({
     
     # Download file to temp directory
@@ -166,11 +178,21 @@ loadData <- function(x, verbose, ratified, meta_data, url_data) {
     # Load the rdata object
     load(tmp)
     
+    if (data_type == "hourly")
+      x <- x
+    
+    if (data_type == "15min")
+      x <- paste0(x, "_15min")
+    
+    if (data_type == "daily")
+      x <- paste0(x, "_daily_mean")
+    
+    
     # Reasign
     dat <- get(x)
     
     # add ratification information
-    if (ratified) {
+    if (ratified && data_type == "hourly") {
       
       site_code <- strsplit(x, split = "_")[[1]][1]
       
