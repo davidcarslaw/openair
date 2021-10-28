@@ -74,12 +74,12 @@
 ##'   are available. These include:
 ##'   
 ##'  \itemize{
-##'  \item{"hourly"}{Default is to return hourly data.}
-##'  \item{"daily"}{Daily average data.}
-##'  \item{"monthly"}{Monthly average data.}
-##'  \item{"annual"}{Annual average data with data capture information.}
-##'  \item{"15min"}{To import 15-minute average SO2 concentrations.}
-##'  \item{"NAMN"}{Data from the National Ammonia Monitoring Network (NAMN). See \url{https://uk-air.defra.gov.uk/networks/network-info?view=nh3}}
+##'  \item{"hourly"}{ Default is to return hourly data.}
+##'  \item{"daily"}{ Daily average data.}
+##'  \item{"monthly"}{ Monthly average data.}
+##'  \item{"annual"}{ Annual average data with data capture information.}
+##'  \item{"15min"}{ To import 15-minute average SO2 concentrations.}
+##
 ##' }
 ##' @param pollutant Pollutants to import. If omitted will import all pollutants
 ##'   from a site. To import only NOx and NO2 for example use \code{pollutant =

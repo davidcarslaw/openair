@@ -21,6 +21,7 @@ importAQE(
 importAURN(
   site = "my1",
   year = 2009,
+  data_type = "hourly",
   pollutant = "all",
   hc = FALSE,
   meta = FALSE,
@@ -66,7 +67,7 @@ to 2000 use \code{year = 1990:2000}. To import several specific years use
 \code{year = c(1990, 1995, 2000)} for example.}
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
-ffrom a site. To import only NOx and NO2 for example use \code{pollutant =
+from a site. To import only NOx and NO2 for example use \code{pollutant =
 c("nox", "no2")}.}
 
 \item{meta}{Should meta data be returned? If \code{TRUE} the site type,
@@ -78,6 +79,17 @@ species was ratified i.e. quality-checked.}
 \item{to_narrow}{By default the returned data has a column for each
 pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 a narrow format with a column identifying the pollutant name.}
+
+\item{data_type}{For Data from the UK AURN, many different sources of data
+  are available. These include:
+  
+ \itemize{
+ \item{"hourly"}{ Default is to return hourly data.}
+ \item{"daily"}{ Daily average data.}
+ \item{"monthly"}{ Monthly average data.}
+ \item{"annual"}{ Annual average data with data capture information.}
+ \item{"15min"}{ To import 15-minute average SO2 concentrations.}
+}}
 
 \item{hc}{A few sites have hydrocarbon measurements available and setting
 \code{hc = TRUE} will ensure hydrocarbon data are imported. The default is
