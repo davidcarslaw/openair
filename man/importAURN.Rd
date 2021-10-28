@@ -86,7 +86,7 @@ a narrow format with a column identifying the pollutant name.}
  \itemize{
  \item{"hourly"}{ Default is to return hourly data.}
  \item{"daily"}{ Daily average data.}
- \item{"monthly"}{ Monthly average data.}
+ \item{"monthly"}{ Monthly average data with data capture information.}
  \item{"annual"}{ Annual average data with data capture information.}
  \item{"15min"}{ To import 15-minute average SO2 concentrations.}
 }}
