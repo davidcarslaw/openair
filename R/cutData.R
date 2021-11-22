@@ -334,7 +334,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
       # this cuts data to ensure that a season spans two years to keep it together
       # For example, winter 2015 is considered  Dec. 2014 and Jan. Feb, 2015
 
-      x <- cutData(x, type = "season")
+      x <- cutData(x, type = "season", hemisphere = hemisphere)
       ## remove any missing seasons e.g. through type = "season"
       x <- x[!is.na(x$season), ]
 
