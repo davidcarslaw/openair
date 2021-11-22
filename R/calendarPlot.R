@@ -226,6 +226,10 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   if (!missing(year)) {
     mydata <- selectByDate(mydata, year = year)
   }
+  
+  if (!missing(month)) {
+    mydata <- selectByDate(mydata, month = month)
+  }
 
   # mydata <- selectByDate(mydata, year = year)
   if (nrow(mydata) == 0) stop("No data to plot - check year chosen")
