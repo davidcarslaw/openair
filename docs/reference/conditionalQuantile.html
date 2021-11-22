@@ -74,7 +74,7 @@ understand forecast predictions and how well they agree with observations." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-6</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@ understand forecast predictions and how well they agree with observations." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -280,35 +280,36 @@ Geophysics), 2nd Edition. Academic Press.</p>
     <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-
-<span class='co'># load example data from package</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
-
-<span class='co'>## make some dummy prediction data based on 'nox'</span>
-<span class='va'>mydata</span><span class='op'>$</span><span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='va'>mydata</span><span class='op'>$</span><span class='va'>nox</span><span class='op'>*</span><span class='fl'>1.1</span> <span class='op'>+</span> <span class='va'>mydata</span><span class='op'>$</span><span class='va'>nox</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># basic conditional quantile plot</span>
-<span class='co'>## A "perfect" model is shown by the blue line</span>
-<span class='co'>## predictions tend to be increasingly positively biased at high nox,</span>
-<span class='co'>## shown by departure of median line from the blue one.</span>
-<span class='co'>## The widening uncertainty bands with increasing NOx shows that</span>
-<span class='co'>## hourly predictions are worse for higher NOx concentrations.</span>
-<span class='co'>## Also, the red (median) line extends beyond the data (blue line),</span>
-<span class='co'>## which shows in this case some predictions are much higher than</span>
-<span class='co'>## the corresponding measurements. Note that the uncertainty bands</span>
-<span class='co'>## do not extend as far as the median line because there is insufficient</span>
-<span class='co'># to calculate them</span>
-<span class='fu'>conditionalQuantile</span><span class='op'>(</span><span class='va'>mydata</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span>, mod <span class='op'>=</span> <span class='st'>"mod"</span><span class='op'>)</span>
-</div><div class='img'><img src='conditionalQuantile-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## can split by season to show seasonal performance (not very</span>
-<span class='co'>## enlightening in this case - try some real data and it will be!)</span>
-
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>conditionalQuantile</span><span class='op'>(</span><span class='va'>mydata</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span>, mod <span class='op'>=</span> <span class='st'>"mod"</span>, type <span class='op'>=</span> <span class='st'>"season"</span><span class='op'>)</span>
-
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># load example data from package</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## make some dummy prediction data based on 'nox'</span></span>
+<span class='r-in'><span class='va'>mydata</span><span class='op'>$</span><span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='va'>mydata</span><span class='op'>$</span><span class='va'>nox</span><span class='op'>*</span><span class='fl'>1.1</span> <span class='op'>+</span> <span class='va'>mydata</span><span class='op'>$</span><span class='va'>nox</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># basic conditional quantile plot</span></span>
+<span class='r-in'><span class='co'>## A "perfect" model is shown by the blue line</span></span>
+<span class='r-in'><span class='co'>## predictions tend to be increasingly positively biased at high nox,</span></span>
+<span class='r-in'><span class='co'>## shown by departure of median line from the blue one.</span></span>
+<span class='r-in'><span class='co'>## The widening uncertainty bands with increasing NOx shows that</span></span>
+<span class='r-in'><span class='co'>## hourly predictions are worse for higher NOx concentrations.</span></span>
+<span class='r-in'><span class='co'>## Also, the red (median) line extends beyond the data (blue line),</span></span>
+<span class='r-in'><span class='co'>## which shows in this case some predictions are much higher than</span></span>
+<span class='r-in'><span class='co'>## the corresponding measurements. Note that the uncertainty bands</span></span>
+<span class='r-in'><span class='co'>## do not extend as far as the median line because there is insufficient</span></span>
+<span class='r-in'><span class='co'># to calculate them</span></span>
+<span class='r-in'><span class='fu'>conditionalQuantile</span><span class='op'>(</span><span class='va'>mydata</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span>, mod <span class='op'>=</span> <span class='st'>"mod"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='conditionalQuantile-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## can split by season to show seasonal performance (not very</span></span>
+<span class='r-in'><span class='co'>## enlightening in this case - try some real data and it will be!)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>conditionalQuantile</span><span class='op'>(</span><span class='va'>mydata</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span>, mod <span class='op'>=</span> <span class='st'>"mod"</span>, type <span class='op'>=</span> <span class='st'>"season"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

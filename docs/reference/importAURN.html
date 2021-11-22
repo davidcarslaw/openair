@@ -75,7 +75,7 @@ files as R data objects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-6</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@ files as R data objects." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,6 +132,7 @@ files as R data objects.</p>
 <span class='fu'>importAURN</span><span class='op'>(</span>
   site <span class='op'>=</span> <span class='st'>"my1"</span>,
   year <span class='op'>=</span> <span class='fl'>2009</span>,
+  data_type <span class='op'>=</span> <span class='st'>"hourly"</span>,
   pollutant <span class='op'>=</span> <span class='st'>"all"</span>,
   hc <span class='op'>=</span> <span class='cn'>FALSE</span>,
   meta <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -185,7 +186,7 @@ to 2000 use <code>year = 1990:2000</code>. To import several specific years use
     <tr>
       <th>pollutant</th>
       <td><p>Pollutants to import. If omitted will import all pollutants
-ffrom a site. To import only NOx and NO2 for example use <code>pollutant =
+from a site. To import only NOx and NO2 for example use <code>pollutant =
 c("nox", "no2")</code>.</p></td>
     </tr>
     <tr>
@@ -203,6 +204,18 @@ species was ratified i.e. quality-checked.</p></td>
       <td><p>By default the returned data has a column for each
 pollutant/variable. When <code>to_narrow = TRUE</code> the data are stacked into
 a narrow format with a column identifying the pollutant name.</p></td>
+    </tr>
+    <tr>
+      <th>data_type</th>
+      <td><p>For Data from the UK AURN, many different sources of data
+  are available. These include:</p>  
+<p></p><ul>
+<li><p>"hourly" Default is to return hourly data.</p></li>
+<li><p>"daily" Daily average data.</p></li>
+<li><p>"monthly" Monthly average data with data capture information.</p></li>
+<li><p>"annual" Annual average data with data capture information.</p></li>
+<li><p>"15min" To import 15-minute average SO2 concentrations.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>hc</th>
@@ -291,19 +304,19 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.</p>
     <p>David Carslaw and Trevor Davies</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-
-<span class='co'>## import all pollutants from Marylebone Rd from 1990:2009</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>mary</span> <span class='op'>&lt;-</span> <span class='fu'>importAURN</span><span class='op'>(</span>site <span class='op'>=</span> <span class='st'>"my1"</span>, year <span class='op'>=</span> <span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2009</span><span class='op'>)</span>
-
-<span class='co'>## import nox, no2, o3 from Marylebone Road and Nottingham Centre for 2000</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>thedata</span> <span class='op'>&lt;-</span> <span class='fu'>importAURN</span><span class='op'>(</span>site <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"my1"</span>, <span class='st'>"nott"</span><span class='op'>)</span>, year <span class='op'>=</span> <span class='fl'>2000</span>,
-pollutant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nox"</span>, <span class='st'>"no2"</span>, <span class='st'>"o3"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># Other functions work in the same way e.g. to import Cardiff Centre data:</span>
-
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>cardiff</span> <span class='op'>&lt;-</span> <span class='fu'>importWAQN</span><span class='op'>(</span>site <span class='op'>=</span> <span class='st'>"card"</span>, year <span class='op'>=</span> <span class='fl'>2020</span><span class='op'>)</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## import all pollutants from Marylebone Rd from 1990:2009</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>mary</span> <span class='op'>&lt;-</span> <span class='fu'>importAURN</span><span class='op'>(</span>site <span class='op'>=</span> <span class='st'>"my1"</span>, year <span class='op'>=</span> <span class='fl'>2000</span><span class='op'>:</span><span class='fl'>2009</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## import nox, no2, o3 from Marylebone Road and Nottingham Centre for 2000</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>thedata</span> <span class='op'>&lt;-</span> <span class='fu'>importAURN</span><span class='op'>(</span>site <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"my1"</span>, <span class='st'>"nott"</span><span class='op'>)</span>, year <span class='op'>=</span> <span class='fl'>2000</span>,</span>
+<span class='r-in'>pollutant <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nox"</span>, <span class='st'>"no2"</span>, <span class='st'>"o3"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Other functions work in the same way e.g. to import Cardiff Centre data:</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>cardiff</span> <span class='op'>&lt;-</span> <span class='fu'>importWAQN</span><span class='op'>(</span>site <span class='op'>=</span> <span class='st'>"card"</span>, year <span class='op'>=</span> <span class='fl'>2020</span><span class='op'>)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

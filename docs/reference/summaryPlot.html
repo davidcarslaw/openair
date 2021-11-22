@@ -76,7 +76,7 @@ pollutant across many sites." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-6</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@ pollutant across many sites." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -133,6 +133,7 @@ pollutant across many sites.</p>
   avg.time <span class='op'>=</span> <span class='st'>"day"</span>,
   print.datacap <span class='op'>=</span> <span class='cn'>TRUE</span>,
   breaks <span class='op'>=</span> <span class='cn'>NULL</span>,
+  plot.type <span class='op'>=</span> <span class='st'>"l"</span>,
   col.trend <span class='op'>=</span> <span class='st'>"darkgoldenrod2"</span>,
   col.data <span class='op'>=</span> <span class='st'>"lightblue"</span>,
   col.mis <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></span><span class='op'>(</span><span class='fl'>0.65</span>, <span class='fl'>0.04</span>, <span class='fl'>0.07</span><span class='op'>)</span>,
@@ -212,6 +213,12 @@ space. For example, a timeAverage of 2 months would be
       <td><p>Number of histogram bins. Sometime useful but not
 easy to set a single value for a range of very different
 variables.</p></td>
+    </tr>
+    <tr>
+      <th>plot.type</th>
+      <td><p>The <code>lattice</code> plot type, which is a line
+(<code>plot.type = "l"</code>) by default. Another useful option is
+<code>plot.type = "h"</code>, which draws vertical lines.</p></td>
     </tr>
     <tr>
       <th>col.trend</th>
@@ -309,32 +316,32 @@ data are imported as expected.</b></p>
     <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-
-<span class='co'># load example data from package</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
-
-<span class='co'># do not clip density plot data</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, clip <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='co'># exclude highest 5 % of data etc.</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, percentile <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span>
-
-<span class='co'># show missing data where there are at least 96 contiguous missing</span>
-<span class='co'># values (4 days)</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, na.len <span class='op'>=</span> <span class='fl'>96</span><span class='op'>)</span>
-
-<span class='co'># show data in green</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, col.data <span class='op'>=</span> <span class='st'>"green"</span><span class='op'>)</span>
-
-<span class='co'># show missing data in yellow</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, col.mis <span class='op'>=</span> <span class='st'>"yellow"</span><span class='op'>)</span>
-
-<span class='co'># show density plot line in black</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, col.dens <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span>
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># load example data from package</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># do not clip density plot data</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, clip <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># exclude highest 5 % of data etc.</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, percentile <span class='op'>=</span> <span class='fl'>0.95</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># show missing data where there are at least 96 contiguous missing</span></span>
+<span class='r-in'><span class='co'># values (4 days)</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, na.len <span class='op'>=</span> <span class='fl'>96</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># show data in green</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, col.data <span class='op'>=</span> <span class='st'>"green"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># show missing data in yellow</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, col.mis <span class='op'>=</span> <span class='st'>"yellow"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># show density plot line in black</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>summaryPlot</span><span class='op'>(</span><span class='va'>mydata</span>, col.dens <span class='op'>=</span> <span class='st'>"black"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

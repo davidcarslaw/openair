@@ -79,7 +79,7 @@ understanding time series data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-6</span>
       </span>
     </div>
 
@@ -95,7 +95,7 @@ understanding time series data." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -301,15 +301,17 @@ for any time interval.</p>
     <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## See manual for more examples e.g. related to clustering</span>
-
-
-<span class='co'>## monthly plot of SO2 showing the contribution by wind sector</span>
-<span class='fu'>timeProp</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"so2"</span>, avg.time <span class='op'>=</span> <span class='st'>"month"</span>, proportion <span class='op'>=</span> <span class='st'>"wd"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: 219 missing wind direction line(s) removed</span></div><div class='img'><img src='timeProp-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## See manual for more examples e.g. related to clustering</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## monthly plot of SO2 showing the contribution by wind sector</span></span>
+<span class='r-in'><span class='fu'>timeProp</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"so2"</span>, avg.time <span class='op'>=</span> <span class='st'>"month"</span>, proportion <span class='op'>=</span> <span class='st'>"wd"</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>219 missing wind direction line(s) removed</span>
+<span class='r-plt img'><img src='timeProp-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -75,7 +75,7 @@ vectors if wind speed and direction are available." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-6</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@ vectors if wind speed and direction are available." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -366,33 +366,35 @@ concentrations.</p>
     <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-
-<span class='co'># load example data from package</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span>
-
-<span class='co'># basic plot</span>
-<span class='fu'>calendarPlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, year <span class='op'>=</span> <span class='fl'>2003</span><span class='op'>)</span>
-</div><div class='img'><img src='calendarPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># show wind vectors</span>
-<span class='fu'>calendarPlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, year <span class='op'>=</span> <span class='fl'>2003</span>, annotate <span class='op'>=</span> <span class='st'>"wd"</span><span class='op'>)</span>
-</div><div class='img'><img src='calendarPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># show wind vectors scaled by wind speed and different colours</span>
-<span class='fu'>calendarPlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, year <span class='op'>=</span> <span class='fl'>2003</span>, annotate <span class='op'>=</span> <span class='st'>"ws"</span>,
-cols <span class='op'>=</span> <span class='st'>"heat"</span><span class='op'>)</span>
-
-<span class='co'># show only specific months with selectByDate</span>
-<span class='fu'>calendarPlot</span><span class='op'>(</span><span class='fu'><a href='selectByDate.html'>selectByDate</a></span><span class='op'>(</span><span class='va'>mydata</span>, month <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>6</span>,<span class='fl'>10</span><span class='op'>)</span>, year <span class='op'>=</span> <span class='fl'>2003</span><span class='op'>)</span>,
-pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, year <span class='op'>=</span> <span class='fl'>2003</span>, annotate <span class='op'>=</span> <span class='st'>"ws"</span>, cols <span class='op'>=</span> <span class='st'>"heat"</span><span class='op'>)</span>
-
-<span class='co'># categorical scale example</span>
-<span class='fu'>calendarPlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"no2"</span>, breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>1000</span><span class='op'>)</span>,
-labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Very low"</span>, <span class='st'>"Low"</span>, <span class='st'>"High"</span>, <span class='st'>"Very High"</span><span class='op'>)</span>,
-cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lightblue"</span>, <span class='st'>"green"</span>, <span class='st'>"yellow"</span>,  <span class='st'>"red"</span><span class='op'>)</span>, statistic <span class='op'>=</span> <span class='st'>"max"</span><span class='op'>)</span>
-
-<span class='op'>}</span>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># load example data from package</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>mydata</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># basic plot</span></span>
+<span class='r-in'><span class='fu'>calendarPlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, year <span class='op'>=</span> <span class='fl'>2003</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='calendarPlot-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># show wind vectors</span></span>
+<span class='r-in'><span class='fu'>calendarPlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, year <span class='op'>=</span> <span class='fl'>2003</span>, annotate <span class='op'>=</span> <span class='st'>"wd"</span><span class='op'>)</span></span>
+<span class='r-plt img'><img src='calendarPlot-2.png' alt='' width='700' height='433' /></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># show wind vectors scaled by wind speed and different colours</span></span>
+<span class='r-in'><span class='fu'>calendarPlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, year <span class='op'>=</span> <span class='fl'>2003</span>, annotate <span class='op'>=</span> <span class='st'>"ws"</span>,</span>
+<span class='r-in'>cols <span class='op'>=</span> <span class='st'>"heat"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># show only specific months with selectByDate</span></span>
+<span class='r-in'><span class='fu'>calendarPlot</span><span class='op'>(</span><span class='fu'><a href='selectByDate.html'>selectByDate</a></span><span class='op'>(</span><span class='va'>mydata</span>, month <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>6</span>,<span class='fl'>10</span><span class='op'>)</span>, year <span class='op'>=</span> <span class='fl'>2003</span><span class='op'>)</span>,</span>
+<span class='r-in'>pollutant <span class='op'>=</span> <span class='st'>"o3"</span>, year <span class='op'>=</span> <span class='fl'>2003</span>, annotate <span class='op'>=</span> <span class='st'>"ws"</span>, cols <span class='op'>=</span> <span class='st'>"heat"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># categorical scale example</span></span>
+<span class='r-in'><span class='fu'>calendarPlot</span><span class='op'>(</span><span class='va'>mydata</span>, pollutant <span class='op'>=</span> <span class='st'>"no2"</span>, breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>50</span>, <span class='fl'>100</span>, <span class='fl'>150</span>, <span class='fl'>1000</span><span class='op'>)</span>,</span>
+<span class='r-in'>labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Very low"</span>, <span class='st'>"Low"</span>, <span class='st'>"High"</span>, <span class='st'>"Very High"</span><span class='op'>)</span>,</span>
+<span class='r-in'>cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lightblue"</span>, <span class='st'>"green"</span>, <span class='st'>"yellow"</span>,  <span class='st'>"red"</span><span class='op'>)</span>, statistic <span class='op'>=</span> <span class='st'>"max"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

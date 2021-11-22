@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-6</span>
       </span>
     </div>
 
@@ -51,7 +51,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/davidcarslaw/openair">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -162,7 +162,7 @@
 </li>
 <li>“dst” splits variables by daylight saving time and non-daylight saving time (see manual for more details)</li>
 <li>“wd” if wind direction (<code>wd</code>) is available <code>type = "wd"</code> will split the data up into 8 sectors: N, NE, E, SE, S, SW, W, NW.</li>
-<li>“seasonyear (or”yearseason") will split the data into year-season intervals, keeping the months of a season together. For example, December 2010 is considered as part of winter 2011 (with January and February 2011). This makes it easier to consider contiguous seasons. In contrast, <code>type = "season"</code> will just split the data into four seasons regardless of the year.</li>
+<li>“seasonyear (or”yearseason”) will split the data into year-season intervals, keeping the months of a season together. For example, December 2010 is considered as part of winter 2011 (with January and February 2011). This makes it easier to consider contiguous seasons. In contrast, <code>type = "season"</code> will just split the data into four seasons regardless of the year.</li>
 </ul>
 <p>If a categorical variable is present in a data frame e.g. <code>site</code> then that variables can be used directly e.g. <code>type = "site"</code>.</p>
 <p><code>type</code> can also be a numeric variable. In this case the numeric variable is split up into 4 <em>quantiles</em> i.e. four partitions containing equal numbers of points. Note the user can supply the option <code>n.levels</code> to indicate how many quantiles to use.</p>

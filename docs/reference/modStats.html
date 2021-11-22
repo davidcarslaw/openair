@@ -73,7 +73,7 @@ flexible conditioning" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-6</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ flexible conditioning" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -250,30 +250,32 @@ Climatology.</p>
     <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'>## the example below is somewhat artificial --- assuming the observed</span>
-<span class='co'>## values are given by NOx and the predicted values by NO2.</span>
-
-<span class='fu'>modStats</span><span class='op'>(</span><span class='va'>mydata</span>, mod <span class='op'>=</span> <span class='st'>"no2"</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    default     n      FAC2        MB      MGE        NMB     NMGE     RMSE
-#&gt; 1 all data 63095 0.1703868 -129.6739 129.7277 -0.7252306 0.725532 166.6203
-#&gt;           r        COE       IOA
-#&gt; 1 0.7874487 -0.3374671 0.3312664</div><div class='input'>
-<span class='co'>## evaluation stats by season</span>
-
-<span class='fu'>modStats</span><span class='op'>(</span><span class='va'>mydata</span>, mod <span class='op'>=</span> <span class='st'>"no2"</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span>, type <span class='op'>=</span> <span class='st'>"season"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;         season     n       FAC2        MB      MGE        NMB      NMGE
-#&gt; 2 spring (MAM) 17343 0.25763083 -107.5466 107.5466 -0.6846951 0.6846951
-#&gt; 3 summer (JJA) 14658 0.17140113 -116.2004 116.2004 -0.7053470 0.7053470
-#&gt; 1 autumn (SON) 14775 0.09825963 -154.1534 154.1534 -0.7526324 0.7526324
-#&gt; 4 winter (DJF) 16319 0.14201438 -143.1283 143.3366 -0.7494609 0.7505519
-#&gt;       RMSE         r        COE       IOA
-#&gt; 2 139.9177 0.8196724 -0.2497589 0.3751205
-#&gt; 3 144.7206 0.7568891 -0.4197370 0.2901315
-#&gt; 1 191.9351 0.7881365 -0.4370783 0.2814608
-#&gt; 4 185.3849 0.8260512 -0.3207156 0.3396422</div><div class='input'>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'>## the example below is somewhat artificial --- assuming the observed</span></span>
+<span class='r-in'><span class='co'>## values are given by NOx and the predicted values by NO2.</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>modStats</span><span class='op'>(</span><span class='va'>mydata</span>, mod <span class='op'>=</span> <span class='st'>"no2"</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    default     n      FAC2        MB      MGE        NMB     NMGE     RMSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 all data 63095 0.1703868 -129.6739 129.7277 -0.7252306 0.725532 166.6203</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           r        COE       IOA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 0.7874487 -0.3374671 0.3312664</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## evaluation stats by season</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>modStats</span><span class='op'>(</span><span class='va'>mydata</span>, mod <span class='op'>=</span> <span class='st'>"no2"</span>, obs <span class='op'>=</span> <span class='st'>"nox"</span>, type <span class='op'>=</span> <span class='st'>"season"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         season     n       FAC2        MB      MGE        NMB      NMGE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 spring (MAM) 17343 0.25763083 -107.5466 107.5466 -0.6846951 0.6846951</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 summer (JJA) 14658 0.17140113 -116.2004 116.2004 -0.7053470 0.7053470</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 autumn (SON) 14775 0.09825963 -154.1534 154.1534 -0.7526324 0.7526324</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 winter (DJF) 16319 0.14201438 -143.1283 143.3366 -0.7494609 0.7505519</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       RMSE         r        COE       IOA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 139.9177 0.8196724 -0.2497589 0.3751205</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 144.7206 0.7568891 -0.4197370 0.2901315</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 191.9351 0.7881365 -0.4370783 0.2814608</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 185.3849 0.8260512 -0.3207156 0.3396422</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

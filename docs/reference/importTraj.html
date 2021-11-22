@@ -76,7 +76,7 @@ functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-6</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@ functions." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -258,15 +258,16 @@ large and care should be exercised when importing several years and/or sites.</p
     <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-
-<span class='co'>## import trajectory data for London in 2009</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>mytraj</span> <span class='op'>&lt;-</span> <span class='fu'>importTraj</span><span class='op'>(</span>site <span class='op'>=</span> <span class='st'>"london"</span>, year <span class='op'>=</span> <span class='fl'>2009</span><span class='op'>)</span>
-
-<span class='co'>## combine with measurements</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>theData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='importAQE.html'>importAURN</a></span><span class='op'>(</span>site <span class='op'>=</span> <span class='st'>"kc1"</span>, year <span class='op'>=</span> <span class='fl'>2009</span><span class='op'>)</span>
-<span class='va'>mytraj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span><span class='op'>(</span><span class='va'>mytraj</span>, <span class='va'>theData</span>, by <span class='op'>=</span> <span class='st'>"date"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in merge(mytraj, theData, by = "date"): object 'mytraj' not found</span></div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## import trajectory data for London in 2009</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>mytraj</span> <span class='op'>&lt;-</span> <span class='fu'>importTraj</span><span class='op'>(</span>site <span class='op'>=</span> <span class='st'>"london"</span>, year <span class='op'>=</span> <span class='fl'>2009</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'>## combine with measurements</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='va'>theData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='importAQE.html'>importAURN</a></span><span class='op'>(</span>site <span class='op'>=</span> <span class='st'>"kc1"</span>, year <span class='op'>=</span> <span class='fl'>2009</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>mytraj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span><span class='op'>(</span><span class='va'>mytraj</span>, <span class='va'>theData</span>, by <span class='op'>=</span> <span class='st'>"date"</span><span class='op'>)</span></span>
+<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in merge(mytraj, theData, by = "date"):</span> object 'mytraj' not found</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

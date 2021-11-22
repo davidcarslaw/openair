@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-6</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -112,12 +112,32 @@
 <h1 class="page-header" data-toc-text="2.8-99">
 <a href="#openair-28-99" class="anchor"></a>openair 2.8-99<small> Unreleased </small>
 </h1>
+</div>
+    <div id="openair-28-6" class="section level1">
+<h1 class="page-header" data-toc-text="2.8-6">
+<a href="#openair-28-6" class="anchor"></a>openair 2.8-6<small> 2021-11-22 </small>
+</h1>
+<ul>
+<li>fix annotation bug when comparing two data sets in <code>windRose</code>
+</li>
+<li>enhance <code>selectRunning</code>. Now returns full data frame with a new condition column.</li>
+<li>make sure “hemisphere” argument goes to type “monthyear” and “yearmonth”</li>
+<li>argument <code>month</code> not passed in <code>calendarPlot</code>
+</li>
+</ul>
+</div>
+    <div id="openair-28-4" class="section level1">
+<h1 class="page-header" data-toc-text="2.8-4">
+<a href="#openair-28-4" class="anchor"></a>openair 2.8-4<small> 2021-09-15 </small>
+</h1>
 <ul>
 <li>fix bug in <code>windRose</code> where whole period is calm</li>
 <li>add optimisation to <code>polarCluster</code> to speed up clustering through option <code>pamonce = 3</code>. This should not appreciably affect results.</li>
 <li>fix strange bug in <code>aqStats</code> due to <code>lubridate</code> time zone issue.</li>
 <li>fix bug in <code>TaylorDiagram</code> when group was present.</li>
 <li>Do not convert times with Daylight Saving Time when checking data — just report presence.</li>
+<li>add option <code>plot.type</code> to <code>summaryPlot</code> to change line style; most useful for vertical lines in time series with <code>plot.type = "h"</code>
+</li>
 </ul>
 <div id="openair-28-1" class="section level2">
 <h2 class="hasAnchor">
@@ -238,7 +258,7 @@
 <h2 class="hasAnchor">
 <a href="#openair-25-0" class="anchor"></a>openair 2.5-0</h2>
 <ul>
-<li>add simple versions of <strong>viridis</strong> colour palettes: “viridis”, “plasma”, “magma”, “inferno” and “cividis” e.g. <code><a href="../reference/polarPlot.html">polarPlot(mydata, cols = "plasma")</a></code>
+<li>add simple versions of <strong>viridis</strong> colour palettes: “viridis”, “plasma”, “magma”, “inferno” and “cividis” e.g. <code>polarPlot(mydata, cols = "plasma")</code>
 </li>
 <li>allow option <code>align</code> to be used in <code>aqStats</code> to determine how rolling means are calculated. Can take the values “center” (default), “left” and “right”.</li>
 <li>make sure full year present in <code>importAURN</code>
@@ -261,7 +281,7 @@
 <li>fix bias correction bug in <code>windRose</code> when ws/wd have different names</li>
 <li>fix bug in <code>timeAverage</code> for wind direction (<code>wd</code>) when <code>statistic = "data.cap"</code>
 </li>
-<li>New built-in colour palette for the colour blind “cbPalette”. Note maximum number of colours is 8 e.g. <code><a href="../reference/windRose.html">windRose(mydata, col = "cbPalette", breaks = 6)</a></code>. Thanks to Jerry Martin.</li>
+<li>New built-in colour palette for the colour blind “cbPalette”. Note maximum number of colours is 8 e.g. <code>windRose(mydata, col = "cbPalette", breaks = 6)</code>. Thanks to Jerry Martin.</li>
 </ul>
 </div>
 <div id="openair-23-0" class="section level2">

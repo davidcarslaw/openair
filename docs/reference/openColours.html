@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openair</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.8-6</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/davidcarslaw/openair">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -185,19 +185,21 @@ To see the full list of names, type <code><a href='https://rdrr.io/r/grDevices/c
     <p>David Carslaw</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># to return 5 colours from the "jet" scheme:</span>
-<span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'>openColours</span><span class='op'>(</span><span class='st'>"jet"</span>, <span class='fl'>5</span><span class='op'>)</span>
-<span class='va'>cols</span>
-</div><div class='output co'>#&gt; [1] "#00007F" "#007FFF" "#7FFF7F" "#FF7F00" "#7F0000"</div><div class='input'>
-<span class='co'># to interpolate between named colours e.g. 10 colours from yellow to</span>
-<span class='co'>#  green to red:</span>
-<span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'>openColours</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"yellow"</span>, <span class='st'>"green"</span>, <span class='st'>"red"</span><span class='op'>)</span>, <span class='fl'>10</span><span class='op'>)</span>
-<span class='va'>cols</span>
-</div><div class='output co'>#&gt;  [1] "#FFFF00" "#C6FF00" "#8DFF00" "#55FF00" "#1CFF00" "#1CE200" "#54AA00"
-#&gt;  [8] "#8D7100" "#C63800" "#FF0000"</div><div class='input'>
-
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='co'># to return 5 colours from the "jet" scheme:</span></span>
+<span class='r-in'><span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'>openColours</span><span class='op'>(</span><span class='st'>"jet"</span>, <span class='fl'>5</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cols</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "#00007F" "#007FFF" "#7FFF7F" "#FF7F00" "#7F0000"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># to interpolate between named colours e.g. 10 colours from yellow to</span></span>
+<span class='r-in'><span class='co'>#  green to red:</span></span>
+<span class='r-in'><span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'>openColours</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"yellow"</span>, <span class='st'>"green"</span>, <span class='st'>"red"</span><span class='op'>)</span>, <span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>cols</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "#FFFF00" "#C6FF00" "#8DFF00" "#55FF00" "#1CFF00" "#1CE200" "#54AA00"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8] "#8D7100" "#C63800" "#FF0000"</span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
