@@ -1,7 +1,11 @@
 # openair 2.8-99
 
+# openair 2.8-6
+
 - fix annotation bug when comparing two data sets in `windRose`
 - enhance `selectRunning`. Now returns full data frame with a new condition column.
+- make sure "hemisphere" argument goes to type "monthyear" and "yearmonth"
+- argument `month` not passed in `calendarPlot`
 
 # openair 2.8-4
 

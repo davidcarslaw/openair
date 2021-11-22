@@ -10,7 +10,7 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
   
   if (source == "aurn") {
     
-    url_data <- "https://uk-air.defra.gov.uk/openair/R_data/new/"
+    url_data <- "https://uk-air.defra.gov.uk/openair/R_data/"
     source_meta <- "aurn"
     
   } 
