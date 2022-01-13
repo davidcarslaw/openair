@@ -107,11 +107,6 @@ checkPrep <- function(mydata, Names, type, remove.calm = TRUE, remove.neg = TRUE
       stop("date should be in POSIXct format not POSIXlt")
     }
 
-    ## if date in format dd/mm/yyyy hh:mm (basic check)
-    if (length(grep("/", as.character(mydata$date[1]))) > 0) {
-      mydata$date <- as.POSIXct(strptime(mydata$date, "%d/%m/%Y %H:%M"), "GMT")
-    }
-
     ## try and work with a factor date - but probably a problem in original data
     if (is.factor(mydata$date)) {
       warning("date field is a factor, check date format")
