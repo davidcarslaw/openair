@@ -482,7 +482,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
 
       # This is much faster for some reason
       if (statistic == "mean") {
-        vmet <- avmet %>% 
+        avmet <- avmet %>% 
           summarise(across(everything(), ~mean(.x, na.rm = TRUE)))
       } else {
         avmet <- avmet %>% 
