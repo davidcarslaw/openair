@@ -526,7 +526,7 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   vars <- c(type, "p.stars")
 
   res2 <- group_by(split.data, UQS(syms(vars))) %>%
-    summarise_all(funs(mean(., na.rm = TRUE)))
+    summarise(across(everything(), ~ mean(.x, na.rm = TRUE)))
 
   ## calculate percentage changes in slope and uncertainties need
   ## start and end dates (in days) to work out concentrations at those
