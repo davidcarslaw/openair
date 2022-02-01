@@ -392,12 +392,12 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     if (tolower(method) == "cpf") {
    
       percentiles1 <- group_by(mydata, wd) %>% 
-        summarise_if(is.numeric, funs(length(which(. < overall.lower)) /length(.)))
+        summarise(across(where(is.numeric), ~ length(which(.x < overall.lower)) /length(.x)))
       
       percentiles1$percentile <- min(percentile)
 
       percentiles2 <- group_by(mydata, wd) %>% 
-        summarise_if(is.numeric, funs(length(which(. > overall.upper)) /length(.)))
+        summarise(across(where(is.numeric), ~ length(which(.x > upper)) /length(.x)))
       
      percentiles2$percentile <- max(percentile)
 
@@ -415,7 +415,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     ## calculate mean; assume a percentile of 999 to flag it later
    
     percentiles <- group_by(mydata, wd) %>% 
-      summarise_if(is.numeric, funs(mean), na.rm = TRUE)
+      summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)))
     
     percentiles$percentile <- 999
     
