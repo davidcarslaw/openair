@@ -244,7 +244,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
 
     agg <- select(traj, UQS(syms(vars))) %>%
       group_by(UQS(syms(vars2))) %>%
-      summarise_all(funs(mean))
+      summarise(across(everything(), ~ mean))
 
     # the data frame we want to return before it is transformed
     resRtn <- agg
