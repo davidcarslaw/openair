@@ -127,6 +127,7 @@
 ##' @param cor.col Colour for correlation coefficient lines and text.
 ##' @param arrow.lwd Width of arrow used when used for comparing two model outputs.
 ##' @param annotate Annotation shown for RMS error.
+##' @param text.obs The plot annotation for observed values; default is "observed".
 ##' @param key Should the key be shown?
 ##' @param key.title Title for the key.
 ##' @param key.columns Number of columns to be used in the key. With many
@@ -248,7 +249,7 @@
 TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type = "default",
                           normalise = FALSE, cols = "brewer1",
                           rms.col = "darkgoldenrod", cor.col = "black", arrow.lwd = 3,
-                          annotate = "centred\nRMS error",
+                          annotate = "centred\nRMS error", text.obs = "observed",
                           key = TRUE, key.title = group, key.columns = 1,
                           key.pos = "right", strip = TRUE, auto.text = TRUE, ...) {
 
@@ -545,6 +546,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
         x, y,
         results = results, maxsd = maxsd,
         cor.col = cor.col, rms.col = rms.col,
+        text.obs = text.obs,
         annotate = annotate, ...
       )
 
@@ -577,6 +579,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
 
 panel.taylor.setup <- function(x, y, subscripts, results, maxsd, cor.col, rms.col,
+                               text.obs,
                                col.symbol, annotate, group.number, type, ...) {
   ## note, this assumes for each level of type there is a single measured value
   ## therefore, only the first is used  i.e. results$sd.obs[subscripts[1]]
@@ -679,7 +682,7 @@ panel.taylor.setup <- function(x, y, subscripts, results, maxsd, cor.col, rms.co
 
   ## measured point and text
   lpoints(results$sd.obs[subscripts[1]], 0, pch = 20, col = "purple", cex = 1.5)
-  ltext(results$sd.obs[subscripts[1]], 0, "observed", col = "purple", cex = 0.7, pos = 3)
+  ltext(results$sd.obs[subscripts[1]], 0, text.obs, col = "purple", cex = 0.7, pos = 3)
 }
 
 

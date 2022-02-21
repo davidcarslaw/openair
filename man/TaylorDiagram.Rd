@@ -16,6 +16,7 @@ TaylorDiagram(
   cor.col = "black",
   arrow.lwd = 3,
   annotate = "centred\\nRMS error",
+  text.obs = "observed",
   key = TRUE,
   key.title = group,
   key.columns = 1,
@@ -108,6 +109,8 @@ would be \code{cols = c("yellow", "green", "blue")}.}
 \item{arrow.lwd}{Width of arrow used when used for comparing two model outputs.}
 
 \item{annotate}{Annotation shown for RMS error.}
+
+\item{text.obs}{The plot annotation for observed values; default is "observed".}
 
 \item{key}{Should the key be shown?}
 

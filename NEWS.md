@@ -1,5 +1,7 @@
 # openair 2.8-99
 
+- add option to `TaylorDiagram` for annotation of observed data.
+
 # openair 2.8-6
 
 - fix annotation bug when comparing two data sets in `windRose`
