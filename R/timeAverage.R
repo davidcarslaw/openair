@@ -266,7 +266,8 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
 
     if (!is.na(end.date)) {
       lastLine <- data.frame(date = as.POSIXct(end.date, tz = TZ))
-      lastLine[[type]] <- mydata[[type]][1]
+      #lastLine[[type]] <- mydata[[type]][1]
+      lastLine[type] <- mydata[1, type]
 
       mydata <- bind_rows(mydata, lastLine)
 
