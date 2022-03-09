@@ -38,10 +38,6 @@ require(devtools)
 install_github('davidcarslaw/openair')
 ```
 
-I also try to keep up to date versions of the package
-[here](https://www.dropbox.com/sh/x8mmf5d54wfo5vq/AACpKqsrPkTC0guiu5ftiKNna?dl=0)
-if you can’t build the package yourself.
-
 ## Description
 
 **openair** has developed over several years to help analyse atmospheric
@@ -82,18 +78,22 @@ several sites at one time and several years of data.
 ``` r
 library(openair)
 kc1 <- importAURN(site = "kc1", year = 2011:2012)
-head(kc1)
-## # A tibble: 6 x 18
-##   site  code  date                   co   nox   no2    no    o3   so2  pm10
-##   <chr> <fct> <dttm>              <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 Lond… KC1   2011-01-01 00:00:00   0.2    44    38     4    14     5    40
-## 2 Lond… KC1   2011-01-01 01:00:00   0.2    38    29     6    28     3    36
-## 3 Lond… KC1   2011-01-01 02:00:00   0.2    32    31     1    18     3    31
-## 4 Lond… KC1   2011-01-01 03:00:00   0.2    31    29     1    14     3    31
-## 5 Lond… KC1   2011-01-01 04:00:00   0.2    31    29     1    16     3    29
-## 6 Lond… KC1   2011-01-01 05:00:00   0.1    29    27     1    24     3    25
-## # … with 8 more variables: pm2.5 <dbl>, v10 <dbl>, v2.5 <dbl>, nv10 <dbl>,
-## #   nv2.5 <dbl>, ws <dbl>, wd <dbl>, air_temp <dbl>
+kc1
+## # A tibble: 17,544 × 18
+##    site      code  date                   co   nox   no2    no    o3   so2  pm10
+##    <chr>     <fct> <dttm>              <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+##  1 London N… KC1   2011-01-01 00:00:00   0.2    44    38     4    14     5    40
+##  2 London N… KC1   2011-01-01 01:00:00   0.2    38    29     6    28     3    36
+##  3 London N… KC1   2011-01-01 02:00:00   0.2    32    31     1    18     3    31
+##  4 London N… KC1   2011-01-01 03:00:00   0.2    31    29     1    14     3    31
+##  5 London N… KC1   2011-01-01 04:00:00   0.2    31    29     1    16     3    29
+##  6 London N… KC1   2011-01-01 05:00:00   0.1    29    27     1    24     3    25
+##  7 London N… KC1   2011-01-01 06:00:00   0.1    27    25     1    24     3    25
+##  8 London N… KC1   2011-01-01 07:00:00   0.1    31    29     1    18     3    28
+##  9 London N… KC1   2011-01-01 08:00:00   0.2    55    44     8     4     3    24
+## 10 London N… KC1   2011-01-01 09:00:00   0.2    57    44     9     6     3    24
+## # … with 17,534 more rows, and 8 more variables: pm2.5 <dbl>, v10 <dbl>,
+## #   v2.5 <dbl>, nv10 <dbl>, nv2.5 <dbl>, ws <dbl>, wd <dbl>, air_temp <dbl>
 ```
 
 ### Utility functions
@@ -104,19 +104,27 @@ data from June to September for 2012 *and* for the hours 7am to 7pm
 inclusive:
 
 ``` r
-sub <- selectByDate(kc1, day = "weekday", year = 2012, month = 6:9, hour = 7:19)
-head(sub)
-## # A tibble: 6 x 18
-##   date                site  code     co   nox   no2    no    o3   so2  pm10
-##   <dttm>              <chr> <fct> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-## 1 2012-06-01 07:00:00 Lond… KC1    0.23    36    23     9    24     3     6
-## 2 2012-06-01 08:00:00 Lond… KC1    0.23    33    21     7    34     3     9
-## 3 2012-06-01 09:00:00 Lond… KC1    0.23    23    19     2    52     3     6
-## 4 2012-06-01 10:00:00 Lond… KC1    0.23    17    13     2    62     3     7
-## 5 2012-06-01 11:00:00 Lond… KC1    0.23    17    13     2    70     3     9
-## 6 2012-06-01 12:00:00 Lond… KC1    0.23    21    19     1    78     3     8
-## # … with 8 more variables: pm2.5 <dbl>, v10 <dbl>, v2.5 <dbl>, nv10 <dbl>,
-## #   nv2.5 <dbl>, ws <dbl>, wd <dbl>, air_temp <dbl>
+sub <- selectByDate(kc1, 
+                    day = "weekday", 
+                    year = 2012, 
+                    month = 6:9, 
+                    hour = 7:19)
+sub
+## # A tibble: 1,118 × 18
+##    date                site      code     co   nox   no2    no    o3   so2  pm10
+##    <dttm>              <chr>     <fct> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+##  1 2012-06-01 07:00:00 London N… KC1    0.23    36    23     9    24     3     6
+##  2 2012-06-01 08:00:00 London N… KC1    0.23    33    21     7    34     3     9
+##  3 2012-06-01 09:00:00 London N… KC1    0.23    23    19     2    52     3     6
+##  4 2012-06-01 10:00:00 London N… KC1    0.23    17    13     2    62     3     7
+##  5 2012-06-01 11:00:00 London N… KC1    0.23    17    13     2    70     3     9
+##  6 2012-06-01 12:00:00 London N… KC1    0.23    21    19     1    78     3     8
+##  7 2012-06-01 13:00:00 London N… KC1    0.23    36    29     5    68     3     9
+##  8 2012-06-01 14:00:00 London N… KC1    0.23    25    21     2    80     3     6
+##  9 2012-06-01 15:00:00 London N… KC1    0.23    27    23     2    80     3     7
+## 10 2012-06-01 16:00:00 London N… KC1    0.23    34    29     4    58     3    10
+## # … with 1,108 more rows, and 8 more variables: pm2.5 <dbl>, v10 <dbl>,
+## #   v2.5 <dbl>, nv10 <dbl>, nv2.5 <dbl>, ws <dbl>, wd <dbl>, air_temp <dbl>
 ```
 
 Similarly it is easy to time-average data in many flexible ways. For
@@ -148,7 +156,7 @@ different date values. A summary of in-built values of type are:
     saving time (see manual for more details)
 -   “wd” if wind direction (`wd`) is available `type = "wd"` will split
     the data up into 8 sectors: N, NE, E, SE, S, SW, W, NW.
--   “seasonyear (or”yearseason") will split the data into year-season
+-   “seasonyear (or”yearseason”) will split the data into year-season
     intervals, keeping the months of a season together. For example,
     December 2010 is considered as part of winter 2011 (with January and
     February 2011). This makes it easier to consider contiguous seasons.
