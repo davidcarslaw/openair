@@ -1127,7 +1127,7 @@ errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
     
   }
   
-  mydata <- pivot_wider(mydata, id_cols = -value, 
+  mydata <- pivot_wider(mydata, 
                         names_from = "variable", 
                         values_from = "value")
   

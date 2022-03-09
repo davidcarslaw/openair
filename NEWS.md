@@ -1,6 +1,8 @@
 # openair 2.8-99
 
 - add option to `TaylorDiagram` for annotation of observed data.
+- fix issue with `timevariation` when `difference = TRUE`
+- fix `trajCluster` issue to do with `dplyr`
 
 # openair 2.8-6
 
