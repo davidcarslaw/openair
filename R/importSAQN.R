@@ -27,5 +27,5 @@ importSAQN <- function(site = "gla4", year = 2009, data_type = "hourly",
   
   }
   
-  return(aq_data)
+  return(as_tibble(aq_data))
 }

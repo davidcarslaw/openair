@@ -155,7 +155,7 @@ importAURN <- function(site = "my1", year = 2009,
   
   }
   
-  return(aq_data)
+  return(as_tibble(aq_data))
   
 
 }

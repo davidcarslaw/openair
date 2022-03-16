@@ -28,6 +28,6 @@ importAQE <- function(site = "yk13", year = 2018, data_type = "hourly",
   
   }
   
-  return(aq_data)
+  return(as_tibble(aq_data))
   
 }

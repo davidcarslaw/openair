@@ -28,6 +28,6 @@ importNI <- function(site = "bel0", year = 2018, data_type = "hourly",
   
   }
   
-  return(aq_data)
+  return(as_tibble(aq_data))
   
 }
