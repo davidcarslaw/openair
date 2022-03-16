@@ -12,6 +12,7 @@
 importAQE(
   site = "yk13",
   year = 2018,
+  data_type = "hourly",
   pollutant = "all",
   meta = FALSE,
   ratified = FALSE,
@@ -33,6 +34,7 @@ importAURN(
 importNI(
   site = "bel0",
   year = 2018,
+  data_type = "hourly",
   pollutant = "all",
   meta = FALSE,
   ratified = FALSE,
@@ -42,6 +44,7 @@ importNI(
 importSAQN(
   site = "gla4",
   year = 2009,
+  data_type = "hourly",
   pollutant = "all",
   meta = FALSE,
   ratified = FALSE,
@@ -51,6 +54,7 @@ importSAQN(
 importWAQN(
   site = "card",
   year = 2018,
+  data_type = "hourly",
   pollutant = "all",
   meta = FALSE,
   ratified = FALSE,
@@ -66,6 +70,17 @@ Road. Several sites can be imported with \code{site = c("my1", "nott")}
 to 2000 use \code{year = 1990:2000}. To import several specific years use
 \code{year = c(1990, 1995, 2000)} for example.}
 
+\item{data_type}{For Data from the UK AURN, many different sources of data
+  are available. These include:
+  
+ \itemize{
+ \item{"hourly"}{ Default is to return hourly data.}
+ \item{"daily"}{ Daily average data.}
+ \item{"monthly"}{ Monthly average data with data capture information for teh whole network.}
+ \item{"annual"}{ Annual average data with data capture information for the whole network.}
+ \item{"15min"}{ To import 15-minute average SO2 concentrations.}
+}}
+
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use \code{pollutant =
 c("nox", "no2")}.}
@@ -79,17 +94,6 @@ species was ratified i.e. quality-checked.}
 \item{to_narrow}{By default the returned data has a column for each
 pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 a narrow format with a column identifying the pollutant name.}
-
-\item{data_type}{For Data from the UK AURN, many different sources of data
-  are available. These include:
-  
- \itemize{
- \item{"hourly"}{ Default is to return hourly data.}
- \item{"daily"}{ Daily average data.}
- \item{"monthly"}{ Monthly average data with data capture information for teh whole network.}
- \item{"annual"}{ Annual average data with data capture information for the whole network.}
- \item{"15min"}{ To import 15-minute average SO2 concentrations.}
-}}
 
 \item{hc}{A few sites have hydrocarbon measurements available and setting
 \code{hc = TRUE} will ensure hydrocarbon data are imported. The default is

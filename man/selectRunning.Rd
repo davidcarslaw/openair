@@ -7,7 +7,7 @@
 selectRunning(
   mydata,
   pollutant = "nox",
-  critereon = ">",
+  criterion = ">",
   run.len = 5,
   threshold = 500,
   result = c("yes", "no")
@@ -19,7 +19,7 @@ selectRunning(
 
 \item{pollutant}{Name of variable to process. Mandatory.}
 
-\item{critereon}{Condition to select run lengths e.g. \code{">"} with select
+\item{criterion}{Condition to select run lengths e.g. \code{">"} with select
 data more than \code{threshold}.}
 
 \item{run.len}{Run length for extracting contiguous values of
@@ -28,7 +28,7 @@ data more than \code{threshold}.}
 \item{threshold}{The threshold value for \code{pollutant} above which data
 should be extracted.}
 
-\item{result}{A new column \code{critereon} is returned with string to
+\item{result}{A new column \code{criterion} is returned with string to
 identity whether condition was met.}
 }
 \value{
@@ -62,7 +62,7 @@ mydata <- selectRunning(mydata, run.len = 5, threshold = 500)
 ## make a polar plot of those conditions...shows that those
 ## conditions are dominated by low wind speeds, not
 ## in-canyon recirculation
-\dontrun{polarPlot(mydata, pollutant = "nox", type = "criteron")}
+\dontrun{polarPlot(mydata, pollutant = "nox", type = "criterion")}
 
 }
 \author{
