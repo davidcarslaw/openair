@@ -1,6 +1,6 @@
 ##' Import data from the UK Air Pollution Networks
 ##'
-##' Functions for importing hourly mean air pollution data from a range of UK
+##' Functions for importing air pollution data from a range of UK
 ##' networks including the Automatic Urban and Rural Network. Files are imported
 ##' from a remote server operated by Ricardo that provides air quality data
 ##' files as R data objects.
@@ -27,8 +27,11 @@
 ##'
 ##' The data are imported by stacking sites on top of one another and will have
 ##' field names \code{site}, \code{code} (the site code) and \code{pollutant}.
-##' Sometimes it is useful to have columns of site data. This can be done using
-##' the \code{reshape} function --- see examples below.
+##' 
+##' By default, the function returns hourly average data. However, annual, 
+##' monthly, daily and 15 minute data (for SO2) can be returned using the option \code{data_type}.
+##' Annual and monthly data provide whole network information including data capture
+##' statistics.
 ##'
 ##' All units are expressed in mass terms for gaseous species (ug/m3 for NO,
 ##' NO2, NOx (as NO2), SO2 and hydrocarbons; and mg/m3 for CO). PM10
@@ -49,7 +52,7 @@
 ##' (generally from around 2010). These values are modelled using the WRF model
 ##' operated by Ricardo.
 ##'
-##' The few BAM (Beta-Attenuation Monitor) instruments that have been
+##' The BAM (Beta-Attenuation Monitor) instruments that have been
 ##' incorporated into the network throughout its history have been scaled by 1.3
 ##' if they have a heated inlet (to account for loss of volatile particles) and
 ##' 0.83 if they do not have a heated inlet. The few TEOM instruments in the
@@ -76,8 +79,8 @@
 ##'  \itemize{
 ##'  \item{"hourly"}{ Default is to return hourly data.}
 ##'  \item{"daily"}{ Daily average data.}
-##'  \item{"monthly"}{ Monthly average data with data capture information.}
-##'  \item{"annual"}{ Annual average data with data capture information.}
+##'  \item{"monthly"}{ Monthly average data with data capture information for teh whole network.}
+##'  \item{"annual"}{ Annual average data with data capture information for the whole network.}
 ##'  \item{"15min"}{ To import 15-minute average SO2 concentrations.}
 ##
 ##' }
