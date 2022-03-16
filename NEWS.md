@@ -4,6 +4,7 @@
 - fix issue with `timevariation` when `difference = TRUE`
 - fix `trajCluster` issue to do with `dplyr`
 - access other time-averaged air quality data using `importAURN`. New option `data_type`, which can be "hourly" (default), "annual", "monthly", "daily" and "15min" (for SO~2~). These new data sources should make it much easier to work with long-term time series with many sites.
+- fix terrible spelling in `selectRunning`.
 
 # openair 2.8-6
 
