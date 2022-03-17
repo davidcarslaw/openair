@@ -260,7 +260,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
     )
 
     # rename to make it easier to refer to later
-    values <- rename_(values, means = pollutant)
+    values <- rename(values, means = {{pollutant}})
   }
 
   # mean * frequency

@@ -556,17 +556,17 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
   ## rename PM volatile/non volatile components if present
 
   if ("pmfr" %in% names(thedata)) {
-    thedata <- rename_(thedata, v10 = "pmfr")
+    thedata <- rename(thedata, v10 = pmfr)
     thedata <- transform(thedata, v10 = -1 * v10)
   }
 
   if ("p2fr" %in% names(thedata)) {
-    thedata <- rename_(thedata, v2.5 = "p2fr")
+    thedata <- rename(thedata, v2.5 = p2fr)
     thedata <- transform(thedata, v2.5 = -1 * v2.5)
   }
 
-  if ("pmfb" %in% names(thedata)) thedata <- rename_(thedata, nv10 = "pmfb")
-  if ("p2fb" %in% names(thedata)) thedata <- rename_(thedata, nv2.5 = "p2fb")
+  if ("pmfb" %in% names(thedata)) thedata <- rename(thedata, nv10 = pmfb)
+  if ("p2fb" %in% names(thedata)) thedata <- rename(thedata, nv2.5 = p2fb)
 
 
   if (units != "mass") {
