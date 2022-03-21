@@ -9,5 +9,6 @@
                            "validity", "process", "parameter", "date_start",
                            "site", "where", "ratified_to", "site_type", "start_date",
                            "u", "v", "period", "z", "wd", "cluster", ".id", "weights",
-                           "NOXasNO2.mean", "NOXasNO2.capture", "uka_code"))
+                           "NOXasNO2.mean", "NOXasNO2.capture", "uka_code",
+                           "pmfr", "p2fr", "pmfb", "p2fb"))
 }
