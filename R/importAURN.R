@@ -202,15 +202,18 @@ readSummaryAURN <- function(fileName, data_type, to_narrow, meta) {
   
   if (data_type == "annual") {
     
-    thedata <- rename(thedata, date = year)
-    thedata <- mutate(thedata, date = ymd(paste0(date, "01-01"), tz = "UTC"))
+    thedata <- rename(thedata, date = year) %>% 
+      drop_na(date) %>% 
+      mutate(date = ymd(paste0(date, "-01-01"), tz = "UTC"))
     
   }
   
   if (to_narrow) {
     
+    # make sure numbers are numbers
     values <- select(thedata, !contains("capture")) %>% 
-      select(!matches("uka_code"))
+      select(!matches("uka_code")) %>% 
+      mutate(across(c(-date, -site, -code), as.numeric))
     
     capture <- select(thedata, contains("capture") | date:site) %>% 
       select(!matches("uka_code"))
