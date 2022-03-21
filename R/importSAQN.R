@@ -16,6 +16,18 @@ importSAQN <- function(site = "gla4", year = 2009, data_type = "hourly",
     
     aq_data <- map_df(files, readSummaryAURN, data_type = data_type, to_narrow = to_narrow)
     
+    # add meta data?
+    if (meta) {
+      
+      meta_data <- importMeta(source = "saqn")
+      
+      meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>% 
+        select(site, code, latitude, longitude, site_type)
+      # suppress warnings about factors
+      aq_data <- left_join(aq_data, meta_data, by = c("code", "site"))
+      
+    }
+    
     
   } else {
   

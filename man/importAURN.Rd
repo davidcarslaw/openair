@@ -70,13 +70,12 @@ Road. Several sites can be imported with \code{site = c("my1", "nott")}
 to 2000 use \code{year = 1990:2000}. To import several specific years use
 \code{year = c(1990, 1995, 2000)} for example.}
 
-\item{data_type}{For Data from the UK AURN, many different sources of data
-  are available. These include:
+\item{data_type}{The data type averaging period. These include:
   
  \itemize{
  \item{"hourly"}{ Default is to return hourly data.}
  \item{"daily"}{ Daily average data.}
- \item{"monthly"}{ Monthly average data with data capture information for teh whole network.}
+ \item{"monthly"}{ Monthly average data with data capture information for the whole network.}
  \item{"annual"}{ Annual average data with data capture information for the whole network.}
  \item{"15min"}{ To import 15-minute average SO2 concentrations.}
 }}
@@ -89,7 +88,7 @@ c("nox", "no2")}.}
 latitude and longitude are returned.}
 
 \item{ratified}{If \code{TRUE} columns are returned indicating when each
-species was ratified i.e. quality-checked.}
+species was ratified i.e. quality-checked. Available for hourly data only.}
 
 \item{to_narrow}{By default the returned data has a column for each
 pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
@@ -197,7 +196,11 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 \dontrun{thedata <- importAURN(site = c("my1", "nott"), year = 2000,
 pollutant = c("nox", "no2", "o3"))}
 
-# Other functions work in the same way e.g. to import Cardiff Centre data:
+# Other functions work in the same way e.g. to import Cardiff Centre data
+
+# Import annual data over a period, make it narrow format and return site information
+
+aq <- importAURN(year = 2010:2020, data_type = "annual", meta = TRUE, to_narrow = TRUE)
 
 \dontrun{cardiff <- importWAQN(site = "card", year = 2020)}
 }
