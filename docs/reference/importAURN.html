@@ -16,7 +16,7 @@ files as R data objects."><!-- mathjax --><script src="https://cdnjs.cloudflare.
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8-6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,7 @@ files as R data objects.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">importAQE</span><span class="op">(</span>
   site <span class="op">=</span> <span class="st">"yk13"</span>,
   year <span class="op">=</span> <span class="fl">2018</span>,
+  data_type <span class="op">=</span> <span class="st">"hourly"</span>,
   pollutant <span class="op">=</span> <span class="st">"all"</span>,
   meta <span class="op">=</span> <span class="cn">FALSE</span>,
   ratified <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -84,6 +85,7 @@ files as R data objects.</p>
 <span class="fu">importNI</span><span class="op">(</span>
   site <span class="op">=</span> <span class="st">"bel0"</span>,
   year <span class="op">=</span> <span class="fl">2018</span>,
+  data_type <span class="op">=</span> <span class="st">"hourly"</span>,
   pollutant <span class="op">=</span> <span class="st">"all"</span>,
   meta <span class="op">=</span> <span class="cn">FALSE</span>,
   ratified <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -93,6 +95,7 @@ files as R data objects.</p>
 <span class="fu">importSAQN</span><span class="op">(</span>
   site <span class="op">=</span> <span class="st">"gla4"</span>,
   year <span class="op">=</span> <span class="fl">2009</span>,
+  data_type <span class="op">=</span> <span class="st">"hourly"</span>,
   pollutant <span class="op">=</span> <span class="st">"all"</span>,
   meta <span class="op">=</span> <span class="cn">FALSE</span>,
   ratified <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -102,6 +105,7 @@ files as R data objects.</p>
 <span class="fu">importWAQN</span><span class="op">(</span>
   site <span class="op">=</span> <span class="st">"card"</span>,
   year <span class="op">=</span> <span class="fl">2018</span>,
+  data_type <span class="op">=</span> <span class="st">"hourly"</span>,
   pollutant <span class="op">=</span> <span class="st">"all"</span>,
   meta <span class="op">=</span> <span class="cn">FALSE</span>,
   ratified <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -119,6 +123,14 @@ Road. Several sites can be imported with <code>site = c("my1", "nott")</code>
 <dd><p>Year or years to import. To import a sequence of years from 1990
 to 2000 use <code>year = 1990:2000</code>. To import several specific years use
 <code>year = c(1990, 1995, 2000)</code> for example.</p></dd>
+<dt>data_type</dt>
+<dd><p>The data type averaging period. These include:</p>  
+<p></p><ul><li><p>"hourly" Default is to return hourly data.</p></li>
+<li><p>"daily" Daily average data.</p></li>
+<li><p>"monthly" Monthly average data with data capture information for the whole network.</p></li>
+<li><p>"annual" Annual average data with data capture information for the whole network.</p></li>
+<li><p>"15min" To import 15-minute average SO2 concentrations.</p></li>
+</ul></dd>
 <dt>pollutant</dt>
 <dd><p>Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use <code>pollutant =
@@ -128,20 +140,11 @@ c("nox", "no2")</code>.</p></dd>
 latitude and longitude are returned.</p></dd>
 <dt>ratified</dt>
 <dd><p>If <code>TRUE</code> columns are returned indicating when each
-species was ratified i.e. quality-checked.</p></dd>
+species was ratified i.e. quality-checked. Available for hourly data only.</p></dd>
 <dt>to_narrow</dt>
 <dd><p>By default the returned data has a column for each
 pollutant/variable. When <code>to_narrow = TRUE</code> the data are stacked into
 a narrow format with a column identifying the pollutant name.</p></dd>
-<dt>data_type</dt>
-<dd><p>For Data from the UK AURN, many different sources of data
-  are available. These include:</p>  
-<p></p><ul><li><p>"hourly" Default is to return hourly data.</p></li>
-<li><p>"daily" Daily average data.</p></li>
-<li><p>"monthly" Monthly average data with data capture information for teh whole network.</p></li>
-<li><p>"annual" Annual average data with data capture information for the whole network.</p></li>
-<li><p>"15min" To import 15-minute average SO2 concentrations.</p></li>
-</ul></dd>
 <dt>hc</dt>
 <dd><p>A few sites have hydrocarbon measurements available and setting
 <code>hc = TRUE</code> will ensure hydrocarbon data are imported. The default is
@@ -239,7 +242,11 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.</p>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="va">thedata</span> <span class="op">&lt;-</span> <span class="fu">importAURN</span><span class="op">(</span>site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"my1"</span>, <span class="st">"nott"</span><span class="op">)</span>, year <span class="op">=</span> <span class="fl">2000</span>,</span>
 <span class="r-in">pollutant <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nox"</span>, <span class="st">"no2"</span>, <span class="st">"o3"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># Other functions work in the same way e.g. to import Cardiff Centre data:</span></span>
+<span class="r-in"><span class="co"># Other functions work in the same way e.g. to import Cardiff Centre data</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Import annual data over a period, make it narrow format and return site information</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">aq</span> <span class="op">&lt;-</span> <span class="fu">importAURN</span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2010</span><span class="op">:</span><span class="fl">2020</span>, data_type <span class="op">=</span> <span class="st">"annual"</span>, meta <span class="op">=</span> <span class="cn">TRUE</span>, to_narrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="va">cardiff</span> <span class="op">&lt;-</span> <span class="fu">importWAQN</span><span class="op">(</span>site <span class="op">=</span> <span class="st">"card"</span>, year <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span></span>
 </code></pre></div>

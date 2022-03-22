@@ -12,7 +12,7 @@ threshold"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/m
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8-6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@ threshold</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">selectRunning</span><span class="op">(</span>
   <span class="va">mydata</span>,
   pollutant <span class="op">=</span> <span class="st">"nox"</span>,
-  critereon <span class="op">=</span> <span class="st">"&gt;"</span>,
+  criterion <span class="op">=</span> <span class="st">"&gt;"</span>,
   run.len <span class="op">=</span> <span class="fl">5</span>,
   threshold <span class="op">=</span> <span class="fl">500</span>,
   result <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yes"</span>, <span class="st">"no"</span><span class="op">)</span>
@@ -71,7 +71,7 @@ threshold</p>
 <code>pollutant</code> field to analyse.</p></dd>
 <dt>pollutant</dt>
 <dd><p>Name of variable to process. Mandatory.</p></dd>
-<dt>critereon</dt>
+<dt>criterion</dt>
 <dd><p>Condition to select run lengths e.g. <code>"&gt;"</code> with select
 data more than <code>threshold</code>.</p></dd>
 <dt>run.len</dt>
@@ -81,7 +81,7 @@ data more than <code>threshold</code>.</p></dd>
 <dd><p>The threshold value for <code>pollutant</code> above which data
 should be extracted.</p></dd>
 <dt>result</dt>
-<dd><p>A new column <code>critereon</code> is returned with string to
+<dd><p>A new column <code>criterion</code> is returned with string to
 identity whether condition was met.</p></dd>
 </dl></div>
     <div class="section level2">
@@ -118,7 +118,7 @@ concentrations.</p>
 <span class="r-in"><span class="co">## make a polar plot of those conditions...shows that those</span></span>
 <span class="r-in"><span class="co">## conditions are dominated by low wind speeds, not</span></span>
 <span class="r-in"><span class="co">## in-canyon recirculation</span></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fu"><a href="polarPlot.html">polarPlot</a></span><span class="op">(</span><span class="va">mydata</span>, pollutant <span class="op">=</span> <span class="st">"nox"</span>, type <span class="op">=</span> <span class="st">"criteron"</span><span class="op">)</span></span>
+<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fu"><a href="polarPlot.html">polarPlot</a></span><span class="op">(</span><span class="va">mydata</span>, pollutant <span class="op">=</span> <span class="st">"nox"</span>, type <span class="op">=</span> <span class="st">"criterion"</span><span class="op">)</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
