@@ -14,7 +14,7 @@ importSAQN <- function(site = "gla4", year = 2009, data_type = "hourly",
                     data_type, "_SCOT_", year, ".rds")
     
     
-    aq_data <- map_df(files, readSummaryAURN, data_type = data_type, to_narrow = to_narrow)
+    aq_data <- map_df(files, readSummaryData, data_type = data_type, to_narrow = to_narrow)
     
     # add meta data?
     if (meta) {

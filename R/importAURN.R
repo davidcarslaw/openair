@@ -144,7 +144,7 @@ importAURN <- function(site = "my1", year = 2009,
                     data_type, "_AURN_", year, ".rds")
     
    
-    aq_data <- map_df(files, readSummaryAURN, 
+    aq_data <- map_df(files, readSummaryData, 
                       data_type = data_type, 
                       to_narrow = to_narrow,
                       meta = meta)
@@ -180,7 +180,7 @@ importAURN <- function(site = "my1", year = 2009,
 
 # function to read annual or monthly files
 
-readSummaryAURN <- function(fileName, data_type, to_narrow, meta) {
+readSummaryData <- function(fileName, data_type, to_narrow, meta) {
   
  
   thedata <- try(readRDS(url(fileName)), TRUE)
@@ -212,8 +212,7 @@ readSummaryAURN <- function(fileName, data_type, to_narrow, meta) {
     
     # make sure numbers are numbers
     values <- select(thedata, !contains("capture")) %>% 
-      select(!matches("uka_code")) %>% 
-      mutate(across(c(-date, -site, -code), as.numeric))
+      select(!matches("uka_code")) 
     
     capture <- select(thedata, contains("capture") | date:site) %>% 
       select(!matches("uka_code"))
