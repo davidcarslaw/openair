@@ -1,4 +1,6 @@
-# openair 2.8-99
+# openair 2.9-99
+
+# openair 2.9-0
 
 - add option to `TaylorDiagram` for annotation of observed data.
 - fix issue with `timevariation` when `difference = TRUE`

@@ -238,7 +238,7 @@ how statistically significant the trend estimate is: p $<$ 0.001 =
 ***, p $<$ 0.01 = **, p $<$ 0.05 = * and p $<$ 0.1 = $+$.
 
 Some of the code used in \code{TheilSen} is based on that from
-Rand Wilcox \url{https://dornsife.usc.edu/labs/rwilcox/software/}. This mostly
+Rand Wilcox. This mostly
 relates to the Theil-Sen slope estimates and uncertainties.
 Further modifications have been made to take account of correlated
 data based on Kunsch (1989). The basic function has been adapted
