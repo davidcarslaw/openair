@@ -147,7 +147,8 @@ importAURN <- function(site = "my1", year = 2009,
     aq_data <- map_df(files, readSummaryData, 
                       data_type = data_type, 
                       to_narrow = to_narrow,
-                      meta = meta)
+                      meta = meta,
+                      hc = hc)
     
     # add meta data?
     if (meta) {
@@ -180,7 +181,7 @@ importAURN <- function(site = "my1", year = 2009,
 
 # function to read annual or monthly files
 
-readSummaryData <- function(fileName, data_type, to_narrow, meta) {
+readSummaryData <- function(fileName, data_type, to_narrow, meta, hc) {
   
  
   thedata <- try(readRDS(url(fileName)), TRUE)
@@ -194,6 +195,23 @@ readSummaryData <- function(fileName, data_type, to_narrow, meta) {
   names(thedata) <- tolower(names(thedata))
   names(thedata) <- gsub(".mean", "", names(thedata))
   names(thedata) <- gsub(".capture", "_capture", names(thedata))
+  
+  if (!hc) {
+    thedata <- thedata %>%
+      select(any_of(c(
+        "date", "uka_code", "code", "site", "year",
+        "o3", "o3_capture", "o3.daily.max.8hour", "o3.aot40v",
+        "o3.aot40f", "somo35", "somo35_capture", "no",
+        "no_capture", "no2", "no2_capture", "nox",
+        "nox_capture", "so2", "so2_capture", "co",
+        "co_capture", "pm10", "pm10_capture", "nv10",
+        "nv10_capture", "v10", "v10_capture", "pm2.5",
+        "pm2.5_capture", "nv2.5", "nv2.5_capture", "v2.5",
+        "v2.5_capture", "gr10", "gr10_capture", "gr2.5",
+        "gr2.5_capture"
+      )))
+  }
+  
   
   if (data_type == "monthly") {
     
@@ -214,7 +232,7 @@ readSummaryData <- function(fileName, data_type, to_narrow, meta) {
     values <- select(thedata, !contains("capture")) %>% 
       select(!matches("uka_code")) 
     
-    capture <- select(thedata, contains("capture") | date:site) %>% 
+    capture <- select(thedata, contains("capture") | c(code, date, site)) %>% 
       select(!matches("uka_code"))
     
     values <- pivot_longer(values, -c(date, code, site), 

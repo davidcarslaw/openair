@@ -16,7 +16,10 @@ importWAQN <- function(site = "card", year = 2018, data_type = "hourly",
                     data_type, "_WAQ_", year, ".rds")
     
     
-    aq_data <- map_df(files, readSummaryData, data_type = data_type, to_narrow = to_narrow)
+    aq_data <- map_df(files, readSummaryData, 
+                      data_type = data_type, 
+                      to_narrow = to_narrow,
+                      hc = FALSE)
     
     # add meta data?
     if (meta) {

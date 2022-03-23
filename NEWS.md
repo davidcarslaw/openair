@@ -1,5 +1,7 @@
 # openair 2.9-99
 
+- Do not return hydrocarbon measurements by default for annual and monthly summaries in `importAURN`.
+
 # openair 2.9-0
 
 - add option to `TaylorDiagram` for annotation of observed data.
