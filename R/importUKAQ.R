@@ -105,9 +105,6 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
   ## make sure it is in GMT
   attr(thedata$date, "tzone") <- "GMT"
   
-  # make sure class is correct for lubridate
-  class(thedata$date) <- c("POSIXct", "POSIXt")
-  
   
   if (meta) {
     meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>% 
@@ -184,6 +181,9 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
     
     # Reasign
     dat <- get(x)
+    
+    # make sure class is correct for lubridate
+    class(dat$date) <- c("POSIXct", "POSIXt")
     
     # add ratification information
     if (ratified && data_type == "hourly") {

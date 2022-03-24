@@ -1,6 +1,7 @@
 # openair 2.9-99
 
 - Do not return hydrocarbon measurements by default for annual and monthly summaries in `importAURN`.
+- fix issue with class of date-time object for importing some air quality data e.g. `importAURN`.
 
 # openair 2.9-0
 
