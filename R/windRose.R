@@ -844,15 +844,6 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       
       upper <- max.freq + off.set
       
-      ## add axis lines
-      lsegments(-upper, 0, upper, 0)
-      lsegments(0, -upper, 0, upper)
-      
-      ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
-      ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
-      ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
-      ltext(upper * 0.95, 0.07 * upper, "E", cex = 0.7)
-      
       if (nrow(dat) > 0) {
         dat$Interval0 <- 0 ## make a lower bound to refer to
         
@@ -927,6 +918,15 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
           label = annotations_to_place  ,
           adj = c(1, 0), cex = 0.7, col = calm.col
         )        
+        
+        ## add axis lines
+        lsegments(-upper, 0, upper, 0)
+        lsegments(0, -upper, 0, upper)
+        
+        ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
+        ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
+        ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
+        ltext(upper * 0.95, 0.07 * upper, "E", cex = 0.7)
         
       }
     }, legend = legend
