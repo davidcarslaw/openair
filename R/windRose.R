@@ -776,8 +776,9 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   temp <- paste(type, collapse = "+")
   myform <- formula(paste("Interval1 ~ wd | ", temp, sep = ""))
 
-  mymax <- 2 * max.freq
-
+  # maximum annotation that covers the data
+  mymax <- max(pretty(c(0, max.freq), 7))
+  
   # check to see if grid.line is a list or not and set grid line properties
   grid.value <- NULL
 
@@ -805,7 +806,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     grid.col <- "grey85"
   }
 
-  myby <- if (is.null(grid.value)) pretty(c(0, mymax), 10)[2] else grid.value
+  myby <- if (is.null(grid.value)) pretty(c(0, mymax), 5)[2] else grid.value
 
   if (myby / mymax > 0.9) myby <- mymax * 0.9
 
@@ -830,7 +831,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       panel.xyplot(x, y, ...)
       angles <- seq(0, 2 * pi, length = 360)
       sapply(
-        seq(off.set, mymax, by = myby),
+        seq(off.set, mymax + off.set, by = myby),
         function(x) llines(
             x * sin(angles), x * cos(angles),
             col = grid.col, lwd = 1,
@@ -877,8 +878,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       }
       
       ltext(
-        seq((myby + off.set), mymax, myby) * sin(pi * angle.scale / 180),
-        seq((myby + off.set), mymax, myby) * cos(pi * angle.scale / 180),
+        seq((myby + off.set), (mymax + off.set), myby) * sin(pi * angle.scale / 180),
+        seq((myby + off.set), (mymax + off.set), myby) * cos(pi * angle.scale / 180),
         paste(seq(myby, mymax, by = myby), stat.unit, sep = ""),
         cex = 0.7
       )
