@@ -777,7 +777,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   myform <- formula(paste("Interval1 ~ wd | ", temp, sep = ""))
 
   # maximum annotation that covers the data
-  mymax <- max(pretty(c(0, max.freq), 7))
+  mymax <- max(pretty(c(0, max.freq), 4))
   
   # check to see if grid.line is a list or not and set grid line properties
   grid.value <- NULL
@@ -806,7 +806,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     grid.col <- "grey85"
   }
 
-  myby <- if (is.null(grid.value)) pretty(c(0, mymax), 5)[2] else grid.value
+  myby <- if (is.null(grid.value)) pretty(c(0, mymax), 4)[2] else grid.value
 
   if (myby / mymax > 0.9) myby <- mymax * 0.9
 
