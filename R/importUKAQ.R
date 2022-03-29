@@ -98,7 +98,7 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
     thedata <- rename(thedata, air_temp = temp)
   
   ## if particular pollutants have been selected
-  if (pollutant != "all") {
+  if (pollutant[1] != "all") {
     thedata <- thedata[, c("date", pollutant, "site", "code")]
   }
   
