@@ -303,7 +303,7 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
   ## this case is most relevent for model-measurement compasrions where data are in columns
   if (length(pollutant) > 1) {
    
-    mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)),
+    mydata <- gather(mydata, key = variable, value = value, pollutant,
                      factor_key = TRUE)
     ## now set pollutant to "value"
     pollutant <- "value"
@@ -549,13 +549,15 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
 
   ## more compact way?  Need to test
 
-  results.grid <- group_by(mydata, UQS(syms(type))) %>%
+  results.grid <- mydata %>% 
+    group_by(across(type)) %>%
     do(prepare.grid(.))
 
 
   ## normalise by divining by mean conditioning value if needed
   if (normalise) {
-    results.grid <- group_by(results.grid, UQS(syms(type))) %>%
+    results.grid <- results.grid %>% 
+      group_by(across(type)) %>%
       mutate(z = z / mean(z, na.rm = TRUE))
 
     if (missing(key.footer)) key.footer <- "normalised \nlevel"

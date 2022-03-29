@@ -673,7 +673,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   }
 
 
-  results <- group_by(mydata, UQS(syms(type))) %>%
+  results <- mydata %>% 
+    group_by(across(type)) %>%
     do(prepare.grid(.))
 
   ## format
@@ -708,7 +709,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
   ## correction for bias when angle does not divide exactly into 360
   if (bias.corr) {
-    results <- group_by(results, UQS(syms(type))) %>%
+    results <- results %>% 
+      group_by(across(type)) %>%
       do(corr_bias(.))
   }
 

@@ -239,7 +239,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     }
     ## use pollutants as conditioning variables
   
-    mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)))
+    mydata <- gather(mydata, key = variable, value = value, pollutant)
     ## now set pollutant to "value"
     pollutant <- "value"
     if (type == "default") {
@@ -451,7 +451,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     )
   }
   
-  results.grid <- group_by(mydata, UQS(syms(type))) %>%
+  results.grid <- mydata %>% 
+    group_by(across(type)) %>%
     do(prepare.grid(., stat = "percentile"))
   
   
@@ -471,7 +472,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
 
 
   if (mean) {
-    Mean <- group_by(mydata, UQS(syms(type))) %>%
+    Mean <- mydata %>% 
+      group_by(across(type)) %>%
       do(prepare.grid(., stat = "mean"))
 
     results.grid <- bind_rows(results.grid, Mean)
