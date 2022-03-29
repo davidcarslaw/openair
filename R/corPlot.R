@@ -260,7 +260,8 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
   }
 
   # main results in lists
-   results.grid <- group_by(mydata, UQS(syms(type))) %>% 
+   results.grid <- mydata %>% 
+     group_by(across(type)) %>% 
      group_nest() %>% 
      mutate(results = map(data, prepare.cond))
   
@@ -288,9 +289,12 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
   
   labels <- labels$out
   
+  # vars we want
+  vars <- c(type, "out")
+  
   results.grid <- results.grid %>% 
     mutate(out = map(results, 1)) %>% 
-    select(UQS(syms(type)), out) %>% 
+    select(vars) %>% 
     unnest(cols = c(out))
 
   div.col <- function(x) openColours(cols, x)
