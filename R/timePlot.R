@@ -423,7 +423,8 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
     ## deal with mutiple percentile values
 
     if (length(percentile) > 1) {
-      mydata <- group_by(mydata, UQS(syms(type))) %>%
+      mydata <- mydata %>% 
+        group_by(across(type)) %>%
         do(calcPercentile(
           .,
           pollutant = pollutant, avg.time = avg.time,
@@ -451,10 +452,10 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
 
   if (!is.null(windflow)) {
  
-    mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)))
+    mydata <- gather(mydata, key = variable, value = value, pollutant)
   } else {
  #   mydata <- melt(mydata, id.var = c("date", type))
-    mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)))
+    mydata <- gather(mydata, key = variable, value = value, pollutant)
   }
 
   if (type != "default") group <- TRUE ## need to group pollutants if conditioning

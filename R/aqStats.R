@@ -127,7 +127,8 @@ aqStats <- function(mydata, pollutant = "no2",
   vars <- c(type, "pollutant", "year")
   
   # calculate the statistics
-  results <- group_by(mydata, UQS(syms(vars))) %>%
+  results <- mydata %>% 
+    group_by(across(type)) %>%
     do(calcStats(., data.thresh = data.thresh,
       percentile = percentile, ...
     ))
@@ -138,12 +139,12 @@ aqStats <- function(mydata, pollutant = "no2",
   if (transpose) {
     results <- gather(results,
       key = variable, value = value,
-      -c(UQS(syms(type)), pollutant, year, date)
+      -c(type, pollutant, year, date)
     )
   
     if (type != "default") {
       
-      results <- unite(results, site_pol, UQS(syms(type)), pollutant)
+      results <- unite(results, site_pol, type, pollutant)
       
     } else {
       

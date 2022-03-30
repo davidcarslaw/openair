@@ -72,8 +72,8 @@ polarDiff <- function(before, after, pollutant = "nox",
                             id_cols = u:v, 
                             names_from = period, 
                             values_from = z) %>% 
-    mutate(!!(sym(pollutant)) := after - before,
-           !!(sym(x)) := (u ^ 2 + v ^ 2) ^ 0.5,
+    mutate({{ pollutant }} := after - before,
+           {{ x }} := (u ^ 2 + v ^ 2) ^ 0.5,
            wd = 180 * atan2(u, v) / pi,
            wd = ifelse(wd < 0, wd + 360, wd)) 
   

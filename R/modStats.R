@@ -166,70 +166,80 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   ## calculate the various statistics
 
   if ("n" %in% statistic) {
-    res.n <- group_by(mydata, UQS(syms(type))) %>%
+    res.n <- mydata %>% 
+      group_by(across(type)) %>%
       do(n(., mod, obs))
   } else {
     res.n <- NULL
   }
 
   if ("FAC2" %in% statistic) {
-    res.FAC <- group_by(mydata, UQS(syms(type))) %>%
+    res.FAC <- mydata %>% 
+      group_by(across(type)) %>%
       do(FAC2(., mod, obs))
   } else {
     res.FAC <- NULL
   }
 
   if ("MB" %in% statistic) {
-    res.MB <- group_by(mydata, UQS(syms(type))) %>%
+    res.MB <- mydata %>% 
+      group_by(across(type)) %>%
       do(MB(., mod, obs))
   } else {
     res.MB <- NULL
   }
 
   if ("MGE" %in% statistic) {
-    res.MGE <- group_by(mydata, UQS(syms(type))) %>%
+    res.MGE <- mydata %>% 
+      group_by(across(type)) %>%
       do(MGE(., mod, obs))
   } else {
     res.MGE <- NULL
   }
 
   if ("NMB" %in% statistic) {
-    res.NMB <- group_by(mydata, UQS(syms(type))) %>%
+    res.NMB <- mydata %>% 
+      group_by(across(type)) %>%
       do(NMB(., mod, obs))
   } else {
     res.NMB <- NULL
   }
 
   if ("NMGE" %in% statistic) {
-    res.NMGE <- group_by(mydata, UQS(syms(type))) %>%
+    res.NMGE <- mydata %>% 
+      group_by(across(type)) %>%
       do(NMGE(., mod, obs))
   } else {
     res.NMGE <- NULL
   }
 
   if ("RMSE" %in% statistic) {
-    res.RMSE <- group_by(mydata, UQS(syms(type))) %>%
+    res.RMSE <- mydata %>% 
+      group_by(across(type)) %>%
       do(RMSE(., mod, obs))
   } else {
     res.RMSE <- NULL
   }
 
   if ("r" %in% statistic) {
-    res.r <- group_by(mydata, UQS(syms(type))) %>%
+    res.r <- mydata %>% 
+      group_by(across(type)) %>%
       do(r(., mod, obs))
   } else {
     res.r <- NULL
   }
 
   if ("COE" %in% statistic) {
-    res.COE <- group_by(mydata, UQS(syms(type))) %>%
+    res.COE <- mydata %>% 
+      group_by(across(type)) %>%
       do(COE(., mod, obs))
   } else {
     res.COE <- NULL
   }
 
   if ("IOA" %in% statistic) {
-    res.IOA <- group_by(mydata, UQS(syms(type))) %>%
+    res.IOA <- mydata %>% 
+      group_by(across(type)) %>%
       do(IOA(., mod, obs))
   } else {
     res.IOA <- NULL
@@ -255,7 +265,8 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
     if (length(types) == 0) {
       results <- rankModels(results, rank.name)
     } else {
-      results <- group_by(results, UQS(syms(types))) %>%
+      results <- results %>% 
+        group_by(across(types)) %>%
         do(rankModels(., rank.name = rank.name))
     }
   }

@@ -221,7 +221,8 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
   } else {
     traj <- cutData(traj, type)
 
-    traj <- group_by(traj, UQS(syms(type))) %>%
+    traj <- traj %>% 
+      group_by(across(type)) %>%
       do(calcTraj(.))
   }
 
@@ -242,8 +243,8 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     vars <- c("lat", "lon", "date", "cluster", "hour.inc", type)
     vars2 <- c("cluster", "hour.inc", type)
 
-    agg <- select(traj, UQS(syms(vars))) %>%
-      group_by(UQS(syms(vars2))) %>%
+    agg <- select(traj, vars) %>%
+      group_by(across(vars2)) %>%
       summarise(across(everything(), mean))
 
     # the data frame we want to return before it is transformed
@@ -253,13 +254,15 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
 
     vars <- c(type, "cluster")
 
-    clusters <- group_by(traj, UQS(syms(vars))) %>%
+    clusters <- traj %>% 
+      group_by(across(vars)) %>%
       tally() %>%
       mutate(freq = round(100 * n / sum(n), 1))
 
     ## make each panel add up to 100
     if (by.type) {
-      clusters <- group_by(clusters, UQS(syms(type))) %>%
+      clusters <- clusters %>% 
+        group_by(across(type)) %>%
         mutate(freq = 100 * freq / sum(freq))
 
       clusters$freq <- round(clusters$freq, 1)

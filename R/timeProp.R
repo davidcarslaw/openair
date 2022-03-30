@@ -245,8 +245,8 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   values <- mydata %>% 
     group_by(across(vars)) %>%
     summarise(
-      mean = mean(UQ(sym(pollutant)), na.rm = TRUE),
-      freq = length(na.omit(UQ(sym(pollutant))))
+      mean = mean(.data[[pollutant]], na.rm = TRUE),
+      freq = length(na.omit(.data[[pollutant]]))
     )
 
   # do not weight by concentration if statistic = frequency,

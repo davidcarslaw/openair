@@ -365,11 +365,12 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
   if (statistic %in% c("cwt", "median")) {
 
     ## calculate the mean of points in each cell
-    mydata <- group_by(mydata, UQS(syms(vars))) %>%
+    mydata <- mydata %>% 
+      group_by(across(vars)) %>%
       summarise(
         N = length(date),
         date = head(date, 1),
-        count = mean(UQ(sym(pollutant)), na.rm = TRUE)
+        count = mean(.data[[pollutant]], na.rm = TRUE)
       )
 
     mydata[[pollutant]] <- mydata$count
@@ -392,7 +393,8 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     ## count % of times a cell contains a trajectory point
     ## need date for later use of type
 
-    mydata <- group_by(mydata, UQS(syms(vars))) %>%
+    mydata <- mydata %>% 
+      group_by(across(vars)) %>%
       summarise(count = length(date), date = head(date, 1))
 
     mydata[[pollutant]] <- 100 * mydata$count / max(mydata$count)
@@ -405,11 +407,12 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     Q90 <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
 
     ## calculate the proportion of points in cell with value > Q90
-    mydata <- group_by(mydata, UQS(syms(vars))) %>%
+    mydata <- mydata %>% 
+      group_by(across(vars)) %>%
       summarise(
         N = length(date),
         date = head(date, 1),
-        count = length(which(UQ(sym(pollutant)) > Q90)) / N
+        count = length(which(.data[[pollutant]] > Q90)) / N
       )
 
     mydata[[pollutant]] <- mydata$count
@@ -431,7 +434,8 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
     ## calculate percentage of points for all data
 
-    base <- group_by(mydata, UQS(syms(vars))) %>%
+    base <- mydata %>% 
+      group_by(across(vars)) %>%
       summarise(count = length(date), date = head(date, 1))
 
     base[[pollutant]] <- 100 * base$count / max(base$count)
@@ -441,11 +445,12 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
 
     ## calculate percentage of points for high data
-    high <- group_by(mydata, UQS(syms(vars))) %>%
+    high <- mydata %>% 
+      group_by(across(vars)) %>%
       summarise(
         N = length(date),
         date = head(date, 1),
-        count = length(which(UQ(sym(pollutant)) > Q90))
+        count = length(which(.data[[pollutant]] > Q90))
       )
 
     high[[pollutant]] <- 100 * high$count / max(high$count)

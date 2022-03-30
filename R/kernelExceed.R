@@ -230,7 +230,8 @@ kernelExceed <- function(polar,
 
   #############################################################################
 
-  results.grid <- group_by(subdata, UQS(syms(type))) %>%
+  results.grid <- subdata %>% 
+    group_by(across(type)) %>%
     do(prepare.grid(.))
 
   ## adjust to get number of exceedance days

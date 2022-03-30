@@ -224,8 +224,8 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
   model_lm <- function(x, y, data) {
   
     # make it easy to refer to x and y
-    data <- rename(data, x = !! (sym(x)),
-                   y = !! (sym(y)))
+    data <- rename(data, x = .data[[x]],
+                   y = .data[[y]])
     
     my_lm <- function(data) lm(y ~ x, data = data)
     

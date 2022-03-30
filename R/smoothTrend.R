@@ -298,13 +298,14 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
   # in the case of mutiple percentiles, these are assinged and treated
   # like multiple pollutants
  
-  mydata <- gather(mydata, key = variable, value = value, UQS(syms(pollutant)),
+  mydata <- gather(mydata, key = variable, value = value, pollutant,
                    factor_key = TRUE)
 
   if (length(percentile) > 1) {
     vars <- c(type, "variable")
 
-    mydata <- group_by(mydata, UQS(syms(vars))) %>%
+    mydata <- mydata %>% 
+      group_by(across(vars)) %>%
       do(calcPercentile(
         .,
         pollutant = "value",
@@ -314,7 +315,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     
     vars <- paste0("percentile.", percentile)
 
-    mydata <- gather(mydata, key = variable, value = value, UQS(syms(vars)))
+    mydata <- gather(mydata, key = variable, value = value, vars)
     
    
   } else {
@@ -396,13 +397,15 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   vars <- c(type, "variable")
 
-  res <- group_by(mydata, UQS(syms(vars))) %>%
+  res <- mydata %>% 
+    group_by(across(vars)) %>%
     do(process.cond(.))
 
   ## smooth fits so that they can be returned to the user
   vars <- c(type, "variable")
 
-  fit <- group_by(res, UQS(syms(vars))) %>%
+  fit <- res %>% 
+    group_by(across(vars)) %>%
     do(fitGam(., x = "date", y = "conc", k = k, ...))
 
   class(fit$date) <- c("POSIXct", "POSIXt")

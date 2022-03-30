@@ -10,5 +10,5 @@
                            "site", "where", "ratified_to", "site_type", "start_date",
                            "u", "v", "period", "z", "wd", "cluster", ".id", "weights",
                            "NOXasNO2.mean", "NOXasNO2.capture", "uka_code",
-                           "pmfr", "p2fr", "pmfb", "p2fb"))
+                           "pmfr", "p2fr", "pmfb", "p2fb", ":="))
 }

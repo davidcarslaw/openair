@@ -352,7 +352,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     if (other) {
     vars <- c("pred.cut", statistic)
     
-      res <- group_by(res, UQS(syms(vars))) %>% 
+      res <- res %>% 
+        group_by(across(vars)) %>%
         summarise(Freq = dplyr::n())
 
       ## calculate proportions by interval
@@ -374,7 +375,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
   ## treat clusters specfically if present #####################################
 
   if (other) {
-    clust.results <- group_by(mydata, UQS(syms(type))) %>%
+    clust.results <- mydata %>% 
+      group_by(across(type)) %>%
       do(procData(., other = other, statistic = statistic))
 
     clust.results$.id <- as.numeric(as.character(clust.results$pred.cut))
@@ -452,7 +454,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     )
     
     process_data <- function(mydata, type, ...) {
-      mydata <- group_by(mydata, UQS(syms(type))) %>%
+      mydata <- mydata %>% 
+        group_by(across(type)) %>%
         do(procData(., ...))
     }
     

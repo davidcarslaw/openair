@@ -337,7 +337,6 @@
 #' @importFrom MASS rlm
 #' @importFrom latticeExtra useOuterStrips
 #' @import mgcv
-#' @importFrom rlang sym syms UQ UQS :=
 #' @import lattice
 #' @importFrom stats complete.cases
 #' @return As well as generating the plot itself, \code{polarPlot} also returns
@@ -596,7 +595,7 @@ polarPlot <-
 
       ## use pollutants as conditioning variables
       mydata <- gather(mydata,
-        key = variable, value = value, UQS(syms(pollutant)),
+        key = variable, value = value, pollutant,
         factor_key = TRUE
       )
       ## now set pollutant to "value"
@@ -899,17 +898,20 @@ polarPlot <-
     if (!missing(min.bin)) {
       tmp <- min.bin
       min.bin <- 0
-      res1 <- group_by(mydata, UQS(syms(type))) %>%
+      res1 <- mydata %>% 
+        group_by(across(type)) %>%
         do(prepare.grid(.))
 
       min.bin <- tmp
 
-      res <- group_by(mydata, UQS(syms(type))) %>%
+      res <- mydata %>% 
+        group_by(across(type)) %>%
         do(prepare.grid(.))
 
       res$miss <- res1$z
     } else {
-      res <- group_by(mydata, UQS(syms(type))) %>%
+      res <- mydata %>% 
+        group_by(across(type)) %>%
         do(prepare.grid(.))
     }
 

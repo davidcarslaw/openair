@@ -338,13 +338,14 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   
   if (remove.empty) {
     mydata <- group_by(mydata, cuts) %>% 
-      mutate(empty = all(is.na(UQS(syms(pollutant))))) %>% 
+      mutate(empty = all(is.na(pollutant))) %>% 
       filter(empty == FALSE)
   }
   
   baseData <- mydata # for use later
 
-  mydata <- group_by(mydata, UQS(syms(type))) %>%
+  mydata <- mydata %>% 
+    group_by(across(type)) %>%
     do(prepare.grid(., pollutant))
 
   mydata$value <- mydata$conc.mat ## actual numerical value (retain for categorical scales)
@@ -363,7 +364,8 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   if (annotate == "wd") {
     baseData$wd <- baseData$wd * 2 * pi / 360
 
-    wd <- group_by(baseData, UQS(syms(type))) %>%
+    wd <- baseData %>% 
+      group_by(across(type)) %>%
       do(prepare.grid(., "wd"))
 
     wd$value <- wd$conc.mat ## actual numerical value (retain for categorical scales)
@@ -372,10 +374,12 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   if (annotate == "ws") {
     baseData$wd <- baseData$wd * 2 * pi / 360
 
-    ws <- group_by(baseData, UQS(syms(type))) %>%
+    ws <- baseData %>% 
+      group_by(across(type)) %>%
       do(prepare.grid(., "ws"))
 
-    wd <- group_by(baseData, UQS(syms(type))) %>%
+    wd <- baseData %>% 
+      group_by(across(type)) %>%
       do(prepare.grid(., "wd"))
 
     ## normalise wind speeds to highest daily mean

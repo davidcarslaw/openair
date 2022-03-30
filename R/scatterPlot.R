@@ -1050,21 +1050,24 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     ## only aggregate if we have to (for data pre-gridded)
     if (nrow(unique(subset(mydata, select = c(xgrid, ygrid)))) != nrow(mydata)) {
       if (statistic == "frequency") {
-        mydata <- select(mydata, UQS(syms(vars)), z) %>%
-          group_by(., UQS(syms(vars))) %>%
-          summarise(MN = length(UQ(sym(z))))
+        vars_select <- c(vars, z)
+        mydata <- select(mydata, vars_select) %>%
+          group_by(across(vars)) %>%
+          summarise(MN = length(.data[[z]]))
       }
 
       if (statistic == "mean") {
-        mydata <- select(mydata, UQS(syms(vars)), z) %>%
-          group_by(., UQS(syms(vars))) %>%
-          summarise(MN = mean(UQ(sym(z)), na.rm = TRUE))
+        vars_select <- c(vars, z)
+        mydata <- select(mydata, vars_select) %>%
+          group_by(across(vars)) %>%
+          summarise(MN = mean(.data[[z]], na.rm = TRUE))
       }
 
       if (statistic == "median") {
-        mydata <- select(mydata, UQS(syms(vars)), z) %>%
-          group_by(., UQS(syms(vars))) %>%
-          summarise(MN = median(UQ(sym(z)), na.rm = TRUE))
+        vars_select <- c(vars, z)
+        mydata <- select(mydata, vars_select) %>%
+          group_by(across(vars)) %>%
+          summarise(MN = median(.data[[z]], na.rm = TRUE))
       }
 
       names(mydata)[which(names(mydata) == "MN")] <- z
@@ -1129,7 +1132,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     }
 
     if (smooth) {
-      mydata <- group_by(mydata, UQS(syms(type))) %>%
+      mydata <- mydata %>% 
+        group_by(across(type)) %>%
         do(smooth.grid(., z))
     }
 
@@ -1359,7 +1363,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     }
 
     if (smooth) {
-      mydata <- group_by(mydata, UQS(syms(type))) %>%
+      mydata <- mydata %>% 
+        group_by(across(type)) %>%
         do(smooth.grid(., z))
     }
 
@@ -1563,7 +1568,8 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
     ## ###########################################################################
 
-    results.grid <- group_by(mydata, UQS(syms(type))) %>%
+    results.grid <- mydata %>% 
+      group_by(across(type)) %>%
       do(prepare.grid(.))
 
 
@@ -1899,7 +1905,8 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
       ## make sure we match clusters in case order mixed
       vars <- c(type, "MyGroupVar")
 
-      pnts <- group_by(mydata, UQS(syms(vars))) %>%
+      pnts <- mydata %>% 
+        group_by(across(vars)) %>%
         do(head(., 1))
 
       pnts <- merge(

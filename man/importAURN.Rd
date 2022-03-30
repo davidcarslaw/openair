@@ -200,7 +200,7 @@ pollutant = c("nox", "no2", "o3"))}
 
 # Import annual data over a period, make it narrow format and return site information
 
-aq <- importAURN(year = 2010:2020, data_type = "annual", meta = TRUE, to_narrow = TRUE)
+\dontrun{aq <- importAURN(year = 2010:2020, data_type = "annual", meta = TRUE, to_narrow = TRUE)}
 
 \dontrun{cardiff <- importWAQN(site = "card", year = 2020)}
 }

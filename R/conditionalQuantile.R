@@ -260,7 +260,8 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
   lo <- min(mydata[c(mod, obs)])
   hi <- max(mydata[c(mod, obs)])
   
-  all.results <- group_by(mydata, UQS(syms(type))) %>% 
+  all.results <- mydata %>% 
+    group_by(across(type)) %>%
     group_nest() %>% 
     mutate(results = map(data, procData))
 
