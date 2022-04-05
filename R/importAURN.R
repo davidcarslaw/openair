@@ -200,7 +200,8 @@ readSummaryData <- function(fileName, data_type, to_narrow, meta, hc) {
     thedata <- thedata %>%
       select(any_of(c(
         "date", "uka_code", "code", "site", "year",
-        "o3", "o3_capture", "o3.daily.max.8hour", "o3.aot40v",
+        "o3", "o3_capture", "o3.summer_capture",
+        "o3.daily.max.8hour", "o3.aot40v",
         "o3.aot40f", "somo35", "somo35_capture", "no",
         "no_capture", "no2", "no2_capture", "nox",
         "nox_capture", "so2", "so2_capture", "co",
@@ -243,7 +244,7 @@ readSummaryData <- function(fileName, data_type, to_narrow, meta, hc) {
     
     capture$species <- gsub("_capture", "", capture$species)
     
-    thedata <- left_join(values, capture, 
+    thedata <- full_join(values, capture, 
                          by = c("date", "code", "site", "species"))
     
   }
