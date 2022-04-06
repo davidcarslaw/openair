@@ -154,12 +154,7 @@ importAURN <- function(site = "my1", year = 2009,
     # add meta data?
     if (meta) {
       
-      meta_data <- importMeta(source = "aurn")
-      
-      meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>% 
-        select(site, code, latitude, longitude, site_type)
-      # suppress warnings about factors
-      aq_data <- left_join(aq_data, meta_data, by = c("code", "site"))
+      aq_data <- add_meta(source = "aurn", aq_data)
       
     }
     
@@ -171,15 +166,10 @@ importAURN <- function(site = "my1", year = 2009,
     
     aq_data <- map_df(files, readDAQI)
     
-    # note that site name is not returned by default
+
     if (meta) {
       
-      meta_data <- importMeta(source = "aurn")
-      
-      meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>% 
-        select(site, code, latitude, longitude, site_type)
-      # suppress warnings about factors
-      aq_data <- left_join(aq_data, meta_data, by = c("code"))
+      aq_data <- add_meta(source = "aurn", aq_data)
       
     }
 
@@ -287,12 +277,27 @@ readDAQI <- function(fileName) {
   
   thedata <- thedata %>% 
     mutate(code = as.character(code),
+           site = as.character(site),
            pollutant = as.character(pollutant),
-           date = ymd(meas_date, tz = "GMT"),
+           date = ymd(Date, tz = "GMT"),
            measurement_period = as.character(measurement_period)
            ) %>% 
-    select(-meas_date) %>% 
+    select(-Date) %>% 
     relocate(date, .after = pollutant)
   
   return(thedata)
+}
+
+# function to add meta data based on network and supply of aq data
+add_meta <- function(source, aq_data) {
+
+    meta_data <- importMeta(source = source)
+    
+    meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>% 
+      select(site, code, latitude, longitude, site_type)
+    
+    aq_data <- left_join(aq_data, meta_data, by = c("code", "site"))
+    
+  return(aq_data)
+    
 }
