@@ -77,6 +77,9 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
   id <- which(names(thedata) %in% "noxasno2")
   if (length(id) == 1) names(thedata)[id] <- "nox"
   
+  # change code to character
+  thedata$code <- as.character(thedata$code)
+  
   
   ## should hydrocarbons be imported?
   if (hc) {

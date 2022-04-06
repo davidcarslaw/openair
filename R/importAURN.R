@@ -81,7 +81,7 @@
 ##'  \item{"monthly"}{ Monthly average data with data capture information for the whole network.}
 ##'  \item{"annual"}{ Annual average data with data capture information for the whole network.}
 ##'  \item{"15min"}{ To import 15-minute average SO2 concentrations.}
-##
+##'  \item{"daqi"}{ Daily Air Quality Index (DAQI). See [here](https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant) for more details of how the index is defined.}
 ##' }
 ##' @param pollutant Pollutants to import. If omitted will import all pollutants
 ##'   from a site. To import only NOx and NO2 for example use \code{pollutant =
@@ -130,9 +130,10 @@ importAURN <- function(site = "my1", year = 2009,
                        hc = FALSE, meta = FALSE, ratified = FALSE,
                        to_narrow = FALSE, verbose = FALSE) {
   
-  if (!data_type %in% c("hourly", "daily", "15min", "monthly", "annual")) {
+  if (!tolower(data_type) %in% 
+      c("hourly", "daily", "15min", "monthly", "annual", "daqi")) {
     
-    warning("data_type should be one of 'hourly', 'daily', 'monthly', 'annual'")
+    warning("data_type should be one of 'hourly', 'daily', 'monthly', 'annual', 'daqi'")
     data_type <- "hourly"
     
   }
@@ -162,6 +163,26 @@ importAURN <- function(site = "my1", year = 2009,
       
     }
     
+  } else if (data_type == "daqi") {
+    
+    # daily air quality index
+    files <- paste0("https://uk-air.defra.gov.uk/openair/R_data/annual_DAQI_AURN_", 
+                    year, ".rds")
+    
+    aq_data <- map_df(files, readDAQI)
+    
+    # note that site name is not returned by default
+    if (meta) {
+      
+      meta_data <- importMeta(source = "aurn")
+      
+      meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>% 
+        select(site, code, latitude, longitude, site_type)
+      # suppress warnings about factors
+      aq_data <- left_join(aq_data, meta_data, by = c("code"))
+      
+    }
+
     
   } else {
 
@@ -249,6 +270,29 @@ readSummaryData <- function(fileName, data_type, to_narrow, meta, hc) {
     
   }
   
+  thedata <- thedata %>% 
+    mutate(site = as.character(site),
+           code = as.character(code))
+  
     
+  return(thedata)
+}
+
+readDAQI <- function(fileName) {
+  
+  thedata <- try(readRDS(url(fileName)), TRUE)
+  
+  if (inherits(thedata, "try-error")) 
+    return()
+  
+  thedata <- thedata %>% 
+    mutate(code = as.character(code),
+           pollutant = as.character(pollutant),
+           date = ymd(meas_date, tz = "GMT"),
+           measurement_period = as.character(measurement_period)
+           ) %>% 
+    select(-meas_date) %>% 
+    relocate(date, .after = pollutant)
+  
   return(thedata)
 }

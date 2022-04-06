@@ -1,5 +1,9 @@
 # openair 2.9-99
 
+- add Daily Air Quality Index (DAQI) to `importAURN` as `data_type`.
+
+# openair 2.9-1
+
 - Do not return hydrocarbon measurements by default for annual and monthly summaries in `importAURN`.
 - fix issue with class of date-time object for importing some air quality data e.g. `importAURN`.
 - refine default grid lines in `windRose` and `pollutionRose`.
