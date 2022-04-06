@@ -168,6 +168,15 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
     if (data_type == "daily")
       x <- paste0(x, "_daily_mean")
     
+    if (data_type == "8_hour")
+      x <- paste0(x, "_8hour_mean")
+    
+    if (data_type == "24_hour")
+      x <- paste0(x, "_24hour_mean")
+    
+    if (data_type == "daily_max_8")
+      x <- paste0(x, "_daily_max_8hour")
+    
     
     # Reasign
     dat <- get(x)

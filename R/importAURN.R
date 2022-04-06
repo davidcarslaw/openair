@@ -82,11 +82,17 @@
 ##'   data with data capture information for the whole network.}
 ##'   \item{"annual"}{ Annual average data with data capture information for the
 ##'   whole network.} 
-##'   \item{"15min"}{ To import 15-minute average SO2
+##'   \item{"15_min"}{ To import 15-minute average SO2
 ##'   concentrations.} 
-##'   \item{"daqi"}{ Daily Air Quality Index (DAQI). See
-##'   [here](https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant)
-##'   for more details of how the index is defined.} }
+##'   \item{"8_hour"}{ To import 8-hour rolling mean
+##'   concentrations for O3 and CO.} 
+##'   \item{"24_hour"}{ To import 24-hour rolling
+##'   mean concentrations for particulates.} 
+##'   \item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3 and CO.} 
+##'   \item{"daqi"}{ To import Daily
+##'   Air Quality Index (DAQI). See
+##'   \href{https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant}{here}
+##'    for more details of how the index is defined.} }
 ##' @param pollutant Pollutants to import. If omitted will import all pollutants
 ##'   from a site. To import only NOx and NO2 for example use \code{pollutant =
 ##'   c("nox", "no2")}.
@@ -135,9 +141,13 @@ importAURN <- function(site = "my1", year = 2009,
                        to_narrow = FALSE, verbose = FALSE) {
   
   if (!tolower(data_type) %in% 
-      c("hourly", "daily", "15min", "monthly", "annual", "daqi")) {
+      c("hourly", "daily", "15min", "monthly", "annual", "daqi", "15_min",
+        "24_hour", "8_hour", "daily_max_8")) {
     
-    warning("data_type should be one of 'hourly', 'daily', 'monthly', 'annual', 'daqi'")
+    warning("data_type should be one of 'hourly', 'daily', 
+            'monthly', 'annual', '15_min', '24_hour', '8_hour',
+            'daily_max_8', 'daqi'")
+    
     data_type <- "hourly"
     
   }

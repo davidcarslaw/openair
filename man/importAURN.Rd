@@ -71,15 +71,25 @@ to 2000 use \code{year = 1990:2000}. To import several specific years use
 \code{year = c(1990, 1995, 2000)} for example.}
 
 \item{data_type}{The data type averaging period. These include:
-  
- \itemize{
- \item{"hourly"}{ Default is to return hourly data.}
- \item{"daily"}{ Daily average data.}
- \item{"monthly"}{ Monthly average data with data capture information for the whole network.}
- \item{"annual"}{ Annual average data with data capture information for the whole network.}
- \item{"15min"}{ To import 15-minute average SO2 concentrations.}
- \item{"daqi"}{ Daily Air Quality Index (DAQI). See [here](https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant) for more details of how the index is defined.}
-}}
+
+  \itemize{ 
+  \item{"hourly"}{ Default is to return hourly data.}
+  \item{"daily"}{ Daily average data.} 
+  \item{"monthly"}{ Monthly average
+  data with data capture information for the whole network.}
+  \item{"annual"}{ Annual average data with data capture information for the
+  whole network.} 
+  \item{"15_min"}{ To import 15-minute average SO2
+  concentrations.} 
+  \item{"8_hour"}{ To import 8-hour rolling mean
+  concentrations for O3 and CO.} 
+  \item{"24_hour"}{ To import 24-hour rolling
+  mean concentrations for particulates.} 
+  \item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3 and CO.} 
+  \item{"daqi"}{ To import Daily
+  Air Quality Index (DAQI). See
+  \href{https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant}{here}
+   for more details of how the index is defined.} }}
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use \code{pollutant =
@@ -109,10 +119,10 @@ Returns a data frame of hourly mean values with date in POSIXct
   class and time zone GMT.
 }
 \description{
-Functions for importing air pollution data from a range of UK
-networks including the Automatic Urban and Rural Network. Files are imported
-from a remote server operated by Ricardo that provides air quality data
-files as R data objects.
+Functions for importing air pollution data from a range of UK networks
+including the Automatic Urban and Rural Network. Files are imported from a
+remote server operated by Ricardo that provides air quality data files as R
+data objects.
 }
 \details{
 This family of functions has been written to make it easy to import data
@@ -138,10 +148,10 @@ site name is imported and used in \code{openair} functions.
 The data are imported by stacking sites on top of one another and will have
 field names \code{site}, \code{code} (the site code) and \code{pollutant}.
 
-By default, the function returns hourly average data. However, annual, 
-monthly, daily and 15 minute data (for SO2) can be returned using the option \code{data_type}.
-Annual and monthly data provide whole network information including data capture
-statistics.
+By default, the function returns hourly average data. However, annual,
+monthly, daily and 15 minute data (for SO2) can be returned using the option
+\code{data_type}. Annual and monthly data provide whole network information
+including data capture statistics.
 
 All units are expressed in mass terms for gaseous species (ug/m3 for NO,
 NO2, NOx (as NO2), SO2 and hydrocarbons; and mg/m3 for CO). PM10
@@ -162,16 +172,16 @@ direction (\code{wd}) and ambient temperature (\code{air_temp}) if available
 (generally from around 2010). These values are modelled using the WRF model
 operated by Ricardo.
 
-The BAM (Beta-Attenuation Monitor) instruments that have been
-incorporated into the network throughout its history have been scaled by 1.3
-if they have a heated inlet (to account for loss of volatile particles) and
-0.83 if they do not have a heated inlet. The few TEOM instruments in the
-network after 2008 have been scaled using VCM (Volatile Correction Model)
-values to account for the loss of volatile particles. The object of all
-these scaling processes is to provide a reasonable degree of comparison
-between data sets and with the reference method and to produce a consistent
-data record over the operational period of the network, however there may be
-some discontinuity in the time series associated with instrument changes.
+The BAM (Beta-Attenuation Monitor) instruments that have been incorporated
+into the network throughout its history have been scaled by 1.3 if they have
+a heated inlet (to account for loss of volatile particles) and 0.83 if they
+do not have a heated inlet. The few TEOM instruments in the network after
+2008 have been scaled using VCM (Volatile Correction Model) values to
+account for the loss of volatile particles. The object of all these scaling
+processes is to provide a reasonable degree of comparison between data sets
+and with the reference method and to produce a consistent data record over
+the operational period of the network, however there may be some
+discontinuity in the time series associated with instrument changes.
 
 No corrections have been made to the PM2.5 data. The volatile component of
 FDMS PM2.5 (where available) is shown in the 'v2.5' column.
