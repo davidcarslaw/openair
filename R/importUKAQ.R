@@ -150,27 +150,14 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
 loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
   tryCatch({
     
-    # Download file to temp directory
-    # need to do this because of https, certificate problems
-    tmp <- tempfile()
-    
     # Build the file name
     fileName <- paste0(
       url_data, x,
       ".RData"
     )
     
-    # No warnings needed, function gives message if file is not present
-    suppressWarnings(
-      download.file(
-        fileName,
-        method = "libcurl", destfile = tmp,
-        quiet = !verbose
-      )
-    )
-    
     # Load the rdata object
-    load(tmp)
+    load(url(fileName))
     
     if (data_type == "hourly")
       x <- x

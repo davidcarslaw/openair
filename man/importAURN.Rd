@@ -78,6 +78,7 @@ to 2000 use \code{year = 1990:2000}. To import several specific years use
  \item{"monthly"}{ Monthly average data with data capture information for the whole network.}
  \item{"annual"}{ Annual average data with data capture information for the whole network.}
  \item{"15min"}{ To import 15-minute average SO2 concentrations.}
+ \item{"daqi"}{ Daily Air Quality Index (DAQI). See [here](https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant) for more details of how the index is defined.}
 }}
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
