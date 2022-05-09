@@ -81,7 +81,7 @@ importMeta <- function(source = "aurn", all = FALSE) {
   if (source == "aurn") {
     tmp <- tempfile()
     
-    fileName <- "http://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData"
+    fileName <- "https://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData"
     download.file(fileName, method = "libcurl", destfile = tmp, quiet = TRUE)
     load(tmp)
     
@@ -105,7 +105,7 @@ importMeta <- function(source = "aurn", all = FALSE) {
     tmp <- tempfile()
     
     # load data
-    load(url("http://www.scottishairquality.scot/openair/R_data/SCOT_metadata.RData"))
+    load(url("https://www.scottishairquality.scot/openair/R_data/SCOT_metadata.RData"))
     
     meta <- rename(meta,
                    code = site_id, site = site_name,
@@ -178,7 +178,7 @@ importMeta <- function(source = "aurn", all = FALSE) {
   
   
   if (source == "kcl") {
-    con <- url("http://www.londonair.org.uk/r_data/sites.RData")
+    con <- url("https://www.londonair.org.uk/r_data/sites.RData")
     meta <- get(load(con))
     close(con)
     

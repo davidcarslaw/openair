@@ -17,7 +17,7 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
   
   if (source == "saqn") {
     
-    url_data <- "http://www.scottishairquality.scot/openair/R_data/"
+    url_data <- "https://www.scottishairquality.scot/openair/R_data/"
     source_meta <- "saqn"
     
   } 

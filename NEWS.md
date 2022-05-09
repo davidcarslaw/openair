@@ -2,6 +2,7 @@
 
 - add Daily Air Quality Index (DAQI) to `importAURN` as `data_type`.
 - add rolling 8 and 24 hour statistics to `importAURN` family as `data_type`.
+- use https on importing meta data in `importMeta`
 
 # openair 2.9-1
 
