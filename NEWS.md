@@ -3,6 +3,8 @@
 - add Daily Air Quality Index (DAQI) to `importAURN` as `data_type`.
 - add rolling 8 and 24 hour statistics to `importAURN` family as `data_type`.
 - use https on importing meta data in `importMeta`
+- fix `calendarPlot` issue when there are gaps between selected months e.g.`month = c(1, 2, 12)`
+- fix warning message in `calendarPlot`
 
 # openair 2.9-1
 

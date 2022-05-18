@@ -323,6 +323,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   mydata <- timeAverage(mydata, "day", statistic = statistic, 
                         data.thresh = data.thresh)
   
+  
   mydata$date <- as_date(mydata$date)
   
   type <- "cuts"
@@ -343,6 +344,11 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   }
   
   baseData <- mydata # for use later
+  
+  # timeAverage will pad-out missing months
+  if (!missing(month)) {
+    mydata <- selectByDate(mydata, month = month)
+  }
 
   mydata <- mydata %>% 
     group_by(across(type)) %>%
@@ -356,9 +362,12 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
 
   category <- FALSE ## assume pollutant is not a categorical value
 
-  if (!is.na(labels) && !is.na(breaks)) {
+  if (!anyNA(labels) && !anyNA(breaks)) {
     category <- TRUE
-    mydata <- transform(mydata, conc.mat = cut(conc.mat, breaks = breaks, labels = labels))
+    mydata <- mutate(mydata, 
+                     conc.mat = cut(conc.mat, 
+                                    breaks = breaks, 
+                                    labels = labels))
   }
 
   if (annotate == "wd") {
@@ -444,8 +453,6 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
 
     legend <- makeOpenKeyLegend(key, legend, "calendarPlot")
   }
-
-
 
 
   lv.args <- list(
