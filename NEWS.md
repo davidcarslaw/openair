@@ -5,6 +5,7 @@
 - use https on importing meta data in `importMeta`
 - fix `calendarPlot` issue when there are gaps between selected months e.g.`month = c(1, 2, 12)`
 - fix warning message in `calendarPlot`
+- don't pad missing dates in `timeAverage` if DST
 
 # openair 2.9-1
 
