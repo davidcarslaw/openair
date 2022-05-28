@@ -1419,7 +1419,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     col.scale <- breaks
 
     ## this is the default
-    if (trajStat %in% c("cwt", "pscf", "mean", "frequency")) {
+    if (trajStat %in% c("cwt", "pscf", "mean", "frequency", "sqtba")) {
       legend <- list(
         col = col, at = breaks, labels = list(labels = labs),
         space = key.position,

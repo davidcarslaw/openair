@@ -11,5 +11,6 @@
                            "u", "v", "period", "z", "wd", "cluster", ".id", "weights",
                            "NOXasNO2.mean", "NOXasNO2.capture", "uka_code",
                            "pmfr", "p2fr", "pmfb", "p2fb", ":=",
-                           "pollutant", "Date", "measurement_period"))
+                           "pollutant", "Date", "measurement_period",
+                           "Q", "Q_c", "SQTBA", "lat_rnd", "lon_rnd", "sigma"))
 }
