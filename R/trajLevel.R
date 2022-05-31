@@ -228,11 +228,21 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
   ## variables needed in trajectory plots
   vars <- c("date", "lat", "lon", "hour.inc", pollutant)
   
+  statistic <- tolower(statistic)
+  
   # to combine the effects of several receptors
   if (!is.na(.combine))
     vars <- c(vars, .combine)
   
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
+  
+  if (statistic == "sqtba" && type != "default") {
+    
+    warning("'type' option not available yet with SQTBA", call. = FALSE)
+    type <- "default"
+    
+  }
+    
   
   ## Args
   Args <- list(...)
@@ -246,8 +256,6 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     
     fontsize = current.font
   ))
-  
-  statistic <- tolower(statistic)
   
   if (!"ylab" %in% names(Args)) {
     Args$ylab <- ""
@@ -468,7 +476,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     # just run
     if (is.na(.combine)) {
       
-      mydata <- calc_SQTBA(mydata, r_grid, min.bin) %>% 
+      mydata <- calc_SQTBA(mydata, r_grid, pollutant, min.bin) %>% 
         rename({{ pollutant }} := SQTBA)
       
     } else {
@@ -476,7 +484,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
       # process by site, normalise contributions by default
       mydata <- mydata %>% 
         group_by(across(.combine)) %>% 
-        group_modify(~ calc_SQTBA(.x, r_grid, min.bin)) %>% 
+        group_modify(~ calc_SQTBA(.x, r_grid, pollutant, min.bin)) %>% 
         mutate(SQTBA_norm = SQTBA / mean(SQTBA)) %>% 
         group_by(ygrid, xgrid) %>% 
         summarise(SQTBA = mean(SQTBA),
@@ -554,7 +562,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
 # SQTBA functions
 # use matrices for speed; Haversine distances away from Gaussian plume centreline
-pred_Q <- function(i, traj_data, r_grid) {
+pred_Q <- function(i, traj_data, r_grid, pollutant) {
   
   x_origin <- traj_data$lon[i]
   y_origin <- traj_data$lat[i]
@@ -570,22 +578,23 @@ pred_Q <- function(i, traj_data, r_grid) {
   cbind(Q, Q_c)
 }
 
-make_grid <- function(traj_data, r_grid) {
+make_grid <- function(traj_data, r_grid, pollutant) {
   # go through points on back trajectory
   # makes probability surface
-  out_grid <- purrr::map(2:max(abs(traj_data$hour.inc)), pred_Q, traj_data, r_grid)
+  out_grid <- purrr::map(2:max(abs(traj_data$hour.inc)), 
+                         pred_Q, traj_data, r_grid, pollutant)
   out_grid <- reduce(out_grid, `+`) / length(out_grid)
   
   return(out_grid)
 }
 
-calc_SQTBA <- function(mydata, r_grid, min.bin) {
+calc_SQTBA <- function(mydata, r_grid, pollutant, min.bin) {
 
   q_calc <- mydata %>%
     select(date, lat, lon, hour.inc, {{ pollutant }}, sigma) %>%
     group_by(date) %>%
     nest() %>%
-    mutate(out = purrr::map(data, make_grid, r_grid))
+    mutate(out = purrr::map(data, make_grid, r_grid, pollutant))
   
   # combine all trajectory grids, add coordinates back in
   output <- reduce(q_calc$out, `+`) %>%
