@@ -17,6 +17,7 @@ trajLevel(
   lon.inc = 1,
   lat.inc = 1,
   min.bin = 1,
+  .combine = NA,
   map.fill = TRUE,
   map.res = "default",
   map.cols = "grey40",
