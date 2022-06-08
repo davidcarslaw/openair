@@ -327,15 +327,20 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
   }
   
   ## location of receptor for map projection, used to show location on maps
-  origin_xy <- head(subset(mydata, hour.inc == 0), 1) ## origin
+  origin_xy <- mydata %>% 
+    filter(hour.inc == 0) %>% 
+    group_by(lat, lon) %>%  
+    slice_head(n = 1)
+  
   tmp <- mapproject(
-    x = origin_xy[["lon"]][1],
-    y = origin_xy[["lat"]][1],
+    x = origin_xy[["lon"]],
+    y = origin_xy[["lat"]],
     projection = projection,
     parameters = parameters,
     orientation = orientation
   )
-  receptor <- c(tmp$x, tmp$y)
+  
+  receptor <- tibble(x = tmp$x, y = tmp$y)
   
   
   if (method == "hexbin") {

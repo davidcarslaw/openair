@@ -1504,7 +1504,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
         ## add mark for receptor location
         if (Args$origin) {
           lpoints(
-            Args$receptor[1], Args$receptor[2],
+            Args$receptor[["x"]], Args$receptor[["y"]],
             pch = 16,
             cex = 1.5, col = "black"
           )
