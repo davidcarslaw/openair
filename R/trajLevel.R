@@ -494,6 +494,8 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
         group_by(ygrid, xgrid) %>% 
         summarise(SQTBA = mean(SQTBA),
                   SQTBA_norm = mean(SQTBA_norm)) %>% 
+        ungroup() %>% 
+        mutate(SQTBA_norm = SQTBA_norm * mean(SQTBA)) %>% 
         rename({{ pollutant }} := SQTBA_norm)
       
     }
