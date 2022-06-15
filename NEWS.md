@@ -7,6 +7,7 @@
 - fix warning message in `calendarPlot`
 - don't pad missing dates in `timeAverage` if DST
 - deprecate `resolution` in `polarPlot` --- now uses predictions at a coarser resolution that are interpolated. Will also speed-up plotting
+- add new source method to trajectory analysis (`trajlevel`), SQTBA --- Simplified Quantittaive Transport Bias Analysis
 
 # openair 2.9-1
 
