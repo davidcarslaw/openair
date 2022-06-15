@@ -466,7 +466,7 @@ polarPlot <-
     correlation_stats <- c(
       "r", "slope", "intercept", "robust_slope",
       "robust_intercept", "quantile_slope",
-      "quantile_intercept", "Pearson", "Spearman", "york"
+      "quantile_intercept", "Pearson", "Spearman", "york_slope"
     )
 
     if (statistic %in% correlation_stats && length(pollutant) != 2) {
@@ -782,6 +782,7 @@ polarPlot <-
         binned <- binned$conc  
         
       } else {
+        
         binned <- rowwise(ws.wd) %>%
           summarise(calculate_weighted_statistics(
             across(),
@@ -987,6 +988,8 @@ polarPlot <-
     if (statistic == "robust_slope") key.header <- "robust\nslope"
 
     if (statistic == "robust_intercept") key.header <- "robust\nintercept"
+    
+    if (statistic == "york_slope") key.header <- "York regression\nslope"
 
     if (statistic == "quantile_slope") {
       key.header <- paste0("quantile slope\n(tau: ", tau, ")")
@@ -1316,8 +1319,8 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
 #  thedata <- thedata[complete.cases(thedata), ]
 
   # don't fit all data - takes too long with no gain
-  thedata <- thedata[which(thedata$weight > 0.001), ]
-
+  thedata <- thedata[which(thedata$weight > 0.00001), ]
+  
   # useful for showing what the weighting looks like as a surface
   # openair::scatterPlot(mydata, x = "ws", y = "wd", z = "weight", method = "level")
 
@@ -1351,13 +1354,13 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
     result <- data.frame(ws1, wd1, stat_weighted)
   }
   
-  if (statistic == "york") {
+  if (statistic == "york_slope") {
     
     thedata <- as.data.frame(thedata) # so formula works
-
-    result <- YorkFit(thedata, X = "Cd", Y = "Pb")
+ 
+    result <- YorkFit(thedata, X = names(thedata)[2], Y = names(thedata)[1])
     
-    result <- data.frame(ws1, wd1, result$Slope)
+    result <- data.frame(ws1, wd1, stat_weighted = result$Slope)
     
   }
 
@@ -1548,7 +1551,7 @@ YorkFit <- function(input_data, X = "X", Y = "Y",
                     Ri = 0, eps = 1e-7) {
   
   tol <- 1e-7 # need to refine
-  
+ 
   # b0 initial guess at slope for OLR
   form <- formula(paste(Y, "~", X))
   mod <- lm(form, data = input_data)
@@ -1556,8 +1559,9 @@ YorkFit <- function(input_data, X = "X", Y = "Y",
   
   X <- input_data[[X]]
   Y <- input_data[[Y]]
-  Xstd <- 0.1 * X # input_data[[Xstd]]
-  Ystd <- 0.2 * Y # input_data[[Ystd]]
+  
+  Xstd <- rnorm(length(X), mean = mean(X), sd = 0.2 * mean(X)) # input_data[[Xstd]]
+  Ystd <- rnorm(length(X), mean = mean(Y), sd = 0.3 * mean(Y)) # input_data[[Ystd]]
   
   
   Xw <- 1 / (Xstd^2) # X weights
@@ -1617,7 +1621,7 @@ YorkFit <- function(input_data, X = "X", Y = "Y",
   ans <- tibble(Intercept = a, Slope = b, 
                 Int_error = a.err, Slope_error = b.err,
                 OLS_slope = b0)
-  
+
   return(ans)
 }
 
