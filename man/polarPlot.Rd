@@ -11,7 +11,6 @@ polarPlot(
   wd = "wd",
   type = "default",
   statistic = "mean",
-  resolution = "fine",
   limits = NA,
   exclude.missing = TRUE,
   uncertainty = FALSE,
@@ -133,10 +132,6 @@ coordinates, the default is wind speed, \dQuote{ws}.}
   \code{"quantile.slope"}, which uses quantile regression to estimate the
   slope for a particular quantile level (see also \code{tau} for setting the
   quantile level). }}
-
-\item{resolution}{Two plot resolutions can be set: \dQuote{normal} and
-\dQuote{fine} (the default), for a smoother plot. It should be noted that
-plots with a \dQuote{fine} resolution can take longer to render.}
 
 \item{limits}{The function does its best to choose sensible limits
 automatically. However, there are circumstances when the user will wish to

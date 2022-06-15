@@ -157,10 +157,6 @@
 #'   slope for a particular quantile level (see also \code{tau} for setting the
 #'   quantile level). }
 #'
-#' @param resolution Two plot resolutions can be set: \dQuote{normal} and
-#'   \dQuote{fine} (the default), for a smoother plot. It should be noted that
-#'   plots with a \dQuote{fine} resolution can take longer to render.
-#'
 #' @param limits The function does its best to choose sensible limits
 #'   automatically. However, there are circumstances when the user will wish to
 #'   set different ones. An example would be a series of plots showing each year
@@ -441,7 +437,7 @@
 #' @export
 polarPlot <-
   function(mydata, pollutant = "nox", x = "ws", wd = "wd",
-           type = "default", statistic = "mean", resolution = "fine",
+           type = "default", statistic = "mean", 
            limits = NA, exclude.missing = TRUE, uncertainty = FALSE,
            percentile = NA, cols = "default", weights = c(0.25, 0.5, 0.75),
            min.bin = 1, mis.col = "grey", alpha = 1, upper = NA, angle.scale = 315,
@@ -470,7 +466,7 @@ polarPlot <-
     correlation_stats <- c(
       "r", "slope", "intercept", "robust_slope",
       "robust_intercept", "quantile_slope",
-      "quantile_intercept", "Pearson", "Spearman", "trend"
+      "quantile_intercept", "Pearson", "Spearman", "york"
     )
 
     if (statistic %in% correlation_stats && length(pollutant) != 2) {
@@ -622,10 +618,10 @@ polarPlot <-
       clip <- FALSE
     }
 
-    ## for resolution of grid plotting (default = 101; fine =201)
-    if (resolution == "normal") int <- 101
-    if (resolution == "fine") int <- 201
-    if (resolution == "ultra.fine") int <- 401 ## very large files!
+    # resolution deprecated, int is resolution of GAM surface predictions over int * int grid
+    # 51 works well with bilinear interpolation of results
+    
+    int <- 51
 
     ## binning wd data properly
     ## use 10 degree binning of wd if already binned, else 5
@@ -832,10 +828,29 @@ polarPlot <-
         Mgam <- try(gam(binned^n ~ s(u, v, k = k), weights = W), TRUE)
 
         if (!inherits(Mgam, "try-error")) {
+          
           pred <- predict.gam(Mgam, input.data)
           pred <- pred^(1 / n)
           pred <- as.vector(pred)
-          results <- data.frame(u = input.data$u, v = input.data$v, z = pred)
+          
+          # interpolate results for speed
+          obj <- list(x = seq(min(input.data$u), max(input.data$u), length.out = int), 
+                      y = seq(min(input.data$v), max(input.data$v), length.out = int),
+                      z = matrix(pred, nrow = int))
+          
+          loc <- expand.grid(x = seq(min(input.data$u), max(input.data$u), length.out = 201), 
+                             y = seq(min(input.data$v), max(input.data$v), length.out = 201))
+          
+          res.interp <- interp.surface(obj, loc)
+          
+          out <- expand.grid(u = seq(min(input.data$u), max(input.data$u), length.out = 201), 
+                             v = seq(min(input.data$v), max(input.data$v), length.out = 201))
+          
+          results <- data.frame(out, z = res.interp)
+          
+          int <- 201
+          
+         # results <- data.frame(u = input.data$u, v = input.data$v, z = pred)
         } else {
           results <- data.frame(u = u, v = v, z = binned)
           exclude.missing <- FALSE
@@ -1297,11 +1312,11 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   mydata$weight <- mydata$weight / max(mydata$weight, na.rm = TRUE)
 
   # Select and filter
-  thedata <- select(mydata, pol_1, pol_2, "weight")
-  thedata <- thedata[complete.cases(thedata), ]
+  thedata <- mydata[c(pol_1, pol_2, "weight")]
+#  thedata <- thedata[complete.cases(thedata), ]
 
   # don't fit all data - takes too long with no gain
-  thedata <- filter(thedata, weight > 0.00001)
+  thedata <- thedata[which(thedata$weight > 0.001), ]
 
   # useful for showing what the weighting looks like as a surface
   # openair::scatterPlot(mydata, x = "ws", y = "wd", z = "weight", method = "level")
@@ -1334,6 +1349,16 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
 
     # Bind together
     result <- data.frame(ws1, wd1, stat_weighted)
+  }
+  
+  if (statistic == "york") {
+    
+    thedata <- as.data.frame(thedata) # so formula works
+
+    result <- YorkFit(thedata, X = "Cd", Y = "Pb")
+    
+    result <- data.frame(ws1, wd1, result$Slope)
+    
   }
 
   # Robust linear regression with weights
@@ -1518,3 +1543,126 @@ wrank <- function(x, w = rep(1, length(x))) {
   rnk[rord]
 }
 
+YorkFit <- function(input_data, X = "X", Y = "Y",
+                    Xstd = "Xstd", Ystd = "Ystd",
+                    Ri = 0, eps = 1e-7) {
+  
+  tol <- 1e-7 # need to refine
+  
+  # b0 initial guess at slope for OLR
+  form <- formula(paste(Y, "~", X))
+  mod <- lm(form, data = input_data)
+  b0 <- mod$coefficients[2]
+  
+  X <- input_data[[X]]
+  Y <- input_data[[Y]]
+  Xstd <- 0.1 * X # input_data[[Xstd]]
+  Ystd <- 0.2 * Y # input_data[[Ystd]]
+  
+  
+  Xw <- 1 / (Xstd^2) # X weights
+  Yw <- 1 / (Ystd^2) # Y weights
+  
+  
+  # ITERATIVE CALCULATION OF SLOPE AND INTERCEPT #
+  
+  b <- b0
+  b.diff <- tol + 1
+  while (b.diff > tol) {
+    b.old <- b
+    alpha.i <- sqrt(Xw * Yw)
+    Wi <- (Xw * Yw) / ((b^2) * Yw + Xw - 2 * b * Ri * alpha.i)
+    WiX <- Wi * X
+    WiY <- Wi * Y
+    sumWiX <- sum(WiX, na.rm = TRUE)
+    sumWiY <- sum(WiY, na.rm = TRUE)
+    sumWi <- sum(Wi, na.rm = TRUE)
+    Xbar <- sumWiX / sumWi
+    Ybar <- sumWiY / sumWi
+    Ui <- X - Xbar
+    Vi <- Y - Ybar
+    
+    Bi <- Wi * ((Ui / Yw) + (b * Vi / Xw) - (b * Ui + Vi) * Ri / alpha.i)
+    wTOPint <- Bi * Wi * Vi
+    wBOTint <- Bi * Wi * Ui
+    sumTOP <- sum(wTOPint, na.rm = TRUE)
+    sumBOT <- sum(wBOTint, na.rm = TRUE)
+    b <- sumTOP / sumBOT
+    
+    b.diff <- abs(b - b.old)
+  }
+  
+  a <- Ybar - b * Xbar
+  wYorkFitCoefs <- c(a, b)
+  
+  # ERROR CALCULATION #
+  
+  Xadj <- Xbar + Bi
+  WiXadj <- Wi * Xadj
+  sumWiXadj <- sum(WiXadj, na.rm = TRUE)
+  Xadjbar <- sumWiXadj / sumWi
+  Uadj <- Xadj - Xadjbar
+  wErrorTerm <- Wi * Uadj * Uadj
+  errorSum <- sum(wErrorTerm, na.rm = TRUE)
+  b.err <- sqrt(1 / errorSum)
+  a.err <- sqrt((1 / sumWi) + (Xadjbar^2) * (b.err^2))
+  wYorkFitErrors <- c(a.err, b.err)
+  
+  # GOODNESS OF FIT CALCULATION #
+  lgth <- length(X)
+  wSint <- Wi * (Y - b * X - a)^2
+  sumSint <- sum(wSint, na.rm = TRUE)
+  wYorkGOF <- c(sumSint / (lgth - 2), sqrt(2 / (lgth - 2))) # GOF (should equal 1 if assumptions are valid), #standard error in GOF
+  
+  ans <- tibble(Intercept = a, Slope = b, 
+                Int_error = a.err, Slope_error = b.err,
+                OLS_slope = b0)
+  
+  return(ans)
+}
+
+# bi-linear interpolation on a regular grid
+# allows surface predictions at a low resolution to be interpolated, rather than using a GAM
+interp.surface <- function(obj, loc) {
+  
+  # obj is a surface or image  object like the list for contour, persp or image.
+  # loc a matrix of 2 d locations -- new points to evaluate the surface.
+  x <- obj$x
+  y <- obj$y
+  z <- obj$z
+  nx <- length(x)
+  ny <- length(y)
+  # this clever idea for finding the intermediate coordinates at the new points
+  # is from J-O Irisson
+  lx <- approx(x, 1:nx, loc[, 1])$y
+  ly <- approx(y, 1:ny, loc[, 2])$y
+  lx1 <- floor(lx)
+  ly1 <- floor(ly)
+  # x and y distances between each new point and the closest grid point in the lower left hand corner.
+  ex <- lx - lx1
+  ey <- ly - ly1
+  # fix up weights to handle the case when loc are equal to
+  # last grid point.  These have been set to NA above.
+  ex[lx1 == nx] <- 1
+  ey[ly1 == ny] <- 1
+  lx1[lx1 == nx] <- nx - 1
+  ly1[ly1 == ny] <- ny - 1
+  # bilinear interpolation finds simple weights based on the
+  # the four corners of the grid box containing the new
+  # points.
+  return(z[cbind(lx1, ly1)] * (1 - ex) * (1 - ey) + z[cbind(lx1 + 
+                                                              1, ly1)] * ex * (1 - ey) + z[cbind(lx1, ly1 + 1)] * (1 - 
+                                                                                                                     ex) * ey + z[cbind(lx1 + 1, ly1 + 1)] * ex * ey)
+}
+
+interp.surface.grid <- function(obj, grid.list) {
+  x <- grid.list$x
+  y <- grid.list$y
+  M <- length(x)
+  N <- length(y)
+  out <- matrix(NA, nrow = M, ncol = N)
+  for (i in 1:M) {
+    out[i, ] <- interp.surface(obj, cbind(rep(x[i], N), y))
+  }
+  list(x = x, y = y, z = out)
+}
