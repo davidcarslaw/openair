@@ -1308,32 +1308,27 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   # Centres
   ws1 <- data[[1]]
   wd1 <- data[[2]]
-
-  # Scale ws
-  mydata$ws.scale <- (mydata[[x]] - ws1) / (max(mydata[[x]]) - min(mydata[[x]]))
-
-  # Apply kernel smoother
-  mydata$ws.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * (mydata$ws.scale / (ws_spread / (max(mydata[[x]]) - min(mydata[[x]]))))^2)
-
-  # Scale wd
-  mydata$wd.scale <- mydata[[y]] - wd1
-
-  # Make non-real scale real
-  # get correct angular distance
-  mydata$wd.scale <- (mydata$wd.scale + 180) %% 360 - 180
-
-  # Scale with kernel
-  mydata$wd.scale <- mydata$wd.scale * 2 * pi / 360
-
-  # Apply kernel smoother
-  mydata$wd.scale <- (2 * pi) ^ -0.5 * exp(-0.5 * (mydata$wd.scale / (2 * pi * wd_spread / 360))^2)
-
-  # Final weighting multiplies two kernels for ws and wd
-  mydata$weight <- mydata$ws.scale * mydata$wd.scale
-
-  # Normalise
-  mydata$weight <- mydata$weight / max(mydata$weight, na.rm = TRUE)
-
+  
+  # Gaussian bivariate density function
+  gauss_dens <- function(x, y, mx, my, sx, sy) {
+    
+    (1 / (2 * pi * sx *sy )) * 
+      exp((-1/2) * ((x - mx) ^ 2 / sx ^ 2 + (y - my) ^ 2 / sy^2))
+    
+  }
+  
+  apply_gauss <- function(x, y) gauss_dens(x, y, 0, 0, ws_spread, wd_spread)
+  
+  # centred ws, wd
+  ws_cent <- mydata[[x]] - ws1
+  wd_cent <- mydata[[y]] - wd1
+  wd_cent = ifelse(wd_cent < -180, wd_cent + 360, wd_cent)
+  
+  weight <- apply_gauss(ws_cent, wd_cent) 
+  weight <- weight / max(weight)
+  
+  mydata$weight <- weight
+  
   # Select and filter
   vars <- c(pol_1, pol_2, "weight")
   
