@@ -152,10 +152,16 @@
 #'   than relying on the potentially small number of values in a wind
 #'   speed-direction interval.
 #'
-#'   \item \code{"robust.slope"} is another option for pair-wise statisitics and
+#'   \item \code{"robust_slope"} is another option for pair-wise statistics and
 #'   \code{"quantile.slope"}, which uses quantile regression to estimate the
 #'   slope for a particular quantile level (see also \code{tau} for setting the
-#'   quantile level). }
+#'   quantile level). 
+#'
+#'   \item \code{"york_slope"} is another option for pair-wise statistics which
+#'   uses the \emph{York regression method} to estimate the slope. In this
+#'   method the uncertainties in \code{x} and \code{y} are used in the
+#'   determination of the slope. The uncertainties are provided by
+#'   \code{x_error} and \code{y_error} --- see below.}
 #'
 #' @param limits The function does its best to choose sensible limits
 #'   automatically. However, there are circumstances when the user will wish to
@@ -309,9 +315,14 @@
 #'   statistics are used such as \emph{r}. Default is \code{0.5}.
 #'
 #' @param wd_spread The value of sigma used for Gaussian kernel weighting of
-#'   wind direction when \code{statistic = "nwr"} or when correlation and regression
-#'   statistics are used such as \emph{r}. Default is
-#'   \code{4}.
+#'   wind direction when \code{statistic = "nwr"} or when correlation and
+#'   regression statistics are used such as \emph{r}. Default is \code{4}.
+#'
+#' @param x_error The \code{x} error / uncertainty used when \code{statistic =
+#'   "york_slope"}.
+#'
+#' @param y_error The \code{y} error / uncertainty used when \code{statistic =
+#'   "york_slope"}.
 #'
 #' @param kernel Type of kernel used for the weighting procedure for when
 #'   correlation or regression techniques are used. Only \code{"gaussian"} is
@@ -444,6 +455,7 @@ polarPlot <-
            units = x, force.positive = TRUE, k = 100, normalise = FALSE,
            key.header = "", key.footer = pollutant, key.position = "right",
            key = TRUE, auto.text = TRUE, ws_spread = 0.5, wd_spread = 4,
+           x_error = NA, y_error = NA,
            kernel = "gaussian", tau = 0.5, ...) {
 
     ## get rid of R check annoyances
@@ -547,6 +559,13 @@ polarPlot <-
     if ("fontsize" %in% names(extra.args)) {
       trellis.par.set(fontsize = list(text = extra.args$fontsize))
     }
+    
+    # if clustering, return lower resolution plot
+    extra.args$cluster <- if ("cluster" %in% names(extra.args)) {
+      TRUE
+    } else {
+      FALSE
+    }
 
     ## layout default
     if (!"layout" %in% names(extra.args)) {
@@ -555,6 +574,9 @@ polarPlot <-
 
     ## extract variables of interest
     vars <- c(wd, x, pollutant)
+    
+    if (statistic == "york_slope")
+      vars <- c(vars, x_error, y_error)
 
     if (any(type %in% dateTypes)) vars <- c(vars, "date")
 
@@ -789,7 +811,8 @@ polarPlot <-
             mydata,
             statistic = statistic,
             x = nam.x, y = nam.wd, pol_1 = pollutant[1], pol_2 = pollutant[2],
-            ws_spread = ws_spread, wd_spread = wd_spread, kernel, tau = tau
+            ws_spread = ws_spread, wd_spread = wd_spread, kernel, tau = tau,
+            x_error = x_error, y_error = y_error
           ))
 
         # Get vector
@@ -834,24 +857,20 @@ polarPlot <-
           pred <- pred^(1 / n)
           pred <- as.vector(pred)
           
-          # interpolate results for speed
-          obj <- list(x = seq(min(input.data$u), max(input.data$u), length.out = int), 
-                      y = seq(min(input.data$v), max(input.data$v), length.out = int),
-                      z = matrix(pred, nrow = int))
+          # interpolate results for speed, but not for clustering
+          if (extra.args$cluster) {
+            
+            results <- interp_grid(input.data, z = pred, n = 101)
+            int <- 101
+            
+          } else {
+            
+            results <- interp_grid(input.data, z = pred, n = 201)
+            int <- 201
+            
+          }
           
-          loc <- expand.grid(x = seq(min(input.data$u), max(input.data$u), length.out = 201), 
-                             y = seq(min(input.data$v), max(input.data$v), length.out = 201))
-          
-          res.interp <- interp.surface(obj, loc)
-          
-          out <- expand.grid(u = seq(min(input.data$u), max(input.data$u), length.out = 201), 
-                             v = seq(min(input.data$v), max(input.data$v), length.out = 201))
-          
-          results <- data.frame(out, z = res.interp)
-          
-          int <- 201
-          
-         # results <- data.frame(u = input.data$u, v = input.data$v, z = pred)
+  
         } else {
           results <- data.frame(u = u, v = v, z = binned)
           exclude.missing <- FALSE
@@ -1150,7 +1169,7 @@ polarPlot <-
           # Build label
           # To-do: use quickText
           label_formula <- quickText(
-            paste0("Formula:\n", pollutant[1], " ~ ", pollutant[2])
+            paste0("Formula:\n", pollutant[1], " = m.", pollutant[2], " + c")
           )
 
           # Add to plot
@@ -1283,7 +1302,8 @@ simple_kernel_trend <- function(data, mydata, x = "ws",
 # No export
 calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
                                           y = "wd", pol_1, pol_2,
-                                          ws_spread, wd_spread, kernel, tau) {
+                                          ws_spread, wd_spread, kernel, tau,
+                                          x_error, y_error) {
   weight <- NULL
   # Centres
   ws1 <- data[[1]]
@@ -1315,7 +1335,11 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   mydata$weight <- mydata$weight / max(mydata$weight, na.rm = TRUE)
 
   # Select and filter
-  thedata <- mydata[c(pol_1, pol_2, "weight")]
+  vars <- c(pol_1, pol_2, "weight")
+  
+  if (!all(is.na(c(x_error, y_error))))
+    vars <- c(vars, x_error, y_error)
+  thedata <- mydata[vars]
 #  thedata <- thedata[complete.cases(thedata), ]
 
   # don't fit all data - takes too long with no gain
@@ -1357,10 +1381,26 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
   if (statistic == "york_slope") {
     
     thedata <- as.data.frame(thedata) # so formula works
- 
-    result <- YorkFit(thedata, X = names(thedata)[2], Y = names(thedata)[1])
     
-    result <- data.frame(ws1, wd1, stat_weighted = result$Slope)
+    result <- try(YorkFit(thedata, 
+                          X = names(thedata)[2], 
+                          Y = names(thedata)[1],
+                      Xstd = x_error, Ystd = y_error), TRUE)
+
+    # Extract statistics
+    if (!inherits(result, "try-error")) {
+      
+      # Extract statistics
+      stat_weighted <- result$Slope
+      
+    } else {
+      
+      stat_weighted <- NA
+     
+    }
+    
+   
+    result <- data.frame(ws1, wd1, stat_weighted)
     
   }
 
@@ -1560,8 +1600,8 @@ YorkFit <- function(input_data, X = "X", Y = "Y",
   X <- input_data[[X]]
   Y <- input_data[[Y]]
   
-  Xstd <- rnorm(length(X), mean = mean(X), sd = 0.2 * mean(X)) # input_data[[Xstd]]
-  Ystd <- rnorm(length(X), mean = mean(Y), sd = 0.3 * mean(Y)) # input_data[[Ystd]]
+  Xstd <- input_data[[Xstd]]
+  Ystd <- input_data[[Ystd]]
   
   
   Xw <- 1 / (Xstd^2) # X weights
@@ -1659,3 +1699,23 @@ interp.surface <- function(obj, loc) {
                                                                                                                      ex) * ey + z[cbind(lx1 + 1, ly1 + 1)] * ex * ey)
 }
 
+# function to do bilinear interpolation given input grid and number of points required
+interp_grid <- function(input.data, x = "u", y = "v", z, n = 201) {
+  
+  # current number of points
+  int <- length(unique(input.data[[x]]))
+  
+  obj <- list(x = seq(min(input.data[[x]]), max(input.data[[x]]), length.out = int), 
+              y = seq(min(input.data[[y]]), max(input.data[[y]]), length.out = int),
+              z = matrix(z, nrow = int))
+  
+  loc <- expand.grid(x = seq(min(input.data[[x]]), max(input.data[[x]]), length.out = n), 
+                     y = seq(min(input.data[[y]]), max(input.data[[y]]), length.out = n))
+  
+  res.interp <- interp.surface(obj, loc)
+  
+  out <- expand.grid(u = seq(min(input.data[[x]]), max(input.data[[x]]), length.out = n), 
+                     v = seq(min(input.data[[y]]), max(input.data[[y]]), length.out = n))
+  
+  results <- data.frame(out, z = res.interp)
+}

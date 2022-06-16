@@ -237,7 +237,7 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
     results.grid <- polarDiff(before = mydata,
                               after = after,
                               pollutant = pollutant,
-                              resolution = "normal", ...)$data
+                              cluster = TRUE, ...)$data
     
     results.grid$z <- results.grid[[pollutant]]
     
@@ -245,7 +245,7 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
     
     results.grid <- polarPlot(mydata,
                               pollutant = pollutant, x = x,
-                              resolution = "normal", ...
+                              cluster = TRUE, ...
     )$data
     
   }
@@ -363,7 +363,17 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
     intervals <- intervals[-1]
   }
 
-
+# interpolate grid, but first must make rectangular
+  
+  # interval
+  int <- as.numeric(tail(names(sort(table(diff(results.grid$u)))), 1))
+  
+  # extent of grid required
+  extent <- max(abs(c(results.grid$u, results.grid$v)))
+  
+  new_grid <- expand.grid(u = seq(-extent, extent, by = int),
+                          v = seq(-extent, extent, by = int))
+  
 
   levelplot.args <- list(
     x = myform, results.grid, axes = FALSE,

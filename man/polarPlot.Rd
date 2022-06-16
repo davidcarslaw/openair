@@ -33,6 +33,8 @@ polarPlot(
   auto.text = TRUE,
   ws_spread = 0.5,
   wd_spread = 4,
+  x_error = NA,
+  y_error = NA,
   kernel = "gaussian",
   tau = 0.5,
   ...
@@ -128,10 +130,16 @@ coordinates, the default is wind speed, \dQuote{ws}.}
   than relying on the potentially small number of values in a wind
   speed-direction interval.
 
-  \item \code{"robust.slope"} is another option for pair-wise statisitics and
+  \item \code{"robust_slope"} is another option for pair-wise statistics and
   \code{"quantile.slope"}, which uses quantile regression to estimate the
   slope for a particular quantile level (see also \code{tau} for setting the
-  quantile level). }}
+  quantile level). 
+
+  \item \code{"york_slope"} is another option for pair-wise statistics which
+  uses the \emph{York regression method} to estimate the slope. In this
+  method the uncertainties in \code{x} and \code{y} are used in the
+  determination of the slope. The uncertainties are provided by
+  \code{x_error} and \code{y_error} --- see below.}}
 
 \item{limits}{The function does its best to choose sensible limits
 automatically. However, there are circumstances when the user will wish to
@@ -285,9 +293,14 @@ wind speed when \code{statistic = "nwr"} or when correlation and regression
 statistics are used such as \emph{r}. Default is \code{0.5}.}
 
 \item{wd_spread}{The value of sigma used for Gaussian kernel weighting of
-wind direction when \code{statistic = "nwr"} or when correlation and regression
-statistics are used such as \emph{r}. Default is
-\code{4}.}
+wind direction when \code{statistic = "nwr"} or when correlation and
+regression statistics are used such as \emph{r}. Default is \code{4}.}
+
+\item{x_error}{The \code{x} error / uncertainty used when \code{statistic =
+"york_slope"}.}
+
+\item{y_error}{The \code{y} error / uncertainty used when \code{statistic =
+"york_slope"}.}
 
 \item{kernel}{Type of kernel used for the weighting procedure for when
 correlation or regression techniques are used. Only \code{"gaussian"} is
