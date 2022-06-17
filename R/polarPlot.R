@@ -1607,7 +1607,13 @@ YorkFit <- function(input_data, X = "X", Y = "Y",
   
   b <- b0
   b.diff <- tol + 1
-  while (b.diff > tol) {
+  
+  n <- 0 # counter for debugging
+  
+  while (b.diff > tol && n < 1000) {
+    
+    n <- n + 1 # counter to keep a check on convergence
+    
     b.old <- b
     alpha.i <- sqrt(Xw * Yw)
     Wi <- (Xw * Yw) / ((b^2) * Yw + Xw - 2 * b * Ri * alpha.i)
