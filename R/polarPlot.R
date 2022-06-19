@@ -1317,14 +1317,12 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
     
   }
   
-  apply_gauss <- function(x, y) gauss_dens(x, y, 0, 0, ws_spread, wd_spread)
-  
   # centred ws, wd
   ws_cent <- mydata[[x]] - ws1
   wd_cent <- mydata[[y]] - wd1
   wd_cent = ifelse(wd_cent < -180, wd_cent + 360, wd_cent)
   
-  weight <- apply_gauss(ws_cent, wd_cent) 
+  weight <- gauss_dens(ws_cent, wd_cent, 0, 0, ws_spread, wd_spread) 
   weight <- weight / max(weight)
   
   mydata$weight <- weight
