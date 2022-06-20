@@ -477,8 +477,8 @@ polarPlot <-
     # Build vector for many checks
     correlation_stats <- c(
       "r", "slope", "intercept", "robust_slope",
-      "robust_intercept", "quantile_slope",
-      "quantile_intercept", "Pearson", "Spearman", "york_slope"
+      "robust_intercept", "quantile_slope", 
+      "quantile_intercept", "Pearson", "Spearman", "york_slope", "trend"
     )
 
     if (statistic %in% correlation_stats && length(pollutant) != 2) {
@@ -503,7 +503,7 @@ polarPlot <-
     }
 
     if (!statistic %in% c(
-      "mean", "median", "frequency", "max", "stdev",
+      "mean", "median", "frequency", "max", "stdev", "trend",
       "weighted_mean", "percentile", "cpf", "nwr", correlation_stats
     )) {
       stop(paste0("statistic '", statistic, "' not recognised."), call. = FALSE)
@@ -734,7 +734,7 @@ polarPlot <-
         include.lowest = TRUE
       )
 
-      if (!statistic %in% c(correlation_stats, "nwr")) {
+      if (!statistic %in% c(correlation_stats, "nwr", "trend")) {
         binned <- switch(
           statistic,
           frequency = tapply(mydata[[pollutant]], list(wd, x), function(x) {
@@ -1243,35 +1243,31 @@ simple_kernel_trend <- function(data, mydata, x = "ws",
   # Centres
   ws1 <- data[[1]]
   wd1 <- data[[2]]
+
+  # Gaussian bivariate density function
+  gauss_dens <- function(x, y, mx, my, sx, sy) {
+    
+    (1 / (2 * pi * sx *sy )) * 
+      exp((-1/2) * ((x - mx) ^ 2 / sx ^ 2 + (y - my) ^ 2 / sy^2))
+    
+  }
   
-  # Gaussian kernel for wd
+  # centred ws, wd
+  ws_cent <- mydata[[x]] - ws1
+  wd_cent <- mydata[[y]] - wd1
+  wd_cent = ifelse(wd_cent < -180, wd_cent + 360, wd_cent)
   
-  # Scale wd
-  mydata$wd.scale <- mydata[[y]] - wd1
+  weight <- gauss_dens(ws_cent, wd_cent, 0, 0, ws_spread, wd_spread) 
+  weight <- weight / max(weight)
   
-  # get correct angular distance
-  mydata$wd.scale <- (mydata$wd.scale + 180) %% 360 - 180
-  
-  # Scale with kernel
-  mydata$wd.scale <- mydata$wd.scale * 2 * pi / 360
-  
-  # Scale with kernel
-  mydata$wd.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$wd.scale / (2 * pi * wd_spread / 360))^2)
-  
-  # Scale ws
-  mydata$ws.scale <- (mydata[[x]] - ws1) / (max(mydata[[x]]) - min(mydata[[x]]))
-  
-  # Apply kernel smoother
-  mydata$ws.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$ws.scale / (ws_spread / (max(mydata[[x]]) - min(mydata[[x]]))))^2)
-  
-  mydata$weights <- mydata$wd.scale * mydata$ws.scale
-  
+  mydata$weight <- weight
+ 
   # quantreg is a Suggests package, so make sure it is there
   try_require("quantreg", "polarPlot")
-  
+
   # don't fit all data - takes too long with no gain
-  mydata <- filter(mydata, weights > 0.00001)
-  
+  mydata <- filter(mydata, weight > 0.00001)
+
   # Drop dplyr's data frame for formula
   mydata <- data.frame(mydata)
   
@@ -1280,7 +1276,7 @@ simple_kernel_trend <- function(data, mydata, x = "ws",
     fit <- try(quantreg::rq(
       mydata[[pollutant[1]]] ~ mydata[[date]],
       tau = tau,
-      weights = mydata[["weights"]], method = "fn"
+      weights = mydata[["weight"]], method = "fn"
     ), TRUE)
   )
   
@@ -1300,10 +1296,11 @@ simple_kernel_trend <- function(data, mydata, x = "ws",
 
 
 # No export
-calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
-                                          y = "wd", pol_1, pol_2,
-                                          ws_spread, wd_spread, kernel, tau,
-                                          x_error, y_error) {
+calculate_weighted_statistics <- 
+  function(data, mydata, statistic, x = "ws",
+           y = "wd", pol_1, pol_2,
+           ws_spread, wd_spread, kernel, tau,
+           x_error, y_error) {
   weight <- NULL
   # Centres
   ws1 <- data[[1]]
@@ -1336,7 +1333,10 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
 #  thedata <- thedata[complete.cases(thedata), ]
 
   # don't fit all data - takes too long with no gain
-  thedata <- thedata[which(thedata$weight > 0.00001), ]
+  thedata <- thedata[which(thedata$weight > 0.001), ]
+  
+  # don't try and calculate stats is there's not much data
+  if (nrow(thedata) < 100) return(data.frame(ws1, wd1, NA))
   
   # useful for showing what the weighting looks like as a surface
   # openair::scatterPlot(mydata, x = "ws", y = "wd", z = "weight", method = "level")
