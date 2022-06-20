@@ -454,7 +454,7 @@ polarPlot <-
            min.bin = 1, mis.col = "grey", alpha = 1, upper = NA, angle.scale = 315,
            units = x, force.positive = TRUE, k = 100, normalise = FALSE,
            key.header = "", key.footer = pollutant, key.position = "right",
-           key = TRUE, auto.text = TRUE, ws_spread = 0.5, wd_spread = 4,
+           key = TRUE, auto.text = TRUE, ws_spread = 1.5, wd_spread = 5,
            x_error = NA, y_error = NA,
            kernel = "gaussian", tau = 0.5, ...) {
 
