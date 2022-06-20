@@ -1378,8 +1378,9 @@ calculate_weighted_statistics <- function(data, mydata, statistic, x = "ws",
     result <- try(YorkFit(thedata, 
                           X = names(thedata)[2], 
                           Y = names(thedata)[1],
-                      Xstd = x_error, Ystd = y_error), TRUE)
-
+                          Xstd = x_error, Ystd = y_error,
+                          weight = thedata$weight), TRUE)
+    
     # Extract statistics
     if (!inherits(result, "try-error")) {
       
@@ -1581,7 +1582,9 @@ wrank <- function(x, w = rep(1, length(x))) {
 
 YorkFit <- function(input_data, X = "X", Y = "Y",
                     Xstd = "Xstd", Ystd = "Ystd",
+                    weight = NA,
                     Ri = 0, eps = 1e-7) {
+  # weight can be supplied to apply to errors
   
   tol <- 1e-7 # need to refine
  
@@ -1596,6 +1599,13 @@ YorkFit <- function(input_data, X = "X", Y = "Y",
   Xstd <- input_data[[Xstd]]
   Ystd <- input_data[[Ystd]]
   
+  # used in polar plots - Gaussian kernel weighting
+  if (!all(is.na(weight))) {
+    
+    Xstd <- Xstd / weight
+    Ystd <- Ystd / weight
+    
+  }
   
   Xw <- 1 / (Xstd^2) # X weights
   Yw <- 1 / (Ystd^2) # Y weights
