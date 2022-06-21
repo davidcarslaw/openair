@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,14 +90,20 @@
 <dd><p>A data frame containing the field <code>date</code> and at least one
 other parameter for which a trend test is required; typically (but not
 necessarily) a pollutant.</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>The parameter for which a trend test is required.
 Mandatory.</p></dd>
+
+
 <dt>deseason</dt>
 <dd><p>Should the data be de-deasonalized first? If <code>TRUE</code> the
 function <code>stl</code> is used (seasonal trend decomposition using loess).
 Note that if <code>TRUE</code> missing data are first imputed using a
 Kalman filter and Kalman smooth.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split i.e. conditioned,
   and then plotted. The default is will produce a single plot using the
@@ -114,6 +120,8 @@ Kalman filter and Kalman smooth.</p></dd>
 <p>Type can be up length two e.g. <code>type = c("season", "weekday")</code> will
   produce a 2x2 plot split by season and day of the week. Note, when two
   types are provided the first forms the columns and the second the rows.</p></dd>
+
+
 <dt>avg.time</dt>
 <dd><p>Can be “month” (the default), “season” or
 “year”. Determines the time over which data should be averaged.
@@ -121,13 +129,19 @@ Note that for “year”, six or more years are required. For
 “season” the data are split up into spring: March, April, May etc.
 Note that December is considered as belonging to winter of the following
 year.</p></dd>
+
+
 <dt>statistic</dt>
 <dd><p>Statistic used for calculating monthly values. Default is
 “mean”, but can also be “percentile”. See <code>timeAverage</code>
 for more details.</p></dd>
+
+
 <dt>percentile</dt>
 <dd><p>Single percentile value to use if <code>statistic =
 "percentile"</code> is chosen.</p></dd>
+
+
 <dt>data.thresh</dt>
 <dd><p>The data capture threshold to use (<!-- %) when aggregating -->
 the data using <code>avg.time</code>. A value of zero means that all available
@@ -135,56 +149,88 @@ data will be used in a particular period regardless if of the number of
 values available. Conversely, a value of 100 will mean that all data will
 need to be present for the average to be calculated, else it is recorded
 as <code>NA</code>.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>For the confidence interval calculations of the slope. The
 default is 0.05. To show 99% confidence intervals for the value of the
 trend, choose alpha = 0.01 etc.</p></dd>
+
+
 <dt>dec.place</dt>
 <dd><p>The number of decimal places to display the trend estimate
 at. The default is 2.</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p>x-axis label, by default <code>"year"</code>.</p></dd>
+
+
 <dt>lab.frac</dt>
 <dd><p>Fraction along the y-axis that the trend information should
 be printed at, default 0.99.</p></dd>
+
+
 <dt>lab.cex</dt>
 <dd><p>Size of text for trend information.</p></dd>
+
+
 <dt>x.relation</dt>
 <dd><p>This determines how the x-axis scale is plotted.
 “same” ensures all panels use the same scale and “free” will
 use panel-specfic scales. The latter is a useful setting when plotting
 data with very different values.</p></dd>
+
+
 <dt>y.relation</dt>
 <dd><p>This determines how the y-axis scale is plotted.
 “same” ensures all panels use the same scale and “free” will
 use panel-specfic scales. The latter is a useful setting when plotting
 data with very different values.</p></dd>
+
+
 <dt>data.col</dt>
 <dd><p>Colour name for the data</p></dd>
+
+
 <dt>trend</dt>
 <dd><p>list containing information on the line width, line type and
 line colour for the main trend line and confidence intervals respectively.</p></dd>
+
+
 <dt>text.col</dt>
 <dd><p>Colour name for the slope/uncertainty numeric estimates</p></dd>
+
+
 <dt>slope.text</dt>
 <dd><p>The text shown for the slope (default is
 ‘units/year’).</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Predefined colour scheme, currently only enabled for
 <code>"greyscale"</code>.</p></dd>
+
+
 <dt>shade</dt>
 <dd><p>The colour used for marking alternate years. Use “white”
 or “transparent” to remove shading.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the ‘2’ in
 NO2.</p></dd>
+
+
 <dt>autocor</dt>
 <dd><p>Should autocorrelation be considered in the trend uncertainty
 estimates? The default is <code>FALSE</code>. Generally, accounting for
 autocorrelation increases the uncertainty of the trend estimate ---
 sometimes by a large amount.</p></dd>
+
+
 <dt>slope.percent</dt>
 <dd><p>Should the slope and the slope uncertainties be
   expressed as a percentage change per year? The default is <code>FALSE</code> and
@@ -202,6 +248,8 @@ sometimes by a large amount.</p></dd>
   basis of the time span and is therefore able to deal with partial years.
   There can be slight differences in the <!-- %/yr trend estimate therefore, -->
   depending on whether monthly or annual values are considered.</p></dd>
+
+
 <dt>date.breaks</dt>
 <dd><p>Number of major x-axis intervals to use. The function
 will try and choose a sensible number of dates/times as well as formatting
@@ -209,6 +257,8 @@ the date/time appropriately to the range being considered. This does not
 always work as desired automatically. The user can therefore increase or
 decrease the number of intervals by adjusting the value of
 <code>date.breaks</code> up or down.</p></dd>
+
+
 <dt>date.format</dt>
 <dd><p>This option controls the date format on the
 x-axis. While <code>TheilSen</code> generally sets the date format
@@ -216,13 +266,19 @@ sensibly there can be some situations where the user wishes to
 have more control. For format types see <code>strptime</code>. For
 example, to format the date like “Jan-2012” set
 <code>date.format = "%b-%Y"</code>.</p></dd>
+
+
 <dt>plot</dt>
 <dd><p>Should a plot be produced. <code>FALSE</code> can be useful when
 analysing data to extract trend components and plotting them in other
 ways.</p></dd>
+
+
 <dt>silent</dt>
 <dd><p>When <code>FALSE</code> the function will give updates on
 trend-fitting progress.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters passed onto <code>cutData</code> and
 <code>lattice:xyplot</code>. For example, <code>TheilSen</code> passes the option
@@ -231,24 +287,34 @@ trend-fitting progress.</p></dd>
 "season"</code>. Similarly, common axis and title labelling options (such as
 <code>xlab</code>, <code>ylab</code>, <code>main</code>) are passed to <code>xyplot</code> via
 <code>quickText</code> to handle routine formatting.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>As well as generating the plot itself, <code>TheilSen</code> also returns
-  an object of class ``openair''. The object includes three main components:
-<code>call</code>, the command used to generate the plot; <code>data</code>, the data
+    
+
+<p>As well as generating the plot itself, <code>TheilSen</code> also returns
+  an object of class ``openair''. The object includes three main components:</p>
+<p></p>
+<p><code>call</code>, the command used to generate the plot; <code>data</code>, the data
   frame of summarised information used to make the plot; and <code>plot</code>,
   the plot itself. If retained, e.g. using <code>output &lt;- TheilSen(mydata,
   "nox")</code>, this output can be used to recover the data, reproduce or rework
-  the original plot or undertake further analysis.
-  An openair output can be manipulated using a number of generic operations,
-  including <code>print</code>, <code>plot</code> and <code>summary</code>.
-  The <code>data</code> component of the <code>TheilSen</code> output includes two
+  the original plot or undertake further analysis.</p>
+
+
+<p>An openair output can be manipulated using a number of generic operations,
+  including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
+
+
+<p>The <code>data</code> component of the <code>TheilSen</code> output includes two
   subsets: <code>main.data</code>, the monthly data <code>res2</code> the trend
   statistics. For <code>output &lt;- TheilSen(mydata, "nox")</code>, these can be
   extracted as <code>object$data$main.data</code> and <code>object$data$res2</code>,
-  respectively.
-  Note: In the case of the intercept, it is assumed the y-axis crosses the
+  respectively.</p>
+
+
+<p>Note: In the case of the intercept, it is assumed the y-axis crosses the
   x-axis on 1/1/1970.</p>
     </div>
     <div class="section level2">
@@ -355,8 +421,7 @@ Sciences 53, 386-392, 521-525, 1397-1412.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

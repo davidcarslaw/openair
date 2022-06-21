@@ -18,7 +18,7 @@ trajectories at specific receptor locations."><!-- mathjax --><script src="https
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,14 +88,22 @@ trajectories at specific receptor locations.</p>
     <dl><dt>traj</dt>
 <dd><p>An openair trajectory data frame resulting from the
 use of <code>importTraj</code>.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>Method used to calculate the distance matrix for the
 back trajectories. There are two methods available:
 “Euclid” and “Angle”.</p></dd>
+
+
 <dt>n.cluster</dt>
 <dd><p>Number of clusters to calculate.</p></dd>
+
+
 <dt>plot</dt>
 <dd><p>Should a plot be produced?</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split i.e.
 conditioned, and then plotted. The default is will produce a
@@ -105,6 +113,8 @@ built-in types as detailed in <code>cutData</code> e.g.
 example, <code>type = "season"</code> will produce four plots --- one
 for each season. Note that the cluster calculations are
 separately made of each level of "type".</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colours to be used for plotting. Options include
 “default”, “increment”, “heat”,
@@ -113,30 +123,42 @@ separately made of each level of "type".</p></dd>
 user defined the user can supply a list of colour names
 recognised by R (type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code> to see the full list). An
 example would be <code>cols = c("yellow", "green", "blue")</code></p></dd>
+
+
 <dt>split.after</dt>
 <dd><p>For <code>type</code> other than “default”
 e.g. “season”, the trajectories can either be calculated
 for each level of <code>type</code> independently or extracted after
 the cluster calculations have been applied to the whole data
 set.</p></dd>
+
+
 <dt>map.fill</dt>
 <dd><p>Should the base map be a filled polygon? Default
 is to fill countries.</p></dd>
+
+
 <dt>map.cols</dt>
 <dd><p>If <code>map.fill = TRUE</code> <code>map.cols</code> controls
 the fill colour. Examples include <code>map.fill = "grey40"</code> and
 <code>map.fill = openColours("default", 10)</code>. The latter colours
 the countries and can help differentiate them.</p></dd>
+
+
 <dt>map.alpha</dt>
 <dd><p>The transpency level of the filled map which
 takes values from 0 (full transparency) to 1 (full opacity).
 Setting it below 1 can help view trajectories, trajectory
 surfaces etc. <em>and</em> a filled base map.</p></dd>
+
+
 <dt>projection</dt>
 <dd><p>The map projection to be used. Different map
 projections are possible through the <code>mapproj</code> package.
 See<code>?mapproject</code> for extensive details and information on
 setting other parameters and orientation (see below).</p></dd>
+
+
 <dt>parameters</dt>
 <dd><p>From the <code>mapproj</code> package. Optional
 numeric vector of parameters for use with the projection
@@ -144,6 +166,8 @@ argument. This argument is optional only in the sense that
 certain projections do not require additional parameters. If a
 projection does require additional parameters, these must be
 given in the parameters argument.</p></dd>
+
+
 <dt>orientation</dt>
 <dd><p>From the <code>mapproj</code> package. An optional
 vector c(latitude,longitude,rotation) which describes where the
@@ -153,23 +177,32 @@ projections. For a planar projection, you should set it to the
 desired point of tangency. The third value is a clockwise
 rotation (in degrees), which defaults to the midrange of the
 longitude coordinates in the map.</p></dd>
+
+
 <dt>by.type</dt>
 <dd><p>The percentage of the total number of trajectories
 is given for all data by default. Setting <code>by.type = TRUE</code>
 will make each panel add up to 100.</p></dd>
+
+
 <dt>origin</dt>
 <dd><p>If <code>TRUE</code> a filled circle dot is shown to mark the
 receptor point.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters passed onto
 <code>lattice:levelplot</code> and <code>cutData</code>. Similarly, common
 axis and title labelling options (such as <code>xlab</code>,
 <code>ylab</code>, <code>main</code>) are passed to <code>levelplot</code> via
 <code>quickText</code> to handle routine formatting.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Returns a list with two data components. The first
+    
+
+<p>Returns a list with two data components. The first
   (<code>data</code>) contains the orginal data with the cluster
   identified. The second (<code>results</code>) contains the data used
   to plot the clustered trajectories.</p>
@@ -228,8 +261,7 @@ Scotia. Journal of Geophysical Research, 100: 2867-2881.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

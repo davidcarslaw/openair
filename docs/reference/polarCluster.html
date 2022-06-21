@@ -14,7 +14,7 @@ processing."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,24 +79,36 @@ processing.</p>
 to plot in polar coordinates (the default is a column “ws” --- wind
 speed) and a pollutant. Should also contain <code>date</code> if plots by time
 period are required.</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>Mandatory. A pollutant name corresponding to a variable in
 a data frame should be supplied e.g. <code>pollutant = "nox"</code>. Only one
 pollutant can be chosen.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>Name of variable to plot against wind direction in polar
 coordinates, the default is wind speed, “ws”.</p></dd>
+
+
 <dt>wd</dt>
 <dd><p>Name of wind direction field.</p></dd>
+
+
 <dt>n.clusters</dt>
 <dd><p>Number of clusters to use. If <code>n.clusters</code> is more
 than length 1, then a <code>lattice</code> panel plot will be output showing the
 clusters identified for each one of <code>n.clusters</code>.</p></dd>
+
+
 <dt>after</dt>
 <dd><p>The function can be applied to differences between polar plot
 surfaces (see <a href="polarDiff.html">polarDiff</a> for details). If an <code>after</code> data frame
 is supplied, the clustering will be carried out on the differences between
 <code>after</code> and <code>mydata</code> in the same way as <a href="polarDiff.html">polarDiff</a>.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colours to be used for plotting. Useful options for categorical
 data are avilable from <code>RColorBrewer</code> colours --- see the
@@ -107,6 +119,8 @@ schemes include “Accent”, “Dark2”, “Paired”,
 colours in each. For user defined the user can supply a list of colour
 names recognised by R (type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code> to see the full list). An
 example would be <code>cols = c("yellow", "green", "blue")</code>.</p></dd>
+
+
 <dt>angle.scale</dt>
 <dd><p>The wind speed scale is by default shown at a 315 degree
 angle. Sometimes the placement of the scale may interfere with an
@@ -114,30 +128,49 @@ interesting feature. The user can therefore set <code>angle.scale</code> to
 another value (between 0 and 360 degrees) to mitigate such problems. For
 example <code>angle.scale = 45</code> will draw the scale heading in a NE
 direction.</p></dd>
+
+
 <dt>units</dt>
 <dd><p>The units shown on the polar axis scale.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters passed onto <code>polarPlot</code>,
 <code>lattice:levelplot</code> and <code>cutData</code>. Common axis and title
 labelling options (such as <code>xlab</code>, <code>ylab</code>, <code>main</code>) are
 passed via <code>quickText</code> to handle routine formatting.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>As well as generating the plot itself, <code>polarCluster</code> also
+    
+
+<p>As well as generating the plot itself, <code>polarCluster</code> also
   returns an object of class ``openair''. The object includes three main
-  components: <code>call</code>, the command used to generate the plot;
-<code>data</code>, the original data frame with a new field <code>cluster</code>  identifying the cluster; and <code>plot</code>, the plot itself. Note that any
+  components: <code>call</code>, the command used to generate the plot;</p>
+<p></p>
+<p><code>data</code>, the original data frame with a new field <code>cluster</code></p>
+
+
+<p>identifying the cluster; and <code>plot</code>, the plot itself. Note that any
   rows where the value of <code>pollutant</code> is <code>NA</code> are ignored so that
-  the returned data frame may have fewer rows than the original.
-  If the clustering is carried out considering differences i.e. an
-<code>after</code> data frame is supplied, the output also includes the
-<code>after</code> data frame with cluster identified.
-  An openair output can be manipulated using a number of generic operations,
+  the returned data frame may have fewer rows than the original.</p>
+
+
+<p>If the clustering is carried out considering differences i.e. an</p>
+<p></p>
+<p><code>after</code> data frame is supplied, the output also includes the</p>
+<p></p>
+<p><code>after</code> data frame with cluster identified.</p>
+
+
+<p>An openair output can be manipulated using a number of generic operations,
   including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
     </div>
     <div class="section level2">
@@ -247,8 +280,7 @@ doi:10.1016/j.envsoft.2012.09.005</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

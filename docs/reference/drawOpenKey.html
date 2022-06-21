@@ -18,7 +18,7 @@ and scaling."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,9 +119,13 @@ and scaling.</p>
   the scale key. Any combination of these may be used but if none set,
   scale key defaults to <code>c("ticks", "border")</code> for most plotting
   operations or <code>c("paddle")</code> for <code>windRose</code>.</p></dd>
+
+
 <dt>draw</dt>
 <dd><p>Option to return the key object or plot it directly.  The
 default, FALSE, should always be used within openair calls.</p></dd>
+
+
 <dt>vp</dt>
 <dd><p>View port to be used when plotting key. The default, NULL, should
   always be used within openair calls.</p>
@@ -134,10 +138,13 @@ default, FALSE, should always be used within openair calls.</p></dd>
   possible.  <code>drawOpenKey</code> may obviously be used in other plots but it
   is recommended that <code>draw.colorkey</code> itself be used wherever this
   type of additional scale labelling is not required.)</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function is a modification of <code><a href="https://rdrr.io/pkg/lattice/man/draw.colorkey.html" class="external-link">lattice::draw.colorkey</a></code> and
+    
+
+<p>The function is a modification of <code><a href="https://rdrr.io/pkg/lattice/man/draw.colorkey.html" class="external-link">lattice::draw.colorkey</a></code> and
   returns a scale key using a similar mechanism to that used in in the
   original function as developed by Deepayan Sarkar.</p>
     </div>
@@ -235,8 +242,7 @@ itself can be controlled using <code>fit</code> options. These can be set in
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

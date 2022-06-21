@@ -16,7 +16,7 @@ uncertainties shown."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,22 +107,32 @@ uncertainties shown.</p>
     <dl><dt>mydata</dt>
 <dd><p>A data frame containing at least two numeric variables to
 plot.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>Name of the x-variable to plot. Note that x can be a date field or
 a factor. For example, <code>x</code> can be one of the <code>openair</code> built in
 types such as <code>"year"</code> or <code>"season"</code>.</p></dd>
+
+
 <dt>y</dt>
 <dd><p>Name of the numeric y-variable to plot.</p></dd>
+
+
 <dt>z</dt>
 <dd><p>Name of the numeric z-variable to plot for <code>method =
 "scatter"</code> or <code>method = "level"</code>. Note that for <code>method =
 "scatter"</code> points will be coloured according to a continuous colour
 scale, whereas for <code>method = "level"</code> the surface is coloured.</p></dd>
+
+
 <dt>method</dt>
 <dd><p>Methods include “scatter” (conventional scatter plot),
 “hexbin” (hexagonal binning using the <code>hexbin</code> package).
 “level” for a binned or smooth surface plot and “density” (2D
 kernel density estimates).</p></dd>
+
+
 <dt>group</dt>
 <dd><p>The grouping variable to use, if any. Setting this to a
 variable in the data frame has the effect of plotting several series in
@@ -130,6 +140,8 @@ the same panel using different symbols/colours etc. If set to a variable
 that is a character or factor, those categories or factor levels will be
 used directly. If set to a numeric variable, it will split that variable
 in to quantiles.</p></dd>
+
+
 <dt>avg.time</dt>
 <dd><p>This defines the time period to average to. Can be
 “sec”, “min”, “hour”, “day”,
@@ -140,6 +152,8 @@ timeAverage of 2 months would be <code>period = "2 month"</code>. See
 function <code>timeAverage</code> for further details on this.  This
 option se useful as one method by which the number of points
 plotted is reduced i.e. by choosing a longer averaging time.</p></dd>
+
+
 <dt>data.thresh</dt>
 <dd><p>The data capture threshold to use (<!-- %) when aggregating -->
 the data using <code>avg.time</code>. A value of zero means that all available
@@ -147,6 +161,8 @@ data will be used in a particular period regardless if of the number of
 values available. Conversely, a value of 100 will mean that all data will
 need to be present for the average to be calculated, else it is recorded
 as <code>NA</code>. Not used if <code>avg.time = "default"</code>.</p></dd>
+
+
 <dt>statistic</dt>
 <dd><p>The statistic to apply when aggregating the data; default
 is the mean. Can be one of "mean", "max", "min", "median", "frequency",
@@ -155,10 +171,14 @@ is the mean. Can be one of "mean", "max", "min", "median", "frequency",
 "percentile" is the percentile level (<!-- %) between 0-100, which can be set -->
 using the "percentile" option - see below. Not used if <code>avg.time =
 "default"</code>.</p></dd>
+
+
 <dt>percentile</dt>
 <dd><p>The percentile level in % used when <code>statistic =
 "percentile"</code> and when aggregating the data with <code>avg.time</code>. The
 default is 95. Not used if <code>avg.time = "default"</code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split
 i.e. conditioned, and then plotted. The default is will produce a
@@ -178,21 +198,31 @@ variables and how they depend on one another.</p>
 "weekday")</code> will produce a 2x2 plot split by season and day of the
 week. Note, when two types are provided the first forms the
 columns and the second the rows.</p></dd>
+
+
 <dt>smooth</dt>
 <dd><p>A smooth line is fitted to the data if <code>TRUE</code>;
 optionally with 95% confidence intervals shown. For <code>method =
 "level"</code> a smooth surface will be fitted to binned data.</p></dd>
+
+
 <dt>spline</dt>
 <dd><p>A smooth spline is fitted to the data if <code>TRUE</code>. This is
 particularly useful when there are fewer data points or when a connection
 line between a sequence of points is required.</p></dd>
+
+
 <dt>linear</dt>
 <dd><p>A linear model is fitted to the data if <code>TRUE</code>;
 optionally with 95% confidence intervals shown. The equation of the line
 and R2 value is also shown.</p></dd>
+
+
 <dt>ci</dt>
 <dd><p>Should the confidence intervals for the smooth/linear fit be
 shown?</p></dd>
+
+
 <dt>mod.line</dt>
 <dd><p>If <code>TRUE</code> three lines are added to the
 scatter plot to help inform model evaluation. The 1:1 line is
@@ -201,6 +231,8 @@ help show how close a group of points are to a 1:1 relationship
 and also show the points that are within a factor of two
 (FAC2). <code>mod.line</code> is appropriately transformed when x or y
 axes are on a log scale.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colours to be used for plotting. Options include
 “default”, “increment”, “heat”, “jet”
@@ -209,45 +241,69 @@ and <code>RColorBrewer</code> colours --- see the <code>openair</code>
 user can supply a list of colour names recognised by R (type
 <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code> to see the full list). An example would be
 <code>cols = c("yellow", "green", "blue")</code></p></dd>
+
+
 <dt>plot.type</dt>
 <dd><p><code>lattice</code> plot type. Can be “p”
 (points --- default), “l” (lines) or “b” (lines and
 points).</p></dd>
+
+
 <dt>key</dt>
 <dd><p>Should a key be drawn? The default is <code>TRUE</code>.</p></dd>
+
+
 <dt>key.title</dt>
 <dd><p>The title of the key (if used).</p></dd>
+
+
 <dt>key.columns</dt>
 <dd><p>Number of columns to be used in the key. With many
 pollutants a single column can make to key too wide. The user can thus
 choose to use several columns by setting <code>columns</code> to be less than
 the number of pollutants.</p></dd>
+
+
 <dt>key.position</dt>
 <dd><p>Location where the scale key is to plotted.  Allowed
 arguments currently include “top”, “right”, “bottom”
 and “left”.</p></dd>
+
+
 <dt>strip</dt>
 <dd><p>Should a strip be drawn? The default is <code>TRUE</code>.</p></dd>
+
+
 <dt>log.x</dt>
 <dd><p>Should the x-axis appear on a log scale? The default is
 <code>FALSE</code>. If <code>TRUE</code> a well-formatted log10 scale is used. This
 can be useful for checking linearity once logged.</p></dd>
+
+
 <dt>log.y</dt>
 <dd><p>Should the y-axis appear on a log scale? The default is
 <code>FALSE</code>. If <code>TRUE</code> a well-formatted log10 scale is used. This
 can be useful for checking linearity once logged.</p></dd>
+
+
 <dt>x.inc</dt>
 <dd><p>The x-interval to be used for binning data when <code>method =
 "level"</code>.</p></dd>
+
+
 <dt>y.inc</dt>
 <dd><p>The y-interval to be used for binning data when <code>method =
 "level"</code>.</p></dd>
+
+
 <dt>limits</dt>
 <dd><p>For <code>method = "level"</code> the function does its
 best to choose sensible limits automatically. However, there are
 circumstances when the user will wish to set different ones. The
 limits are set in the form <code>c(lower, upper)</code>, so <code>limits
 = c(0, 100)</code> would force the plot limits to span 0-100.</p></dd>
+
+
 <dt>windflow</dt>
 <dd><p>This option allows a scatter plot to show the wind
 speed/direction shows as an arrow. The option is a list
@@ -264,18 +320,26 @@ list may contain other options to <code>panel.arrows</code> in the
 <code>angle</code>, which controls the angle of the arrow head.</p>
 <p>This option works best where there are not too many data to ensure
 over-plotting does not become a problem.</p></dd>
+
+
 <dt>y.relation</dt>
 <dd><p>This determines how the y-axis scale is
 plotted. “same” ensures all panels use the same scale and
 “free” will use panel-specific scales. The latter is a
 useful setting when plotting data with very different values.</p></dd>
+
+
 <dt>x.relation</dt>
 <dd><p>This determines how the x-axis scale is plotted. “same”
 ensures all panels use the same scale and “free” will use panel-specific
 scales. The latter is a useful setting when plotting data with very
 different values.</p></dd>
+
+
 <dt>ref.x</dt>
 <dd><p>See <code>ref.y</code> for details.</p></dd>
+
+
 <dt>ref.y</dt>
 <dd><p>A list with details of the horizontal lines to be
 added representing reference line(s). For example, <code>ref.y =
@@ -284,9 +348,13 @@ list(h = 50, lty = 5)</code> will add a dashed horizontal line at
 100), lty = c(1, 5), col = c("green", "blue"))</code>. See
 <code>panel.abline</code> in the <code>lattice</code> package for more details
 on adding/controlling lines.</p></dd>
+
+
 <dt>k</dt>
 <dd><p>Smoothing parameter supplied to <code>gam</code> for fitting a smooth
 surface when <code>method = "level"</code>.</p></dd>
+
+
 <dt>dist</dt>
 <dd><p>When plotting smooth surfaces (<code>method = "level"</code>
 and <code>smooth = TRUE</code>, <code>dist</code> controls how far from the
@@ -294,13 +362,19 @@ original data the predictions should be made. See
 <code>exclude.too.far</code> from the <code>mgcv</code> package. Data are
 first transformed to a unit square. Values should be between 0 and
 1.</p></dd>
+
+
 <dt>map</dt>
 <dd><p>Should a base map be drawn? This option is under
 development.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the ‘2’ in NO2.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters are passed onto
 <code>cutData</code> and an appropriate <code>lattice</code> plot function
@@ -325,18 +399,25 @@ transformation and the other that inverses it. For log scaling
 <code>trans = sqrt</code> and <code>inv = function(x) x^2</code>. To not carry
 out any transformation the options <code>trans = NULL</code> and
 <code>inv = NULL</code> should be used.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>As well as generating the plot itself, <code>scatterPlot</code> also
+    
+
+<p>As well as generating the plot itself, <code>scatterPlot</code> also
   returns an object of class ``openair''. The object includes three main
-  components: <code>call</code>, the command used to generate the plot;
-<code>data</code>, the data frame of summarised information used to make the
-  plot; and <code>plot</code>, the plot itself. If retained, e.g. using
-<code>output &lt;- scatterPlot(mydata, "nox", "no2")</code>, this output can be
+  components: <code>call</code>, the command used to generate the plot;</p>
+<p></p>
+<p><code>data</code>, the data frame of summarised information used to make the
+  plot; and <code>plot</code>, the plot itself. If retained, e.g. using</p>
+<p></p>
+<p><code>output &lt;- scatterPlot(mydata, "nox", "no2")</code>, this output can be
   used to recover the data, reproduce or rework the original plot or
-  undertake further analysis.
-An openair output can be manipulated using a number of generic operations,
+  undertake further analysis.</p>
+
+
+<p>An openair output can be manipulated using a number of generic operations,
   including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
     </div>
     <div class="section level2">
@@ -464,8 +545,7 @@ maximise the plotting area and therefore the information shown.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

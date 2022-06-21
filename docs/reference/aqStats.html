@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,9 +66,13 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>mydata</dt>
 <dd><p>A data frame containing a <code>date</code> field of hourly data.</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>The name of a pollutant e.g. <code>pollutant = c("o3",
 "pm10")</code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> allows <code>timeAverage</code> to be applied to
 cases where there are groups of data that need to be split and
@@ -77,20 +81,29 @@ data with multiple sites identified with a column representing
 site name e.g. <code>type = "site"</code>. More generally, <code>type</code>
 should be used where the date repeats for a particular grouping
 variable.</p></dd>
+
+
 <dt>data.thresh</dt>
 <dd><p>The data capture threshold in <!-- %. No values are calculated -->
 if data capture over the period of interest is less than this value.
 <code>data.thresh</code> is used for example in the calculation of daily mean
 values from hourly data. If there are less than <code>data.thresh</code>
 percentage of measurements available in a period, <code>NA</code> is returned.</p></dd>
+
+
 <dt>percentile</dt>
 <dd><p>Percentile values to calculate for each pollutant.</p></dd>
+
+
 <dt>transpose</dt>
 <dd><p>The default is to return a data frame with columns
 representing the statistics. If <code>transpose = TRUE</code> then the results
 have columns for each pollutant-site combination.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments, currently unused.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -143,13 +156,13 @@ can be rounded at several stages during the calculations.</p>
 <span class="r-in"><span class="co">## Statistics for 2004. NOTE! these data are in ppb/ppm so the</span></span>
 <span class="r-in"><span class="co">## example is for illustrative purposes only</span></span>
 <span class="r-in"><span class="fu">aqStats</span><span class="op">(</span><span class="fu"><a href="selectByDate.html">selectByDate</a></span><span class="op">(</span><span class="va">mydata</span>, year <span class="op">=</span> <span class="fl">2004</span><span class="op">)</span>, pollutant <span class="op">=</span> <span class="st">"no2"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 15</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   default, pollutant, year [1]</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   default   pollutant  year date                dat.cap  mean   min   max median</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 01 Janua… no2        <span style="text-decoration: underline;">2</span>004 2004-01-01 <span style="color: #949494;">00:00:00</span>    99.8  55.0     0   185     51</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 6 more variables: max_daily &lt;dbl&gt;, roll_8_max &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   roll_24_max &lt;dbl&gt;, percentile.95 &lt;dbl&gt;, percentile.99 &lt;dbl&gt;, hours &lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 14</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   default [1]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   default    year date                dat.cap  mean   min   max median max_daily</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 01 Janua…  <span style="text-decoration: underline;">2</span>004 2004-01-01 <span style="color: #949494;">00:00:00</span>    99.8  55.0     0   185     51      106.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 5 more variables: roll_8_max &lt;dbl&gt;, roll_24_max &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   percentile.95 &lt;dbl&gt;, percentile.99 &lt;dbl&gt;, hours &lt;int&gt;</span></span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 </code></pre></div>
@@ -163,8 +176,7 @@ can be rounded at several stages during the calculations.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

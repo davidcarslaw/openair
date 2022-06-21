@@ -12,7 +12,7 @@ threshold"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/m
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,24 +69,37 @@ threshold</p>
     <dl><dt>mydata</dt>
 <dd><p>A data frame with a <code>date</code> field and at least one numeric
 <code>pollutant</code> field to analyse.</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>Name of variable to process. Mandatory.</p></dd>
+
+
 <dt>criterion</dt>
 <dd><p>Condition to select run lengths e.g. <code>"&gt;"</code> with select
 data more than <code>threshold</code>.</p></dd>
+
+
 <dt>run.len</dt>
 <dd><p>Run length for extracting contiguous values of
 <code>pollutant</code> above the <code>threshold</code> value.</p></dd>
+
+
 <dt>threshold</dt>
 <dd><p>The threshold value for <code>pollutant</code> above which data
 should be extracted.</p></dd>
+
+
 <dt>result</dt>
 <dd><p>A new column <code>criterion</code> is returned with string to
 identity whether condition was met.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Returns a data frame that meets the chosen criteria. See examples
+    
+
+<p>Returns a data frame that meets the chosen criteria. See examples
   below.</p>
     </div>
     <div class="section level2">
@@ -131,8 +144,7 @@ concentrations.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

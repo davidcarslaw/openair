@@ -14,7 +14,7 @@ understand forecast predictions and how well they agree with observations."><!--
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,10 +79,16 @@ understand forecast predictions and how well they agree with observations.</p>
     <dl><dt>mydata</dt>
 <dd><p>A data frame containing the field <code>obs</code> and <code>mod</code>
 representing observed and modelled values.</p></dd>
+
+
 <dt>obs</dt>
 <dd><p>The name of the observations in <code>mydata</code>.</p></dd>
+
+
 <dt>mod</dt>
 <dd><p>The name of the predictions (modelled values) in <code>mydata</code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split
 i.e. conditioned, and then plotted. The default is will produce a
@@ -99,29 +105,47 @@ types as detailed in <code>cutData</code> e.g. “season”,
 <p>Type can be up length two e.g. <code>type = c("season", "weekday")</code> will
   produce a 2x2 plot split by season and day of the week. Note, when two
   types are provided the first forms the columns and the second the rows.</p></dd>
+
+
 <dt>bins</dt>
 <dd><p>Number of bins to be used in calculating the different quantile
 levels.</p></dd>
+
+
 <dt>min.bin</dt>
 <dd><p>The minimum number of points required for the estimates of
 the 25/75th and 10/90th percentiles.</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p>label for the x-axis, by default “predicted value”.</p></dd>
+
+
 <dt>ylab</dt>
 <dd><p>label for the y-axis, by default “observed value”.</p></dd>
+
+
 <dt>col</dt>
 <dd><p>Colours to be used for plotting the uncertainty bands and median
 line. Must be of length 5 or more.</p></dd>
+
+
 <dt>key.columns</dt>
 <dd><p>Number of columns to be used in the key.</p></dd>
+
+
 <dt>key.position</dt>
 <dd><p>Location of the key e.g. “top”,
 “bottom”, “right”, “left”. See <code>lattice</code>
 <code>xyplot</code> for more details.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels etc. will automatically try and format
 pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters passed onto <code>cutData</code> and
 <code>lattice:xyplot</code>. For example, <code>conditionalQuantile</code> passes the option
@@ -130,6 +154,7 @@ pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></dd
 Similarly, common axis and title labelling options (such as <code>xlab</code>,
 <code>ylab</code>, <code>main</code>) are passed to <code>xyplot</code> via <code>quickText</code>
 to handle routine formatting.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -237,8 +262,7 @@ Geophysics), 2nd Edition. Academic Press.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

@@ -16,7 +16,7 @@ and apply some file structure testing.'><!-- mathjax --><script src="https://cdn
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,6 +82,8 @@ and apply some file structure testing.</p>
 opens browser. Use of <code>read.csv</code> (in <code>utils</code>) also allows this
 to be a readable text-mode connection or url (although these options are
 currently not fully tested).</p></dd>
+
+
 <dt>file.type</dt>
 <dd><p>Type of ADMS file to be imported. With default, "unknown",
 the import uses the file extension to identify the file type and, where
@@ -89,15 +91,21 @@ recognised, uses this to identify the file structure and import method to
 be applied. Where file extension is not recognised the choice may be
 forced by setting <code>file.type</code> to one of the known <code>file.type</code>
 options: "bgd", "met", "mop" or "pst".</p></dd>
+
+
 <dt>drop.case</dt>
 <dd><p>Option to convert all data names to lower case. Default,
 <code>TRUE</code>.  Alternative, <code>FALSE</code>, returns data with name cases as
 defined in file.</p></dd>
+
+
 <dt>drop.input.dates</dt>
 <dd><p>Option to remove ADMS "hour", "day", and "year"
 data columns after generating openair "date" timeseries. Default,
 <code>TRUE</code>. Alternative, <code>FALSE</code>, returns both "date" and the
 associated ADMS data columns as part of openair data frame.</p></dd>
+
+
 <dt>keep.units</dt>
 <dd><p>Option to retain ADMS data units. Default, <code>TRUE</code>,
 retains units (if recoverable) as character vector in data frame comment
@@ -105,6 +113,8 @@ if defined in <code>file</code>.  Alternative, <code>FALSE</code>, discards unit
 (NOTE: currently, only <code>.bgd</code> and <code>.pst</code> files assign units.
 So, this option is ignored when importing <code>.met</code> or <code>.mop</code>
 files.)</p></dd>
+
+
 <dt>simplify.names</dt>
 <dd><p>Option to simplify data names in accordance with
 common <code>openair</code> practices. Default, <code>TRUE</code>. Alternative,
@@ -114,11 +124,15 @@ does not allow as part of a name, so some renaming is automatic
 regardless of <code>simplify.names</code> setting.  For example, brackets or
 symbols are removed from names or repaced with ".", and names in the form
 "1/x" may be returned as "X1.x" or "recip.x".)</p></dd>
+
+
 <dt>test.file.structure</dt>
 <dd><p>Option to test file structure before trying to
 import. Default, <code>TRUE</code>, tests for expected file structure and halts
 import operation if this is not found.  Alternative, <code>FALSE</code>,
 attempts import regardless of structure.</p></dd>
+
+
 <dt>drop.delim</dt>
 <dd><p>Option to remove delim columns from the data frame. ADMS
 .mop files include two columns, "INPUT_DATA:" and "PROCESSED_DATA:", to
@@ -126,6 +140,8 @@ separate model input and output types.  Default, <code>TRUE</code>, removes
 these. Alternative, <code>FALSE</code>, retains them as part of import.  (Note:
 Option ignored when importing <code>.bgd</code>, <code>.met</code> or <code>.pst</code>
 files.)</p></dd>
+
+
 <dt>add.prefixes</dt>
 <dd><p>Option to add prefixes to data names. ADMS .mop files
 include a number of input and process data types with shared names.
@@ -142,34 +158,56 @@ names, while the argument (<code>add.prefixes=c("in","out")</code>) would add
 "in" and "out" prefixes to input and output data names, respectively.
 (Note: Option ignored when importing <code>.bgd</code>, <code>.met</code> or
 <code>.pst</code> files.)</p></dd>
+
+
 <dt>names</dt>
 <dd><p>Option applied by <code>simplifyNamesADMS</code> when
 <code>simplify.names</code> is enabled.  All names are simplified for the
 default setting, <code>NULL</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional arguments, passed to <code>read.csv</code> as part of
 import operation.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>In standard use <code>importADMS()</code> returns a data frame for use in
+    
+
+<p>In standard use <code>importADMS()</code> returns a data frame for use in
   openair. By comparison to the original file, the resulting data frame is
-  modified as follows:
-Time and date information will combined in a single column "date",
-  formatted as a conventional timeseries (<code>as.POSIX*</code>). If
-<code>drop.input.dates</code> is enabled data series combined to generated the
-  new "date" data series will also be removed.
-If <code>simplify.names</code> is enabled common chemical names may be
+  modified as follows:</p>
+
+
+<p>Time and date information will combined in a single column "date",
+  formatted as a conventional timeseries (<code>as.POSIX*</code>). If</p>
+<p></p>
+<p><code>drop.input.dates</code> is enabled data series combined to generated the
+  new "date" data series will also be removed.</p>
+
+
+<p>If <code>simplify.names</code> is enabled common chemical names may be
   simplified, and some other parameters may be reset to openair standards
-  (e.g. "ws", "wd" and "temp") according to operations defined in
-<code>simplifyNamesADMS</code>. A summary of simplfication operations can be
-  obtained using, e.g., the call <code>importADMS(simplify.names)</code>.
-If <code>drop.case</code> is enabled all upper case characters in names will be
-  converted to lower case.
-If <code>keep.units</code> is enabled data units information may also be retained
-  as part of the data frame comment if available.
-With <code>.mop</code> files, input and processed data series names may also been
-  modified on the basis of <code>drop.delim</code> and <code>add.prefixes</code>  settings</p>
+  (e.g. "ws", "wd" and "temp") according to operations defined in</p>
+<p></p>
+<p><code>simplifyNamesADMS</code>. A summary of simplfication operations can be
+  obtained using, e.g., the call <code>importADMS(simplify.names)</code>.</p>
+
+
+<p>If <code>drop.case</code> is enabled all upper case characters in names will be
+  converted to lower case.</p>
+
+
+<p>If <code>keep.units</code> is enabled data units information may also be retained
+  as part of the data frame comment if available.</p>
+
+
+<p>With <code>.mop</code> files, input and processed data series names may also been
+  modified on the basis of <code>drop.delim</code> and <code>add.prefixes</code></p>
+
+
+<p>settings</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -326,8 +364,7 @@ to provide fine control of the data structuring and renaming.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

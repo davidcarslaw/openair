@@ -14,7 +14,7 @@ function very flexible."><!-- mathjax --><script src="https://cdnjs.cloudflare.c
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,9 +85,13 @@ function very flexible.</p>
     <dl><dt>mydata</dt>
 <dd><p>A data frame minimally containing a column of observations
 and a column of predictions.</p></dd>
+
+
 <dt>obs</dt>
 <dd><p>A column of observations with which the predictions (<code>mod</code>)
 will be compared.</p></dd>
+
+
 <dt>mod</dt>
 <dd><p>A column of model predictions. Note, <code>mod</code> can be
 of length 2 i.e. two lots of model predictions. If two sets of
@@ -98,6 +102,8 @@ the second. This is useful where, for example, there is interest
 in comparing how one model run compares with another using
 different assumptions e.g. input data or model set up. See
 examples below.</p></dd>
+
+
 <dt>group</dt>
 <dd><p>The <code>group</code> column is used to differentiate between
   different models and can be a factor or character. The total number of
@@ -110,6 +116,8 @@ the first grouping variable ("model" in this case). In essence the
 plot removes the differentiation by the second grouping
 variable. Because there will be different values of <code>obs</code> for
 each group, <code>normalise = TRUE</code> should be used.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split
 i.e. conditioned, and then plotted. The default is will produce a
@@ -131,6 +139,8 @@ columns and the second the rows.</p>
 <p>Note that often it will make sense to use <code>type = "site"</code>
 when multiple sites are available. This will ensure that each
 panel contains data specific to an individual site.</p></dd>
+
+
 <dt>normalise</dt>
 <dd><p>Should the data be normalised by dividing the
 standard deviation of the observations? The statistics can be
@@ -142,6 +152,8 @@ distance from the origin. This makes it possible to plot
 statistics for different species (maybe with different units) on
 the same plot. The normalisation is done by each
 <code>group</code>/<code>type</code> combination.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colours to be used for plotting. Useful options for
 categorical data are avilable from <code>RColorBrewer</code> colours ---
@@ -153,35 +165,59 @@ details. Useful schemes include “Accent”, “Dark2”,
 user defined the user can supply a list of colour names recognised
 by R (type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code> to see the full list). An example
 would be <code>cols = c("yellow", "green", "blue")</code>.</p></dd>
+
+
 <dt>rms.col</dt>
 <dd><p>Colour for centred-RMS lines and text.</p></dd>
+
+
 <dt>cor.col</dt>
 <dd><p>Colour for correlation coefficient lines and text.</p></dd>
+
+
 <dt>arrow.lwd</dt>
 <dd><p>Width of arrow used when used for comparing two model outputs.</p></dd>
+
+
 <dt>annotate</dt>
 <dd><p>Annotation shown for RMS error.</p></dd>
+
+
 <dt>text.obs</dt>
 <dd><p>The plot annotation for observed values; default is "observed".</p></dd>
+
+
 <dt>key</dt>
 <dd><p>Should the key be shown?</p></dd>
+
+
 <dt>key.title</dt>
 <dd><p>Title for the key.</p></dd>
+
+
 <dt>key.columns</dt>
 <dd><p>Number of columns to be used in the key. With many
 pollutants a single column can make to key too wide. The user can thus
 choose to use several columns by setting <code>columns</code> to be less than
 the number of pollutants.</p></dd>
+
+
 <dt>key.pos</dt>
 <dd><p>Position of the key e.g. “top”,
 “bottom”, “left” and “right”. See details in
 <code>lattice:xyplot</code> for more details about finer control.</p></dd>
+
+
 <dt>strip</dt>
 <dd><p>Should a strip be shown?</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters are passed onto
 <code>cutData</code> and <code>lattice:xyplot</code>. For example,
@@ -196,20 +232,27 @@ unmodified, although there are some special cases where
 common axis and title labelling options (such as <code>xlab</code>,
 <code>ylab</code>, <code>main</code>) are passed via <code>quickText</code> to
 handle routine formatting.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>As well as generating the plot itself, <code>TaylorDiagram</code> also
+    
+
+<p>As well as generating the plot itself, <code>TaylorDiagram</code> also
   returns an object of class ``openair''. The object includes three main
-  components: <code>call</code>, the command used to generate the plot;
-<code>data</code>, the data frame of summarised information used to make the
-  plot; and <code>plot</code>, the plot itself. If retained, e.g. using
-<code>output &lt;- TaylorDiagram(thedata, obs = "nox", mod = "mod")</code>, this
+  components: <code>call</code>, the command used to generate the plot;</p>
+<p></p>
+<p><code>data</code>, the data frame of summarised information used to make the
+  plot; and <code>plot</code>, the plot itself. If retained, e.g. using</p>
+<p></p>
+<p><code>output &lt;- TaylorDiagram(thedata, obs = "nox", mod = "mod")</code>, this
   output can be used to recover the data, reproduce or rework the original
   plot or undertake further analysis. For example, <code>output$data</code> will
   be a data frame consisting of the group, type, correlation coefficient
-  (R), the standard deviation of the observations and measurements.
-An openair output can be manipulated using a number of generic operations,
+  (R), the standard deviation of the observations and measurements.</p>
+
+
+<p>An openair output can be manipulated using a number of generic operations,
   including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
     </div>
     <div class="section level2">
@@ -353,8 +396,7 @@ e.g. <code>subset(mydata, site == "Harwell")</code>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

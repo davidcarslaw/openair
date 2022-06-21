@@ -14,7 +14,7 @@ lines or filled areas."><!-- mathjax --><script src="https://cdnjs.cloudflare.co
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,14 +88,20 @@ lines or filled areas.</p>
     <dl><dt>mydata</dt>
 <dd><p>A data frame minimally containing <code>wd</code> and a
 numeric field to plot --- <code>pollutant</code>.</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>Mandatory. A pollutant name corresponding to a
 variable in a data frame should be supplied e.g. <code>pollutant
 = "nox"</code>. More than one pollutant can be supplied e.g.
 <code>pollutant = c("no2", "o3")</code> provided there is only one
 <code>type</code>.</p></dd>
+
+
 <dt>wd</dt>
 <dd><p>Name of the wind direction field.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split i.e.
   conditioned, and then plotted. The default is will produce a
@@ -115,13 +121,19 @@ variable in a data frame should be supplied e.g. <code>pollutant
   "weekday")</code> will produce a 2x2 plot split by season and day of
   the week. Note, when two types are provided the first forms the
   columns and the second the rows.</p></dd>
+
+
 <dt>percentile</dt>
 <dd><p>The percentile value(s) to plot. Must be between
 0--100. If <code>percentile = NA</code> then only a mean line will be
 shown.</p></dd>
+
+
 <dt>smooth</dt>
 <dd><p>Should the wind direction data be smoothed using a
 cyclic spline?</p></dd>
+
+
 <dt>method</dt>
 <dd><p>When <code>method = "default"</code> the supplied
 percentiles by wind direction are calculated. When <code>method
@@ -132,6 +144,8 @@ in the wind sector y with mixing ratios greater than the
 <em>overall</em> percentile concentration, and ny is the total
 number of samples in the same wind sector (see Ashbaugh et al.,
 1985).</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colours to be used for plotting. Options include
 “default”, “increment”, “heat”,
@@ -140,22 +154,38 @@ number of samples in the same wind sector (see Ashbaugh et al.,
 user defined the user can supply a list of colour names
 recognised by R (type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code> to see the full list). An
 example would be <code>cols = c("yellow", "green", "blue")</code></p></dd>
+
+
 <dt>angle</dt>
 <dd><p>Default angle of “spokes” is when <code>smooth = FALSE</code>.</p></dd>
+
+
 <dt>mean</dt>
 <dd><p>Show the mean by wind direction as a line?</p></dd>
+
+
 <dt>mean.lty</dt>
 <dd><p>Line type for mean line.</p></dd>
+
+
 <dt>mean.lwd</dt>
 <dd><p>Line width for mean line.</p></dd>
+
+
 <dt>mean.col</dt>
 <dd><p>Line colour for mean line.</p></dd>
+
+
 <dt>fill</dt>
 <dd><p>Should the percentile intervals be filled (default) or
 should lines be drawn (<code>fill = FALSE</code>).</p></dd>
+
+
 <dt>intervals</dt>
 <dd><p>User-supplied intervals for the scale e.g.
 <code>intervals = c(0, 10, 30, 50)</code></p></dd>
+
+
 <dt>angle.scale</dt>
 <dd><p>The pollutant scale is by default shown at a 45
 degree angle. Sometimes the placement of the scale may interfere
@@ -163,11 +193,15 @@ with an interesting feature. The user can therefore set
 <code>angle.scale</code> to another value (between 0 and 360 degrees)
 to mitigate such problems. For example <code>angle.scale = 315</code>
 will draw the scale heading in a NW direction.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and
 format pollutant names and units properly e.g.  by subscripting
 the ‘2’ in NO2.</p></dd>
+
+
 <dt>key.header</dt>
 <dd><p>Adds additional text/labels to the scale key.
 For example, passing options <code>key.header = "header",
@@ -175,15 +209,23 @@ key.footer = "footer"</code> adds addition text above and below the
 scale key. These arguments are passed to <code>drawOpenKey</code> via
 <code>quickText</code>, applying the <code>auto.text</code> argument, to
 handle formatting.</p></dd>
+
+
 <dt>key.footer</dt>
 <dd><p><code>key.header</code>.</p></dd>
+
+
 <dt>key.position</dt>
 <dd><p>Location where the scale key is to plotted.
 Allowed arguments currently include <code>"top"</code>,
 <code>"right"</code>, <code>"bottom"</code> and <code>"left"</code>.</p></dd>
+
+
 <dt>key</dt>
 <dd><p>Fine control of the scale key via <code>drawOpenKey</code>.
 See <code>drawOpenKey</code> for further details.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters are passed onto
 <code>cutData</code> and <code>lattice:xyplot</code>. For example,
@@ -197,21 +239,31 @@ for line thickness when using <code>fill = FALSE</code>, are passed on
 by openair. For example, axis and title labelling options (such
 as <code>xlab</code>, <code>ylab</code> and <code>main</code>) are passed to
 <code>xyplot</code> via <code>quickText</code> to handle routine formatting.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>As well as generating the plot itself,
-<code>percentileRose</code> also returns an object of class
-“openair”. The object includes three main components:
-<code>call</code>, the command used to generate the plot; <code>data</code>,
+    
+
+<p>As well as generating the plot itself,</p>
+<p></p>
+<p><code>percentileRose</code> also returns an object of class</p>
+<p></p>
+<p>“openair”. The object includes three main components:</p>
+<p></p>
+<p><code>call</code>, the command used to generate the plot; <code>data</code>,
   the data frame of summarised information used to make the plot;
-  and <code>plot</code>, the plot itself. If retained, e.g. using
-<code>output &lt;- percentileRose(mydata, "nox")</code>, this output can
+  and <code>plot</code>, the plot itself. If retained, e.g. using</p>
+<p></p>
+<p><code>output &lt;- percentileRose(mydata, "nox")</code>, this output can
   be used to recover the data, reproduce or rework the original
-  plot or undertake further analysis.
-  An openair output can be manipulated using a number of generic
-  operations, including <code>print</code>, <code>plot</code> and
-<code>summary</code>.</p>
+  plot or undertake further analysis.</p>
+
+
+<p>An openair output can be manipulated using a number of generic
+  operations, including <code>print</code>, <code>plot</code> and</p>
+<p></p>
+<p><code>summary</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -289,8 +341,7 @@ ground canyon national park. Atmospheric Environment 19 (8),
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

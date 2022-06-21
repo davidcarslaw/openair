@@ -24,7 +24,7 @@ all be modified to provide a range of other similar plots."><!-- mathjax --><scr
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,9 +103,13 @@ all be modified to provide a range of other similar plots.</p>
     <dl><dt>mydata</dt>
 <dd><p>The openair data frame to use to generate the
 <code>trendLevel</code> plot.</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>The name of the data series in <code>mydata</code> to sample to
 produce the <code>trendLevel</code> plot.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>The name of the data series to use as the
 <code>trendLevel</code> x-axis. This is used with the <code>y</code> and
@@ -114,18 +118,26 @@ produce the <code>trendLevel</code> plot.</p></dd>
 can also be used. (Note: <code>trendLevel</code> does not allow
 duplication in <code>x</code>, <code>y</code> and <code>type</code> options within a
 call.)</p></dd>
+
+
 <dt>y</dt>
 <dd><p>The names of the data series to use as the
 <code>trendLevel</code> y-axis and for additional conditioning,
 respectively. As <code>x</code> above.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>See <code>y</code>.</p></dd>
+
+
 <dt>rotate.axis</dt>
 <dd><p>The rotation to be applied to <code>trendLevel</code>
 <code>x</code> and <code>y</code> axes. The default, <code>c(90, 0)</code>, rotates
 the x axis by 90 degrees but does not rotate the y axis. (Note: If
 only one value is supplied, this is applied to both axes; if more
 than two values are supplied, only the first two are used.)</p></dd>
+
+
 <dt>n.levels</dt>
 <dd><p>The number of levels to split <code>x</code>, <code>y</code>
 and <code>type</code> data into if numeric. The default, <code>c(10, 10,
@@ -135,13 +147,19 @@ ignored for date conditioning and factors.  If less than three
 values are supplied, three values are determined by recursion; if
 more than three values are supplied, only the first three are
 used.)</p></dd>
+
+
 <dt>limits</dt>
 <dd><p>The colour scale range to use when generating the
 <code>trendLevel</code> plot.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>The colour set to use to colour the <code>trendLevel</code>
 surface.  <code>cols</code> is passed to <code>openColours</code> for
 evaluation. See <code><a href="openColours.html">?openColours</a></code> for more details.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Automatic routine text
 formatting. <code>auto.text = TRUE</code> passes common <code>lattice</code>
@@ -150,6 +168,8 @@ the y-axis and <code>main</code> for the title) to the plot via
 <code>quickText</code> to provide common text formatting.  The
 alternative <code>auto.text = FALSE</code> turns this option off and
 passes any supplied labels to the plot without modification.</p></dd>
+
+
 <dt>key.header, key.footer</dt>
 <dd><p>Adds additional text labels above
 and/or below the scale key, respectively. For example, passing the
@@ -161,18 +181,26 @@ formatting. The term <code>"get.stat.name"</code>, used as the default
 <code>key.header</code> setting, is reserved and automatically adds
 statistic function names or defaults to <code>"level"</code> when
 unnamed functions are requested via <code>statistic</code>.</p></dd>
+
+
 <dt>key.position</dt>
 <dd><p>Location where the scale key should be
 plotted.  Allowed arguments currently include “top”,
 “right”, “bottom” and “left”.</p></dd>
+
+
 <dt>key</dt>
 <dd><p>Fine control of the scale key via <code>drawOpenKey</code>. See
 <code><a href="drawOpenKey.html">?drawOpenKey</a></code> for further details.</p></dd>
+
+
 <dt>labels</dt>
 <dd><p>If a categorical colour scale is required then these
 labels will be used. Note there is one less label than break. For
 example, <code>labels = c("good", "bad", "very
 bad")</code>. <code>breaks</code> must also be supplied if labels are given.</p></dd>
+
+
 <dt>breaks</dt>
 <dd><p>If a categorical colour scale is required then these
 breaks will be used. For example, <code>breaks = c(0, 50, 100,
@@ -181,6 +209,8 @@ and 50 and so on. Users should set the maximum value of
 <code>breaks</code> to exceed the maximum data value to ensure it is
 within the maximum final range e.g. 100--1000 in this
 case. <code>labels</code> must also be supplied.</p></dd>
+
+
 <dt>statistic</dt>
 <dd><p>The statistic method to be use to summarise
 locally binned <code>pollutant</code> measurements with. Three options
@@ -188,10 +218,14 @@ are currently encoded: “mean” (default), “max” and
 “frequency”. (Note: Functions can also be sent directly via
 <code>statistic</code>.  However, this option is still in development
 and should be used with caution. See Details below.)</p></dd>
+
+
 <dt>stat.args</dt>
 <dd><p>Additional options to be used with <code>statistic</code> if
 this is a function. The extra options should be supplied as a list of
 named parameters. (see Details below.)</p></dd>
+
+
 <dt>stat.safe.mode</dt>
 <dd><p>An addition protection applied when using functions
 direclty with <code>statistic</code> that most users can ignore. This option
@@ -201,6 +235,8 @@ message when applied to an empty dataset. So, this option provides a
 mechanism to work with such functions. For a very few cases, e.g. for a
 function that counted missing entries, it might need to be set to
 <code>FALSE</code> (see Details below.)</p></dd>
+
+
 <dt>drop.unused.types</dt>
 <dd><p>Hide unused/empty <code>type</code> conditioning cases.
 Some conditioning options may generate empty cases for some data sets,
@@ -209,26 +245,39 @@ and <code>y</code> cases generate 'holes' in individual plots. However, empty
 <code>type</code> cases would produce blank panels if plotted. Therefore, the
 default, <code>TRUE</code>, excludes these empty panels from the plot. The
 alternative <code>FALSE</code> plots all <code>type</code> panels.</p></dd>
+
+
 <dt>col.na</dt>
 <dd><p>Colour to be used to show missing data.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Addition options are passed on to <code>cutData</code> for
 <code>type</code> handling and <code>levelplot</code> in <code>lattice</code> for finer
 control of the plot itself.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>As well as generating the plot itself, <code>trendLevel</code> also
+    
+
+<p>As well as generating the plot itself, <code>trendLevel</code> also
   returns an object of class ``openair''. The object includes three main
-  components: <code>call</code>, the command used to generate the plot;
-<code>data</code>, the data frame of summarised information used to make the
-  plot; and <code>plot</code>, the plot itself. If retained, e.g. using
-<code>output &lt;- trendLevel(mydata)</code>, this output can be used to recover
+  components: <code>call</code>, the command used to generate the plot;</p>
+<p></p>
+<p><code>data</code>, the data frame of summarised information used to make the
+  plot; and <code>plot</code>, the plot itself. If retained, e.g. using</p>
+<p></p>
+<p><code>output &lt;- trendLevel(mydata)</code>, this output can be used to recover
   the data, reproduce or rework the original plot or undertake further
-  analysis.
-An openair output can be manipulated using a number of generic operations,
-  including <code>print</code>, <code>plot</code> and <code>summary</code>.
-Summary statistics can also be extracted directly using <code>results</code>,
+  analysis.</p>
+
+
+<p>An openair output can be manipulated using a number of generic operations,
+  including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
+
+
+<p>Summary statistics can also be extracted directly using <code>results</code>,
   e.g.  <code>results(object)</code> for <code>output &lt;- trendLevel(mydata)</code>.</p>
     </div>
     <div class="section level2">
@@ -304,8 +353,7 @@ without warning for empty data series.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

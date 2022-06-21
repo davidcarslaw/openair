@@ -8,7 +8,8 @@
 - don't pad missing dates in `timeAverage` if DST
 - deprecate `resolution` in `polarPlot` --- now uses predictions at a coarser resolution that are interpolated. Will also speed-up plotting
 - add new source method to trajectory analysis (`trajlevel`), SQTBA --- Simplified Quantitative Transport Bias Analysis
-- fix bivariate Gaussian function in `polarPlot` when two pollutants suppled for different statistics 
+- fix bivariate Gaussian function in `polarPlot` when two pollutants supplied for different statistics 
+- add initial version of 'York regression' approach as an option to `polarPlot`. This regression approach determines a best fit line when there is error in the 'x' and the 'y'. The openair book will be updated to cover this in more detail.
 
 # openair 2.9-1
 

@@ -16,7 +16,7 @@ functions usually through the option type."><!-- mathjax --><script src="https:/
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,6 +78,8 @@ functions usually through the option <code>type</code>.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>A data frame containing a field <code>date</code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>A string giving the way in which the data frame should
   be split. Pre-defined values are: “default”,
@@ -89,20 +91,30 @@ functions usually through the option <code>type</code>.</p>
   numeric column name is supplied <code>cutData</code> will split the
   data into four quantiles. Factors levels will be used to split
   the data without any adjustment.</p></dd>
+
+
 <dt>hemisphere</dt>
 <dd><p>Can be <code>"northern"</code> or <code>"southern"</code>,
 used to split data into seasons.</p></dd>
+
+
 <dt>n.levels</dt>
 <dd><p>Number of quantiles to split numeric data into.</p></dd>
+
+
 <dt>start.day</dt>
 <dd><p>What day of the week should the <code>type =
 "weekday"</code> start on?  The user can change the start day by
 supplying an integer between 0 and 6. Sunday = 0, Monday = 1,
 ... For example to start the weekday plots on a Saturday,
 choose <code>start.day = 6</code>.</p></dd>
+
+
 <dt>is.axis</dt>
 <dd><p>A logical (<code>TRUE</code>/<code>FALSE</code>), used to
 request shortened cut labels for axes.</p></dd>
+
+
 <dt>local.tz</dt>
 <dd><p>Used for identifying whether a date has daylight
 savings time (DST) applied or not. Examples include
@@ -113,19 +125,28 @@ shows time zones that should be valid for most systems. It is
 important that the original data are in GMT (UTC) or a fixed
 offset from GMT. See <code>import</code> and the openair manual for
 information on how to import data and ensure no DST is applied.</p></dd>
+
+
 <dt>latitude</dt>
 <dd><p>The decimal latitude used in <code>type =
 "daylight"</code>.</p></dd>
+
+
 <dt>longitude</dt>
 <dd><p>The decimal longitude. Note that locations west
 of Greenwich are negative.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>All additional parameters are passed on to next
 function(s).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Returns a data frame with a column <code>cond</code> that is
+    
+
+<p>Returns a data frame with a column <code>cond</code> that is
   defined by <code>type</code>.</p>
     </div>
     <div class="section level2">
@@ -221,8 +242,7 @@ name of one of the date-based types it will not be used.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

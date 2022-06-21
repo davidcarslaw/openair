@@ -16,7 +16,7 @@ by month, day of week."><!-- mathjax --><script src="https://cdnjs.cloudflare.co
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,6 +92,8 @@ by month, day of week.</p>
     <dl><dt>mydata</dt>
 <dd><p>A data frame minimally containing <code>date</code>, <code>wd</code> and
 a pollutant.</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>Mandatory. A pollutant name corresponding to a
 variable in a data frame should be supplied e.g. <code>pollutant =
@@ -103,9 +105,13 @@ stacking the data and it is possible to work with columns of data
 directly. A typical use would be <code>pollutant = c("obs",
 "mod")</code> to compare two columns “obs” (the observations) and
 “mod” (modelled values).</p></dd>
+
+
 <dt>resolution</dt>
 <dd><p>Two plot resolutions can be set: “normal” and
 “fine” (the default).</p></dd>
+
+
 <dt>local.tz</dt>
 <dd><p>Should the results be calculated in local time
 that includes a treatment of daylight savings time (DST)? The
@@ -123,12 +129,16 @@ to be made with emissions/activity data. If set to <code>FALSE</code>
 then GMT is used. Examples of usage include <code>local.tz =
 "Europe/London"</code>, <code>local.tz = "America/New_York"</code>. See
 <code>cutData</code> and <code>import</code> for more details.</p></dd>
+
+
 <dt>period</dt>
 <dd><p>This determines the temporal period to
 consider. Options are “hour” (the default, to plot diurnal
 variations), “season” to plot variation throughout the
 year, “weekday” to plot day of the week variation and
 “trend” to plot the trend by wind direction.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split
 i.e. conditioned, and then plotted. The default is will produce a
@@ -152,6 +162,8 @@ variables and how they depend on one another.</p>
   = "season"</code> and <code>period = "trend"</code> (which would result in a plot
   with too many gaps in it for sensible smoothing), or <code>type =
   "weekday"</code> and <code>period = "weekday"</code>.</p></dd>
+
+
 <dt>statistic</dt>
 <dd><p>The statistic that should be applied to each wind
 speed/direction bin. Can be “mean” (default),
@@ -168,6 +180,8 @@ better. Setting <code>statistic = "weighted.mean"</code> can be useful
 because it provides an indication of the concentration * frequency
 of occurrence and will highlight the wind speed/direction
 conditions that dominate the overall mean.</p></dd>
+
+
 <dt>percentile</dt>
 <dd><p>If <code>statistic = "percentile"</code> or
 <code>statistic = "cpf"</code> then <code>percentile</code> is used, expressed
@@ -177,8 +191,12 @@ also be useful to set <code>min.bin</code> to ensure there are a
 sufficient number of points available to estimate a
 percentile. See <code>quantile</code> for more details of how
 percentiles are calculated.</p></dd>
+
+
 <dt>limits</dt>
 <dd><p>Limits for colour scale.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colours to be used for plotting. Options include
 “default”, “increment”, “heat”, “jet”
@@ -186,9 +204,13 @@ and user defined. For user defined the user can supply a list of
 colour names recognised by R (type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code> to see the
 full list). An example would be <code>cols = c("yellow", "green",
 "blue")</code></p></dd>
+
+
 <dt>width</dt>
 <dd><p>The width of the annulus; can be “normal” (the
 default), “thin” or “fat”.</p></dd>
+
+
 <dt>min.bin</dt>
 <dd><p>The minimum number of points allowed in a wind speed/wind
 direction bin.  The default is 1. A value of two requires at least 2
@@ -197,6 +219,8 @@ are set to NA. Care should be taken when using a value &gt; 1 because of the
 risk of removing real data points. It is recommended to consider your
 data with care. Also, the <code>polarFreq</code> function can be of use in such
 circumstances.</p></dd>
+
+
 <dt>exclude.missing</dt>
 <dd><p>Setting this option to <code>TRUE</code> (the default)
 removes points from the plot that are too far from the original data. The
@@ -204,11 +228,15 @@ smoothing routines will produce predictions at points where no data exist
 i.e. they predict. By removing the points too far from the original data
 produces a plot where it is clear where the original data lie. If set to
 <code>FALSE</code> missing data will be interpolated.</p></dd>
+
+
 <dt>date.pad</dt>
 <dd><p>For <code>type = "trend"</code> (default), <code>date.pad = TRUE</code>
 will pad-out missing data to the beginning of the first year and the end
 of the last year. The purpose is to ensure that the trend plot begins and
 ends at the beginning or end of year.</p></dd>
+
+
 <dt>force.positive</dt>
 <dd><p>The default is <code>TRUE</code>. Sometimes if smoothing
 data with steep gradients it is possible for predicted values to be
@@ -222,12 +250,16 @@ where setting <code>force.positive = FALSE</code> would be if background
 concentrations were first subtracted resulting in data that is
 legitimately negative. For the vast majority of situations it is expected
 that the user will not need to alter the default option.</p></dd>
+
+
 <dt>k</dt>
 <dd><p>The smoothing value supplied to <code>gam</code> for the temporal and
 wind direction components, respectively. In some cases e.g. a trend plot
 with less than 1-year of data the smoothing with the default values may
 become too noisy and affected more by outliers. Choosing a lower value of
 <code>k</code> (say 10) may help produce a better plot.</p></dd>
+
+
 <dt>normalise</dt>
 <dd><p>If <code>TRUE</code> concentrations are normalised by dividing
 by their mean value. This is done <em>after</em> fitting the smooth
@@ -235,26 +267,38 @@ surface. This option is particularly useful if one is interested in the
 patterns of concentrations for several pollutants on different scales
 e.g. NOx and CO. Often useful if more than one <code>pollutant</code> is
 chosen.</p></dd>
+
+
 <dt>key.header</dt>
 <dd><p>Adds additional text/labels to the scale key.
 For example, passing the options <code>key.header = "header", key.footer
 = "footer1"</code> adds addition text above and below the scale key. These
 arguments are passed to <code>drawOpenKey</code> via <code>quickText</code>, applying
 the <code>auto.text</code> argument, to handle formatting.</p></dd>
+
+
 <dt>key.footer</dt>
 <dd><p>see <code>key.header</code>.</p></dd>
+
+
 <dt>key.position</dt>
 <dd><p>Location where the scale key is to plotted.
 Allowed arguments currently include “top”, “right”,
 “bottom” and “left”.</p></dd>
+
+
 <dt>key</dt>
 <dd><p>Fine control of the scale key via <code>drawOpenKey</code>. See
 <code>drawOpenKey</code> for further details.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the ‘2’
 in NO2.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters passed onto <code>lattice:levelplot</code>
 and <code>cutData</code>. For example, <code>polarAnnulus</code> passes the option
@@ -263,18 +307,25 @@ and <code>cutData</code>. For example, <code>polarAnnulus</code> passes the opti
 Similarly, common axis and title labelling options (such as <code>xlab</code>,
 <code>ylab</code>, <code>main</code>) are passed to <code>levelplot</code> via <code>quickText</code>
 to handle routine formatting.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>As well as generating the plot itself, <code>polarAnnulus</code> also
+    
+
+<p>As well as generating the plot itself, <code>polarAnnulus</code> also
   returns an object of class ``openair''. The object includes three main
-  components: <code>call</code>, the command used to generate the plot;
-<code>data</code>, the data frame of summarised information used to make the
-  plot; and <code>plot</code>, the plot itself. If retained, e.g. using
-<code>output &lt;- polarAnnulus(mydata, "nox")</code>, this output can be used to
+  components: <code>call</code>, the command used to generate the plot;</p>
+<p></p>
+<p><code>data</code>, the data frame of summarised information used to make the
+  plot; and <code>plot</code>, the plot itself. If retained, e.g. using</p>
+<p></p>
+<p><code>output &lt;- polarAnnulus(mydata, "nox")</code>, this output can be used to
   recover the data, reproduce or rework the original plot or undertake
-  further analysis.
-An openair output can be manipulated using a number of generic operations,
+  further analysis.</p>
+
+
+<p>An openair output can be manipulated using a number of generic operations,
   including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
     </div>
     <div class="section level2">
@@ -343,8 +394,7 @@ through the smoothing parameter <code>k</code>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

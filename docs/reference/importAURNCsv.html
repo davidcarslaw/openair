@@ -18,7 +18,7 @@ reshape).'><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/m
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,67 +89,99 @@ uses <code>read.table</code> (in <code>utils</code>) and <code>rbind</code> (in
 <code>file.choose</code> opens browser. Use of <code>read.table</code> (in
 <code>utils</code>) also allows this to be a readable text-mode connection or
 url (although these options are currently not fully tested).</p></dd>
+
+
 <dt>header.at</dt>
 <dd><p>The file row holding header information. This is used to
 set names for the resulting imported data frame, but may be subject to
 further modifications depending on following argument settings.</p></dd>
+
+
 <dt>data.at</dt>
 <dd><p>The first file row holding actual data. When generating the
 data frame, the function will ignore all information before this row, and
 attempt to include all data from this row onwards.</p></dd>
+
+
 <dt>na.strings</dt>
 <dd><p>Strings of any terms that are to be interpreted as NA
 values within the file.</p></dd>
+
+
 <dt>date.name</dt>
 <dd><p>Header name of column holding date information. Combined
 with time information as single date column in the generated data frame.</p></dd>
+
+
 <dt>date.break</dt>
 <dd><p>The break character separating days, months and years in
 date information. For example, "-" in "01-01-2009".</p></dd>
+
+
 <dt>time.name</dt>
 <dd><p>Header name of column holding time information. Combined
 with date information as single date column in the generated data frame.</p></dd>
+
+
 <dt>misc.info</dt>
 <dd><p>Row numbers of any additional information that may be
 required from the original file. Each line retained as a character vector
 in the generated data frame comment.</p></dd>
+
+
 <dt>is.site</dt>
 <dd><p>Header name of column holding site information. Setting to
 NULL turns this option off.</p></dd>
+
+
 <dt>bad.24</dt>
 <dd><p>Reset AURN 24 time stamp. AURN time series are logged as
 00:00:01 to 24:00:00 as opposed to the more conventional 00:00:00 to
 23:59:59. <code>bad.24 = TRUE</code> resets the time stamp which is not allowed
 in some time series classes or functions.</p></dd>
+
+
 <dt>correct.time</dt>
 <dd><p>Numerical correction (in seconds) for imported date.
 AURN data is logged retrospectively. For 1 hour average data,
 <code>correct.time = -3600</code> resets this to the start of the sampling
 period.</p></dd>
+
+
 <dt>output</dt>
 <dd><p>Output style. Default "final" using <code><a href="import.html">import()</a></code>.</p></dd>
+
+
 <dt>data.order</dt>
 <dd><p>A vector of names defining the order of data types. AURN
 files typically include three data types, actual data and associated data
 quality and measurement unit reports. Here, these are defined as "value",
 "status" and "unit", respectively.</p></dd>
+
+
 <dt>simplify.names</dt>
 <dd><p>A logical (default TRUE) prompting the function to
 try to simply data frame names using common chemical shorthand.  FALSE
 retains names from original file, although these may be modified if they
 contain unallowed characters or non-unique names.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other parameters. Passed onto and handled by <code><a href="import.html">import()</a></code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function returns a data frame for use in openair. By comparison
+    
+
+<p>The function returns a data frame for use in openair. By comparison
   to the original file, the resulting data frame is modified as follows:
   Time and date information will combined in a single column "date",
   formatted as a conventional timeseries (<code><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></code>). Time
   adjustments may also be made, subject to "bad.24" and "correct.time"
-  argument settings.  Using default settings, the argument
-<code>correct.time = - 3600</code> resets the time stamp to the start of the
+  argument settings.  Using default settings, the argument</p>
+<p></p>
+<p><code>correct.time = - 3600</code> resets the time stamp to the start of the
   measurement period. If name simplification was requested
   (<code>simplify.names = TRUE</code>), common chemical names will be simplified.
   For example, "carbon monoxide" will be reset to "co". Currently, this
@@ -261,8 +293,7 @@ argument modification.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

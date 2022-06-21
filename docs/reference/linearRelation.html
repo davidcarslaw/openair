@@ -20,7 +20,7 @@ relationships are consistent with emissions inventories."><!-- mathjax --><scrip
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,12 +87,18 @@ relationships are consistent with emissions inventories.</p>
     <dl><dt>mydata</dt>
 <dd><p>A data frame minimally containing <code>date</code> and
 two pollutants.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>First pollutant that when plotted would appear on the
 x-axis of a relationship e.g. <code>x = "nox"</code>.</p></dd>
+
+
 <dt>y</dt>
 <dd><p>Second pollutant that when plotted would appear on the
 y-axis of a relationship e.g. <code>y = "pm10"</code>.</p></dd>
+
+
 <dt>period</dt>
 <dd><p>A range of different time periods can be
 analysed. The default is <code>month</code> but can be <code>year</code>
@@ -103,12 +109,16 @@ between <code>x</code> and <code>y</code> and “weekday” the day of
 the week relationship between <code>x</code> and
 <code>y</code>. “day.hour” will plot the relationship by
 weekday and hour of the day.</p></dd>
+
+
 <dt>condition</dt>
 <dd><p>For <code>period = "hour"</code>, <code>period = "day"</code>
 and <code>period = "day.hour"</code>, setting <code>condition =
 TRUE</code> will plot the relationships split by year. This is
 useful for seeing how the relationships may be changing over
 time.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>The minimum number of points to be sent to the linear
 model.  Because there may only be a few points e.g. hours
@@ -116,6 +126,8 @@ where two pollutants are available over one week, <code>n</code> can
 be set to ensure that at least <code>n</code> points are sent to the
 linear model. If a period has hours &lt; <code>n</code> that period
 will be ignored.</p></dd>
+
+
 <dt>rsq.thresh</dt>
 <dd><p>The minimum correlation coefficient (R2)
 allowed. If the relationship between <code>x</code> and <code>y</code> is
@@ -123,15 +135,23 @@ not very good for a particular period, setting
 <code>rsq.thresh</code> can help to remove those periods where the
 relationship is not strong. Any R2 values below
 <code>rsq.thresh</code> will not be plotted.</p></dd>
+
+
 <dt>ylab</dt>
 <dd><p>y-axis title, specified by the user.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and
 format pollutant names and units properly e.g.  by
 subscripting the ‘2’ in NO2.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colour for the points and uncertainty intervals.</p></dd>
+
+
 <dt>date.breaks</dt>
 <dd><p>Number of major x-axis intervals to use. The
 function will try and choose a sensible number of dates/times
@@ -140,24 +160,34 @@ being considered.  This does not always work as desired
 automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of
 <code>date.breaks</code> up or down.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters. A useful one to remove the
 strip with the date range on at the top of the plot is to set
 <code>strip = FALSE</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>As well as generating the plot itself,
-<code>linearRelation</code> also returns an object of class
-    ``openair''. The object includes three main components:
-<code>call</code>, the command used to generate the plot;
-<code>data</code>, the data frame of summarised information used to
+    
+
+<p>As well as generating the plot itself,</p>
+<p></p>
+<p><code>linearRelation</code> also returns an object of class
+    ``openair''. The object includes three main components:</p>
+<p></p>
+<p><code>call</code>, the command used to generate the plot;</p>
+<p></p>
+<p><code>data</code>, the data frame of summarised information used to
     make the plot; and <code>plot</code>, the plot itself. If retained,
     e.g. using <code>output &lt;- linearRelation(mydata, "nox",
     "no2")</code>, this output can be used to recover the data,
     reproduce or rework the original plot or undertake further
-    analysis.
-An openair output can be manipulated using a number of generic operations,
+    analysis.</p>
+
+
+<p>An openair output can be manipulated using a number of generic operations,
   including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
     </div>
     <div class="section level2">
@@ -231,8 +261,7 @@ alternative.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

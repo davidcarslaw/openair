@@ -12,7 +12,7 @@ or in separate panels."><!-- mathjax --><script src="https://cdnjs.cloudflare.co
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,21 +91,29 @@ or in separate panels.</p>
     <dl><dt>mydata</dt>
 <dd><p>A data frame of time series. Must include a
 <code>date</code> field and at least one variable to plot.</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>Name of variable to plot. Two or more pollutants
 can be plotted, in which case a form like <code>pollutant =
 c("nox", "co")</code> should be used.</p></dd>
+
+
 <dt>group</dt>
 <dd><p>If more than one pollutant is chosen, should they all
 be plotted on the same graph together? The default is
 <code>FALSE</code>, which means they are plotted in separate panels
 with their own scaled. If <code>TRUE</code> then they are plotted on
 the same plot with the same scale.</p></dd>
+
+
 <dt>stack</dt>
 <dd><p>If <code>TRUE</code> the time series will be stacked by
 year. This option can be useful if there are several years worth
 of data making it difficult to see much detail when plotted on a
 single plot.</p></dd>
+
+
 <dt>normalise</dt>
 <dd><p>Should variables be normalised? The default is is
 not to normalise the data. <code>normalise</code> can take two values,
@@ -118,6 +126,8 @@ Choosing a date (say at the beginning of a time series) is very
 useful for showing how trends diverge over time. Setting
 <code>group = TRUE</code> is often useful too to show all time series
 together in one panel.</p></dd>
+
+
 <dt>avg.time</dt>
 <dd><p>This defines the time period to average to. Can be
 “sec”, “min”, “hour”, “day”,
@@ -126,6 +136,8 @@ or “year”. For much increased flexibility a number can
 precede these options followed by a space. For example, a
 timeAverage of 2 months would be <code>period = "2 month"</code>. See
 function <code>timeAverage</code> for further details on this.</p></dd>
+
+
 <dt>data.thresh</dt>
 <dd><p>The data capture threshold to use (%) when
 aggregating the data using <code>avg.time</code>. A value of zero
@@ -134,6 +146,8 @@ period regardless if of the number of values available.
 Conversely, a value of 100 will mean that all data will need to
 be present for the average to be calculated, else it is recorded
 as <code>NA</code>. Not used if <code>avg.time = "default"</code>.</p></dd>
+
+
 <dt>statistic</dt>
 <dd><p>The statistic to apply when aggregating the data;
 default is the mean. Can be one of “mean”, “max”,
@@ -144,12 +158,16 @@ valid records in the period.  “percentile” is the
 percentile level (%) between 0-100, which can be set using the
 “percentile” option - see below. Not used if
 <code>avg.time = "default"</code>.</p></dd>
+
+
 <dt>percentile</dt>
 <dd><p>The percentile level in % used when
 <code>statistic = "percentile"</code> and when aggregating the data
 with <code>avg.time</code>. More than one percentile level is allowed
 for <code>type = "default"</code> e.g. <code>percentile = c(50, 95)</code>.
 Not used if <code>avg.time = "default"</code>.</p></dd>
+
+
 <dt>date.pad</dt>
 <dd><p>Should missing data be padded-out? This is useful
 where a data frame consists of two or more "chunks" of data with
@@ -158,6 +176,8 @@ time gaps between the chunks are shown properly, rather than
 with a line connecting each chunk. For irregular data, set to
 <code>FALSE</code>. Note, this should not be set for <code>type</code> other
 than <code>default</code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split i.e.
   conditioned, and then plotted. The default is will produce a
@@ -174,6 +194,8 @@ than <code>default</code>.</p></dd>
   This offers great flexibility for understanding the variation of
   different variables and how they depend on one another.</p>
 <p>Only one <code>type</code> is currently allowed in <code>timePlot</code>.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colours to be used for plotting. Options include
 “default”, “increment”, “heat”,
@@ -182,12 +204,18 @@ than <code>default</code>.</p></dd>
 user defined the user can supply a list of colour names
 recognised by R (type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code> to see the full list). An
 example would be <code>cols = c("yellow", "green", "blue")</code></p></dd>
+
+
 <dt>plot.type</dt>
 <dd><p>The <code>lattice</code> plot type, which is a line
 (<code>plot.type = "l"</code>) by default. Another useful option is
 <code>plot.type = "h"</code>, which draws vertical lines.</p></dd>
+
+
 <dt>key</dt>
 <dd><p>Should a key be drawn? The default is <code>TRUE</code>.</p></dd>
+
+
 <dt>log</dt>
 <dd><p>Should the y-axis appear on a log scale? The default is
 <code>FALSE</code>. If <code>TRUE</code> a well-formatted log10 scale is
@@ -195,6 +223,8 @@ used. This can be useful for plotting data for several different
 pollutants that exist on very different scales. It is therefore
 useful to use <code>log = TRUE</code> together with <code>group =
 TRUE</code>.</p></dd>
+
+
 <dt>windflow</dt>
 <dd><p>This option allows a scatter plot to show the wind
   speed/direction as an arrow. The option is a list e.g.
@@ -211,21 +241,31 @@ TRUE</code>.</p></dd>
   <code>angle</code>, which controls the angle of the arrow head.</p>
 <p>This option works best where there are not too many data to
   ensure over-plotting does not become a problem.</p></dd>
+
+
 <dt>smooth</dt>
 <dd><p>Should a smooth line be applied to the data? The
 default is <code>FALSE</code>.</p></dd>
+
+
 <dt>ci</dt>
 <dd><p>If a smooth fit line is applied, then <code>ci</code>
 determines whether the 95% confidence intervals are shown.</p></dd>
+
+
 <dt>y.relation</dt>
 <dd><p>This determines how the y-axis scale is plotted.
 "same" ensures all panels use the same scale and "free" will use
 panel-specific scales. The latter is a useful setting when
 plotting data with very different values.</p></dd>
+
+
 <dt>ref.x</dt>
 <dd><p>See <code>ref.y</code> for details. In this case the
 correct date format should be used for a vertical line e.g.
 <code>ref.x = list(v = as.POSIXct("2000-06-15"), lty = 5)</code>.</p></dd>
+
+
 <dt>ref.y</dt>
 <dd><p>A list with details of the horizontal lines to be
 added representing reference line(s). For example, <code>ref.y =
@@ -234,15 +274,21 @@ Several lines can be plotted e.g. <code>ref.y = list(h = c(50,
 100), lty = c(1, 5), col = c("green", "blue"))</code>. See
 <code>panel.abline</code> in the <code>lattice</code> package for more
 details on adding/controlling lines.</p></dd>
+
+
 <dt>key.columns</dt>
 <dd><p>Number of columns to be used in the key. With
 many pollutants a single column can make to key too wide. The
 user can thus choose to use several columns by setting
 <code>columns</code> to be less than the number of pollutants.</p></dd>
+
+
 <dt>key.position</dt>
 <dd><p>Location where the scale key is to plotted.
 Can include “top”, “bottom”, “right” and
 “left”.</p></dd>
+
+
 <dt>name.pol</dt>
 <dd><p>This option can be used to give alternative names
 for the variables plotted. Instead of taking the column headings
@@ -251,6 +297,8 @@ column had the name “nox” and the user wanted a different
 description, then setting <code>name.pol = "nox before change"</code>
 can be used. If more than one pollutant is plotted then use
 <code>c</code> e.g. <code>name.pol = c("nox here", "o3 there")</code>.</p></dd>
+
+
 <dt>date.breaks</dt>
 <dd><p>Number of major x-axis intervals to use. The
 function will try and choose a sensible number of dates/times as
@@ -259,6 +307,8 @@ being considered. This does not always work as desired
 automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of <code>date.breaks</code>
 up or down.</p></dd>
+
+
 <dt>date.format</dt>
 <dd><p>This option controls the date format on the
 x-axis. While <code>timePlot</code> generally sets the date format
@@ -266,11 +316,15 @@ sensibly there can be some situations where the user wishes to
 have more control. For format types see <code>strptime</code>. For
 example, to format the date like “Jan-2012” set
 <code>date.format = "%b-%Y"</code>.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and
 format pollutant names and units properly e.g.  by subscripting
 the ‘2’ in NO2.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters are passed onto
 <code>cutData</code> and <code>lattice:xyplot</code>. For example,
@@ -285,19 +339,28 @@ although some maybe locally managed by <code>openair</code> on route,
 e.g. axis and title labelling options (such as <code>xlab</code>,
 <code>ylab</code>, <code>main</code>) are passed via <code>quickText</code> to
 handle routine formatting. See examples below.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>As well as generating the plot itself, <code>timePlot</code>  also returns an object of class ``openair''. The object includes
+    
+
+<p>As well as generating the plot itself, <code>timePlot</code></p>
+
+
+<p>also returns an object of class ``openair''. The object includes
   three main components: <code>call</code>, the command used to generate
   the plot; <code>data</code>, the data frame of summarised information
   used to make the plot; and <code>plot</code>, the plot itself. If
   retained, e.g. using <code>output &lt;- timePlot(mydata, "nox")</code>,
   this output can be used to recover the data, reproduce or rework
-  the original plot or undertake further analysis.
-  An openair output can be manipulated using a number of generic
-  operations, including <code>print</code>, <code>plot</code> and
-<code>summary</code>.</p>
+  the original plot or undertake further analysis.</p>
+
+
+<p>An openair output can be manipulated using a number of generic
+  operations, including <code>print</code>, <code>plot</code> and</p>
+<p></p>
+<p><code>summary</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -360,7 +423,7 @@ the plotting area and therefore the information shown.</p>
 <span class="r-in">  <span class="va">scale</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x, center = TRUE, scale = TRUE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> UseMethod("scale")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x7fcd0348bf90&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x7fae7b18c8c0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:base&gt;</span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="fu">timePlot</span><span class="op">(</span><span class="va">mydata</span>, pollutant <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nox"</span>, <span class="st">"co"</span>, <span class="st">"pm10"</span>, <span class="st">"so2"</span><span class="op">)</span>, group <span class="op">=</span> <span class="cn">TRUE</span>, avg.time <span class="op">=</span></span>
@@ -409,8 +472,7 @@ the plotting area and therefore the information shown.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

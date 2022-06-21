@@ -16,7 +16,7 @@ vectors if wind speed and direction are available."><!-- mathjax --><script src=
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,27 +97,41 @@ vectors if wind speed and direction are available.</p>
 <dd><p>A data frame minimally containing <code>date</code> and at least one
 other numeric variable. The date should be in either <code>Date</code> format or
 class <code>POSIXct</code>.</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>Mandatory. A pollutant name corresponding to a variable in
 a data frame should be supplied e.g. <code>pollutant = "nox". </code></p></dd>
+
+
 <dt>year</dt>
 <dd><p>Year to plot e.g. <code>year = 2003</code>. If not supplied all data
 potentially spanning several years will be plotted.</p></dd>
+
+
 <dt>month</dt>
 <dd><p>If only certain month are required. By default the function
 will plot an entire year even if months are missing. To only plot certain
 months use the <code>month</code> option where month is a numeric 1:12 e.g.
 <code>month = c(1, 12)</code> to only plot January and December.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>Not yet implemented.</p></dd>
+
+
 <dt>annotate</dt>
 <dd><p>This option controls what appears on each day of the
 calendar. Can be: “date” --- shows day of the month; “wd”
 --- shows vector-averaged wind direction, or “ws” --- shows
 vector-averaged wind direction scaled by wind speed. Finally it can be
 “value” which shows the daily mean value.</p></dd>
+
+
 <dt>statistic</dt>
 <dd><p>Statistic passed to <code>timeAverage</code>.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colours to be used for plotting. Options include
 “default”, “increment”, “heat”, “jet” and
@@ -125,6 +139,8 @@ vector-averaged wind direction scaled by wind speed. Finally it can be
 function for more details. For user defined the user can supply a list of
 colour names recognised by R (type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code> to see the full list).
 An example would be <code>cols = c("yellow", "green", "blue")</code></p></dd>
+
+
 <dt>limits</dt>
 <dd><p>Use this option to manually set the colour scale limits. This
 is useful in the case when there is a need for two or more plots and a
@@ -132,39 +148,57 @@ consistent scale is needed on each. Set the limits to cover the maximimum
 range of the data for all plots of interest. For example, if one plot had
 data covering 0--60 and another 0--100, then set <code>limits = c(0,
 100)</code>. Note that data will be ignored if outside the limits range.</p></dd>
+
+
 <dt>lim</dt>
 <dd><p>A threshold value to help differentiate values above and below
 <code>lim</code>. It is used when <code>annotate = "value"</code>. See next few
 options for control over the labels used.</p></dd>
+
+
 <dt>col.lim</dt>
 <dd><p>For the annotation of concentration labels on each day. The
 first sets the colour of the text below <code>lim</code> and the second sets the
 colour of the text above <code>lim</code>.</p></dd>
+
+
 <dt>col.arrow</dt>
 <dd><p>The colour of the annotated wind direction / wind speed
 arrows.</p></dd>
+
+
 <dt>font.lim</dt>
 <dd><p>For the annotation of concentration labels on each day. The
 first sets the font of the text below <code>lim</code> and the second sets the
 font of the text above <code>lim</code>. Note that font = 1 is normal text and
 font = 2 is bold text.</p></dd>
+
+
 <dt>cex.lim</dt>
 <dd><p>For the annotation of concentration labels on each day. The
 first sets the size of the text below <code>lim</code> and the second sets the
 size of the text above <code>lim</code>.</p></dd>
+
+
 <dt>digits</dt>
 <dd><p>The number of digits used to display concentration values when
 <code>annotate = "value"</code>.</p></dd>
+
+
 <dt>data.thresh</dt>
 <dd><p>Data capture threshold passed to <code>timeAverage</code>. For
 example, <code>data.thresh = 75</code> means that at least 75% of the data must
 be available in a day for the value to be calculate, else the data is
 removed.</p></dd>
+
+
 <dt>labels</dt>
 <dd><p>If a categorical scale is required then these labels will be
 used. Note there is one less label than break. For example, <code>labels =
 c("good", "bad", "very bad")</code>. <code>breaks</code> must also be supplied if
 labels are given.</p></dd>
+
+
 <dt>breaks</dt>
 <dd><p>If a categorical scale is required then these breaks will be
 used. For example, <code>breaks = c(0, 50, 100, 1000)</code>. In this case
@@ -172,51 +206,76 @@ used. For example, <code>breaks = c(0, 50, 100, 1000)</code>. In this case
 should set the maximum value of <code>breaks</code> to exceed the maximum data
 value to ensure it is within the maximum final range e.g. 100--1000 in
 this case.</p></dd>
+
+
 <dt>w.shift</dt>
 <dd><p>Controls the order of the days of the week. By default the
 plot shows Saturday first (<code>w.shift = 0</code>). To change this so that it
 starts on a Monday for example, set <code>w.shift = 2</code>, and so on.</p></dd>
+
+
 <dt>remove.empty</dt>
 <dd><p>Should months with no data present be removed? Default
 is <code>TRUE</code>.</p></dd>
+
+
 <dt>main</dt>
 <dd><p>The plot title; default is pollutant and year.</p></dd>
+
+
 <dt>key.header</dt>
 <dd><p>Adds additional text/labels to the scale key. For example,
 passing <code>calendarPlot(mydata, key.header = "header", key.footer =
 "footer")</code> adds addition text above and below the scale key. These
 arguments are passed to <code>drawOpenKey</code> via <code>quickText</code>, applying
 the <code>auto.text</code> argument, to handle formatting.</p></dd>
+
+
 <dt>key.footer</dt>
 <dd><p>see <code>key.header</code>.</p></dd>
+
+
 <dt>key.position</dt>
 <dd><p>Location where the scale key is to plotted. Allowed
 arguments currently include <code>"top"</code>, <code>"right"</code>, <code>"bottom"</code>
 and <code>"left"</code>.</p></dd>
+
+
 <dt>key</dt>
 <dd><p>Fine control of the scale key via <code>drawOpenKey</code>. See
 <code>drawOpenKey</code> for further details.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters are passed onto the <code>lattice</code>
 function <code>lattice:levelplot</code>, with common axis and title labelling
 options (such as <code>xlab</code>, <code>ylab</code>, <code>main</code>) being passed to
 via <code>quickText</code> to handle routine formatting.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>As well as generating the plot itself, <code>calendarPlot</code> also
+    
+
+<p>As well as generating the plot itself, <code>calendarPlot</code> also
   returns an object of class ``openair''. The object includes three main
-  components: <code>call</code>, the command used to generate the plot;
-<code>data</code>, the data frame of summarised information used to make the
-  plot; and <code>plot</code>, the plot itself. If retained, e.g. using
-<code>output &lt;- calendarPlot(mydata, "nox")</code>, this output can be used to
+  components: <code>call</code>, the command used to generate the plot;</p>
+<p></p>
+<p><code>data</code>, the data frame of summarised information used to make the
+  plot; and <code>plot</code>, the plot itself. If retained, e.g. using</p>
+<p></p>
+<p><code>output &lt;- calendarPlot(mydata, "nox")</code>, this output can be used to
   recover the data, reproduce or rework the original plot or undertake
-  further analysis.
-  An openair output can be manipulated using a number of generic operations,
+  further analysis.</p>
+
+
+<p>An openair output can be manipulated using a number of generic operations,
   including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
     </div>
     <div class="section level2">
@@ -295,8 +354,7 @@ concentrations.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

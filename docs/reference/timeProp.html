@@ -24,7 +24,7 @@ understanding time series data."><!-- mathjax --><script src="https://cdnjs.clou
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,9 +96,13 @@ understanding time series data.</p>
     <dl><dt>mydata</dt>
 <dd><p>A data frame containing the fields <code>date</code>,
 <code>pollutant</code> and a splitting variable <code>proportion</code></p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>Name of the pollutant to plot contained in
 <code>mydata</code>.</p></dd>
+
+
 <dt>proportion</dt>
 <dd><p>The splitting variable that makes up the bars in
 the bar chart e.g. <code>proportion = "cluster"</code> if the output
@@ -106,6 +110,8 @@ from <code>polarCluster</code> is being analysed. If <code>proportion</code>
 is a numeric variable it is split into 4 quantiles (by default)
 by <code>cutData</code>. If <code>proportion</code> is a factor or character
 variable then the categories are used directly.</p></dd>
+
+
 <dt>avg.time</dt>
 <dd><p>This defines the time period to average to. Can be
   “sec”, “min”, “hour”, “day”,
@@ -120,6 +126,8 @@ variable then the categories are used directly.</p></dd>
   greater than the time gap in the original data. For example,
   <code>avg.time = "day"</code> for hourly data is OK, but
   <code>avg.time = "hour"</code> for daily data is not.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split i.e.
   conditioned, and then plotted. The default is will produce a
@@ -135,15 +143,21 @@ variable then the categories are used directly.</p></dd>
   This offers great flexibility for understanding the variation of
   different variables and how they depend on one another.</p>
 <p><code>type</code> must be of length one.</p></dd>
+
+
 <dt>statistic</dt>
 <dd><p>Determines how the bars are calculated. The
 default (“mean”) will provide the contribution to the
 overall mean for a time interval. <code>statistic = "frequency"</code>
 will give the proportion in terms of counts.</p></dd>
+
+
 <dt>normalise</dt>
 <dd><p>If <code>normalise = TRUE</code> then each time
 interval is scaled to 100. This is helpful to show the relative
 (percentage) contribution of the proportions.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colours to be used for plotting. Options include
 “default”, “increment”, “heat”,
@@ -152,6 +166,8 @@ interval is scaled to 100. This is helpful to show the relative
 user defined the user can supply a list of colour names
 recognised by R (type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code> to see the full list). An
 example would be <code>cols = c("yellow", "green", "blue")</code></p></dd>
+
+
 <dt>date.breaks</dt>
 <dd><p>Number of major x-axis intervals to use. The
 function will try and choose a sensible number of dates/times as
@@ -160,6 +176,8 @@ being considered.  This does not always work as desired
 automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of <code>date.breaks</code>
 up or down.</p></dd>
+
+
 <dt>date.format</dt>
 <dd><p>This option controls the date format on the
 x-axis. While <code>timePlot</code> generally sets the date format
@@ -167,22 +185,32 @@ sensibly there can be some situations where the user wishes to
 have more control. For format types see <code>strptime</code>. For
 example, to format the date like “Jan-2012” set
 <code>date.format = "%b-%Y"</code>.</p></dd>
+
+
 <dt>key.columns</dt>
 <dd><p>Number of columns to be used in the key. With
 many pollutants a single column can make to key too wide. The
 user can thus choose to use several columns by setting
 <code>columns</code> to be less than the number of pollutants.</p></dd>
+
+
 <dt>key.position</dt>
 <dd><p>Location where the scale key is to plotted.
 Allowed arguments currently include “top”,
 “right”, “bottom” and “left”.</p></dd>
+
+
 <dt>key.title</dt>
 <dd><p>The title of the key.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels etc. will automatically try
 and format pollutant names and units properly e.g.  by
 subscripting the `2' in NO2.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters passed onto <code>timeProp</code>
 and <code>cutData</code>. For example, <code>timeProp</code> passes the
@@ -192,6 +220,7 @@ handling of <code>type = "season"</code>. Similarly, common axis and
 title labelling options (such as <code>xlab</code>, <code>ylab</code>,
 <code>main</code>) are passed to <code>xyplot</code> via <code>quickText</code> to
 handle routine formatting.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -239,8 +268,7 @@ for any time interval.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

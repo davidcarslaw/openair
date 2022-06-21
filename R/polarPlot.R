@@ -1364,7 +1364,7 @@ calculate_weighted_statistics <-
     fit <- lm(thedata[, pol_1] ~ thedata[, pol_2], weights = thedata[, "weight"])
 
     # Extract statistics
-    if (statistic == "slope") stat_weighted <- fit$coefficients[22]
+    if (statistic == "slope") stat_weighted <- fit$coefficients[2]
     if (statistic == "intercept") stat_weighted <- fit$coefficients[1]
 
     # Bind together
@@ -1618,7 +1618,7 @@ YorkFit <- function(input_data, X = "X", Y = "Y",
   
   n <- 0 # counter for debugging
   
-  while (b.diff > tol && n < 1000) {
+  while (b.diff > tol && n < 100) {
     
     n <- n + 1 # counter to keep a check on convergence
     

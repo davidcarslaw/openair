@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,14 +86,20 @@
 <dd><p>A data frame containing the field <code>date</code> and at least one
 other parameter for which a trend test is required; typically (but not
 necessarily) a pollutant.</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>The parameter for which a trend test is required.
 Mandatory.</p></dd>
+
+
 <dt>deseason</dt>
 <dd><p>Should the data be de-deasonalized first? If <code>TRUE</code> the
 function <code>stl</code> is used (seasonal trend decomposition using loess).
 Note that if <code>TRUE</code> missing data are first imputed using a
 Kalman filter and Kalman smooth.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split i.e. conditioned,
   and then plotted. The default is will produce a single plot using the
@@ -110,10 +116,14 @@ Kalman filter and Kalman smooth.</p></dd>
 <p>Type can be up length two e.g. <code>type = c("season", "weekday")</code> will
   produce a 2x2 plot split by season and day of the week. Note, when two
   types are provided the first forms the columns and the second the rows.</p></dd>
+
+
 <dt>statistic</dt>
 <dd><p>Statistic used for calculating monthly values. Default is
 “mean”, but can also be “percentile”. See <code>timeAverage</code>
 for more details.</p></dd>
+
+
 <dt>avg.time</dt>
 <dd><p>Can be “month” (the default), “season” or
 “year”. Determines the time over which data should be averaged.
@@ -121,11 +131,15 @@ Note that for “year”, six or more years are required. For
 “season” the data are plit up into spring: March, April, May etc.
 Note that December is considered as belonging to winter of the following
 year.</p></dd>
+
+
 <dt>percentile</dt>
 <dd><p>Percentile value(s) to use if <code>statistic =
 "percentile"</code> is chosen. Can be a vector of numbers e.g. <code>percentile
 = c(5, 50, 95)</code> will plot the 5th, 50th and 95th percentile values
 together on the same plot.</p></dd>
+
+
 <dt>data.thresh</dt>
 <dd><p>The data capture threshold to use (<!-- %) when aggregating -->
 the data using <code>avg.time</code>. A value of zero means that all available
@@ -133,27 +147,41 @@ data will be used in a particular period regardless if of the number of
 values available. Conversely, a value of 100 will mean that all data will
 need to be present for the average to be calculated, else it is recorded
 as <code>NA</code>. Not used if <code>avg.time = "default"</code>.</p></dd>
+
+
 <dt>simulate</dt>
 <dd><p>Should simulations be carried out to determine the
 Mann-Kendall tau and p-value. The default is <code>FALSE</code>. If <code>TRUE</code>,
 bootstrap simulations are undertaken, which also account for
 autocorrelation.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>Number of bootstrap simulations if <code>simulate = TRUE</code>.</p></dd>
+
+
 <dt>autocor</dt>
 <dd><p>Should autocorrelation be considered in the trend uncertainty
 estimates? The default is <code>FALSE</code>. Generally, accounting for
 autocorrelation increases the uncertainty of the trend estimate sometimes
 by a large amount.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colours to use. Can be a vector of colours e.g. <code>cols =
 c("black", "green")</code> or pre-defined openair colours --- see
 <code>openColours</code> for more details.</p></dd>
+
+
 <dt>shade</dt>
 <dd><p>The colour used for marking alternate years. Use “white”
 or “transparent” to remove shading.</p></dd>
+
+
 <dt>xlab</dt>
 <dd><p>x-axis label, by default “year”.</p></dd>
+
+
 <dt>y.relation</dt>
 <dd><p>This determines how the y-axis scale is plotted. "same"
 ensures all panels use the same scale and "free" will use panel-specfic
@@ -161,8 +189,12 @@ scales. The latter is a useful setting when plotting data with very
 different values.  ref.x See <code>ref.y</code> for details. In this case the
 correct date format should be used for a vertical line e.g.  <code>ref.x =
 list(v = as.POSIXct("2000-06-15"), lty = 5)</code>.</p></dd>
+
+
 <dt>ref.x</dt>
 <dd><p>See <code>ref.y</code>.</p></dd>
+
+
 <dt>ref.y</dt>
 <dd><p>A list with details of the horizontal lines to be added
 representing reference line(s). For example, <code>ref.y = list(h = 50,
@@ -170,19 +202,29 @@ lty = 5)</code> will add a dashed horizontal line at 50. Several lines can be
 plotted e.g. <code>ref.y = list(h = c(50, 100), lty = c(1, 5), col =
 c("green", "blue"))</code>. See <code>panel.abline</code> in the <code>lattice</code>
 package for more details on adding/controlling lines.</p></dd>
+
+
 <dt>key.columns</dt>
 <dd><p>Number of columns used if a key is drawn when using the
 option <code>statistic = "percentile"</code>.</p></dd>
+
+
 <dt>name.pol</dt>
 <dd><p>Names to be given to the pollutant(s). This is useful if you
 want to give a fuller description of the variables, maybe also including
 subscripts etc.</p></dd>
+
+
 <dt>ci</dt>
 <dd><p>Should confidence intervals be plotted? The default is
 <code>FALSE</code>.</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>The alpha transparency of shaded confidence intervals - if
 plotted. A value of 0 is fully transparent and 1 is fully opaque.</p></dd>
+
+
 <dt>date.breaks</dt>
 <dd><p>Number of major x-axis intervals to use. The function
 will try and choose a sensible number of dates/times as well as formatting
@@ -190,16 +232,22 @@ the date/time appropriately to the range being considered. This does not
 always work as desired automatically. The user can therefore increase or
 decrease the number of intervals by adjusting the value of
 <code>date.breaks</code> up or down.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the ‘2’ in
 NO2.</p></dd>
+
+
 <dt>k</dt>
 <dd><p>This is the smoothing parameter used by the <code>gam</code> function in
 package <code>mgcv</code>. By default it is not used and the amount of smoothing
 is optimised automatically. However, sometimes it is useful to set the
 smoothing amount manually using <code>k</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters are passed onto <code>cutData</code> and
 <code>lattice:xyplot</code>. For example, <code>smoothTrend</code> passes the option
@@ -214,21 +262,27 @@ passed to <code>xyplot</code> via <code>quickText</code> to handle routine forma
 One special case here is that many graphical parameters can be vectors
 when used with <code>statistic = "percentile"</code> and a vector of
 <code>percentile</code> values, see examples below.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>As well as generating the plot itself, <code>smoothTrend</code> also
+    
+
+<p>As well as generating the plot itself, <code>smoothTrend</code> also
   returns an object of class ``openair''. The object includes three main
-  components: <code>call</code>, the command used to generate the plot;
-<code>data</code>, the data frame of summarised information used to make the
+  components: <code>call</code>, the command used to generate the plot;</p>
+<p></p>
+<p><code>data</code>, the data frame of summarised information used to make the
   plot; and <code>plot</code>, the plot itself. Note that <code>data</code> is a list of
   two data frames: <code>data</code> (the original data) and <code>fit</code> (the
   smooth fit that has details of the fit and teh uncertainties). If
   retained, e.g. using <code>output &lt;- smoothTrend(mydata, "nox")</code>, this
   output can be <code>output &lt;- smoothTrend(mydata, "nox")</code>, this output can
   be used to recover the data, reproduce or rework the original plot or
-  undertake further analysis.
-  An openair output can be manipulated using a number of generic operations,
+  undertake further analysis.</p>
+
+
+<p>An openair output can be manipulated using a number of generic operations,
   including <code>print</code>, <code>plot</code> and <code>summarise</code>.</p>
     </div>
     <div class="section level2">
@@ -295,8 +349,7 @@ Residual resampling is used.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

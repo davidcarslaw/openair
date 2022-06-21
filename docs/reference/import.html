@@ -18,7 +18,7 @@ column and time in another."><!-- mathjax --><script src="https://cdnjs.cloudfla
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,38 +90,56 @@ column and time in another.</p>
 file.choose()</code>, opens browser. Alternatively, the use of
 <code>read.table</code> (in <code>utils</code>) also allows this to be a character
 vector of a file path, connection or url.</p></dd>
+
+
 <dt>file.type</dt>
 <dd><p>The file format, defaults to common ‘csv’ (comma
 delimited) format, but also allows ‘txt’ (tab delimited).</p></dd>
+
+
 <dt>sep</dt>
 <dd><p>Allows user to specify a delimiter if not ‘,’ (csv) or
 TAB (txt). For example ‘;’ is sometimes used to delineate separate
 columns.</p></dd>
+
+
 <dt>header.at</dt>
 <dd><p>The file row holding header information or <code>NULL</code> if
 no header to be used.</p></dd>
+
+
 <dt>data.at</dt>
 <dd><p>The file row to start reading data from. When generating the
 data frame, the function will ignore all information before this row, and
 attempt to include all data from this row onwards.</p></dd>
+
+
 <dt>date</dt>
 <dd><p>Name of the field containing the date. This can be a
 date e.g. 10/12/2012 or a date-time format e.g. 10/12/2012 01:00.</p></dd>
+
+
 <dt>date.format</dt>
 <dd><p>The format of the date. This is given in ‘R’
 format according to <code>strptime</code>. For example, a date format
 such as 1/11/2000 12:00 (day/month/year hour:minutes) is given the
 format “%d/%m/%Y %H:%M”. See examples below and <code>strptime</code>
 for more details.</p></dd>
+
+
 <dt>time</dt>
 <dd><p>The name of the column containing a time --- if there
 is one. This is used when a time is given in a separate column and
 <code>date</code> contains no information about time.</p></dd>
+
+
 <dt>time.format</dt>
 <dd><p>If there is a column for <code>time</code> then the
 time format must be supplied. Common examples include “%H:%M”
 (like 07:00) or an integer giving the hour, in which case the
 format is “%H”. Again, see examples below.</p></dd>
+
+
 <dt>tzone</dt>
 <dd><p>The time zone for the data. In order to avoid the
 complexities of DST (daylight savings time), openair assumes the
@@ -132,31 +150,46 @@ hours behind GMT) set <code>tzone = "Etc/GMT+5"</code>. To set the time
 zone of the data to Central European Time (CET, 1 hour ahead of
 GMT) set <code>tzone = "Etc/GMT-1"</code>. <em>Note that the positive
 and negative offsets are opposite to what most users expect.</em></p></dd>
+
+
 <dt>na.strings</dt>
 <dd><p>Strings of any terms that are to be interpreted
 as missing (NA). For example, this might be “-999”, or
 “n/a” and can be of several items.</p></dd>
+
+
 <dt>quote</dt>
 <dd><p>String of characters (or character equivalents) the
 imported file may use to represent a character field.</p></dd>
+
+
 <dt>ws</dt>
 <dd><p>Name of wind speed field if present if different from
 “ws” e.g. <code>ws = "WSPD"</code>.</p></dd>
+
+
 <dt>wd</dt>
 <dd><p>Name of wind direction field if present if different
 from “wd” e.g. <code>wd = "WDIR"</code>.</p></dd>
+
+
 <dt>correct.time</dt>
 <dd><p>Numerical correction (in seconds) for imported
 date.  Default <code>NULL</code> turns this option off. This can be useful if
 the hour is represented as 1 to 24 (rather than 0 to 23 assumed by
 R). In which case <code>correct.time = -3600</code> will correct the
 hour.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments passed to <code>read.table</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A data frame formatted for openair use.</p>
+    
+
+<p>A data frame formatted for openair use.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -199,8 +232,7 @@ spring and duplicated in autumn.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

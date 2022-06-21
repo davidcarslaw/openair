@@ -12,7 +12,7 @@ imported using the importTraj function."><!-- mathjax --><script src="https://cd
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,13 +81,21 @@ imported using the <code>importTraj</code> function.</p>
     <dl><dt>mydata</dt>
 <dd><p>Data frame, the result of importing a trajectory file using
 <code>importTraj</code>.</p></dd>
+
+
 <dt>lon</dt>
 <dd><p>Column containing the longitude, as a decimal.</p></dd>
+
+
 <dt>lat</dt>
 <dd><p>Column containing the latitude, as a decimal.</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>Pollutant to be plotted. By default the trajectory height
 is used.</p></dd>
+
+
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split i.e. conditioned,
   and then plotted. The default is will produce a single plot using the
@@ -104,15 +112,23 @@ is used.</p></dd>
   will produce a 2x2 plot split by season and day of the week. Note, when
   two types are provided the first forms the columns and the second the
   rows.</p></dd>
+
+
 <dt>map</dt>
 <dd><p>Should a base map be drawn? If <code>TRUE</code> the world base map
 from the <code>maps</code> package is used.</p></dd>
+
+
 <dt>group</dt>
 <dd><p>It is sometimes useful to group and colour trajectories
 according to a grouping variable. See example below.</p></dd>
+
+
 <dt>map.fill</dt>
 <dd><p>Should the base map be a filled polygon? Default is to fill
 countries.</p></dd>
+
+
 <dt>map.res</dt>
 <dd><p>The resolution of the base map. By default the function uses
 the ‘world’ map from the <code>maps</code> package. If <code>map.res =
@@ -120,27 +136,37 @@ the ‘world’ map from the <code>maps</code> package. If <code>map.res =
 the <code>mapdata</code> package is used. Use <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(mapdata)</a></code>. Also
 available is a map showing the US states. In this case <code>map.res =
 "state"</code> should be used.</p></dd>
+
+
 <dt>map.cols</dt>
 <dd><p>If <code>map.fill = TRUE</code> <code>map.cols</code> controls the fill
 colour. Examples include <code>map.fill = "grey40"</code> and <code>map.fill =
 openColours("default", 10)</code>. The latter colours the countries and can help
 differentiate them.</p></dd>
+
+
 <dt>map.alpha</dt>
 <dd><p>The transpency level of the filled map which takes values
 from 0 (full transparency) to 1 (full opacity). Setting it below 1 can
 help view trajectories, trajectory surfaces etc. <em>and</em> a filled base
 map.</p></dd>
+
+
 <dt>projection</dt>
 <dd><p>The map projection to be used. Different map projections
 are possible through the <code>mapproj</code> package. See <code>?mapproject</code>
 for extensive details and information on setting other parameters and
 orientation (see below).</p></dd>
+
+
 <dt>parameters</dt>
 <dd><p>From the <code>mapproj</code> package. Optional numeric vector
 of parameters for use with the projection argument. This argument is
 optional only in the sense that certain projections do not require
 additional parameters. If a projection does not require additional
 parameters then set to null i.e. <code>parameters = NULL</code>.</p></dd>
+
+
 <dt>orientation</dt>
 <dd><p>From the <code>mapproj</code> package. An optional vector
 c(latitude, longitude, rotation) which describes where the "North Pole"
@@ -149,9 +175,13 @@ is appropriate for cylindrical and conic projections. For a planar
 projection, you should set it to the desired point of tangency. The third
 value is a clockwise rotation (in degrees), which defaults to the midrange
 of the longitude coordinates in the map.</p></dd>
+
+
 <dt>grid.col</dt>
 <dd><p>The colour of the map grid to be used. To remove the grid
 set <code>grid.col = "transparent"</code>.</p></dd>
+
+
 <dt>npoints</dt>
 <dd><p>A dot is placed every <code>npoints</code> along each full
 trajectory. For hourly back trajectories points are plotted every
@@ -159,9 +189,13 @@ trajectory. For hourly back trajectories points are plotted every
 particular times and get a feel for the speed of the air (points closer
 togther correspond to slower moving air masses). If <code>npoints = NA</code>
 then no points are added.</p></dd>
+
+
 <dt>origin</dt>
 <dd><p>If true a filled circle dot is shown to mark the receptor
 point.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>other arguments are passed to <code>cutData</code> and
 <code>scatterPlot</code>. This provides access to arguments used in both these
@@ -169,6 +203,7 @@ functions and functions that they in turn pass arguments on to. For
 example, <code>plotTraj</code> passes the argument <code>cex</code> on to
 <code>scatterPlot</code> which in turn passes it on to the <code>lattice</code>
 function <code>xyplot</code> where it is applied to set the plot symbol size.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -235,8 +270,7 @@ should be remembered when selecting only part of a year to plot.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

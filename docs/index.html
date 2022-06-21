@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,26 +71,16 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="openair-open-source-tools-for-air-quality-data-analysis">openair: open source tools for air quality data analysis<a class="anchor" aria-label="anchor" href="#openair-open-source-tools-for-air-quality-data-analysis"></a>
 </h1></div>
-<p><strong>NOTE</strong> An online <strong>openair</strong> book is
-being developed, see <a href="https://bookdown.org/david_carslaw/openair/" class="external-link uri">https://bookdown.org/david_carslaw/openair/</a>.</p>
+<p><strong>NOTE</strong> An online <strong>openair</strong> book is being developed, see <a href="https://bookdown.org/david_carslaw/openair/" class="external-link uri">https://bookdown.org/david_carslaw/openair/</a>.</p>
 <p>For the main <strong>openair</strong> website, see <a href="https://davidcarslaw.github.io/openair/" class="external-link uri">https://davidcarslaw.github.io/openair/</a>.</p>
 <p><a href="https://github.com/davidcarslaw/openair/actions" class="external-link"><img src="https://github.com/davidcarslaw/openair/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <img src="http://cranlogs.r-pkg.org/badges/grand-total/openair"></p>
 <p><img src="inst/plume.png" alt="openair logo" width="35%"></p>
-<p><strong>openair</strong> is an R package developed for the purpose of
-analysing air quality data — or more generally atmospheric composition
-data. The package is extensively used in academia, the public and
-private sectors. The project was initially funded by the UK Natural
-Environment Research Council (<a href="https://nerc.ukri.org/" class="external-link">NERC</a>), with additional funds from
-Defra. The most up to date information on openair can be found in the
-package itself and at the book website <a href="https://bookdown.org/david_carslaw/openair/" class="external-link">here</a>.</p>
+<p><strong>openair</strong> is an R package developed for the purpose of analysing air quality data — or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council (<a href="https://nerc.ukri.org/" class="external-link">NERC</a>), with additional funds from Defra. The most up to date information on openair can be found in the package itself and at the book website <a href="https://bookdown.org/david_carslaw/openair/" class="external-link">here</a>.</p>
 <p>Further details, including blogs on openair can be found at <a href="https://davidcarslaw.com/" class="external-link">davidcarslaw.com</a></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Installation of openair from GitHub is easy using the devtools
-package. Note, because openair contains C++ code a compiler is also
-needed. For Windows - for example, <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a> is
-needed.</p>
+<p>Installation of openair from GitHub is easy using the devtools package. Note, because openair contains C++ code a compiler is also needed. For Windows - for example, <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a> is needed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span>
 <span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'davidcarslaw/openair'</span><span class="op">)</span></code></pre></div>
@@ -98,37 +88,18 @@ needed.</p>
 <div class="section level2">
 <h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h2>
-<p><strong>openair</strong> has developed over several years to help
-analyse atmospheric composition data; initially focused on air quality
-data.</p>
-<p>This package continues to develop and input from other developers
-would be welcome. A summary of some of the features are:</p>
+<p><strong>openair</strong> has developed over several years to help analyse atmospheric composition data; initially focused on air quality data.</p>
+<p>This package continues to develop and input from other developers would be welcome. A summary of some of the features are:</p>
 <ul>
 <li>
-<strong>Access to data</strong> from several hundred UK air
-pollution monitoring sites through the <code>importAURN</code> and
-<code>importKCL</code> functions.</li>
+<strong>Access to data</strong> from several hundred UK air pollution monitoring sites through the <code>importAURN</code> and <code>importKCL</code> functions.</li>
 <li>
-<strong>Utility functions</strong> such as <code>timeAverage</code>
-and <code>selectByDate</code> to make it easier to manipulate
-atmospheric composition data.</li>
-<li>Flexible <strong>wind and pollution roses</strong> through
-<code>windRose</code> and <code>pollutionRose</code>.</li>
-<li>Flexible plot conditioning to easily plot data by hour or the day,
-day of the week, season etc. through the openair <code>type</code>
-option available in most functions.</li>
-<li>More sophisticated <strong>bivariate polar plots</strong> and
-conditional probability functions to help characterise different sources
-of pollution. A paper on the latter is available <a href="https://www.sciencedirect.com/science/article/pii/S1364815214001339" class="external-link">here</a>.</li>
-<li>Access to NOAA <a href="http://ready.arl.noaa.gov/HYSPLIT.php" class="external-link">Hysplit</a> pre-calculated
-annual 96-hour back <strong>trajectories</strong> and many plotting and
-analysis functions e.g. trajectory frequencies, Potential Source
-Contribution Function and trajectory clustering.</li>
-<li>Many functions for air quality <strong>model evaluation</strong>
-using the flexible methods described above e.g. the <code>type</code>
-option to easily evaluate models by season, hour of the day etc. These
-include key model statistics, Taylor Diagram, Conditional Quantile
-plots.</li>
+<strong>Utility functions</strong> such as <code>timeAverage</code> and <code>selectByDate</code> to make it easier to manipulate atmospheric composition data.</li>
+<li>Flexible <strong>wind and pollution roses</strong> through <code>windRose</code> and <code>pollutionRose</code>.</li>
+<li>Flexible plot conditioning to easily plot data by hour or the day, day of the week, season etc. through the openair <code>type</code> option available in most functions.</li>
+<li>More sophisticated <strong>bivariate polar plots</strong> and conditional probability functions to help characterise different sources of pollution. A paper on the latter is available <a href="https://www.sciencedirect.com/science/article/pii/S1364815214001339" class="external-link">here</a>.</li>
+<li>Access to NOAA <a href="http://ready.arl.noaa.gov/HYSPLIT.php" class="external-link">Hysplit</a> pre-calculated annual 96-hour back <strong>trajectories</strong> and many plotting and analysis functions e.g. trajectory frequencies, Potential Source Contribution Function and trajectory clustering.</li>
+<li>Many functions for air quality <strong>model evaluation</strong> using the flexible methods described above e.g. the <code>type</code> option to easily evaluate models by season, hour of the day etc. These include key model statistics, Taylor Diagram, Conditional Quantile plots.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -137,8 +108,7 @@ plots.</li>
 <div class="section level3">
 <h3 id="import-data-from-the-uk-automatic-urban-and-rural-network">Import data from the UK Automatic Urban and Rural Network<a class="anchor" aria-label="anchor" href="#import-data-from-the-uk-automatic-urban-and-rural-network"></a>
 </h3>
-<p>It is easy to import hourly data from 100s of sites and to import
-several sites at one time and several years of data.</p>
+<p>It is easy to import hourly data from 100s of sites and to import several sites at one time and several years of data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidcarslaw.github.io/openair/" class="external-link">openair</a></span><span class="op">)</span>
 <span class="va">kc1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/importAURN.html">importAURN</a></span><span class="op">(</span>site <span class="op">=</span> <span class="st">"kc1"</span>, year <span class="op">=</span> <span class="fl">2011</span><span class="op">:</span><span class="fl">2012</span><span class="op">)</span>
@@ -162,10 +132,7 @@ several sites at one time and several years of data.</p>
 <div class="section level3">
 <h3 id="utility-functions">Utility functions<a class="anchor" aria-label="anchor" href="#utility-functions"></a>
 </h3>
-<p>Using the <code>selectByDate</code> function it is easy to select
-quite complex time-based periods. For example, to select weekday (Monday
-to Friday) data from June to September for 2012 <em>and</em> for the
-hours 7am to 7pm inclusive:</p>
+<p>Using the <code>selectByDate</code> function it is easy to select quite complex time-based periods. For example, to select weekday (Monday to Friday) data from June to September for 2012 <em>and</em> for the hours 7am to 7pm inclusive:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/selectByDate.html">selectByDate</a></span><span class="op">(</span><span class="va">kc1</span>, 
                     day <span class="op">=</span> <span class="st">"weekday"</span>, 
@@ -188,64 +155,38 @@ hours 7am to 7pm inclusive:</p>
 <span class="co">## 10 2012-06-01 16:00:00 London N… KC1    0.23    34    29     4    58     3    10</span>
 <span class="co">## # … with 1,108 more rows, and 8 more variables: pm2.5 &lt;dbl&gt;, v10 &lt;dbl&gt;,</span>
 <span class="co">## #   v2.5 &lt;dbl&gt;, nv10 &lt;dbl&gt;, nv2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></code></pre></div>
-<p>Similarly it is easy to time-average data in many flexible ways. For
-example, 2-week means can be calculated as</p>
+<p>Similarly it is easy to time-average data in many flexible ways. For example, 2-week means can be calculated as</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sub2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/timeAverage.html">timeAverage</a></span><span class="op">(</span><span class="va">kc1</span>, avg.time <span class="op">=</span> <span class="st">"2 week"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="the-type-option">The <code>type</code> option<a class="anchor" aria-label="anchor" href="#the-type-option"></a>
 </h3>
-<p>One of the key aspects of openair is the use of the <code>type</code>
-option, which is available for almost all openair functions. The
-<code>type</code> option partitions data by different categories of
-variable. There are many built-in options that <code>type</code> can
-take based on splitting your data by different date values. A summary of
-in-built values of type are:</p>
+<p>One of the key aspects of openair is the use of the <code>type</code> option, which is available for almost all openair functions. The <code>type</code> option partitions data by different categories of variable. There are many built-in options that <code>type</code> can take based on splitting your data by different date values. A summary of in-built values of type are:</p>
 <ul>
 <li>“year” splits data by year</li>
 <li>“month” splits variables by month of the year</li>
 <li>“monthyear” splits data by year <em>and</em> month</li>
-<li>“season” splits variables by season. Note in this case the user can
-also supply a <code>hemisphere</code> option that can be either
-“northern” (default) or “southern”</li>
+<li>“season” splits variables by season. Note in this case the user can also supply a <code>hemisphere</code> option that can be either “northern” (default) or “southern”</li>
 <li>“weekday” splits variables by day of the week</li>
 <li>“weekend” splits variables by Saturday, Sunday, weekday</li>
-<li>“daylight” splits variables by nighttime/daytime. Note the user must
-supply a <code>longitude</code> and <code>latitude</code>
+<li>“daylight” splits variables by nighttime/daytime. Note the user must supply a <code>longitude</code> and <code>latitude</code>
 </li>
-<li>“dst” splits variables by daylight saving time and non-daylight
-saving time (see manual for more details)</li>
-<li>“wd” if wind direction (<code>wd</code>) is available
-<code>type = "wd"</code> will split the data up into 8 sectors: N, NE,
-E, SE, S, SW, W, NW.</li>
-<li>“seasonyear (or”yearseason”) will split the data into year-season
-intervals, keeping the months of a season together. For example,
-December 2010 is considered as part of winter 2011 (with January and
-February 2011). This makes it easier to consider contiguous seasons. In
-contrast, <code>type = "season"</code> will just split the data into
-four seasons regardless of the year.</li>
+<li>“dst” splits variables by daylight saving time and non-daylight saving time (see manual for more details)</li>
+<li>“wd” if wind direction (<code>wd</code>) is available <code>type = "wd"</code> will split the data up into 8 sectors: N, NE, E, SE, S, SW, W, NW.</li>
+<li>“seasonyear (or”yearseason”) will split the data into year-season intervals, keeping the months of a season together. For example, December 2010 is considered as part of winter 2011 (with January and February 2011). This makes it easier to consider contiguous seasons. In contrast, <code>type = "season"</code> will just split the data into four seasons regardless of the year.</li>
 </ul>
-<p>If a categorical variable is present in a data frame
-e.g. <code>site</code> then that variables can be used directly
-e.g. <code>type = "site"</code>.</p>
-<p><code>type</code> can also be a numeric variable. In this case the
-numeric variable is split up into 4 <em>quantiles</em> i.e. four
-partitions containing equal numbers of points. Note the user can supply
-the option <code>n.levels</code> to indicate how many quantiles to
-use.</p>
+<p>If a categorical variable is present in a data frame e.g. <code>site</code> then that variables can be used directly e.g. <code>type = "site"</code>.</p>
+<p><code>type</code> can also be a numeric variable. In this case the numeric variable is split up into 4 <em>quantiles</em> i.e. four partitions containing equal numbers of points. Note the user can supply the option <code>n.levels</code> to indicate how many quantiles to use.</p>
 </div>
 <div class="section level3">
 <h3 id="wind-roses-and-pollution-roses">Wind roses and pollution roses<a class="anchor" aria-label="anchor" href="#wind-roses-and-pollution-roses"></a>
 </h3>
-<p><strong>openair</strong> can plot basic wind roses very easily
-provided the variables <code>ws</code> (wind speed) and <code>wd</code>
-(wind direction) are available.</p>
+<p><strong>openair</strong> can plot basic wind roses very easily provided the variables <code>ws</code> (wind speed) and <code>wd</code> (wind direction) are available.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></code></pre></div>
 <p><img src="tools/unnamed-chunk-6-1.png" width="50%"></p>
-<p>However, the real flexibility comes from being able to use the
-<code>type</code> option.</p>
+<p>However, the real flexibility comes from being able to use the <code>type</code> option.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span>, type <span class="op">=</span> <span class="st">"year"</span>, layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="tools/unnamed-chunk-7-1.png" width="100%"></p>
@@ -297,8 +238,7 @@ provided the variables <code>ws</code> (wind speed) and <code>wd</code>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer>

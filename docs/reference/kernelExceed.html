@@ -18,7 +18,7 @@ those conditions."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aja
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,13 +86,21 @@ those conditions.</p>
 <dd><p>A data frame minimally containing <code>date</code> and at least
 three other numeric variables, typically <code>ws</code>, <code>wd</code> and a
 <code>pollutant</code>.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>x-axis variable. Mandatory.</p></dd>
+
+
 <dt>y</dt>
 <dd><p>y-axis variable. Mandatory</p></dd>
+
+
 <dt>pollutant</dt>
 <dd><p>Mandatory. A pollutant name corresponding to a variable in
 a data frame should be supplied e.g. <code>pollutant = "nox"</code></p></dd>
+
+
 <dt>type</dt>
 <dd><p>The type of analysis to be done. The default is will produce a
 single plot using the entire data. Other types include "hour" (for hour
@@ -104,6 +112,8 @@ levels of ozone, split into four quantiles (approximately equal numbers
 of counts in each of the four splits). This offers great flexibility for
 understanding the variation of different variables dependent on another.
 See function <code>cutData</code> for further details.</p></dd>
+
+
 <dt>by</dt>
 <dd><p><code>by</code> determines how data above the <code>limit</code> are
 selected. <code>by = "day"</code> will select <em>all</em> data (typically hours)
@@ -111,9 +121,13 @@ on days where the daily mean value is above <code>limit</code>. <code>by =
 "dayhour"</code> will select only those data above <code>limit</code> on days where
 the daily mean value is above <code>limit</code>. <code>by = "hour"</code> will
 select all data above <code>limit</code>.</p></dd>
+
+
 <dt>limit</dt>
 <dd><p>The threshold above which the <code>pollutant</code> concentration
 will be considered.</p></dd>
+
+
 <dt>data.thresh</dt>
 <dd><p>The data capture threshold to use (<!-- %) when aggregating -->
 the data using <code>timeAverage</code> to daily means. A value of zero means
@@ -121,21 +135,31 @@ that all available data will be used in a particular period regardless if
 of the number of values available. Conversely, a value of 100 will mean
 that all data will need to be present for the average to be calculated,
 else it is recorded as <code>NA</code>.</p></dd>
+
+
 <dt>more.than</dt>
 <dd><p>If <code>TRUE</code> data will be selected that are greater than
 <code>limit</code>. If <code>FALSE</code> data will be selected that less than
 <code>limit</code>.</p></dd>
+
+
 <dt>cols</dt>
 <dd><p>Colours to be used for plotting. Options include "default",
 "increment", "heat", "spectral", "hue", "brewer1" and user defined (see
 manual for more details). The same line colour can be set for all
 pollutant e.g. <code>cols = "black"</code>.</p></dd>
+
+
 <dt>nbin</dt>
 <dd><p>number of bins to be used for the kernel density estimate.</p></dd>
+
+
 <dt>auto.text</dt>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
 <code>TRUE</code> titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other graphical parameters passed onto <code>lattice:levelplot</code>
 and <code>cutData</code>. For example, <code>kernelExceed</code> passes the option
@@ -144,10 +168,13 @@ and <code>cutData</code>. For example, <code>kernelExceed</code> passes the opti
 Similarly, common axis and title labelling options (such as <code>xlab</code>,
 <code>ylab</code>, <code>main</code>) are passed to <code>levelplot</code> via <code>quickText</code>
 to handle routine formatting.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>To be completed.</p>
+    
+
+<p>To be completed.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -233,8 +260,7 @@ each level of <code>type</code>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>
