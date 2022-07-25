@@ -204,6 +204,10 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##' @param dig.lab The number of signficant figures at which
 ##'   scientific number formatting is used in break point and key
 ##'   labelling. Default 5.
+##' @param include.lowest Logical. If \code{FALSE} (the default), the first wind
+##'   speed interval will be left exclusive and right inclusive. If \code{TRUE},
+##'   the first interval will be left and right inclusive. Passed to the
+##'   \code{include.lowest} argument of \code{cut()}.
 ##' @param statistic The \code{statistic} to be applied to each data
 ##'   bin in the plot. Options currently include \dQuote{prop.count},
 ##'   \dQuote{prop.mean} and \dQuote{abs.count}. The default
@@ -335,7 +339,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                      auto.text = TRUE, breaks = 4, offset = 10, normalise = FALSE,
                      max.freq = NULL, paddle = TRUE, key.header = NULL,
                      key.footer = "(m/s)", key.position = "bottom",
-                     key = TRUE, dig.lab = 5, statistic = "prop.count",
+                     key = TRUE, dig.lab = 5, include.lowest = FALSE, statistic = "prop.count",
                      pollutant = NULL, annotate = TRUE, angle.scale = 315, border = NA,
                      ...) {
   if (is.null(seg)) seg <- 0.9
@@ -550,7 +554,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   breaks <- unique(breaks)
   mydata$x <- cut(
     mydata$x,
-    breaks = breaks, include.lowest = FALSE,
+    breaks = breaks, 
+    include.lowest = include.lowest,
     dig.lab = dig.lab
   )
 
