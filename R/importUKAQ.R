@@ -40,7 +40,7 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
     
     url_data <- "https://www.airqualityni.co.uk/openair/R_data/"
     source_meta <- "ni"
-   
+    
   }
   
   
@@ -49,17 +49,17 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
   
   if (meta | ratified)
     meta_data <- importMeta(source = source_meta, all = TRUE)
-
+  
   
   files <- map(site, ~ paste0(.x, "_", year)) %>% 
     flatten_chr()
   
   # Download and load data. 
-    
-    thedata <- map_df(files, ~ loadData(.x, verbose, ratified, meta_data, 
-                                        url_data, data_type))
-    
-   
+  
+  thedata <- map_df(files, ~ loadData(.x, verbose, ratified, meta_data, 
+                                      url_data, data_type))
+  
+  
   # Return if no data
   if (nrow(thedata) == 0) return() ## no data
   
@@ -157,7 +157,8 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
     )
     
     # Load the rdata object
-    load(url(fileName))
+    con <- url(fileName)
+    load(con)
     
     if (data_type == "hourly")
       x <- x
@@ -207,12 +208,16 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
     
     return(dat)
     
-  }, error = function(ex) {
+  }, 
+  error = function(ex) {
     
     # Print a message
     if (verbose) {
       message(x, "does not exist - ignoring that one.")
     }
+  },
+  finally = {
+    close(con)
   })
 }
 
