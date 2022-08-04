@@ -188,15 +188,15 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 }
 \section{Functions}{
 \itemize{
-\item \code{importAQE}: Import data from the Air Quality England
+\item \code{importAQE()}: Import data from the Air Quality England
 
-\item \code{importNI}: Import data from the Northern Ireland Air Quality Network
+\item \code{importNI()}: Import data from the Northern Ireland Air Quality Network
 
-\item \code{importSAQN}: Import data from the Scottish Air Quality Network
+\item \code{importSAQN()}: Import data from the Scottish Air Quality Network
 
-\item \code{importWAQN}: Import data from the Welsh Air Quality Network
+\item \code{importWAQN()}: Import data from the Welsh Air Quality Network
+
 }}
-
 \examples{
 
 

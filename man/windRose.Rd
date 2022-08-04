@@ -148,6 +148,11 @@ See \code{drawOpenKey} for further details.}
 scientific number formatting is used in break point and key
 labelling. Default 5.}
 
+\item{include.lowest}{Logical. If \code{FALSE} (the default), the first wind
+speed interval will be left exclusive and right inclusive. If \code{TRUE},
+the first interval will be left and right inclusive. Passed to the
+\code{include.lowest} argument of \code{cut()}.}
+
 \item{statistic}{The \code{statistic} to be applied to each data
 bin in the plot. Options currently include \dQuote{prop.count},
 \dQuote{prop.mean} and \dQuote{abs.count}. The default
