@@ -1599,6 +1599,9 @@ YorkFit <- function(input_data, X = "X", Y = "Y",
   Xstd <- input_data[[Xstd]]
   Ystd <- input_data[[Ystd]]
   
+  # don't try regression if < 3 points
+  if (sum(!is.na(X)) < 3 || sum(!is.na(Y)) < 3) return()
+  
   # used in polar plots - Gaussian kernel weighting
   if (!all(is.na(weight))) {
     
