@@ -25,6 +25,7 @@ timeVariation(
   start.day = 1,
   auto.text = TRUE,
   alpha = 0.4,
+  month.last = FALSE,
   ...
 )
 }
@@ -153,6 +154,10 @@ NO2.}
 
 \item{alpha}{The alpha transparency used for plotting confidence intervals.
 0 is fully transparent and 1 is opaque. The default is 0.4}
+
+\item{month.last}{Should the order of the plots be changed so the plot 
+showing monthly means be the last plot for a logical hierarchy of 
+averaging periods?}
 
 \item{...}{Other graphical parameters passed onto \code{lattice:xyplot} and
 \code{cutData}. For example, in the case of \code{cutData} the option

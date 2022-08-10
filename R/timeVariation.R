@@ -161,6 +161,9 @@
 ##'   NO2.
 ##' @param alpha The alpha transparency used for plotting confidence intervals.
 ##'   0 is fully transparent and 1 is opaque. The default is 0.4
+##' @param month.last Should the order of the plots be changed so the plot 
+##'   showing monthly means be the last plot for a logical hierarchy of 
+##'   averaging periods?
 ##' @param ... Other graphical parameters passed onto \code{lattice:xyplot} and
 ##'   \code{cutData}. For example, in the case of \code{cutData} the option
 ##'   \code{hemisphere = "southern"}.
@@ -273,7 +276,8 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
                           type = "default", group = NULL, difference = FALSE,
                           statistic = "mean", conf.int = 0.95, B = 100, ci = TRUE, cols = "hue",
                           ref.y = NULL, key = NULL, key.columns = 1, start.day = 1,
-                          auto.text = TRUE, alpha = 0.4, ...) {
+                          auto.text = TRUE, alpha = 0.4, month.last = FALSE, 
+                          ...) {
 
   ## get rid of R check annoyances
   variable <- NULL
@@ -990,9 +994,21 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
         )
       ), position = c(0, 0.5, 1, y.upp), more = TRUE)
     }
-    print(hour, position = c(0, y.dwn, 0.33, 0.53), more = TRUE)
-    print(month, position = c(0.33, y.dwn, 0.66, 0.53), more = TRUE)
-    print(day, position = c(0.66, y.dwn, 1, 0.53))
+    
+    # Build the plot panels in different orders
+    if (!month.last) {
+      # The original plot orders
+      print(hour, position = c(0, y.dwn, 0.33, 0.53), more = TRUE)
+      print(month, position = c(0.33, y.dwn, 0.66, 0.53), more = TRUE)
+      print(day, position = c(0.66, y.dwn, 1, 0.53))
+    } else {
+      # Move around the plot order so they follow a logical hierarchy of averaging
+      # periods hour-day-month
+      print(hour, position = c(0, y.dwn, 0.33, 0.53), more = TRUE)
+      print(day, position = c(0.33, y.dwn, 0.66, 0.53), more = TRUE)
+      print(month, position = c(0.66, y.dwn, 1, 0.53))
+    }
+    
     ## use grid to add an overall title
     grid.text(overall.main, 0.5, y.upp, gp = gpar(fontsize = 14))
     grid.text(overall.sub, 0.5, y.dwn, gp = gpar(fontsize = 12))
