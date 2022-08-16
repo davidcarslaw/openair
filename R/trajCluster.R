@@ -89,7 +89,7 @@
 ##' @useDynLib openair, .registration = TRUE
 ##' @import cluster
 ##' @return Returns a list with two data components. The first
-##'   (\code{data}) contains the orginal data with the cluster
+##'   (\code{data}) contains the original data with the cluster
 ##'   identified. The second (\code{results}) contains the data used
 ##'   to plot the clustered trajectories.
 ##' @seealso \code{\link{importTraj}}, \code{\link{trajPlot}},
