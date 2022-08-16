@@ -581,4 +581,12 @@ summaryPlot <- function(mydata,
 
   ## use grid to add an overall title
   grid.text(main, 0.5, y.upp, gp = gpar(fontsize = 14))
+  
+  ## create output with plot
+  output <- list(plot = list(plt1, plt2), data = dummy.dat, call = match.call())
+  class(output) <- "openair"
+  invisible(output)
+  
+  
 }
+
