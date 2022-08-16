@@ -316,7 +316,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     plt <- do.call(scatterPlot, plot.args)
     
     ## create output with plot
-    output <- list(plot = plt, data = traj, results = resRtn, call = match.call())
+    output <- list(plot = plt, data = list(traj = traj, results = resRtn), call = match.call())
     class(output) <- "openair"
     invisible(output)
   } else {
