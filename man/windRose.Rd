@@ -10,7 +10,8 @@ windRose(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   = "default", grid.line = NULL, width = 1, seg = NULL, auto.text
   = TRUE, breaks = 4, offset = 10, normalise = FALSE, max.freq =
   NULL, paddle = TRUE, key.header = NULL, key.footer = "(m/s)",
-  key.position = "bottom", key = TRUE, dig.lab = 5, statistic =
+  key.position = "bottom", key = TRUE, dig.lab = 5, include.lowest = FALSE,
+  statistic =
   "prop.count", pollutant = NULL, annotate = TRUE, angle.scale =
   315, border = NA, ...)
 
