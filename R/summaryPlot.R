@@ -494,8 +494,6 @@ summaryPlot <- function(mydata,
   if (length(grep("atop", main) == 1)) y.upp <- 0.95 else y.upp <- 0.975
   if (is.null(main)) y.upp <- 1
 
-  print(plt1, position = c(0, 0, 0.7, y.upp), more = TRUE)
-
   ## clip data to help show interesting part of distribution
   if (clip) {
     result <- lapply(split.dat, function(.df) {
@@ -572,12 +570,14 @@ summaryPlot <- function(mydata,
     #   plt2 <- densityplot()
   }
 
-  print(plt2, position = c(0.7, 0, 1, 0.975 * y.upp))
 
   # reset if greyscale
   if (length(cols) == 1 && cols == "greyscale") {
     trellis.par.set("strip.background", current.strip)
   }
+  
+  print(plt1, position = c(0, 0, 0.7, y.upp), more = TRUE)
+  print(plt2, position = c(0.7, 0, 1, 0.975 * y.upp))
 
   ## use grid to add an overall title
   grid.text(main, 0.5, y.upp, gp = gpar(fontsize = 14))
