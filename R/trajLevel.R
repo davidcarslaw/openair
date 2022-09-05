@@ -471,10 +471,10 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     # receptor grid
     # use trajectory data to determine grid size - don't go to extremes
     r_grid <- expand_grid(
-      lat = seq(round(quantile(mydata$lat, probs = 0.01)), 
-                round(quantile(mydata$lat, probs = 0.99)), by = lat.inc),
-      lon = seq(round(quantile(mydata$lon, probs = 0.01)), 
-                round(quantile(mydata$lon, probs = 0.99)), by = lon.inc)
+      lat = seq(round(quantile(mydata$lat, probs = 0.002)), 
+                round(quantile(mydata$lat, probs = 0.998)), by = lat.inc),
+      lon = seq(round(quantile(mydata$lon, probs = 0.002)), 
+                round(quantile(mydata$lon, probs = 0.998)), by = lon.inc)
     ) %>% 
       as.matrix(.)
     
