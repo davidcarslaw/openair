@@ -1,4 +1,8 @@
-# openair 2.9-99
+# openair 2.10-99
+
+- add `sigma` to options for SQTBA trajectory analysis for control over plume spread assumptions; set to 1.5 km (in one hour)
+
+# openair 2.10
 
 - add Daily Air Quality Index (DAQI) to `importAURN` as `data_type`.
 - add rolling 8 and 24 hour statistics to `importAURN` family as `data_type`.

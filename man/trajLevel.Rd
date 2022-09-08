@@ -18,6 +18,7 @@ trajLevel(
   lat.inc = 1,
   min.bin = 1,
   .combine = NA,
+  sigma = 1.5,
   map.fill = TRUE,
   map.res = "default",
   map.cols = "grey40",
@@ -109,6 +110,12 @@ receptor locations to derive a single map. \code{.combine} identifies the
 column that differentiates different sites (commonly a column named
 \code{site}). Note that indivisual site maps are normalised first by
 dividing by their mean value.}
+
+\item{sigma}{For the SQTBA approach \code{sigma} determines the amount of
+back trajectory spread based on the Gaussian plume equation. Values in the
+literature suggest 5.4 km after one hour. However, testing suggests lower
+values reveal source regions more effectively while not introducing too
+much noise.}
 
 \item{map.fill}{Should the base map be a filled polygon? Default is to fill
 countries.}
