@@ -578,14 +578,22 @@ pred_Q <- function(i, traj_data, r_grid, pollutant) {
   
   x_origin <- traj_data$lon[i]
   y_origin <- traj_data$lat[i]
+  Q <- numeric(nrow(r_grid))
+  Q_c <- Q
   
-  dist <- acos(sin(y_origin * pi / 180) * sin(r_grid[, "lat"] * pi / 180) +
+  # only calculate near receptor (within 4 degrees)
+  id <- which(r_grid[, "lat"] > y_origin - 4 & 
+                r_grid[, "lat"] < y_origin + 4 & 
+                r_grid[, "lon"] > x_origin - 4 & 
+                r_grid[, "lon"] < x_origin + 4)
+  
+  dist <- acos(sin(y_origin * pi / 180) * sin(r_grid[id, "lat"] * pi / 180) +
                  cos(y_origin * pi / 180) *
-                 cos(r_grid[, "lat"] * pi / 180) *
-                 cos(r_grid[, "lon"] * pi / 180 - x_origin * pi / 180)) * 6378.137
+                 cos(r_grid[id, "lat"] * pi / 180) *
+                 cos(r_grid[id, "lon"] * pi / 180 - x_origin * pi / 180)) * 6378.137
   
-  Q <- (1 / traj_data$sigma[i]^2) * exp(-0.5 * (dist / traj_data$sigma[i])^2)
-  Q_c <- Q * traj_data[[pollutant]][i]
+  Q[id] <- (1 / traj_data$sigma[i]^2) * exp(-0.5 * (dist / traj_data$sigma[i])^2)
+  Q_c[id] <- Q[id] * traj_data[[pollutant]][i]
   
   cbind(Q, Q_c)
 }
