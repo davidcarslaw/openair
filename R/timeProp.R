@@ -35,10 +35,7 @@
 ##'   \dQuote{DSTday}, \dQuote{week}, \dQuote{month}, \dQuote{quarter}
 ##'   or \dQuote{year}. For much increased flexibility a number can
 ##'   precede these options followed by a space. For example, a
-##'   timeAverage of 2 months would be \code{period = "2 month"}. In
-##'   addition, \code{avg.time} can equal \dQuote{season}, in which
-##'   case 3-month seasonal values are calculated with spring defined
-##'   as March, April, May and so on.
+##'   timeAverage of 2 months would be \code{period = "2 month"}. 
 ##'
 ##'   Note that \code{avg.time} when used in \code{timeProp} should be
 ##'   greater than the time gap in the original data. For example,
@@ -60,10 +57,6 @@
 ##'   different variables and how they depend on one another.
 ##'
 ##'   \code{type} must be of length one.
-##' @param statistic Determines how the bars are calculated. The
-##'   default (\dQuote{mean}) will provide the contribution to the
-##'   overall mean for a time interval. \code{statistic = "frequency"}
-##'   will give the proportion in terms of counts.
 ##' @param normalise If \code{normalise = TRUE} then each time
 ##'   interval is scaled to 100. This is helpful to show the relative
 ##'   (percentage) contribution of the proportions.
@@ -124,7 +117,7 @@
 ##'
 ##'
 timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
-                     avg.time = "day", type = "default", statistic = "mean",
+                     avg.time = "day", type = "default",
                      normalise = FALSE, cols = "Set1", date.breaks = 7,
                      date.format = NULL, key.columns = 1,
                      key.position = "right", key.title = proportion,
@@ -136,6 +129,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   Var1 <- NULL
   means <- NULL
   date2 <- NULL
+  mean_value <- weighted_mean <- xleft <- NULL
 
   ## greyscale handling
   if (length(cols) == 1 && cols == "greyscale") {
@@ -147,10 +141,6 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   ## if proportion is not categorical then make it so
   if (!class(mydata[[proportion]]) %in% c("factor")) {
     mydata <- cutData(mydata, proportion, ...)
-  }
-
-  if (!statistic %in% c("mean", "frequency")) {
-    stop("statisic should be 'mean' or 'frequency'.")
   }
 
   ## extra.args setup
@@ -215,88 +205,37 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
 
   # cut data
   mydata <- cutData(mydata, c(type, proportion))
+  
+  group_1 <- c("xleft", "xright", type)
+  group_2 <- c(type, "xleft", "xright", proportion)
+  
+  # summarise by proportion, type etc
+  # add the most common non-zero time interval
+  
+  results <- mydata %>% 
+    mutate(xleft = as.POSIXct(cut(date, avg.time), tz = tzone),
+           xright = xleft + median(diff(xleft)[diff(xleft) != 0])) %>% 
+    group_by(across(group_1)) %>% # group by type and date interval to get overall average
+    mutate(mean_value = mean(.data[[pollutant]], na.rm = TRUE)) %>% 
+    group_by(across(group_2)) %>% 
+    summarise({{ pollutant }} := mean(.data[[pollutant]], na.rm = TRUE), 
+              mean_value = mean(mean_value, na.rm = TRUE), 
+              n = length(date)) %>% 
+    group_by(across(group_1)) %>% 
+    mutate(weighted_mean = .data[[pollutant]] * n / sum(n), 
+           Var1 = replace_na(weighted_mean, 0),
+           var2 = cumsum(Var1),
+           date = xleft)
 
-  # overall averages by time interval
-  aves <- timeAverage(
-    select(mydata, "date", type, pollutant),
-    avg.time = avg.time, type = type,
-    start.date = min(mydata$date)
-  )
-
-  # timeAverage drops type if default
-  if (type == "default") aves$default <- mydata$default[1]
-
-  # date 2 is the end date of each interval
-  aves <- aves %>% 
-    group_by(across(type)) %>%
-    mutate(date2 = lead(date))
-
-  # this leaves NA at the end, add the time interval based on data
-  add <- median(difftime(head(aves$date2), head(aves$date), units = "secs"))
-  id <- tapply(aves$date, aves[[type]], which.max)
-  aves$date2[id] <- aves$date[id] + add
-
-  # cut data by time interval
-  mydata$date <- cut(mydata$date, avg.time)
-
-  # calculate the mean and frequency by time interval, type, proportion
-  vars <- c(type, "date", proportion)
-
-  values <- mydata %>% 
-    group_by(across(vars)) %>%
-    summarise(
-      mean = mean(.data[[pollutant]], na.rm = TRUE),
-      freq = length(na.omit(.data[[pollutant]]))
-    )
-
-  # do not weight by concentration if statistic = frequency,
-
-  if (statistic == "frequency") {
-    ## scales frequencies by daily mean
-    aves2 <- aves
-    aves2$date <- factor(aves2$date)
-
-    values <- merge(
-      values, aves2[c("date", type, pollutant)],
-      by = c(type, "date"), all = TRUE
-    )
-
-    # rename to make it easier to refer to later
-    values <- rename(values, means = {{pollutant}})
-  }
-
-  # mean * frequency
-  values <- mutate(values, sums = freq * mean)
-
+   ## normlaise to 100 if needed
   vars <- c(type, "date")
-
-  if (statistic == "mean") {
-    ## weighted conc
-
-    results <- values %>% 
-      group_by(across(vars)) %>%
-      mutate(Var1 = sums / sum(freq, na.rm = TRUE))
-  } else {
-    results <- values %>% 
-      group_by(across(vars)) %>%
-      mutate(Var1 = means * freq / sum(freq, na.rm = TRUE))
-  }
-
-  ## normlaise to 100 if needed
-  if (normalise) {
-    results <- results %>% 
-      group_by(across(vars)) %>%
-      mutate(Var1 = Var1 * (100 / sum(Var1, na.rm = TRUE)))
-  }
-
-  # put date back into POSIXct format
-  results$date <- as.POSIXct(results$date, tz = tzone)
-  attr(results$date, "tzone") <- tzone
-
-  # join with aves to get date2
-  id <- which(is.na(results[[proportion]]))
-  if (length(id) > 0) results <- results[-id, ]
-  results <- left_join(results, select(aves, type, "date", "date2"), by = c(type, "date"))
+   if (normalise) {
+     results <- results %>% 
+       group_by(across(vars)) %>%
+       mutate(Var1 = Var1 * (100 / sum(Var1, na.rm = TRUE)),
+              var2 = cumsum(Var1))
+   }
+ 
 
   ## proper names of labelling ###################################################
   strip.dat <- strip.fun(results, type, auto.text)
@@ -317,10 +256,10 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   results <- arrange(results, type, "date")
 
   # xleft, xright used by plot function
-  results$xleft <- results$date
-  results$xright <- results$date2
-  ## don't need date2
-  results <- select(results, -date2)
+  # results$xleft <- results$date
+  # results$xright <- results$date2
+  # ## don't need date2
+  # results <- select(results, -date2)
 
   # the few colours used for scaling
   scaleCol <- openColours(cols, nProp)
@@ -340,12 +279,12 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   results[[proportion]] <- factor(results[[proportion]], levels = thelevels)
 
   # remove missing so we can do a cumsum
-  results <- na.omit(results)
+#  results <- na.omit(results)
 
   # y values for plotting rectangles
-  results <- results %>% 
-    group_by(across(vars)) %>%
-    mutate(var2 = cumsum(Var1))
+  # results <- results %>% 
+  #   group_by(across(vars)) %>%
+  #   mutate(var2 = cumsum(Var1))
 
   myform <- formula(paste("Var1 ~ date | ", type, sep = ""))
 
@@ -360,7 +299,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
 
   scales <- list(x = list(at = dates, format = formats))
 
-  y.max <- max(results$var2)
+  y.max <- max(results$var2, na.rm = TRUE)
 
   if (is.null(xlim)) xlim <- range(c(results$xleft, results$xright))
 
@@ -372,11 +311,9 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
   }
 
   ## sub heading
-  if (statistic == "frequency") {
-    sub <- "contribution weighted by frequency"
-  } else {
-    sub <- "contribution weighted by mean"
-  }
+ 
+  sub <- "contribution weighted by mean"
+ 
 
   plt <- xyplot(
     myform,
@@ -401,8 +338,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
     panel = function(..., col, subscripts) {
       panel.grid(-1, 0)
       panel.abline(v = dates, col = "grey95", ...)
-    
-      split(results[subscripts, ], results$date) %>% lapply(., panelBar)
+      split(results[subscripts, ], results$date[subscripts]) %>% lapply(., panelBar)
     }
   )
 

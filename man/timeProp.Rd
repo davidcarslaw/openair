@@ -10,7 +10,6 @@ timeProp(
   proportion = "cluster",
   avg.time = "day",
   type = "default",
-  statistic = "mean",
   normalise = FALSE,
   cols = "Set1",
   date.breaks = 7,
@@ -41,10 +40,7 @@ variable then the categories are used directly.}
   \dQuote{DSTday}, \dQuote{week}, \dQuote{month}, \dQuote{quarter}
   or \dQuote{year}. For much increased flexibility a number can
   precede these options followed by a space. For example, a
-  timeAverage of 2 months would be \code{period = "2 month"}. In
-  addition, \code{avg.time} can equal \dQuote{season}, in which
-  case 3-month seasonal values are calculated with spring defined
-  as March, April, May and so on.
+  timeAverage of 2 months would be \code{period = "2 month"}. 
 
   Note that \code{avg.time} when used in \code{timeProp} should be
   greater than the time gap in the original data. For example,
@@ -67,11 +63,6 @@ variable then the categories are used directly.}
   different variables and how they depend on one another.
 
   \code{type} must be of length one.}
-
-\item{statistic}{Determines how the bars are calculated. The
-default (\dQuote{mean}) will provide the contribution to the
-overall mean for a time interval. \code{statistic = "frequency"}
-will give the proportion in terms of counts.}
 
 \item{normalise}{If \code{normalise = TRUE} then each time
 interval is scaled to 100. This is helpful to show the relative

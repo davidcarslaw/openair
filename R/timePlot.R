@@ -279,6 +279,7 @@
 ##' # 2-week average of O3 concentrations
 ##' \dontrun{timePlot(mydata, pollutant = "o3", avg.time = "2 week")}
 ##'
+
 timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
                      normalise = NULL, avg.time = "default", data.thresh = 0,
                      statistic = "mean", percentile = NA, date.pad = FALSE,

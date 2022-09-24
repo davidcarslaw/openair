@@ -445,7 +445,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       ## useful for debugging
       if (!padded) mydata <- date.pad(mydata, type = type)
       
-      if (avg.time != "season") mydata$date <- lubridate::floor_date(mydata$date, avg.time)
+      if (avg.time != "season") mydata$date <- as.POSIXct(cut(mydata$date, avg.time), tz = TZ)
       
       if (statistic == "mean") { ## faster for some reason?
         
@@ -477,8 +477,8 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
 
       ## faster if do not need data capture
       if (avg.time != "season") {
-         mydata$date <- lubridate::floor_date(mydata$date, avg.time)
-        #mydata$date <- as.POSIXct(cut(mydata$date, avg.time), tz = TZ)
+      #   mydata$date <- lubridate::floor_date(mydata$date, avg.time)
+        mydata$date <- as.POSIXct(cut(mydata$date, avg.time), tz = TZ)
       }
 
       avmet <- # select(mydata, -date) %>%

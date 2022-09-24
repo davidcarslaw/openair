@@ -1,6 +1,10 @@
-# openair 2.10-99
+# openair 2.11-99
+
+# openair 2.11
 
 - add `sigma` to options for SQTBA trajectory analysis for control over plume spread assumptions; set to 1.5 km (in one hour)
+- fix bug introduced in `timeAverage` for multi-time period averages
+- fix bug in `timeProp` and simplify code
 
 # openair 2.10
 

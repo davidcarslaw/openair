@@ -587,10 +587,11 @@ pred_Q <- function(i, traj_data, r_grid, pollutant) {
                 r_grid[, "lon"] > x_origin - 4 & 
                 r_grid[, "lon"] < x_origin + 4)
   
+  # subtract 1E-7 from acos - numerical imprecision results in value being greater than 1
   dist <- acos(sin(y_origin * pi / 180) * sin(r_grid[id, "lat"] * pi / 180) +
                  cos(y_origin * pi / 180) *
                  cos(r_grid[id, "lat"] * pi / 180) *
-                 cos(r_grid[id, "lon"] * pi / 180 - x_origin * pi / 180)) * 6378.137
+                 cos(r_grid[id, "lon"] * pi / 180 - x_origin * pi / 180) - 1e-7) * 6378.137
   
   Q[id] <- (1 / traj_data$sigma[i]^2) * exp(-0.5 * (dist / traj_data$sigma[i])^2)
   Q_c[id] <- Q[id] * traj_data[[pollutant]][i]
