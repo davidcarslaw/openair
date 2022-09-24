@@ -46,27 +46,27 @@ composition data; initially focused on air quality data.
 This package continues to develop and input from other developers would
 be welcome. A summary of some of the features are:
 
--   **Access to data** from several hundred UK air pollution monitoring
-    sites through the `importAURN` and `importKCL` functions.
--   **Utility functions** such as `timeAverage` and `selectByDate` to
-    make it easier to manipulate atmospheric composition data.
--   Flexible **wind and pollution roses** through `windRose` and
-    `pollutionRose`.
--   Flexible plot conditioning to easily plot data by hour or the day,
-    day of the week, season etc. through the openair `type` option
-    available in most functions.
--   More sophisticated **bivariate polar plots** and conditional
-    probability functions to help characterise different sources of
-    pollution. A paper on the latter is available
-    [here](https://www.sciencedirect.com/science/article/pii/S1364815214001339).
--   Access to NOAA [Hysplit](http://ready.arl.noaa.gov/HYSPLIT.php)
-    pre-calculated annual 96-hour back **trajectories** and many
-    plotting and analysis functions e.g. trajectory frequencies,
-    Potential Source Contribution Function and trajectory clustering.
--   Many functions for air quality **model evaluation** using the
-    flexible methods described above e.g. the `type` option to easily
-    evaluate models by season, hour of the day etc. These include key
-    model statistics, Taylor Diagram, Conditional Quantile plots.
+- **Access to data** from several hundred UK air pollution monitoring
+  sites through the `importAURN` and `importKCL` functions.
+- **Utility functions** such as `timeAverage` and `selectByDate` to make
+  it easier to manipulate atmospheric composition data.
+- Flexible **wind and pollution roses** through `windRose` and
+  `pollutionRose`.
+- Flexible plot conditioning to easily plot data by hour or the day, day
+  of the week, season etc. through the openair `type` option available
+  in most functions.
+- More sophisticated **bivariate polar plots** and conditional
+  probability functions to help characterise different sources of
+  pollution. A paper on the latter is available
+  [here](https://www.sciencedirect.com/science/article/pii/S1364815214001339).
+- Access to NOAA Hysplit pre-calculated annual 96-hour back
+  **trajectories** and many plotting and analysis functions
+  e.g. trajectory frequencies, Potential Source Contribution Function
+  and trajectory clustering.
+- Many functions for air quality **model evaluation** using the flexible
+  methods described above e.g. the `type` option to easily evaluate
+  models by season, hour of the day etc. These include key model
+  statistics, Taylor Diagram, Conditional Quantile plots.
 
 ## Brief examples
 
@@ -81,7 +81,7 @@ kc1 <- importAURN(site = "kc1", year = 2011:2012)
 kc1
 ## # A tibble: 17,544 × 18
 ##    site      code  date                   co   nox   no2    no    o3   so2  pm10
-##    <chr>     <fct> <dttm>              <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+##    <chr>     <chr> <dttm>              <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
 ##  1 London N… KC1   2011-01-01 00:00:00   0.2    44    38     4    14     5    40
 ##  2 London N… KC1   2011-01-01 01:00:00   0.2    38    29     6    28     3    36
 ##  3 London N… KC1   2011-01-01 02:00:00   0.2    32    31     1    18     3    31
@@ -112,7 +112,7 @@ sub <- selectByDate(kc1,
 sub
 ## # A tibble: 1,118 × 18
 ##    date                site      code     co   nox   no2    no    o3   so2  pm10
-##    <dttm>              <chr>     <fct> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+##    <dttm>              <chr>     <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
 ##  1 2012-06-01 07:00:00 London N… KC1    0.23    36    23     9    24     3     6
 ##  2 2012-06-01 08:00:00 London N… KC1    0.23    33    21     7    34     3     9
 ##  3 2012-06-01 09:00:00 London N… KC1    0.23    23    19     2    52     3     6
@@ -142,26 +142,26 @@ partitions data by different categories of variable. There are many
 built-in options that `type` can take based on splitting your data by
 different date values. A summary of in-built values of type are:
 
--   “year” splits data by year
--   “month” splits variables by month of the year
--   “monthyear” splits data by year *and* month
--   “season” splits variables by season. Note in this case the user can
-    also supply a `hemisphere` option that can be either “northern”
-    (default) or “southern”
--   “weekday” splits variables by day of the week
--   “weekend” splits variables by Saturday, Sunday, weekday
--   “daylight” splits variables by nighttime/daytime. Note the user must
-    supply a `longitude` and `latitude`
--   “dst” splits variables by daylight saving time and non-daylight
-    saving time (see manual for more details)
--   “wd” if wind direction (`wd`) is available `type = "wd"` will split
-    the data up into 8 sectors: N, NE, E, SE, S, SW, W, NW.
--   “seasonyear (or”yearseason”) will split the data into year-season
-    intervals, keeping the months of a season together. For example,
-    December 2010 is considered as part of winter 2011 (with January and
-    February 2011). This makes it easier to consider contiguous seasons.
-    In contrast, `type = "season"` will just split the data into four
-    seasons regardless of the year.
+- “year” splits data by year
+- “month” splits variables by month of the year
+- “monthyear” splits data by year *and* month
+- “season” splits variables by season. Note in this case the user can
+  also supply a `hemisphere` option that can be either “northern”
+  (default) or “southern”
+- “weekday” splits variables by day of the week
+- “weekend” splits variables by Saturday, Sunday, weekday
+- “daylight” splits variables by nighttime/daytime. Note the user must
+  supply a `longitude` and `latitude`
+- “dst” splits variables by daylight saving time and non-daylight saving
+  time (see manual for more details)
+- “wd” if wind direction (`wd`) is available `type = "wd"` will split
+  the data up into 8 sectors: N, NE, E, SE, S, SW, W, NW.
+- “seasonyear (or”yearseason”) will split the data into year-season
+  intervals, keeping the months of a season together. For example,
+  December 2010 is considered as part of winter 2011 (with January and
+  February 2011). This makes it easier to consider contiguous seasons.
+  In contrast, `type = "season"` will just split the data into four
+  seasons regardless of the year.
 
 If a categorical variable is present in a data frame e.g. `site` then
 that variables can be used directly e.g. `type = "site"`.
