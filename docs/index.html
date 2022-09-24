@@ -12,8 +12,8 @@
     other data, including meteorological and traffic data.">
 <title>Tools for the Analysis of Air Pollution Data • openair</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Tools for the Analysis of Air Pollution Data">
 <meta property="og:description" content="Tools to analyse, interpret and understand air
@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.10-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.11</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,8 +82,8 @@
 </h2>
 <p>Installation of openair from GitHub is easy using the devtools package. Note, because openair contains C++ code a compiler is also needed. For Windows - for example, <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a> is needed.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span>
-<span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'davidcarslaw/openair'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'davidcarslaw/openair'</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
@@ -110,54 +110,54 @@
 </h3>
 <p>It is easy to import hourly data from 100s of sites and to import several sites at one time and several years of data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidcarslaw.github.io/openair/" class="external-link">openair</a></span><span class="op">)</span>
-<span class="va">kc1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/importAURN.html">importAURN</a></span><span class="op">(</span>site <span class="op">=</span> <span class="st">"kc1"</span>, year <span class="op">=</span> <span class="fl">2011</span><span class="op">:</span><span class="fl">2012</span><span class="op">)</span>
-<span class="va">kc1</span>
-<span class="co">## # A tibble: 17,544 × 18</span>
-<span class="co">##    site      code  date                   co   nox   no2    no    o3   so2  pm10</span>
-<span class="co">##    &lt;chr&gt;     &lt;fct&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">##  1 London N… KC1   2011-01-01 00:00:00   0.2    44    38     4    14     5    40</span>
-<span class="co">##  2 London N… KC1   2011-01-01 01:00:00   0.2    38    29     6    28     3    36</span>
-<span class="co">##  3 London N… KC1   2011-01-01 02:00:00   0.2    32    31     1    18     3    31</span>
-<span class="co">##  4 London N… KC1   2011-01-01 03:00:00   0.2    31    29     1    14     3    31</span>
-<span class="co">##  5 London N… KC1   2011-01-01 04:00:00   0.2    31    29     1    16     3    29</span>
-<span class="co">##  6 London N… KC1   2011-01-01 05:00:00   0.1    29    27     1    24     3    25</span>
-<span class="co">##  7 London N… KC1   2011-01-01 06:00:00   0.1    27    25     1    24     3    25</span>
-<span class="co">##  8 London N… KC1   2011-01-01 07:00:00   0.1    31    29     1    18     3    28</span>
-<span class="co">##  9 London N… KC1   2011-01-01 08:00:00   0.2    55    44     8     4     3    24</span>
-<span class="co">## 10 London N… KC1   2011-01-01 09:00:00   0.2    57    44     9     6     3    24</span>
-<span class="co">## # … with 17,534 more rows, and 8 more variables: pm2.5 &lt;dbl&gt;, v10 &lt;dbl&gt;,</span>
-<span class="co">## #   v2.5 &lt;dbl&gt;, nv10 &lt;dbl&gt;, nv2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidcarslaw.github.io/openair/" class="external-link">openair</a></span><span class="op">)</span></span>
+<span><span class="va">kc1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/importAURN.html">importAURN</a></span><span class="op">(</span>site <span class="op">=</span> <span class="st">"kc1"</span>, year <span class="op">=</span> <span class="fl">2011</span><span class="op">:</span><span class="fl">2012</span><span class="op">)</span></span>
+<span><span class="va">kc1</span></span>
+<span><span class="co">## # A tibble: 17,544 × 18</span></span>
+<span><span class="co">##    site      code  date                   co   nox   no2    no    o3   so2  pm10</span></span>
+<span><span class="co">##    &lt;chr&gt;     &lt;fct&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">##  1 London N… KC1   2011-01-01 00:00:00   0.2    44    38     4    14     5    40</span></span>
+<span><span class="co">##  2 London N… KC1   2011-01-01 01:00:00   0.2    38    29     6    28     3    36</span></span>
+<span><span class="co">##  3 London N… KC1   2011-01-01 02:00:00   0.2    32    31     1    18     3    31</span></span>
+<span><span class="co">##  4 London N… KC1   2011-01-01 03:00:00   0.2    31    29     1    14     3    31</span></span>
+<span><span class="co">##  5 London N… KC1   2011-01-01 04:00:00   0.2    31    29     1    16     3    29</span></span>
+<span><span class="co">##  6 London N… KC1   2011-01-01 05:00:00   0.1    29    27     1    24     3    25</span></span>
+<span><span class="co">##  7 London N… KC1   2011-01-01 06:00:00   0.1    27    25     1    24     3    25</span></span>
+<span><span class="co">##  8 London N… KC1   2011-01-01 07:00:00   0.1    31    29     1    18     3    28</span></span>
+<span><span class="co">##  9 London N… KC1   2011-01-01 08:00:00   0.2    55    44     8     4     3    24</span></span>
+<span><span class="co">## 10 London N… KC1   2011-01-01 09:00:00   0.2    57    44     9     6     3    24</span></span>
+<span><span class="co">## # … with 17,534 more rows, and 8 more variables: pm2.5 &lt;dbl&gt;, v10 &lt;dbl&gt;,</span></span>
+<span><span class="co">## #   v2.5 &lt;dbl&gt;, nv10 &lt;dbl&gt;, nv2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="utility-functions">Utility functions<a class="anchor" aria-label="anchor" href="#utility-functions"></a>
 </h3>
 <p>Using the <code>selectByDate</code> function it is easy to select quite complex time-based periods. For example, to select weekday (Monday to Friday) data from June to September for 2012 <em>and</em> for the hours 7am to 7pm inclusive:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/selectByDate.html">selectByDate</a></span><span class="op">(</span><span class="va">kc1</span>, 
-                    day <span class="op">=</span> <span class="st">"weekday"</span>, 
-                    year <span class="op">=</span> <span class="fl">2012</span>, 
-                    month <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">9</span>, 
-                    hour <span class="op">=</span> <span class="fl">7</span><span class="op">:</span><span class="fl">19</span><span class="op">)</span>
-<span class="va">sub</span>
-<span class="co">## # A tibble: 1,118 × 18</span>
-<span class="co">##    date                site      code     co   nox   no2    no    o3   so2  pm10</span>
-<span class="co">##    &lt;dttm&gt;              &lt;chr&gt;     &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">##  1 2012-06-01 07:00:00 London N… KC1    0.23    36    23     9    24     3     6</span>
-<span class="co">##  2 2012-06-01 08:00:00 London N… KC1    0.23    33    21     7    34     3     9</span>
-<span class="co">##  3 2012-06-01 09:00:00 London N… KC1    0.23    23    19     2    52     3     6</span>
-<span class="co">##  4 2012-06-01 10:00:00 London N… KC1    0.23    17    13     2    62     3     7</span>
-<span class="co">##  5 2012-06-01 11:00:00 London N… KC1    0.23    17    13     2    70     3     9</span>
-<span class="co">##  6 2012-06-01 12:00:00 London N… KC1    0.23    21    19     1    78     3     8</span>
-<span class="co">##  7 2012-06-01 13:00:00 London N… KC1    0.23    36    29     5    68     3     9</span>
-<span class="co">##  8 2012-06-01 14:00:00 London N… KC1    0.23    25    21     2    80     3     6</span>
-<span class="co">##  9 2012-06-01 15:00:00 London N… KC1    0.23    27    23     2    80     3     7</span>
-<span class="co">## 10 2012-06-01 16:00:00 London N… KC1    0.23    34    29     4    58     3    10</span>
-<span class="co">## # … with 1,108 more rows, and 8 more variables: pm2.5 &lt;dbl&gt;, v10 &lt;dbl&gt;,</span>
-<span class="co">## #   v2.5 &lt;dbl&gt;, nv10 &lt;dbl&gt;, nv2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/selectByDate.html">selectByDate</a></span><span class="op">(</span><span class="va">kc1</span>, </span>
+<span>                    day <span class="op">=</span> <span class="st">"weekday"</span>, </span>
+<span>                    year <span class="op">=</span> <span class="fl">2012</span>, </span>
+<span>                    month <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">9</span>, </span>
+<span>                    hour <span class="op">=</span> <span class="fl">7</span><span class="op">:</span><span class="fl">19</span><span class="op">)</span></span>
+<span><span class="va">sub</span></span>
+<span><span class="co">## # A tibble: 1,118 × 18</span></span>
+<span><span class="co">##    date                site      code     co   nox   no2    no    o3   so2  pm10</span></span>
+<span><span class="co">##    &lt;dttm&gt;              &lt;chr&gt;     &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">##  1 2012-06-01 07:00:00 London N… KC1    0.23    36    23     9    24     3     6</span></span>
+<span><span class="co">##  2 2012-06-01 08:00:00 London N… KC1    0.23    33    21     7    34     3     9</span></span>
+<span><span class="co">##  3 2012-06-01 09:00:00 London N… KC1    0.23    23    19     2    52     3     6</span></span>
+<span><span class="co">##  4 2012-06-01 10:00:00 London N… KC1    0.23    17    13     2    62     3     7</span></span>
+<span><span class="co">##  5 2012-06-01 11:00:00 London N… KC1    0.23    17    13     2    70     3     9</span></span>
+<span><span class="co">##  6 2012-06-01 12:00:00 London N… KC1    0.23    21    19     1    78     3     8</span></span>
+<span><span class="co">##  7 2012-06-01 13:00:00 London N… KC1    0.23    36    29     5    68     3     9</span></span>
+<span><span class="co">##  8 2012-06-01 14:00:00 London N… KC1    0.23    25    21     2    80     3     6</span></span>
+<span><span class="co">##  9 2012-06-01 15:00:00 London N… KC1    0.23    27    23     2    80     3     7</span></span>
+<span><span class="co">## 10 2012-06-01 16:00:00 London N… KC1    0.23    34    29     4    58     3    10</span></span>
+<span><span class="co">## # … with 1,108 more rows, and 8 more variables: pm2.5 &lt;dbl&gt;, v10 &lt;dbl&gt;,</span></span>
+<span><span class="co">## #   v2.5 &lt;dbl&gt;, nv10 &lt;dbl&gt;, nv2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></span></code></pre></div>
 <p>Similarly it is easy to time-average data in many flexible ways. For example, 2-week means can be calculated as</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sub2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/timeAverage.html">timeAverage</a></span><span class="op">(</span><span class="va">kc1</span>, avg.time <span class="op">=</span> <span class="st">"2 week"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sub2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/timeAverage.html">timeAverage</a></span><span class="op">(</span><span class="va">kc1</span>, avg.time <span class="op">=</span> <span class="st">"2 week"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="the-type-option">The <code>type</code> option<a class="anchor" aria-label="anchor" href="#the-type-option"></a>
@@ -184,11 +184,11 @@
 </h3>
 <p><strong>openair</strong> can plot basic wind roses very easily provided the variables <code>ws</code> (wind speed) and <code>wd</code> (wind direction) are available.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tools/unnamed-chunk-6-1.png" width="50%"></p>
 <p>However, the real flexibility comes from being able to use the <code>type</code> option.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span>, type <span class="op">=</span> <span class="st">"year"</span>, layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span>, type <span class="op">=</span> <span class="st">"year"</span>, layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tools/unnamed-chunk-7-1.png" width="100%"></p>
 </div>
 </div>
@@ -238,7 +238,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
