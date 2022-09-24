@@ -73,8 +73,7 @@ functions.
 \details{
 This function imports pre-calculated back trajectories using the
 HYSPLIT trajectory model (Hybrid Single Particle Lagrangian
-Integrated Trajectory Model
-\url{https://www.ready.noaa.gov/HYSPLIT.php}). Back trajectories
+Integrated Trajectory Model. Back trajectories
 provide some very useful information for air quality data
 analysis. However, while they are commonly calculated by
 researchers it is generally difficult for them to be calculated on
@@ -96,8 +95,7 @@ sites, the NOAA-NCEP/NCAR reanalysis data is most useful. In
 addition, these archives are available for use widely, which is
 not the case for many other data sets e.g. ECMWF. HYSPLIT
 calculated trajectories based on archive data may be distributed
-without permission (see
-\url{http://ready.arl.noaa.gov/HYSPLIT_agreement.php}). For those
+without permission. For those
 wanting, for example, to consider higher resolution meteorological
 data sets it may be better to run the trajectories separately.
 
