@@ -36,11 +36,7 @@ Suggests:
     quantreg
 LinkingTo: Rcpp
 Maintainer: David Carslaw <david.carslaw@york.ac.uk>
-Description: Tools to analyse, interpret and understand air
-    pollution data. Data are typically hourly time series
-    and both monitoring data and dispersion model output
-    can be analysed.  Many functions can also be applied to
-    other data, including meteorological and traffic data.
+Description: Tools to analyse, interpret and understand air pollution data. Data are typically regular time series and air quality measurement, meteorological data and dispersion model output can be analysed. The package is described in Carslaw and Ropkins (2012, <doi:10.1016/j.envsoft.2011.09.008>) and subsequent papers.
 License: GPL (>= 2)
 URL: https://davidcarslaw.github.io/openair/
 BugReports: https://github.com/davidcarslaw/openair/issues
