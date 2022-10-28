@@ -28,7 +28,8 @@ Imports:
     methods,
     stats,
     MASS,
-    utils
+    utils,
+    rlang
 Suggests:
     KernSmooth,
     maps,
