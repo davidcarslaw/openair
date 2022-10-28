@@ -126,7 +126,7 @@
 ##' new.name
 ##'
 ##'
-importADMS <- function(file=file.choose(), file.type="unknown",
+importADMS <- function(file = file.choose(), file.type = "unknown",
                        drop.case = TRUE, drop.input.dates = TRUE, keep.units = TRUE,
                        simplify.names = TRUE, test.file.structure = TRUE,
                        drop.delim = TRUE, add.prefixes = TRUE,
@@ -201,12 +201,12 @@ importADMS <- function(file=file.choose(), file.type="unknown",
 ## daughter
 ## importADMSBgd
 
-importADMSBgd <- function(file=file.choose()
-                          , drop.case=TRUE, drop.input.dates=TRUE
-                          , keep.units=TRUE, simplify.names=TRUE
-                          , test.file.structure=TRUE
-                          , drop.delim = TRUE, add.prefixes = TRUE
-                          , ...) {
+importADMSBgd <- function(file = file.choose(),
+                          drop.case = TRUE, drop.input.dates = TRUE,
+                          keep.units = TRUE, simplify.names = TRUE,
+                          test.file.structure = TRUE,
+                          drop.delim = TRUE, add.prefixes = TRUE,
+                          ...) {
   bgd <- readLines(file, n = -1)
   bgd <- sub("[[:space:]]+$", "", bgd) # strip out tail spaces
 
@@ -285,9 +285,9 @@ importADMSBgd <- function(file=file.choose()
 
   ans <- read.csv(
     file,
-    header = FALSE, skip = data.start
-    , na.strings = c("", "NA", "-999", "-999.0")
-    , ...
+    header = FALSE, skip = data.start,
+    na.strings = c("", "NA", "-999", "-999.0"),
+    ...
   )
   ans[] <- lapply(ans, function(x) {
     replace(x, x == -999, NA)
@@ -322,8 +322,7 @@ importADMSBgd <- function(file=file.choose()
   if (length(ids) > 0) {
     if (length(ids) == nrow(ans)) {
       stop(
-        "Invalid date (and time) format requested\n       [compare openair import settings and data structure]"
-        ,
+        "Invalid date (and time) format requested\n       [compare openair import settings and data structure]",
         call. = FALSE
       )
     }
@@ -342,12 +341,12 @@ importADMSBgd <- function(file=file.choose()
 ## daughter
 ## importADMSMet
 
-importADMSMet <- function(file = file.choose()
-                          , drop.case=TRUE, drop.input.dates=TRUE
-                          , keep.units=TRUE, simplify.names=TRUE
-                          , test.file.structure=TRUE
-                          , drop.delim = TRUE, add.prefixes = TRUE
-                          , ...) {
+importADMSMet <- function(file = file.choose(),
+                          drop.case = TRUE, drop.input.dates = TRUE,
+                          keep.units = TRUE, simplify.names = TRUE,
+                          test.file.structure = TRUE,
+                          drop.delim = TRUE, add.prefixes = TRUE,
+                          ...) {
   met <- readLines(file, n = -1)
   met <- sub("[[:space:]]+$", "", met) # strip out tail spaces
   loc.start <- which(met == "VARIABLES:")
@@ -483,12 +482,12 @@ importADMSMet <- function(file = file.choose()
 ## daughter
 ## importADMSMop
 
-importADMSMop <- function(file=file.choose()
-                          , drop.case=TRUE, drop.input.dates=TRUE
-                          , keep.units=TRUE, simplify.names=TRUE
-                          , test.file.structure=TRUE
-                          , drop.delim = TRUE, add.prefixes = TRUE
-                          , ...) {
+importADMSMop <- function(file = file.choose(),
+                          drop.case = TRUE, drop.input.dates = TRUE,
+                          keep.units = TRUE, simplify.names = TRUE,
+                          test.file.structure = TRUE,
+                          drop.delim = TRUE, add.prefixes = TRUE,
+                          ...) {
 
   # problem
   # mismatch in file header line end with lr; data lines end with comma then lr
@@ -524,9 +523,9 @@ importADMSMop <- function(file=file.choose()
   check.names <- make.names(as.vector(apply(check.names, 1, as.character)))
   ## tidy () handling; renaming x(y) as x.y. is messy
   check.names <- ifelse(
-    substr(check.names, nchar(check.names), nchar(check.names)) == "."
-    , substr(check.names, 1, nchar(check.names) - 1)
-    , check.names
+    substr(check.names, nchar(check.names), nchar(check.names)) == ".",
+    substr(check.names, 1, nchar(check.names) - 1),
+    check.names
   )
   ## tidy 1/LMN
   check.names <- gsub("X1.LMO", "RECIP.LMO", check.names)
@@ -538,8 +537,7 @@ importADMSMop <- function(file=file.choose()
     # check for delim columns
     if (length(x.1) == 0 | length(x.2) == 0) {
       stop(
-        "File not recognised ADMS.mop structure\n       [please contact openair if valid]"
-        ,
+        "File not recognised ADMS.mop structure\n       [please contact openair if valid]",
         call. = FALSE
       )
     }
@@ -548,9 +546,9 @@ importADMSMop <- function(file=file.choose()
   # read in data
   ans <- read.csv(
     file,
-    header = FALSE, skip = 1
-    , na.strings = c("", "NA", "-999", "-999.0")
-    , ...
+    header = FALSE, skip = 1,
+    na.strings = c("", "NA", "-999", "-999.0"),
+    ...
   )
   ans[] <- lapply(ans, function(x) {
     replace(x, x == -999, NA)
@@ -562,8 +560,7 @@ importADMSMop <- function(file=file.choose()
   }
   if (ncol(ans) != length(check.names)) {
     warning(
-      "Unexpected name/data mismatch, handled pragmatically\n       [compare openair import settings and data structure]"
-      ,
+      "Unexpected name/data mismatch, handled pragmatically\n       [compare openair import settings and data structure]",
       call. = FALSE
     )
   }
@@ -584,8 +581,7 @@ importADMSMop <- function(file=file.choose()
         check.names[(x.2[1] + 1):length(check.names)] <- paste(add.prefixes[2], check.names[(x.2[1] + 1):length(check.names)], sep = ".")
       } else {
         warning(
-          "Unexpected add.prefixes option, option treated as FALSE\n       [check openair import settings]"
-          ,
+          "Unexpected add.prefixes option, option treated as FALSE\n       [check openair import settings]",
           call. = FALSE
         )
       }
@@ -601,8 +597,7 @@ importADMSMop <- function(file=file.choose()
   if (temp %in% names(ans)) {
     ans[, temp][ans[, temp] == 0] <- 360
     warning(
-      "Zero wind directions encountered, resetting to 360"
-      ,
+      "Zero wind directions encountered, resetting to 360",
       call. = FALSE
     )
   }
@@ -635,8 +630,7 @@ importADMSMop <- function(file=file.choose()
   if (length(ids) > 0) {
     if (length(ids) == nrow(ans)) {
       stop(
-        "Invalid date (and time) format requested\n       [compare openair import settings and data structure]"
-        ,
+        "Invalid date (and time) format requested\n       [compare openair import settings and data structure]",
         call. = FALSE
       )
     }
@@ -659,12 +653,12 @@ importADMSMop <- function(file=file.choose()
 # kr v0.2
 # 08 nov 2010
 
-importADMSPst <- function(file=file.choose()
-                          , drop.case=TRUE, drop.input.dates=TRUE
-                          , keep.units=TRUE, simplify.names=TRUE
-                          , test.file.structure=TRUE
-                          , drop.delim = TRUE, add.prefixes = TRUE
-                          , ...) {
+importADMSPst <- function(file = file.choose(),
+                          drop.case = TRUE, drop.input.dates = TRUE,
+                          keep.units = TRUE, simplify.names = TRUE,
+                          test.file.structure = TRUE,
+                          drop.delim = TRUE, add.prefixes = TRUE,
+                          ...) {
 
   # notes
   #########
@@ -700,8 +694,7 @@ importADMSPst <- function(file=file.choose()
     test <- temp[temp %in% check.names]
     if (!identical(temp, test)) {
       stop(
-        "File not recognised ADMS.pst structure\n       [please contact openair if valid]"
-        ,
+        "File not recognised ADMS.pst structure\n       [please contact openair if valid]",
         call. = FALSE
       )
     }
@@ -710,9 +703,9 @@ importADMSPst <- function(file=file.choose()
   # read in data
   ans <- read.csv(
     file,
-    header = FALSE, skip = 1
-    , na.strings = c("", "NA", "-999", "-999.0")
-    , ...
+    header = FALSE, skip = 1,
+    na.strings = c("", "NA", "-999", "-999.0"),
+    ...
   )
   ans[] <- lapply(ans, function(x) {
     replace(x, x == -999, NA)
@@ -721,8 +714,7 @@ importADMSPst <- function(file=file.choose()
   # match up data and names
   if (ncol(ans) != length(check.names)) {
     warning(
-      "Unexpected name/data mismatch, handled pragmatically\n       [compare openair import settings and data structure]"
-      ,
+      "Unexpected name/data mismatch, handled pragmatically\n       [compare openair import settings and data structure]",
       call. = FALSE
     )
   }
@@ -772,8 +764,7 @@ importADMSPst <- function(file=file.choose()
   if (length(ids) > 0) {
     if (length(ids) == nrow(ans)) {
       stop(
-        "Invalid date (and time) format requested\n       [compare openair import settings and data structure]"
-        ,
+        "Invalid date (and time) format requested\n       [compare openair import settings and data structure]",
         call. = FALSE
       )
     }
@@ -810,7 +801,7 @@ importADMSPst <- function(file=file.choose()
 # [make.names(y)...]
 #
 
-simplifyNamesADMS <- function(names=NULL) {
+simplifyNamesADMS <- function(names = NULL) {
   # simplify.names lookup table for import.adms functions
   # v0.2 kr
   # handles as inputs (don't use after drop.case option)

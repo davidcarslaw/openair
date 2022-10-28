@@ -12,41 +12,40 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
   # 21/10/2010
   ###############################
   #
-
+  
   ##############################
   # recent changes
   ##############################
   # brought forward file and name import
   ## no longer impossible
   #
-
+  
   ##################
   # to do
   ##################
   # remark properly
   #
-
+  
   ##################
   # suggestions
   ##################
   # error catcher on read in
   #
-
+  
   ###################
   # main body
   ###################
-
+  
   ##################
   # file type
   ##################
-
+  
   if (file.type == "txt") {
     sep <- "\t"
-  }
-  else {
+  } else {
     sep <- ","
   }
-
+  
   ##################
   # file data read in
   ##################
@@ -58,12 +57,12 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
   )
   if (!is.null(eof.report)) {
     if (is.na(match(eof.report, as.character(file.data$V1))) ==
-      FALSE) {
+        FALSE) {
       file.data <- file.data[1:(match(eof.report, as.character(file.data$V1)) -
-        1), ]
+                                  1), ]
     }
   }
-
+  
   #################
   # file names read in
   #################
@@ -77,11 +76,11 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
     )
   }
   file.names <- as.character(file.names)
-
+  
   ###############
   # handle numerics and header=NULL
   ##############
-
+  
   # if header not set
   # need numeric or null for field sources
   if (is.null(header.at) || is.numeric(header.at) && header.at < 1) {
@@ -98,22 +97,23 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
       )
     }
   }
-
+  
   # handle numeric field sources
-  temp <- function(x)
+  temp <- function(x) {
     if (is.numeric(x)) {
       x <- file.names[subset(x <- as.integer(x), x > 0 & x <= length(file.names))]
       x <- if (length(x) < 1) NULL else x
     } else {
       x
     }
-
+  }
+  
   date.name <- temp(date.name)
   time.name <- temp(time.name)
   is.ws <- temp(is.ws)
   is.wd <- temp(is.wd)
   is.site <- temp(is.site)
-
+  
   temp <- c(unique(c(date.name, time.name)), is.ws, is.wd, is.site)
   temp <- temp[duplicated(temp)]
   temp <- unlist(lapply(
@@ -128,7 +128,7 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
       call. = FALSE
     )
   }
-
+  
   ###################
   # check date and time names
   ###################
@@ -141,7 +141,7 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
       call. = FALSE
     )
   }
-
+  
   ####################
   # misc.info read in
   ####################
@@ -149,12 +149,11 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
     if (is.numeric(misc.info)) {
       file.misc <- readLines(file, n = max(misc.info))
       file.misc <- file.misc[misc.info]
-    }
-    else {
+    } else {
       file.misc <- misc.info
     }
   }
-
+  
   ####################
   # date/time check
   ###################
@@ -196,7 +195,7 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
     )
     stop(reply, call. = FALSE)
   }
-
+  
   ######################
   # other field setup
   ######################
@@ -209,7 +208,7 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
   if (!is.null(is.site)) {
     file.names <- gsub(is.site, "site", file.names, ignore.case = FALSE)
   }
-
+  
   #########################
   # check name and data dimensions match
   #########################
@@ -217,33 +216,30 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
     if (ncol(file.data) < length(file.names)) {
       file.names <- file.names[1:ncol(file.data)]
       warning(
-        "Unexpected extra names extracted, dropped unassigned names\n       [check openair import settings and data structure if unexpected]"
-        ,
+        "Unexpected extra names extracted, dropped unassigned names\n       [check openair import settings and data structure if unexpected]",
         call. = FALSE
       )
     } else {
       file.names <- c(file.names, paste("new", 1:(ncol(file.data) - length(file.names)), sep = "."))
       warning(
-        "Unexpected extra data extracted, extra names created\n       [check openair import settings and data structure if unexpected]"
-        ,
+        "Unexpected extra data extracted, extra names created\n       [check openair import settings and data structure if unexpected]",
         call. = FALSE
       )
     }
   }
-
+  
   ######################
   # bind data and names
   ######################
   temp <- make.names(file.names, unique = TRUE)
   if (!identical(file.names, temp)) {
     warning(
-      "Non-unique or non-R names extracted, names modifications applied\n       [check openair import settings and data structure if unexpected]"
-      ,
+      "Non-unique or non-R names extracted, names modifications applied\n       [check openair import settings and data structure if unexpected]",
       call. = FALSE
     )
   }
   names(file.data) <- temp
-
+  
   #####################
   # date/time setup
   #####################
@@ -272,7 +268,7 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
       ignore.case = TRUE
     )
     date.order <- substr(date.order, 1, (nchar(date.order) -
-      1))
+                                           1))
   }
   if (tolower(substr(time.order, 1, 5)) == "posix") {
     time.order <- gsub("posix", "", time.order, ignore.case = TRUE)
@@ -294,39 +290,35 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
       ignore.case = TRUE
     )
     time.order <- substr(time.order, 1, (nchar(time.order) -
-      1))
+                                           1))
   }
-
+  
   if (length(date.name) > 0) {
     if (length(date.name) == 1) {
       a <- as.character(file.data[, date.name])
-    }
-    else {
+    } else {
       a <- apply(file.data[, date.name], 1, paste, collapse = date.break)
     }
-  }
-  else {
+  } else {
     a <- NULL
   }
-
+  
   if (length(time.name) > 0) {
     if (length(time.name) == 1) {
       b <- as.character(file.data[, time.name])
-    }
-    else {
+    } else {
       b <- apply(file.data[, time.name], 1, paste, collapse = time.break)
     }
-  }
-  else {
+  } else {
     b <- NULL
   }
-
+  
   b <- apply(cbind(a, b), 1, paste, collapse = " ")
   a <- as.POSIXct(b, format = paste(
     date.order, time.order,
     sep = " "
   ), time.format)
-
+  
   # yy/yyyy tester
   # if invalid try year
   # NOTE: Can't test for Y first
@@ -338,7 +330,7 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
       sep = " "
     ), time.format)
   }
-
+  
   if (bad.24 == TRUE) {
     bad.time <- gsub("%H", "24", time.order, ignore.case = TRUE)
     bad.time <- gsub("%M", "00", bad.time, ignore.case = TRUE)
@@ -353,8 +345,7 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
     if (is.null(misc.info)) {
       misc.info <- 1
       file.misc <- "import operation: bad.24 applied (reset 24:00:00 to 00:00:00 next day)"
-    }
-    else {
+    } else {
       file.misc <- c(file.misc, "import operation: bad.24 applied (reset 24:00:00 to 00:00:00 next day)")
     }
   }
@@ -367,8 +358,7 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
         correct.time, " seconds)",
         sep = ""
       )
-    }
-    else {
+    } else {
       file.misc <- c(file.misc, paste(
         "import operation: correct.time applied (",
         correct.time, " seconds)",
@@ -376,19 +366,19 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
       ))
     }
   }
-
+  
   file.data <- file.data[!names(file.data) %in% c(
     date.name,
     time.name
   )]
-
+  
   ###############
   # tidy fields are editoring
   ###############
   names(file.data) <- gsub("[.][.][.]XxX", "x", names(file.data))
   file.names <- gsub("[.][.][.]XxX", "x", file.names)
   file.names2 <- file.names[!file.names %in% c(date.name, time.name)]
-
+  
   ###################
   # outputs
   ###################
@@ -413,8 +403,7 @@ import.2 <- function(file = file.choose(), file.type = "csv", header.at = 1,
     }
     print(unlist(sapply(ans, class)))
     return(ans)
-  }
-  else {
+  } else {
     ans <- list(
       data = file.data, names = file.names, names2 = file.names2,
       date = a, ops = list(sep = sep)

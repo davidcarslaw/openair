@@ -127,12 +127,12 @@
 ##'
 ##'
 importAURNCsv <- function(file = file.choose(), header.at = 5, data.at = 7, na.strings = c(
-                          "No data",
-                          "", "NA"
-                        ), date.name = "Date", date.break = "-", time.name = "time",
-                        misc.info = c(1, 2, 3, 4), is.site = 4, bad.24 = TRUE, correct.time = -3600,
-                        output = "final", data.order = c("value", "status", "unit"),
-                        simplify.names = TRUE, ...) {
+                            "No data",
+                            "", "NA"
+                          ), date.name = "Date", date.break = "-", time.name = "time",
+                          misc.info = c(1, 2, 3, 4), is.site = 4, bad.24 = TRUE, correct.time = -3600,
+                          output = "final", data.order = c("value", "status", "unit"),
+                          simplify.names = TRUE, ...) {
   initial.ans <- import.2(
     file = file, header.at = header.at,
     na.strings = na.strings, data.at = data.at, date.name = date.name,
@@ -165,8 +165,7 @@ importAURNCsv <- function(file = file.choose(), header.at = 5, data.at = 7, na.s
 
   if (length(site.2) > 1) {
     site.3 <- c(site.2[2:length(site.2)] - 1, ncol(site.1))
-  }
-  else {
+  } else {
     site.3 <- ncol(site.1)
   }
   site.names <- as.character(as.vector(site.1[site.2]))
@@ -198,8 +197,7 @@ importAURNCsv <- function(file = file.choose(), header.at = 5, data.at = 7, na.s
     }
     for (i in 1:length(data.order)) {
       if (data.order[i] == "value") {
-      }
-      else {
+      } else {
         ans.names[grep(data.order[i], ans.names, ignore.case = TRUE)] <- paste(
           data.order[i],
           ".", ans.names[(grep(
@@ -233,8 +231,7 @@ importAURNCsv <- function(file = file.choose(), header.at = 5, data.at = 7, na.s
     }
     print(unlist(sapply(ans, class)))
     return(ans)
-  }
-  else {
+  } else {
     return(initial.ans)
   }
 }
