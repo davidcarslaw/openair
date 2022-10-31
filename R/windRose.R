@@ -21,9 +21,9 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
     ## spacing for skewed data. Maximum is added later.
     breaks <- unique(pretty(c(
       min(mydata[[pollutant]], na.rm = TRUE),
-      quantile(mydata[[pollutant]], probs = 0.9, na.rm = TRUE),
+      quantile(mydata[[pollutant]], probs = 0.9, na.rm = TRUE)),
       breaks
-    )))
+    ))
   }
 
   windRose(
