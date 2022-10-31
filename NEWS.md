@@ -1,5 +1,8 @@
 # openair 2.11-99
 
+- add `importLocal` to access locally-managed automatic monitoring data 
+- fix bug in `pollutionRose` when single number of breaks given (was ignored)
+
 # openair 2.11
 
 - add `sigma` to options for SQTBA trajectory analysis for control over plume spread assumptions; set to 1.5 km (in one hour)
