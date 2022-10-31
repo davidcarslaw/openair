@@ -1,145 +1,129 @@
+
+#' worker function that downloads data from a range of networks run by Ricardo
+#' @noRd
 importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
                        pollutant = "all",
                        hc = FALSE, meta = FALSE, ratified = FALSE,
                        to_narrow = FALSE, verbose = FALSE,
-                       source = "aurn") {
-  
-  # worker function that downloads data from a range of networks run by Ricardo
-  
+                       source = "aurn", lmam_subfolder) {
+
+  # force source to be lowercase
   source <- tolower(source)
-  
-  if (source == "aurn") {
-    
-    url_data <- "https://uk-air.defra.gov.uk/openair/R_data/"
-    source_meta <- "aurn"
-    
-  } 
-  
-  if (source == "saqn") {
-    
-    url_data <- "https://www.scottishairquality.scot/openair/R_data/"
-    source_meta <- "saqn"
-    
-  } 
-  
-  if (source == "aqe") {
-    
-    url_data <- "https://airqualityengland.co.uk/assets/openair/R_data/"
-    source_meta <- "aqe"
-    
-  } 
-  
-  if (source == "waqn") {
-    
-    url_data <- "https://airquality.gov.wales/sites/default/files/openair/R_data/"
-    source_meta <- "waqn"
-    
-  } 
-  
-  if (source == "ni") {
-    
-    url_data <- "https://www.airqualityni.co.uk/openair/R_data/"
-    source_meta <- "ni"
-    
+
+  # obtain url
+  url_data <-
+    switch(source,
+      aurn = "https://uk-air.defra.gov.uk/openair/R_data/",
+      saqn = "https://www.scottishairquality.scot/openair/R_data/",
+      aqe = "https://airqualityengland.co.uk/assets/openair/R_data/",
+      waqn = "https://airquality.gov.wales/sites/default/files/openair/R_data/",
+      ni = "https://www.airqualityni.co.uk/openair/R_data/",
+      local = "https://uk-air.defra.gov.uk/openair/LMAM/R_data/",
+      stop("Invalid source.")
+    )
+
+  # add to path if source = "local"
+  if (source == "local") {
+    url_data <- paste0(url_data, lmam_subfolder, "/")
   }
-  
-  
+
   # For file name matching, needs to be exact
   site <- toupper(site)
-  
-  if (meta | ratified)
-    meta_data <- importMeta(source = source_meta, all = TRUE)
-  
-  
-  files <- map(site, ~ paste0(.x, "_", year)) %>% 
+
+  # If meta or ratified, get metadata
+  if (meta | ratified) {
+    meta_data <- importMeta(source = source, all = TRUE)
+  }
+
+  # combine site with year to create file names
+  files <- map(site, ~ paste0(.x, "_", year)) %>%
     flatten_chr()
-  
-  # Download and load data. 
-  
-  thedata <- map_df(files, ~ loadData(.x, verbose, ratified, meta_data, 
-                                      url_data, data_type))
-  
-  
+
+  # Download and load data.
+  thedata <- map_df(files, ~ loadData(
+    .x, verbose, ratified, meta_data,
+    url_data, data_type
+  ))
+
   # Return if no data
-  if (nrow(thedata) == 0) return() ## no data
-  
+  if (nrow(thedata) == 0) {
+    return()
+  } ## no data
+
   ## suppress warnings for now - unequal factors, harmless
-  
   if (is.null(thedata)) {
     stop("No data to import - check site codes and year.", call. = FALSE)
   }
-  
-  
+
   ## change names
   names(thedata) <- tolower(names(thedata))
-  
+
   ## change nox as no2
   id <- which(names(thedata) %in% "noxasno2")
   if (length(id) == 1) names(thedata)[id] <- "nox"
-  
+
   # change code to character
   thedata$code <- as.character(thedata$code)
-  
-  
+
+
   ## should hydrocarbons be imported?
   if (hc) {
     thedata <- thedata
   } else {
-    
-    
+
+
     ## no hydrocarbons - therefore select conventional pollutants
     theNames <- c(
-      "site", "code", "date", "co", "nox", "no2", "no", "o3", "so2", "pm10", 
+      "site", "code", "date", "co", "nox", "no2", "no", "o3", "so2", "pm10",
       "pm2.5", "v10", "v2.5", "nv10", "nv2.5", "ws", "wd", "temp"
     )
-    
+
     thedata <- select(thedata, any_of(theNames) | matches("_qc"))
-    
   }
-  
-  if ("temp" %in% names(thedata))
+
+  if ("temp" %in% names(thedata)) {
     thedata <- rename(thedata, air_temp = temp)
-  
+  }
+
   ## if particular pollutants have been selected
   if (pollutant[1] != "all") {
     thedata <- thedata[, c("date", pollutant, "site", "code")]
   }
-  
+
   ## make sure it is in GMT
   attr(thedata$date, "tzone") <- "GMT"
-  
-  
+
+
   if (meta) {
-    meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>% 
+    meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>%
       select(site, code, latitude, longitude, site_type)
     # suppress warnings about factors
     thedata <- left_join(thedata, meta_data, by = c("code", "site"))
   }
-  
-  
+
+
   if (to_narrow) {
-    
     if (ratified) {
       warning("Cannot re-shape if ratified is TRUE")
       return()
     }
-    
+
     if (meta) {
-      
-      thedata <- pivot_longer(thedata, -c(date, site, code, latitude, 
-                                          longitude, site_type), 
-                              names_to = "pollutant") %>% 
+      thedata <- pivot_longer(thedata, -c(
+        date, site, code, latitude,
+        longitude, site_type
+      ),
+      names_to = "pollutant"
+      ) %>%
         arrange(site, code, pollutant, date)
-      
     } else {
-      
-      thedata <- pivot_longer(thedata, -c(date, site, code), 
-                              names_to = "pollutant") %>% 
+      thedata <- pivot_longer(thedata, -c(date, site, code),
+        names_to = "pollutant"
+      ) %>%
         arrange(site, code, pollutant, date)
-      
     }
   }
-  
+
   as_tibble(thedata)
 }
 
@@ -148,83 +132,90 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
 # Define downloading and loading function
 # No export
 loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
-  tryCatch({
-    
-    # Build the file name
-    fileName <- paste0(
-      url_data, x,
-      ".RData"
-    )
-    
-    # Load the rdata object
-    con <- url(fileName)
-    load(con)
-    
-    if (data_type == "hourly")
-      x <- x
-    
-    if (data_type == "15min")
-      x <- paste0(x, "_15min")
-    
-    if (data_type == "daily")
-      x <- paste0(x, "_daily_mean")
-    
-    if (data_type == "8_hour")
-      x <- paste0(x, "_8hour_mean")
-    
-    if (data_type == "24_hour")
-      x <- paste0(x, "_24hour_mean")
-    
-    if (data_type == "daily_max_8")
-      x <- paste0(x, "_daily_max_8hour")
-    
-    
-    # Reasign
-    dat <- get(x)
-    
-    # make sure class is correct for lubridate
-    class(dat$date) <- c("POSIXct", "POSIXt")
-    
-    # add ratification information
-    if (ratified && data_type == "hourly") {
-      
-      site_code <- strsplit(x, split = "_")[[1]][1]
-      
-      meta_data <- filter(meta_data, code == site_code, 
-                          !variable %in% c("V10", "NV10", "V2.5", "NV2.5",
-                                           "ws", "wd", "temp")) %>% 
-        select(variable, ratified_to)
-      
-      for (i in 1:nrow(meta_data)) {
-        
-        dat <- add_ratified(dat, variable = meta_data$variable[i],
-                            ratified_to = meta_data$ratified_to[i])
-        
+  tryCatch(
+    {
+
+      # Build the file name
+      fileName <- paste0(
+        url_data, x,
+        ".RData"
+      )
+
+      # Load the rdata object
+      con <- url(fileName)
+      load(con)
+
+      if (data_type == "hourly") {
+        x <- x
       }
-      
-      
+
+      if (data_type == "15min") {
+        x <- paste0(x, "_15min")
+      }
+
+      if (data_type == "daily") {
+        x <- paste0(x, "_daily_mean")
+      }
+
+      if (data_type == "8_hour") {
+        x <- paste0(x, "_8hour_mean")
+      }
+
+      if (data_type == "24_hour") {
+        x <- paste0(x, "_24hour_mean")
+      }
+
+      if (data_type == "daily_max_8") {
+        x <- paste0(x, "_daily_max_8hour")
+      }
+
+
+      # Reasign
+      dat <- get(x)
+
+      # make sure class is correct for lubridate
+      class(dat$date) <- c("POSIXct", "POSIXt")
+
+      # add ratification information
+      if (ratified && data_type == "hourly") {
+        site_code <- strsplit(x, split = "_")[[1]][1]
+
+        meta_data <- filter(
+          meta_data, code == site_code,
+          !variable %in% c(
+            "V10", "NV10", "V2.5", "NV2.5",
+            "ws", "wd", "temp"
+          )
+        ) %>%
+          select(variable, ratified_to)
+
+        for (i in 1:nrow(meta_data)) {
+          dat <- add_ratified(dat,
+            variable = meta_data$variable[i],
+            ratified_to = meta_data$ratified_to[i]
+          )
+        }
+      }
+
+
+      return(dat)
+    },
+    error = function(ex) {
+
+      # Print a message
+      if (verbose) {
+        message(x, "does not exist - ignoring that one.")
+      }
+    },
+    finally = {
+      close(con)
     }
-    
-    
-    return(dat)
-    
-  }, 
-  error = function(ex) {
-    
-    # Print a message
-    if (verbose) {
-      message(x, "does not exist - ignoring that one.")
-    }
-  },
-  finally = {
-    close(con)
-  })
+  )
 }
 
 add_ratified <- function(data, variable, ratified_to) {
-  
   new_var <- paste0(variable, "_qc")
-  data <- mutate(data, {{new_var}} := ifelse(date <= ratified_to, TRUE, FALSE))
-  
+  data <- mutate(data, {{ new_var }} := ifelse(date <= ratified_to, TRUE, FALSE))
+
   return(data)
 }

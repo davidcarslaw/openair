@@ -456,7 +456,7 @@
 ##' ## import met data too...
 ##' \dontrun{my1 <- importKCL(site = "my1", year = 2008, met = TRUE)}
 ##'
-##' 
+##'
 importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
                       units = "mass", extra = FALSE, meta = FALSE,
                       to_narrow = FALSE) {
@@ -482,32 +482,33 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
   files <- do.call(c, files)
 
   loadData <- function(x) {
-    tryCatch({
-      fileName <- paste("http://www.londonair.org.uk/r_data/", x, ".RData", sep = "")
-      con <- url(fileName)
-      load(con)
+    tryCatch(
+      {
+        fileName <- paste("http://www.londonair.org.uk/r_data/", x, ".RData", sep = "")
+        con <- url(fileName)
+        load(con)
 
-      ## need to check the date starts at start of year...
-      start <- ISOdatetime(
-        year = as.numeric(format(x$date[1], "%Y")), month = 1,
-        day = 1, hour = 0, min = 0, sec = 0, tz = "GMT"
-      )
+        ## need to check the date starts at start of year...
+        start <- ISOdatetime(
+          year = as.numeric(format(x$date[1], "%Y")), month = 1,
+          day = 1, hour = 0, min = 0, sec = 0, tz = "GMT"
+        )
 
-      if (x$date[1] != start) {
-        ## add first row
-        x1 <- data.frame(date = start, site = x$site[1])
-        x <- bind_rows(x1, x)
+        if (x$date[1] != start) {
+          ## add first row
+          x1 <- data.frame(date = start, site = x$site[1])
+          x <- bind_rows(x1, x)
+        }
+
+        x <- date.pad(x, type = "site") ## pad out missing dates
+        x
+      },
+      error = function(ex) {
+        cat(x, "does not exist - ignoring that one.\n")
+      },
+      finally = {
+        close(con)
       }
-
-      x <- date.pad(x, type = "site") ## pad out missing dates
-      x
-    },
-    error = function(ex) {
-      cat(x, "does not exist - ignoring that one.\n")
-    },
-    finally = {
-      close(con)
-    }
     )
   }
 
@@ -583,7 +584,9 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
     thedata <- thedata[, which(names(thedata) %in% theNames)]
   }
 
-  if (is.null(nrow(thedata))) return()
+  if (is.null(nrow(thedata))) {
+    return()
+  }
 
   ## warning about recent, possibly unratified data
   timeDiff <- difftime(Sys.time(), max(thedata$date), units = "days")
@@ -609,20 +612,16 @@ importKCL <- function(site = "my1", year = 2009, pollutant = "all", met = FALSE,
     # suppress warnings about factors
     thedata <- suppressWarnings(inner_join(thedata, meta_data, by = c("code", "site")))
   }
-  
+
   if (to_narrow) {
-    
     if (meta) {
-      
-      thedata <- pivot_longer(thedata, -c(date, site, code, latitude, longitude, site.type), 
-                              names_to = "pollutant") %>% 
+      thedata <- pivot_longer(thedata, -c(date, site, code, latitude, longitude, site.type),
+        names_to = "pollutant"
+      ) %>%
         arrange(site, code, pollutant, date)
-      
     } else {
-      
-      thedata <- pivot_longer(thedata, -c(date, site, code), names_to = "pollutant") %>% 
+      thedata <- pivot_longer(thedata, -c(date, site, code), names_to = "pollutant") %>%
         arrange(site, code, pollutant, date)
-      
     }
   }
 

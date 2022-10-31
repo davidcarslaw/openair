@@ -8,8 +8,9 @@ importMeta(source = "aurn", all = FALSE)
 }
 \arguments{
 \item{source}{The data source for the meta data. Can be \dQuote{aurn},
-\dQuote{saqn} (or \dQuote{saqd}), \dQuote{aqe}, \dQuote{waqn}, \dQuote{ni}, \dQuote{kcl}
-or \dQuote{europe}; upper or lower case.}
+\dQuote{saqn} (or \dQuote{saqd}), \dQuote{aqe}, \dQuote{waqn},
+\dQuote{ni}, \dQuote{local}, \dQuote{kcl} or \dQuote{europe}; upper or
+lower case.}
 
 \item{all}{When \code{all = FALSE} only the site code, site name, latitude
 and longitude and site type are imported. Setting \code{all = TRUE} will
@@ -38,11 +39,12 @@ Europe:
 
 \item \dQuote{aqe}, The Air Quality England Network.
 
+\item \dQuote{local}, Locally managed air quality networks in England.
+
 \item \dQuote{kcl}, King's College London networks.
 
 \item \dQuote{europe}, Import hourly European data (Airbase/e-reporting)
-based on a simplified version of the \code{saqgetr} package.
-}
+based on a simplified version of the \code{saqgetr} package. }
 
 By default, the function will return the site latitude, longitude and site
 type. If the option \code{all = TRUE} is used, much more detailed
@@ -66,8 +68,10 @@ meta <- importMeta(source = "saqn", all = TRUE)
 }
 }
 \seealso{
-\code{\link{importAURN}}, \code{\link{importKCL}} and
-  \code{\link{importSAQN}} for importing air quality data from each network.
+\code{\link{importAURN}}, \code{\link{importSAQN}},
+  \code{\link{importWAQN}}, \code{\link{importNI}}, \code{\link{importAQE}},
+  \code{\link{importKCL}}, and  \code{\link{importEurope}}, for importing
+  air quality data from each network.
 }
 \author{
 David Carslaw

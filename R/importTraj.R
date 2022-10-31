@@ -140,30 +140,31 @@ importTraj <- function(site = "london", year = 2009, local = NA) {
   files <- do.call(c, files)
 
   loadData <- function(x) {
-    tryCatch({
-      if (is.na(local)) {
-        fileName <- paste(
-          "http://met-data.ricardo-aea.com/trajectories/", x, ".RData",
-          sep = ""
-        )
+    tryCatch(
+      {
+        if (is.na(local)) {
+          fileName <- paste(
+            "http://met-data.ricardo-aea.com/trajectories/", x, ".RData",
+            sep = ""
+          )
 
-        con <- url(fileName)
-        load(con)
-      } else { ## load from local file system
+          con <- url(fileName)
+          load(con)
+        } else { ## load from local file system
 
-        con <- paste(local, x, ".RData", sep = "")
-        load(con)
-      }
+          con <- paste(local, x, ".RData", sep = "")
+          load(con)
+        }
 
 
-      traj
-    },
-    error = function(ex) {
-      cat(x, "does not exist - ignoring that one.\n")
-    },
-    finally = {
+        traj
+      },
+      error = function(ex) {
+        cat(x, "does not exist - ignoring that one.\n")
+      },
+      finally = {
         if (is.na(local)) close(con)
-    }
+      }
     )
   }
 

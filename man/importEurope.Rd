@@ -48,7 +48,9 @@ other time averages e.g. daily data.
 }
 \examples{
 
- # import data for Stuttgart Am Neckartor (S)	
-\dontrun{stuttgart <- importEurope("debw118", year = 2010:2019, meta = TRUE)}
+# import data for Stuttgart Am Neckartor (S)
+\dontrun{
+stuttgart <- importEurope("debw118", year = 2010:2019, meta = TRUE)
+}
 
 }
