@@ -157,7 +157,7 @@
 ##'   have more control. For format types see \code{strptime}. For
 ##'   example, to format the date like \dQuote{Jan-2012} set
 ##'   \code{date.format = "\%b-\%Y"}.
-##' @param plot Should a plot be produced. \code{FALSE} can be useful when
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
 ##'   analysing data to extract trend components and plotting them in other
 ##'   ways.
 ##' @param silent When \code{FALSE} the function will give updates on

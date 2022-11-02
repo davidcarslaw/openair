@@ -122,6 +122,9 @@
 ##'   \code{TRUE} titles and axis labels will automatically try and format
 ##'   pollutant names and units properly e.g.  by subscripting the \sQuote{2}
 ##'   in NO2.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param \dots Other graphical parameters passed onto \code{lattice:xyplot}
 ##'   and \code{cutData}. For example, \code{polarFreq} passes the option
 ##'   \code{hemisphere = "southern"} on to \code{cutData} to provide southern
@@ -195,34 +198,34 @@ polarFreq <- function(mydata,
                       key.footer = pollutant,
                       key.position = "right",
                       key = TRUE,
-                      auto.text = TRUE, ...) {
-
-
-
+                      auto.text = TRUE, 
+                      plot = TRUE,
+                      ...) {
+  
   ## extract necessary data
   vars <- c("wd", "ws")
   if (any(type %in% dateTypes)) vars <- c(vars, "date")
   
   ## intervals in wind direction
   wd.int <- 360/round(wd.nint)
-
+  
   ## greyscale handling
   if (length(cols) == 1 && cols == "greyscale") {
     trellis.par.set(list(strip.background = list(col = "white")))
   }
-
+  
   ## set graphics
   current.strip <- trellis.par.get("strip.background")
   current.font <- trellis.par.get("fontsize")
-
+  
   ## reset graphic parameters
   on.exit(trellis.par.set(
     fontsize = current.font
   ))
-
+  
   ## extra.args setup
   extra.args <- list(...)
-
+  
   # label controls
   extra.args$xlab <- if ("xlab" %in% names(extra.args)) {
     quickText(extra.args$xlab, auto.text)
@@ -239,121 +242,121 @@ polarFreq <- function(mydata,
   } else {
     quickText("", auto.text)
   }
-
+  
   if ("fontsize" %in% names(extra.args)) {
     trellis.par.set(fontsize = list(text = extra.args$fontsize))
   }
-
+  
   if (!missing(pollutant)) vars <- c(vars, pollutant)
-
+  
   ## data checks
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
-
+  
   ## to make first interval easier to work with, set ws = 0 + e
   ids <- which(mydata$ws == 0)
   mydata$ws[ids] <- mydata$ws[ids] + 0.0001
-
+  
   ## remove all NAs
   mydata <- na.omit(mydata)
-
+  
   mydata <- cutData(mydata, type, ...)
-
+  
   ## if pollutant chosen but no statistic - use mean, issue warning
   if (!missing(pollutant) & missing(statistic)) {
     statistic <- "mean"
     warning("No statistic chosen, using mean")
   }
-
+  
   ## if statistic chosen but no pollutant stop
   if (!missing(statistic) & missing(pollutant)) {
     stop("No pollutant chosen, please choose one e.g. pollutant = 'nox'")
   }
-
+  
   if (!missing(breaks)) trans <- FALSE ## over-ride transform if breaks supplied
-
+  
   if (missing(key.header)) key.header <- statistic
   if (key.header == "weighted.mean") key.header <- c("contribution", "(%)")
-
+  
   ## apply square root transform?
   if (trans) coef <- 2 else coef <- 1
-
+  
   ## set the upper wind speed
   if (is.na(ws.upper)) {
     max.ws <- max(mydata$ws, na.rm = TRUE)
   } else {
     max.ws <- ws.upper
   }
-
+  
   ## offset for "hollow" middle
   offset <- (max.ws * offset) / 5 / 10
-
+  
   ## make sure wd data are rounded to nearest 10
   mydata$wd <- wd.int * ceiling(mydata$wd / wd.int - 0.5)
-
+  
   prepare.grid <- function(mydata) {
     wd <- factor(mydata$wd)
     ws <- factor(ws.int * ceiling(mydata$ws / ws.int))
-
+    
     if (statistic == "frequency") ## case with only ws and wd
     {
       weights <- tapply(mydata$ws, list(wd, ws), function(x) length(na.omit(x)))
     }
-
+    
     if (statistic == "mean") {
       weights <- tapply(
         mydata[[pollutant]],
         list(wd, ws), function(x) mean(x, na.rm = TRUE)
       )
     }
-
+    
     if (statistic == "median") {
       weights <- tapply(
         mydata[[pollutant]],
         list(wd, ws), function(x) median(x, na.rm = TRUE)
       )
     }
-
+    
     if (statistic == "max") {
       weights <- tapply(
         mydata[[pollutant]],
         list(wd, ws), function(x) max(x, na.rm = TRUE)
       )
     }
-
+    
     if (statistic == "stdev") {
       weights <- tapply(
         mydata[[pollutant]],
         list(wd, ws), function(x) sd(x, na.rm = TRUE)
       )
     }
-
+    
     if (statistic == "weighted.mean") {
       weights <- tapply(
         mydata[[pollutant]], list(wd, ws),
         function(x) (mean(x) * length(x) / nrow(mydata))
       )
-
+      
       ## note sum for matrix
       weights <- 100 * weights / sum(sum(weights, na.rm = TRUE))
     }
-
+    
     weights <- as.vector(t(weights))
-
+    
     ## frequency - remove points with freq < min.bin
     bin.len <- tapply(mydata$ws, list(wd, ws), function(x) length(na.omit(x)))
     binned.len <- as.vector(t(bin.len))
     ids <- which(binned.len < min.bin)
     weights[ids] <- NA
-
+    
     ws.wd <- expand.grid(ws = as.numeric(levels(ws)), wd = as.numeric(levels(wd)))
-
+    
     weights <- cbind(ws.wd, weights)
     weights
   }
-
-
+  
+  
   poly <- function(dir, speed, colour) {
-
+    
     ## offset by 3 * ws.int so that centre is not compressed
     angle <- seq(dir - wd.int/2, dir + wd.int/2, length = round(wd.int))
     x1 <- (speed + offset - ws.int) * sin(pi * angle / 180)
@@ -362,22 +365,22 @@ polarFreq <- function(mydata,
     y2 <- rev((speed + offset) * cos(pi * angle / 180))
     lpolygon(c(x1, x2), c(y1, y2), col = colour, border = border.col, lwd = 0.5)
   }
-
-
+  
+  
   results.grid <- mydata %>% 
     group_by(across(type)) %>%
     do(prepare.grid(.))
-
+  
   results.grid <- na.omit(results.grid)
-
+  
   ## proper names of labelling ###################################################
   strip.dat <- strip.fun(results.grid, type, auto.text)
   strip <- strip.dat[[1]]
   strip.left <- strip.dat[[2]]
   pol.name <- strip.dat[[3]]
-
+  
   results.grid$weights <- results.grid$weights ^ (1 / coef)
-
+  
   nlev <- 200
   ## handle missing breaks arguments
   if (missing(breaks)) {
@@ -386,18 +389,18 @@ polarFreq <- function(mydata,
   } else {
     br <- breaks
   }
-
+  
   nlev2 <- length(breaks)
-
+  
   col <- openColours(cols, (nlev2 - 1))
-
+  
   results.grid$div <- cut(results.grid$weights, breaks, include.lowest = TRUE)
-
+  
   ## for pollution data
   results.grid$weights[results.grid$weights == "NaN"] <- 0
   results.grid$weights[which(is.na(results.grid$weights))] <- 0
-
-
+  
+  
   ##  scale key setup ################################################################################################
   legend <- list(
     col = col[1:(length(breaks) - 1)], at = breaks,
@@ -407,12 +410,12 @@ polarFreq <- function(mydata,
     height = 1, width = 1.5, fit = "all"
   )
   legend <- makeOpenKeyLegend(key, legend, "polarFreq")
-
+  
   temp <- paste(type, collapse = "+")
   myform <- formula(paste("ws ~ wd | ", temp, sep = ""))
-
+  
   span <- ws.int * floor(max.ws / ws.int) + ws.int + offset
-
+  
   xyplot.args <- list(
     x = myform,
     xlim = 1.03 * c(-span, span),
@@ -425,18 +428,18 @@ polarFreq <- function(mydata,
     as.table = TRUE,
     aspect = 1,
     scales = list(draw = FALSE),
-
+    
     panel = function(x, y, subscripts, ...) {
       panel.xyplot(x, y, ...)
-
+      
       subdata <- results.grid[subscripts, ]
-
+      
       for (i in 1:nrow(subdata)) {
         colour <- col[as.numeric(subdata$div[i])]
         #   if (subdata$weights[i] == 0) colour <- "transparent"
         poly(subdata$wd[i], subdata$ws[i], colour)
       }
-
+      
       ## annotate
       if (ws.int < max.ws) { ## don't annotate if only 1 interval
         angles <- seq(0, 2 * pi, length = 360)
@@ -446,7 +449,7 @@ polarFreq <- function(mydata,
             (offset + x) * cos(angles),
             col = "grey", lty = 5
           ))
-
+        
         ## radial labels
         sapply(seq(0, 20 * grid.line, by = grid.line), function(x)
           ltext(
@@ -455,12 +458,12 @@ polarFreq <- function(mydata,
             cex = 0.7
           ))
       }
-
+      
       larrows(-span, 0, -offset, 0, code = 1, length = 0.1)
       larrows(span, 0, offset, 0, code = 1, length = 0.1)
       larrows(0, -span, 0, -offset, code = 1, length = 0.1)
       larrows(0, span, 0, offset, code = 1, length = 0.1)
-
+      
       ltext(-span * 0.95, 0.07 * span, "W", cex = 0.7)
       ltext(0.07 * span, -span * 0.95, "S", cex = 0.7)
       ltext(0.07 * span, span * 0.95, "N", cex = 0.7)
@@ -468,21 +471,28 @@ polarFreq <- function(mydata,
     },
     legend = legend
   )
-
+  
   # reset for extra.args
   xyplot.args <- listUpdate(xyplot.args, extra.args)
-
+  
   # plot
   plt <- do.call(xyplot, xyplot.args)
-
-
+  
+  
   #################
   ## output
   #################
-  if (length(type) == 1) plot(plt) else plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+  if (plot) {
+    if (length(type) == 1)
+      plot(plt)
+    else
+      plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+  }
   newdata <- results.grid
-  output <- list(plot = plt, data = newdata, call = match.call())
+  output <- list(plot = plt,
+                 data = newdata,
+                 call = match.call())
   class(output) <- "openair"
-
+  
   invisible(output)
 }

@@ -8,7 +8,6 @@ trajCluster(
   traj,
   method = "Euclid",
   n.cluster = 5,
-  plot = TRUE,
   type = "default",
   cols = "Set1",
   split.after = FALSE,
@@ -20,6 +19,7 @@ trajCluster(
   orientation = c(90, 0, 0),
   by.type = FALSE,
   origin = TRUE,
+  plot = TRUE,
   ...
 )
 }
@@ -32,8 +32,6 @@ back trajectories. There are two methods available:
 \dQuote{Euclid} and \dQuote{Angle}.}
 
 \item{n.cluster}{Number of clusters to calculate.}
-
-\item{plot}{Should a plot be produced?}
 
 \item{type}{\code{type} determines how the data are split i.e.
 conditioned, and then plotted. The default is will produce a
@@ -98,6 +96,10 @@ will make each panel add up to 100.}
 
 \item{origin}{If \code{TRUE} a filled circle dot is shown to mark the
 receptor point.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters passed onto
 \code{lattice:levelplot} and \code{cutData}. Similarly, common

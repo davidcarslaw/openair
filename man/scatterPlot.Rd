@@ -42,6 +42,7 @@ scatterPlot(
   dist = 0.02,
   map = FALSE,
   auto.text = TRUE,
+  plot = TRUE,
   ...
 )
 }
@@ -246,6 +247,10 @@ development.}
 \item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
 \code{TRUE} titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the \sQuote{2} in NO2.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters are passed onto
 \code{cutData} and an appropriate \code{lattice} plot function

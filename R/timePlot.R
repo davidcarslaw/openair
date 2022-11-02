@@ -197,6 +197,9 @@
 ##'   \code{TRUE} titles and axis labels will automatically try and
 ##'   format pollutant names and units properly e.g.  by subscripting
 ##'   the \sQuote{2} in NO2.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... Other graphical parameters are passed onto
 ##'   \code{cutData} and \code{lattice:xyplot}. For example,
 ##'   \code{timePlot} passes the option \code{hemisphere = "southern"}
@@ -288,7 +291,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
                      y.relation = "same", ref.x = NULL, ref.y = NULL,
                      key.columns = 1, key.position = "bottom",
                      name.pol = pollutant, date.breaks = 7,
-                     date.format = NULL, auto.text = TRUE, ...) {
+                     date.format = NULL, auto.text = TRUE, plot = TRUE, ...) {
 
 
   ## basic function to plot single/multiple time series in flexible ways
@@ -752,8 +755,8 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
   plt <- do.call(xyplot, xyplot.args)
 
   ## output
-
-  plot(plt)
+  
+  if (plot) plot(plt)
   newdata <- mydata
   output <- list(plot = plt, data = newdata, call = match.call())
   class(output) <- "openair"

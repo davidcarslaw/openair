@@ -114,6 +114,9 @@
 ##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
 ##'   \code{TRUE} titles and axis labels will automatically try and format
 ##'   pollutant names and units properly e.g.  by subscripting the `2' in NO2.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract calendar plot components and plotting them in
+##'   other ways.
 ##' @param ... Other graphical parameters are passed onto the \code{lattice}
 ##'   function \code{lattice:levelplot}, with common axis and title labelling
 ##'   options (such as \code{xlab}, \code{ylab}, \code{main}) being passed to
@@ -172,7 +175,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
                          breaks = NA, w.shift = 0, remove.empty = TRUE,
                          main = NULL,
                          key.header = "", key.footer = "",
-                         key.position = "right", key = TRUE, auto.text = TRUE,
+                         key.position = "right", key = TRUE, auto.text = TRUE, plot = TRUE,
                          ...) {
   conc.mat <- NULL ## keep R check quiet
 
@@ -557,8 +560,10 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   lv.args <- listUpdate(lv.args, extra.args)
 
   ## plot
-  print(do.call(levelplot, lv.args))
-
+  if (plot) {
+    print(do.call(levelplot, lv.args))
+  }
+  
   ## reset theme
   lattice.options(default.theme = def.theme)
 

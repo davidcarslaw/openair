@@ -83,6 +83,9 @@
 ##'     automatically. The user can therefore increase or decrease the
 ##'     number of intervals by adjusting the value of
 ##'     \code{date.breaks} up or down.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... Other graphical parameters. A useful one to remove the
 ##'     strip with the date range on at the top of the plot is to set
 ##'     \code{strip = FALSE}.
@@ -123,11 +126,19 @@
 ##' \dontrun{linearRelation(mydata, x = "pm10", y = "pm25", rsq.thresh = 0.8)}
 ##'
 ##'
-linearRelation <- function(mydata, x = "nox", y = "no2",
-                           period = "month", condition = FALSE,
-                           n = 20, rsq.thresh = 0,
+linearRelation <- function(mydata,
+                           x = "nox",
+                           y = "no2",
+                           period = "month",
+                           condition = FALSE,
+                           n = 20,
+                           rsq.thresh = 0,
                            ylab = paste0("slope from ", y, " = m.", x, " + c"),
-                           auto.text = TRUE, cols = "grey30", date.breaks= 5, ...) {
+                           auto.text = TRUE,
+                           cols = "grey30",
+                           date.breaks = 5,
+                           plot = TRUE,
+                           ...) {
 
   ## get rid of R check annoyances
   nox <- ox <- cond <- rsquare <- N <- r.thresh <- NULL
@@ -471,7 +482,13 @@ linearRelation <- function(mydata, x = "nox", y = "no2",
     plt <- do.call(xyplot, xyplot.args)
   }
 
-  if (condition & period == "day.hour") print(useOuterStrips(plt)) else print(plt)
+  if (plot) {
+    if (condition &
+        period == "day.hour")
+      print(useOuterStrips(plt))
+    else
+      print(plt)
+  }
 
   #################
   # output

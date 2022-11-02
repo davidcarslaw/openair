@@ -4,7 +4,15 @@
 \alias{polarDiff}
 \title{Polar plots considering changes in concentrations between two time periods}
 \usage{
-polarDiff(before, after, pollutant = "nox", x = "ws", limits = NA, ...)
+polarDiff(
+  before,
+  after,
+  pollutant = "nox",
+  x = "ws",
+  limits = NA,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{before}{A data frame that represents the "before" case. See
@@ -18,6 +26,10 @@ polarDiff(before, after, pollutant = "nox", x = "ws", limits = NA, ...)
 \item{x}{The variable used for the radial axis (default = "ws").}
 
 \item{limits}{The colour scale limits e.g. \code{limits = c(-10, 10)}.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Other arguments to \code{\link{polarPlot}}.}
 }
