@@ -84,22 +84,6 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##' direction bias is colour-coded to show negative bias in one colour
 ##' and positive bias in another.
 ##'
-##' @usage windRose(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
-##'   ws.int = 2, angle = 30, type = "default", bias.corr = TRUE, cols
-##'   = "default", grid.line = NULL, width = 1, seg = NULL, auto.text
-##'   = TRUE, breaks = 4, offset = 10, normalise = FALSE, max.freq =
-##'   NULL, paddle = TRUE, key.header = NULL, key.footer = "(m/s)",
-##'   key.position = "bottom", key = TRUE, dig.lab = 5, include.lowest = FALSE,
-##'   statistic =
-##'   "prop.count", pollutant = NULL, annotate = TRUE, angle.scale =
-##'   315, border = NA, ...)
-##'
-##'
-##'   pollutionRose(mydata, pollutant = "nox", key.footer = pollutant,
-##'   key.position = "right", key = TRUE, breaks = 6, paddle = FALSE,
-##'   seg = 0.9, normalise = FALSE, ...)
-##'
-##'
 ##' @aliases windRose pollutionRose
 ##' @param mydata A data frame containing fields \code{ws} and
 ##'   \code{wd}
