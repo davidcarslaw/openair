@@ -37,6 +37,7 @@ polarPlot(
   y_error = NA,
   kernel = "gaussian",
   tau = 0.5,
+  plot = TRUE,
   ...
 )
 }
@@ -309,6 +310,10 @@ supported but this may be enhanced in the future.}
 \item{tau}{The quantile to be estimated when \code{statistic} is set to
 \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
 and will be ignored if \code{"quantile.slope"} is not used.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters passed onto \code{lattice:levelplot}
 and \code{cutData}. For example, \code{polarPlot} passes the option

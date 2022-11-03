@@ -26,6 +26,7 @@ trendLevel(
   stat.safe.mode = TRUE,
   drop.unused.types = TRUE,
   col.na = "white",
+  plot = TRUE,
   ...
 )
 }
@@ -140,6 +141,10 @@ default, \code{TRUE}, excludes these empty panels from the plot. The
 alternative \code{FALSE} plots all \code{type} panels.}
 
 \item{col.na}{Colour to be used to show missing data.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Addition options are passed on to \code{cutData} for
 \code{type} handling and \code{levelplot} in \code{lattice} for finer

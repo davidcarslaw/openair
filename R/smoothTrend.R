@@ -118,6 +118,9 @@
 ##'   package \code{mgcv}. By default it is not used and the amount of smoothing
 ##'   is optimised automatically. However, sometimes it is useful to set the
 ##'   smoothing amount manually using \code{k}.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... Other graphical parameters are passed onto \code{cutData} and
 ##'   \code{lattice:xyplot}. For example, \code{smoothTrend} passes the option
 ##'   \code{hemisphere = "southern"} on to \code{cutData} to provide southern
@@ -181,7 +184,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
                         y.relation = "same", ref.x = NULL, ref.y = NULL,
                         key.columns = length(percentile), name.pol = pollutant,
                         ci = TRUE, alpha = 0.2, date.breaks = 7,
-                        auto.text = TRUE, k = NULL, ...) {
+                        auto.text = TRUE, k = NULL, plot = TRUE, ...) {
 
   ## get rid of R check annoyances
   variable <- NULL
@@ -579,15 +582,15 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     call = match.call()
   )
   class(output) <- "openair"
-
+  
   ## output ########################################################################
-  if (length(type) == 1) {
-    plot(plt)
-  } else {
-    plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+  if (plot) {
+    if (length(type) == 1) {
+      plot(plt)
+    } else {
+      plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+    }
   }
-
-
-
+  
   invisible(output)
 }

@@ -21,6 +21,9 @@
 #' @param pollutant The pollutant to analyse.
 #' @param x The variable used for the radial axis (default = "ws").
 #' @param limits The colour scale limits e.g. \code{limits = c(-10, 10)}.
+#' @param plot Should a plot be produced? \code{FALSE} can be useful when
+#'   analysing data to extract plot components and plotting them in other
+#'   ways.
 #' @param ... Other arguments to \code{\link{polarPlot}}.
 #'
 #' @return Only plot at the moment.
@@ -41,7 +44,8 @@
 #' }
 polarDiff <- function(before, after, pollutant = "nox", 
                       x = "ws",
-                      limits = NA, ...) {
+                      limits = NA, 
+                      plot = TRUE, ...) {
   
   # extra args setup
   Args <- list(...)
@@ -66,6 +70,7 @@ polarDiff <- function(before, after, pollutant = "nox",
                       pollutant = pollutant,
                       x = x, 
                       type = "period",
+                      plot = FALSE,
                       ...)
   
   polar_data <- pivot_wider(polar_plt$data, 
@@ -97,7 +102,7 @@ polarDiff <- function(before, after, pollutant = "nox",
   
   
   polarPlot(polar_data, pollutant = pollutant, 
-            x = x,
+            x = x, plot = plot,
             cols = Args$cols,
             limits = Args$limits,
             force.positive = FALSE)
