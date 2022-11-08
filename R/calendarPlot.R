@@ -350,7 +350,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   
   if (remove.empty) {
     mydata <- group_by(mydata, cuts) %>% 
-      mutate(empty = all(is.na(pollutant))) %>% 
+      mutate(empty = all(is.na(across(pollutant))))  %>% 
       filter(empty == FALSE) %>% 
       ungroup()
   }
