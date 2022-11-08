@@ -113,6 +113,9 @@
 ##'   \code{"right"}, \code{"bottom"} and \code{"left"}.
 ##' @param key Fine control of the scale key via \code{drawOpenKey}.
 ##'   See \code{drawOpenKey} for further details.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... Other graphical parameters are passed onto
 ##'   \code{cutData} and \code{lattice:xyplot}. For example,
 ##'   \code{percentileRose} passes the option \code{hemisphere =
@@ -172,7 +175,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
                            fill = TRUE, intervals = NULL, angle.scale = 45,
                            auto.text = TRUE, key.header = NULL,
                            key.footer = "percentile", key.position = "bottom",
-                           key = TRUE, ...) {
+                           key = TRUE, plot = TRUE, ...) {
 
   ## get rid of R check annoyances
   sub <- NULL
@@ -647,7 +650,13 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
 
   ## output ####################################################################################
 
-  if (length(type) == 1) plot(plt) else plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+  if (plot) {
+    if (length(type) == 1) {
+      plot(plt)
+    } else {
+      plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+    }
+  }
 
   output <- list(plot = plt, data = newdata, call = match.call())
   class(output) <- "openair"

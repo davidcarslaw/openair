@@ -164,6 +164,9 @@
 ##' @param month.last Should the order of the plots be changed so the plot 
 ##'   showing monthly means be the last plot for a logical hierarchy of 
 ##'   averaging periods?
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... Other graphical parameters passed onto \code{lattice:xyplot} and
 ##'   \code{cutData}. For example, in the case of \code{cutData} the option
 ##'   \code{hemisphere = "southern"}.
@@ -276,7 +279,7 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
                           type = "default", group = NULL, difference = FALSE,
                           statistic = "mean", conf.int = 0.95, B = 100, ci = TRUE, cols = "hue",
                           ref.y = NULL, key = NULL, key.columns = 1, start.day = 1,
-                          auto.text = TRUE, alpha = 0.4, month.last = FALSE, 
+                          auto.text = TRUE, alpha = 0.4, month.last = FALSE, plot = TRUE,
                           ...) {
 
   ## get rid of R check annoyances
@@ -1021,7 +1024,7 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
     )), ...)
   }
 
-  main.plot()
+  if (plot) main.plot()
   output <- list(
     plot = list(day.hour, hour, day, month, subsets = subsets),
     data = list(data.day.hour, data.hour, data.weekday, data.month, subsets = subsets),

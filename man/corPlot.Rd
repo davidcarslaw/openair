@@ -16,6 +16,7 @@ corPlot(
   r.thresh = 0.8,
   text.col = c("black", "black"),
   auto.text = TRUE,
+  plot = TRUE,
   ...
 )
 }
@@ -69,6 +70,10 @@ second positive.}
 \item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
 \code{TRUE} titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the `2' in NO2.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract corPlot components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters passed onto \code{lattice:levelplot},
 with common axis and title labelling options (such as \code{xlab},

@@ -69,6 +69,9 @@
 ##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
 ##'   \code{TRUE} titles and axis labels will automatically try and format
 ##'   pollutant names and units properly e.g.  by subscripting the `2' in NO2.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract corPlot components and plotting them in other
+##'   ways.
 ##' @param ... Other graphical parameters passed onto \code{lattice:levelplot},
 ##'   with common axis and title labelling options (such as \code{xlab},
 ##'   \code{ylab}, \code{main}) being passed via \code{quickText} to handle
@@ -123,8 +126,10 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
                     dendrogram = FALSE, 
                     lower = FALSE,
                     cols = "default",
-                    r.thresh = 0.8, text.col =
-                    c("black", "black"), auto.text = TRUE, ...) {
+                    r.thresh = 0.8, text.col = c("black", "black"), 
+                    auto.text = TRUE, 
+                    plot = TRUE,
+                    ...) {
   if (length(type) > 1) stop("Only one 'type' allowed in this function.")
 
   ## make sure date is present for types requiring it
@@ -382,7 +387,7 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
   # output
   #################
 
-  plot(plt)
+  if (plot) plot(plt)
 
   ## openair object
 

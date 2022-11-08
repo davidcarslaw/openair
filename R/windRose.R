@@ -1,22 +1,23 @@
 pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
                           key.position = "right", key = TRUE,
                           breaks = 6, paddle = FALSE, seg = 0.9, normalise = FALSE,
+                          plot = TRUE,
                           ...) {
-
+  
   ## extra args setup
   extra <- list(...)
-
+  
   ## check to see if two met data sets are being compared.
   ## if so, set pollutant to one of the names
   if ("ws2" %in% names(extra)) {
     pollutant <- extra$ws
     if (missing(breaks)) breaks <- NA
   }
-
+  
   if (is.null(breaks)) breaks <- 6
-
+  
   if (is.numeric(breaks) & length(breaks) == 1) {
-
+    
     ## breaks from the minimum to 90th percentile, which generally gives sensible
     ## spacing for skewed data. Maximum is added later.
     breaks <- unique(pretty(c(
@@ -25,12 +26,12 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
       breaks
     ))
   }
-
+  
   windRose(
     mydata,
     pollutant = pollutant, paddle = paddle, seg = seg,
     key.position = key.position, key.footer = key.footer, key = key,
-    breaks = breaks, normalise = normalise, ...
+    breaks = breaks, normalise = normalise, plot = plot, ...
   )
 }
 
@@ -83,22 +84,6 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##' will show the bias in polar coordinates. In its default use, wind
 ##' direction bias is colour-coded to show negative bias in one colour
 ##' and positive bias in another.
-##'
-##' @usage windRose(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
-##'   ws.int = 2, angle = 30, type = "default", bias.corr = TRUE, cols
-##'   = "default", grid.line = NULL, width = 1, seg = NULL, auto.text
-##'   = TRUE, breaks = 4, offset = 10, normalise = FALSE, max.freq =
-##'   NULL, paddle = TRUE, key.header = NULL, key.footer = "(m/s)",
-##'   key.position = "bottom", key = TRUE, dig.lab = 5, include.lowest = FALSE,
-##'   statistic =
-##'   "prop.count", pollutant = NULL, annotate = TRUE, angle.scale =
-##'   315, border = NA, ...)
-##'
-##'
-##'   pollutionRose(mydata, pollutant = "nox", key.footer = pollutant,
-##'   key.position = "right", key = TRUE, breaks = 6, paddle = FALSE,
-##'   seg = 0.9, normalise = FALSE, ...)
-##'
 ##'
 ##' @aliases windRose pollutionRose
 ##' @param mydata A data frame containing fields \code{ws} and
@@ -234,6 +219,9 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 ##'   direction.
 ##' @param border Border colour for shaded areas. Default is no
 ##'   border.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... For \code{pollutionRose} other parameters that are
 ##'   passed on to \code{windRose}. For \code{windRose} other
 ##'   parameters that are passed on to \code{drawOpenKey},
@@ -342,9 +330,10 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                      key.footer = "(m/s)", key.position = "bottom",
                      key = TRUE, dig.lab = 5, include.lowest = FALSE, statistic = "prop.count",
                      pollutant = NULL, annotate = TRUE, angle.scale = 315, border = NA,
+                     plot = TRUE,
                      ...) {
   if (is.null(seg)) seg <- 0.9
-
+  
   ## greyscale handling
   if (length(cols) == 1 && cols == "greyscale") {
     trellis.par.set(list(strip.background = list(col = "white")))
@@ -353,20 +342,20 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   } else {
     calm.col <- "forestgreen"
   }
-
+  
   ## set graphics
   current.strip <- trellis.par.get("strip.background")
   current.font <- trellis.par.get("fontsize")
-
+  
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+    
     fontsize = current.font
   ))
-
+  
   # make sure ws and wd and numeric
   mydata <- checkNum(mydata, vars = c(ws, wd))
-
+  
   if (360 / angle != round(360 / angle)) {
     warning(
       "In windRose(...):\n  angle will produce some spoke overlap",
@@ -382,10 +371,10 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     )
     angle <- 3
   }
-
+  
   ## extra args setup
   extra <- list(...)
-
+  
   ## label controls
   extra$xlab <- if ("xlab" %in% names(extra)) {
     quickText(extra$xlab, auto.text)
@@ -402,18 +391,18 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   } else {
     quickText("", auto.text)
   }
-
+  
   if ("fontsize" %in% names(extra)) {
     trellis.par.set(fontsize = list(text = extra$fontsize))
   }
-
-
+  
+  
   ## preset statitistics
-
+  
   if (is.character(statistic)) {
     ## allowed cases
     ok.stat <- c("prop.count", "prop.mean", "abs.count", "frequency")
-
+    
     if (!is.character(statistic) || !statistic[1] %in% ok.stat) {
       warning(
         "In windRose(...):\n  statistic unrecognised",
@@ -422,7 +411,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       )
       statistic <- "prop.count"
     }
-
+    
     if (statistic == "prop.count") {
       stat.fun <- length
       stat.unit <- "%"
@@ -432,7 +421,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       stat.lab2 <- "mean"
       stat.labcalm <- function(x) round(x, 1)
     }
-
+    
     if (statistic == "prop.mean") {
       stat.fun <- function(x) sum(x, na.rm = TRUE)
       stat.unit <- "%"
@@ -442,7 +431,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       stat.lab2 <- "mean"
       stat.labcalm <- function(x) round(x, 1)
     }
-
+    
     if (statistic == "abs.count" | statistic == "frequency") {
       stat.fun <- length
       stat.unit <- ""
@@ -453,17 +442,17 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       stat.labcalm <- function(x) round(x, 0)
     }
   }
-
+  
   if (is.list(statistic)) {
-
+    
     ## IN DEVELOPMENT
-
+    
     ## this section has no testing/protection
     ## but allows users to supply a function
     ## scale it by total data or panel
     ## convert proportions to percentage
     ## label it
-
+    
     stat.fun <- statistic$fun
     stat.unit <- statistic$unit
     stat.scale <- statistic$scale
@@ -472,13 +461,13 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     stat.lab2 <- statistic$lab2
     stat.labcalm <- statistic$labcalm
   }
-
+  
   ## variables we need
   vars <- c(wd, ws)
-
+  
   diff <- FALSE ## i.e. not two sets of ws/wd
   rm.neg <- TRUE ## will remove negative ws in check.prep
-
+  
   ## case where two met data sets are to be compared
   if (!is.na(ws2) & !is.na(wd2)) {
     vars <- c(vars, ws2, wd2)
@@ -486,11 +475,11 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     rm.neg <- FALSE
     mydata$ws <- mydata[[ws2]] - mydata[[ws]]
     mydata$wd <- mydata[[wd2]] - mydata[[wd]]
-
+    
     ## fix negative wd
     id <- which(mydata$wd < 0)
     if (length(id) > 0) mydata$wd[id] <- mydata$wd[id] + 360
-
+    
     pollutant <- "ws"
     key.footer <- "ws"
     wd <- "wd"
@@ -506,52 +495,52 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       ))))
       breaks <- c(-1 * max.br, 0, max.br)
     }
-
+    
     if (missing(cols)) cols <- c("lightskyblue", "tomato")
     seg <- 1
   }
-
+  
   if (any(type %in% dateTypes)) vars <- c(vars, "date")
-
+  
   if (!is.null(pollutant)) vars <- c(vars, pollutant)
-
+  
   mydata <- cutData(mydata, type, ...)
-
-
+  
+  
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE, remove.neg = rm.neg)
-
+  
   # original data to use later
   mydata_orig <- mydata
-
+  
   # remove lines where ws is missing
   # wd can be NA and ws 0 (calm)
   id <- which(is.na(mydata[[ws]]))
-
+  
   if (length(id) > 0) {
     mydata <- mydata[-id, ]
   }
-
+  
   if (is.null(pollutant)) pollutant <- ws
-
+  
   mydata$x <- mydata[[pollutant]]
-
+  
   mydata[[wd]] <- angle * ceiling(mydata[[wd]] / angle - 0.5)
   mydata[[wd]][mydata[[wd]] == 0] <- 360
-
+  
   ## flag calms as negatives
   mydata[[wd]][mydata[, ws] == 0] <- -999 ## set wd to flag where there are calms
   ## do after rounding or -999 changes
-
+  
   if (length(breaks) == 1) breaks <- 0:(breaks - 1) * ws.int
-
+  
   if (max(breaks) < max(mydata$x, na.rm = TRUE)) {
     breaks <- c(breaks, max(mydata$x, na.rm = TRUE))
   }
-
+  
   if (min(breaks) > min(mydata$x, na.rm = TRUE)) {
     warning("Some values are below minimum break.")
   }
-
+  
   breaks <- unique(breaks)
   mydata$x <- cut(
     mydata$x,
@@ -559,17 +548,17 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     include.lowest = include.lowest,
     dig.lab = dig.lab
   )
-
+  
   ## clean up cut intervals
   labs <- gsub("[(]|[)]|[[]|[]]", "", levels(mydata$x))
   labs <- gsub("[,]", " to ", labs)
-
-
-
+  
+  
+  
   ## statistic handling
-
+  
   prepare.grid <- function(mydata) {
-
+    
     ## these are all calms...
     if (all(is.na(mydata$x))) {
       weights <- tibble(
@@ -578,46 +567,46 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       )
     } else {
       levels(mydata$x) <- c(paste("Interval", 1:length(labs), sep = ""))
-
+      
       all <- stat.fun(mydata[[wd]])
       calm <- mydata[mydata[[wd]] == -999, ][[pollutant]]
-
+      
       calm <- stat.fun(calm)
-
+      
       weights <- tapply(
         mydata[[pollutant]], list(mydata[[wd]], mydata$x),
         stat.fun
       )
-
+      
       freqs <- tapply(mydata[[pollutant]], mydata[[wd]], length)
-
+      
       ## scaling
       if (stat.scale == "all") {
         calm <- calm / all
         weights <- weights / all
       }
-
+      
       if (stat.scale == "panel") {
         temp <- stat.fun(stat.fun(weights)) + calm
         calm <- calm / temp
         weights <- weights / temp
       }
-
+      
       weights[is.na(weights)] <- 0
       weights <- t(apply(weights, 1, cumsum))
-
+      
       if (stat.scale == "all" | stat.scale == "panel") {
         weights <- weights * 100
         calm <- calm * 100
       }
-
+      
       panel.fun <- stat.fun2(mydata[[pollutant]])
-
+      
       ## calculate mean wd - useful for cases comparing two met data sets
       u <- mean(sin(2 * pi * mydata[[wd]] / 360), na.rm = TRUE)
       v <- mean(cos(2 * pi * mydata[[wd]] / 360), na.rm = TRUE)
       mean.wd <- atan2(u, v) * 360 / 2 / pi
-
+      
       if (all(is.na(mean.wd))) {
         mean.wd <- NA
       } else {
@@ -625,7 +614,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
         ## show as a negative (bias)
         if (mean.wd > 180) mean.wd <- mean.wd - 360
       }
-
+      
       weights <- bind_cols(
         as_tibble(weights),
         tibble(
@@ -635,10 +624,10 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
         )
       )
     }
-
+    
     weights
   }
-
+  
   if (paddle) {
     poly <- function(wd, len1, len2, width, colour, x.off = 0, y.off = 0) {
       theta <- wd * pi / 180
@@ -663,7 +652,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
                      y.off = 0) {
       len1 <- len1 + off.set
       len2 <- len2 + off.set
-
+      
       theta <- seq(
         (wd - seg * angle / 2), (wd + seg * angle / 2),
         length.out = (angle - 2) * 10
@@ -677,23 +666,23 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
       lpolygon(c(x1, x2), c(y1, y2), col = colour, border = border)
     }
   }
-
-
+  
+  
   results <- mydata %>% 
     group_by(across(type)) %>%
     do(prepare.grid(.))
-
+  
   ## format
   results$calm <- stat.labcalm(results$calm)
   results$mean.wd <- stat.labcalm(results$mean.wd)
-
+  
   # function to correct bias
   corr_bias <- function(results) {
-
+    
     # check to see if data for this type combination are rounded to 10 degrees
     wd_select <- inner_join(mydata_orig, results[1, type], by = type)
     if (!all(wd_select[[wd]] %% 10 == 0, na.rm = TRUE)) return(results)
-
+    
     wds <- seq(10, 360, 10)
     tmp <- angle * ceiling(wds / angle - 0.5)
     id <- which(tmp == 0)
@@ -706,54 +695,54 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     
     if (n_data > 0) {
       
-    results[results[["wd"]] != -999, vars] <-
-      results[results[["wd"]] != -999, vars] * mean(tmp) / tmp
+      results[results[["wd"]] != -999, vars] <-
+        results[results[["wd"]] != -999, vars] * mean(tmp) / tmp
     }
     
     return(results)
   }
-
+  
   ## correction for bias when angle does not divide exactly into 360
   if (bias.corr) {
     results <- results %>% 
       group_by(across(type)) %>%
       do(corr_bias(.))
   }
-
-
-
+  
+  
+  
   ## proper names of labelling###########################################
   strip.dat <- strip.fun(results, type, auto.text)
   strip <- strip.dat[[1]]
   strip.left <- strip.dat[[2]]
   pol.name <- strip.dat[[3]]
-
+  
   if (length(labs) < length(cols)) {
     col <- cols[1:length(labs)]
   } else {
     col <- openColours(cols, length(labs))
   }
-
+  
   ## normalise by sector
-
+  
   if (normalise) {
     vars <- grep("Interval[1-9]", names(results))
-
+    
     ## original frequencies, so we can plot the wind frequency line
     results$freq <- results[[max(vars)]]
-
+    
     results$freq <- ave(results$freq, results[type], FUN = function(x) x / sum(x))
-
+    
     ## scale by maximum frequency
     results$norm <- results$freq / max(results$freq)
-
+    
     ## normalise
     results[, vars] <- results[, vars] / results[[max(vars)]]
-
+    
     stat.lab <- "Normalised by wind sector"
     stat.unit <- ""
   }
-
+  
   if (is.null(max.freq)) {
     max.freq <- max(
       results[results$wd != -999, grep("Interval", names(results))],
@@ -762,14 +751,14 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   } else {
     max.freq <- max.freq
   }
-
+  
   off.set <- max.freq * (offset / 100)
   box.widths <- seq(
     0.002 ^ 0.25, 0.016 ^ 0.25,
     length.out = length(labs)
   ) ^ 4
   box.widths <- box.widths * max.freq * angle / 5
-
+  
   ## key, colorkey, legend
   legend <- list(
     col = col, space = key.position, auto.text = auto.text,
@@ -777,32 +766,32 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     height = 0.60, width = 1.5, fit = "scale",
     plot.style = if (paddle) "paddle" else "other"
   )
-
+  
   legend <- makeOpenKeyLegend(key, legend, "windRose")
-
-
+  
+  
   temp <- paste(type, collapse = "+")
   myform <- formula(paste("Interval1 ~ wd | ", temp, sep = ""))
-
+  
   # maximum annotation that covers the data
   mymax <- max(pretty(c(0, max.freq), 4))
   
   # check to see if grid.line is a list or not and set grid line properties
   grid.value <- NULL
-
+  
   if (is.list(grid.line)) {
     if (is.null(grid.line[["value"]])) {
       grid.value <- NULL
     } else {
       grid.value <- grid.line[["value"]]
     }
-
+    
     if (is.null(grid.line[["lty"]])) {
       grid.lty <- 1
     } else {
       grid.lty <- grid.line[["lty"]]
     }
-
+    
     if (is.null(grid.line[["col"]])) {
       grid.col <- "grey85"
     } else {
@@ -813,14 +802,14 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     grid.lty <- 1
     grid.col <- "grey85"
   }
-
+  
   myby <- if (is.null(grid.value)) pretty(c(0, mymax), 4)[2] else grid.value
-
+  
   if (myby / mymax > 0.9) myby <- mymax * 0.9
-
+  
   is_annotated <- !(annotate %in% c(FALSE, NA, NaN)) &&   !is.null(annotate)
   if (is_annotated) sub <- stat.lab else sub <- NULL
-
+  
   xy.args <- list(
     x = myform,
     xlim = 1.03 * c(-max.freq - off.set, max.freq + off.set),
@@ -834,17 +823,17 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     aspect = 1,
     par.strip.text = list(cex = 0.8),
     scales = list(draw = FALSE),
-
+    
     panel = function(x, y, subscripts, ...) {
       panel.xyplot(x, y, ...)
       angles <- seq(0, 2 * pi, length = 360)
       sapply(
         seq(off.set, mymax + off.set, by = myby),
         function(x) llines(
-            x * sin(angles), x * cos(angles),
-            col = grid.col, lwd = 1,
-            lty = grid.lty
-          )
+          x * sin(angles), x * cos(angles),
+          col = grid.col, lwd = 1,
+          lty = grid.lty
+        )
       )
       
       dat <- results[subscripts, ] ## subset of data
@@ -915,9 +904,9 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
           
           annotate <- c("mean_ws" , "mean_wd")
           annotations_to_place <- paste0(
-          mean_ws = paste("mean ws = ", round(as.numeric(dat$panel.fun[1]), 1)),
-          "\n",
-          mean_wd = paste("mean wd = ", round(dat$mean.wd[1], 1))
+            mean_ws = paste("mean ws = ", round(as.numeric(dat$panel.fun[1]), 1)),
+            "\n",
+            mean_wd = paste("mean wd = ", round(dat$mean.wd[1], 1))
           )
         }
         
@@ -949,13 +938,14 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   
   ## output ################################################################################
   
-  if (length(type) == 1) {
-    plot(plt)
-  } else {
-    plt <- useOuterStrips(plt, strip = strip, strip.left = strip.left)
-    plot(plt)
+  if (plot) {
+    if (length(type) == 1) {
+      plot(plt)
+    } else {
+      plt <- useOuterStrips(plt, strip = strip, strip.left = strip.left)
+      plot(plt)
+    }
   }
-  
   
   newdata <- results
   

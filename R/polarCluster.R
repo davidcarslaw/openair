@@ -93,6 +93,9 @@
 ##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
 ##'   \code{TRUE} titles and axis labels will automatically try and format
 ##'   pollutant names and units properly e.g.  by subscripting the `2' in NO2.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... Other graphical parameters passed onto \code{polarPlot},
 ##'   \code{lattice:levelplot} and \code{cutData}. Common axis and title
 ##'   labelling options (such as \code{xlab}, \code{ylab}, \code{main}) are
@@ -157,7 +160,7 @@
 polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clusters = 6,
                          after = NA,
                          cols = "Paired", angle.scale = 315, units = x, 
-                         auto.text = TRUE, ...) {
+                         auto.text = TRUE, plot = TRUE, ...) {
 
   ## avoid R check annoyances
   u <- v <- z <- strip <- strip.left <- NULL
@@ -236,6 +239,7 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
     
     results.grid <- polarDiff(before = mydata,
                               after = after,
+                              plot = FALSE,
                               pollutant = pollutant,
                               cluster = TRUE, ...)$data
     
@@ -243,7 +247,8 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
     
   } else {
     
-    results.grid <- polarPlot(mydata,
+    results.grid <- polarPlot(mydata, 
+                              plot = FALSE,
                               pollutant = pollutant, x = x,
                               cluster = TRUE, ...
     )$data
@@ -438,20 +443,29 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
   plt <- do.call(levelplot, levelplot.args)
 
   ## output ################################################################
-
-  if (length(type) == 1L) plot(plt) else plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
-
+  if (plot) {
+    if (length(type) == 1L)
+      plot(plt)
+    else
+      plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+  }
   ## change cluster output to C1, C2 etc
   mydata$cluster <- paste("C", mydata$cluster, sep = "")
 
   if (is.data.frame(after)) {
-    
-    output <- list(plot = plt, data = results, after = after, call = match.call())
+    output <-
+      list(
+        plot = plt,
+        data = results,
+        after = after,
+        call = match.call()
+      )
     
   } else {
+    output <- list(plot = plt,
+                   data = results,
+                   call = match.call())
     
-  output <- list(plot = plt, data = results, call = match.call())
-  
   }
   invisible(output)
 }

@@ -32,6 +32,7 @@ timePlot(
   date.breaks = 7,
   date.format = NULL,
   auto.text = TRUE,
+  plot = TRUE,
   ...
 )
 }
@@ -222,6 +223,10 @@ example, to format the date like \dQuote{Jan-2012} set
 \code{TRUE} titles and axis labels will automatically try and
 format pollutant names and units properly e.g.  by subscripting
 the \sQuote{2} in NO2.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters are passed onto
 \code{cutData} and \code{lattice:xyplot}. For example,

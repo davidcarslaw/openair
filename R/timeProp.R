@@ -92,6 +92,9 @@
 ##'   \code{TRUE} titles and axis labels etc. will automatically try
 ##'   and format pollutant names and units properly e.g.  by
 ##'   subscripting the `2' in NO2.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... Other graphical parameters passed onto \code{timeProp}
 ##'   and \code{cutData}. For example, \code{timeProp} passes the
 ##'   option \code{hemisphere = "southern"} on to \code{cutData} to
@@ -121,7 +124,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
                      normalise = FALSE, cols = "Set1", date.breaks = 7,
                      date.format = NULL, key.columns = 1,
                      key.position = "right", key.title = proportion,
-                     auto.text = TRUE, ...) {
+                     auto.text = TRUE, plot = TRUE, ...) {
 
   ## keep check happy
   sums <- NULL
@@ -348,7 +351,7 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
     x.limits = xlim, y.limits = ylim, main = main
   ))
 
-  print(plt)
+  if (plot) print(plt)
 
   invisible(trellis.last.object())
 

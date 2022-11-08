@@ -204,6 +204,9 @@
 ##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
 ##'   \code{TRUE} titles and axis labels will automatically try and format
 ##'   pollutant names and units properly e.g.  by subscripting the \sQuote{2} in NO2.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... Other graphical parameters are passed onto
 ##' \code{cutData} and an appropriate \code{lattice} plot function
 ##' (\code{xyplot}, \code{levelplot} or \code{hexbinplot} depending on
@@ -324,7 +327,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
                         log.x = FALSE, log.y = FALSE, x.inc = NULL, y.inc = NULL,
                         limits = NULL, windflow = NULL, y.relation = "same", x.relation = "same",
                         ref.x = NULL, ref.y = NULL, k = NA, dist = 0.02,
-                        map = FALSE, auto.text = TRUE, ...) {
+                        map = FALSE, auto.text = TRUE, plot = TRUE, ...) {
 
   ## basic function to plot single/multiple time series in flexible waysproduce scatterPlot
   ## Author: David Carslaw 27 Jan. 10
@@ -1655,11 +1658,12 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     plt <- do.call(levelplot, levelplot.args)
   }
 
-
-  if (length(type) == 1) {
-    plot(plt)
-  } else {
-    plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+  if (plot) {
+    if (length(type) == 1) {
+      plot(plt)
+    } else {
+      plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+    }
   }
 
   newdata <- mydata

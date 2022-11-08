@@ -18,6 +18,7 @@ timeProp(
   key.position = "right",
   key.title = proportion,
   auto.text = TRUE,
+  plot = TRUE,
   ...
 )
 }
@@ -106,6 +107,10 @@ Allowed arguments currently include \dQuote{top},
 \code{TRUE} titles and axis labels etc. will automatically try
 and format pollutant names and units properly e.g.  by
 subscripting the `2' in NO2.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters passed onto \code{timeProp}
 and \code{cutData}. For example, \code{timeProp} passes the

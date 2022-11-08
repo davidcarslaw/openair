@@ -16,6 +16,7 @@ linearRelation(
   auto.text = TRUE,
   cols = "grey30",
   date.breaks = 5,
+  plot = TRUE,
   ...
 )
 }
@@ -75,6 +76,10 @@ being considered.  This does not always work as desired
 automatically. The user can therefore increase or decrease the
 number of intervals by adjusting the value of
 \code{date.breaks} up or down.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters. A useful one to remove the
 strip with the date range on at the top of the plot is to set

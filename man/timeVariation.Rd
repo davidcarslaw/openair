@@ -26,6 +26,7 @@ timeVariation(
   auto.text = TRUE,
   alpha = 0.4,
   month.last = FALSE,
+  plot = TRUE,
   ...
 )
 }
@@ -158,6 +159,10 @@ NO2.}
 \item{month.last}{Should the order of the plots be changed so the plot 
 showing monthly means be the last plot for a logical hierarchy of 
 averaging periods?}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters passed onto \code{lattice:xyplot} and
 \code{cutData}. For example, in the case of \code{cutData} the option

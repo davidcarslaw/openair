@@ -24,6 +24,7 @@ polarFreq(
   key.position = "right",
   key = TRUE,
   auto.text = TRUE,
+  plot = TRUE,
   ...
 )
 }
@@ -138,6 +139,10 @@ and \code{"left"}.}
 \code{TRUE} titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the \sQuote{2}
 in NO2.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{\dots}{Other graphical parameters passed onto \code{lattice:xyplot}
 and \code{cutData}. For example, \code{polarFreq} passes the option

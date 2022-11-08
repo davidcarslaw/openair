@@ -159,6 +159,9 @@
 ##' @param grid.col The colour of the map grid to be used. To remove the grid
 ##'   set \code{grid.col = "transparent"}.
 ##' @param origin should the receptor origin be shown by a black dot?
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... other arguments are passed to \code{cutData} and
 ##'   \code{scatterPlot}. This provides access to arguments used in both these
 ##'   functions and functions that they in turn pass arguments on to. For
@@ -224,7 +227,7 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
                       map.fill = TRUE, map.res = "default", map.cols = "grey40",
                       map.alpha = 0.3, projection = "lambert",
                       parameters = c(51, 51), orientation = c(90, 0, 0),
-                      grid.col = "deepskyblue", origin = TRUE, ...) {
+                      grid.col = "deepskyblue", origin = TRUE, plot = TRUE, ...) {
   
   ## mydata can be a list of several trajectory files; in which case combine them
   ## before averaging
@@ -562,11 +565,12 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
   
   ## reset for Args
   scatterPlot.args <- listUpdate(scatterPlot.args, Args)
+  scatterPlot.args <- listUpdate(scatterPlot.args, list(plot = plot))
   
   ## plot
-  do.call(scatterPlot, scatterPlot.args)
+  plt <- do.call(scatterPlot, scatterPlot.args)
   
-  output <- list(data = mydata, call = match.call())
+  output <- list(plot = plt$plot, data = mydata, call = match.call())
   class(output) <- "openair"
   
   invisible(output)

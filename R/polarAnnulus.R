@@ -177,6 +177,9 @@
 ##'   \code{TRUE} titles and axis labels will automatically try and format
 ##'   pollutant names and units properly e.g.  by subscripting the \sQuote{2}
 ##'   in NO2.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... Other graphical parameters passed onto \code{lattice:levelplot}
 ##'   and \code{cutData}. For example, \code{polarAnnulus} passes the option
 ##'   \code{hemisphere = "southern"} on to \code{cutData} to provide southern
@@ -229,7 +232,7 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
                          k = c(20, 10), normalise = FALSE,
                          key.header = "", key.footer = pollutant,
                          key.position = "right", key = TRUE,
-                         auto.text = TRUE, ...) {
+                         auto.text = TRUE, plot = TRUE, ...) {
 
   ## get rid of R check annoyances
   wd <- u <- v <- z <- all.dates <- NULL
@@ -761,7 +764,13 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
   #################
   # output
   #################
-  if (length(type) == 1) plot(plt) else plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+  if (plot) {
+    if (length(type) == 1) {
+      plot(plt) 
+    } else {
+      plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+    }
+  }
   newdata <- results.grid
   output <- list(plot = plt, data = newdata, call = match.call())
   class(output) <- "openair"

@@ -15,6 +15,7 @@ polarCluster(
   angle.scale = 315,
   units = x,
   auto.text = TRUE,
+  plot = TRUE,
   ...
 )
 }
@@ -64,6 +65,10 @@ direction.}
 \item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
 \code{TRUE} titles and axis labels will automatically try and format
 pollutant names and units properly e.g.  by subscripting the `2' in NO2.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters passed onto \code{polarPlot},
 \code{lattice:levelplot} and \code{cutData}. Common axis and title

@@ -122,6 +122,9 @@
 ##'   default, \code{TRUE}, excludes these empty panels from the plot. The
 ##'   alternative \code{FALSE} plots all \code{type} panels.
 ##' @param col.na Colour to be used to show missing data.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ...  Addition options are passed on to \code{cutData} for
 ##'   \code{type} handling and \code{levelplot} in \code{lattice} for finer
 ##'   control of the plot itself.
@@ -177,7 +180,7 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
                        breaks = NA,
                        statistic = c("mean", "max", "frequency"),
                        stat.args = NULL, stat.safe.mode = TRUE, drop.unused.types = TRUE,
-                       col.na = "white",
+                       col.na = "white", plot = TRUE, 
                        ...) {
 
   ## greyscale handling
@@ -682,7 +685,7 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
   ## ############################
   ## openair output
   ## ############################
-  plot(plt)
+  if (plot) plot(plt)
 
   output <- list(plot = plt, data = newdata, call = match.call())
   class(output) <- "openair"

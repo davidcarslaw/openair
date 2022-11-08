@@ -26,7 +26,6 @@
 ##'   back trajectories. There are two methods available:
 ##'   \dQuote{Euclid} and \dQuote{Angle}.
 ##' @param n.cluster Number of clusters to calculate.
-##' @param plot Should a plot be produced?
 ##' @param type \code{type} determines how the data are split i.e.
 ##'   conditioned, and then plotted. The default is will produce a
 ##'   single plot using the entire data. Type can be one of the
@@ -80,6 +79,9 @@
 ##'   will make each panel add up to 100.
 ##' @param origin If \code{TRUE} a filled circle dot is shown to mark the
 ##'     receptor point.
+##' @param plot Should a plot be produced? \code{FALSE} can be useful when
+##'   analysing data to extract plot components and plotting them in other
+##'   ways.
 ##' @param ... Other graphical parameters passed onto
 ##'   \code{lattice:levelplot} and \code{cutData}. Similarly, common
 ##'   axis and title labelling options (such as \code{xlab},
@@ -113,22 +115,22 @@
 ##' traj <- trajCluster(traj, method = "Angle", type = "season", n.cluster = 4)
 ##' }
 trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
-                        plot = TRUE, type = "default",
+                        type = "default",
                         cols = "Set1", split.after = FALSE, map.fill = TRUE,
                         map.cols = "grey40", map.alpha = 0.4,
                         projection = "lambert",
                         parameters = c(51, 51), orientation = c(90, 0, 0),
-                        by.type = FALSE, origin = TRUE, ...) {
-
+                        by.type = FALSE, origin = TRUE, plot = TRUE, ...) {
+  
   # silence R check
   freq <- hour.inc <- default <- NULL
-
+  
   if (tolower(method) == "euclid") {
     method <- "distEuclid"
   } else {
     method <- "distAngle"
   }
-
+  
   # remove any missing lat/lon
   traj <- filter(traj, !is.na(lat), !is.na(lon))
   
@@ -145,17 +147,17 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
   }
   
   Args <- list(...)
-
+  
   ## set graphics
   current.strip <- trellis.par.get("strip.background")
   current.font <- trellis.par.get("fontsize")
-
+  
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+    
     fontsize = current.font
   ))
-
+  
   ## label controls
   Args$plot.type <- if ("plot.type" %in% names(Args)) {
     Args$plot.type
@@ -167,65 +169,65 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
   } else {
     Args$lwd <- 4
   }
-
+  
   if ("fontsize" %in% names(Args)) {
     trellis.par.set(fontsize = list(text = Args$fontsize))
   }
-
+  
   calcTraj <- function(traj) {
-
+    
     ## make sure ordered correctly
     traj <- traj[order(traj$date, traj$hour.inc), ]
-
+    
     ## length of back trajectories
     traj <- group_by(traj, date) %>%
       mutate(len = length(date))
-
+    
     ## find length of back trajectories
     ## 96-hour back trajectories with origin: length should be 97
     n <- max(abs(traj$hour.inc)) + 1
-
+    
     traj <- subset(traj, len == n)
     len <- nrow(traj) / n
-
+    
     ## lat/lon input matrices
     x <- matrix(traj$lon, nrow = n)
     y <- matrix(traj$lat, nrow = n)
-
+    
     z <- matrix(0, nrow = n, ncol = len)
     res <- matrix(0, nrow = len, ncol = len)
-
+    
     if (method == "distEuclid") {
       res <- .Call("distEuclid", x, y, res)
     }
-
+    
     if (method == "distAngle") {
       res <- .Call("distAngle", x, y, res)
     }
-
+    
     res[is.na(res)] <- 0 ## possible for some to be NA if trajectory does not move between two hours?
-
+    
     dist.res <- as.dist(res)
     clusters <- pam(dist.res, n.cluster)
     cluster <- rep(clusters$clustering, each = n)
     traj$cluster <- as.character(paste("C", cluster, sep = ""))
     traj
   }
-
+  
   ## this bit decides whether to separately calculate trajectories for each level of type
-
+  
   if (split.after) {
     traj <- group_by(traj, default) %>%
       do(calcTraj(.))
     traj <- cutData(traj, type)
   } else {
     traj <- cutData(traj, type)
-
+    
     traj <- traj %>% 
       group_by(across(type)) %>%
       do(calcTraj(.))
   }
-
+  
   # trajectory origin
   origin_xy <- head(subset(traj, hour.inc == 0), 1) ## origin
   tmp <- mapproject(
@@ -236,92 +238,90 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     orientation = orientation
   )
   receptor <- c(tmp$x, tmp$y)
-
-  if (plot) {
-    ## calculate the mean trajectories by cluster
-
-    vars <- c("lat", "lon", "date", "cluster", "hour.inc", type)
-    vars2 <- c("cluster", "hour.inc", type)
-
-    agg <- select(traj, vars) %>%
-      group_by(across(vars2)) %>%
-      summarise(across(everything(), mean))
-
-    # the data frame we want to return before it is transformed
-    resRtn <- agg
-
-    ## proportion of total clusters
-
-    vars <- c(type, "cluster")
-
-    clusters <- traj %>% 
-      group_by(across(vars)) %>%
-      tally() %>%
-      mutate(freq = round(100 * n / sum(n), 1))
-
-    ## make each panel add up to 100
-    if (by.type) {
-      clusters <- clusters %>% 
-        group_by(across(type)) %>%
-        mutate(freq = 100 * freq / sum(freq))
-
-      clusters$freq <- round(clusters$freq, 1)
-    }
-
-    ## make sure date is in correct format
-    class(agg$date) <- class(traj$date)
-    attr(agg$date, "tzone") <- "GMT"
-
-    ## xlim and ylim set by user
-    if (!"xlim" %in% names(Args)) {
-      Args$xlim <- range(agg$lon)
-    }
-
-    if (!"ylim" %in% names(Args)) {
-      Args$ylim <- range(agg$lat)
-    }
-
-    ## extent of data (or limits set by user) in degrees
-    trajLims <- c(Args$xlim, Args$ylim)
-
-    ## need *outline* of boundary for map limits
-    Args <- setTrajLims(traj, Args, projection, parameters, orientation)
-
-    ## transform data for map projection
-    tmp <- mapproject(
-      x = agg[["lon"]],
-      y = agg[["lat"]],
-      projection = projection,
-      parameters = parameters,
-      orientation = orientation
-    )
-    agg[["lon"]] <- tmp$x
-    agg[["lat"]] <- tmp$y
-
-    plot.args <- list(
-      agg,
-      x = "lon", y = "lat", group = "cluster",
-      col = cols, type = type, map = TRUE, map.fill = map.fill,
-      map.cols = map.cols, map.alpha = map.alpha,
-      projection = projection, parameters = parameters,
-      orientation = orientation, traj = TRUE, trajLims = trajLims,
-      clusters = clusters, receptor = receptor,
-      origin = origin
-    )
-
-    ## reset for Args
-    plot.args <- listUpdate(plot.args, Args)
-
-    ## plot
-    plt <- do.call(scatterPlot, plot.args)
+  
+  ## calculate the mean trajectories by cluster
+  
+  vars <- c("lat", "lon", "date", "cluster", "hour.inc", type)
+  vars2 <- c("cluster", "hour.inc", type)
+  
+  agg <- select(traj, vars) %>%
+    group_by(across(vars2)) %>%
+    summarise(across(everything(), mean))
+  
+  # the data frame we want to return before it is transformed
+  resRtn <- agg
+  
+  ## proportion of total clusters
+  
+  vars <- c(type, "cluster")
+  
+  clusters <- traj %>% 
+    group_by(across(vars)) %>%
+    tally() %>%
+    mutate(freq = round(100 * n / sum(n), 1))
+  
+  ## make each panel add up to 100
+  if (by.type) {
+    clusters <- clusters %>% 
+      group_by(across(type)) %>%
+      mutate(freq = 100 * freq / sum(freq))
     
-    ## create output with plot
-    output <- list(plot = plt, data = list(traj = traj, results = resRtn), call = match.call())
-    class(output) <- "openair"
-    invisible(output)
-  } else {
-    ## create output without plot
-    return(traj)
+    clusters$freq <- round(clusters$freq, 1)
   }
-
+  
+  ## make sure date is in correct format
+  class(agg$date) <- class(traj$date)
+  attr(agg$date, "tzone") <- "GMT"
+  
+  ## xlim and ylim set by user
+  if (!"xlim" %in% names(Args)) {
+    Args$xlim <- range(agg$lon)
+  }
+  
+  if (!"ylim" %in% names(Args)) {
+    Args$ylim <- range(agg$lat)
+  }
+  
+  ## extent of data (or limits set by user) in degrees
+  trajLims <- c(Args$xlim, Args$ylim)
+  
+  ## need *outline* of boundary for map limits
+  Args <- setTrajLims(traj, Args, projection, parameters, orientation)
+  
+  ## transform data for map projection
+  tmp <- mapproject(
+    x = agg[["lon"]],
+    y = agg[["lat"]],
+    projection = projection,
+    parameters = parameters,
+    orientation = orientation
+  )
+  agg[["lon"]] <- tmp$x
+  agg[["lat"]] <- tmp$y
+  
+  plot.args <- list(
+    agg,
+    x = "lon", y = "lat", group = "cluster",
+    col = cols, type = type, map = TRUE, map.fill = map.fill,
+    map.cols = map.cols, map.alpha = map.alpha,
+    projection = projection, parameters = parameters,
+    orientation = orientation, traj = TRUE, trajLims = trajLims,
+    clusters = clusters, receptor = receptor,
+    origin = origin
+  )
+  
+  ## reset for Args
+  plot.args <- listUpdate(plot.args, Args)
+  
+  plot.args <- listUpdate(plot.args, list(plot = plot))
+  
+  ## plot
+  plt <- do.call(scatterPlot, plot.args)
+  
+  ## create output with plot
+  output <- list(plot = plt, data = list(traj = traj, results = resRtn), call = match.call())
+  class(output) <- "openair"
+  invisible(output)
+  
+  
 }

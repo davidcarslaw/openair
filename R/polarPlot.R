@@ -331,6 +331,10 @@
 #' @param tau The quantile to be estimated when \code{statistic} is set to
 #'   \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
 #'   and will be ignored if \code{"quantile.slope"} is not used.
+#'   
+#' @param plot Should a plot be produced? \code{FALSE} can be useful when
+#'   analysing data to extract plot components and plotting them in other
+#'   ways.
 #'
 #' @param ... Other graphical parameters passed onto \code{lattice:levelplot}
 #'   and \code{cutData}. For example, \code{polarPlot} passes the option
@@ -456,7 +460,7 @@ polarPlot <-
            key.header = "", key.footer = pollutant, key.position = "right",
            key = TRUE, auto.text = TRUE, ws_spread = 1.5, wd_spread = 5,
            x_error = NA, y_error = NA,
-           kernel = "gaussian", tau = 0.5, ...) {
+           kernel = "gaussian", tau = 0.5, plot = TRUE, ...) {
 
     ## get rid of R check annoyances
     z <- . <- NULL
@@ -1184,14 +1188,14 @@ polarPlot <-
 
     plt <- do.call(levelplot, Args)
 
-    if (length(type) == 1) {
-      plot(plt)
-    } else {
-      plot(useOuterStrips(
-        plt,
-        strip = strip,
-        strip.left = strip.left
-      ))
+    if (plot) {
+      if (length(type) == 1) {
+        plot(plt)
+      } else {
+        plot(useOuterStrips(plt,
+                            strip = strip,
+                            strip.left = strip.left))
+      }
     }
 
     newdata <- res

@@ -28,6 +28,7 @@ trajLevel(
   orientation = c(90, 0, 0),
   grid.col = "deepskyblue",
   origin = TRUE,
+  plot = TRUE,
   ...
 )
 }
@@ -160,6 +161,10 @@ of the longitude coordinates in the map.}
 set \code{grid.col = "transparent"}.}
 
 \item{origin}{should the receptor origin be shown by a black dot?}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{other arguments are passed to \code{cutData} and
 \code{scatterPlot}. This provides access to arguments used in both these

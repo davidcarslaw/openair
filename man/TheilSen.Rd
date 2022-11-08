@@ -170,7 +170,7 @@ have more control. For format types see \code{strptime}. For
 example, to format the date like \dQuote{Jan-2012} set
 \code{date.format = "\%b-\%Y"}.}
 
-\item{plot}{Should a plot be produced. \code{FALSE} can be useful when
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
 analysing data to extract trend components and plotting them in other
 ways.}
 

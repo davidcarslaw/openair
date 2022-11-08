@@ -26,6 +26,7 @@ percentileRose(
   key.footer = "percentile",
   key.position = "bottom",
   key = TRUE,
+  plot = TRUE,
   ...
 )
 }
@@ -130,6 +131,10 @@ Allowed arguments currently include \code{"top"},
 
 \item{key}{Fine control of the scale key via \code{drawOpenKey}.
 See \code{drawOpenKey} for further details.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters are passed onto
 \code{cutData} and \code{lattice:xyplot}. For example,

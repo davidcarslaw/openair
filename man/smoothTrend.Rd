@@ -29,6 +29,7 @@ smoothTrend(
   date.breaks = 7,
   auto.text = TRUE,
   k = NULL,
+  plot = TRUE,
   ...
 )
 }
@@ -152,6 +153,10 @@ NO2.}
 package \code{mgcv}. By default it is not used and the amount of smoothing
 is optimised automatically. However, sometimes it is useful to set the
 smoothing amount manually using \code{k}.}
+
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other
+ways.}
 
 \item{...}{Other graphical parameters are passed onto \code{cutData} and
 \code{lattice:xyplot}. For example, \code{smoothTrend} passes the option
