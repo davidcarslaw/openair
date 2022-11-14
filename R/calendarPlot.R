@@ -581,10 +581,9 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   ## reset theme
   lattice.options(default.theme = def.theme)
 
-  #
   # output
-
-  plt <- trellis.last.object()
+  
+  plt <- do.call(levelplot, lv.args)
   
   # add in ws and wd if there
   newdata <- left_join(mydata, original_data %>% select(any_of(c("date", "ws", "wd"))), 
