@@ -947,7 +947,10 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
     }
   }
   
-  newdata <- results
+  newdata <- as_tibble(results)
+  
+  # give informative labels
+  names(newdata)[2:(length(labs) + 1)] <- labs
   
   output <- list(plot = plt, data = newdata, call = match.call())
   class(output) <- "openair"
