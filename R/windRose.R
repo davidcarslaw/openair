@@ -950,7 +950,8 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   newdata <- as_tibble(results)
   
   # give informative labels
-  names(newdata)[2:(length(labs) + 1)] <- labs
+  name_id <- grep("Interval", names(newdata), ignore.case = FALSE)
+  names(newdata)[name_id] <- labs
   
   output <- list(plot = plt, data = newdata, call = match.call())
   class(output) <- "openair"
