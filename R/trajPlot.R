@@ -123,10 +123,10 @@
 ##' # or show each day grouped by colour, with some other options set
 ##' \dontrun{
 ##'  trajPlot(selectByDate(lond, start = "15/4/2010", end = "21/4/2010"),
-##' group = "day", col = "jet", lwd = 2, key.pos = "right", key.col = 1)
+##' group = "day", col = "turbo", lwd = 2, key.pos = "right", key.col = 1)
 ##' }
 ##' # more examples to follow linking with concentration measurements...
-##' 
+##'
 trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                      type = "default", map = TRUE, group = NA, map.fill = TRUE,
                      map.res = "default", map.cols = "grey40",
@@ -155,7 +155,7 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
   }
 
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
-  
+
   mydata <- filter(mydata, !is.na(lat), !is.na(lon))
 
   ## slect only full length trajectories
@@ -191,7 +191,7 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+
     fontsize = current.font
   ))
 

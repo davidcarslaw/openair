@@ -8,12 +8,12 @@ openColours(scheme = "default", n = 100)
 }
 \arguments{
 \item{scheme}{The pre-defined schemes are "increment", "default", "brewer1",
-  "heat", "jet", "hue", "greyscale", or a vector of R colour names e.g.
-  c("green", "blue"). It is also possible to supply colour schemes from the
-  \code{RColorBrewer} package. This package defines three types of colour
-  schemes: sequential, diverging or qualitative. See
-  \url{https://colorbrewer2.org/} for more details concerning the orginal work
-  on which this is based.
+  "heat", "jet", "turbo", "hue", "greyscale", or a vector of R colour names
+  e.g. c("green", "blue"). It is also possible to supply colour schemes from
+  the \code{RColorBrewer} package. This package defines three types of
+  colour schemes: sequential, diverging or qualitative. See
+  \url{https://colorbrewer2.org/} for more details concerning the orginal
+  work on which this is based.
 
   Simplified versions of the \code{viridis} colours are also available.
   These include "viridis", "plasma", "magma", "inferno" and "cividis".
@@ -57,9 +57,9 @@ user-defined length.
 
 Each of the pre-defined schemes have merits and their use will depend on a
 particular situation. For showing incrementing concentrations e.g. high
-concentrations emphasised, then "default", "heat", "jet" and "increment" are
-very useful. See also the description of \code{RColorBrewer} schemes for the
-option \code{scheme}.
+concentrations emphasised, then "default", "heat", "jet", "turbo", and
+"increment" are very useful. See also the description of \code{RColorBrewer}
+schemes for the option \code{scheme}.
 
 To colour-code categorical-type problems e.g. colours for different
 pollutants, "hue" and "brewer1" are useful.
