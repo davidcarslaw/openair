@@ -163,7 +163,7 @@ type = "day")
 # or show each day grouped by colour, with some other options set
 \dontrun{
  trajPlot(selectByDate(lond, start = "15/4/2010", end = "21/4/2010"),
-group = "day", col = "jet", lwd = 2, key.pos = "right", key.col = 1)
+group = "day", col = "turbo", lwd = 2, key.pos = "right", key.col = 1)
 }
 # more examples to follow linking with concentration measurements...
 
