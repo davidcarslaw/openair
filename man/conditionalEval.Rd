@@ -34,7 +34,7 @@ representing observed and modelled values.}
 \item{var.obs}{Other variable observations for which statistics should be
 calculated. Can be more than length one e.g. \code{var.obs = c("nox.obs",
 "ws.obs")}. Note that including other variables could reduce the number of
-data available to plot due to teh need of having non-missing data for all
+data available to plot due to the need of having non-missing data for all
 variables.}
 
 \item{var.mod}{Other variable predictions for which statistics should be

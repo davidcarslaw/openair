@@ -109,7 +109,7 @@ or \dQuote{transparent} to remove shading.}
 \item{xlab}{x-axis label, by default \dQuote{year}.}
 
 \item{y.relation}{This determines how the y-axis scale is plotted. "same"
-ensures all panels use the same scale and "free" will use panel-specfic
+ensures all panels use the same scale and "free" will use panel-specific
 scales. The latter is a useful setting when plotting data with very
 different values.  ref.x See \code{ref.y} for details. In this case the
 correct date format should be used for a vertical line e.g.  \code{ref.x =
@@ -179,7 +179,7 @@ As well as generating the plot itself, \code{smoothTrend} also
   \code{data}, the data frame of summarised information used to make the
   plot; and \code{plot}, the plot itself. Note that \code{data} is a list of
   two data frames: \code{data} (the original data) and \code{fit} (the
-  smooth fit that has details of the fit and teh uncertainties). If
+  smooth fit that has details of the fit and the uncertainties). If
   retained, e.g. using \code{output <- smoothTrend(mydata, "nox")}, this
   output can be \code{output <- smoothTrend(mydata, "nox")}, this output can
   be used to recover the data, reproduce or rework the original plot or

@@ -75,7 +75,7 @@ quality and measurement unit reports. Here, these are defined as "value",
 \item{simplify.names}{A logical (default TRUE) prompting the function to
 try to simply data frame names using common chemical shorthand.  FALSE
 retains names from original file, although these may be modified if they
-contain unallowed characters or non-unique names.}
+contain disallowed characters or non-unique names.}
 
 \item{...}{Other parameters. Passed onto and handled by \code{import()}.}
 }

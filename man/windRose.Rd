@@ -137,7 +137,7 @@ expressed as a percentage of the polar axis scale, default 10.}
 \item{normalise}{If \code{TRUE} each wind direction segment of a
 pollution rose is normalised to equal one. This is useful for
 showing how the concentrations (or other parameters) contribute
-to each wind sector when the proprtion of time the wind is from
+to each wind sector when the proportion of time the wind is from
 that direction is low. A line showing the probability that the
 wind directions is from a particular wind sector is also shown.}
 
@@ -165,7 +165,7 @@ Allowed arguments currently include \dQuote{top},
 \item{key}{Fine control of the scale key via \code{drawOpenKey}.
 See \code{drawOpenKey} for further details.}
 
-\item{dig.lab}{The number of signficant figures at which
+\item{dig.lab}{The number of significant figures at which
 scientific number formatting is used in break point and key
 labelling. Default 5.}
 
@@ -189,8 +189,8 @@ wind speed. The \code{windRose} default NULL is equivalent to
 
 \item{annotate}{If \code{TRUE} then the percentage calm and mean
 values are printed in each panel together with a description of
-the statistic below the plot. If \code{" "} then only the 
-stastic is below the plot. Custom annotations may be added by 
+the statistic below the plot. If \code{" "} then only the
+statistic is below the plot. Custom annotations may be added by
 setting value to \code{c("annotation 1", "annotation 2")}.}
 
 \item{angle.scale}{The wind speed scale is by default shown at a

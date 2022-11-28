@@ -477,7 +477,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
     x
   }
 
-  ## function to normalise data by a specfic date ##################################
+  ## function to normalise data by a specific date ##################################
   norm.by.date <- function(x, thedate) {
     ## nearest date in time series
     ## need to find first non-missing value

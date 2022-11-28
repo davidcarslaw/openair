@@ -23,7 +23,7 @@
 ##' \item \eqn{RMSE}, the root mean squared error.
 ##'
 ##' \item \eqn{r}, the Pearson correlation coefficient. Note, can also
-##' supply and aurument \code{method} e.g. \code{method = "spearman"}
+##' supply and argument \code{method} e.g. \code{method = "spearman"}
 ##'
 ##' \item \eqn{COE}, the \emph{Coefficient of Efficiency} based on
 ##' Legates and McCabe (1999, 2012). There have been many suggestions
@@ -67,9 +67,9 @@
 ##'
 ##'
 ##' @param mydata A data frame.
-##' @param mod Name of a variable in \code{mydata} that respresents modelled
+##' @param mod Name of a variable in \code{mydata} that represents modelled
 ##'   values.
-##' @param obs Name of a variable in \code{mydata} that respresents measured
+##' @param obs Name of a variable in \code{mydata} that represents measured
 ##'   values.
 ##' @param statistic The statistic to be calculated. See details below
 ##' for a description of each.
@@ -98,7 +98,7 @@
 ##' ranked. The ranking is based the COE performance, as that
 ##' indicator is arguably the best single model performance indicator
 ##' available.
-##' @param ... Other aruments to be passed to \code{cutData} e.g.
+##' @param ... Other arguments to be passed to \code{cutData} e.g.
 ##'   \code{hemisphere = "southern"}
 ##' @export
 ##' @return Returns a data frame with model evaluation statistics.
@@ -166,7 +166,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   ## calculate the various statistics
 
   if ("n" %in% statistic) {
-    res.n <- mydata %>% 
+    res.n <- mydata %>%
       group_by(across(type)) %>%
       do(n(., mod, obs))
   } else {
@@ -174,7 +174,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   }
 
   if ("FAC2" %in% statistic) {
-    res.FAC <- mydata %>% 
+    res.FAC <- mydata %>%
       group_by(across(type)) %>%
       do(FAC2(., mod, obs))
   } else {
@@ -182,7 +182,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   }
 
   if ("MB" %in% statistic) {
-    res.MB <- mydata %>% 
+    res.MB <- mydata %>%
       group_by(across(type)) %>%
       do(MB(., mod, obs))
   } else {
@@ -190,7 +190,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   }
 
   if ("MGE" %in% statistic) {
-    res.MGE <- mydata %>% 
+    res.MGE <- mydata %>%
       group_by(across(type)) %>%
       do(MGE(., mod, obs))
   } else {
@@ -198,7 +198,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   }
 
   if ("NMB" %in% statistic) {
-    res.NMB <- mydata %>% 
+    res.NMB <- mydata %>%
       group_by(across(type)) %>%
       do(NMB(., mod, obs))
   } else {
@@ -206,7 +206,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   }
 
   if ("NMGE" %in% statistic) {
-    res.NMGE <- mydata %>% 
+    res.NMGE <- mydata %>%
       group_by(across(type)) %>%
       do(NMGE(., mod, obs))
   } else {
@@ -214,7 +214,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   }
 
   if ("RMSE" %in% statistic) {
-    res.RMSE <- mydata %>% 
+    res.RMSE <- mydata %>%
       group_by(across(type)) %>%
       do(RMSE(., mod, obs))
   } else {
@@ -222,7 +222,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   }
 
   if ("r" %in% statistic) {
-    res.r <- mydata %>% 
+    res.r <- mydata %>%
       group_by(across(type)) %>%
       do(r(., mod, obs))
   } else {
@@ -230,7 +230,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   }
 
   if ("COE" %in% statistic) {
-    res.COE <- mydata %>% 
+    res.COE <- mydata %>%
       group_by(across(type)) %>%
       do(COE(., mod, obs))
   } else {
@@ -238,7 +238,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   }
 
   if ("IOA" %in% statistic) {
-    res.IOA <- mydata %>% 
+    res.IOA <- mydata %>%
       group_by(across(type)) %>%
       do(IOA(., mod, obs))
   } else {
@@ -265,7 +265,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
     if (length(types) == 0) {
       results <- rankModels(results, rank.name)
     } else {
-      results <- results %>% 
+      results <- results %>%
         group_by(across(types)) %>%
         do(rankModels(., rank.name = rank.name))
     }
@@ -354,7 +354,7 @@ RMSE <- function(x, mod = "mod", obs = "obs") {
 # when SD=0; will return(NA)
 r <- function(x, mod = "mod", obs = "obs", ...) {
   x <- na.omit(x[, c(mod, obs)])
-  res <- suppressWarnings(cor(x[[mod]], x[[obs]], ...)) 
+  res <- suppressWarnings(cor(x[[mod]], x[[obs]], ...))
 
   data.frame(r = res)
 }

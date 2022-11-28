@@ -166,7 +166,7 @@ As well as generating the plot itself,
 }
 \description{
 \code{percentileRose} plots percentiles by wind direction with
-flexible conditioning. The plot can display mutiple percentile
+flexible conditioning. The plot can display multiple percentile
 lines or filled areas.
 }
 \details{

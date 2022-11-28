@@ -31,7 +31,7 @@
 ##'
 ##' "season" splits data up by season. In the northern hemisphere
 ##' winter = December, January, February; spring = March, April, May
-##' etc. These defintions will change of \code{hemisphere =
+##' etc. These definitions will change of \code{hemisphere =
 ##' "southern"}.
 ##'
 ##' "seasonyear (or "yearseason") will split the data into year-season
@@ -149,7 +149,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
   ##       generic label shortening handled at end of section
   ##       format(date, "%?") outputs modified by is.axis are set using temp
   ##       declared at at start of associated type section - karl
-  
+
   # so we know that openair has looked at the data
   attr(x, "source") <- "openair"
 
@@ -272,7 +272,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
       x[[type]] <- format(x$date, "%B %Y")
       x[[type]] <- ordered(x[[type]], levels = unique(x[[type]]))
     }
-    
+
     if (type == "week") {
       x[[type]] <- format(x$date, "%W")
       x[[type]] <- ordered(x[[type]], levels = unique(x[[type]]))

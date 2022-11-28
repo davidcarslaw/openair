@@ -2,7 +2,7 @@
 % Please edit documentation in R/trajCluster.R
 \name{trajCluster}
 \alias{trajCluster}
-\title{Calculate clusters for back tracectories}
+\title{Calculate clusters for back trajectories}
 \usage{
 trajCluster(
   traj,
@@ -64,7 +64,7 @@ the fill colour. Examples include \code{map.fill = "grey40"} and
 \code{map.fill = openColours("default", 10)}. The latter colours
 the countries and can help differentiate them.}
 
-\item{map.alpha}{The transpency level of the filled map which
+\item{map.alpha}{The transparency level of the filled map which
 takes values from 0 (full transparency) to 1 (full opacity).
 Setting it below 1 can help view trajectories, trajectory
 surfaces etc. \emph{and} a filled base map.}

@@ -142,7 +142,7 @@
 ##' @return The function is a modification of \code{lattice::draw.colorkey} and
 ##'   returns a scale key using a similar mechanism to that used in in the
 ##'   original function as developed by Deepayan Sarkar.
-##' @note We gratefully acknoweldge the considerable help and advice of
+##' @note We gratefully acknowledge the considerable help and advice of
 ##'   Deepayan Sarkar.
 ##' @author \code{draw.colorkey} is part of the \code{lattice} package,
 ##'   developed by Deepayan Sarkar.

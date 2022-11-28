@@ -2,7 +2,7 @@
 % Please edit documentation in R/calendarPlot.R
 \name{calendarPlot}
 \alias{calendarPlot}
-\title{Plot time series values in convential calendar format}
+\title{Plot time series values in a conventional calendar format}
 \usage{
 calendarPlot(
   mydata,
@@ -70,7 +70,7 @@ An example would be \code{cols = c("yellow", "green", "blue")}}
 
 \item{limits}{Use this option to manually set the colour scale limits. This
 is useful in the case when there is a need for two or more plots and a
-consistent scale is needed on each. Set the limits to cover the maximimum
+consistent scale is needed on each. Set the limits to cover the maximum
 range of the data for all plots of interest. For example, if one plot had
 data covering 0--60 and another 0--100, then set \code{limits = c(0,
 100)}. Note that data will be ignored if outside the limits range.}
@@ -110,7 +110,7 @@ labels are given.}
 
 \item{breaks}{If a categorical scale is required then these breaks will be
 used. For example, \code{breaks = c(0, 50, 100, 1000)}. In this case
-\dQuote{good} corresponds to values berween 0 and 50 and so on. Users
+\dQuote{good} corresponds to values between 0 and 50 and so on. Users
 should set the maximum value of \code{breaks} to exceed the maximum data
 value to ensure it is within the maximum final range e.g. 100--1000 in
 this case.}

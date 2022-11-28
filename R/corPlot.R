@@ -15,7 +15,7 @@
 ##' correlation the shape becomes a circle. See examples below.
 ##'
 ##' With many different variables it can be difficult to see relationships
-##' between variables i.e. which variables tend to behave most like one another.
+##' between variables, i.e., which variables tend to behave most like one another.
 ##' For this reason hierarchical clustering is applied to the correlation
 ##' matrices to group variables that are most similar to one another (if
 ##' \code{cluster = TRUE}).
@@ -84,7 +84,7 @@
 ##'   plot; and \code{plot}, the plot itself. If retained, e.g. using
 ##'   \code{output <- corPlot(mydata)}, this output can be used to recover the
 ##'   data, reproduce or rework the original plot or undertake further analysis.
-##'   Note the denogram when \code{cluster = TRUE} can aslo be returned and
+##'   Note the dendrogram when \code{cluster = TRUE} can also be returned and
 ##'   plotted. See examples.
 ##'
 ##'   An openair output can be manipulated using a number of generic operations,
@@ -108,7 +108,7 @@
 ##' corPlot(mydata)
 ##' ## plot by season ... and so on
 ##' corPlot(mydata, type = "season")
-##' ## recover dendogram when cluster = TRUE and plot it
+##' ## recover dendrogram when cluster = TRUE and plot it
 ##' res <-corPlot(mydata)
 ##' plot(res$clust)
 ##' \dontrun{
@@ -119,15 +119,15 @@
 ##' corPlot(hc)
 ##' }
 ##'
-##' 
+##'
 corPlot <- function(mydata, pollutants = NULL, type = "default",
-                    cluster = TRUE, 
+                    cluster = TRUE,
                     method = "pearson",
-                    dendrogram = FALSE, 
+                    dendrogram = FALSE,
                     lower = FALSE,
                     cols = "default",
-                    r.thresh = 0.8, text.col = c("black", "black"), 
-                    auto.text = TRUE, 
+                    r.thresh = 0.8, text.col = c("black", "black"),
+                    auto.text = TRUE,
                     plot = TRUE,
                     ...) {
   if (length(type) > 1) stop("Only one 'type' allowed in this function.")
@@ -148,7 +148,7 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+
     fontsize = current.font
   ))
 
@@ -265,23 +265,23 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
   }
 
   # main results in lists
-   results.grid <- mydata %>% 
-     group_by(across(type)) %>% 
-     group_nest() %>% 
+   results.grid <- mydata %>%
+     group_by(across(type)) %>%
+     group_nest() %>%
      mutate(results = map(data, prepare.cond))
-  
+
   # cluster model
-  clust <- results.grid %>% 
+  clust <- results.grid %>%
     mutate(clust = map(results, 4))
   clust <-  clust$clust[[1]]
 
   ## recover by-type order
-  
+
   data.order <- results.grid %>%
     mutate(out = map(results, 3))
-  
+
   data.order <- lapply(data.order$out, function(x) pollutants[x])
-  
+
   x2 <- unlist(lapply(1:length(data.order), function(x)
     (rep(data.order[[x]], times = length(data.order[[x]])))))
   y2 <- unlist(lapply(1:length(data.order), function(x)
@@ -291,15 +291,15 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
 
   labels <- results.grid %>%
     mutate(out = map(results, 2))
-  
+
   labels <- labels$out
-  
+
   # vars we want
   vars <- c(type, "out")
-  
-  results.grid <- results.grid %>% 
-    mutate(out = map(results, 1)) %>% 
-    select(vars) %>% 
+
+  results.grid <- results.grid %>%
+    mutate(out = map(results, 1)) %>%
+    select(vars) %>%
     unnest(cols = c(out))
 
   div.col <- function(x) openColours(cols, x)
@@ -416,9 +416,9 @@ panel.corrgram <- function(x, y, z, subscripts, at, level = 0.9, text.col,
   # just do lower triangle
   len <- length(z)
   tmp <- matrix(seq_along(z), nrow = len ^ (1 / 2))
-  
+
   if (lower)
-    id <- which(lower.tri(tmp, diag = TRUE)) else 
+    id <- which(lower.tri(tmp, diag = TRUE)) else
       id <- 1:length(tmp)
 
   for (i in seq(along = id)) {

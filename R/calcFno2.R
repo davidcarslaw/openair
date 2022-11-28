@@ -163,7 +163,7 @@ calcFno2 <- function(input,
       scatterPlot(results, x = "date", y = "fno2", ylab = "f-NO2 (%)", ...)
     }
 
-    ### plots orginal monthly NO2 and predicted with  ###############################
+    ### plots original monthly NO2 and predicted with  ###############################
     plot.no2 <- function(input, res, ...) {
       input <- subset(input, select = c(date, no2))
       input <- timeAverage(input, "month")

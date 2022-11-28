@@ -28,7 +28,7 @@
 ##'   e.g. c("green", "blue"). It is also possible to supply colour schemes from
 ##'   the \code{RColorBrewer} package. This package defines three types of
 ##'   colour schemes: sequential, diverging or qualitative. See
-##'   \url{https://colorbrewer2.org/} for more details concerning the orginal
+##'   \url{https://colorbrewer2.org/} for more details concerning the original
 ##'   work on which this is based.
 ##'
 ##'   Simplified versions of the \code{viridis} colours are also available.
@@ -49,7 +49,7 @@
 ##'   data types. The pre-defined schemes are "Accent", "Dark2", "Paired",
 ##'   "Pastel1", "Pastel2", "Set1", "Set2", "Set3".
 ##'
-##'   A colorblind safe pallette "cbPalette" is available based on the work of:
+##'   A colour-blind safe palette "cbPalette" is available based on the work of:
 ##'   http://jfly.iam.u-tokyo.ac.jp/color/
 ##'
 ##'   Note that because of the way these schemes have been developed they only

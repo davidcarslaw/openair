@@ -414,7 +414,7 @@
 ##'   Road. Several sites can be imported with \code{site = c("my1", "kc1")} ---
 ##'   to import Marylebone Road and North Kensignton for example.
 ##' @param year Year or years to import. To import a sequence of years from 1990
-##'   to 2000 use \code{year = 1990:2000}. To import several specfic years use
+##'   to 2000 use \code{year = 1990:2000}. To import several specific years use
 ##'   \code{year = c(1990, 1995, 2000)} for example.
 ##' @param pollutant Pollutants to import. If omitted will import all pollutants
 ##'   from a site. To import only NOx and NO2 for example use \code{pollutant =

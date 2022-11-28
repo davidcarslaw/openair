@@ -100,7 +100,7 @@
 ##' yw         \tab Yarner Wood                  \tab  50.59760 \tab  -3.716510 \tab 1988-2013
 ##' }
 ##' @param year Year or years to import. To import a sequence of years from
-##'   1990 to 2000 use \code{year = 1990:2000}. To import several specfic years
+##'   1990 to 2000 use \code{year = 1990:2000}. To import several specific years
 ##'   use \code{year = c(1990, 1995, 2000)} for example.
 ##'
 ##' @param local File path to .RData trajectory files run by user and

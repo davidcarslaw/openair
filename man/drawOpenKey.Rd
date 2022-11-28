@@ -129,7 +129,7 @@ itself can be controlled using \code{fit} options. These can be set in
 The appearance of the scale can be controlled using \code{plot.style}.
 }
 \note{
-We gratefully acknoweldge the considerable help and advice of
+We gratefully acknowledge the considerable help and advice of
   Deepayan Sarkar.
 }
 \examples{

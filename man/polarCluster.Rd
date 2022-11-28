@@ -44,7 +44,7 @@ is supplied, the clustering will be carried out on the differences between
 \code{after} and \code{mydata} in the same way as \link{polarDiff}.}
 
 \item{cols}{Colours to be used for plotting. Useful options for categorical
-data are avilable from \code{RColorBrewer} colours --- see the
+data are available from \code{RColorBrewer} colours --- see the
 \code{openair} \code{openColours} function for more details. Useful
 schemes include \dQuote{Accent}, \dQuote{Dark2}, \dQuote{Paired},
 \dQuote{Pastel1}, \dQuote{Pastel2}, \dQuote{Set1}, \dQuote{Set2},

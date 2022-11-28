@@ -292,7 +292,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     }
 
     ## If interval of original time series not specified, calculate it
-    ## time diff in seconds of orginal data
+    ## time diff in seconds of original data
     timeDiff <- as.numeric(strsplit(
       find.time.interval(mydata$date),
       " "
@@ -322,7 +322,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     ## i.e. chosen time interval less than that of data
     if (seconds < timeDiff) {
 
-      ## orginal dates
+      ## original dates
       theDates <- mydata$date
 
       ## need to add a date to the end when expanding times
@@ -350,7 +350,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       ## all data with new time interval
       allData <- data.frame(date = seq(min(allDates), max(allDates), avg.time))
 
-      ## merge with orginal data, which leaves gaps to fill
+      ## merge with original data, which leaves gaps to fill
       mydata <- full_join(mydata, allData, by = "date") %>%
         arrange(date)
 
@@ -366,7 +366,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
           stop("Non-regular time expansion selected, or non-regular input time series.")
         }
 
-        ## ids of orginal dates in new dates
+        ## ids of original dates in new dates
         ids <- which(mydata$date %in% theDates)
 
         date <- mydata$date

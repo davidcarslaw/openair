@@ -12,7 +12,7 @@ quickText(text, auto.text = TRUE)
 \item{auto.text}{A logical option. The default, \code{TRUE}, applies
 \code{quickText} to \code{text} and returns the result. The alternative,
 \code{FALSE}, returns \code{text} unchanged. (A number of \code{openair}
-functions enable/unenable \code{quickText} using this option.}
+functions enable/disable \code{quickText} using this option.}
 }
 \value{
 The function returns an expression for graphical evaluation.

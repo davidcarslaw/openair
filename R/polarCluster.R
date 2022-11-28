@@ -75,7 +75,7 @@
 ##'   is supplied, the clustering will be carried out on the differences between
 ##'   \code{after} and \code{mydata} in the same way as \link{polarDiff}.
 ##' @param cols Colours to be used for plotting. Useful options for categorical
-##'   data are avilable from \code{RColorBrewer} colours --- see the
+##'   data are available from \code{RColorBrewer} colours --- see the
 ##'   \code{openair} \code{openColours} function for more details. Useful
 ##'   schemes include \dQuote{Accent}, \dQuote{Dark2}, \dQuote{Paired},
 ##'   \dQuote{Pastel1}, \dQuote{Pastel2}, \dQuote{Set1}, \dQuote{Set2},
@@ -156,10 +156,10 @@
 ##' timeVariation(subset(results$data, cluster %in% c("3", "4")), pollutant = "nox",
 ##' group = "cluster", col = openColours("Paired", 6)[c(3, 4)])
 ##' }
-##' 
+##'
 polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clusters = 6,
                          after = NA,
-                         cols = "Paired", angle.scale = 315, units = x, 
+                         cols = "Paired", angle.scale = 315, units = x,
                          auto.text = TRUE, plot = TRUE, ...) {
 
   ## avoid R check annoyances
@@ -176,27 +176,27 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+
     fontsize = current.font
   ))
 
   # add id for later merging
   mydata <- mutate(mydata, .id = 1:nrow(mydata))
-  
+
   if (is.data.frame(after)) {
-    
+
     after <- mutate(after, .id = 1:nrow(after))
     data.orig.after <- after
-    
+
   }
-  
+
   data.orig <- mydata ## keep original data so cluster can be merged with it
   type <- "default"
   vars <- c("wd", x, pollutant)
   vars <- c(vars, "date", ".id")
 
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
-  
+
   if (is.data.frame(after))
     after <- checkPrep(after, vars, type, remove.calm = FALSE)
 
@@ -233,26 +233,26 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
   if (!"layout" %in% names(extra.args)) {
     extra.args$layout <- NULL
   }
-  
+
   # if considering differences
   if (is.data.frame(after)) {
-    
+
     results.grid <- polarDiff(before = mydata,
                               after = after,
                               plot = FALSE,
                               pollutant = pollutant,
                               cluster = TRUE, ...)$data
-    
+
     results.grid$z <- results.grid[[pollutant]]
-    
+
   } else {
-    
-    results.grid <- polarPlot(mydata, 
+
+    results.grid <- polarPlot(mydata,
                               plot = FALSE,
                               pollutant = pollutant, x = x,
                               cluster = TRUE, ...
     )$data
-    
+
   }
 
   ## remove missing because we don't want to find clusters for those points
@@ -272,8 +272,8 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
     dat.orig
   }
 
- 
-  results.grid <- group_by(data.frame(n = seq_along(n.clusters)), n) %>% 
+
+  results.grid <- group_by(data.frame(n = seq_along(n.clusters)), n) %>%
     do(make.clust(i = .$n, results.grid))
 
   results.grid$nclust <- ordered(results.grid$nclust, levels = paste(n.clusters, "clusters"))
@@ -318,35 +318,35 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
     mydata <- left_join(data.orig, mydata, by = c(".id", "date"))
     results <- mydata
     myform <- formula("cluster ~ u * v")
-    
+
     # also find clusters in after data if there is any
     if (is.data.frame((after))) {
-      
+
       after <- na.omit(after)
-      
+
       after <- transform(after,
                           u = get(x) * sin(wd * pi / 180),
                           v = get(x) * cos(wd * pi / 180)
       )
       after$u.id <- findInterval(after$u, uv.id, all.inside = TRUE)
       after$v.id <- findInterval(after$v, uv.id, all.inside = TRUE)
-      
+
       ## convert to matrix for direct lookup
       ## need to do this because some data are missing due to exclude.missing in polarPlot
       mat.dim <- max(results.grid[, c("u.id", "v.id")]) ## size of lookup matrix
       temp <- matrix(NA, ncol = mat.dim, nrow = mat.dim)
-      
+
       ## matrix of clusters by u.id, v.id with missings
       temp[cbind(results.grid$u.id, results.grid$v.id)] <- results.grid$cluster
-      
+
       ## match u.id, v.id in after to cluster
       after$cluster <- as.factor(temp[cbind(after$u.id, after$v.id)])
-      
+
       after <- select(after, date, cluster, .id) ## just need date/cluster
       after <- left_join(data.orig.after, after, by = c(".id", "date"))
-      
+
     }
-    
+
   }
 
   ## scaling of 'zeroed' data
@@ -369,16 +369,16 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
   }
 
 # interpolate grid, but first must make rectangular
-  
+
   # interval
   int <- as.numeric(tail(names(sort(table(diff(results.grid$u)))), 1))
-  
+
   # extent of grid required
   extent <- max(abs(c(results.grid$u, results.grid$v)))
-  
+
   new_grid <- expand.grid(u = seq(-extent, extent, by = int),
                           v = seq(-extent, extent, by = int))
-  
+
 
   levelplot.args <- list(
     x = myform, results.grid, axes = FALSE,
@@ -460,12 +460,12 @@ polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clust
         after = after,
         call = match.call()
       )
-    
+
   } else {
     output <- list(plot = plt,
                    data = results,
                    call = match.call())
-    
+
   }
   invisible(output)
 }
