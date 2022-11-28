@@ -142,10 +142,10 @@
 ##' @param force.positive The default is \code{TRUE}. Sometimes if smoothing
 ##'   data with steep gradients it is possible for predicted values to be
 ##'   negative. \code{force.positive = TRUE} ensures that predictions remain
-##'   postive. This is useful for several reasons. First, with lots of missing
-##'   data more interpolation is needed and this can result in artifacts
+##'   positive. This is useful for several reasons. First, with lots of missing
+##'   data more interpolation is needed and this can result in artefacts
 ##'   because the predictions are too far from the original data. Second, if it
-##'   is known beforehand that the data are all postive, then this option
+##'   is known beforehand that the data are all positive, then this option
 ##'   carries that assumption through to the prediction. The only likely time
 ##'   where setting \code{force.positive = FALSE} would be if background
 ##'   concentrations were first subtracted resulting in data that is
@@ -271,7 +271,7 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+
     fontsize = current.font
   ))
 
@@ -305,7 +305,7 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
   ## if more than one pollutant, need to stack the data and set type = "variable"
   ## this case is most relevent for model-measurement compasrions where data are in columns
   if (length(pollutant) > 1) {
-   
+
     mydata <- gather(mydata, key = variable, value = value, pollutant,
                      factor_key = TRUE)
     ## now set pollutant to "value"
@@ -523,7 +523,7 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
 
     ## calculate wd and time.val in on annulus in original units (helps with debugging)
     ## essentially start with final grid (annulus) and work backwards to find original data point in
-    ## orginal coordinates
+    ## original coordinates
     new.data <- within(new.data, time.val <- (u ^ 2 + v ^ 2) ^ 0.5 - upper)
     new.data <- within(new.data, wd <- 180 * atan2(u, v) / pi)
     new.data <- within(new.data, wd[wd < 0] <- wd[wd < 0] + 360) ## correct negative wds
@@ -537,7 +537,7 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
     ## ids where there are data
     ids <- new.data$id[!is.na(new.data$wd)]
 
-    ## indexes in orginal (cartesian) coordinates
+    ## indexes in original (cartesian) coordinates
     id.time <- round((2 * d / int) * new.data$time.val[ids] / 10) + 1
     id.wd <- round((2 * d / int) * new.data$wd[ids] / 360) + 1
 
@@ -552,14 +552,14 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
 
   ## more compact way?  Need to test
 
-  results.grid <- mydata %>% 
+  results.grid <- mydata %>%
     group_by(across(type)) %>%
     do(prepare.grid(.))
 
 
   ## normalise by divining by mean conditioning value if needed
   if (normalise) {
-    results.grid <- results.grid %>% 
+    results.grid <- results.grid %>%
       group_by(across(type)) %>%
       mutate(z = z / mean(z, na.rm = TRUE))
 
@@ -766,7 +766,7 @@ polarAnnulus <- function(mydata, pollutant = "nox", resolution = "fine",
   #################
   if (plot) {
     if (length(type) == 1) {
-      plot(plt) 
+      plot(plt)
     } else {
       plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
     }

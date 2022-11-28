@@ -88,7 +88,7 @@ As well as generating the plot itself, \code{corPlot} also returns
   plot; and \code{plot}, the plot itself. If retained, e.g. using
   \code{output <- corPlot(mydata)}, this output can be used to recover the
   data, reproduce or rework the original plot or undertake further analysis.
-  Note the denogram when \code{cluster = TRUE} can aslo be returned and
+  Note the dendrogram when \code{cluster = TRUE} can also be returned and
   plotted. See examples.
 
   An openair output can be manipulated using a number of generic operations,
@@ -111,7 +111,7 @@ positive correlation a line at 45 degrees positive slope is drawn. For zero
 correlation the shape becomes a circle. See examples below.
 
 With many different variables it can be difficult to see relationships
-between variables i.e. which variables tend to behave most like one another.
+between variables, i.e., which variables tend to behave most like one another.
 For this reason hierarchical clustering is applied to the correlation
 matrices to group variables that are most similar to one another (if
 \code{cluster = TRUE}).
@@ -134,7 +134,7 @@ data(mydata)
 corPlot(mydata)
 ## plot by season ... and so on
 corPlot(mydata, type = "season")
-## recover dendogram when cluster = TRUE and plot it
+## recover dendrogram when cluster = TRUE and plot it
 res <-corPlot(mydata)
 plot(res$clust)
 \dontrun{

@@ -138,8 +138,8 @@ depend on the data in question.
 
 \code{summaryPlot} will only show data that are numeric or integer type.
 This is useful for checking that data have been imported properly. For
-example, if for some reason a column representing wind speed erroneosly had
-one or more fields with charcters in, the whole column would be either
+example, if for some reason a column representing wind speed erroneously had
+one or more fields with characters in, the whole column would be either
 character or factor type. The absence of a wind speed variable in the
 \code{summaryPlot} plot would therefore indicate a problem with the input
 data. In this particular case, the user should go back to the source data

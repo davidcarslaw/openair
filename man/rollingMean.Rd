@@ -36,7 +36,7 @@ than this value. For example, with \code{width = 8} and
 \code{data.thresh = 75} at least 6 hours are required to calculate
 the mean, else \code{NA} is returned.}
 
-\item{align}{specifyies how the moving window should be
+\item{align}{specifies how the moving window should be
 aligned. \code{"right"} means that the previous \code{hours}
 (including the current) are averaged. This seems to be the default
 for UK air quality rolling mean statistics. \code{"left"} means

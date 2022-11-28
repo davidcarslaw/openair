@@ -78,10 +78,10 @@ is used.}
   It is also possible to set \code{statistic = "difference"}. In this case
   trajectories where the associated concentration is greater than
   \code{percentile} are compared with the the full set of trajectories to
-  understand the differences in freqeuncies of the origin of air masses. The
-  comparsion is made by comparing the percentage change in gridded
+  understand the differences in frequencies of the origin of air masses. The
+  comparison is made by comparing the percentage change in gridded
   frequencies. For example, such a plot could show that the top 10\% of
-  concentrations of PM10 tend to orginate from air-mass origins to the east.
+  concentrations of PM10 tend to originate from air-mass origins to the east.
 
   If \code{statistic = "pscf"} then a Potential Source Contribution Function
   map is produced. If \code{statistic = "cwt"} then concentration weighted
@@ -109,7 +109,7 @@ grid cell. Counts below \code{min.bin} are set as missing. For
 \item{.combine}{When statistic is "SQTBA" it is possible to combine lots of
 receptor locations to derive a single map. \code{.combine} identifies the
 column that differentiates different sites (commonly a column named
-\code{site}). Note that indivisual site maps are normalised first by
+\code{site}). Note that individual site maps are normalised first by
 dividing by their mean value.}
 
 \item{sigma}{For the SQTBA approach \code{sigma} determines the amount of
@@ -133,7 +133,7 @@ colour. Examples include \code{map.fill = "grey40"} and \code{map.fill =
 openColours("default", 10)}. The latter colours the countries and can help
 differentiate them.}
 
-\item{map.alpha}{The transpency level of the filled map which takes values
+\item{map.alpha}{The transparency level of the filled map which takes values
 from 0 (full transparency) to 1 (full opacity). Setting it below 1 can
 help view trajectories, trajectory surfaces etc. \emph{and} a filled base
 map.}
@@ -191,11 +191,11 @@ concentrations), which will produce a plot by hexagonal binning.
 
 If \code{statistic = "difference"} the trajectories associated with a
 concentration greater than \code{percentile} are compared with the the full
-set of trajectories to understand the differences in freqeuncies of the
+set of trajectories to understand the differences in frequencies of the
 origin of air masses of the highest concentration trajectories compared with
-the trajectories on average. The comparsion is made by comparing the
+the trajectories on average. The comparison is made by comparing the
 percentage change in gridded frequencies. For example, such a plot could
-show that the top 10\% of concentrations of PM10 tend to orginate from
+show that the top 10\% of concentrations of PM10 tend to originate from
 air-mass origins to the east.
 
 If \code{statistic = "pscf"} then the Potential Source Contribution Function
@@ -207,7 +207,7 @@ collected and transported along the trajectory to the receptor site. PSCF
 solves \deqn{PSCF = m_{ij}/n_{ij}} where \eqn{n_{ij}} is the number of times
 that the trajectories passed through the cell (i,j) and \eqn{m_{ij}} is the
 number of times that a source concentration was high when the trajectories
-passed through the cell (i,j). The criterion for de-termining \eqn{m_{ij}}
+passed through the cell (i,j). The criterion for determining \eqn{m_{ij}}
 is controlled by \code{percentile}, which by default is 90. Note also that
 cells with few data have a weighting factor applied to reduce their effect.
 

@@ -92,7 +92,7 @@ the same plot. The normalisation is done by each
 \code{group}/\code{type} combination.}
 
 \item{cols}{Colours to be used for plotting. Useful options for
-categorical data are avilable from \code{RColorBrewer} colours ---
+categorical data are available from \code{RColorBrewer} colours ---
 see the \code{openair} \code{openColours} function for more
 details. Useful schemes include \dQuote{Accent}, \dQuote{Dark2},
 \dQuote{Paired}, \dQuote{Pastel1}, \dQuote{Pastel2},
@@ -166,7 +166,7 @@ conditioning by any categorical or numeric variables, which makes the
 function very flexible.
 }
 \details{
-The Taylor Diagram is a very useful model evaluation tool. 
+The Taylor Diagram is a very useful model evaluation tool.
 The diagram provides a way of showing how three complementary model
 performance statistics vary simultaneously. These statistics are the
 correlation coefficient R, the standard deviation (sigma) and the (centred)

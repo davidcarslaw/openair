@@ -17,10 +17,10 @@ modStats(
 \arguments{
 \item{mydata}{A data frame.}
 
-\item{mod}{Name of a variable in \code{mydata} that respresents modelled
+\item{mod}{Name of a variable in \code{mydata} that represents modelled
 values.}
 
-\item{obs}{Name of a variable in \code{mydata} that respresents measured
+\item{obs}{Name of a variable in \code{mydata} that represents measured
 values.}
 
 \item{statistic}{The statistic to be calculated. See details below
@@ -53,7 +53,7 @@ ranked. The ranking is based the COE performance, as that
 indicator is arguably the best single model performance indicator
 available.}
 
-\item{...}{Other aruments to be passed to \code{cutData} e.g.
+\item{...}{Other arguments to be passed to \code{cutData} e.g.
 \code{hemisphere = "southern"}}
 }
 \value{
@@ -84,7 +84,7 @@ evaluation statistics. These include (to be mathematically defined later):
 \item \eqn{RMSE}, the root mean squared error.
 
 \item \eqn{r}, the Pearson correlation coefficient. Note, can also
-supply and aurument \code{method} e.g. \code{method = "spearman"}
+supply and argument \code{method} e.g. \code{method = "spearman"}
 
 \item \eqn{COE}, the \emph{Coefficient of Efficiency} based on
 Legates and McCabe (1999, 2012). There have been many suggestions

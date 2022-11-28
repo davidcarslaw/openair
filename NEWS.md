@@ -76,7 +76,7 @@
 - re-format date returned in `importAQE` due to strange `dplyr` join issues
 - add `statistic = "Spearman"` to `polarPlot` as an option when considering two pollutants.
 - add `method` option to `corPlot` to allow different correlation methods ("pearson", "spearman" or "kendall")
-- refactor all UK air quality data import functions i.e. `importAURN`, `importSAQN`, `importWAQN`, `importAQE`.
+- re-factor all UK air quality data import functions i.e. `importAURN`, `importSAQN`, `importWAQN`, `importAQE`.
 - Add `importNI` to import data from Northern Ireland.
 - Add option to UK air quality import functions to return information on whether individual pollutants have been quality-assured using option `ratified`. These functions include `importAURN`, `importSAQN`, `importWAQN`, `importAQE` and `importNI`
 - Clean up what is returned from `importMeta`
@@ -138,7 +138,7 @@
 ## openair 2.5-0
 
 - add simple versions of **viridis** colour palettes: "viridis", "plasma", "magma", "inferno" and "cividis" e.g. `polarPlot(mydata, cols = "plasma")`
-- allow option `align` to be used in `aqStats` to determine how rolling means are calculated. Can take the values "center" (default), "left" and "right".
+- allow option `align` to be used in `aqStats` to determine how rolling means are calculated. Can take the values "centre" (default), "left" and "right".
 - make sure full year present in `importAURN`
 - fix issue with multiple pollutants in `polarAnnulus`
 - fix issues in trajectory functions due to `dplyr`.
@@ -157,7 +157,7 @@
 
 ## openair 2.3-0
 
-- add option `plot` to `TheilSen`. `FALSE` can be useful when analysing data to extract the trend components and plot in otherways and when the `TheilSen` plot is not required.
+- add option `plot` to `TheilSen`. `FALSE` can be useful when analysing data to extract the trend components and plot in other ways and when the `TheilSen` plot is not required.
 - add option `silent` to `TheilSen` to avoid printing updates to trend fitting. By default it is `FALSE`.
 - fix wrong ordering of names in `timeVariation` when more than one pollutant
 - fix date parsing issues in `selectByDate`.
@@ -212,7 +212,7 @@
 - silence download progress by default in `importAURN`
 - update `polarPlot` to work with pairwise statistics to compare two pollutants. The function can consider Pearson correlation and slopes from ordinary linear regression, robust regression (using **MASS** function `rlm`) and quantile regression (requires the **quantreg** package to be installed). See [open access version](http://www.sciencedirect.com/science/article/pii/S1352231016307166) of the paper.
 - change default `polarPlot` plot resolution to "fine".
-- fix `windRose` problem with some data due to missings
+- fix `windRose` problem with some data due to missing data
 - move `mapdata` package to Suggests
 - add option to return meta data (site type, lat, lon) from `importAURN` and `importKCL`.
 - fix statistic = "weighted.mean" issue in `polarPlot`.
@@ -236,12 +236,12 @@
 - fix labels in `timeVariation` when data for some types is missing.
 - fix `trendLevel` issue due to `dplyr`
 - use `lubridate` package in `timeAverage`
-- fix bug in `summaryPlot` related to `dplyr` use (would not plot missings correctly)
+- fix bug in `summaryPlot` related to `dplyr` use (would not plot missing data correctly)
 - better handling of precision in `windRose` mean and statistics returned in data (thanks to Dr Ulrich Quass)
 - fix bug in `importKCL` when incomplete time series (would drop site code and site name)
 - fix bug in `pollutionRose` due to issue with calms
 - fix bug in `smoothTrend` where model uncertainties were not returned
-- fix bug in `summaryPlot` where missings would not be shown correctly when date was not ordered in sequence
+- fix bug in `summaryPlot` where missing data would not be shown correctly when date was not ordered in sequence
 - fix annotation in `windRose` when comparing two data sets
 - `GoogleMapsPlot` is deprecated and will be replaced with a better function.
 
@@ -285,7 +285,7 @@
 - add origin marker to `trajCluster`
 - better date padding when >1 type
 - fix some `dplyr` bugs where some functions would fail with two types
-- retrun data frame of cluster information in `trajCluster`
+- return data frame of cluster information in `trajCluster`
 
 # openair 1.7 
 
@@ -321,11 +321,11 @@
 - don't clutter up working directory with `GoogleMapsPlot`; write to
 temporary file instead
 - fix bug when trying to access multiple sites with no data in
-- fix problem with mutiple sites in `aqStats`
+- fix problem with multiple sites in `aqStats`
 - `TheilSen` should always give trend in units/year (would use xlab if
 supplied)
 - fix `cutData` bug where quantile cuts are made
-- don't remove missings in `scatterPlot` so that factors with no data
+- don't remove missing data in `scatterPlot` so that factors with no data
   still shown
 - `TheilSen` should always give trend in units/year (would use xlab if supplied)
 - New option `slope.text` in `TheilSen` to allow users to add their
@@ -361,7 +361,7 @@ are drawn.
 - fix bug in `calendarPlot` when partial month available
 - fix bug in `calendarPlot`, don't need to cut data first
 - add `npoints` option to `trajPlot` to control time spacing of dots shown on back trajectories
-- don't include missings when `statistic = "frequency` in `timeAverage`
+- don't include missing data when `statistic = "frequency` in `timeAverage`
 - fix bug in `timeProp` due to point above
 - fix bug in `timeVariation` with `type = "season"` when space in pollutant name
 
@@ -393,7 +393,7 @@ States.
 
 - Fix regression for openair methods e.g. affected plot method for
 `timeVariation` subsets
-- Check data are numeric before appling running mean (would crash R if
+- Check data are numeric before applying running mean (would crash R if
 not)
 - Begin transition to Github, more details to follow
 - Add option dist to `scatterPlot` for surface modelling
@@ -453,7 +453,7 @@ not)
 *	Enhance `timeVariation` to consider median + quantiles through
 	option 'statistic'
 *	Do not remove NA results from modStats
-*	Better scaling in polarCluster; consitent with `polarPlot`
+*	Better scaling in polarCluster; consistent with `polarPlot`
 *	Fix `importKCL` where dates were filled if two non contiguous
 	years were chosen
 *	Refine scaling of ws in `polarPlot` when upper is set
@@ -474,7 +474,7 @@ not)
 	newsletter/manual for details
 *	Better treatment of daylight saving time in cutData,
 	`timeVariation` and polarAnnulus (allow any local time zone to be used;
-	was just GMT/BST befote)
+	was just GMT/BST before)
 *	Remove existing date-based columns in cutData to ensure date
 	is used instead
 * 	Allow users to shade/not shade alternate years in `smoothTrend`
@@ -563,7 +563,7 @@ not)
 	e.g. x = "temp"
 *	Allow statistic = "median" in `trajLevel`
 *	NEW FUNCTION timeProp to plot time series by category as a
-	barchart
+	bar chart
 *	Fix `windRose` bug when wind direction name was not wd
 *	Fix bug in `importAURN` when pollutant = "all" was specified
 *	Allow minimum value of breaks in ws to be above minimum ws
@@ -617,7 +617,7 @@ not)
 *	Allow statistic = "percentile" to be used with `polarPlot`
 *	Allow 'method' to be passed to cor in `corPlot`
 *	Added more back trajectory locations.
-*	Try harder to plot `polarPlot`s when there is insufficent data
+*	Try harder to plot `polarPlot`s when there is insufficient data
 	to calculate a smooth surface.
 * 	Rename some variables in `timeAverage` to avoid variable clash.
 *	Add gridded frequency capability to `trajLevel`
@@ -638,7 +638,7 @@ not)
 	complicated plots
 *	Complete re-write of import to simplify - changes are NOT
 	backward compatible but will allow more developments
-*	Allow line breaks in titles using \n to work woth quickText
+*	Allow line breaks in titles using \n to work with quickText
 	- thanks to Karl
 *	Allow better annotation of `calendarPlot` - highlight values
 	above/below a certain threshold.
@@ -650,7 +650,7 @@ not)
 	sector
 *	Add observed histogram to conditionalQuantile
 *	Fix bug in `timeAverage` when ws was not available but wd was
-*	Temporaryfix to GoogleMapsPlot documentation due to new
+*	Temporary fix to GoogleMapsPlot documentation due to new
 	package version
 
 # openair 0.5-23 
@@ -661,11 +661,11 @@ not)
 
 *	Fix scaling bug that could sometime affect `polarPlot` grid
 	lines
-*	Fix regression in `importKCL` that was intruduced in 0.5-21
+*	Fix regression in `importKCL` that was introduced in 0.5-21
 *	Make sure wd data are rounded to 10 degrees in polarFreq
 *	Fix date padding issue in `smoothTrend` when type = "site"
 *	`windRose` now gives mean ws in each panel rather than count
-*	add otion date.format to `timePlot` for more control over date
+*	add option date.format to `timePlot` for more control over date
 	format on axis
 
 # openair 0.5-21 
@@ -794,7 +794,7 @@ bivariate polar plots
 
 *	Use roxygen2 for package documentation and future
 	maintainability
-*	Allow splitByDate to handle mutiple sites and output a new
+*	Allow splitByDate to handle multiple sites and output a new
 	column controlled by argument 'name'
 *	More options for MannKendall: control of colour and variable
 	x-axis scales
@@ -815,30 +815,30 @@ bivariate polar plots
 *	NOTE - use reshape2 in place of reshape for speed and reliability
 * 	allow more than one pollutant with `percentileRose`
 * 	fixed title bug with `scatterPlot` - not shown for some methods
-* 	modifed key handling on plots using drawOpenKey, so
+* 	modified key handling on plots using drawOpenKey, so
   	key = NULL or FALSE now removes colour key.
 * 	added method = "level" to `scatterPlot` for binning data with
 	optional smoothing, plus other code clean-ups
 * 	fix bug in conditionalQuantile that labelled plots wrongly
 	when site(s) has missing data
-*	added ref.x and ref.y to `timePlot` to allow refernce lines to
+*	added ref.x and ref.y to `timePlot` to allow reference lines to
 	be added
 * 	do not remove calm wind speed conditions in any functions
-	where this is unecessary
+	where this is not necessary
 
 # openair 0.4-21 
 
-* 	fixed bug in polarAnnulus that resulsted in a failure to
+* 	fixed bug in polarAnnulus that resulted in a failure to
 	annotate the plot properly with period = "trend" and less than 1 year
 	of data; improved smoothing default options used
 * 	new 'statistic' option to `pollutionRose` to show contribution
 	to counts and contribution to the mean. The latter is useful for
-	displaying those wind directions that make most contribution to teh
+	displaying those wind directions that make most contribution to the
 	overall mean. Panel mean is also now shown.
 * 	small change to final example of re-shaping data in `importKCL`
 * 	`timeAverage` can now expand data to shorter time periods
 	e.g. hourly to 15-minute. This makes it more flexible to combine data
-	sets with differeing averging times. For example, daily mean particle
+	sets with differing averaging times. For example, daily mean particle
 	data can be expanded to 1-hour means and combined with an hourly
 	meteorological data set.
 * 	Fix treatment of calms in checkPrep, which affected cases with
@@ -870,21 +870,21 @@ bivariate polar plots
 # openair 0.4-18 
 
 *	Better handling of missing data in `smoothTrend`/MannKendall;
-	particularly when there are mutiple sites
-*	Do not run checkPreo on selectByDate because it removes calms
+	particularly when there are multiple sites
+*	Do not run checkPrep on selectByDate because it removes calms
 *	Fixed scaling bug in polarFreq when ws.int != 1
 *	use avg.time in calcPercentile instead of 'period' to ensure
 	consistency with other functions (`timePlot` would fail with
 	percentiles)
 *	return NA in aqStats when no data present; previously it tried
-	to calculate quanities, returning -Inf etc
+	to calculate quantities, returning -Inf etc
 
 # openair 0.4-17 
 
 *	use readRDS and not .readRDS (caused failure on R Dev)
 *	openair now depends on >=R2.13.0
-*	NEW FUNCTION sqStats to calculate common and pollutant-specfic
-	air quality statsitics by year and site.
+*	NEW FUNCTION sqStats to calculate common and pollutant-specific
+	air quality statistics by year and site.
 *	Changed option data.capture in rollingMean to data.thresh to
 	be consistent with other functions.
 

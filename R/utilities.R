@@ -26,7 +26,7 @@ setGraphics <- function(fontsize = 5) {
   ## reset graphic parameters
   font.orig <- trellis.par.get("fontsize")$text
   on.exit(trellis.par.set(
-     
+
     fontsize = list(text = font.orig)
   ))
 }
@@ -83,7 +83,7 @@ date.pad2 <- function(mydata, type = NULL, interval = "month") {
 
   start.date <- min(mydata$date, na.rm = TRUE)
   end.date <- max(mydata$date, na.rm = TRUE)
-  
+
   # interval is in seconds, so convert to days if Date class and not POSIXct
   if (class(mydata$date)[1] == "Date")
     interval <- paste(as.numeric(strsplit(interval, " ")[[1]][1]) / 3600 / 24, "days")
@@ -219,7 +219,7 @@ decimalDate <- function(x, date = "date") {
 ##' than this value. For example, with \code{width = 8} and
 ##' \code{data.thresh = 75} at least 6 hours are required to calculate
 ##' the mean, else \code{NA} is returned.
-##' @param align specifyies how the moving window should be
+##' @param align specifies how the moving window should be
 ##' aligned. \code{"right"} means that the previous \code{hours}
 ##' (including the current) are averaged. This seems to be the default
 ##' for UK air quality rolling mean statistics. \code{"left"} means
@@ -443,7 +443,7 @@ one more label than date")
 ##' # select weekends between the hours of 7 am to 7 pm in winter (Dec, Jan, Feb)
 ##' sub.data <- selectByDate(mydata, day = "weekend", hour = 7:19, month =
 ##' c("dec", "jan", "feb"))
-##' 
+##'
 selectByDate <- function(mydata, start = "1/1/2008",
                          end = "31/12/2008", year = 2008,
                          month = 1, day = "weekday", hour = 1) {
@@ -468,16 +468,16 @@ selectByDate <- function(mydata, start = "1/1/2008",
 
     mydata <- subset(mydata, as_date(date) >= start)
   }
-  
+
   if (!missing(end)) {
-    
-    
+
+
     ## assume R date format
     end <-as_date(parse_date_time(end, c("ymd", "dmy")))
-    
+
     mydata <- subset(mydata, as_date(date) <= end)
   }
-  
+
 
   if (!missing(year)) {
     mydata <- mydata[which(year(mydata$date) %in% year), ]
@@ -626,12 +626,12 @@ panel.gam <- function(x, y, form = y ~ x, method = "loess", k = k, Args, ..., si
         )
         pred <- pred$fit
       }
-      
+
     } else { ## simulations required
 
       x <- thedata$x
       y <- thedata$y
-      
+
       sam.size <- length(x)
 
       lims <- current.panel.limits()
@@ -782,7 +782,7 @@ fitGam <- function(thedata, x = "date", y = "conc", form = y ~ x, k = k,
       ))
     }
 
-    # convert class back to orginal
+    # convert class back to original
     class(results[[x]]) <- class_x
     return(results)
   }, error = function(x) {
@@ -871,11 +871,11 @@ bootMeanDiff <- function(mydata, x = "x", y = "y", conf.int = 0.95, B = 1000) {
   if (nrow(mydata) < 2 | is.na(Mean)) {
     res1 <- data.frame(variable = x.name, Mean = mean(x), Lower = NA, Upper = NA,
                        stringsAsFactors = FALSE)
-    
+
     res2 <- data.frame(variable = y.name, Mean = mean(y), Lower = NA, Upper = NA,
                        stringsAsFactors = FALSE)
-    
-    res <- data.frame(variable = paste(y.name, "-", x.name), Mean = Mean, 
+
+    res <- data.frame(variable = paste(y.name, "-", x.name), Mean = Mean,
                       Lower = NA, Upper = NA,
                       stringsAsFactors = FALSE)
 
@@ -893,15 +893,15 @@ bootMeanDiff <- function(mydata, x = "x", y = "y", conf.int = 0.95, B = 1000) {
   names(quant2) <- NULL
   names(quant) <- NULL
 
-  res1 <- data.frame(variable = x.name, Mean = mean(x), 
+  res1 <- data.frame(variable = x.name, Mean = mean(x),
                      Lower = quant1[1], Upper = quant1[2],
                      stringsAsFactors = FALSE)
-  
-  res2 <- data.frame(variable = y.name, Mean = mean(y), Lower = quant2[1], 
+
+  res2 <- data.frame(variable = y.name, Mean = mean(y), Lower = quant2[1],
                      Upper = quant2[2],
                      stringsAsFactors = FALSE)
-  
-  res <- data.frame(variable = paste(y.name, "-", x.name), 
+
+  res <- data.frame(variable = paste(y.name, "-", x.name),
                     Mean = Mean, Lower = quant[1], Upper = quant[2],
                     stringsAsFactors = FALSE)
 
@@ -1110,7 +1110,7 @@ checkNum <- function(mydata, vars) {
 #' @param interval The interval to be used for binning the data.
 #' @param breaks User specified breaks to use for binning.
 #'
-#' @return Retruns a summarised data frame with new columns for the mean and
+#' @return Returns a summarised data frame with new columns for the mean and
 #'   upper / lower 95\% confidence intervals in the mean.
 #' @export
 #'
@@ -1142,10 +1142,10 @@ binData <- function(mydata, bin = "nox", uncer = "no2", n = 40, interval = NA,
   id <- which(is.na(mydata$interval))
   if (length(id) > 0)
     mydata <- mydata[-id, ]
-  
+
   # calculate 95% CI in mean
   uncert <- group_by(mydata, interval) %>%
-    do(bootMeanDF(.[[uncer]], B = 250)) 
+    do(bootMeanDF(.[[uncer]], B = 250))
 
   mydata <- group_by(mydata, interval) %>%
     summarise_if(is.numeric, mean, na.rm = TRUE)

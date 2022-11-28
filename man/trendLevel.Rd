@@ -106,7 +106,7 @@ bad")}. \code{breaks} must also be supplied if labels are given.}
 
 \item{breaks}{If a categorical colour scale is required then these
 breaks will be used. For example, \code{breaks = c(0, 50, 100,
-1000)}. In this case \dQuote{good} corresponds to values berween 0
+1000)}. In this case \dQuote{good} corresponds to values between 0
 and 50 and so on. Users should set the maximum value of
 \code{breaks} to exceed the maximum data value to ensure it is
 within the maximum final range e.g. 100--1000 in this
@@ -124,7 +124,7 @@ this is a function. The extra options should be supplied as a list of
 named parameters. (see Details below.)}
 
 \item{stat.safe.mode}{An addition protection applied when using functions
-direclty with \code{statistic} that most users can ignore. This option
+directly with \code{statistic} that most users can ignore. This option
 returns \code{NA} instead of running \code{statistic} on binned
 subsamples that are empty. Many common functions terminate with an error
 message when applied to an empty dataset. So, this option provides a

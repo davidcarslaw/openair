@@ -21,7 +21,7 @@ uncertainties should be calculated for each interval of \code{bin}.}
 \item{breaks}{User specified breaks to use for binning.}
 }
 \value{
-Retruns a summarised data frame with new columns for the mean and
+Returns a summarised data frame with new columns for the mean and
   upper / lower 95\% confidence intervals in the mean.
 }
 \description{

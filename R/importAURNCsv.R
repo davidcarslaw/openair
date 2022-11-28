@@ -53,7 +53,7 @@
 ##' @param simplify.names A logical (default TRUE) prompting the function to
 ##'   try to simply data frame names using common chemical shorthand.  FALSE
 ##'   retains names from original file, although these may be modified if they
-##'   contain unallowed characters or non-unique names.
+##'   contain disallowed characters or non-unique names.
 ##' @param ... Other parameters. Passed onto and handled by \code{import()}.
 ##' @export
 ##' @return The function returns a data frame for use in openair. By comparison

@@ -83,7 +83,7 @@
 ##'   or \dQuote{transparent} to remove shading.
 ##' @param xlab x-axis label, by default \dQuote{year}.
 ##' @param y.relation This determines how the y-axis scale is plotted. "same"
-##'   ensures all panels use the same scale and "free" will use panel-specfic
+##'   ensures all panels use the same scale and "free" will use panel-specific
 ##'   scales. The latter is a useful setting when plotting data with very
 ##'   different values.  ref.x See \code{ref.y} for details. In this case the
 ##'   correct date format should be used for a vertical line e.g.  \code{ref.x =
@@ -142,7 +142,7 @@
 ##'   \code{data}, the data frame of summarised information used to make the
 ##'   plot; and \code{plot}, the plot itself. Note that \code{data} is a list of
 ##'   two data frames: \code{data} (the original data) and \code{fit} (the
-##'   smooth fit that has details of the fit and teh uncertainties). If
+##'   smooth fit that has details of the fit and the uncertainties). If
 ##'   retained, e.g. using \code{output <- smoothTrend(mydata, "nox")}, this
 ##'   output can be \code{output <- smoothTrend(mydata, "nox")}, this output can
 ##'   be used to recover the data, reproduce or rework the original plot or
@@ -200,7 +200,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
- #    
+ #
     fontsize = current.font
   ))
 
@@ -300,14 +300,14 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   # in the case of mutiple percentiles, these are assinged and treated
   # like multiple pollutants
- 
+
   mydata <- gather(mydata, key = variable, value = value, pollutant,
                    factor_key = TRUE)
 
   if (length(percentile) > 1) {
     vars <- c(type, "variable")
 
-    mydata <- mydata %>% 
+    mydata <- mydata %>%
       group_by(across(vars)) %>%
       do(calcPercentile(
         .,
@@ -315,14 +315,14 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
         avg.time = avg.time, percentile = percentile,
         data.thresh = data.thresh
       ))
-    
+
     vars <- paste0("percentile.", percentile)
 
     mydata <- gather(mydata, key = variable, value = value, vars)
-    
-   
+
+
   } else {
-    
+
     mydata <- suppressWarnings(timeAverage(
       mydata,
       type = c(type, "variable"),
@@ -360,25 +360,25 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
     if (nrow(mydata) <= 24) deseason <- FALSE
 
     if (deseason) {
-     
+
       myts <- ts(
         mydata[["value"]],
         start = c(start.year, start.month),
         end = c(end.year, end.month), frequency = 12
       )
-      
+
       # fill any missing data using a Kalman filter
-      
+
       if (any(is.na(myts))) {
-        
+
         # use forecast package to get best arima
         fit <- ts(rowSums(tsSmooth(StructTS(myts))[,-2]))
         id <- which(is.na(myts))
-        
+
         myts[id] <- fit[id]
-        
+
       }
-    
+
       ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
 
       deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
@@ -400,14 +400,14 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   vars <- c(type, "variable")
 
-  res <- mydata %>% 
+  res <- mydata %>%
     group_by(across(vars)) %>%
     do(process.cond(.))
 
   ## smooth fits so that they can be returned to the user
   vars <- c(type, "variable")
 
-  fit <- res %>% 
+  fit <- res %>%
     group_by(across(vars)) %>%
     do(fitGam(., x = "date", y = "conc", k = k, ...))
 
@@ -575,14 +575,14 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   ## plot
   plt <- do.call(xyplot, xyplot.args)
-  
+
   newdata <- res
   output <- list(
     plot = plt, data = list(data = newdata, fit = fit),
     call = match.call()
   )
   class(output) <- "openair"
-  
+
   ## output ########################################################################
   if (plot) {
     if (length(type) == 1) {
@@ -591,6 +591,6 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
       plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
     }
   }
-  
+
   invisible(output)
 }

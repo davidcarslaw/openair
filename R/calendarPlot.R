@@ -1,4 +1,4 @@
-##' Plot time series values in convential calendar format
+##' Plot time series values in a conventional calendar format
 ##'
 ##' This function will plot data by month laid out in a conventional calendar
 ##' format. The main purpose is to help rapidly visualise potentially complex
@@ -59,7 +59,7 @@
 ##'   An example would be \code{cols = c("yellow", "green", "blue")}
 ##' @param limits Use this option to manually set the colour scale limits. This
 ##'   is useful in the case when there is a need for two or more plots and a
-##'   consistent scale is needed on each. Set the limits to cover the maximimum
+##'   consistent scale is needed on each. Set the limits to cover the maximum
 ##'   range of the data for all plots of interest. For example, if one plot had
 ##'   data covering 0--60 and another 0--100, then set \code{limits = c(0,
 ##'   100)}. Note that data will be ignored if outside the limits range.
@@ -90,7 +90,7 @@
 ##'   labels are given.
 ##' @param breaks If a categorical scale is required then these breaks will be
 ##'   used. For example, \code{breaks = c(0, 50, 100, 1000)}. In this case
-##'   \dQuote{good} corresponds to values berween 0 and 50 and so on. Users
+##'   \dQuote{good} corresponds to values between 0 and 50 and so on. Users
 ##'   should set the maximum value of \code{breaks} to exceed the maximum data
 ##'   value to ensure it is within the maximum final range e.g. 100--1000 in
 ##'   this case.
@@ -163,7 +163,7 @@
 ##' cols = c("lightblue", "green", "yellow",  "red"), statistic = "max")
 ##'
 ##' }
-##' 
+##'
 calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
                          type = "default",
                          annotate = "date", statistic = "mean", cols = "heat",
@@ -198,7 +198,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+
     fontsize = current.font
   ))
 
@@ -229,7 +229,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   if (!missing(year)) {
     mydata <- selectByDate(mydata, year = year)
   }
-  
+
   if (!missing(month)) {
     mydata <- selectByDate(mydata, month = month)
   }
@@ -283,7 +283,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
 
     daysAtEnd <- 42 - pad.start - nrow(mydata) ## 7x6 regular grid
     conc <- c(rep(NA, daysAtEnd), conc)
-    
+
     actual_date <- c(rep(NA, daysAtEnd), actual_date)
 
     ## get relevant days in previous and next month, like a real calendar
@@ -296,7 +296,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
     beginDates <- as.numeric(format(beginDates, "%d"))
 
     conc <- c(conc, rep(NA, pad.start))
-    
+
     actual_date <- c(actual_date, rep(NA, pad.start))
 
     if (pad.start != 0) theDates <- c(theDates, beginDates)
@@ -330,42 +330,42 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   }
 
   ## calculate daily means
-  
-  mydata <- timeAverage(mydata, "day", statistic = statistic, 
+
+  mydata <- timeAverage(mydata, "day", statistic = statistic,
                         data.thresh = data.thresh)
-  
-  
+
+
   mydata$date <- as_date(mydata$date)
-  
+
   type <- "cuts"
 
   # make sure all days are available
   mydata <- left_join(data.frame(date = all.dates), mydata, by = "date")
-  
+
   # split by year-month
   mydata <- mutate(mydata,
                    cuts = format(date, "%B-%Y"),
                    cuts = ordered(cuts, levels = unique(cuts))
   )
-  
+
   if (remove.empty) {
-    mydata <- group_by(mydata, cuts) %>% 
-      mutate(empty = all(is.na(across(pollutant))))  %>% 
-      filter(empty == FALSE) %>% 
+    mydata <- group_by(mydata, cuts) %>%
+      mutate(empty = all(is.na(across(pollutant))))  %>%
+      filter(empty == FALSE) %>%
       ungroup()
   }
-  
+
   baseData <- mydata # for use later
   original_data <- mydata
-  
+
   # timeAverage will pad-out missing months
   if (!missing(month)) {
     mydata <- selectByDate(mydata, month = month)
   }
 
-  mydata <- mydata %>% 
+  mydata <- mydata %>%
     group_by(across(type)) %>%
-    do(prepare.grid(., pollutant)) %>% 
+    do(prepare.grid(., pollutant)) %>%
     ungroup()
 
   mydata$value <- mydata$conc.mat ## actual numerical value (retain for categorical scales)
@@ -378,18 +378,18 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
 
   if (!anyNA(labels) && !anyNA(breaks)) {
     category <- TRUE
-    mydata <- mutate(mydata, 
-                     conc.mat = cut(conc.mat, 
-                                    breaks = breaks, 
+    mydata <- mutate(mydata,
+                     conc.mat = cut(conc.mat,
+                                    breaks = breaks,
                                     labels = labels))
   }
 
   if (annotate == "wd") {
     baseData$wd <- baseData$wd * 2 * pi / 360
 
-    wd <- baseData %>% 
+    wd <- baseData %>%
       group_by(across(type)) %>%
-      do(prepare.grid(., "wd")) %>% 
+      do(prepare.grid(., "wd")) %>%
       ungroup()
 
     wd$value <- wd$conc.mat ## actual numerical value (retain for categorical scales)
@@ -398,14 +398,14 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   if (annotate == "ws") {
     baseData$wd <- baseData$wd * 2 * pi / 360
 
-    ws <- baseData %>% 
+    ws <- baseData %>%
       group_by(across(type)) %>%
-      do(prepare.grid(., "ws")) %>% 
+      do(prepare.grid(., "ws")) %>%
       ungroup()
 
-    wd <- baseData %>% 
+    wd <- baseData %>%
       group_by(across(type)) %>%
-      do(prepare.grid(., "wd")) %>% 
+      do(prepare.grid(., "wd")) %>%
       ungroup()
 
     ## normalise wind speeds to highest daily mean
@@ -563,7 +563,7 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
             ws$value[subscripts]),
           y + (-0.5 * cos(wd$value[subscripts]) *
             ws$value[subscripts]),
-          angle = 20, length = 0.07, lwd = 0.5, 
+          angle = 20, length = 0.07, lwd = 0.5,
           col = col.arrow
         )
       }
@@ -577,18 +577,18 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
   if (plot) {
     print(do.call(levelplot, lv.args))
   }
-  
+
   ## reset theme
   lattice.options(default.theme = def.theme)
 
   # output
-  
+
   plt <- do.call(levelplot, lv.args)
-  
+
   # add in ws and wd if there
-  newdata <- left_join(mydata, original_data %>% select(any_of(c("date", "ws", "wd"))), 
+  newdata <- left_join(mydata, original_data %>% select(any_of(c("date", "ws", "wd"))),
                        by = "date")
-  
+
   output <- list(plot = plt, data = newdata, call = match.call())
   class(output) <- "openair"
   invisible(output)

@@ -158,10 +158,10 @@ ends at the beginning or end of year.}
 \item{force.positive}{The default is \code{TRUE}. Sometimes if smoothing
 data with steep gradients it is possible for predicted values to be
 negative. \code{force.positive = TRUE} ensures that predictions remain
-postive. This is useful for several reasons. First, with lots of missing
-data more interpolation is needed and this can result in artifacts
+positive. This is useful for several reasons. First, with lots of missing
+data more interpolation is needed and this can result in artefacts
 because the predictions are too far from the original data. Second, if it
-is known beforehand that the data are all postive, then this option
+is known beforehand that the data are all positive, then this option
 carries that assumption through to the prediction. The only likely time
 where setting \code{force.positive = FALSE} would be if background
 concentrations were first subtracted resulting in data that is

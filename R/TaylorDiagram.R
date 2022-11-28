@@ -5,7 +5,7 @@
 ##' conditioning by any categorical or numeric variables, which makes the
 ##' function very flexible.
 ##'
-##' The Taylor Diagram is a very useful model evaluation tool. 
+##' The Taylor Diagram is a very useful model evaluation tool.
 ##' The diagram provides a way of showing how three complementary model
 ##' performance statistics vary simultaneously. These statistics are the
 ##' correlation coefficient R, the standard deviation (sigma) and the (centred)
@@ -114,7 +114,7 @@
 ##' the same plot. The normalisation is done by each
 ##' \code{group}/\code{type} combination.
 ##' @param cols Colours to be used for plotting. Useful options for
-##' categorical data are avilable from \code{RColorBrewer} colours ---
+##' categorical data are available from \code{RColorBrewer} colours ---
 ##' see the \code{openair} \code{openColours} function for more
 ##' details. Useful schemes include \dQuote{Accent}, \dQuote{Dark2},
 ##' \dQuote{Paired}, \dQuote{Pastel1}, \dQuote{Pastel2},
@@ -264,7 +264,7 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+
     fontsize = current.font
   ))
 
@@ -400,14 +400,14 @@ TaylorDiagram <- function(mydata, obs = "obs", mod = "mod", group = NULL, type =
 
   vars <- c(group, type)
 
-  results <- mydata %>% 
+  results <- mydata %>%
     group_by(across(vars)) %>%
     do(calcStats(., obs = obs, mod = mod[1]))
 
   results.new <- NULL
 
   if (combine) {
-    results.new <- mydata %>% 
+    results.new <- mydata %>%
       group_by(across(vars)) %>%
       do(calcStats(., obs = obs, mod = mod[2]))
   }

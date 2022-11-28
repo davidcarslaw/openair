@@ -1,7 +1,7 @@
 ##' Function to plot percentiles by wind direction
 ##'
 ##' \code{percentileRose} plots percentiles by wind direction with
-##' flexible conditioning. The plot can display mutiple percentile
+##' flexible conditioning. The plot can display multiple percentile
 ##' lines or filled areas.
 ##'
 ##' \code{percentileRose} calculates percentile levels of a pollutant
@@ -226,7 +226,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
 
   ## need lowest value if shading
   if (fill) percentile <- unique(c(0, percentile))
-  
+
   # number of pollutants
   npol <- length(pollutant)
 
@@ -235,13 +235,13 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
   ## Can also do more than one pollutant and a single type that is not "default", in which
   ## case pollutant becomes a conditioning variable
   if (length(pollutant) > 1) {
-    
+
     if (length(type) > 1) {
       warning(paste("Only type = '", type[1], "' will be used", sep = ""))
       type <- type[1]
     }
     ## use pollutants as conditioning variables
-  
+
     mydata <- gather(mydata, key = variable, value = value, pollutant)
     ## now set pollutant to "value"
     pollutant <- "value"
@@ -262,7 +262,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+
     fontsize = current.font
   ))
 
@@ -320,10 +320,10 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
   }
 
   prepare.grid <- function(mydata, stat, overall.lower, overall.upper) {
-    
+
     overall.lower <- mydata$lower[1]
     overall.upper <- mydata$upper[1]
-    
+
     # wd = NULL
     ## add zero wind angle = same as 360 for cyclic spline
     ids <- which(mydata[, wd] == 360)
@@ -382,24 +382,24 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     if (method == "default") {
 
       ## calculate percentiles
-      
+
       percentiles <- group_by(mydata, wd) %>%
-        summarise({{ pollutant }} := quantile(.data[[pollutant]], 
-                                              probs = percentile / 100, 
-                                              na.rm = TRUE)) %>% 
+        summarise({{ pollutant }} := quantile(.data[[pollutant]],
+                                              probs = percentile / 100,
+                                              na.rm = TRUE)) %>%
         mutate(percentile = percentile)
     }
 
     if (tolower(method) == "cpf") {
-   
-      percentiles1 <- group_by(mydata, wd) %>% 
+
+      percentiles1 <- group_by(mydata, wd) %>%
         summarise(across(where(is.numeric), ~ length(which(.x < overall.lower)) /length(.x)))
-      
+
       percentiles1$percentile <- min(percentile)
 
-      percentiles2 <- group_by(mydata, wd) %>% 
+      percentiles2 <- group_by(mydata, wd) %>%
         summarise(across(where(is.numeric), ~ length(which(.x > upper)) /length(.x)))
-      
+
      percentiles2$percentile <- max(percentile)
 
       if (fill) {
@@ -410,16 +410,16 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     }
 
 
-    results <- group_by(data.frame(percentile), percentile) %>% 
+    results <- group_by(data.frame(percentile), percentile) %>%
       do(mod.percentiles(.$percentile, overall.lower, overall.upper))
 
     ## calculate mean; assume a percentile of 999 to flag it later
-   
-    percentiles <- group_by(mydata, wd) %>% 
+
+    percentiles <- group_by(mydata, wd) %>%
       summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)))
-    
+
     percentiles$percentile <- 999
-    
+
     Mean <- map_df(999, mod.percentiles)
 
     if (stat == "percentile") results <- results else results <- Mean
@@ -435,7 +435,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
 
   ## overall.lower and overall.upper are the OVERALL upper/lower percentiles, but pollutant specific
   if (npol > 1) {
-    
+
     mydata <- mydata %>%
       group_by(variable) %>%
       mutate(
@@ -443,7 +443,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
       upper = quantile(.data[[pollutant]], probs = max(percentile) / 100, na.rm = TRUE)
     ) %>%
       ungroup()
-    
+
   } else {
     mydata <- mutate(
       mydata,
@@ -451,12 +451,12 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
       upper = quantile(.data[[pollutant]], probs = max(percentile) / 100, na.rm = TRUE)
     )
   }
-  
-  results.grid <- mydata %>% 
+
+  results.grid <- mydata %>%
     group_by(across(type)) %>%
     do(prepare.grid(., stat = "percentile"))
-  
-  
+
+
   if (method == "cpf") {
     ## useful labelling
     sub <- paste(
@@ -473,7 +473,7 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
 
 
   if (mean) {
-    Mean <- mydata %>% 
+    Mean <- mydata %>%
       group_by(across(type)) %>%
       do(prepare.grid(., stat = "mean"))
 
@@ -560,17 +560,17 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
 
           if (i == 1) {
             subdata <- subset(results.grid[subscripts, ], percentile == value)
-            
-            if(length(percentile) > 1)            
-              lpolygon(subdata$x, subdata$y, col = col[1], border = NA)  
+
+            if(length(percentile) > 1)
+              lpolygon(subdata$x, subdata$y, col = col[1], border = NA)
             else
               lpolygon(subdata$x, subdata$y, col = "white", border = NA)
-            
+
           } else {
-            
+
             subdata1 <- results.grid[subscripts, ] %>%
               filter(percentile == {{ value }})
-            
+
             value2 <- percentile[i - 1]
             subdata2 <- results.grid[subscripts, ] %>%
               filter(percentile == {{ value2 }})

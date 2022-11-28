@@ -75,7 +75,7 @@ colour. Examples include \code{map.fill = "grey40"} and \code{map.fill =
 openColours("default", 10)}. The latter colours the countries and can help
 differentiate them.}
 
-\item{map.alpha}{The transpency level of the filled map which takes values
+\item{map.alpha}{The transparency level of the filled map which takes values
 from 0 (full transparency) to 1 (full opacity). Setting it below 1 can
 help view trajectories, trajectory surfaces etc. \emph{and} a filled base
 map.}
@@ -106,7 +106,7 @@ set \code{grid.col = "transparent"}.}
 trajectory. For hourly back trajectories points are plotted every
 \code{npoint} hours. This helps to understand where the air masses were at
 particular times and get a feel for the speed of the air (points closer
-togther correspond to slower moving air masses). If \code{npoints = NA}
+together correspond to slower moving air masses). If \code{npoints = NA}
 then no points are added.}
 
 \item{origin}{If true a filled circle dot is shown to mark the receptor
@@ -135,7 +135,7 @@ of overplotting making it difficult to gauge the overall concentration
 pattern. In these cases setting \code{alpha} to a low value e.g. 0.1 can
 help.
 
-The user can aslo show points instead of lines by \code{plot.type = "p"}.
+The user can also show points instead of lines by \code{plot.type = "p"}.
 
 Note that \code{trajPlot} will plot only the full length trajectories. This
 should be remembered when selecting only part of a year to plot.

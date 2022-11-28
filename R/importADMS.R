@@ -44,7 +44,7 @@
 ##'   (NOTE: Some ADMS file data names include symbols and structures that R
 ##'   does not allow as part of a name, so some renaming is automatic
 ##'   regardless of \code{simplify.names} setting.  For example, brackets or
-##'   symbols are removed from names or repaced with ".", and names in the form
+##'   symbols are removed from names or replaced with ".", and names in the form
 ##'   "1/x" may be returned as "X1.x" or "recip.x".)
 ##' @param test.file.structure Option to test file structure before trying to
 ##'   import. Default, \code{TRUE}, tests for expected file structure and halts
@@ -89,7 +89,7 @@
 ##' If \code{simplify.names} is enabled common chemical names may be
 ##'   simplified, and some other parameters may be reset to openair standards
 ##'   (e.g. "ws", "wd" and "temp") according to operations defined in
-##'   \code{simplifyNamesADMS}. A summary of simplfication operations can be
+##'   \code{simplifyNamesADMS}. A summary of simplification operations can be
 ##'   obtained using, e.g., the call \code{importADMS(simplify.names)}.
 ##'
 ##' If \code{drop.case} is enabled all upper case characters in names will be

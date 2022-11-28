@@ -90,7 +90,7 @@
 ##' @param var.obs Other variable observations for which statistics should be
 ##'   calculated. Can be more than length one e.g. \code{var.obs = c("nox.obs",
 ##'   "ws.obs")}. Note that including other variables could reduce the number of
-##'   data available to plot due to teh need of having non-missing data for all
+##'   data available to plot due to the need of having non-missing data for all
 ##'   variables.
 ##' @param var.mod Other variable predictions for which statistics should be
 ##'   calculated. Can be more than length one e.g. \code{var.obs = c("nox.obs",
@@ -191,7 +191,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+
     fontsize = current.font
   ))
 
@@ -218,9 +218,9 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     other <- TRUE
     statistic <- "cluster"
   }
-  
+
   if (any(type %in% dateTypes)) vars <- c("date", vars)
-  
+
 
   ## various checks
   if (length(var.obs) == 0 | length(var.mod) == 0 & !"cluster" %in% statistic) {
@@ -318,7 +318,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     pred.cut[is.na(pred.cut)] <- labs[1]
 
     ## split by predicted intervals
-    res <- mutate(mydata, pred.cut = pred.cut) 
+    res <- mutate(mydata, pred.cut = pred.cut)
 
     statFun <- function(x, ...) {
       tmpFun <- function(i, x, ...) {
@@ -327,8 +327,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
       }
 
       if (nrow(x) > 4) {
-       
-        res <- group_by(data.frame(n = 1:200), n) %>% 
+
+        res <- group_by(data.frame(n = 1:200), n) %>%
           do(tmpFun(i = .$n, x))
 
         data.frame(
@@ -351,8 +351,8 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
     if (other) {
     vars <- c("pred.cut", statistic)
-    
-      res <- res %>% 
+
+      res <- res %>%
         group_by(across(vars)) %>%
         summarise(Freq = dplyr::n())
 
@@ -361,9 +361,9 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
       res <- ungroup(res) %>%
         group_by(pred.cut) %>%
         mutate(Freq = Freq / sum(Freq))
-      
+
       res$statistic <- factor(statistic)
-      
+
     } else {
       res <- group_by(res, pred.cut) %>% do(statFun(., statistic = statistic))
     #  res <- do(statFun(., statistic = statistic))
@@ -372,15 +372,15 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     na.omit(res)
   }
 
-  ## treat clusters specfically if present #####################################
+  ## treat clusters specifically if present #####################################
 
   if (other) {
-    clust.results <- mydata %>% 
+    clust.results <- mydata %>%
       group_by(across(type)) %>%
       do(procData(., other = other, statistic = statistic))
 
     clust.results$.id <- as.numeric(as.character(clust.results$pred.cut))
-  
+
     pol.name <- sapply(
       levels(clust.results[["statistic"]]),
       function(x) quickText(x, auto.text)
@@ -398,7 +398,7 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     ## #########################################################################
 
     cols <- openColours(col.var, length(unique(clust.results[[statistic]])))
-  
+
     temp <- "statistic"
     if (type != "default") temp <- paste(c("statistic", type), collapse = "+")
     myform <- formula(paste("Freq ~ .id | ", temp, sep = ""))
@@ -452,20 +452,20 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
         stringsAsFactors = FALSE
       )
     )
-    
+
     process_data <- function(mydata, type, ...) {
-      mydata <- mydata %>% 
+      mydata <- mydata %>%
         group_by(across(type)) %>%
         do(procData(., ...))
     }
-    
+
     results <- combs %>%
       rowwise() %>%
-      do(suppressWarnings(process_data(mydata, type, statistic = .$stat, 
+      do(suppressWarnings(process_data(mydata, type, statistic = .$stat,
                       var.obs = .$var.obs, var.mod = .$var.mod)))
-    
+
     results$.id <- as.numeric(as.character(results$pred.cut))
-    
+
     ## make sure all infinite values are set to NA
     results[] <- lapply(results, function(x) {
       replace(x, x == Inf | x == -Inf, NA)
@@ -473,11 +473,11 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
 
     results$statistic <- factor(results$statistic)
     results$group <- factor(results$group)
-  
+
 
     ## proper names of labelling ###############################################
 
-    pol.name <- sapply(levels(as.factor(results[["statistic"]])), 
+    pol.name <- sapply(levels(as.factor(results[["statistic"]])),
                        function(x) quickText(x, auto.text))
     strip <- strip.custom(factor.levels = pol.name)
 
@@ -512,9 +512,9 @@ conditionalEval <- function(mydata, obs = "obs", mod = "mod",
     if (type != "default") temp <- paste(c("statistic", type), collapse = "+")
 
     myform <- formula(paste("mean ~ .id | ", temp, sep = ""))
-    
+
     # ylimits list
-    ylim <- split(results, results$statistic) %>% 
+    ylim <- split(results, results$statistic) %>%
       map(~ c(min(.$lower, na.rm = TRUE), max(.$upper, na.rm = TRUE)))
 
     p.args <- list(

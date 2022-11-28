@@ -102,7 +102,7 @@ Monday.
 
 "season" splits data up by season. In the northern hemisphere
 winter = December, January, February; spring = March, April, May
-etc. These defintions will change of \code{hemisphere =
+etc. These definitions will change of \code{hemisphere =
 "southern"}.
 
 "seasonyear (or "yearseason") will split the data into year-season

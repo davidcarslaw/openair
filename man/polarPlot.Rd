@@ -134,7 +134,7 @@ coordinates, the default is wind speed, \dQuote{ws}.}
   \item \code{"robust_slope"} is another option for pair-wise statistics and
   \code{"quantile.slope"}, which uses quantile regression to estimate the
   slope for a particular quantile level (see also \code{tau} for setting the
-  quantile level). 
+  quantile level).
 
   \item \code{"york_slope"} is another option for pair-wise statistics which
   uses the \emph{York regression method} to estimate the slope. In this
@@ -244,7 +244,7 @@ direction.}
 with steep gradients it is possible for predicted values to be negative.
 \code{force.positive = TRUE} ensures that predictions remain positive. This
 is useful for several reasons. First, with lots of missing data more
-interpolation is needed and this can result in artifacts because the
+interpolation is needed and this can result in artefacts because the
 predictions are too far from the original data. Second, if it is known
 beforehand that the data are all positive, then this option carries that
 assumption through to the prediction. The only likely time where setting

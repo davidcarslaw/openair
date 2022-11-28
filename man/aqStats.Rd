@@ -20,13 +20,12 @@ aqStats(
 \item{pollutant}{The name of a pollutant e.g. \code{pollutant = c("o3",
 "pm10")}.}
 
-\item{type}{\code{type} allows \code{timeAverage} to be applied to
-cases where there are groups of data that need to be split and
-the function applied to each group. The most common example is
-data with multiple sites identified with a column representing
-site name e.g. \code{type = "site"}. More generally, \code{type}
-should be used where the date repeats for a particular grouping
-variable.}
+\item{type}{\code{type} allows \code{timeAverage} to be applied to cases
+where there are groups of data that need to be split and the function
+applied to each group. The most common example is data with multiple sites
+identified with a column representing site name e.g. \code{type = "site"}.
+More generally, \code{type} should be used where the date repeats for a
+particular grouping variable.}
 
 \item{data.thresh}{The data capture threshold in %. No values are calculated
 if data capture over the period of interest is less than this value.
@@ -49,8 +48,8 @@ Calculate a range of air pollution-relevant statistics by year.
 This function calculates a range of common and air pollution-specific
 statistics from a data frame. The statistics are calculated on an annual
 basis and the input is assumed to be hourly data. The function can cope with
-several sites and years e.g. using \code{type = "site"}. The user can control the output by setting
-\code{transpose} appropriately.
+several sites and years e.g. using \code{type = "site"}. The user can
+control the output by setting \code{transpose} appropriately.
 
 Note that the input data is assumed to be in mass units e.g. ug/m3 for all
 species except CO (mg/m3).

@@ -104,12 +104,12 @@ be printed at, default 0.99.}
 
 \item{x.relation}{This determines how the x-axis scale is plotted.
 \dQuote{same} ensures all panels use the same scale and \dQuote{free} will
-use panel-specfic scales. The latter is a useful setting when plotting
+use panel-specific scales. The latter is a useful setting when plotting
 data with very different values.}
 
 \item{y.relation}{This determines how the y-axis scale is plotted.
 \dQuote{same} ensures all panels use the same scale and \dQuote{free} will
-use panel-specfic scales. The latter is a useful setting when plotting
+use panel-specific scales. The latter is a useful setting when plotting
 data with very different values.}
 
 \item{data.col}{Colour name for the data}

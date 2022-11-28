@@ -23,8 +23,8 @@
 ##'
 ##' \code{summaryPlot} will only show data that are numeric or integer type.
 ##' This is useful for checking that data have been imported properly. For
-##' example, if for some reason a column representing wind speed erroneosly had
-##' one or more fields with charcters in, the whole column would be either
+##' example, if for some reason a column representing wind speed erroneously had
+##' one or more fields with characters in, the whole column would be either
 ##' character or factor type. The absence of a wind speed variable in the
 ##' \code{summaryPlot} plot would therefore indicate a problem with the input
 ##' data. In this particular case, the user should go back to the source data
@@ -133,7 +133,7 @@
 ##' # show density plot line in black
 ##' \dontrun{summaryPlot(mydata, col.dens = "black")}
 ##'
-##' 
+##'
 summaryPlot <- function(mydata,
                         na.len = 24,
                         clip = TRUE,
@@ -198,7 +198,7 @@ summaryPlot <- function(mydata,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+
     fontsize = current.font
   ))
 
@@ -263,18 +263,18 @@ summaryPlot <- function(mydata,
       ## id of first numeric column (pollutant)
       id <- which(sapply(mydata, class) %in% c("numeric", "integer"))[1]
       if (missing(pollutant)) pollutant <- names(mydata)[id]
-      
+
       if (pollutant %in% names(mydata) == FALSE) {
         stop(cat("Can't find the variable", pollutant, "\n"))
       }
-      
+
       mydata <- subset(mydata, select = c("date", "site", pollutant))
       names(mydata) <- c("date", "variable", "value")
-      
-      
-      mydata <- tidyr::spread(mydata, 
+
+
+      mydata <- tidyr::spread(mydata,
                               key = variable, value = value)
-      
+
       warning(paste("More than one site detected, using", pollutant))
     }
   }
@@ -287,7 +287,7 @@ summaryPlot <- function(mydata,
   ## remove variables where all are NA
   mydata <- mydata[, sapply(mydata, function(x) !all(is.na(x)))]
 
-  ## force to be date/time class, even if orginally Date class
+  ## force to be date/time class, even if originally Date class
   mydata$date <- as.POSIXct(mydata$date, "GMT")
 
   ## proper names of labelling
@@ -308,21 +308,21 @@ summaryPlot <- function(mydata,
   mydata <- full_join(mydata, all.dates, by = "date") %>%
     arrange(date)
 
-  
-  
+
+
   ## means for trend line
 
   meanLine <- timeAverage(mydata, avg.time)
   meanLine <- gather(meanLine, key = variable, value = value, -date)
-  
+
   # ensure order of pollutants is correct
   meanLine <- mutate(meanLine,
                    variable = factor(variable, levels = unique(variable)))
-  
+
   meanLine <- split(meanLine, meanLine$variable)
 
   mydata <- gather(mydata, key = variable, value = value, -date)
-  
+
   # ensure order of pollutants is correct
   mydata <- mutate(mydata,
                    variable = factor(variable, levels = unique(variable)))
@@ -567,15 +567,15 @@ summaryPlot <- function(mydata,
   if (length(cols) == 1 && cols == "greyscale") {
     trellis.par.set("strip.background", current.strip)
   }
-  
+
   if (plot) {
     print(plt1, position = c(0, 0, 0.7, y.upp), more = TRUE)
     print(plt2, position = c(0.7, 0, 1, 0.975 * y.upp))
-    
+
     ## use grid to add an overall title
     grid.text(main, 0.5, y.upp, gp = gpar(fontsize = 14))
   }
-  
+
   ## create output with plot
   output <- list(plot = list(plt1, plt2), data = dummy.dat, call = match.call())
   class(output) <- "openair"

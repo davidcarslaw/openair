@@ -1,6 +1,6 @@
 ##' Kernel density plot for daily mean exceedance statistics
 ##'
-##' This function is used to explore the conditions leading to exeedances of
+##' This function is used to explore the conditions leading to exceedances of
 ##' air quality limits. Currently the focus is on understanding the conditions
 ##' under which daily limit values for PM10 are in excess of a specified
 ##' threshold. Kernel density estimates are calculated and plotted to highlight
@@ -39,7 +39,7 @@
 ##' exceedances occur.
 ##'
 ##' To aid interpretation the plot will also show the \emph{estimated} number
-##' of days or hours where exeedances occur. For \code{type = "default"} the
+##' of days or hours where exceedances occur. For \code{type = "default"} the
 ##' number of days should exactly correspond to the actual number of exceedance
 ##' days. However, with different values of \code{type} the number of days is
 ##' an estimate. It is an estimate because conditioning breaks up individual
@@ -230,7 +230,7 @@ kernelExceed <- function(polar,
 
   #############################################################################
 
-  results.grid <- subdata %>% 
+  results.grid <- subdata %>%
     group_by(across(type)) %>%
     do(prepare.grid(.))
 

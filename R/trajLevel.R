@@ -17,11 +17,11 @@
 ##'
 ##' If \code{statistic = "difference"} the trajectories associated with a
 ##' concentration greater than \code{percentile} are compared with the the full
-##' set of trajectories to understand the differences in freqeuncies of the
+##' set of trajectories to understand the differences in frequencies of the
 ##' origin of air masses of the highest concentration trajectories compared with
-##' the trajectories on average. The comparsion is made by comparing the
+##' the trajectories on average. The comparison is made by comparing the
 ##' percentage change in gridded frequencies. For example, such a plot could
-##' show that the top 10\% of concentrations of PM10 tend to orginate from
+##' show that the top 10\% of concentrations of PM10 tend to originate from
 ##' air-mass origins to the east.
 ##'
 ##' If \code{statistic = "pscf"} then the Potential Source Contribution Function
@@ -33,7 +33,7 @@
 ##' solves \deqn{PSCF = m_{ij}/n_{ij}} where \eqn{n_{ij}} is the number of times
 ##' that the trajectories passed through the cell (i,j) and \eqn{m_{ij}} is the
 ##' number of times that a source concentration was high when the trajectories
-##' passed through the cell (i,j). The criterion for de-termining \eqn{m_{ij}}
+##' passed through the cell (i,j). The criterion for determining \eqn{m_{ij}}
 ##' is controlled by \code{percentile}, which by default is 90. Note also that
 ##' cells with few data have a weighting factor applied to reduce their effect.
 ##'
@@ -92,10 +92,10 @@
 ##'   It is also possible to set \code{statistic = "difference"}. In this case
 ##'   trajectories where the associated concentration is greater than
 ##'   \code{percentile} are compared with the the full set of trajectories to
-##'   understand the differences in freqeuncies of the origin of air masses. The
-##'   comparsion is made by comparing the percentage change in gridded
+##'   understand the differences in frequencies of the origin of air masses. The
+##'   comparison is made by comparing the percentage change in gridded
 ##'   frequencies. For example, such a plot could show that the top 10\% of
-##'   concentrations of PM10 tend to orginate from air-mass origins to the east.
+##'   concentrations of PM10 tend to originate from air-mass origins to the east.
 ##'
 ##'   If \code{statistic = "pscf"} then a Potential Source Contribution Function
 ##'   map is produced. If \code{statistic = "cwt"} then concentration weighted
@@ -117,7 +117,7 @@
 ##' @param .combine When statistic is "SQTBA" it is possible to combine lots of
 ##'   receptor locations to derive a single map. \code{.combine} identifies the
 ##'   column that differentiates different sites (commonly a column named
-##'   \code{site}). Note that indivisual site maps are normalised first by
+##'   \code{site}). Note that individual site maps are normalised first by
 ##'   dividing by their mean value.
 ##' @param sigma For the SQTBA approach \code{sigma} determines the amount of
 ##'   back trajectory spread based on the Gaussian plume equation. Values in the
@@ -136,7 +136,7 @@
 ##'   colour. Examples include \code{map.fill = "grey40"} and \code{map.fill =
 ##'   openColours("default", 10)}. The latter colours the countries and can help
 ##'   differentiate them.
-##' @param map.alpha The transpency level of the filled map which takes values
+##' @param map.alpha The transparency level of the filled map which takes values
 ##'   from 0 (full transparency) to 1 (full opacity). Setting it below 1 can
 ##'   help view trajectories, trajectory surfaces etc. \emph{and} a filled base
 ##'   map.
@@ -228,118 +228,118 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
                       map.alpha = 0.3, projection = "lambert",
                       parameters = c(51, 51), orientation = c(90, 0, 0),
                       grid.col = "deepskyblue", origin = TRUE, plot = TRUE, ...) {
-  
+
   ## mydata can be a list of several trajectory files; in which case combine them
   ## before averaging
   hour.inc <- N <- NULL
-  
+
   ## variables needed in trajectory plots
   vars <- c("date", "lat", "lon", "hour.inc", pollutant)
-  
+
   statistic <- tolower(statistic)
-  
+
   # to combine the effects of several receptors
   if (!is.na(.combine))
     vars <- c(vars, .combine)
-  
+
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
-  
+
   if (statistic == "sqtba" && type != "default") {
-    
+
     warning("'type' option not available yet with SQTBA", call. = FALSE)
     type <- "default"
-    
+
   }
-    
-  
+
+
   ## Args
   Args <- list(...)
-  
+
   ## set graphics
   current.strip <- trellis.par.get("strip.background")
   current.font <- trellis.par.get("fontsize")
-  
+
   ## reset graphic parameters
   on.exit(trellis.par.set(
-    
+
     fontsize = current.font
   ))
-  
+
   if (!"ylab" %in% names(Args)) {
     Args$ylab <- ""
   }
-  
+
   if (!"xlab" %in% names(Args)) {
     Args$xlab <- ""
   }
-  
+
   if (!"main" %in% names(Args)) {
     Args$main <- ""
   }
-  
+
   if (!"border" %in% names(Args)) {
     Args$border <- NA
   }
-  
+
   if ("fontsize" %in% names(Args)) {
     trellis.par.set(fontsize = list(text = Args$fontsize))
   }
-  
+
   if (!"key.header" %in% names(Args)) {
     if (statistic == "frequency") Args$key.header <- "% trajectories"
     if (statistic == "pscf") Args$key.header <- "PSCF \nprobability"
     if (statistic == "sqtba") Args$key.header <- paste0("SQTBA \n", pollutant)
-    if (statistic == "sqtba" && !is.na(.combine)) 
+    if (statistic == "sqtba" && !is.na(.combine))
       Args$key.header <- paste0("SQTBA \n(Normalised)\n)", pollutant)
-    if (statistic == "difference") 
+    if (statistic == "difference")
       Args$key.header <- quickText(paste("gridded differences", "\n(", percentile, "th percentile)", sep = ""))
   }
-  
+
   if (!"key.footer" %in% names(Args)) {
     Args$key.footer <- ""
   }
-  
+
   ## xlim and ylim set by user
   if (!"xlim" %in% names(Args)) {
-    
+
     Args$xlim <- range(mydata$lon)
-    
+
     # tweak for SQTBA
-    Args$xlim <- c(round(quantile(mydata$lon, probs = 0.002)), 
+    Args$xlim <- c(round(quantile(mydata$lon, probs = 0.002)),
                    round(quantile(mydata$lon, probs = 0.998)))
   }
-  
+
   if (!"ylim" %in% names(Args)) {
-    
+
     Args$ylim <- range(mydata$lat)
-    
+
     # tweak for SQTBA
-    Args$ylim <- c(round(quantile(mydata$lat, probs = 0.002)), 
+    Args$ylim <- c(round(quantile(mydata$lat, probs = 0.002)),
                    round(quantile(mydata$lat, probs = 0.998)))
   }
-  
+
   ## extent of data (or limits set by user) in degrees
   trajLims <- c(Args$xlim, Args$ylim)
-  
+
   ## need *outline* of boundary for map limits
   Args <- setTrajLims(mydata, Args, projection, parameters, orientation)
-  
-  
+
+
   Args$trajStat <- statistic
-  
+
   if (!"method" %in% names(Args)) {
     method <- "traj"
   } else {
     method <- Args$method
     statistic <- "XX" ## i.e. it wont touch the data
   }
-  
+
   ## location of receptor for map projection, used to show location on maps
-  origin_xy <- mydata %>% 
-    filter(hour.inc == 0) %>% 
-    group_by(lat, lon) %>%  
+  origin_xy <- mydata %>%
+    filter(hour.inc == 0) %>%
+    group_by(lat, lon) %>%
     slice_head(n = 1)
-  
+
   tmp <- mapproject(
     x = origin_xy[["lon"]],
     y = origin_xy[["lat"]],
@@ -347,12 +347,12 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     parameters = parameters,
     orientation = orientation
   )
-  
+
   receptor <- tibble(x = tmp$x, y = tmp$y)
-  
-  
+
+
   if (method == "hexbin") {
-    
+
     ## transform data for map projection
     tmp <- mapproject(
       x = mydata[["lon"]],
@@ -364,14 +364,14 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     mydata[["lon"]] <- tmp$x
     mydata[["lat"]] <- tmp$y
   }
-  
-  
+
+
   if (method == "density") stop("Use trajPlot with method = 'density' instead")
-  
+
   if (is.list(mydata)) mydata <- bind_rows(mydata)
-  
+
   mydata <- cutData(mydata, type, ...)
-  
+
   ## bin data
   if (method == "traj") {
     mydata$ygrid <- round_any(mydata[[lat]], lat.inc)
@@ -380,175 +380,175 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     mydata$ygrid <- mydata[[lat]]
     mydata$xgrid <- mydata[[lon]]
   }
-  
+
   rhs <- c("xgrid", "ygrid", type)
   rhs <- paste(rhs, collapse = "+")
-  
+
   if (statistic == "sqtba") {
-    
-    mydata <- mydata %>% 
+
+    mydata <- mydata %>%
       select(any_of(na.omit(c("date", "lon", "lat", "hour.inc", type, pollutant, .combine))))
-  
+
     } else {
-    
+
     mydata <- mydata[, c("date", "xgrid", "ygrid", "hour.inc", type, pollutant)]
     ids <- which(names(mydata) %in% c("xgrid", "ygrid", type))
-    
+
   }
-  
+
   # grouping variables
   vars <- c("xgrid", "ygrid", type)
-  
+
   ## plot mean concentration - CWT method
   if (statistic %in% c("cwt", "median")) {
-    
+
     ## calculate the mean of points in each cell
-    mydata <- mydata %>% 
+    mydata <- mydata %>%
       group_by(across(vars)) %>%
       summarise(
         N = length(date),
         date = head(date, 1),
         count = mean(.data[[pollutant]], na.rm = TRUE)
       )
-    
+
     mydata[[pollutant]] <- mydata$count
-    
+
     ## adjust at edges
-    
+
     id <- which(mydata$N > 20 & mydata$N <= 80)
     mydata[id, pollutant] <- mydata[id, pollutant] * 0.7
-    
+
     id <- which(mydata$N > 10 & mydata$N <= 20)
     mydata[id, pollutant] <- mydata[id, pollutant] * 0.42
-    
+
     id <- which(mydata$N <= 10)
     mydata[id, pollutant] <- mydata[id, pollutant] * 0.05
     attr(mydata$date, "tzone") <- "GMT" ## avoid warning messages about TZ
   }
-  
+
   ## plot trajectory frequecies
   if (statistic == "frequency" && method != "hexbin") {
     ## count % of times a cell contains a trajectory point
     ## need date for later use of type
-    
-    mydata <- mydata %>% 
+
+    mydata <- mydata %>%
       group_by(across(vars)) %>%
       summarise(count = length(date), date = head(date, 1))
-    
+
     mydata[[pollutant]] <- 100 * mydata$count / max(mydata$count)
   }
-  
+
   ## Poential Source Contribution Function
   if (statistic == "pscf") {
-    
+
     ## high percentile
     Q90 <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
-    
+
     ## calculate the proportion of points in cell with value > Q90
-    mydata <- mydata %>% 
+    mydata <- mydata %>%
       group_by(across(vars)) %>%
       summarise(
         N = length(date),
         date = head(date, 1),
         count = length(which(.data[[pollutant]] > Q90)) / N
       )
-    
+
     mydata[[pollutant]] <- mydata$count
-    
+
     ## ## adjust at edges
     n <- mean(mydata$N)
     id <- which(mydata$N > n & mydata$N <= 2 * n)
     mydata[id, pollutant] <- mydata[id, pollutant] * 0.75
-    
+
     id <- which(mydata$N > (n / 2) & mydata$N <= n)
     mydata[id, pollutant] <- mydata[id, pollutant] * 0.5
-    
+
     id <- which(mydata$N <= (n / 2))
     mydata[id, pollutant] <- mydata[id, pollutant] * 0.15
   }
-  
+
   # simplified quantitative transport bias analysis  ------------------------
-  
+
   if (tolower(statistic) == "sqtba") {
-    
+
     # calculate sigma
-    mydata <- mydata %>% 
+    mydata <- mydata %>%
       mutate(sigma = sigma * abs(hour.inc)) %>%
       drop_na({{ pollutant }})
-    
+
     # receptor grid
     # use trajectory data to determine grid size - don't go to extremes
     r_grid <- expand_grid(
-      lat = seq(round(quantile(mydata$lat, probs = 0.002)), 
+      lat = seq(round(quantile(mydata$lat, probs = 0.002)),
                 round(quantile(mydata$lat, probs = 0.998)), by = lat.inc),
-      lon = seq(round(quantile(mydata$lon, probs = 0.002)), 
+      lon = seq(round(quantile(mydata$lon, probs = 0.002)),
                 round(quantile(mydata$lon, probs = 0.998)), by = lon.inc)
-    ) %>% 
+    ) %>%
       as.matrix(.)
-    
+
     # just run
     if (is.na(.combine)) {
-      
-      mydata <- calc_SQTBA(mydata, r_grid, pollutant, min.bin) %>% 
+
+      mydata <- calc_SQTBA(mydata, r_grid, pollutant, min.bin) %>%
         rename({{ pollutant }} := SQTBA)
-      
+
     } else {
-      
+
       # process by site, normalise contributions by default
-      mydata <- mydata %>% 
-        group_by(across(.combine)) %>% 
-        group_modify(~ calc_SQTBA(.x, r_grid, pollutant, min.bin)) %>% 
-        mutate(SQTBA_norm = SQTBA / mean(SQTBA)) %>% 
-        group_by(ygrid, xgrid) %>% 
+      mydata <- mydata %>%
+        group_by(across(.combine)) %>%
+        group_modify(~ calc_SQTBA(.x, r_grid, pollutant, min.bin)) %>%
+        mutate(SQTBA_norm = SQTBA / mean(SQTBA)) %>%
+        group_by(ygrid, xgrid) %>%
         summarise(SQTBA = mean(SQTBA),
-                  SQTBA_norm = mean(SQTBA_norm)) %>% 
-        ungroup() %>% 
-        mutate(SQTBA_norm = SQTBA_norm * mean(SQTBA)) %>% 
+                  SQTBA_norm = mean(SQTBA_norm)) %>%
+        ungroup() %>%
+        mutate(SQTBA_norm = SQTBA_norm * mean(SQTBA)) %>%
         rename({{ pollutant }} := SQTBA_norm)
-      
+
     }
-    
+
   }
-  
+
   ## plot trajectory frequency differences e.g. top 10% concs cf. mean
   if (statistic == "difference") {
-    
+
     ## calculate percentage of points for all data
-    
-    base <- mydata %>% 
+
+    base <- mydata %>%
       group_by(across(vars)) %>%
       summarise(count = length(date), date = head(date, 1))
-    
+
     base[[pollutant]] <- 100 * base$count / max(base$count)
-    
+
     ## high percentile
     Q90 <- quantile(mydata[[pollutant]], probs = percentile / 100, na.rm = TRUE)
-    
-    
+
+
     ## calculate percentage of points for high data
-    high <- mydata %>% 
+    high <- mydata %>%
       group_by(across(vars)) %>%
       summarise(
         N = length(date),
         date = head(date, 1),
         count = length(which(.data[[pollutant]] > Q90))
       )
-    
+
     high[[pollutant]] <- 100 * high$count / max(high$count)
-    
+
     ## calculate percentage absolute difference
     mydata <- base
     mydata[[pollutant]] <- high[[pollutant]] - mydata[[pollutant]]
-    
+
     ## select only if > min.bin points in grid cell
     mydata <- subset(mydata, count >= min.bin)
   }
-  
-  
+
+
   ## change x/y names to gridded values
   lon <- "xgrid"
   lat <- "ygrid"
-  
+
   ## the plot, note k is the smoothing parameter when surface smooth fitted
   scatterPlot.args <- list(
     mydata,
@@ -562,54 +562,54 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
     grid.col = grid.col, trajLims = trajLims,
     receptor = receptor, origin = origin, dist = 0.05, k = 50
   )
-  
+
   ## reset for Args
   scatterPlot.args <- listUpdate(scatterPlot.args, Args)
   scatterPlot.args <- listUpdate(scatterPlot.args, list(plot = plot))
-  
+
   ## plot
   plt <- do.call(scatterPlot, scatterPlot.args)
-  
+
   output <- list(plot = plt$plot, data = mydata, call = match.call())
   class(output) <- "openair"
-  
+
   invisible(output)
 }
 
 # SQTBA functions
 # use matrices for speed; Haversine distances away from Gaussian plume centreline
 pred_Q <- function(i, traj_data, r_grid, pollutant) {
-  
+
   x_origin <- traj_data$lon[i]
   y_origin <- traj_data$lat[i]
   Q <- numeric(nrow(r_grid))
   Q_c <- Q
-  
+
   # only calculate near receptor (within 4 degrees)
-  id <- which(r_grid[, "lat"] > y_origin - 4 & 
-                r_grid[, "lat"] < y_origin + 4 & 
-                r_grid[, "lon"] > x_origin - 4 & 
+  id <- which(r_grid[, "lat"] > y_origin - 4 &
+                r_grid[, "lat"] < y_origin + 4 &
+                r_grid[, "lon"] > x_origin - 4 &
                 r_grid[, "lon"] < x_origin + 4)
-  
+
   # subtract 1E-7 from acos - numerical imprecision results in value being greater than 1
   dist <- acos(sin(y_origin * pi / 180) * sin(r_grid[id, "lat"] * pi / 180) +
                  cos(y_origin * pi / 180) *
                  cos(r_grid[id, "lat"] * pi / 180) *
                  cos(r_grid[id, "lon"] * pi / 180 - x_origin * pi / 180) - 1e-7) * 6378.137
-  
+
   Q[id] <- (1 / traj_data$sigma[i]^2) * exp(-0.5 * (dist / traj_data$sigma[i])^2)
   Q_c[id] <- Q[id] * traj_data[[pollutant]][i]
-  
+
   cbind(Q, Q_c)
 }
 
 make_grid <- function(traj_data, r_grid, pollutant) {
   # go through points on back trajectory
   # makes probability surface
-  out_grid <- purrr::map(2:max(abs(traj_data$hour.inc)), 
+  out_grid <- purrr::map(2:max(abs(traj_data$hour.inc)),
                          pred_Q, traj_data, r_grid, pollutant)
   out_grid <- reduce(out_grid, `+`) / length(out_grid)
-  
+
   return(out_grid)
 }
 
@@ -620,27 +620,27 @@ calc_SQTBA <- function(mydata, r_grid, pollutant, min.bin) {
     group_by(date) %>%
     nest() %>%
     mutate(out = purrr::map(data, make_grid, r_grid, pollutant))
-  
+
   # combine all trajectory grids, add coordinates back in
   output <- reduce(q_calc$out, `+`) %>%
     cbind(r_grid) %>%
     as_tibble(.) %>%
     mutate(
       SQTBA = Q_c / Q,
-      lat_rnd = round(lat), 
+      lat_rnd = round(lat),
       lon_rnd = round(lon)
     )
-  
+
   # number of trajectories in a grid square
   grid_out <- mydata %>%
     mutate(lat_rnd = round(lat), lon_rnd = round(lon)) %>%
     group_by(lat_rnd, lon_rnd) %>%
-    tally() %>% 
+    tally() %>%
     filter(n >= min.bin)
-  
+
   # add in number of trajectories in each grid square to act as a filter
   mydata <- inner_join(output, grid_out, by = c("lat_rnd", "lon_rnd"))
   mydata <- rename(mydata, xgrid = lon, ygrid = lat)
   return(mydata)
-  
+
 }
