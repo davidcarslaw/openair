@@ -353,10 +353,8 @@ timeProp <- function(mydata, pollutant = "nox", proportion = "cluster",
 
   if (plot) print(plt)
 
-  invisible(trellis.last.object())
-
   output <- list(
-    plot = list(plt, trellis.last.object()),
+    plot = plt,
     data = results, call = match.call()
   )
   class(output) <- "openair"
