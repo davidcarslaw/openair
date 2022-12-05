@@ -4,12 +4,6 @@
     <loc>/404.html</loc>
   </url>
   <url>
-    <loc>/NEWS.html</loc>
-  </url>
-  <url>
-    <loc>/README.html</loc>
-  </url>
-  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -19,10 +13,10 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/TaylorDiagram.html</loc>
+    <loc>/NEWS.html</loc>
   </url>
   <url>
-    <loc>/reference/TheilSen.html</loc>
+    <loc>/README.html</loc>
   </url>
   <url>
     <loc>/reference/airbaseFindCode.html</loc>
@@ -76,6 +70,9 @@
     <loc>/reference/importADMS.html</loc>
   </url>
   <url>
+    <loc>/reference/importAirbase.html</loc>
+  </url>
+  <url>
     <loc>/reference/importAQE.html</loc>
   </url>
   <url>
@@ -83,9 +80,6 @@
   </url>
   <url>
     <loc>/reference/importAURNCsv.html</loc>
-  </url>
-  <url>
-    <loc>/reference/importAirbase.html</loc>
   </url>
   <url>
     <loc>/reference/importEurope.html</loc>
@@ -121,10 +115,10 @@
     <loc>/reference/mydata.html</loc>
   </url>
   <url>
-    <loc>/reference/openColours.html</loc>
+    <loc>/reference/openair.html</loc>
   </url>
   <url>
-    <loc>/reference/openair.html</loc>
+    <loc>/reference/openColours.html</loc>
   </url>
   <url>
     <loc>/reference/percentileRose.html</loc>
@@ -167,6 +161,12 @@
   </url>
   <url>
     <loc>/reference/summaryPlot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/TaylorDiagram.html</loc>
+  </url>
+  <url>
+    <loc>/reference/TheilSen.html</loc>
   </url>
   <url>
     <loc>/reference/timeAverage.html</loc>
