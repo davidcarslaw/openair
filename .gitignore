@@ -11,3 +11,4 @@ src-x64
 .*.Rnb.cached
 README_cache/*
 .DS_Store
+docs
