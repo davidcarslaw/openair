@@ -1,7 +1,5 @@
 template:
   bootstrap: 5
-  params:
-    bootswatch: flatly
 
 navbar:
   title: openair
