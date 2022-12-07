@@ -1,8 +1,6 @@
 template:
   bootstrap: 5
-  params:
-    bootswatch: flatly
-    
+
 navbar:
   title: openair
   type: default
@@ -11,6 +9,112 @@ navbar:
     href: reference/index.html
   - text: News
     href: news/index.html
+  - text: Book
+    href: https://bookdown.org/david_carslaw/openair/
   right:
   - icon: fa-github fa-lg
     href: https://github.com/davidcarslaw/openair
+
+reference:
+- title: Data
+  desc: In-built data to demonstrate openair functions.
+  contents:
+  - mydata
+
+- title: Import
+
+- subtitle: Network Data
+  desc: Import tidy air quality data from the UK and Europe.
+  contents:
+  - importMeta
+  - importAURN
+  - importSAQN
+  - importAQE
+  - importWAQN
+  - importNI
+  - importLocal
+  - importEurope
+  - importKCL
+  - importADMS
+  - importAURNCsv
+
+- subtitle: Helpers
+  desc:  Easily import data saved locally for use in openair.
+  contents:
+  - import
+  - importAURNCsv
+  - importADMS
+
+- title: Directional Analysis
+
+- subtitle: Polar Analysis
+  desc:  Examine the relationship between wind speed, wind direction and pollutant concentrations.
+  contents:
+  - windRose
+  - pollutionRose
+  - polarFreq
+  - percentileRose
+  - polarPlot
+  - polarAnnulus
+  - polarDiff
+  - polarCluster
+
+- subtitle: Trajectory Analysis
+  desc:  Analyse and visualise HYSPLIT trajectory files.
+  contents:
+  - importTraj
+  - trajPlot
+  - trajLevel
+  - trajCluster
+
+- title: Time Series and Trends
+  desc:  Examine how pollutant concentrations change with time.
+  contents:
+  - timePlot
+  - timeVariation
+  - timeProp
+  - trendLevel
+  - calendarPlot
+  - TheilSen
+  - smoothTrend
+
+- title: Model Evaluation
+  desc:  Compare models against measurements and models against other models.
+  contents:
+  - modStats
+  - TaylorDiagram
+  - conditionalQuantile
+  - conditionalEval
+
+- title: Other Plots
+  desc: Additional plotting functions for visualising air quality data.
+  contents:
+  - summaryPlot
+  - scatterPlot
+  - corPlot
+  - linearRelation
+  - kernelExceed
+
+- title: Utilities
+- subtitle: Plot Utilities
+  desc: Tools for refining openair plots.
+  contents:
+  - openColours
+  - quickText
+  - drawOpenKey
+
+- subtitle: Data Utilities
+  desc: Tools for manipulating and summarising air quality data.
+  contents:
+  - aqStats
+  - binData
+  - bootMeanDF
+  - calcFno2
+  - calcPercentile
+  - cutData
+  - rollingMean
+  - selectByDate
+  - selectRunning
+  - splitByDate
+  - timeAverage
+
