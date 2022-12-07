@@ -36,7 +36,6 @@ reference:
   - importEurope
   - importKCL
   - importADMS
-  - importAURNCsv
 
 - subtitle: Helpers
   desc:  Easily import data saved locally for use in openair.
