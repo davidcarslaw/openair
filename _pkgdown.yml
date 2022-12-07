@@ -41,8 +41,6 @@ reference:
 - subtitle: Helpers
   desc:  Easily import data saved locally for use in openair.
   contents:
-  - import
-  - importAURNCsv
   - importADMS
 
 - title: Directional Analysis
@@ -93,7 +91,6 @@ reference:
   - scatterPlot
   - corPlot
   - linearRelation
-  - kernelExceed
 
 - title: Utilities
 - subtitle: Plot Utilities

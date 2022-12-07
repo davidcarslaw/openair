@@ -2,6 +2,7 @@
 
 - add `importLocal` to access locally-managed automatic monitoring data 
 - fix bug in `pollutionRose` when single number of breaks given (was ignored)
+- remove legacy functions `import`, `import.2`, `importAURNcsv` and `kernelExceed`
 
 # openair 2.11
 

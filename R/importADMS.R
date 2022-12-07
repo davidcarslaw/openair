@@ -104,8 +104,7 @@
 ##' @note Times are assumed to be in GMT. Zero wind directions reset to 360 as
 ##'   part of \code{.mop} file import.
 ##' @author Karl Ropkins, David Carslaw and Matthew Williams (CERC).
-##' @seealso Generic import function \code{\link{import}}, for possible
-##'   alternative import methods.  Other dedicated import functions available
+##' @seealso Other dedicated import functions available
 ##'   for other file types, including \code{\link{importKCL}},
 ##'   \code{\link{importAURN}}, etc.
 ##' @keywords methods
