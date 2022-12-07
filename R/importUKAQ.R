@@ -6,7 +6,6 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
                        hc = FALSE, meta = FALSE, ratified = FALSE,
                        to_narrow = FALSE, verbose = FALSE,
                        source = "aurn", lmam_subfolder) {
-
   # force source to be lowercase
   source <- tolower(source)
 
@@ -70,8 +69,6 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
   if (hc) {
     thedata <- thedata
   } else {
-
-
     ## no hydrocarbons - therefore select conventional pollutants
     theNames <- c(
       "site", "code", "date", "co", "nox", "no2", "no", "o3", "so2", "pm10",
@@ -107,21 +104,21 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
       warning("Cannot re-shape if ratified is TRUE")
       return()
     }
+    
+    # variables to selct or not select
+    the_vars <- c(
+      "date", "site", "code",
+      "latitude", "longitude", "site_type",
+      "ws", "wd", "air_temp"
+    )
 
-    if (meta) {
-      thedata <- pivot_longer(thedata, -c(
-        date, site, code, latitude,
-        longitude, site_type
-      ),
-      names_to = "pollutant"
-      ) %>%
-        arrange(site, code, pollutant, date)
-    } else {
-      thedata <- pivot_longer(thedata, -c(date, site, code),
+    thedata <- thedata %>%
+      pivot_longer(
+        cols = -any_of(the_vars),
         names_to = "pollutant"
       ) %>%
-        arrange(site, code, pollutant, date)
-    }
+      relocate(any_of(the_vars)) %>% 
+      arrange(site, code, pollutant, date)
   }
 
   as_tibble(thedata)
@@ -134,7 +131,6 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
 loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
   tryCatch(
     {
-
       # Build the file name
       fileName <- paste0(
         url_data, x,
@@ -201,7 +197,6 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
       return(dat)
     },
     error = function(ex) {
-
       # Print a message
       if (verbose) {
         message(x, "does not exist - ignoring that one.")
