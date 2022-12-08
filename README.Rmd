@@ -187,7 +187,7 @@ There are many flavours of bivariate polar plots, as described
 [here](https://bookdown.org/david_carslaw/openair/polar-plots.html) that
 are useful for understanding air pollution sources.
 
-```{r polarCPF, eval = TRUE, fig.width = 4, fig.height = 4.5, out.width = '60%'}
+```{r polarCPF, eval = TRUE, fig.width = 4.5, fig.height = 4, out.width = '60%'}
 polarPlot(mydata,
   pollutant = "so2",
   statistic = "cpf",
