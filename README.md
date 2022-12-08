@@ -174,7 +174,7 @@ indicate how many quantiles to use.
 windRose(mydata)
 ```
 
-<img src="man/figures/README-windrose-1.png" width="60%" />
+<img src="man/figures/README-windrose-1.png" width="50%" />
 
 However, the real flexibility comes from being able to use the `type`
 option.

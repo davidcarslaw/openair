@@ -11,6 +11,7 @@ editor_options:
 knitr::opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
+  fig.retina = 2,
   message = FALSE,
   eval = FALSE,
   comment = "#>",
@@ -169,7 +170,7 @@ indicate how many quantiles to use.
 `openair` can plot basic wind roses very easily provided the variables
 `ws` (wind speed) and `wd` (wind direction) are available.
 
-```{r windrose, eval = TRUE, fig.width = 4, fig.height = 4.5, out.width = '60%'}
+```{r windrose, eval = TRUE, fig.width = 4, fig.height = 4.5, out.width = '50%'}
 windRose(mydata)
 ```
 
