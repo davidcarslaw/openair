@@ -114,7 +114,7 @@ inclusive:
 ```{r selectbydate, eval = TRUE}
 sub <- selectByDate(kc1,
   day = "weekday",
-  year = 2012,
+  year = 2020,
   month = 6:9,
   hour = 7:19
 )

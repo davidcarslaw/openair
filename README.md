@@ -110,15 +110,26 @@ inclusive:
 ``` r
 sub <- selectByDate(kc1,
   day = "weekday",
-  year = 2012,
+  year = 2020,
   month = 6:9,
   hour = 7:19
 )
 sub
-#> # A tibble: 0 × 14
-#> # … with 14 variables: date <dttm>, site <chr>, code <chr>, co <dbl>,
-#> #   nox <dbl>, no2 <dbl>, no <dbl>, o3 <dbl>, so2 <dbl>, pm10 <dbl>,
-#> #   pm2.5 <dbl>, ws <dbl>, wd <dbl>, air_temp <dbl>
+#> # A tibble: 1,144 × 14
+#>    date                site     code      co   nox   no2    no    o3   so2  pm10
+#>    <dttm>              <chr>    <chr>  <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#>  1 2020-06-01 07:00:00 London … KC1   0.125   23.1 16.8  4.14   56.5  2.29  14.8
+#>  2 2020-06-01 08:00:00 London … KC1   0.133   25.2 17.8  4.79   61.7  2.68  17.8
+#>  3 2020-06-01 09:00:00 London … KC1   0.119   15.6 12.2  2.22   75.8  2.35  15.4
+#>  4 2020-06-01 10:00:00 London … KC1   0.104   13.8 11.1  1.79   87.1  1.57  15.2
+#>  5 2020-06-01 11:00:00 London … KC1   0.0956  14.0 11.8  1.46   96.7  1.44  11.4
+#>  6 2020-06-01 12:00:00 London … KC1   0.0985  11.3  9.97 0.893 106.   1.44  11.9
+#>  7 2020-06-01 13:00:00 London … KC1   0.0927  11.0  9.64 0.893 112.   2.03  11.8
+#>  8 2020-06-01 14:00:00 London … KC1   0.0927  12.5 10.8  1.14  114.   2.81  11.9
+#>  9 2020-06-01 15:00:00 London … KC1   0.0811  10.7  9.48 0.822 115.   2.88  10  
+#> 10 2020-06-01 16:00:00 London … KC1   0.0898  13.9 11.9  1.29  104.   2.22   9.1
+#> # … with 1,134 more rows, and 4 more variables: pm2.5 <dbl>, ws <dbl>,
+#> #   wd <dbl>, air_temp <dbl>
 ```
 
 Similarly it is easy to time-average data in many flexible ways. For
