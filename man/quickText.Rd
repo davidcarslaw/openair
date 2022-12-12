@@ -45,4 +45,3 @@ plot(mydata$no2, mydata$pm10, xlab = quickText("my no2 label"),
 \author{
 Karl Ropkins.
 }
-\keyword{methods}

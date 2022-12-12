@@ -88,14 +88,14 @@ great flexibility for understanding the variation of different
 variables and how they depend on one another.
 
 Type can be up length two e.g. \code{type = c("season", "site")} will
-  produce a 2x2 plot split by season and site. The use of two types is
-  mostly meant for situations where there are several sites. Note, when two
-  types are provided the first forms the columns and the second the rows.
+produce a 2x2 plot split by season and site. The use of two types is
+mostly meant for situations where there are several sites. Note, when two
+types are provided the first forms the columns and the second the rows.
 
 Also note that for the \code{polarAnnulus} function some type/period
-  combinations are forbidden or make little sense. For example, \code{type
+combinations are forbidden or make little sense. For example, \code{type
   = "season"} and \code{period = "trend"} (which would result in a plot
-  with too many gaps in it for sensible smoothing), or \code{type =
+with too many gaps in it for sensible smoothing), or \code{type =
   "weekday"} and \code{period = "weekday"}.}
 
 \item{statistic}{The statistic that should be applied to each wind
@@ -183,7 +183,7 @@ chosen.}
 
 \item{key.header}{Adds additional text/labels to the scale key.
 For example, passing the options \code{key.header = "header", key.footer
-= "footer1"} adds addition text above and below the scale key. These
+  = "footer1"} adds addition text above and below the scale key. These
 arguments are passed to \code{drawOpenKey} via \code{quickText}, applying
 the \code{auto.text} argument, to handle formatting.}
 
@@ -215,16 +215,16 @@ to handle routine formatting.}
 }
 \value{
 As well as generating the plot itself, \code{polarAnnulus} also
-  returns an object of class ``openair''. The object includes three main
-  components: \code{call}, the command used to generate the plot;
-  \code{data}, the data frame of summarised information used to make the
-  plot; and \code{plot}, the plot itself. If retained, e.g. using
-  \code{output <- polarAnnulus(mydata, "nox")}, this output can be used to
-  recover the data, reproduce or rework the original plot or undertake
-  further analysis.
+returns an object of class ``openair''. The object includes three main
+components: \code{call}, the command used to generate the plot;
+\code{data}, the data frame of summarised information used to make the
+plot; and \code{plot}, the plot itself. If retained, e.g. using
+\code{output <- polarAnnulus(mydata, "nox")}, this output can be used to
+recover the data, reproduce or rework the original plot or undertake
+further analysis.
 
 An openair output can be manipulated using a number of generic operations,
-  including \code{print}, \code{plot} and \code{summary}.
+including \code{print}, \code{plot} and \code{summary}.
 }
 \description{
 Typically plots the concentration of a pollutant by wind direction and as a
@@ -258,11 +258,6 @@ investigate specific periods in more detail. Full flexibility is given
 through the smoothing parameter \code{k}.
 }
 \examples{
-
-
-# load example data from package
-data(mydata)
-
 # diurnal plot for PM10 at Marylebone Rd
 \dontrun{polarAnnulus(mydata, pollutant = "pm10",
 main = "diurnal variation in pm10 at Marylebone Road")}
@@ -279,10 +274,16 @@ main = "trend in pmc at Marylebone Road")}
 
 }
 \seealso{
-\code{\link{polarPlot}}, \code{\link{polarFreq}},
-  \code{\link{pollutionRose}} and \code{\link{percentileRose}}
+Other polar directional analaysis functions: 
+\code{\link{percentileRose}()},
+\code{\link{polarCluster}()},
+\code{\link{polarDiff}()},
+\code{\link{polarFreq}()},
+\code{\link{polarPlot}()},
+\code{\link{pollutionRose}()},
+\code{\link{windRose}()}
 }
 \author{
 David Carslaw
 }
-\keyword{methods}
+\concept{polar directional analaysis functions}

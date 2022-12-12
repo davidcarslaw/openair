@@ -8,39 +8,39 @@ openColours(scheme = "default", n = 100)
 }
 \arguments{
 \item{scheme}{The pre-defined schemes are "increment", "default", "brewer1",
-  "heat", "jet", "turbo", "hue", "greyscale", or a vector of R colour names
-  e.g. c("green", "blue"). It is also possible to supply colour schemes from
-  the \code{RColorBrewer} package. This package defines three types of
-  colour schemes: sequential, diverging or qualitative. See
-  \url{https://colorbrewer2.org/} for more details concerning the original
-  work on which this is based.
+"heat", "jet", "turbo", "hue", "greyscale", or a vector of R colour names
+e.g. c("green", "blue"). It is also possible to supply colour schemes from
+the \code{RColorBrewer} package. This package defines three types of
+colour schemes: sequential, diverging or qualitative. See
+\url{https://colorbrewer2.org/} for more details concerning the original
+work on which this is based.
 
-  Simplified versions of the \code{viridis} colours are also available.
-  These include "viridis", "plasma", "magma", "inferno" and "cividis".
+Simplified versions of the \code{viridis} colours are also available.
+These include "viridis", "plasma", "magma", "inferno" and "cividis".
 
-  Sequential colours are useful for ordered data where there is a need to
-  show a difference between low and high values with colours going from
-  light to dark. The pre-defined colours that can be supplied are: "Blues",
-  "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
-  "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr",
-  "YlOrRd".
+Sequential colours are useful for ordered data where there is a need to
+show a difference between low and high values with colours going from
+light to dark. The pre-defined colours that can be supplied are: "Blues",
+"BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
+"PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr",
+"YlOrRd".
 
-  Diverging palettes put equal emphasis on mid-range critical values and
-  extremes at both ends of the data range. Pre-defined values are: "BrBG",
-  "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral".
+Diverging palettes put equal emphasis on mid-range critical values and
+extremes at both ends of the data range. Pre-defined values are: "BrBG",
+"PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral".
 
-  Qualitative palettes are useful for differentiating between categorical
-  data types. The pre-defined schemes are "Accent", "Dark2", "Paired",
-  "Pastel1", "Pastel2", "Set1", "Set2", "Set3".
+Qualitative palettes are useful for differentiating between categorical
+data types. The pre-defined schemes are "Accent", "Dark2", "Paired",
+"Pastel1", "Pastel2", "Set1", "Set2", "Set3".
 
-  A colour-blind safe palette "cbPalette" is available based on the work of:
-  http://jfly.iam.u-tokyo.ac.jp/color/
+A colour-blind safe palette "cbPalette" is available based on the work of:
+http://jfly.iam.u-tokyo.ac.jp/color/
 
-  Note that because of the way these schemes have been developed they only
-  exist over certain number of colour gradations (typically 3--10) --- see
-  ?\code{brewer.pal} for actual details. If less than or more than the
-  required number of colours is supplied then \code{openair} will
-  interpolate the colours.}
+Note that because of the way these schemes have been developed they only
+exist over certain number of colour gradations (typically 3--10) --- see
+?\code{brewer.pal} for actual details. If less than or more than the
+required number of colours is supplied then \code{openair} will
+interpolate the colours.}
 
 \item{n}{number of colours required.}
 }
@@ -91,4 +91,3 @@ cols
 \author{
 David Carslaw
 }
-\keyword{methods}

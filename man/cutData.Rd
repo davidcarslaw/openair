@@ -21,16 +21,16 @@ cutData(
 \item{x}{A data frame containing a field \code{date}.}
 
 \item{type}{A string giving the way in which the data frame should
-  be split. Pre-defined values are: \dQuote{default},
-  \dQuote{year}, \dQuote{hour}, \dQuote{month}, \dQuote{season},
-  \dQuote{weekday}, \dQuote{site}, \dQuote{weekend},
-  \dQuote{monthyear}, \dQuote{daylight}, \dQuote{dst} (daylight
-  saving time).
+be split. Pre-defined values are: \dQuote{default},
+\dQuote{year}, \dQuote{hour}, \dQuote{month}, \dQuote{season},
+\dQuote{weekday}, \dQuote{site}, \dQuote{weekend},
+\dQuote{monthyear}, \dQuote{daylight}, \dQuote{dst} (daylight
+saving time).
 
-  \code{type} can also be the name of a numeric or factor. If a
-  numeric column name is supplied \code{cutData} will split the
-  data into four quantiles. Factors levels will be used to split
-  the data without any adjustment.}
+\code{type} can also be the name of a numeric or factor. If a
+numeric column name is supplied \code{cutData} will split the
+data into four quantiles. Factors levels will be used to split
+the data without any adjustment.}
 
 \item{hemisphere}{Can be \code{"northern"} or \code{"southern"},
 used to split data into seasons.}
@@ -38,7 +38,7 @@ used to split data into seasons.}
 \item{n.levels}{Number of quantiles to split numeric data into.}
 
 \item{start.day}{What day of the week should the \code{type =
-"weekday"} start on?  The user can change the start day by
+  "weekday"} start on?  The user can change the start day by
 supplying an integer between 0 and 6. Sunday = 0, Monday = 1,
 \ldots For example to start the weekday plots on a Saturday,
 choose \code{start.day = 6}.}
@@ -49,7 +49,7 @@ request shortened cut labels for axes.}
 \item{local.tz}{Used for identifying whether a date has daylight
 savings time (DST) applied or not. Examples include
 \code{local.tz = "Europe/London"}, \code{local.tz =
-"America/New_York"} i.e. time zones that assume DST.
+  "America/New_York"} i.e. time zones that assume DST.
 \url{https://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones}
 shows time zones that should be valid for most systems. It is
 important that the original data are in GMT (UTC) or a fixed
@@ -67,7 +67,7 @@ function(s).}
 }
 \value{
 Returns a data frame with a column \code{cond} that is
-  defined by \code{type}.
+defined by \code{type}.
 }
 \description{
 Utility function to split data frames up in various ways for
@@ -169,4 +169,3 @@ mydata <- cutData(mydata, type = "weekday")
 \author{
 David Carslaw (cutData) and Karl Ropkins (cutDaylight)
 }
-\keyword{methods}

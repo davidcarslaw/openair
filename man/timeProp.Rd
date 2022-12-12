@@ -37,33 +37,33 @@ by \code{cutData}. If \code{proportion} is a factor or character
 variable then the categories are used directly.}
 
 \item{avg.time}{This defines the time period to average to. Can be
-  \dQuote{sec}, \dQuote{min}, \dQuote{hour}, \dQuote{day},
-  \dQuote{DSTday}, \dQuote{week}, \dQuote{month}, \dQuote{quarter}
-  or \dQuote{year}. For much increased flexibility a number can
-  precede these options followed by a space. For example, a
-  timeAverage of 2 months would be \code{period = "2 month"}. 
+\dQuote{sec}, \dQuote{min}, \dQuote{hour}, \dQuote{day},
+\dQuote{DSTday}, \dQuote{week}, \dQuote{month}, \dQuote{quarter}
+or \dQuote{year}. For much increased flexibility a number can
+precede these options followed by a space. For example, a
+timeAverage of 2 months would be \code{period = "2 month"}.
 
-  Note that \code{avg.time} when used in \code{timeProp} should be
-  greater than the time gap in the original data. For example,
-  \code{avg.time = "day"} for hourly data is OK, but
-  \code{avg.time = "hour"} for daily data is not.}
+Note that \code{avg.time} when used in \code{timeProp} should be
+greater than the time gap in the original data. For example,
+\code{avg.time = "day"} for hourly data is OK, but
+\code{avg.time = "hour"} for daily data is not.}
 
 \item{type}{\code{type} determines how the data are split i.e.
-  conditioned, and then plotted. The default is will produce a
-  single plot using the entire data. Type can be one of the
-  built-in types as detailed in \code{cutData} e.g. "season",
-  "year", "weekday" and so on. For example, \code{type = "season"}
-  will produce four plots --- one for each season.
+conditioned, and then plotted. The default is will produce a
+single plot using the entire data. Type can be one of the
+built-in types as detailed in \code{cutData} e.g. "season",
+"year", "weekday" and so on. For example, \code{type = "season"}
+will produce four plots --- one for each season.
 
-  It is also possible to choose \code{type} as another variable in
-  the data frame. If that variable is numeric, then the data will
-  be split into four quantiles (if possible) and labelled
-  accordingly. If type is an existing character or factor
-  variable, then those categories/levels will be used directly.
-  This offers great flexibility for understanding the variation of
-  different variables and how they depend on one another.
+It is also possible to choose \code{type} as another variable in
+the data frame. If that variable is numeric, then the data will
+be split into four quantiles (if possible) and labelled
+accordingly. If type is an existing character or factor
+variable, then those categories/levels will be used directly.
+This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.
 
-  \code{type} must be of length one.}
+\code{type} must be of length one.}
 
 \item{normalise}{If \code{normalise = TRUE} then each time
 interval is scaled to 100. This is helpful to show the relative
@@ -143,22 +143,24 @@ therefore show how the total value of \code{pollutant} is made up
 for any time interval.
 }
 \examples{
-
-## See manual for more examples e.g. related to clustering
-
-
 ## monthly plot of SO2 showing the contribution by wind sector
 timeProp(mydata, pollutant = "so2", avg.time = "month", proportion = "wd")
-
-
 }
 \seealso{
-See \code{\link{timePlot}} for time series plotting,
-  \code{\link{polarCluster}} for cluster analysis of bivariate
-  polar plots and \code{\link{trajCluster}} for cluster analysis
-  of HYSPLIT back trajectories.
+Other time series and trend functions: 
+\code{\link{TheilSen}()},
+\code{\link{calendarPlot}()},
+\code{\link{smoothTrend}()},
+\code{\link{timePlot}()},
+\code{\link{timeVariation}()},
+\code{\link{trendLevel}()}
+
+Other cluster analysis functions: 
+\code{\link{polarCluster}()},
+\code{\link{trajCluster}()}
 }
 \author{
 David Carslaw
 }
-\keyword{methods}
+\concept{cluster analysis functions}
+\concept{time series and trend functions}

@@ -33,44 +33,44 @@ representing observed and modelled values.}
 
 \item{var.obs}{Other variable observations for which statistics should be
 calculated. Can be more than length one e.g. \code{var.obs = c("nox.obs",
-"ws.obs")}. Note that including other variables could reduce the number of
+  "ws.obs")}. Note that including other variables could reduce the number of
 data available to plot due to the need of having non-missing data for all
 variables.}
 
 \item{var.mod}{Other variable predictions for which statistics should be
 calculated. Can be more than length one e.g. \code{var.obs = c("nox.obs",
-"ws.obs")}.}
+  "ws.obs")}.}
 
 \item{type}{\code{type} determines how the data are split i.e. conditioned,
-  and then plotted. The default is will produce a single plot using the
-  entire data. Type can be one of the built-in types as detailed in
-  \code{cutData} e.g. "season", "year", "weekday" and so on. For example,
-  \code{type = "season"} will produce four plots --- one for each season.
+and then plotted. The default is will produce a single plot using the
+entire data. Type can be one of the built-in types as detailed in
+\code{cutData} e.g. "season", "year", "weekday" and so on. For example,
+\code{type = "season"} will produce four plots --- one for each season.
 
-  It is also possible to choose \code{type} as another variable in the data
-  frame. If that variable is numeric, then the data will be split into four
-  quantiles (if possible) and labelled accordingly. If type is an existing
-  character or factor variable, then those categories/levels will be used
-  directly. This offers great flexibility for understanding the variation of
-  different variables and how they depend on one another.}
+It is also possible to choose \code{type} as another variable in the data
+frame. If that variable is numeric, then the data will be split into four
+quantiles (if possible) and labelled accordingly. If type is an existing
+character or factor variable, then those categories/levels will be used
+directly. This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.}
 
 \item{bins}{Number of bins used in \code{conditionalQuantile}.}
 
 \item{statistic}{Statistic(s) to be plotted. Can be \dQuote{MB},
-  \dQuote{NMB}, \dQuote{r}, \dQuote{COE}, \dQuote{MGE}, \dQuote{NMGE},
-  \dQuote{RMSE} and \dQuote{FAC2}, as described in \code{modStats}. When
-  these statistics are chosen, they are calculated from \code{var.mod} and
-  \code{var.mod}.
+\dQuote{NMB}, \dQuote{r}, \dQuote{COE}, \dQuote{MGE}, \dQuote{NMGE},
+\dQuote{RMSE} and \dQuote{FAC2}, as described in \code{modStats}. When
+these statistics are chosen, they are calculated from \code{var.mod} and
+\code{var.mod}.
 
-  \code{statistic} can also be a value that can be supplied to
-  \code{cutData}. For example, \code{statistic = "season"} will show how
-  model performance varies by season across the distribution of predictions
-  which might highlight that at high concentrations of NOx the model tends
-  to underestimate concentrations and that these periods mostly occur in
-  winter. \code{statistic} can also be another variable in the data frame
-  --- see \code{cutData} for more information. A special case is
-  \code{statistic = "cluster"} if clusters have been calculated using
-  \code{trajCluster}.}
+\code{statistic} can also be a value that can be supplied to
+\code{cutData}. For example, \code{statistic = "season"} will show how
+model performance varies by season across the distribution of predictions
+which might highlight that at high concentrations of NOx the model tends
+to underestimate concentrations and that these periods mostly occur in
+winter. \code{statistic} can also be another variable in the data frame
+--- see \code{cutData} for more information. A special case is
+\code{statistic = "cluster"} if clusters have been calculated using
+\code{trajCluster}.}
 
 \item{xlab}{label for the x-axis, by default \code{"predicted value"}.}
 
@@ -93,7 +93,7 @@ pollutant names and units properly e.g.  by subscripting the `2' in NO2.}
 and \code{cutData}. For example, \code{conditionalQuantile} passes the
 option \code{hemisphere = "southern"} on to \code{cutData} to provide
 southern (rather than default northern) hemisphere handling of \code{type
-= "season"}. Similarly, common axis and title labelling options (such as
+  = "season"}. Similarly, common axis and title labelling options (such as
 \code{xlab}, \code{ylab}, \code{main}) are passed to \code{xyplot} via
 \code{quickText} to handle routine formatting.}
 }
@@ -134,7 +134,7 @@ model evaluation statistics. These statistics derive from the
 \dQuote{r}, \dQuote{COE}, \dQuote{MGE}, \dQuote{NMGE}, \dQuote{RMSE} and
 \dQuote{FAC2}. More than one statistic can be supplied e.g. \code{statistic
 = c("NMB", "COE")}. Bootstrap samples are taken from the corresponding
-values of other variables to be plotted and their statistics with 95\%
+values of other variables to be plotted and their statistics with 95\\%
 confidence intervals calculated. In this case, the model \emph{performance}
 of other variables is shown across the same intervals of \code{mod}, rather
 than just the values of single variables. In this second case the model
@@ -181,24 +181,21 @@ representing different models used.
 
 See Wilks (2005) for more details of conditional quantile plots.
 }
-\examples{
-
-
-## Examples to follow, or will be shown in the openair manual
-
-}
 \references{
 Wilks, D. S., 2005. Statistical Methods in the Atmospheric
-  Sciences, Volume 91, Second Edition (International Geophysics), 2nd
-  Edition. Academic Press.
+Sciences, Volume 91, Second Edition (International Geophysics), 2nd
+Edition. Academic Press.
 }
 \seealso{
-See \code{\link{conditionalQuantile}} for information on
-  conditional quantiles, \code{\link{modStats}} for model evaluation
-  statistics and the package \code{verification} for comprehensive functions
-  for forecast verification.
+The \code{verification} package for comprehensive functions for
+forecast verification.
+
+Other model evaluation functions: 
+\code{\link{TaylorDiagram}()},
+\code{\link{conditionalQuantile}()},
+\code{\link{modStats}()}
 }
 \author{
 David Carslaw
 }
-\keyword{methods}
+\concept{model evaluation functions}

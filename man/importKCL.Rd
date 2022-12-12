@@ -483,6 +483,7 @@ Other import functions:
 \code{\link{importAURN}()},
 \code{\link{importEurope}()},
 \code{\link{importLocal}()},
+\code{\link{importMeta}()},
 \code{\link{importNI}()},
 \code{\link{importSAQN}()},
 \code{\link{importTraj}()},

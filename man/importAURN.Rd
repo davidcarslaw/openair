@@ -164,6 +164,7 @@ Other import functions:
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},
 \code{\link{importLocal}()},
+\code{\link{importMeta}()},
 \code{\link{importNI}()},
 \code{\link{importSAQN}()},
 \code{\link{importTraj}()},

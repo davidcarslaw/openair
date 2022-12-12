@@ -1,49 +1,48 @@
-##' Function to extract run lengths greater than a threshold
-##'
-##' Utility function to extract user-defined run lengths (durations) above a
-##' threshold
-##'
-##' This is a utility function to extract runs of values above a certain
-##' threshold. For example, for a data frame of hourly NOx values we would like
-##' to extract all those hours where the concentration is at least 500ppb for
-##' contiguous periods of 5 or more hours.
-##'
-##' This function is useful, for example, for selecting pollution episodes from
-##' a data frame i.e. where concentrations remain elevated for a certain period
-##' of time. It may also be of more general use when analysing air pollution
-##' data. For example, \code{selectRunning} could be used to extract continuous
-##' periods of rainfall --- which could be important for particle
-##' concentrations.
-##'
-##' @param mydata A data frame with a \code{date} field and at least one numeric
-##'   \code{pollutant} field to analyse.
-##' @param pollutant Name of variable to process. Mandatory.
-##' @param criterion Condition to select run lengths e.g. \code{">"} with select
-##'   data more than \code{threshold}.
-##' @param run.len Run length for extracting contiguous values of
-##'   \code{pollutant} above the \code{threshold} value.
-##' @param threshold The threshold value for \code{pollutant} above which data
-##'   should be extracted.
-##' @param result A new column \code{criterion} is returned with string to
-##'   identity whether condition was met.
-##' @export
-##' @return Returns a data frame that meets the chosen criteria. See examples
-##'   below.
-##' @author David Carslaw
-##' @keywords methods
-##' @examples
-##'
-##' ## extract those hours where there are at least 5 consecutive NOx
-##' ## concentrations above 500ppb
-##'
-##' mydata <- selectRunning(mydata, run.len = 5, threshold = 500)
-##'
-##' ## make a polar plot of those conditions...shows that those
-##' ## conditions are dominated by low wind speeds, not
-##' ## in-canyon recirculation
-##' \dontrun{polarPlot(mydata, pollutant = "nox", type = "criterion")}
-##' 
-selectRunning <- function(mydata, pollutant = "nox", 
+#' Function to extract run lengths greater than a threshold
+#'
+#' Utility function to extract user-defined run lengths (durations) above a
+#' threshold
+#'
+#' This is a utility function to extract runs of values above a certain
+#' threshold. For example, for a data frame of hourly NOx values we would like
+#' to extract all those hours where the concentration is at least 500ppb for
+#' contiguous periods of 5 or more hours.
+#'
+#' This function is useful, for example, for selecting pollution episodes from
+#' a data frame i.e. where concentrations remain elevated for a certain period
+#' of time. It may also be of more general use when analysing air pollution
+#' data. For example, \code{selectRunning} could be used to extract continuous
+#' periods of rainfall --- which could be important for particle
+#' concentrations.
+#'
+#' @param mydata A data frame with a \code{date} field and at least one numeric
+#'   \code{pollutant} field to analyse.
+#' @param pollutant Name of variable to process. Mandatory.
+#' @param criterion Condition to select run lengths e.g. \code{">"} with select
+#'   data more than \code{threshold}.
+#' @param run.len Run length for extracting contiguous values of
+#'   \code{pollutant} above the \code{threshold} value.
+#' @param threshold The threshold value for \code{pollutant} above which data
+#'   should be extracted.
+#' @param result A new column \code{criterion} is returned with string to
+#'   identity whether condition was met.
+#' @export
+#' @return Returns a data frame that meets the chosen criteria. See examples
+#'   below.
+#' @author David Carslaw
+#' @examples
+#'
+#' ## extract those hours where there are at least 5 consecutive NOx
+#' ## concentrations above 500ppb
+#'
+#' mydata <- selectRunning(mydata, run.len = 5, threshold = 500)
+#'
+#' ## make a polar plot of those conditions...shows that those
+#' ## conditions are dominated by low wind speeds, not
+#' ## in-canyon recirculation
+#' \dontrun{polarPlot(mydata, pollutant = "nox", type = "criterion")}
+#'
+selectRunning <- function(mydata, pollutant = "nox",
                           criterion = ">",
                           run.len = 5, threshold = 500,
                           result = c("yes", "no")) {
@@ -72,16 +71,16 @@ selectRunning <- function(mydata, pollutant = "nox",
   if (nrow(res) > 0) {
     ids <- lapply(1:nrow(res), function(x) seq(res[x, 1], res[x, 2]))
     ids <- do.call(c, ids)
-    
+
     mydata$criterion <- result[2]
     mydata$criterion[ids] <- result[1]
     return(mydata)
   } else {
-    
+
     mydata$criterion <- result[2]
     return(mydata)
-    
+
   }
-  
+
 
 }

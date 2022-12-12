@@ -170,9 +170,7 @@
 ##'   function \code{xyplot} where it is applied to set the plot symbol size.
 ##' @export
 ##' @return NULL
-##' @seealso \code{\link{importTraj}} to import trajectory data from the King's
-##'   College server and \code{\link{trajPlot}} for plotting back trajectory
-##'   lines.
+##' @family trajectory analysis functions
 ##' @author David Carslaw
 ##' @references
 ##'

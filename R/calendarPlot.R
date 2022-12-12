@@ -1,169 +1,161 @@
-##' Plot time series values in a conventional calendar format
-##'
-##' This function will plot data by month laid out in a conventional calendar
-##' format. The main purpose is to help rapidly visualise potentially complex
-##' data in a familiar way. Users can also choose to show daily mean wind
-##' vectors if wind speed and direction are available.
-##'
-##' \code{calendarPlot} will plot data in a conventional calendar format i.e. by
-##' month and day of the week. Daily statistics are calculated using
-##' \code{\link{timeAverage}}, which by default will calculate the daily mean
-##' concentration.
-##'
-##' If wind direction is available it is then possible to plot the wind
-##' direction vector on each day. This is very useful for getting a feel for the
-##' meteorological conditions that affect pollutant concentrations. Note that if
-##' hourly or higher time resolution are supplied, then \code{calendarPlot} will
-##' calculate daily averages using \code{\link{timeAverage}}, which ensures that
-##' wind directions are vector-averaged.
-##'
-##' If wind speed is also available, then setting the option \code{annotate =
-##' "ws"} will plot the wind vectors whose length is scaled to the wind speed.
-##' Thus information on the daily mean wind speed and direction are available.
-##'
-##' It is also possible to plot categorical scales. This is useful where, for
-##' example, an air quality index defines concentrations as bands e.g.
-##' \dQuote{good}, \dQuote{poor}. In these cases users must supply \code{labels}
-##' and corresponding \code{breaks}.
-##'
-##' Note that is is possible to pre-calculate concentrations in some way before
-##' passing the data to \code{calendarPlot}. For example
-##' \code{\link{rollingMean}} could be used to calculate rolling 8-hour mean
-##' concentrations. The data can then be passed to \code{calendarPlot} and
-##' \code{statistic = "max"} chosen, which will plot maximum daily 8-hour mean
-##' concentrations.
-##'
-##' @param mydata A data frame minimally containing \code{date} and at least one
-##'   other numeric variable. The date should be in either \code{Date} format or
-##'   class \code{POSIXct}.
-##' @param pollutant Mandatory. A pollutant name corresponding to a variable in
-##'   a data frame should be supplied e.g. \code{pollutant = "nox". }
-##' @param year Year to plot e.g. \code{year = 2003}. If not supplied all data
-##'   potentially spanning several years will be plotted.
-##' @param month If only certain month are required. By default the function
-##'   will plot an entire year even if months are missing. To only plot certain
-##'   months use the \code{month} option where month is a numeric 1:12 e.g.
-##'   \code{month = c(1, 12)} to only plot January and December.
-##' @param type Not yet implemented.
-##' @param annotate This option controls what appears on each day of the
-##'   calendar. Can be: \dQuote{date} --- shows day of the month; \dQuote{wd}
-##'   --- shows vector-averaged wind direction, or \dQuote{ws} --- shows
-##'   vector-averaged wind direction scaled by wind speed. Finally it can be
-##'   \dQuote{value} which shows the daily mean value.
-##' @param statistic Statistic passed to \code{timeAverage}.
-##' @param cols Colours to be used for plotting. Options include
-##'   \dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet} and
-##'   \code{RColorBrewer} colours --- see the \code{openair} \code{openColours}
-##'   function for more details. For user defined the user can supply a list of
-##'   colour names recognised by R (type \code{colours()} to see the full list).
-##'   An example would be \code{cols = c("yellow", "green", "blue")}
-##' @param limits Use this option to manually set the colour scale limits. This
-##'   is useful in the case when there is a need for two or more plots and a
-##'   consistent scale is needed on each. Set the limits to cover the maximum
-##'   range of the data for all plots of interest. For example, if one plot had
-##'   data covering 0--60 and another 0--100, then set \code{limits = c(0,
-##'   100)}. Note that data will be ignored if outside the limits range.
-##' @param lim A threshold value to help differentiate values above and below
-##'   \code{lim}. It is used when \code{annotate = "value"}. See next few
-##'   options for control over the labels used.
-##' @param col.lim For the annotation of concentration labels on each day. The
-##'   first sets the colour of the text below \code{lim} and the second sets the
-##'   colour of the text above \code{lim}.
-##' @param col.arrow The colour of the annotated wind direction / wind speed
-##'   arrows.
-##' @param font.lim For the annotation of concentration labels on each day. The
-##'   first sets the font of the text below \code{lim} and the second sets the
-##'   font of the text above \code{lim}. Note that font = 1 is normal text and
-##'   font = 2 is bold text.
-##' @param cex.lim For the annotation of concentration labels on each day. The
-##'   first sets the size of the text below \code{lim} and the second sets the
-##'   size of the text above \code{lim}.
-##' @param digits The number of digits used to display concentration values when
-##'   \code{annotate = "value"}.
-##' @param data.thresh Data capture threshold passed to \code{timeAverage}. For
-##'   example, \code{data.thresh = 75} means that at least 75\% of the data must
-##'   be available in a day for the value to be calculate, else the data is
-##'   removed.
-##' @param labels If a categorical scale is required then these labels will be
-##'   used. Note there is one less label than break. For example, \code{labels =
-##'   c("good", "bad", "very bad")}. \code{breaks} must also be supplied if
-##'   labels are given.
-##' @param breaks If a categorical scale is required then these breaks will be
-##'   used. For example, \code{breaks = c(0, 50, 100, 1000)}. In this case
-##'   \dQuote{good} corresponds to values between 0 and 50 and so on. Users
-##'   should set the maximum value of \code{breaks} to exceed the maximum data
-##'   value to ensure it is within the maximum final range e.g. 100--1000 in
-##'   this case.
-##' @param main The plot title; default is pollutant and year.
-##' @param w.shift Controls the order of the days of the week. By default the
-##'   plot shows Saturday first (\code{w.shift = 0}). To change this so that it
-##'   starts on a Monday for example, set \code{w.shift = 2}, and so on.
-##' @param remove.empty Should months with no data present be removed? Default
-##'   is \code{TRUE}.
-##' @param key.header Adds additional text/labels to the scale key. For example,
-##'   passing \code{calendarPlot(mydata, key.header = "header", key.footer =
-##'   "footer")} adds addition text above and below the scale key. These
-##'   arguments are passed to \code{drawOpenKey} via \code{quickText}, applying
-##'   the \code{auto.text} argument, to handle formatting.
-##' @param key.footer see \code{key.header}.
-##' @param key.position Location where the scale key is to plotted. Allowed
-##'   arguments currently include \code{"top"}, \code{"right"}, \code{"bottom"}
-##'   and \code{"left"}.
-##' @param key Fine control of the scale key via \code{drawOpenKey}. See
-##'   \code{drawOpenKey} for further details.
-##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
-##'   \code{TRUE} titles and axis labels will automatically try and format
-##'   pollutant names and units properly e.g.  by subscripting the `2' in NO2.
-##' @param plot Should a plot be produced? \code{FALSE} can be useful when
-##'   analysing data to extract calendar plot components and plotting them in
-##'   other ways.
-##' @param ... Other graphical parameters are passed onto the \code{lattice}
-##'   function \code{lattice:levelplot}, with common axis and title labelling
-##'   options (such as \code{xlab}, \code{ylab}, \code{main}) being passed to
-##'   via \code{quickText} to handle routine formatting.
-##' @export
-##' @import grid
-##' @return As well as generating the plot itself, \code{calendarPlot} also
-##'   returns an object of class ``openair''. The object includes three main
-##'   components: \code{call}, the command used to generate the plot;
-##'   \code{data}, the data frame of summarised information used to make the
-##'   plot; and \code{plot}, the plot itself. If retained, e.g. using
-##'   \code{output <- calendarPlot(mydata, "nox")}, this output can be used to
-##'   recover the data, reproduce or rework the original plot or undertake
-##'   further analysis.
-##'
-##'   An openair output can be manipulated using a number of generic operations,
-##'   including \code{print}, \code{plot} and \code{summary}.
-##' @author David Carslaw
-##' @seealso \code{\link{timePlot}}, \code{\link{timeVariation}}
-##' @keywords methods
-##' @examples
-##'
-##'
-##' # load example data from package
-##' data(mydata)
-##'
-##' # basic plot
-##' calendarPlot(mydata, pollutant = "o3", year = 2003)
-##'
-##' # show wind vectors
-##' calendarPlot(mydata, pollutant = "o3", year = 2003, annotate = "wd")
-##' \dontrun{
-##' # show wind vectors scaled by wind speed and different colours
-##' calendarPlot(mydata, pollutant = "o3", year = 2003, annotate = "ws",
-##' cols = "heat")
-##'
-##' # show only specific months with selectByDate
-##' calendarPlot(selectByDate(mydata, month = c(3,6,10), year = 2003),
-##' pollutant = "o3", year = 2003, annotate = "ws", cols = "heat")
-##'
-##' # categorical scale example
-##' calendarPlot(mydata, pollutant = "no2", breaks = c(0, 50, 100, 150, 1000),
-##' labels = c("Very low", "Low", "High", "Very High"),
-##' cols = c("lightblue", "green", "yellow",  "red"), statistic = "max")
-##'
-##' }
-##'
+#' Plot time series values in a conventional calendar format
+#'
+#' This function will plot data by month laid out in a conventional calendar
+#' format. The main purpose is to help rapidly visualise potentially complex
+#' data in a familiar way. Users can also choose to show daily mean wind
+#' vectors if wind speed and direction are available.
+#'
+#' \code{calendarPlot} will plot data in a conventional calendar format i.e. by
+#' month and day of the week. Daily statistics are calculated using
+#' [timeAverage()], which by default will calculate the daily mean
+#' concentration.
+#'
+#' If wind direction is available it is then possible to plot the wind
+#' direction vector on each day. This is very useful for getting a feel for the
+#' meteorological conditions that affect pollutant concentrations. Note that if
+#' hourly or higher time resolution are supplied, then \code{calendarPlot} will
+#' calculate daily averages using [timeAverage()], which ensures that
+#' wind directions are vector-averaged.
+#'
+#' If wind speed is also available, then setting the option \code{annotate =
+#' "ws"} will plot the wind vectors whose length is scaled to the wind speed.
+#' Thus information on the daily mean wind speed and direction are available.
+#'
+#' It is also possible to plot categorical scales. This is useful where, for
+#' example, an air quality index defines concentrations as bands e.g.
+#' \dQuote{good}, \dQuote{poor}. In these cases users must supply \code{labels}
+#' and corresponding \code{breaks}.
+#'
+#' Note that is is possible to pre-calculate concentrations in some way before
+#' passing the data to \code{calendarPlot}. For example
+#' \code{\link{rollingMean}} could be used to calculate rolling 8-hour mean
+#' concentrations. The data can then be passed to \code{calendarPlot} and
+#' \code{statistic = "max"} chosen, which will plot maximum daily 8-hour mean
+#' concentrations.
+#'
+#' @param mydata A data frame minimally containing \code{date} and at least one
+#'   other numeric variable. The date should be in either \code{Date} format or
+#'   class \code{POSIXct}.
+#' @param pollutant Mandatory. A pollutant name corresponding to a variable in
+#'   a data frame should be supplied e.g. \code{pollutant = "nox". }
+#' @param year Year to plot e.g. \code{year = 2003}. If not supplied all data
+#'   potentially spanning several years will be plotted.
+#' @param month If only certain month are required. By default the function
+#'   will plot an entire year even if months are missing. To only plot certain
+#'   months use the \code{month} option where month is a numeric 1:12 e.g.
+#'   \code{month = c(1, 12)} to only plot January and December.
+#' @param type Not yet implemented.
+#' @param annotate This option controls what appears on each day of the
+#'   calendar. Can be: \dQuote{date} --- shows day of the month; \dQuote{wd}
+#'   --- shows vector-averaged wind direction, or \dQuote{ws} --- shows
+#'   vector-averaged wind direction scaled by wind speed. Finally it can be
+#'   \dQuote{value} which shows the daily mean value.
+#' @param statistic Statistic passed to [timeAverage()].
+#' @param cols Colours to be used for plotting. Options include
+#'   \dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet} and
+#'   \code{RColorBrewer} colours --- see the \code{openair} \code{openColours}
+#'   function for more details. For user defined the user can supply a list of
+#'   colour names recognised by R (type \code{colours()} to see the full list).
+#'   An example would be \code{cols = c("yellow", "green", "blue")}
+#' @param limits Use this option to manually set the colour scale limits. This
+#'   is useful in the case when there is a need for two or more plots and a
+#'   consistent scale is needed on each. Set the limits to cover the maximum
+#'   range of the data for all plots of interest. For example, if one plot had
+#'   data covering 0--60 and another 0--100, then set \code{limits = c(0,
+#'   100)}. Note that data will be ignored if outside the limits range.
+#' @param lim A threshold value to help differentiate values above and below
+#'   \code{lim}. It is used when \code{annotate = "value"}. See next few
+#'   options for control over the labels used.
+#' @param col.lim For the annotation of concentration labels on each day. The
+#'   first sets the colour of the text below \code{lim} and the second sets the
+#'   colour of the text above \code{lim}.
+#' @param col.arrow The colour of the annotated wind direction / wind speed
+#'   arrows.
+#' @param font.lim For the annotation of concentration labels on each day. The
+#'   first sets the font of the text below \code{lim} and the second sets the
+#'   font of the text above \code{lim}. Note that font = 1 is normal text and
+#'   font = 2 is bold text.
+#' @param cex.lim For the annotation of concentration labels on each day. The
+#'   first sets the size of the text below \code{lim} and the second sets the
+#'   size of the text above \code{lim}.
+#' @param digits The number of digits used to display concentration values when
+#'   \code{annotate = "value"}.
+#' @param data.thresh Data capture threshold passed to [timeAverage()]. For
+#'   example, \code{data.thresh = 75} means that at least 75\% of the data must
+#'   be available in a day for the value to be calculate, else the data is
+#'   removed.
+#' @param labels If a categorical scale is required then these labels will be
+#'   used. Note there is one less label than break. For example, \code{labels =
+#'   c("good", "bad", "very bad")}. \code{breaks} must also be supplied if
+#'   labels are given.
+#' @param breaks If a categorical scale is required then these breaks will be
+#'   used. For example, \code{breaks = c(0, 50, 100, 1000)}. In this case
+#'   \dQuote{good} corresponds to values between 0 and 50 and so on. Users
+#'   should set the maximum value of \code{breaks} to exceed the maximum data
+#'   value to ensure it is within the maximum final range e.g. 100--1000 in
+#'   this case.
+#' @param main The plot title; default is pollutant and year.
+#' @param w.shift Controls the order of the days of the week. By default the
+#'   plot shows Saturday first (\code{w.shift = 0}). To change this so that it
+#'   starts on a Monday for example, set \code{w.shift = 2}, and so on.
+#' @param remove.empty Should months with no data present be removed? Default
+#'   is \code{TRUE}.
+#' @param key.header Adds additional text/labels to the scale key. For example,
+#'   passing \code{calendarPlot(mydata, key.header = "header", key.footer =
+#'   "footer")} adds addition text above and below the scale key. These
+#'   arguments are passed to \code{drawOpenKey} via \code{quickText}, applying
+#'   the \code{auto.text} argument, to handle formatting.
+#' @param key.footer see \code{key.header}.
+#' @param key.position Location where the scale key is to plotted. Allowed
+#'   arguments currently include \code{"top"}, \code{"right"}, \code{"bottom"}
+#'   and \code{"left"}.
+#' @param key Fine control of the scale key via \code{drawOpenKey}. See
+#'   \code{drawOpenKey} for further details.
+#' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
+#'   \code{TRUE} titles and axis labels will automatically try and format
+#'   pollutant names and units properly e.g.  by subscripting the `2' in NO2.
+#' @param plot Should a plot be produced? \code{FALSE} can be useful when
+#'   analysing data to extract calendar plot components and plotting them in
+#'   other ways.
+#' @param ... Other graphical parameters are passed onto the \code{lattice}
+#'   function \code{lattice:levelplot}, with common axis and title labelling
+#'   options (such as \code{xlab}, \code{ylab}, \code{main}) being passed to
+#'   via \code{quickText} to handle routine formatting.
+#' @export
+#' @import grid
+#' @return As well as generating the plot itself, \code{calendarPlot} also
+#'   returns an object of class ``openair''. The object includes three main
+#'   components: \code{call}, the command used to generate the plot;
+#'   \code{data}, the data frame of summarised information used to make the
+#'   plot; and \code{plot}, the plot itself. If retained, e.g. using
+#'   \code{output <- calendarPlot(mydata, "nox")}, this output can be used to
+#'   recover the data, reproduce or rework the original plot or undertake
+#'   further analysis.
+#'
+#'   An openair output can be manipulated using a number of generic operations,
+#'   including \code{print}, \code{plot} and \code{summary}.
+#' @author David Carslaw
+#' @family time series and trend functions
+#' @examples
+#' # basic plot
+#' calendarPlot(mydata, pollutant = "o3", year = 2003)
+#'
+#' # show wind vectors
+#' calendarPlot(mydata, pollutant = "o3", year = 2003, annotate = "wd")
+#' \dontrun{
+#' # show wind vectors scaled by wind speed and different colours
+#' calendarPlot(mydata, pollutant = "o3", year = 2003, annotate = "ws",
+#' cols = "heat")
+#'
+#' # show only specific months with selectByDate
+#' calendarPlot(selectByDate(mydata, month = c(3,6,10), year = 2003),
+#' pollutant = "o3", year = 2003, annotate = "ws", cols = "heat")
+#'
+#' # categorical scale example
+#' calendarPlot(mydata, pollutant = "no2", breaks = c(0, 50, 100, 150, 1000),
+#' labels = c("Very low", "Low", "High", "Very High"),
+#' cols = c("lightblue", "green", "yellow",  "red"), statistic = "max")
+#' }
 calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
                          type = "default",
                          annotate = "date", statistic = "mean", cols = "heat",

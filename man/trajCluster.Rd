@@ -109,9 +109,9 @@ axis and title labelling options (such as \code{xlab},
 }
 \value{
 Returns a list with two data components. The first
-  (\code{data}) contains the original data with the cluster
-  identified. The second (\code{results}) contains the data used
-  to plot the clustered trajectories.
+(\code{data}) contains the original data with the cluster
+identified. The second (\code{results}) contains the data used
+to plot the clustered trajectories.
 }
 \description{
 This function carries out cluster analysis of HYSPLIT back
@@ -153,10 +153,17 @@ air concentrations at Kejimkujik National Park, Nova
 Scotia. Journal of Geophysical Research, 100: 2867-2881.
 }
 \seealso{
-\code{\link{importTraj}}, \code{\link{trajPlot}},
-  \code{\link{trajLevel}}
+Other trajectory analysis functions: 
+\code{\link{importTraj}()},
+\code{\link{trajLevel}()},
+\code{\link{trajPlot}()}
+
+Other cluster analysis functions: 
+\code{\link{polarCluster}()},
+\code{\link{timeProp}()}
 }
 \author{
 David Carslaw
 }
-\keyword{methods}
+\concept{cluster analysis functions}
+\concept{trajectory analysis functions}

@@ -24,6 +24,9 @@ pollutionRose(
 \item{pollutant}{Mandatory. A pollutant name corresponding to a variable in a
 data frame should be supplied e.g. \code{pollutant = "nox"}.}
 
+\item{key.footer}{Adds additional text/labels below the scale key. See
+\code{key.header} for further information.}
+
 \item{key.position}{Location where the scale key is to plotted. Allowed
 arguments currently include \dQuote{top}, \dQuote{right}, \dQuote{bottom}
 and \dQuote{left}.}
@@ -112,6 +115,11 @@ a percentage of the polar axis scale, default 10.}
     \item{\code{max.freq}}{Controls the scaling used by setting the maximum value for
 the radial limits. This is useful to ensure several plots use the same
 radial limits.}
+    \item{\code{key.header}}{Adds additional text/labels above the scale key. For
+example, passing \code{windRose(mydata, key.header = "ws")} adds the
+addition text as a scale header. Note: This argument is passed to
+\code{\link[=drawOpenKey]{drawOpenKey()}} via \code{\link[=quickText]{quickText()}}, applying the auto.text argument, to
+handle formatting.}
     \item{\code{dig.lab}}{The number of significant figures at which scientific number
 formatting is used in break point and key labelling. Default 5.}
     \item{\code{include.lowest}}{Logical. If \code{FALSE} (the default), the first
@@ -206,3 +214,14 @@ mydata$wd2[id] <- mydata$wd2[id] + 360
 ## results show postive bias in wd and ws
 pollutionRose(mydata, ws = "ws", wd = "wd", ws2 = "ws2", wd2 = "wd2")
 }
+\seealso{
+Other polar directional analaysis functions: 
+\code{\link{percentileRose}()},
+\code{\link{polarAnnulus}()},
+\code{\link{polarCluster}()},
+\code{\link{polarDiff}()},
+\code{\link{polarFreq}()},
+\code{\link{polarPlot}()},
+\code{\link{windRose}()}
+}
+\concept{polar directional analaysis functions}

@@ -96,9 +96,7 @@
 ##'   \code{scatterPlot} which in turn passes it on to the \code{lattice}
 ##'   function \code{xyplot} where it is applied to set the plot symbol size.
 ##' @export
-##' @seealso \code{\link{importTraj}} to import trajectory data from the King's
-##'   College server and \code{\link{trajLevel}} for trajectory binning
-##'   functions.
+##' @family trajectory analysis functions
 ##' @author David Carslaw
 ##' @examples
 ##'

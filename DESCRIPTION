@@ -29,7 +29,8 @@ Imports:
     stats,
     MASS,
     utils,
-    rlang
+    rlang,
+    tibble
 Suggests:
     spelling,
     KernSmooth,
@@ -47,3 +48,4 @@ LazyData: yes
 Encoding: UTF-8
 RoxygenNote: 7.2.2
 Language: en-GB
+Roxygen: list(markdown = TRUE)

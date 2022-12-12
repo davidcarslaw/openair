@@ -36,32 +36,32 @@ numeric field to plot --- \code{pollutant}.}
 
 \item{pollutant}{Mandatory. A pollutant name corresponding to a
 variable in a data frame should be supplied e.g. \code{pollutant
-= "nox"}. More than one pollutant can be supplied e.g.
+  = "nox"}. More than one pollutant can be supplied e.g.
 \code{pollutant = c("no2", "o3")} provided there is only one
 \code{type}.}
 
 \item{wd}{Name of the wind direction field.}
 
 \item{type}{\code{type} determines how the data are split i.e.
-  conditioned, and then plotted. The default is will produce a
-  single plot using the entire data. Type can be one of the
-  built-in types as detailed in \code{cutData} e.g.
-  \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so on. For
-  example, \code{type = "season"} will produce four plots --- one
-  for each season.
+conditioned, and then plotted. The default is will produce a
+single plot using the entire data. Type can be one of the
+built-in types as detailed in \code{cutData} e.g.
+\dQuote{season}, \dQuote{year}, \dQuote{weekday} and so on. For
+example, \code{type = "season"} will produce four plots --- one
+for each season.
 
-  It is also possible to choose \code{type} as another variable in
-  the data frame. If that variable is numeric, then the data will
-  be split into four quantiles (if possible) and labelled
-  accordingly. If type is an existing character or factor
-  variable, then those categories/levels will be used directly.
-  This offers great flexibility for understanding the variation of
-  different variables and how they depend on one another.
+It is also possible to choose \code{type} as another variable in
+the data frame. If that variable is numeric, then the data will
+be split into four quantiles (if possible) and labelled
+accordingly. If type is an existing character or factor
+variable, then those categories/levels will be used directly.
+This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.
 
-  Type can be up length two e.g. \code{type = c("season",
+Type can be up length two e.g. \code{type = c("season",
   "weekday")} will produce a 2x2 plot split by season and day of
-  the week. Note, when two types are provided the first forms the
-  columns and the second the rows.}
+the week. Note, when two types are provided the first forms the
+columns and the second the rows.}
 
 \item{percentile}{The percentile value(s) to plot. Must be between
 0--100. If \code{percentile = NA} then only a mean line will be
@@ -72,7 +72,7 @@ cyclic spline?}
 
 \item{method}{When \code{method = "default"} the supplied
 percentiles by wind direction are calculated. When \code{method
-= "cpf"} the conditional probability function (CPF) is plotted
+  = "cpf"} the conditional probability function (CPF) is plotted
 and a single (usually high) percentile level is supplied. The
 CPF is defined as CPF = my/ny, where my is the number of samples
 in the wind sector y with mixing ratios greater than the
@@ -118,7 +118,7 @@ the \sQuote{2} in NO2.}
 
 \item{key.header}{Adds additional text/labels to the scale key.
 For example, passing options \code{key.header = "header",
-key.footer = "footer"} adds addition text above and below the
+  key.footer = "footer"} adds addition text above and below the
 scale key. These arguments are passed to \code{drawOpenKey} via
 \code{quickText}, applying the \code{auto.text} argument, to
 handle formatting.}
@@ -139,9 +139,9 @@ ways.}
 \item{...}{Other graphical parameters are passed onto
 \code{cutData} and \code{lattice:xyplot}. For example,
 \code{percentileRose} passes the option \code{hemisphere =
-"southern"} on to \code{cutData} to provide southern (rather
+  "southern"} on to \code{cutData} to provide southern (rather
 than default northern) hemisphere handling of \code{type =
-"season"}. Similarly, common graphical arguments, such as
+  "season"}. Similarly, common graphical arguments, such as
 \code{xlim} and \code{ylim} for plotting ranges and \code{lwd}
 for line thickness when using \code{fill = FALSE}, are passed on
 \code{xyplot}, although some local modifications may be applied
@@ -151,18 +151,18 @@ as \code{xlab}, \code{ylab} and \code{main}) are passed to
 }
 \value{
 As well as generating the plot itself,
-  \code{percentileRose} also returns an object of class
-  \dQuote{openair}. The object includes three main components:
-  \code{call}, the command used to generate the plot; \code{data},
-  the data frame of summarised information used to make the plot;
-  and \code{plot}, the plot itself. If retained, e.g. using
-  \code{output <- percentileRose(mydata, "nox")}, this output can
-  be used to recover the data, reproduce or rework the original
-  plot or undertake further analysis.
+\code{percentileRose} also returns an object of class
+\dQuote{openair}. The object includes three main components:
+\code{call}, the command used to generate the plot; \code{data},
+the data frame of summarised information used to make the plot;
+and \code{plot}, the plot itself. If retained, e.g. using
+\code{output <- percentileRose(mydata, "nox")}, this output can
+be used to recover the data, reproduce or rework the original
+plot or undertake further analysis.
 
-  An openair output can be manipulated using a number of generic
-  operations, including \code{print}, \code{plot} and
-  \code{summary}.
+An openair output can be manipulated using a number of generic
+operations, including \code{print}, \code{plot} and
+\code{summary}.
 }
 \description{
 \code{percentileRose} plots percentiles by wind direction with
@@ -200,7 +200,6 @@ used and the user has fine control over both the range, interval
 and colour.
 }
 \examples{
-
 # basic percentile plot
 percentileRose(mydata, pollutant = "o3")
 
@@ -214,8 +213,6 @@ percentileRose(mydata, type = "year", pollutant = "o3", col = "brewer1")
 # percentile concentrations by season and day/nighttime..
 percentileRose(mydata, type = c("season", "daylight"), pollutant = "o3", col = "brewer1")
 }
-
-
 }
 \references{
 Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A
@@ -224,11 +221,16 @@ ground canyon national park. Atmospheric Environment 19 (8),
 1263-1270.
 }
 \seealso{
-See Also as \code{\link{windRose}},
-  \code{\link{pollutionRose}}, \code{\link{polarFreq}},
-  \code{\link{polarPlot}}
+Other polar directional analaysis functions: 
+\code{\link{polarAnnulus}()},
+\code{\link{polarCluster}()},
+\code{\link{polarDiff}()},
+\code{\link{polarFreq}()},
+\code{\link{polarPlot}()},
+\code{\link{pollutionRose}()},
+\code{\link{windRose}()}
 }
 \author{
 David Carslaw
 }
-\keyword{methods}
+\concept{polar directional analaysis functions}

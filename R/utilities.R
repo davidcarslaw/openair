@@ -188,54 +188,53 @@ decimalDate <- function(x, date = "date") {
 
 
 
-##' Calculate rollingMean values
-##'
-##' Calculate rollingMean values taking account of data capture thresholds
-##'
-##' This is a utility function mostly designed to calculate rolling
-##' mean statistics relevant to some pollutant limits e.g. 8 hour
-##' rolling means for ozone and 24 hour rolling means for
-##' PM10. However, the function has a more general use in helping to
-##' display rolling mean values in flexible ways e.g. with the rolling
-##' window width left, right or centre aligned.
-##'
-##' The function will try and fill in missing time gaps to get a full
-##' time sequence but return a data frame with the same number of rows
-##' supplied.
-##'
-##' @param mydata A data frame containing a \code{date}
-##' field. \code{mydata} must contain a \code{date} field in
-##' \code{Date} or \code{POSIXct} format. The input time series must
-##' be regular e.g. hourly, daily.
-##' @param pollutant The name of a pollutant e.g. \code{pollutant = "o3"}.
-##' @param width The averaging period (rolling window width) to use
-##' e.g. \code{width = 8} will generate 8-hour rolling mean values
-##' when hourly data are analysed.
-##' @param new.name The name given to the new rollingMean variable. If
-##' not supplied it will create a name based on the name of the
-##' pollutant and the averaging period used.
-##' @param data.thresh The data capture threshold in %. No values are
-##' calculated if data capture over the period of interest is less
-##' than this value. For example, with \code{width = 8} and
-##' \code{data.thresh = 75} at least 6 hours are required to calculate
-##' the mean, else \code{NA} is returned.
-##' @param align specifies how the moving window should be
-##' aligned. \code{"right"} means that the previous \code{hours}
-##' (including the current) are averaged. This seems to be the default
-##' for UK air quality rolling mean statistics. \code{"left"} means
-##' that the forward \code{hours} are averaged, and \code{"centre"} or
-##' \code{"center"}, which is the default.
-##' @param ... other arguments, currently unused.
-##' @export
-##' @author David Carslaw
-##' @keywords methods
-##' @examples
-##'
-##' ## rolling 8-hour mean for ozone
-##' mydata <- rollingMean(mydata, pollutant = "o3", width = 8, new.name =
-##' "rollingo3", data.thresh = 75, align = "right")
-##'
-##'
+#' Calculate rollingMean values
+#'
+#' Calculate rollingMean values taking account of data capture thresholds
+#'
+#' This is a utility function mostly designed to calculate rolling
+#' mean statistics relevant to some pollutant limits e.g. 8 hour
+#' rolling means for ozone and 24 hour rolling means for
+#' PM10. However, the function has a more general use in helping to
+#' display rolling mean values in flexible ways e.g. with the rolling
+#' window width left, right or centre aligned.
+#'
+#' The function will try and fill in missing time gaps to get a full
+#' time sequence but return a data frame with the same number of rows
+#' supplied.
+#'
+#' @param mydata A data frame containing a \code{date}
+#' field. \code{mydata} must contain a \code{date} field in
+#' \code{Date} or \code{POSIXct} format. The input time series must
+#' be regular e.g. hourly, daily.
+#' @param pollutant The name of a pollutant e.g. \code{pollutant = "o3"}.
+#' @param width The averaging period (rolling window width) to use
+#' e.g. \code{width = 8} will generate 8-hour rolling mean values
+#' when hourly data are analysed.
+#' @param new.name The name given to the new rollingMean variable. If
+#' not supplied it will create a name based on the name of the
+#' pollutant and the averaging period used.
+#' @param data.thresh The data capture threshold in %. No values are
+#' calculated if data capture over the period of interest is less
+#' than this value. For example, with \code{width = 8} and
+#' \code{data.thresh = 75} at least 6 hours are required to calculate
+#' the mean, else \code{NA} is returned.
+#' @param align specifies how the moving window should be
+#' aligned. \code{"right"} means that the previous \code{hours}
+#' (including the current) are averaged. This seems to be the default
+#' for UK air quality rolling mean statistics. \code{"left"} means
+#' that the forward \code{hours} are averaged, and \code{"centre"} or
+#' \code{"center"}, which is the default.
+#' @param ... other arguments, currently unused.
+#' @export
+#' @author David Carslaw
+#' @examples
+#'
+#' ## rolling 8-hour mean for ozone
+#' mydata <- rollingMean(mydata, pollutant = "o3", width = 8, new.name =
+#' "rollingo3", data.thresh = 75, align = "right")
+#'
+#'
 rollingMean <- function(mydata, pollutant = "o3", width = 8, new.name = "rolling",
                         data.thresh = 75, align = "centre", ...) {
   ## function to calculate rolling means
@@ -310,34 +309,33 @@ convert.date <- function(mydata, format = "%d/%m/%Y %H:%M") {
 
 
 
-##' Divide up a data frame by time
-##'
-##' Utility function to prepare input data for use in openair functions
-##'
-##' This function partitions a data frame up into different time segments. It
-##' produces a new column called controlled by \code{name} that can be used in many
-##' \code{openair} functions. Note that there must be one more label than there
-##' are dates. See examples below and in full \code{openair} documentation.
-##'
-##' @param mydata A data frame containing a \code{date} field in hourly or high
-##'   resolution format.
-##' @param dates A date or dates to split data by.
-##' @param labels Labels for each time partition.
-##' @param name The name to give the new column to identify the periods split
-##' @export
-##' @author David Carslaw
-##' @keywords methods
-##' @examples
-##'
-##' ## split data up into "before" and "after"
-##' mydata <- splitByDate(mydata, dates = "1/04/2000",
-##' labels = c("before", "after"))
-##'
-##' ## split data into 3 partitions:
-##' mydata <- splitByDate(mydata, dates = c("1/1/2000", "1/3/2003"),
-##' labels = c("before", "during", "after"))
-##'
-##'
+#' Divide up a data frame by time
+#'
+#' Utility function to prepare input data for use in openair functions
+#'
+#' This function partitions a data frame up into different time segments. It
+#' produces a new column called controlled by \code{name} that can be used in many
+#' \code{openair} functions. Note that there must be one more label than there
+#' are dates. See examples below and in full \code{openair} documentation.
+#'
+#' @param mydata A data frame containing a \code{date} field in hourly or high
+#'   resolution format.
+#' @param dates A date or dates to split data by.
+#' @param labels Labels for each time partition.
+#' @param name The name to give the new column to identify the periods split
+#' @export
+#' @author David Carslaw
+#' @examples
+#'
+#' ## split data up into "before" and "after"
+#' mydata <- splitByDate(mydata, dates = "1/04/2000",
+#' labels = c("before", "after"))
+#'
+#' ## split data into 3 partitions:
+#' mydata <- splitByDate(mydata, dates = c("1/1/2000", "1/3/2003"),
+#' labels = c("before", "during", "after"))
+#'
+#'
 splitByDate <- function(mydata, dates = "1/1/2003", labels = c("before", "after"), name = "split.by") {
   ## if date in format dd/mm/yyyy hh:mm (basic check)
   if (missing(mydata)) stop("No data frame was supplied!")
@@ -380,70 +378,67 @@ one more label than date")
 ## function to make it easy to use d/m/y format for subsetting by date
 
 
-##' Subset a data frame based on date
-##'
-##' Utility function to make it easier to select periods from a data frame
-##' before sending to a function
-##'
-##' This function makes it much easier to select periods of interest from a data
-##' frame based on dates in a British format. Selecting date/times in R format
-##' can be intimidating for new users. This function can be used to select quite
-##' complex dates simply - see examples below.
-##'
-##' Dates are assumed to be inclusive, so \code{start = "1/1/1999"} means that
-##' times are selected from hour zero. Similarly, \code{end = "31/12/1999"} will
-##' include all hours of the 31st December. \code{start} and \code{end} can also
-##' be in standard R format as a string i.e. "YYYY-mm-dd", so \code{start =
-##' "1999-01-01"} is fine.
-##'
-##' All options are applied in turn making it possible to select quite complex
-##' dates
-##'
-##' @param mydata A data frame containing a \code{date} field in hourly or high
-##'   resolution format.
-##' @param start A start date string in the form d/m/yyyy e.g. \dQuote{1/2/1999}
-##'   or in \sQuote{R} format i.e. \dQuote{YYYY-mm-dd}, \dQuote{1999-02-01}
-##' @param end See \code{start} for format.
-##' @param year A year or years to select e.g. \code{year = 1998:2004} to select
-##'   1998-2004 inclusive or \code{year = c(1998, 2004)} to select 1998 and
-##'   2004.
-##' @param month A month or months to select. Can either be numeric e.g.
-##'   \code{month = 1:6} to select months 1-6 (January to June), or by name e.g.
-##'   \code{month = c("January", "December")}. Names can be abbreviated to 3
-##'   letters and be in lower or upper case.
-##' @param day A day name or or days to select. \code{day} can be numeric (1 to
-##'   31) or character. For example \code{day = c("Monday", "Wednesday")} or
-##'   \code{day = 1:10} (to select the 1st to 10th of each month). Names can be
-##'   abbreviated to 3 letters and be in lower or upper case. Also accepts
-##'   \dQuote{weekday} (Monday - Friday) and \dQuote{weekend} for convenience.
-##' @param hour An hour or hours to select from 0-23 e.g. \code{hour = 0:12} to
-##'   select hours 0 to 12 inclusive.
-##' @importFrom lubridate dst year month hour wday force_tz day as_date dmy ymd_hm ymd
-##'   round_date parse_date_time floor_date ceiling_date ymd_hms
-##' @export
-##' @author David Carslaw
-##' @keywords methods
-##' @examples
-##'
-##' ## select all of 1999
-##' data.1999 <- selectByDate(mydata, start = "1/1/1999", end = "31/12/1999")
-##' head(data.1999)
-##' tail(data.1999)
-##'
-##' # or...
-##' data.1999 <- selectByDate(mydata, start = "1999-01-01", end = "1999-12-31")
-##'
-##' # easier way
-##' data.1999 <- selectByDate(mydata, year = 1999)
-##'
-##'
-##' # more complex use: select weekdays between the hours of 7 am to 7 pm
-##' sub.data <- selectByDate(mydata, day = "weekday", hour = 7:19)
-##'
-##' # select weekends between the hours of 7 am to 7 pm in winter (Dec, Jan, Feb)
-##' sub.data <- selectByDate(mydata, day = "weekend", hour = 7:19, month =
-##' c("dec", "jan", "feb"))
-##'
+#' Subset a data frame based on date
+#'
+#' Utility function to make it easier to select periods from a data frame
+#' before sending to a function
+#'
+#' This function makes it much easier to select periods of interest from a data
+#' frame based on dates in a British format. Selecting date/times in R format
+#' can be intimidating for new users. This function can be used to select quite
+#' complex dates simply - see examples below.
+#'
+#' Dates are assumed to be inclusive, so \code{start = "1/1/1999"} means that
+#' times are selected from hour zero. Similarly, \code{end = "31/12/1999"} will
+#' include all hours of the 31st December. \code{start} and \code{end} can also
+#' be in standard R format as a string i.e. "YYYY-mm-dd", so \code{start =
+#' "1999-01-01"} is fine.
+#'
+#' All options are applied in turn making it possible to select quite complex
+#' dates
+#'
+#' @param mydata A data frame containing a \code{date} field in hourly or high
+#'   resolution format.
+#' @param start A start date string in the form d/m/yyyy e.g. \dQuote{1/2/1999}
+#'   or in \sQuote{R} format i.e. \dQuote{YYYY-mm-dd}, \dQuote{1999-02-01}
+#' @param end See \code{start} for format.
+#' @param year A year or years to select e.g. \code{year = 1998:2004} to select
+#'   1998-2004 inclusive or \code{year = c(1998, 2004)} to select 1998 and
+#'   2004.
+#' @param month A month or months to select. Can either be numeric e.g.
+#'   \code{month = 1:6} to select months 1-6 (January to June), or by name e.g.
+#'   \code{month = c("January", "December")}. Names can be abbreviated to 3
+#'   letters and be in lower or upper case.
+#' @param day A day name or or days to select. \code{day} can be numeric (1 to
+#'   31) or character. For example \code{day = c("Monday", "Wednesday")} or
+#'   \code{day = 1:10} (to select the 1st to 10th of each month). Names can be
+#'   abbreviated to 3 letters and be in lower or upper case. Also accepts
+#'   \dQuote{weekday} (Monday - Friday) and \dQuote{weekend} for convenience.
+#' @param hour An hour or hours to select from 0-23 e.g. \code{hour = 0:12} to
+#'   select hours 0 to 12 inclusive.
+#' @export
+#' @author David Carslaw
+#' @examples
+#'
+#' ## select all of 1999
+#' data.1999 <- selectByDate(mydata, start = "1/1/1999", end = "31/12/1999")
+#' head(data.1999)
+#' tail(data.1999)
+#'
+#' # or...
+#' data.1999 <- selectByDate(mydata, start = "1999-01-01", end = "1999-12-31")
+#'
+#' # easier way
+#' data.1999 <- selectByDate(mydata, year = 1999)
+#'
+#'
+#' # more complex use: select weekdays between the hours of 7 am to 7 pm
+#' sub.data <- selectByDate(mydata, day = "weekday", hour = 7:19)
+#'
+#' # select weekends between the hours of 7 am to 7 pm in winter (Dec, Jan, Feb)
+#' sub.data <- selectByDate(mydata, day = "weekend", hour = 7:19, month =
+#' c("dec", "jan", "feb"))
+#'
 selectByDate <- function(mydata, start = "1/1/2008",
                          end = "31/12/2008", year = 2008,
                          month = 1, day = "weekday", hour = 1) {
@@ -1089,13 +1084,14 @@ checkNum <- function(mydata, vars) {
 
 
 
-#' Bin data, calculate mean and bootstrap 95\% confidence interval in the mean
+#' Bin data, calculate mean and bootstrap 95 % confidence interval in the mean
 #'
 #' Bin a variable and calculate mean an uncertainties in mean
 #'
 #' This function summarises data by intervals and calculates the mean and
-#' bootstrap 95\% confidence intervals in the mean of a chosen variable in a data
-#' frame. Any other numeric variables are summarised by their mean intervals.
+#' bootstrap 95 % confidence intervals in the mean of a chosen variable in a
+#' data frame. Any other numeric variables are summarised by their mean
+#' intervals.
 #'
 #' There are three options for binning. The default is to bon \code{bin} into 40
 #' intervals. Second, the user can choose an binning interval e.g.
@@ -1111,7 +1107,7 @@ checkNum <- function(mydata, vars) {
 #' @param breaks User specified breaks to use for binning.
 #'
 #' @return Returns a summarised data frame with new columns for the mean and
-#'   upper / lower 95\% confidence intervals in the mean.
+#'   upper / lower 95 percent confidence intervals in the mean.
 #' @export
 #'
 #' @examples
@@ -1123,7 +1119,6 @@ checkNum <- function(mydata, vars) {
 #' library(ggplot2)
 #' ggplot(results, aes(ws, mean, ymin = min, ymax = max)) +
 #' geom_pointrange()
-#'
 #' }
 binData <- function(mydata, bin = "nox", uncer = "no2", n = 40, interval = NA,
                     breaks = NA) {

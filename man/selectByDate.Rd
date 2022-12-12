@@ -85,4 +85,3 @@ c("dec", "jan", "feb"))
 \author{
 David Carslaw
 }
-\keyword{methods}

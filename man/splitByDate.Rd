@@ -45,4 +45,3 @@ labels = c("before", "during", "after"))
 \author{
 David Carslaw
 }
-\keyword{methods}

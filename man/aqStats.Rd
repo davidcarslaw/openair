@@ -20,14 +20,14 @@ aqStats(
 \item{pollutant}{The name of a pollutant e.g. \code{pollutant = c("o3",
 "pm10")}.}
 
-\item{type}{\code{type} allows \code{timeAverage} to be applied to cases
+\item{type}{\code{type} allows \code{\link[=timeAverage]{timeAverage()}} to be applied to cases
 where there are groups of data that need to be split and the function
 applied to each group. The most common example is data with multiple sites
 identified with a column representing site name e.g. \code{type = "site"}.
 More generally, \code{type} should be used where the date repeats for a
 particular grouping variable.}
 
-\item{data.thresh}{The data capture threshold in %. No values are calculated
+\item{data.thresh}{The data capture threshold in \%. No values are calculated
 if data capture over the period of interest is less than this value.
 \code{data.thresh} is used for example in the calculation of daily mean
 values from hourly data. If there are less than \code{data.thresh}
@@ -112,4 +112,3 @@ aqStats(selectByDate(mydata, year = 2004), pollutant = "no2")
 \author{
 David Carslaw
 }
-\keyword{methods}

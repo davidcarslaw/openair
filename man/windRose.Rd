@@ -131,11 +131,14 @@ radial limits.}
 using 'paddle' style spokes. If \code{FALSE} plots rose using 'wedge' style
 spokes.}
 
-\item{key.header, key.footer}{Adds additional text/labels above and/or below
-the scale key, respectively. For example, passing \code{windRose(mydata,
-  key.header = "ws")} adds the addition text as a scale header. Note: This
-argument is passed to \code{\link[=drawOpenKey]{drawOpenKey()}} via \code{\link[=quickText]{quickText()}}, applying the
-auto.text argument, to handle formatting.}
+\item{key.header}{Adds additional text/labels above the scale key. For
+example, passing \code{windRose(mydata, key.header = "ws")} adds the
+addition text as a scale header. Note: This argument is passed to
+\code{\link[=drawOpenKey]{drawOpenKey()}} via \code{\link[=quickText]{quickText()}}, applying the auto.text argument, to
+handle formatting.}
+
+\item{key.footer}{Adds additional text/labels below the scale key. See
+\code{key.header} for further information.}
 
 \item{key.position}{Location where the scale key is to plotted. Allowed
 arguments currently include \dQuote{top}, \dQuote{right}, \dQuote{bottom}
@@ -233,7 +236,7 @@ contribution of each bin to the panel mean, and is intended for use with
 \code{pollutionRose}.
 }
 \note{
-\code{windRose} and \code{pollutionRose} both use \link{drawOpenKey} to
+\code{windRose} and \code{pollutionRose} both use \code{\link[=drawOpenKey]{drawOpenKey()}} to
 produce scale keys.
 }
 \examples{
@@ -252,12 +255,21 @@ windRose(mydata, angle = 10, width = 0.2, grid.line = 1)
 Applequist, S, 2012: Wind Rose Bias Correction. J. Appl. Meteor. Climatol.,
 51, 1305-1309.
 
-This paper seems to be the original?
-
 Droppo,  J.G. and B.A. Napier (2008) Wind Direction Bias in Generating Wind
 Roses and Conducting Sector-Based Air Dispersion Modeling, Journal of the Air
 & Waste Management Association, 58:7, 913-918.
 }
+\seealso{
+Other polar directional analaysis functions: 
+\code{\link{percentileRose}()},
+\code{\link{polarAnnulus}()},
+\code{\link{polarCluster}()},
+\code{\link{polarDiff}()},
+\code{\link{polarFreq}()},
+\code{\link{polarPlot}()},
+\code{\link{pollutionRose}()}
+}
 \author{
 David Carslaw (with some additional contributions by Karl Ropkins)
 }
+\concept{polar directional analaysis functions}

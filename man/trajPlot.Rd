@@ -37,22 +37,22 @@ trajPlot(
 is used.}
 
 \item{type}{\code{type} determines how the data are split i.e. conditioned,
-  and then plotted. The default is will produce a single plot using the
-  entire data. Type can be one of the built-in types as detailed in
-  \code{cutData} e.g. "season", "year", "weekday" and so on. For example,
-  \code{type = "season"} will produce four plots --- one for each season.
+and then plotted. The default is will produce a single plot using the
+entire data. Type can be one of the built-in types as detailed in
+\code{cutData} e.g. "season", "year", "weekday" and so on. For example,
+\code{type = "season"} will produce four plots --- one for each season.
 
-  It is also possible to choose \code{type} as another variable in the data
-  frame. If that variable is numeric, then the data will be split into four
-  quantiles (if possible) and labelled accordingly. If type is an existing
-  character or factor variable, then those categories/levels will be used
-  directly. This offers great flexibility for understanding the variation of
-  different variables and how they depend on one another.
+It is also possible to choose \code{type} as another variable in the data
+frame. If that variable is numeric, then the data will be split into four
+quantiles (if possible) and labelled accordingly. If type is an existing
+character or factor variable, then those categories/levels will be used
+directly. This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.
 
-  \code{type} can be up length two e.g. \code{type = c("season", "weekday")}
-  will produce a 2x2 plot split by season and day of the week. Note, when
-  two types are provided the first forms the columns and the second the
-  rows.}
+\code{type} can be up length two e.g. \code{type = c("season", "weekday")}
+will produce a 2x2 plot split by season and day of the week. Note, when
+two types are provided the first forms the columns and the second the
+rows.}
 
 \item{map}{Should a base map be drawn? If \code{TRUE} the world base map
 from the \code{maps} package is used.}
@@ -65,14 +65,14 @@ countries.}
 
 \item{map.res}{The resolution of the base map. By default the function uses
 the \sQuote{world} map from the \code{maps} package. If \code{map.res =
-"hires"} then the (much) more detailed base map \sQuote{worldHires} from
+  "hires"} then the (much) more detailed base map \sQuote{worldHires} from
 the \code{mapdata} package is used. Use \code{library(mapdata)}. Also
 available is a map showing the US states. In this case \code{map.res =
-"state"} should be used.}
+  "state"} should be used.}
 
 \item{map.cols}{If \code{map.fill = TRUE} \code{map.cols} controls the fill
 colour. Examples include \code{map.fill = "grey40"} and \code{map.fill =
-openColours("default", 10)}. The latter colours the countries and can help
+  openColours("default", 10)}. The latter colours the countries and can help
 differentiate them.}
 
 \item{map.alpha}{The transparency level of the filled map which takes values
@@ -169,10 +169,12 @@ group = "day", col = "turbo", lwd = 2, key.pos = "right", key.col = 1)
 
 }
 \seealso{
-\code{\link{importTraj}} to import trajectory data from the King's
-  College server and \code{\link{trajLevel}} for trajectory binning
-  functions.
+Other trajectory analysis functions: 
+\code{\link{importTraj}()},
+\code{\link{trajCluster}()},
+\code{\link{trajLevel}()}
 }
 \author{
 David Carslaw
 }
+\concept{trajectory analysis functions}

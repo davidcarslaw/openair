@@ -1,67 +1,61 @@
-
-##' Import monitoring site meta data for the UK and European networks
-##'
-##' Function to import meta data for air quality monitoring sites
-##'
-##' This function imports site meta data from several networks in the UK and
-##' Europe:
-##'
-##' \itemize{
-##'
-##' \item \dQuote{aurn}, The UK Automatic Urban and Rural Network.
-##'
-##' \item \dQuote{saqn}, The Scottish Air Quality Network.
-##'
-##' \item \dQuote{waqn}, The Welsh Air Quality Network.
-##'
-##' \item \dQuote{ni}, The Northern Ireland Air Quality Network.
-##'
-##' \item \dQuote{aqe}, The Air Quality England Network.
-##'
-##' \item \dQuote{local}, Locally managed air quality networks in England.
-##'
-##' \item \dQuote{kcl}, King's College London networks.
-##'
-##' \item \dQuote{europe}, Import hourly European data (Airbase/e-reporting)
-##' based on a simplified version of the \code{saqgetr} package. }
-##'
-##' By default, the function will return the site latitude, longitude and site
-##' type. If the option \code{all = TRUE} is used, much more detailed
-##' information is returned. For most networks, this detailed information
-##' includes per-pollutant summaries, opening and closing dates of sites etc.
-##'
-##' Thanks go to Trevor Davies (Ricardo), Dr Stuart Grange (EMPA) and Dr Ben
-##' Barratt (KCL) and  for making these data available.
-##' @param source The data source for the meta data. Can be \dQuote{aurn},
-##'   \dQuote{saqn} (or \dQuote{saqd}), \dQuote{aqe}, \dQuote{waqn},
-##'   \dQuote{ni}, \dQuote{local}, \dQuote{kcl} or \dQuote{europe}; upper or
-##'   lower case.
-##' @param all When \code{all = FALSE} only the site code, site name, latitude
-##'   and longitude and site type are imported. Setting \code{all = TRUE} will
-##'   import all available meta data and provide details (when available) or the
-##'   individual pollutants measured at each site.
-##' @return A data frame with meta data.
-##' @author David Carslaw
-##' @seealso \code{\link{importAURN}}, \code{\link{importSAQN}},
-##'   \code{\link{importWAQN}}, \code{\link{importNI}}, \code{\link{importAQE}},
-##'   \code{\link{importKCL}}, and  \code{\link{importEurope}}, for importing
-##'   air quality data from each network.
-##' @keywords methods
-##' @export
-##' @import readr
-##' @importFrom rlang .data
-##' @examples
-##' ## basic data
-##'
-##' \dontrun{
-##' meta <- importMeta(source = "aurn")
-##'
-##' # more detailed information:
-##' meta <- importMeta(source = "aurn", all = TRUE)
-##'
-##' # from the Scottish Air Quality Network
-##' meta <- importMeta(source = "saqn", all = TRUE)
-##' }
+#' Import monitoring site meta data for the UK and European networks
+#'
+#' Function to import meta data for air quality monitoring sites
+#'
+#' This function imports site meta data from several networks in the UK and
+#' Europe:
+#'
+#' \itemize{
+#'
+#' \item \dQuote{aurn}, The UK Automatic Urban and Rural Network.
+#'
+#' \item \dQuote{saqn}, The Scottish Air Quality Network.
+#'
+#' \item \dQuote{waqn}, The Welsh Air Quality Network.
+#'
+#' \item \dQuote{ni}, The Northern Ireland Air Quality Network.
+#'
+#' \item \dQuote{aqe}, The Air Quality England Network.
+#'
+#' \item \dQuote{local}, Locally managed air quality networks in England.
+#'
+#' \item \dQuote{kcl}, King's College London networks.
+#'
+#' \item \dQuote{europe}, Import hourly European data (Airbase/e-reporting)
+#' based on a simplified version of the \code{saqgetr} package. }
+#'
+#' By default, the function will return the site latitude, longitude and site
+#' type. If the option \code{all = TRUE} is used, much more detailed
+#' information is returned. For most networks, this detailed information
+#' includes per-pollutant summaries, opening and closing dates of sites etc.
+#'
+#' Thanks go to Trevor Davies (Ricardo), Dr Stuart Grange (EMPA) and Dr Ben
+#' Barratt (KCL) and  for making these data available.
+#' @param source The data source for the meta data. Can be \dQuote{aurn},
+#'   \dQuote{saqn} (or \dQuote{saqd}), \dQuote{aqe}, \dQuote{waqn},
+#'   \dQuote{ni}, \dQuote{local}, \dQuote{kcl} or \dQuote{europe}; upper or
+#'   lower case.
+#' @param all When \code{all = FALSE} only the site code, site name, latitude
+#'   and longitude and site type are imported. Setting \code{all = TRUE} will
+#'   import all available meta data and provide details (when available) or the
+#'   individual pollutants measured at each site.
+#' @return A data frame with meta data.
+#' @author David Carslaw
+#' @family import functions
+#' @export
+#' @import readr
+#' @examples
+#' ## basic data
+#'
+#' \dontrun{
+#' meta <- importMeta(source = "aurn")
+#'
+#' # more detailed information:
+#' meta <- importMeta(source = "aurn", all = TRUE)
+#'
+#' # from the Scottish Air Quality Network
+#' meta <- importMeta(source = "saqn", all = TRUE)
+#' }
 
 importMeta <- function(source = "aurn", all = FALSE) {
   # fix CRAN checks (due to use of `load()`)

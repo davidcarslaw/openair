@@ -24,24 +24,24 @@ timeAverage(
 \code{POSIXct} or \code{Date}.}
 
 \item{avg.time}{This defines the time period to average to. Can be
-  \dQuote{sec}, \dQuote{min}, \dQuote{hour}, \dQuote{day}, \dQuote{DSTday},
-  \dQuote{week}, \dQuote{month}, \dQuote{quarter} or \dQuote{year}. For much
-  increased flexibility a number can precede these options followed by a
-  space. For example, a timeAverage of 2 months would be \code{period = "2
+\dQuote{sec}, \dQuote{min}, \dQuote{hour}, \dQuote{day}, \dQuote{DSTday},
+\dQuote{week}, \dQuote{month}, \dQuote{quarter} or \dQuote{year}. For much
+increased flexibility a number can precede these options followed by a
+space. For example, a timeAverage of 2 months would be \code{period = "2
   month"}. In addition, \code{avg.time} can equal \dQuote{season}, in which
-  case 3-month seasonal values are calculated with spring defined as March,
-  April, May and so on.
+case 3-month seasonal values are calculated with spring defined as March,
+April, May and so on.
 
-  Note that \code{avg.time} can be \emph{less} than the time interval of the
-  original series, in which case the series is expanded to the new time
-  interval. This is useful, for example, for calculating a 15-minute time
-  series from an hourly one where an hourly value is repeated for each new
-  15-minute period. Note that when expanding data in this way it is
-  necessary to ensure that the time interval of the original series is an
-  exact multiple of \code{avg.time} e.g. hour to 10 minutes, day to hour.
-  Also, the input time series must have consistent time gaps between
-  successive intervals so that \code{timeAverage} can work out how much
-  \sQuote{padding} to apply. To pad-out data in this way choose \code{fill =
+Note that \code{avg.time} can be \emph{less} than the time interval of the
+original series, in which case the series is expanded to the new time
+interval. This is useful, for example, for calculating a 15-minute time
+series from an hourly one where an hourly value is repeated for each new
+15-minute period. Note that when expanding data in this way it is
+necessary to ensure that the time interval of the original series is an
+exact multiple of \code{avg.time} e.g. hour to 10 minutes, day to hour.
+Also, the input time series must have consistent time gaps between
+successive intervals so that \code{timeAverage} can work out how much
+\sQuote{padding} to apply. To pad-out data in this way choose \code{fill =
   TRUE}.}
 
 \item{data.thresh}{The data capture threshold to use (\%). A value of zero
@@ -71,8 +71,8 @@ particular grouping variable. However, if type is not supplied the data
 will still be averaged but the grouping variables (character or factor)
 will be dropped.}
 
-\item{percentile}{The percentile level in \% used when \code{statistic =
-"percentile"}. The default is 95.}
+\item{percentile}{The percentile level used when \code{statistic =
+"percentile"}. The default is 95\%.}
 
 \item{start.date}{A string giving a start date to use. This is sometimes
 useful if a time series starts between obvious intervals. For example, for
@@ -88,25 +88,25 @@ however, it is better to round down to a more obvious start point e.g.
 to make sure a time series extends to a known end point and is useful when
 \code{data.thresh} > 0 but the input time series does not extend up to the
 final full interval. For example, if a time series ends sometime in
-October but annual means are required with a data capture of >75\% then it
+October but annual means are required with a data capture of >75 \% then it
 is necessary to extend the time series up until the end of the year. Input
 in the format yyyy-mm-dd HH:MM.}
 
 \item{interval}{The \code{timeAverage} function tries to determine the
-  interval of the original time series (e.g. hourly) by calculating the most
-  common interval between time steps. The interval is needed for
-  calculations where the \code{data.thresh} >0. For the vast majority of
-  regular time series this works fine. However, for data with very poor data
-  capture or irregular time series the automatic detection may not work.
-  Also, for time series such as monthly time series where there is a
-  variable difference in time between months users should specify the time
-  interval explicitly e.g. \code{interval = "month"}. Users can also supply
-  a time interval to \emph{force} on the time series. See \code{avg.time}
-  for the format.
+interval of the original time series (e.g. hourly) by calculating the most
+common interval between time steps. The interval is needed for
+calculations where the \code{data.thresh} >0. For the vast majority of
+regular time series this works fine. However, for data with very poor data
+capture or irregular time series the automatic detection may not work.
+Also, for time series such as monthly time series where there is a
+variable difference in time between months users should specify the time
+interval explicitly e.g. \code{interval = "month"}. Users can also supply
+a time interval to \emph{force} on the time series. See \code{avg.time}
+for the format.
 
-  This option can sometimes be useful with \code{start.date} and
-  \code{end.date} to ensure full periods are considered e.g. a full year
-  when \code{avg.time = "year"}.}
+This option can sometimes be useful with \code{start.date} and
+\code{end.date} to ensure full periods are considered e.g. a full year
+when \code{avg.time = "year"}.}
 
 \item{vector.ws}{Should vector averaging be carried out on wind speed if
 available? The default is \code{FALSE} and scalar averages are calculated.
@@ -202,9 +202,8 @@ timeAverage(dat, avg.time = "year")
 }
 \seealso{
 See \code{\link{timePlot}} that plots time series data and uses
-  \code{timeAverage} to aggregate data where necessary.
+\code{timeAverage} to aggregate data where necessary.
 }
 \author{
 David Carslaw
 }
-\keyword{methods}

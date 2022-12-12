@@ -54,6 +54,7 @@
 #'   calm conditions; and then several (one for each range binned for the plot)
 #'   columns giving proportions of measurements associated with each \code{ws}
 #'   or \code{pollutant} range plotted as a discrete panel.
+#' @family polar directional analaysis functions
 #' @examples
 #' # pollutionRose of nox
 #' pollutionRose(mydata, pollutant = "nox")
@@ -209,11 +210,13 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 #' @param paddle Either \code{TRUE} or \code{FALSE}. If \code{TRUE} plots rose
 #'   using 'paddle' style spokes. If \code{FALSE} plots rose using 'wedge' style
 #'   spokes.
-#' @param key.header,key.footer Adds additional text/labels above and/or below
-#'   the scale key, respectively. For example, passing \code{windRose(mydata,
-#'   key.header = "ws")} adds the addition text as a scale header. Note: This
-#'   argument is passed to [drawOpenKey()] via [quickText()], applying the
-#'   auto.text argument, to handle formatting.
+#' @param key.header Adds additional text/labels above the scale key. For
+#'   example, passing \code{windRose(mydata, key.header = "ws")} adds the
+#'   addition text as a scale header. Note: This argument is passed to
+#'   [drawOpenKey()] via [quickText()], applying the auto.text argument, to
+#'   handle formatting.
+#' @param key.footer Adds additional text/labels below the scale key. See
+#'   \code{key.header} for further information.
 #' @param key.position Location where the scale key is to plotted. Allowed
 #'   arguments currently include \dQuote{top}, \dQuote{right}, \dQuote{bottom}
 #'   and \dQuote{left}.
@@ -254,14 +257,6 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 #'
 #' @export
 #' @import dplyr
-#' @importFrom graphics abline
-#' @importFrom grDevices col2rgb colorRampPalette grey rgb xy.coords
-#' @importFrom methods is
-#' @importFrom stats aggregate approx as.dendrogram as.dist ave coef cor dist
-#'   formula hclust lm median na.omit optimize order.dendrogram predict qchisq
-#'   qnorm qt quantile reshape sd smooth.spline spline stl ts update var
-#' @importFrom utils compareVersion modifyList packageDescription read.csv
-#'   read.table
 #' @return As well as generating the plot itself, \code{windRose} also returns
 #'   an object of class \dQuote{openair}. The object includes three main
 #'   components: \code{call}, the command used to generate the plot;
@@ -282,9 +277,10 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 #'   calm conditions; and then several (one for each range binned for the plot)
 #'   columns giving proportions of measurements associated with each \code{ws}
 #'   or \code{pollutant} range plotted as a discrete panel.
-#' @note \code{windRose} and \code{pollutionRose} both use \link{drawOpenKey} to
+#' @note \code{windRose} and \code{pollutionRose} both use [drawOpenKey()] to
 #'   produce scale keys.
 #' @author David Carslaw (with some additional contributions by Karl Ropkins)
+#' @family polar directional analaysis functions
 #' @references
 #'
 #' Applequist, S, 2012: Wind Rose Bias Correction. J. Appl. Meteor. Climatol.,

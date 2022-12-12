@@ -111,7 +111,6 @@
 #'   Default is \code{FALSE}.
 #'
 #' @export
-#' @importFrom utils download.file
 #' @return Returns a data frame of hourly mean values with date in POSIXct
 #'   class and time zone GMT.
 #' @author David Carslaw and Trevor Davies
