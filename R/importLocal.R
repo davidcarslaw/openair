@@ -1,10 +1,11 @@
-##' English locally managed networks data import for openair
-##'
-##' @keywords methods
-##' @describeIn importAURN Import data from locally managed AQ networks in
-##'   England.
-##' @export
-##'
+#' Import data from locally managed AQ networks in England.
+#'
+#' @inheritParams importAURN
+#' @param site Site code of the site to import e.g. \dQuote{ad1} is Adur,
+#'   Shoreham-by-Sea. Several sites can be imported with \code{site = c("ad1",
+#'   "ci1")} --- to import Adur and A27 Chichester Bypass, for example.
+#' @family import functions
+#' @export
 importLocal <-
   function(site = "ad1",
            year = 2018,
@@ -14,10 +15,8 @@ importLocal <-
            to_narrow = FALSE) {
     # Warn about QC/QA every 8 hrs
     rlang::warn(
-      c(
-        "i" = "This data is associated with locally managed air quality network sites in England.",
-        "!" = "These sites are not part of the AURN national network, and therefore may not have the same level of quality control applied to them."
-      ),
+      c("i" = "This data is associated with locally managed air quality network sites in England.",
+        "!" = "These sites are not part of the AURN national network, and therefore may not have the same level of quality control applied to them."),
       .frequency = "regularly",
       .frequency_id = "lmam"
     )

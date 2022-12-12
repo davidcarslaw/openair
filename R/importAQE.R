@@ -1,9 +1,11 @@
-##' Air Quality England Network data import for openair
-##'
-##' @keywords methods
-##' @describeIn importAURN Import data from the Air Quality England
-##' @export
-##'
+#' Import data from the Air Quality England
+#'
+#' @inheritParams importAURN
+#' @param site Site code of the site to import e.g. \dQuote{yk13} is York
+#'   Heworth Green. Several sites can be imported with \code{site = c("yk13",
+#'   "yk8")} --- to import York Heworth Green and Holgate, for example.
+#' @family import functions
+#' @export
 importAQE <- function(site = "yk13", year = 2018, data_type = "hourly",
                       pollutant = "all",
                       meta = FALSE, ratified = FALSE,

@@ -69,9 +69,9 @@ meta <- importMeta(source = "saqn", all = TRUE)
 }
 \seealso{
 \code{\link{importAURN}}, \code{\link{importSAQN}},
-  \code{\link{importWAQN}}, \code{\link{importNI}}, \code{\link{importAQE}},
-  \code{\link{importKCL}}, and  \code{\link{importEurope}}, for importing
-  air quality data from each network.
+\code{\link{importWAQN}}, \code{\link{importNI}}, \code{\link{importAQE}},
+\code{\link{importKCL}}, and  \code{\link{importEurope}}, for importing
+air quality data from each network.
 }
 \author{
 David Carslaw

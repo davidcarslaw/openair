@@ -29,7 +29,7 @@ pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 a narrow format with a column identifying the pollutant name.}
 }
 \value{
-A tibble of data.
+a \link[tibble:tibble-package]{tibble}
 }
 \description{
 This function is a simplified version of the \code{saqgetr} package (see
@@ -54,3 +54,16 @@ stuttgart <- importEurope("debw118", year = 2010:2019, meta = TRUE)
 }
 
 }
+\seealso{
+Other import functions: 
+\code{\link{importADMS}()},
+\code{\link{importAQE}()},
+\code{\link{importAURN}()},
+\code{\link{importKCL}()},
+\code{\link{importLocal}()},
+\code{\link{importNI}()},
+\code{\link{importSAQN}()},
+\code{\link{importTraj}()},
+\code{\link{importWAQN}()}
+}
+\concept{import functions}

@@ -6,7 +6,8 @@
 \alias{importADMSMet}
 \alias{importADMSMop}
 \alias{importADMSPst}
-\title{CERC Atmospheric Dispersion Modelling System (ADMS) data import function(s) for openair}
+\title{CERC Atmospheric Dispersion Modelling System (ADMS) data import function(s)
+for openair}
 \usage{
 importADMS(
   file = file.choose(),
@@ -23,47 +24,46 @@ importADMS(
 )
 }
 \arguments{
-\item{file}{The ADMS file to be imported. Default, \code{file.choose()}
-opens browser. Use of \code{read.csv} (in \code{utils}) also allows this
-to be a readable text-mode connection or url (although these options are
-currently not fully tested).}
+\item{file}{The ADMS file to be imported. Default, \code{\link[=file.choose]{file.choose()}} opens
+browser. Use of \code{\link[utils:read.table]{utils::read.csv()}} also allows this to be a
+readable text-mode connection or url (although these options are currently
+not fully tested).}
 
 \item{file.type}{Type of ADMS file to be imported. With default, "unknown",
 the import uses the file extension to identify the file type and, where
 recognised, uses this to identify the file structure and import method to
-be applied. Where file extension is not recognised the choice may be
-forced by setting \code{file.type} to one of the known \code{file.type}
-options: "bgd", "met", "mop" or "pst".}
+be applied. Where file extension is not recognised the choice may be forced
+by setting \code{file.type} to one of the known \code{file.type} options:
+"bgd", "met", "mop" or "pst".}
 
 \item{drop.case}{Option to convert all data names to lower case. Default,
 \code{TRUE}.  Alternative, \code{FALSE}, returns data with name cases as
 defined in file.}
 
-\item{drop.input.dates}{Option to remove ADMS "hour", "day", and "year"
-data columns after generating openair "date" timeseries. Default,
-\code{TRUE}. Alternative, \code{FALSE}, returns both "date" and the
-associated ADMS data columns as part of openair data frame.}
+\item{drop.input.dates}{Option to remove ADMS "hour", "day", and "year" data
+columns after generating openair "date" timeseries. Default, \code{TRUE}.
+Alternative, \code{FALSE}, returns both "date" and the associated ADMS data
+columns as part of openair data frame.}
 
 \item{keep.units}{Option to retain ADMS data units. Default, \code{TRUE},
-retains units (if recoverable) as character vector in data frame comment
-if defined in \code{file}.  Alternative, \code{FALSE}, discards units.
-(NOTE: currently, only \code{.bgd} and \code{.pst} files assign units.
-So, this option is ignored when importing \code{.met} or \code{.mop}
-files.)}
+retains units (if recoverable) as character vector in data frame comment if
+defined in \code{file}.  Alternative, \code{FALSE}, discards units. (NOTE:
+currently, only \code{.bgd} and \code{.pst} files assign units. So, this
+option is ignored when importing \code{.met} or \code{.mop} files.)}
 
-\item{simplify.names}{Option to simplify data names in accordance with
-common \code{openair} practices. Default, \code{TRUE}. Alternative,
-\code{FALSE}, returns data with names as interpreted by standard R.
-(NOTE: Some ADMS file data names include symbols and structures that R
-does not allow as part of a name, so some renaming is automatic
-regardless of \code{simplify.names} setting.  For example, brackets or
-symbols are removed from names or replaced with ".", and names in the form
-"1/x" may be returned as "X1.x" or "recip.x".)}
+\item{simplify.names}{Option to simplify data names in accordance with common
+\code{openair} practices. Default, \code{TRUE}. Alternative, \code{FALSE},
+returns data with names as interpreted by standard R. (NOTE: Some ADMS file
+data names include symbols and structures that R does not allow as part of
+a name, so some renaming is automatic regardless of \code{simplify.names}
+setting.  For example, brackets or symbols are removed from names or
+replaced with ".", and names in the form "1/x" may be returned as "X1.x" or
+"recip.x".)}
 
 \item{test.file.structure}{Option to test file structure before trying to
 import. Default, \code{TRUE}, tests for expected file structure and halts
-import operation if this is not found.  Alternative, \code{FALSE},
-attempts import regardless of structure.}
+import operation if this is not found.  Alternative, \code{FALSE}, attempts
+import regardless of structure.}
 
 \item{drop.delim}{Option to remove delim columns from the data frame. ADMS
 .mop files include two columns, "INPUT_DATA:" and "PROCESSED_DATA:", to
@@ -75,12 +75,12 @@ files.)}
 \item{add.prefixes}{Option to add prefixes to data names. ADMS .mop files
 include a number of input and process data types with shared names.
 Prefixes can be automatically added to these so individual data can be
-readily identified in the R/openair environment. Default, \code{TRUE},
-adds "process." as a prefix to processed data. Other options include:
+readily identified in the R/openair environment. Default, \code{TRUE}, adds
+"process." as a prefix to processed data. Other options include:
 \code{FALSE} which uses no prefixes and leave all name rationalisation to
-R, and character vectors which are treated as the required prefixes. If
-one vector is sent, this is treated as processed data prefix. If two (or
-more) vectors are sent, the first and second are treated as the input and
+R, and character vectors which are treated as the required prefixes. If one
+vector is sent, this is treated as processed data prefix. If two (or more)
+vectors are sent, the first and second are treated as the input and
 processed data prefixes, respectively. For example, the argument
 (\code{add.prefixes="out"}) would add the "out" prefix to processed data
 names, while the argument (\code{add.prefixes=c("in","out")}) would add
@@ -89,66 +89,84 @@ names, while the argument (\code{add.prefixes=c("in","out")}) would add
 \code{.pst} files.)}
 
 \item{names}{Option applied by \code{simplifyNamesADMS} when
-\code{simplify.names} is enabled.  All names are simplified for the
-default setting, \code{NULL}.}
+\code{simplify.names} is enabled.  All names are simplified for the default
+setting, \code{NULL}.}
 
-\item{...}{Additional arguments, passed to \code{read.csv} as part of
-import operation.}
+\item{...}{
+  Arguments passed on to \code{\link[utils:read.table]{utils::read.csv}}
+  \describe{
+    \item{\code{header}}{a logical value indicating whether the file contains the
+    names of the variables as its first line.  If missing, the value is
+    determined from the file format: \code{header} is set to \code{TRUE}
+    if and only if the first row contains one fewer field than the
+    number of columns.}
+    \item{\code{sep}}{the field separator character.  Values on each line of the
+    file are separated by this character.  If \code{sep = ""} (the
+    default for \code{read.table}) the separator is \sQuote{white space},
+    that is one or more spaces, tabs, newlines or carriage returns.}
+    \item{\code{quote}}{the set of quoting characters. To disable quoting
+    altogether, use \code{quote = ""}.  See \code{\link{scan}} for the
+    behaviour on quotes embedded in quotes.  Quoting is only considered
+    for columns read as character, which is all of them unless
+    \code{colClasses} is specified.}
+    \item{\code{dec}}{the character used in the file for decimal points.}
+    \item{\code{fill}}{logical. If \code{TRUE} then in case the rows have unequal
+    length, blank fields are implicitly added.  See \sQuote{Details}.}
+    \item{\code{comment.char}}{character: a character vector of length one
+    containing a single character or an empty string.  Use \code{""} to
+    turn off the interpretation of comments altogether.}
+  }}
 }
 \value{
-In standard use \code{importADMS()} returns a data frame for use in
-  openair. By comparison to the original file, the resulting data frame is
-  modified as follows:
+In standard use \code{\link[=importADMS]{importADMS()}} returns a data frame for use in
+openair. By comparison to the original file, the resulting data frame is
+modified as follows:
 
 Time and date information will combined in a single column "date",
-  formatted as a conventional timeseries (\code{as.POSIX*}). If
-  \code{drop.input.dates} is enabled data series combined to generated the
-  new "date" data series will also be removed.
+formatted as a conventional timeseries (\code{as.POSIX*}). If
+\code{drop.input.dates} is enabled data series combined to generated the
+new "date" data series will also be removed.
 
 If \code{simplify.names} is enabled common chemical names may be
-  simplified, and some other parameters may be reset to openair standards
-  (e.g. "ws", "wd" and "temp") according to operations defined in
-  \code{simplifyNamesADMS}. A summary of simplification operations can be
-  obtained using, e.g., the call \code{importADMS(simplify.names)}.
+simplified, and some other parameters may be reset to openair standards
+(e.g. "ws", "wd" and "temp") according to operations defined in
+\code{simplifyNamesADMS}. A summary of simplification operations can be
+obtained using, e.g., the call \code{importADMS(simplify.names)}.
 
 If \code{drop.case} is enabled all upper case characters in names will be
-  converted to lower case.
+converted to lower case.
 
 If \code{keep.units} is enabled data units information may also be retained
-  as part of the data frame comment if available.
+as part of the data frame comment if available.
 
 With \code{.mop} files, input and processed data series names may also been
-  modified on the basis of \code{drop.delim} and \code{add.prefixes}
-  settings
+modified on the basis of \code{drop.delim} and \code{add.prefixes} settings
 }
 \description{
-Function(s) to import various ADMS file types into openair. Currently
-handles ".met", ".bgd", ".mop" and ".pst" file structures. Uses
-\code{read.csv} (in \code{utils}) to read in data, format for R and openair
-and apply some file structure testing.
+Function(s) to import various ADMS file types into openair. Currently handles
+".met", ".bgd", ".mop" and ".pst" file structures. Uses \code{\link[utils:read.table]{utils::read.csv()}}
+to read in data, format for R and openair and apply some file structure
+testing.
 }
 \details{
 The \code{importADMS} function were developed to help import various ADMS
-file types into openair. In most cases the parent import function should
-work in default configuration, e.g. \code{mydata <- importADMS()}. The
-function currently recognises four file formats: \code{.bgd}, \code{.met},
-\code{.mop} and \code{.pst}.  Where other file extensions have been set but
-the file structure is known, the import call can be forced by, e.g,
-\code{mydata <- importADMS(file.type="bgd")}. Other options can be adjusted
-to provide fine control of the data structuring and renaming.
+file types into openair. In most cases the parent import function should work
+in default configuration, e.g. \code{mydata <- importADMS()}. The function
+currently recognises four file formats: \code{.bgd}, \code{.met}, \code{.mop}
+and \code{.pst}.  Where other file extensions have been set but the file
+structure is known, the import call can be forced by, e.g, \code{mydata <-
+importADMS(file.type="bgd")}. Other options can be adjusted to provide fine
+control of the data structuring and renaming.
 }
 \note{
 Times are assumed to be in GMT. Zero wind directions reset to 360 as
-  part of \code{.mop} file import.
+part of \code{.mop} file import.
 }
 \examples{
-
-
 ##########
 #example 1
 ##########
 #To be confirmed
-
 
 #all current simplify.names operations
 importADMS(simplify.names)
@@ -156,15 +174,20 @@ importADMS(simplify.names)
 #to see what simplify.names does to adms data series name PHI
 new.name <- importADMS(simplify.names, names="PHI")
 new.name
-
-
 }
 \seealso{
-Other dedicated import functions available
-  for other file types, including \code{\link{importKCL}},
-  \code{\link{importAURN}}, etc.
+Other import functions: 
+\code{\link{importAQE}()},
+\code{\link{importAURN}()},
+\code{\link{importEurope}()},
+\code{\link{importKCL}()},
+\code{\link{importLocal}()},
+\code{\link{importNI}()},
+\code{\link{importSAQN}()},
+\code{\link{importTraj}()},
+\code{\link{importWAQN}()}
 }
 \author{
 Karl Ropkins, David Carslaw and Matthew Williams (CERC).
 }
-\keyword{methods}
+\concept{import functions}

@@ -1,9 +1,12 @@
-##' Northern Ireland Network data import for openair
-##'
-##' @keywords methods
-##' @describeIn importAURN Import data from the Northern Ireland Air Quality Network
-##' @export
-##'
+#' Import data from the Northern Ireland Air Quality Network
+#'
+#' @inheritParams importAURN
+#' @param site Site code of the site to import e.g. \dQuote{bel0} is Belfast
+#'   Ormeau Road. Several sites can be imported with \code{site = c("bel0",
+#'   "bel1")} --- to import Ormeau Road and Belfast Stockman's Lane.
+#' @family import functions
+#' @export
+#'
 importNI <- function(site = "bel0", year = 2018, data_type = "hourly",
                      pollutant = "all",
                      meta = FALSE, ratified = FALSE,
