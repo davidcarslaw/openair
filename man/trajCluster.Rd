@@ -91,6 +91,9 @@ add up to 100.}
 \item{origin}{If true a filled circle dot is shown to mark the receptor
 point.}
 
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other ways.}
+
 \item{...}{Other graphical parameters passed onto \code{lattice:levelplot}
 and \code{cutData}. Similarly, common axis and title labelling options
 (such as \code{xlab}, \code{ylab}, \code{main}) are passed to

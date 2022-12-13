@@ -161,6 +161,9 @@ of the longitude coordinates in the map.}
 \item{origin}{If true a filled circle dot is shown to mark the receptor
 point.}
 
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
+analysing data to extract plot components and plotting them in other ways.}
+
 \item{...}{other arguments are passed to \code{cutData} and
 \code{scatterPlot}. This provides access to arguments used in both these
 functions and functions that they in turn pass arguments on to. For

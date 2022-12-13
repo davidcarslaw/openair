@@ -14,16 +14,11 @@
 #' \code{before} and \code{after} periods and then subtracting the \code{before}
 #' surface from the \code{after} surface.
 #'
+#' @inheritParams polarPlot
 #' @param before A data frame that represents the "before" case. See
 #'   \code{\link{polarPlot}} for details of different input requirements.
 #' @param after A data frame that represents the "after" case. See
 #'   \code{\link{polarPlot}} for details of different input requirements.
-#' @param pollutant The pollutant to analyse.
-#' @param x The variable used for the radial axis (default = "ws").
-#' @param limits The colour scale limits e.g. \code{limits = c(-10, 10)}.
-#' @param plot Should a plot be produced? \code{FALSE} can be useful when
-#'   analysing data to extract plot components and plotting them in other
-#'   ways.
 #' @inheritDotParams polarPlot -pollutant -x -limits -plot
 #' @family polar directional analaysis functions
 #' @return an [openair][openair-package] plot.

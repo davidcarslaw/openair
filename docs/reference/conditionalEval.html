@@ -99,7 +99,20 @@ underlying reasons why model performance is poor.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>var.obs</dt>
+    <dl><dt>mydata</dt>
+<dd><p>A data frame containing the field <code>obs</code> and <code>mod</code>
+representing observed and modelled values.</p></dd>
+
+
+<dt>obs</dt>
+<dd><p>The name of the observations in <code>mydata</code>.</p></dd>
+
+
+<dt>mod</dt>
+<dd><p>The name of the predictions (modelled values) in <code>mydata</code>.</p></dd>
+
+
+<dt>var.obs</dt>
 <dd><p>Other variable observations for which statistics should be
 calculated. Can be more than length one e.g. <code>var.obs = c("nox.obs",
   "ws.obs")</code>. Note that including other variables could reduce the number of
@@ -127,6 +140,11 @@ directly. This offers great flexibility for understanding the variation of
 different variables and how they depend on one another.</p></dd>
 
 
+<dt>bins</dt>
+<dd><p>Number of bins to be used in calculating the different quantile
+levels.</p></dd>
+
+
 <dt>statistic</dt>
 <dd><p>Statistic(s) to be plotted. Can be “MB”,
 “NMB”, “r”, “COE”, “MGE”, “NMGE”,
@@ -143,6 +161,19 @@ underestimate concentrations and that these periods mostly occur in winter.
   "cluster"</code> if clusters have been calculated using <code>trajCluster</code>.</p></dd>
 
 
+<dt>xlab</dt>
+<dd><p>label for the x-axis, by default “predicted value”.</p></dd>
+
+
+<dt>ylab</dt>
+<dd><p>label for the y-axis, by default “observed value”.</p></dd>
+
+
+<dt>col</dt>
+<dd><p>Colours to be used for plotting the uncertainty bands and median
+line. Must be of length 5 or more.</p></dd>
+
+
 <dt>col.var</dt>
 <dd><p>Colours for the additional variables to be compared. See
 <code>openColours</code> for more details.</p></dd>
@@ -151,6 +182,12 @@ underestimate concentrations and that these periods mostly occur in winter.
 <dt>var.names</dt>
 <dd><p>Variable names to be shown on plot for plotting
 <code>var.obs</code> and <code>var.mod</code>.</p></dd>
+
+
+<dt>auto.text</dt>
+<dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If <code>TRUE</code>
+titles and axis labels etc. will automatically try and format pollutant
+names and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
 
 
 <dt>...</dt>

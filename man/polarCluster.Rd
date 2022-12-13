@@ -43,20 +43,19 @@ surfaces (see \link{polarDiff} for details). If an \code{after} data frame
 is supplied, the clustering will be carried out on the differences between
 \code{after} and \code{mydata} in the same way as \link{polarDiff}.}
 
-\item{cols}{Colours to be used for plotting. Useful options for categorical
-data are available from \code{RColorBrewer} colours --- see the
-\code{openair} \code{openColours} function for more details. Useful schemes
-include \dQuote{Accent}, \dQuote{Dark2}, \dQuote{Paired}, \dQuote{Pastel1},
-\dQuote{Pastel2}, \dQuote{Set1}, \dQuote{Set2}, \dQuote{Set3} --- but see
-?\code{brewer.pal} for the maximum useful colours in each. For user defined
-the user can supply a list of colour names recognised by R (type
-\code{colours()} to see the full list). An example would be \code{cols =
-  c("yellow", "green", "blue")}.}
+\item{cols}{Colours to be used for plotting. Options include
+\dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet} and
+\code{RColorBrewer} colours --- see the \code{openair} \code{openColours}
+function for more details. For user defined the user can supply a list of
+colour names recognised by R (type \code{colours()} to see the full list).
+An example would be \code{cols = c("yellow", "green", "blue")}. \code{cols}
+can also take the values \code{"viridis"}, \code{"magma"},
+\code{"inferno"}, or \code{"plasma"} which are the viridis colour maps
+ported from Python's Matplotlib library.}
 
-\item{angle.scale}{The wind speed scale is by default shown at a 315 degree
-angle. Sometimes the placement of the scale may interfere with an
+\item{angle.scale}{Sometimes the placement of the scale may interfere with an
 interesting feature. The user can therefore set \code{angle.scale} to
-another value (between 0 and 360 degrees) to mitigate such problems. For
+any value between 0 and 360 degrees to mitigate such problems. For
 example \code{angle.scale = 45} will draw the scale heading in a NE
 direction.}
 
@@ -286,9 +285,8 @@ If the clustering is carried out considering differences i.e. an
 \code{after} data frame with cluster identified.
 }
 \description{
-Function for identifying clusters in bivariate polar plots
-(\code{polarPlot}); identifying clusters in the original data for subsequent
-processing.
+Function for identifying clusters in bivariate polar plots (\code{\link[=polarPlot]{polarPlot()}});
+identifying clusters in the original data for subsequent processing.
 }
 \details{
 Bivariate polar plots generated using the \code{polarPlot} function provide a
@@ -303,7 +301,7 @@ interest. Furthermore, the identification of a feature can depend on the
 choice of the colour scale used, making the process somewhat arbitrary.
 
 \code{polarCluster} applies Partition Around Medoids (PAM) clustering
-techniques to \code{polarPlot} surfaces to help identify potentially
+techniques to \code{\link[=polarPlot]{polarPlot()}} surfaces to help identify potentially
 interesting features for further analysis. Details of PAM can be found in the
 \code{cluster} package (a core R package that will be pre-installed on all R
 systems). PAM clustering is similar to k-means but has several advantages
@@ -317,7 +315,7 @@ more than 1. For example, if \code{n.clusters = 2:10} then a plot will be
 output showing the 9 cluster levels 2 to 10.
 
 The clustering can also be applied to differences in polar plot surfaces (see
-\link{polarDiff}). On this case a second data frame (\code{after}) should be
+\code{\link[=polarDiff]{polarDiff()}}). On this case a second data frame (\code{after}) should be
 supplied.
 
 Note that clustering is computationally intensive and the function can take a

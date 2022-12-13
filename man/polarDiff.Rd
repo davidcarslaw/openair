@@ -21,15 +21,30 @@ polarDiff(
 \item{after}{A data frame that represents the "after" case. See
 \code{\link{polarPlot}} for details of different input requirements.}
 
-\item{pollutant}{The pollutant to analyse.}
+\item{pollutant}{Mandatory. A pollutant name corresponding to a variable in a
+data frame should be supplied e.g. \code{pollutant = "nox"}. There can also
+be more than one pollutant specified e.g. \code{pollutant = c("nox",
+  "no2")}. The main use of using two or more pollutants is for model
+evaluation where two species would be expected to have similar
+concentrations. This saves the user stacking the data and it is possible to
+work with columns of data directly. A typical use would be \code{pollutant
+  = c("obs", "mod")} to compare two columns \dQuote{obs} (the observations)
+and \dQuote{mod} (modelled values). When pair-wise statistics such as
+Pearson correlation and regression techniques are to be plotted,
+\code{pollutant} takes two elements too. For example, \code{pollutant =
+  c("bc", "pm25")} where \code{"bc"} is a function of \code{"pm25"}.}
 
-\item{x}{The variable used for the radial axis (default = "ws").}
+\item{x}{Name of variable to plot against wind direction in polar
+coordinates, the default is wind speed, \dQuote{ws}.}
 
-\item{limits}{The colour scale limits e.g. \code{limits = c(-10, 10)}.}
+\item{limits}{The function does its best to choose sensible limits
+automatically. However, there are circumstances when the user will wish to
+set different ones. An example would be a series of plots showing each year
+of data separately. The limits are set in the form \code{c(lower, upper)},
+so \code{limits = c(0, 100)} would force the plot limits to span 0-100.}
 
 \item{plot}{Should a plot be produced? \code{FALSE} can be useful when
-analysing data to extract plot components and plotting them in other
-ways.}
+analysing data to extract plot components and plotting them in other ways.}
 
 \item{...}{
   Arguments passed on to \code{\link[=polarPlot]{polarPlot}}

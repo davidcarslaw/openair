@@ -99,6 +99,8 @@
 #'   literature suggest 5.4 km after one hour. However, testing suggests lower
 #'   values reveal source regions more effectively while not introducing too
 #'   much noise.
+#' @param plot Should a plot be produced? \code{FALSE} can be useful when
+#'   analysing data to extract plot components and plotting them in other ways.
 #' @param ... other arguments are passed to \code{cutData} and
 #'   \code{scatterPlot}. This provides access to arguments used in both these
 #'   functions and functions that they in turn pass arguments on to. For

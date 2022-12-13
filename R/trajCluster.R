@@ -44,6 +44,8 @@
 #' @param by.type The percentage of the total number of trajectories is given
 #'   for all data by default. Setting \code{by.type = TRUE} will make each panel
 #'   add up to 100.
+#' @param plot Should a plot be produced? \code{FALSE} can be useful when
+#'   analysing data to extract plot components and plotting them in other ways.
 #' @param ... Other graphical parameters passed onto \code{lattice:levelplot}
 #'   and \code{cutData}. Similarly, common axis and title labelling options
 #'   (such as \code{xlab}, \code{ylab}, \code{main}) are passed to

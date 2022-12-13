@@ -79,7 +79,7 @@
 #'
 #' See Wilks (2005) for more details of conditional quantile plots.
 #'
-#' @inheritParams conditionalEval
+#' @inheritParams conditionalQuantile
 #' @param var.obs Other variable observations for which statistics should be
 #'   calculated. Can be more than length one e.g. \code{var.obs = c("nox.obs",
 #'   "ws.obs")}. Note that including other variables could reduce the number of

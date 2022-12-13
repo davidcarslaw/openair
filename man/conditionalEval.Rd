@@ -23,6 +23,13 @@ conditionalEval(
 )
 }
 \arguments{
+\item{mydata}{A data frame containing the field \code{obs} and \code{mod}
+representing observed and modelled values.}
+
+\item{obs}{The name of the observations in \code{mydata}.}
+
+\item{mod}{The name of the predictions (modelled values) in \code{mydata}.}
+
 \item{var.obs}{Other variable observations for which statistics should be
 calculated. Can be more than length one e.g. \code{var.obs = c("nox.obs",
   "ws.obs")}. Note that including other variables could reduce the number of
@@ -46,6 +53,9 @@ character or factor variable, then those categories/levels will be used
 directly. This offers great flexibility for understanding the variation of
 different variables and how they depend on one another.}
 
+\item{bins}{Number of bins to be used in calculating the different quantile
+levels.}
+
 \item{statistic}{Statistic(s) to be plotted. Can be \dQuote{MB},
 \dQuote{NMB}, \dQuote{r}, \dQuote{COE}, \dQuote{MGE}, \dQuote{NMGE},
 \dQuote{RMSE} and \dQuote{FAC2}, as described in \code{modStats}. When
@@ -61,11 +71,22 @@ underestimate concentrations and that these periods mostly occur in winter.
 \code{cutData} for more information. A special case is \code{statistic =
   "cluster"} if clusters have been calculated using \code{trajCluster}.}
 
+\item{xlab}{label for the x-axis, by default \dQuote{predicted value}.}
+
+\item{ylab}{label for the y-axis, by default \dQuote{observed value}.}
+
+\item{col}{Colours to be used for plotting the uncertainty bands and median
+line. Must be of length 5 or more.}
+
 \item{col.var}{Colours for the additional variables to be compared. See
 \code{openColours} for more details.}
 
 \item{var.names}{Variable names to be shown on plot for plotting
 \code{var.obs} and \code{var.mod}.}
+
+\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If \code{TRUE}
+titles and axis labels etc. will automatically try and format pollutant
+names and units properly e.g.  by subscripting the `2' in NO2.}
 
 \item{...}{Other graphical parameters passed onto \code{conditionalQuantile}
 and \code{cutData}. For example, \code{conditionalQuantile} passes the

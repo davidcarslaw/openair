@@ -1,8 +1,7 @@
 #' K-means clustering of bivariate polar plots
 #'
-#' Function for identifying clusters in bivariate polar plots
-#' (\code{polarPlot}); identifying clusters in the original data for subsequent
-#' processing.
+#' Function for identifying clusters in bivariate polar plots ([polarPlot()]);
+#' identifying clusters in the original data for subsequent processing.
 #'
 #' Bivariate polar plots generated using the \code{polarPlot} function provide a
 #' very useful graphical technique for identifying and characterising different
@@ -16,7 +15,7 @@
 #' choice of the colour scale used, making the process somewhat arbitrary.
 #'
 #' \code{polarCluster} applies Partition Around Medoids (PAM) clustering
-#' techniques to \code{polarPlot} surfaces to help identify potentially
+#' techniques to [polarPlot()] surfaces to help identify potentially
 #' interesting features for further analysis. Details of PAM can be found in the
 #' \code{cluster} package (a core R package that will be pre-installed on all R
 #' systems). PAM clustering is similar to k-means but has several advantages
@@ -30,7 +29,7 @@
 #' output showing the 9 cluster levels 2 to 10.
 #'
 #' The clustering can also be applied to differences in polar plot surfaces (see
-#' \link{polarDiff}). On this case a second data frame (\code{after}) should be
+#' [polarDiff()]). On this case a second data frame (\code{after}) should be
 #' supplied.
 #'
 #' Note that clustering is computationally intensive and the function can take a
@@ -55,16 +54,12 @@
 #' Note that unlike most other \code{openair} functions only a single
 #' \code{type} \dQuote{default} is allowed.
 #'
-#' @param mydata A data frame minimally containing \code{wd}, another variable
-#'   to plot in polar coordinates (the default is a column \dQuote{ws} --- wind
-#'   speed) and a pollutant. Should also contain \code{date} if plots by time
-#'   period are required.
+#' @inheritParams polarPlot
 #' @param pollutant Mandatory. A pollutant name corresponding to a variable in a
 #'   data frame should be supplied e.g. \code{pollutant = "nox"}. Only one
 #'   pollutant can be chosen.
 #' @param x Name of variable to plot against wind direction in polar
 #'   coordinates, the default is wind speed, \dQuote{ws}.
-#' @param wd Name of wind direction field.
 #' @param n.clusters Number of clusters to use. If \code{n.clusters} is more
 #'   than length 1, then a \code{lattice} panel plot will be output showing the
 #'   clusters identified for each one of \code{n.clusters}.
@@ -72,27 +67,6 @@
 #'   surfaces (see \link{polarDiff} for details). If an \code{after} data frame
 #'   is supplied, the clustering will be carried out on the differences between
 #'   \code{after} and \code{mydata} in the same way as \link{polarDiff}.
-#' @param cols Colours to be used for plotting. Useful options for categorical
-#'   data are available from \code{RColorBrewer} colours --- see the
-#'   \code{openair} \code{openColours} function for more details. Useful schemes
-#'   include \dQuote{Accent}, \dQuote{Dark2}, \dQuote{Paired}, \dQuote{Pastel1},
-#'   \dQuote{Pastel2}, \dQuote{Set1}, \dQuote{Set2}, \dQuote{Set3} --- but see
-#'   ?\code{brewer.pal} for the maximum useful colours in each. For user defined
-#'   the user can supply a list of colour names recognised by R (type
-#'   \code{colours()} to see the full list). An example would be \code{cols =
-#'   c("yellow", "green", "blue")}.
-#' @param angle.scale The wind speed scale is by default shown at a 315 degree
-#'   angle. Sometimes the placement of the scale may interfere with an
-#'   interesting feature. The user can therefore set \code{angle.scale} to
-#'   another value (between 0 and 360 degrees) to mitigate such problems. For
-#'   example \code{angle.scale = 45} will draw the scale heading in a NE
-#'   direction.
-#' @param units The units shown on the polar axis scale.
-#' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If \code{TRUE}
-#'   titles and axis labels will automatically try and format pollutant names
-#'   and units properly e.g.  by subscripting the `2' in NO2.
-#' @param plot Should a plot be produced? \code{FALSE} can be useful when
-#'   analysing data to extract plot components and plotting them in other ways.
 #' @inheritDotParams polarPlot -mydata -pollutant -x -wd -cols -angle.scale
 #'   -units -auto.text -plot
 #' @export
