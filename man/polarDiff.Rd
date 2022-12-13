@@ -188,10 +188,9 @@ the package \code{openairmapss}.}
     \item{\code{upper}}{This sets the upper limit wind speed to be used. Often there are
 only a relatively few data points at very high wind speeds and plotting all
 of them can reduce the useful information in the plot.}
-    \item{\code{angle.scale}}{The wind speed scale is by default shown at a 315 degree
-angle. Sometimes the placement of the scale may interfere with an
+    \item{\code{angle.scale}}{Sometimes the placement of the scale may interfere with an
 interesting feature. The user can therefore set \code{angle.scale} to
-another value (between 0 and 360 degrees) to mitigate such problems. For
+any value between 0 and 360 degrees to mitigate such problems. For
 example \code{angle.scale = 45} will draw the scale heading in a NE
 direction.}
     \item{\code{units}}{The units shown on the polar axis scale.}
@@ -255,7 +254,7 @@ and will be ignored if \code{"quantile.slope"} is not used.}
   }}
 }
 \value{
-Only plot at the moment.
+an \link[=openair-package]{openair} plot.
 }
 \description{
 This function provides a way of showing the differences in concentrations

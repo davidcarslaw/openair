@@ -259,17 +259,7 @@ carry out any transformation the options \code{trans = NULL} and \code{inv
   = NULL} should be used.}
 }
 \value{
-As well as generating the plot itself, \code{scatterPlot} also
-returns an object of class ``openair''. The object includes three main
-components: \code{call}, the command used to generate the plot;
-\code{data}, the data frame of summarised information used to make the
-plot; and \code{plot}, the plot itself. If retained, e.g. using
-\code{output <- scatterPlot(mydata, "nox", "no2")}, this output can be used
-to recover the data, reproduce or rework the original plot or undertake
-further analysis.
-
-An openair output can be manipulated using a number of generic operations,
-including \code{print}, \code{plot} and \code{summary}.
+an \link[=openair-package]{openair} object
 }
 \description{
 Scatter plots with conditioning and three main approaches: conventional

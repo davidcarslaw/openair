@@ -97,8 +97,7 @@
 #'   -units -auto.text -plot
 #' @export
 #' @import cluster
-#' @return As well as generating the plot itself, \code{polarCluster} also
-#'   returns an object of class ``openair''. The object includes three main
+#' @return an [openair][openair-package] object. The object includes three main
 #'   components: \code{call}, the command used to generate the plot;
 #'   \code{data}, the original data frame with a new field \code{cluster}
 #'   identifying the cluster; and \code{plot}, the plot itself. Note that any
@@ -108,10 +107,6 @@
 #'   If the clustering is carried out considering differences i.e. an
 #'   \code{after} data frame is supplied, the output also includes the
 #'   \code{after} data frame with cluster identified.
-#'
-#'   An openair output can be manipulated using a number of generic operations,
-#'   including \code{print}, \code{plot} and \code{summary}.
-#'
 #' @author David Carslaw
 #' @family polar directional analaysis functions
 #' @family cluster analysis functions

@@ -213,17 +213,7 @@
 #'   = NULL} should be used.
 #' @export
 #' @import mapproj hexbin
-#' @return As well as generating the plot itself, \code{scatterPlot} also
-#'   returns an object of class ``openair''. The object includes three main
-#'   components: \code{call}, the command used to generate the plot;
-#'   \code{data}, the data frame of summarised information used to make the
-#'   plot; and \code{plot}, the plot itself. If retained, e.g. using
-#'   \code{output <- scatterPlot(mydata, "nox", "no2")}, this output can be used
-#'   to recover the data, reproduce or rework the original plot or undertake
-#'   further analysis.
-#'
-#'   An openair output can be manipulated using a number of generic operations,
-#'   including \code{print}, \code{plot} and \code{summary}.
+#' @return an [openair][openair-package] object
 #' @author David Carslaw
 #' @seealso \code{\link{linearRelation}}, \code{\link{timePlot}} and
 #'   [timeAverage()] for details on selecting averaging times and other

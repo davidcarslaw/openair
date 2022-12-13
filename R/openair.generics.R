@@ -27,8 +27,6 @@
 #####################
 # make test more robust?
 
-
-# crude def
 openair <- function(x) {
   class(x) <- "openair"
   x

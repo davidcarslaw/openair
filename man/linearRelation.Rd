@@ -77,17 +77,7 @@ analysing data to extract plot components and plotting them in other ways.}
 the date range on at the top of the plot is to set \code{strip = FALSE}.}
 }
 \value{
-As well as generating the plot itself, \code{linearRelation} also
-returns an object of class ``openair''. The object includes three main
-components: \code{call}, the command used to generate the plot;
-\code{data}, the data frame of summarised information used to make the
-plot; and \code{plot}, the plot itself. If retained, e.g. using
-\code{output <- linearRelation(mydata, "nox", "no2")}, this output can be
-used to recover the data, reproduce or rework the original plot or
-undertake further analysis.
-
-An openair output can be manipulated using a number of generic operations,
-including \code{print}, \code{plot} and \code{summary}.
+an \link[=openair-package]{openair} object
 }
 \description{
 This function considers linear relationships between two pollutants. The

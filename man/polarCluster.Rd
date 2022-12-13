@@ -274,8 +274,7 @@ and will be ignored if \code{"quantile.slope"} is not used.}
   }}
 }
 \value{
-As well as generating the plot itself, \code{polarCluster} also
-returns an object of class ``openair''. The object includes three main
+an \link[=openair-package]{openair} object. The object includes three main
 components: \code{call}, the command used to generate the plot;
 \code{data}, the original data frame with a new field \code{cluster}
 identifying the cluster; and \code{plot}, the plot itself. Note that any
@@ -285,9 +284,6 @@ the returned data frame may have fewer rows than the original.
 If the clustering is carried out considering differences i.e. an
 \code{after} data frame is supplied, the output also includes the
 \code{after} data frame with cluster identified.
-
-An openair output can be manipulated using a number of generic operations,
-including \code{print}, \code{plot} and \code{summary}.
 }
 \description{
 Function for identifying clusters in bivariate polar plots

@@ -29,6 +29,7 @@
 #' \code{polarFreq} also offers great flexibility with the scale used and the
 #' user has fine control over both the range, interval and colour.
 #'
+#' @inheritParams polarPlot
 #' @param mydata A data frame minimally containing \code{ws}, \code{wd} and
 #'   \code{date}.
 #' @param pollutant Mandatory. A pollutant name corresponding to a variable in
@@ -57,42 +58,11 @@
 #'   scale from 0-10 in intervals of 10, or a more flexible sequence e.g.
 #'   \code{breaks = c(0, 1, 5, 7, 10)}, which may be useful for some
 #'   situations.
-#' @param cols Colours to be used for plotting. Options include
-#'   \dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet},
-#'   \dQuote{turbo}, and \code{RColorBrewer} colours --- see the \code{openair}
-#'   \code{openColours} function for more details. For user defined the user
-#'   can supply a list of colour names recognised by R (type \code{colours()}
-#'   to see the full list). An example would be \code{cols = c("yellow",
-#'   "green", "blue")}
 #' @param trans Should a transformation be applied? Sometimes when producing
 #'   plots of this kind they can be dominated by a few high points. The default
 #'   therefore is \code{TRUE} and a square-root transform is applied. This
 #'   results in a non-linear scale and (usually) a better representation of the
 #'   distribution. If set to \code{FALSE} a linear scale is used.
-#' @param type \code{type} determines how the data are split i.e. conditioned,
-#'   and then plotted. The default is will produce a single plot using the
-#'   entire data. Type can be one of the built-in types as detailed in
-#'   \code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and
-#'   so on. For example, \code{type = "season"} will produce four plots --- one
-#'   for each season.
-#'
-#'   It is also possible to choose \code{type} as another variable in the data
-#'   frame. If that variable is numeric, then the data will be split into four
-#'   quantiles (if possible) and labelled accordingly. If type is an existing
-#'   character or factor variable, then those categories/levels will be used
-#'   directly. This offers great flexibility for understanding the variation of
-#'   different variables and how they depend on one another.
-#'
-#'   Type can be up length two e.g. \code{type = c("season", "weekday")} will
-#'   produce a 2x2 plot split by season and day of the week. Note, when two
-#'   types are provided the first forms the columns and the second the rows.
-#' @param min.bin The minimum number of points allowed in a wind speed/wind
-#'   direction bin.  The default is 1. A value of two requires at least 2 valid
-#'   records in each bin an so on; bins with less than 2 valid records are set
-#'   to NA. Care should be taken when using a value > 1 because of the risk of
-#'   removing real data points. It is recommended to consider your data with
-#'   care. Also, the \code{polarPlot} function can be of use in such
-#'   circumstances.
 #' @param ws.upper A user-defined upper wind speed to use. This is useful for
 #'   ensuring a consistent scale between different plots. For example, to
 #'   always ensure that wind speeds are displayed between 1-10, set
@@ -105,22 +75,6 @@
 #' @param border.col The colour of the boundary of each wind speed/direction
 #'   bin. The default is transparent. Another useful choice sometimes is
 #'   "white".
-#' @param key.header,key.footer Adds additional text/labels to the scale key.
-#'   For example, passing options \code{key.header = "header", key.footer =
-#'   "footer"} adds addition text above and below the scale key. These
-#'   arguments are passed to \code{drawOpenKey} via \code{quickText}, applying
-#'   the \code{auto.text} argument, to handle formatting.
-#' @param key.position Location where the scale key is to plotted.  Allowed
-#'   arguments currently include \code{"top"}, \code{"right"}, \code{"bottom"}
-#'   and \code{"left"}.
-#' @param key Fine control of the scale key via \code{drawOpenKey}. See
-#'   \code{drawOpenKey} for further details.
-#' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
-#'   \code{TRUE} titles and axis labels will automatically try and format
-#'   pollutant names and units properly e.g.  by subscripting the \sQuote{2} in
-#'   NO2.
-#' @param plot Should a plot be produced? \code{FALSE} can be useful when
-#'   analysing data to extract plot components and plotting them in other ways.
 #' @param \dots Other graphical parameters passed onto \code{lattice:xyplot}
 #'   and \code{cutData}. For example, \code{polarFreq} passes the option
 #'   \code{hemisphere = "southern"} on to \code{cutData} to provide southern
@@ -129,17 +83,7 @@
 #'   \code{xlab}, \code{ylab}, \code{main}) are passed to \code{xyplot} via
 #'   \code{quickText} to handle routine formatting.
 #' @export
-#' @return As well as generating the plot itself, \code{polarFreq} also returns
-#'   an object of class \dQuote{openair}. The object includes three main
-#'   components: \code{call}, the command used to generate the plot;
-#'   \code{data}, the data frame of summarised information used to make the
-#'   plot; and \code{plot}, the plot itself. If retained, e.g. using
-#'   \code{output <- polarFreq(mydata, "nox")}, this output can be used to
-#'   recover the data, reproduce or rework the original plot or undertake
-#'   further analysis.
-#'
-#'   An openair output can be manipulated using a number of generic operations,
-#'   including \code{print}, \code{plot} and \code{summary}.
+#' @return an [openair][openair-package] object
 #' @author David Carslaw
 #' @family polar directional analaysis functions
 #' @examples

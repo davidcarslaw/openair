@@ -65,12 +65,14 @@ scale from 0-10 in intervals of 10, or a more flexible sequence e.g.
 situations.}
 
 \item{cols}{Colours to be used for plotting. Options include
-\dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet},
-\dQuote{turbo}, and \code{RColorBrewer} colours --- see the \code{openair}
-\code{openColours} function for more details. For user defined the user
-can supply a list of colour names recognised by R (type \code{colours()}
-to see the full list). An example would be \code{cols = c("yellow",
-  "green", "blue")}}
+\dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet} and
+\code{RColorBrewer} colours --- see the \code{openair} \code{openColours}
+function for more details. For user defined the user can supply a list of
+colour names recognised by R (type \code{colours()} to see the full list).
+An example would be \code{cols = c("yellow", "green", "blue")}. \code{cols}
+can also take the values \code{"viridis"}, \code{"magma"},
+\code{"inferno"}, or \code{"plasma"} which are the viridis colour maps
+ported from Python's Matplotlib library.}
 
 \item{trans}{Should a transformation be applied? Sometimes when producing
 plots of this kind they can be dominated by a few high points. The default
@@ -81,9 +83,9 @@ distribution. If set to \code{FALSE} a linear scale is used.}
 \item{type}{\code{type} determines how the data are split i.e. conditioned,
 and then plotted. The default is will produce a single plot using the
 entire data. Type can be one of the built-in types as detailed in
-\code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and
-so on. For example, \code{type = "season"} will produce four plots --- one
-for each season.
+\code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so
+on. For example, \code{type = "season"} will produce four plots --- one for
+each season.
 
 It is also possible to choose \code{type} as another variable in the data
 frame. If that variable is numeric, then the data will be split into four
@@ -101,7 +103,7 @@ direction bin.  The default is 1. A value of two requires at least 2 valid
 records in each bin an so on; bins with less than 2 valid records are set
 to NA. Care should be taken when using a value > 1 because of the risk of
 removing real data points. It is recommended to consider your data with
-care. Also, the \code{polarPlot} function can be of use in such
+care. Also, the \code{polarFreq} function can be of use in such
 circumstances.}
 
 \item{ws.upper}{A user-defined upper wind speed to use. This is useful for
@@ -119,23 +121,24 @@ speed. See example below.}
 bin. The default is transparent. Another useful choice sometimes is
 "white".}
 
-\item{key.header, key.footer}{Adds additional text/labels to the scale key.
-For example, passing options \code{key.header = "header", key.footer =
-  "footer"} adds addition text above and below the scale key. These
-arguments are passed to \code{drawOpenKey} via \code{quickText}, applying
-the \code{auto.text} argument, to handle formatting.}
+\item{key.header}{Adds additional text/labels to the scale key. For example,
+passing the options \code{key.header = "header", key.footer = "footer1"}
+adds addition text above and below the scale key. These arguments are
+passed to \code{drawOpenKey} via \code{quickText}, applying the
+\code{auto.text} argument, to handle formatting.}
 
-\item{key.position}{Location where the scale key is to plotted.  Allowed
+\item{key.footer}{see \code{key.footer}.}
+
+\item{key.position}{Location where the scale key is to plotted. Allowed
 arguments currently include \code{"top"}, \code{"right"}, \code{"bottom"}
 and \code{"left"}.}
 
 \item{key}{Fine control of the scale key via \code{drawOpenKey}. See
 \code{drawOpenKey} for further details.}
 
-\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
-\code{TRUE} titles and axis labels will automatically try and format
-pollutant names and units properly e.g.  by subscripting the \sQuote{2} in
-NO2.}
+\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If \code{TRUE}
+titles and axis labels will automatically try and format pollutant names
+and units properly e.g.  by subscripting the `2' in NO2.}
 
 \item{plot}{Should a plot be produced? \code{FALSE} can be useful when
 analysing data to extract plot components and plotting them in other ways.}
@@ -149,17 +152,7 @@ and \code{cutData}. For example, \code{polarFreq} passes the option
 \code{quickText} to handle routine formatting.}
 }
 \value{
-As well as generating the plot itself, \code{polarFreq} also returns
-an object of class \dQuote{openair}. The object includes three main
-components: \code{call}, the command used to generate the plot;
-\code{data}, the data frame of summarised information used to make the
-plot; and \code{plot}, the plot itself. If retained, e.g. using
-\code{output <- polarFreq(mydata, "nox")}, this output can be used to
-recover the data, reproduce or rework the original plot or undertake
-further analysis.
-
-An openair output can be manipulated using a number of generic operations,
-including \code{print}, \code{plot} and \code{summary}.
+an \link[=openair-package]{openair} object
 }
 \description{
 \code{polarFreq} primarily plots wind speed-direction frequencies in

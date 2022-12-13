@@ -135,20 +135,7 @@
 #'   when used with \code{statistic = "percentile"} and a vector of
 #'   \code{percentile} values, see examples below.
 #' @export
-#' @return As well as generating the plot itself, \code{smoothTrend} also
-#'   returns an object of class ``openair''. The object includes three main
-#'   components: \code{call}, the command used to generate the plot;
-#'   \code{data}, the data frame of summarised information used to make the
-#'   plot; and \code{plot}, the plot itself. Note that \code{data} is a list of
-#'   two data frames: \code{data} (the original data) and \code{fit} (the
-#'   smooth fit that has details of the fit and the uncertainties). If
-#'   retained, e.g. using \code{output <- smoothTrend(mydata, "nox")}, this
-#'   output can be \code{output <- smoothTrend(mydata, "nox")}, this output can
-#'   be used to recover the data, reproduce or rework the original plot or
-#'   undertake further analysis.
-#'
-#'   An openair output can be manipulated using a number of generic operations,
-#'   including \code{print}, \code{plot} and \code{summarise}.
+#' @return an [openair][openair-package] object
 #' @author David Carslaw
 #' @family time series and trend functions
 #' @examples

@@ -26,7 +26,7 @@
 #'   ways.
 #' @inheritDotParams polarPlot -pollutant -x -limits -plot
 #' @family polar directional analaysis functions
-#' @return Only plot at the moment.
+#' @return an [openair][openair-package] plot.
 #' @export
 #'
 #' @examples

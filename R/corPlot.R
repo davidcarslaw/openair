@@ -77,19 +77,7 @@
 #'   \code{ylab}, \code{main}) being passed via \code{quickText} to handle
 #'   routine formatting.
 #' @export
-#' @return As well as generating the plot itself, \code{corPlot} also returns
-#'   an object of class \dQuote{openair}. The object includes three main
-#'   components: \code{call}, the command used to generate the plot;
-#'   \code{data}, the data frame of summarised information used to make the
-#'   plot; and \code{plot}, the plot itself. If retained, e.g. using
-#'   \code{output <- corPlot(mydata)}, this output can be used to recover the
-#'   data, reproduce or rework the original plot or undertake further analysis.
-#'   Note the dendrogram when \code{cluster = TRUE} can also be returned and
-#'   plotted. See examples.
-#'
-#'   An openair output can be manipulated using a number of generic operations,
-#'   including \code{print}, \code{plot} and \code{summary}.
-#'
+#' @return an [openair][openair-package] object
 #' @author David Carslaw --- but mostly based on code contained in Sarkar
 #'   (2007)
 #' @seealso \code{taylor.diagram} from the \code{plotrix} package from which

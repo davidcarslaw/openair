@@ -5,8 +5,8 @@
 #' This function calculates a range of common and air pollution-specific
 #' statistics from a data frame. The statistics are calculated on an annual
 #' basis and the input is assumed to be hourly data. The function can cope with
-#' several sites and years e.g. using \code{type = "site"}. The user can
-#' control the output by setting \code{transpose} appropriately.
+#' several sites and years e.g. using \code{type = "site"}. The user can control
+#' the output by setting \code{transpose} appropriately.
 #'
 #' Note that the input data is assumed to be in mass units e.g. ug/m3 for all
 #' species except CO (mg/m3).
@@ -30,8 +30,8 @@
 #'
 #' \item \bold{max.rolling.24} --- maximum 24-hour rolling mean.
 #'
-#' \item \bold{percentile.95} --- 95th percentile. Note that several
-#' percentiles can be calculated.
+#' \item \bold{percentile.95} --- 95th percentile. Note that several percentiles
+#' can be calculated.
 #'
 #' \item \bold{roll.8.O3.gt.100} --- number of days when the daily maximum
 #' rolling 8-hour mean ozone concentration is >100 ug/m3. This is the target
@@ -43,16 +43,16 @@
 #'
 #' \item \bold{AOT40} --- is the accumulated amount of ozone over the threshold
 #' value of 40 ppb for daylight hours in the growing season (April to
-#' September). Note that \code{latitude} and \code{longitude} can also be
-#' passed to this calculation.
+#' September). Note that \code{latitude} and \code{longitude} can also be passed
+#' to this calculation.
 #'
 #' \item \bold{hours.gt.200} --- number of hours NO2 is more than 200 ug/m3.
 #'
 #' \item \bold{days.gt.50} --- number of days PM10 is more than 50 ug/m3. }
 #'
-#' For the rolling means, the user can supply the option \code{align}, which
-#' can be "centre" (default), "left" or "right". See \code{rollingMean} for
-#' more details.
+#' For the rolling means, the user can supply the option \code{align}, which can
+#' be "centre" (default), "left" or "right". See \code{rollingMean} for more
+#' details.
 #'
 #' There can be small discrepancies with the AURN due to the treatment of
 #' rounding data. The \code{aqStats} function does not round, whereas AURN data
@@ -61,11 +61,11 @@
 #' @param mydata A data frame containing a \code{date} field of hourly data.
 #' @param pollutant The name of a pollutant e.g. \code{pollutant = c("o3",
 #'   "pm10")}.
-#' @param type \code{type} allows [timeAverage()] to be applied to cases
-#'   where there are groups of data that need to be split and the function
-#'   applied to each group. The most common example is data with multiple sites
-#'   identified with a column representing site name e.g. \code{type = "site"}.
-#'   More generally, \code{type} should be used where the date repeats for a
+#' @param type \code{type} allows [timeAverage()] to be applied to cases where
+#'   there are groups of data that need to be split and the function applied to
+#'   each group. The most common example is data with multiple sites identified
+#'   with a column representing site name e.g. \code{type = "site"}. More
+#'   generally, \code{type} should be used where the date repeats for a
 #'   particular grouping variable.
 #' @param data.thresh The data capture threshold in %. No values are calculated
 #'   if data capture over the period of interest is less than this value.

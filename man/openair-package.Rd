@@ -57,18 +57,53 @@ these issues (available on the website).
 To check to see if \code{openair} has been correctly installed, try some of
 the examples below.
 }
-\examples{
-# load example data from package
-mydata <- mydata
+\section{The \code{openair} class}{
 
-# summarise the data in a compact way
-\dontrun{summaryPlot(mydata)}
+
+As well as generating the plots themselves, \code{openair} plotting
+functions also return an object of class ``openair''. The object includes
+three main components:
+\itemize{
+\item \code{call}, the command used to generate the plot.
+\item \code{data}, the data frame of summarised information used to make the
+plot.
+\item \code{plot}, the plot itself.
+}
+
+If retained, e.g., using \code{output <- polarPlot(mydata, "nox")}, this
+output can be used to recover the data, reproduce or rework the original
+plot or undertake further analysis.
+
+An openair output can be manipulated using a number of generic operations,
+including \code{print}, \code{plot} and \code{summary}. The examples below
+show some examples of using an \code{openair} object.
+}
+
+\examples{
+\dontrun{
+# load package
+library(openair)
+
+# summarise data in a compact way
+summaryPlot(mydata)
 
 # traditional wind rose
 windRose(mydata)
 
-# basic plot
-\dontrun{polarPlot(mydata, pollutant = "nox")}
+# polar plot
+polar_nox <- polarPlot(mydata, pollutant = "nox")
+
+# see call
+polar_nox$call
+
+# get data
+polar_nox$data
+
+# could, e.g., re-plot in {ggplot2}
+library(ggplot2)
+ggplot(polar_nox$data, aes(u, v, fill = z)) + geom_tile() + coord_equal() +
+scale_fill_gradientn(colours = openair::openColours(), na.value = NA)
+}
 
 }
 \references{

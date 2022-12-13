@@ -250,10 +250,9 @@
 #'   only a relatively few data points at very high wind speeds and plotting all
 #'   of them can reduce the useful information in the plot.
 #'
-#' @param angle.scale The wind speed scale is by default shown at a 315 degree
-#'   angle. Sometimes the placement of the scale may interfere with an
+#' @param angle.scale Sometimes the placement of the scale may interfere with an
 #'   interesting feature. The user can therefore set \code{angle.scale} to
-#'   another value (between 0 and 360 degrees) to mitigate such problems. For
+#'   any value between 0 and 360 degrees to mitigate such problems. For
 #'   example \code{angle.scale = 45} will draw the scale heading in a NE
 #'   direction.
 #'
@@ -343,23 +342,12 @@
 #'
 #' @import lattice
 #' @import mgcv
-#' @return As well as generating the plot itself, \code{polarPlot} also returns
-#'   an object of class ``openair''. The object includes three main components:
-#'   \code{call}, the command used to generate the plot; \code{data}, the data
-#'   frame of summarised information used to make the plot; and \code{plot}, the
-#'   plot itself. If retained, e.g. using \code{output <- polarPlot(mydata,
-#'   "nox")}, this output can be used to recover the data, reproduce or rework
-#'   the original plot or undertake further analysis.
-#'
-#'   An openair output can be manipulated using a number of generic operations,
-#'   including \code{print}, \code{plot} and \code{summary}.
-#'
-#'   \code{polarPlot} surface data can also be extracted directly using the
-#'   \code{results}, e.g.  \code{results(object)} for \code{output <-
-#'   polarPlot(mydata, "nox")}. This returns a data frame with four set columns:
-#'   \code{cond}, conditioning based on \code{type}; \code{u} and \code{v}, the
-#'   translational vectors based on \code{ws} and \code{wd}; and the local
-#'   \code{pollutant} estimate.
+#' @return an [openair][openair-package] object. \code{polarPlot} surface data
+#'   can also be extracted directly using the \code{results}, e.g.
+#'   \code{results(object)} for \code{output <- polarPlot(mydata, "nox")}. This
+#'   returns a data frame with four set columns: \code{cond}, conditioning based
+#'   on \code{type}; \code{u} and \code{v}, the translational vectors based on
+#'   \code{ws} and \code{wd}; and the local \code{pollutant} estimate.
 #' @author David Carslaw
 #' @family polar directional analaysis functions
 #' @references

@@ -34,26 +34,16 @@
 #' @inheritDotParams windRose -pollutant -key.footer -key.position -key -breaks
 #'   -paddle -seg -normalise -plot
 #' @export
-#' @return As well as generating the plot itself, \code{pollutionRose} also
-#'   returns an object of class \dQuote{openair}. The object includes three main
-#'   components: \code{call}, the command used to generate the plot;
-#'   \code{data}, the data frame of summarised information used to make the
-#'   plot; and \code{plot}, the plot itself. If retained, e.g. using
-#'   \code{output <- windRose(mydata)}, this output can be used to recover the
-#'   data, reproduce or rework the original plot or undertake further analysis.
-#'
-#'   An openair output can be manipulated using a number of generic operations,
-#'   including \code{print}, \code{plot} and \code{summarise}.
-#'
-#'   Summarised proportions can also be extracted directly using the
-#'   \code{$data} operator, e.g.  \code{object$data} for \code{output <-
-#'   windRose(mydata)}. This returns a data frame with three set columns:
-#'   \code{cond}, conditioning based on \code{type}; \code{wd}, the wind
-#'   direction; and \code{calm}, the \code{statistic} for the proportion of data
-#'   unattributed to any specific wind direction because it was collected under
-#'   calm conditions; and then several (one for each range binned for the plot)
-#'   columns giving proportions of measurements associated with each \code{ws}
-#'   or \code{pollutant} range plotted as a discrete panel.
+#' @return an [openair][openair-package] object. Summarised proportions can be
+#'   extracted directly using the \code{$data} operator, e.g.
+#'   \code{object$data} for \code{output <- windRose(mydata)}. This returns a
+#'   data frame with three set columns: \code{cond}, conditioning based on
+#'   \code{type}; \code{wd}, the wind direction; and \code{calm}, the
+#'   \code{statistic} for the proportion of data unattributed to any specific
+#'   wind direction because it was collected under calm conditions; and then
+#'   several (one for each range binned for the plot) columns giving proportions
+#'   of measurements associated with each \code{ws} or \code{pollutant} range
+#'   plotted as a discrete panel.
 #' @family polar directional analaysis functions
 #' @examples
 #' # pollutionRose of nox
@@ -257,26 +247,15 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 #'
 #' @export
 #' @import dplyr
-#' @return As well as generating the plot itself, \code{windRose} also returns
-#'   an object of class \dQuote{openair}. The object includes three main
-#'   components: \code{call}, the command used to generate the plot;
-#'   \code{data}, the data frame of summarised information used to make the
-#'   plot; and \code{plot}, the plot itself. If retained, e.g. using
-#'   \code{output <- windRose(mydata)}, this output can be used to recover the
-#'   data, reproduce or rework the original plot or undertake further analysis.
-#'
-#'   An openair output can be manipulated using a number of generic operations,
-#'   including \code{print}, \code{plot} and \code{summarise}.
-#'
-#'   Summarised proportions can also be extracted directly using the
-#'   \code{$data} operator, e.g.  \code{object$data} for \code{output <-
-#'   windRose(mydata)}. This returns a data frame with three set columns:
-#'   \code{cond}, conditioning based on \code{type}; \code{wd}, the wind
-#'   direction; and \code{calm}, the \code{statistic} for the proportion of data
-#'   unattributed to any specific wind direction because it was collected under
-#'   calm conditions; and then several (one for each range binned for the plot)
-#'   columns giving proportions of measurements associated with each \code{ws}
-#'   or \code{pollutant} range plotted as a discrete panel.
+#' @return an [openair][openair-package] object. Summarised proportions can be
+#'   extracted directly using the \code{$data} operator, e.g. \code{object$data}
+#'   for \code{output <- windRose(mydata)}. This returns a data frame with three
+#'   set columns: \code{cond}, conditioning based on \code{type}; \code{wd}, the
+#'   wind direction; and \code{calm}, the \code{statistic} for the proportion of
+#'   data unattributed to any specific wind direction because it was collected
+#'   under calm conditions; and then several (one for each range binned for the
+#'   plot) columns giving proportions of measurements associated with each
+#'   \code{ws} or \code{pollutant} range plotted as a discrete panel.
 #' @note \code{windRose} and \code{pollutionRose} both use [drawOpenKey()] to
 #'   produce scale keys.
 #' @author David Carslaw (with some additional contributions by Karl Ropkins)

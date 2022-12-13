@@ -1,153 +1,76 @@
 #' Function to plot percentiles by wind direction
 #'
-#' \code{percentileRose} plots percentiles by wind direction with
-#' flexible conditioning. The plot can display multiple percentile
-#' lines or filled areas.
+#' \code{percentileRose} plots percentiles by wind direction with flexible
+#' conditioning. The plot can display multiple percentile lines or filled areas.
 #'
-#' \code{percentileRose} calculates percentile levels of a pollutant
-#' and plots them by wind direction. One or more percentile levels
-#' can be calculated and these are displayed as either filled areas
-#' or as lines.
+#' \code{percentileRose} calculates percentile levels of a pollutant and plots
+#' them by wind direction. One or more percentile levels can be calculated and
+#' these are displayed as either filled areas or as lines.
 #'
-#' The wind directions are rounded to the nearest 10 degrees,
-#' consistent with surface data from the UK Met Office before a
-#' smooth is fitted. The levels by wind direction are optionally
-#' calculated using a cyclic smooth cubic spline using the option
-#' \code{smooth}. If \code{smooth = FALSE} then the data are shown in
-#' 10 degree sectors.
+#' The wind directions are rounded to the nearest 10 degrees, consistent with
+#' surface data from the UK Met Office before a smooth is fitted. The levels by
+#' wind direction are optionally calculated using a cyclic smooth cubic spline
+#' using the option \code{smooth}. If \code{smooth = FALSE} then the data are
+#' shown in 10 degree sectors.
 #'
-#' The \code{percentileRose} function compliments other similar
-#' functions including \code{\link{windRose}},
-#' \code{\link{pollutionRose}}, \code{\link{polarFreq}} or
-#' \code{\link{polarPlot}}. It is most useful for showing the
-#' distribution of concentrations by wind direction and often can
-#' reveal different sources e.g. those that only affect high
-#' percentile concentrations such as a chimney stack.
+#' The \code{percentileRose} function compliments other similar functions
+#' including \code{\link{windRose}}, \code{\link{pollutionRose}},
+#' \code{\link{polarFreq}} or \code{\link{polarPlot}}. It is most useful for
+#' showing the distribution of concentrations by wind direction and often can
+#' reveal different sources e.g. those that only affect high percentile
+#' concentrations such as a chimney stack.
 #'
-#' Similar to other functions, flexible conditioning is available
-#' through the \code{type} option. It is easy for example to consider
-#' multiple percentile values for a pollutant by season, year and so
-#' on. See examples below.
+#' Similar to other functions, flexible conditioning is available through the
+#' \code{type} option. It is easy for example to consider multiple percentile
+#' values for a pollutant by season, year and so on. See examples below.
 #'
-#' \code{percentileRose} also offers great flexibility with the scale
-#' used and the user has fine control over both the range, interval
-#' and colour.
+#' \code{percentileRose} also offers great flexibility with the scale used and
+#' the user has fine control over both the range, interval and colour.
 #'
-#' @param mydata A data frame minimally containing \code{wd} and a
-#'   numeric field to plot --- \code{pollutant}.
-#' @param pollutant Mandatory. A pollutant name corresponding to a
-#'   variable in a data frame should be supplied e.g. \code{pollutant
-#'   = "nox"}. More than one pollutant can be supplied e.g.
-#'   \code{pollutant = c("no2", "o3")} provided there is only one
-#'   \code{type}.
-#' @param wd Name of the wind direction field.
-#' @param type \code{type} determines how the data are split i.e.
-#'   conditioned, and then plotted. The default is will produce a
-#'   single plot using the entire data. Type can be one of the
-#'   built-in types as detailed in \code{cutData} e.g.
-#'   \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so on. For
-#'   example, \code{type = "season"} will produce four plots --- one
-#'   for each season.
-#'
-#'   It is also possible to choose \code{type} as another variable in
-#'   the data frame. If that variable is numeric, then the data will
-#'   be split into four quantiles (if possible) and labelled
-#'   accordingly. If type is an existing character or factor
-#'   variable, then those categories/levels will be used directly.
-#'   This offers great flexibility for understanding the variation of
-#'   different variables and how they depend on one another.
-#'
-#'   Type can be up length two e.g. \code{type = c("season",
-#'   "weekday")} will produce a 2x2 plot split by season and day of
-#'   the week. Note, when two types are provided the first forms the
-#'   columns and the second the rows.
-#' @param percentile The percentile value(s) to plot. Must be between
-#'   0--100. If \code{percentile = NA} then only a mean line will be
-#'   shown.
-#' @param smooth Should the wind direction data be smoothed using a
-#'   cyclic spline?
-#' @param method When \code{method = "default"} the supplied
-#'   percentiles by wind direction are calculated. When \code{method
-#'   = "cpf"} the conditional probability function (CPF) is plotted
-#'   and a single (usually high) percentile level is supplied. The
-#'   CPF is defined as CPF = my/ny, where my is the number of samples
-#'   in the wind sector y with mixing ratios greater than the
-#'   \emph{overall} percentile concentration, and ny is the total
-#'   number of samples in the same wind sector (see Ashbaugh et al.,
-#'   1985).
-#' @param cols Colours to be used for plotting. Options include
-#'   \dQuote{default}, \dQuote{increment}, \dQuote{heat},
-#'   \dQuote{jet} and \code{RColorBrewer} colours --- see the
-#'   \code{openair} \code{openColours} function for more details. For
-#'   user defined the user can supply a list of colour names
-#'   recognised by R (type \code{colours()} to see the full list). An
-#'   example would be \code{cols = c("yellow", "green", "blue")}
+#' @inheritParams polarPlot
+#' @param mydata A data frame minimally containing \code{wd} and a numeric field
+#'   to plot --- \code{pollutant}.
+#' @param pollutant Mandatory. A pollutant name corresponding to a variable in a
+#'   data frame should be supplied e.g. \code{pollutant = "nox"}. More than one
+#'   pollutant can be supplied e.g. \code{pollutant = c("no2", "o3")} provided
+#'   there is only one \code{type}.
+#' @param percentile The percentile value(s) to plot. Must be between 0--100. If
+#'   \code{percentile = NA} then only a mean line will be shown.
+#' @param smooth Should the wind direction data be smoothed using a cyclic
+#'   spline?
+#' @param method When \code{method = "default"} the supplied percentiles by wind
+#'   direction are calculated. When \code{method = "cpf"} the conditional
+#'   probability function (CPF) is plotted and a single (usually high)
+#'   percentile level is supplied. The CPF is defined as CPF = my/ny, where my
+#'   is the number of samples in the wind sector y with mixing ratios greater
+#'   than the \emph{overall} percentile concentration, and ny is the total
+#'   number of samples in the same wind sector (see Ashbaugh et al., 1985).
 #' @param angle Default angle of \dQuote{spokes} is when \code{smooth = FALSE}.
 #' @param mean Show the mean by wind direction as a line?
 #' @param mean.lty Line type for mean line.
 #' @param mean.lwd Line width for mean line.
 #' @param mean.col Line colour for mean line.
-#' @param fill Should the percentile intervals be filled (default) or
-#'   should lines be drawn (\code{fill = FALSE}).
-#' @param intervals User-supplied intervals for the scale e.g.
-#'   \code{intervals = c(0, 10, 30, 50)}
-#' @param angle.scale The pollutant scale is by default shown at a 45
-#'   degree angle. Sometimes the placement of the scale may interfere
-#'   with an interesting feature. The user can therefore set
-#'   \code{angle.scale} to another value (between 0 and 360 degrees)
-#'   to mitigate such problems. For example \code{angle.scale = 315}
-#'   will draw the scale heading in a NW direction.
-#' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
-#'   \code{TRUE} titles and axis labels will automatically try and
-#'   format pollutant names and units properly e.g.  by subscripting
-#'   the \sQuote{2} in NO2.
-#' @param key.header Adds additional text/labels to the scale key.
-#'   For example, passing options \code{key.header = "header",
-#'   key.footer = "footer"} adds addition text above and below the
-#'   scale key. These arguments are passed to \code{drawOpenKey} via
-#'   \code{quickText}, applying the \code{auto.text} argument, to
-#'   handle formatting.
-#' @param key.footer \code{key.header}.
-#' @param key.position Location where the scale key is to plotted.
-#'   Allowed arguments currently include \code{"top"},
-#'   \code{"right"}, \code{"bottom"} and \code{"left"}.
-#' @param key Fine control of the scale key via \code{drawOpenKey}.
-#'   See \code{drawOpenKey} for further details.
-#' @param plot Should a plot be produced? \code{FALSE} can be useful when
-#'   analysing data to extract plot components and plotting them in other
-#'   ways.
-#' @param ... Other graphical parameters are passed onto
-#'   \code{cutData} and \code{lattice:xyplot}. For example,
-#'   \code{percentileRose} passes the option \code{hemisphere =
-#'   "southern"} on to \code{cutData} to provide southern (rather
-#'   than default northern) hemisphere handling of \code{type =
-#'   "season"}. Similarly, common graphical arguments, such as
-#'   \code{xlim} and \code{ylim} for plotting ranges and \code{lwd}
-#'   for line thickness when using \code{fill = FALSE}, are passed on
-#'   \code{xyplot}, although some local modifications may be applied
-#'   by openair. For example, axis and title labelling options (such
-#'   as \code{xlab}, \code{ylab} and \code{main}) are passed to
-#'   \code{xyplot} via \code{quickText} to handle routine formatting.
+#' @param fill Should the percentile intervals be filled (default) or should
+#'   lines be drawn (\code{fill = FALSE}).
+#' @param intervals User-supplied intervals for the scale e.g. \code{intervals =
+#'   c(0, 10, 30, 50)}
+#' @param ... Other graphical parameters are passed onto \code{cutData} and
+#'   \code{lattice:xyplot}. For example, \code{percentileRose} passes the option
+#'   \code{hemisphere = "southern"} on to \code{cutData} to provide southern
+#'   (rather than default northern) hemisphere handling of \code{type =
+#'   "season"}. Similarly, common graphical arguments, such as \code{xlim} and
+#'   \code{ylim} for plotting ranges and \code{lwd} for line thickness when
+#'   using \code{fill = FALSE}, are passed on \code{xyplot}, although some local
+#'   modifications may be applied by openair. For example, axis and title
+#'   labelling options (such as \code{xlab}, \code{ylab} and \code{main}) are
+#'   passed to \code{xyplot} via \code{quickText} to handle routine formatting.
 #' @export
-#' @return As well as generating the plot itself,
-#'   \code{percentileRose} also returns an object of class
-#'   \dQuote{openair}. The object includes three main components:
-#'   \code{call}, the command used to generate the plot; \code{data},
-#'   the data frame of summarised information used to make the plot;
-#'   and \code{plot}, the plot itself. If retained, e.g. using
-#'   \code{output <- percentileRose(mydata, "nox")}, this output can
-#'   be used to recover the data, reproduce or rework the original
-#'   plot or undertake further analysis.
-#'
-#'   An openair output can be manipulated using a number of generic
-#'   operations, including \code{print}, \code{plot} and
-#'   \code{summary}.
-#' @author David Carslaw
-#' @references Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A
-#' residence time probability analysis of sulfur concentrations at
-#' ground canyon national park. Atmospheric Environment 19 (8),
-#' 1263-1270.
+#' @return an [openair][openair-package] object
 #' @family polar directional analaysis functions
+#' @author David Carslaw
+#' @references Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A residence time
+#'   probability analysis of sulfur concentrations at ground canyon national
+#'   park. Atmospheric Environment 19 (8), 1263-1270.
 #' @examples
 #' # basic percentile plot
 #' percentileRose(mydata, pollutant = "o3")
