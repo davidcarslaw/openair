@@ -1,140 +1,136 @@
-##' Import data from the UK Air Pollution Networks
-##'
-##' Functions for importing air pollution data from a range of UK networks
-##' including the Automatic Urban and Rural Network. Files are imported from a
-##' remote server operated by Ricardo that provides air quality data files as R
-##' data objects.
-##'
-##' This family of functions has been written to make it easy to import data
-##' from across several UK air quality networks. Ricardo have provided .RData
-##' files (R workspaces) of all individual sites and years, as well as up to
-##' date meta data. These files are updated on a daily basis. This approach
-##' requires a link to the Internet to work.
-##'
-##' For an up to date list of available sites that can be imported, see
-##' \code{\link{importMeta}}.
-##'
-##' The site codes and pollutant names can be upper or lower case.
-##'
-##' There are several advantages over the web portal approach where .csv files
-##' are downloaded. First, it is quick to select a range of sites, pollutants
-##' and periods (see examples below). Second, storing the data as .RData objects
-##' is very efficient as they are about four times smaller than .csv files ---
-##' which means the data downloads quickly and saves bandwidth. Third, the
-##' function completely avoids any need for data manipulation or setting time
-##' formats, time zones etc. The function also has the advantage that the proper
-##' site name is imported and used in \code{openair} functions.
-##'
-##' The data are imported by stacking sites on top of one another and will have
-##' field names \code{site}, \code{code} (the site code) and \code{pollutant}.
-##'
-##' By default, the function returns hourly average data. However, annual,
-##' monthly, daily and 15 minute data (for SO2) can be returned using the option
-##' \code{data_type}. Annual and monthly data provide whole network information
-##' including data capture statistics.
-##'
-##' All units are expressed in mass terms for gaseous species (ug/m3 for NO,
-##' NO2, NOx (as NO2), SO2 and hydrocarbons; and mg/m3 for CO). PM10
-##' concentrations are provided in gravimetric units of ug/m3 or scaled to be
-##' comparable with these units. Over the years a variety of instruments have
-##' been used to measure particulate matter and the technical issues of
-##' measuring PM10 are complex. In recent years the measurements rely on FDMS
-##' (Filter Dynamics Measurement System), which is able to measure the volatile
-##' component of PM. In cases where the FDMS system is in use there will be a
-##' separate volatile component recorded as 'v10' and non-volatile component
-##' 'nv10', which is already included in the absolute PM10 measurement. Prior to
-##' the use of FDMS the measurements used TEOM (Tapered Element Oscillating.
-##' Microbalance) and these concentrations have been multiplied by 1.3 to
-##' provide an estimate of the total mass including the volatile fraction.
-##'
-##' The function returns modelled hourly values of wind speed (\code{ws}), wind
-##' direction (\code{wd}) and ambient temperature (\code{air_temp}) if available
-##' (generally from around 2010). These values are modelled using the WRF model
-##' operated by Ricardo.
-##'
-##' The BAM (Beta-Attenuation Monitor) instruments that have been incorporated
-##' into the network throughout its history have been scaled by 1.3 if they have
-##' a heated inlet (to account for loss of volatile particles) and 0.83 if they
-##' do not have a heated inlet. The few TEOM instruments in the network after
-##' 2008 have been scaled using VCM (Volatile Correction Model) values to
-##' account for the loss of volatile particles. The object of all these scaling
-##' processes is to provide a reasonable degree of comparison between data sets
-##' and with the reference method and to produce a consistent data record over
-##' the operational period of the network, however there may be some
-##' discontinuity in the time series associated with instrument changes.
-##'
-##' No corrections have been made to the PM2.5 data. The volatile component of
-##' FDMS PM2.5 (where available) is shown in the 'v2.5' column.
-##'
-##'
-##' @param site Site code of the site to import e.g. \dQuote{my1} is Marylebone
-##'   Road. Several sites can be imported with \code{site = c("my1", "nott")}
-##'   --- to import Marylebone Road and Nottingham for example.
-##' @param year Year or years to import. To import a sequence of years from 1990
-##'   to 2000 use \code{year = 1990:2000}. To import several specific years use
-##'   \code{year = c(1990, 1995, 2000)} for example.
-##' @param data_type The data type averaging period. These include:
-##'
-##'   \itemize{
-##'   \item{"hourly"}{ Default is to return hourly data.}
-##'   \item{"daily"}{ Daily average data.}
-##'   \item{"monthly"}{ Monthly average
-##'   data with data capture information for the whole network.}
-##'   \item{"annual"}{ Annual average data with data capture information for the
-##'   whole network.}
-##'   \item{"15_min"}{ To import 15-minute average SO2
-##'   concentrations.}
-##'   \item{"8_hour"}{ To import 8-hour rolling mean
-##'   concentrations for O3 and CO.}
-##'   \item{"24_hour"}{ To import 24-hour rolling
-##'   mean concentrations for particulates.}
-##'   \item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3 and CO.}
-##'   \item{"daqi"}{ To import Daily
-##'   Air Quality Index (DAQI). See
-##'   \href{https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant}{here}
-##'    for more details of how the index is defined.} }
-##' @param pollutant Pollutants to import. If omitted will import all pollutants
-##'   from a site. To import only NOx and NO2 for example use \code{pollutant =
-##'   c("nox", "no2")}.
-##' @param hc A few sites have hydrocarbon measurements available and setting
-##'   \code{hc = TRUE} will ensure hydrocarbon data are imported. The default is
-##'   however not to as most users will not be interested in using hydrocarbon
-##'   data and the resulting data frames are considerably larger. This option is
-##'   only available for \code{importAURN}.
-##' @param meta Should meta data be returned? If \code{TRUE} the site type,
-##'   latitude and longitude are returned.
-##' @param ratified If \code{TRUE} columns are returned indicating when each
-##'   species was ratified i.e. quality-checked. Available for hourly data only.
-##' @param to_narrow By default the returned data has a column for each
-##'   pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
-##'   a narrow format with a column identifying the pollutant name.
-##' @param verbose Should the function give messages when downloading files?
-##'   Default is \code{FALSE}.
-##'
-##' @export
-##' @importFrom utils download.file
-##' @return Returns a data frame of hourly mean values with date in POSIXct
-##'   class and time zone GMT.
-##' @author David Carslaw and Trevor Davies
-##' @seealso \code{\link{importKCL}}, \code{\link{importADMS}}
-##' @keywords methods
-##' @examples
-##'
-##'
-##' ## import all pollutants from Marylebone Rd from 1990:2009
-##' \dontrun{mary <- importAURN(site = "my1", year = 2000:2009)}
-##'
-##' ## import nox, no2, o3 from Marylebone Road and Nottingham Centre for 2000
-##' \dontrun{thedata <- importAURN(site = c("my1", "nott"), year = 2000,
-##' pollutant = c("nox", "no2", "o3"))}
-##'
-##' # Other functions work in the same way e.g. to import Cardiff Centre data
-##'
-##' # Import annual data over a period, make it narrow format and return site information
-##'
-##' \dontrun{aq <- importAURN(year = 2010:2020, data_type = "annual", meta = TRUE, to_narrow = TRUE)}
-##'
-##' \dontrun{cardiff <- importWAQN(site = "card", year = 2020)}
+#' Import data from the UK Air Pollution Networks
+#'
+#' Functions for importing air pollution data from a range of UK networks
+#' including the Automatic Urban and Rural Network. Files are imported from a
+#' remote server operated by Ricardo that provides air quality data files as R
+#' data objects.
+#'
+#' This family of functions has been written to make it easy to import data
+#' from across several UK air quality networks. Ricardo have provided .RData
+#' files (R workspaces) of all individual sites and years, as well as up to
+#' date meta data. These files are updated on a daily basis. This approach
+#' requires a link to the Internet to work.
+#'
+#' For an up to date list of available sites that can be imported, see
+#' [importMeta()].
+#'
+#' The site codes and pollutant names can be upper or lower case.
+#'
+#' There are several advantages over the web portal approach where .csv files
+#' are downloaded. First, it is quick to select a range of sites, pollutants
+#' and periods (see examples below). Second, storing the data as .RData objects
+#' is very efficient as they are about four times smaller than .csv files ---
+#' which means the data downloads quickly and saves bandwidth. Third, the
+#' function completely avoids any need for data manipulation or setting time
+#' formats, time zones etc. The function also has the advantage that the proper
+#' site name is imported and used in \code{openair} functions.
+#'
+#' The data are imported by stacking sites on top of one another and will have
+#' field names \code{site}, \code{code} (the site code) and \code{pollutant}.
+#'
+#' By default, the function returns hourly average data. However, annual,
+#' monthly, daily and 15 minute data (for SO2) can be returned using the option
+#' \code{data_type}. Annual and monthly data provide whole network information
+#' including data capture statistics.
+#'
+#' All units are expressed in mass terms for gaseous species (ug/m3 for NO,
+#' NO2, NOx (as NO2), SO2 and hydrocarbons; and mg/m3 for CO). PM10
+#' concentrations are provided in gravimetric units of ug/m3 or scaled to be
+#' comparable with these units. Over the years a variety of instruments have
+#' been used to measure particulate matter and the technical issues of
+#' measuring PM10 are complex. In recent years the measurements rely on FDMS
+#' (Filter Dynamics Measurement System), which is able to measure the volatile
+#' component of PM. In cases where the FDMS system is in use there will be a
+#' separate volatile component recorded as 'v10' and non-volatile component
+#' 'nv10', which is already included in the absolute PM10 measurement. Prior to
+#' the use of FDMS the measurements used TEOM (Tapered Element Oscillating.
+#' Microbalance) and these concentrations have been multiplied by 1.3 to
+#' provide an estimate of the total mass including the volatile fraction.
+#'
+#' The function returns modelled hourly values of wind speed (\code{ws}), wind
+#' direction (\code{wd}) and ambient temperature (\code{air_temp}) if available
+#' (generally from around 2010). These values are modelled using the WRF model
+#' operated by Ricardo.
+#'
+#' The BAM (Beta-Attenuation Monitor) instruments that have been incorporated
+#' into the network throughout its history have been scaled by 1.3 if they have
+#' a heated inlet (to account for loss of volatile particles) and 0.83 if they
+#' do not have a heated inlet. The few TEOM instruments in the network after
+#' 2008 have been scaled using VCM (Volatile Correction Model) values to
+#' account for the loss of volatile particles. The object of all these scaling
+#' processes is to provide a reasonable degree of comparison between data sets
+#' and with the reference method and to produce a consistent data record over
+#' the operational period of the network, however there may be some
+#' discontinuity in the time series associated with instrument changes.
+#'
+#' No corrections have been made to the PM2.5 data. The volatile component of
+#' FDMS PM2.5 (where available) is shown in the 'v2.5' column.
+#'
+#'
+#' @param site Site code of the site to import e.g. \dQuote{my1} is Marylebone
+#'   Road. Several sites can be imported with \code{site = c("my1", "nott")}
+#'   --- to import Marylebone Road and Nottingham for example.
+#' @param year Year or years to import. To import a sequence of years from 1990
+#'   to 2000 use \code{year = 1990:2000}. To import several specific years use
+#'   \code{year = c(1990, 1995, 2000)} for example.
+#' @param data_type The data type averaging period. These include:
+#'
+#'   \itemize{
+#'   \item{"hourly"}{ Default is to return hourly data.}
+#'   \item{"daily"}{ Daily average data.}
+#'   \item{"monthly"}{ Monthly average
+#'   data with data capture information for the whole network.}
+#'   \item{"annual"}{ Annual average data with data capture information for the
+#'   whole network.}
+#'   \item{"15_min"}{ To import 15-minute average SO2
+#'   concentrations.}
+#'   \item{"8_hour"}{ To import 8-hour rolling mean
+#'   concentrations for O3 and CO.}
+#'   \item{"24_hour"}{ To import 24-hour rolling
+#'   mean concentrations for particulates.}
+#'   \item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3 and CO.}
+#'   \item{"daqi"}{ To import Daily
+#'   Air Quality Index (DAQI). See
+#'   \href{https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant}{here}
+#'    for more details of how the index is defined.} }
+#' @param pollutant Pollutants to import. If omitted will import all pollutants
+#'   from a site. To import only NOx and NO2 for example use \code{pollutant =
+#'   c("nox", "no2")}.
+#' @param hc A few sites have hydrocarbon measurements available and setting
+#'   \code{hc = TRUE} will ensure hydrocarbon data are imported. The default is
+#'   however not to as most users will not be interested in using hydrocarbon
+#'   data and the resulting data frames are considerably larger.
+#' @param meta Should meta data be returned? If \code{TRUE} the site type,
+#'   latitude and longitude are returned.
+#' @param ratified If \code{TRUE} columns are returned indicating when each
+#'   species was ratified i.e. quality-checked. Available for hourly data only.
+#' @param to_narrow By default the returned data has a column for each
+#'   pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
+#'   a narrow format with a column identifying the pollutant name.
+#' @param verbose Should the function give messages when downloading files?
+#'   Default is \code{FALSE}.
+#'
+#' @export
+#' @return Returns a data frame of hourly mean values with date in POSIXct
+#'   class and time zone GMT.
+#' @author David Carslaw and Trevor Davies
+#' @family import functions
+#' @examples
+#'
+#' ## import all pollutants from Marylebone Rd from 1990:2009
+#' \dontrun{mary <- importAURN(site = "my1", year = 2000:2009)}
+#'
+#' ## import nox, no2, o3 from Marylebone Road and Nottingham Centre for 2000
+#' \dontrun{thedata <- importAURN(site = c("my1", "nott"), year = 2000,
+#' pollutant = c("nox", "no2", "o3"))}
+#'
+#' # Other functions work in the same way e.g. to import Cardiff Centre data
+#'
+#' # Import annual data over a period, make it narrow format and return site information
+#'
+#' \dontrun{aq <- importAURN(year = 2010:2020, data_type = "annual", meta = TRUE, to_narrow = TRUE)}
+#'
+#' \dontrun{cardiff <- importWAQN(site = "card", year = 2020)}
 importAURN <- function(site = "my1", year = 2009,
                        data_type = "hourly", pollutant = "all",
                        hc = FALSE, meta = FALSE, ratified = FALSE,

@@ -27,8 +27,6 @@
 #####################
 # make test more robust?
 
-
-# crude def
 openair <- function(x) {
   class(x) <- "openair"
   x
@@ -61,7 +59,7 @@ results <- function(object, ...)
 # to handle all other cases without error
 #
 
-##' @export
+#' @export
 
 results.default <- function(object, ...) {
   object
@@ -76,7 +74,7 @@ results.default <- function(object, ...) {
 # to do
 #################
 
-##' @export
+#' @export
 
 results.openair <- function(object,
                             subset = "all", silent=FALSE,
@@ -234,8 +232,8 @@ openairApply <- function(object, fun=summary, subset = "all",
 # kr 17/12/2010 v 0.0.3
 
 
-##' @method summary openair
-##' @export
+#' @method summary openair
+#' @export
 summary.openair <- function(object, subset = "all", ...)
   openairApply(object, fun = summary, subset = subset, ..., fun.name = "summary")
 
@@ -253,10 +251,8 @@ summary.openair <- function(object, subset = "all", ...)
 # see ?head, ?tail
 
 
-##' @export
-##' @importFrom utils head
-##' @export
-##' @importFrom utils tail
+#' @export
+#' @export
 head.openair <- function(x, subset = "all", ...)
   openairApply(x, fun = head, subset = subset, ..., fun.name = "head")
 tail.openair <- function(x, subset = "all", ...)
@@ -273,8 +269,8 @@ tail.openair <- function(x, subset = "all", ...)
 # to do
 #################
 
-##' @method plot openair
-##' @export
+#' @method plot openair
+#' @export
 plot.openair <- function(x, subset = "all", silent = TRUE, ...) {
   if (!is.openair(x)) return(invisible(NULL))
 
@@ -357,8 +353,8 @@ plot.openair <- function(x, subset = "all", silent = TRUE, ...) {
 #################
 # to do
 #################
-##' @export
-##' @method print openair
+#' @export
+#' @method print openair
 print.openair <- function(x, silent = FALSE, plot = TRUE, ...) {
   if (!is.openair(x)) return(invisible(NULL))
   # must have call, data and plot elements
@@ -403,7 +399,7 @@ print.openair <- function(x, silent = FALSE, plot = TRUE, ...) {
 # currently not S3 and base names(x)
 # so can't pass extra args via ...!
 #
-##' @export
+#' @export
 names.openair <- function(x, ...) {
 
   # stuff we own up to...

@@ -15,40 +15,37 @@ calcPercentile(
 }
 \arguments{
 \item{mydata}{A data frame of data with a \code{date} field in the format
-\code{Date} or \code{POSIXct}. Must have one variable to apply
-calculations to.}
+\code{Date} or \code{POSIXct}. Must have one variable to apply calculations
+to.}
 
 \item{pollutant}{Name of variable to process. Mandatory.}
 
-\item{avg.time}{Averaging period to use. See \code{timeAverage} for
-details.}
+\item{avg.time}{Averaging period to use. See \code{\link[=timeAverage]{timeAverage()}} for details.}
 
-\item{percentile}{A vector of percentile values. For example
-\code{percentile = 50} for median values, \code{percentile = c(5, 50, 95}
-for multiple percentile values.}
+\item{percentile}{A vector of percentile values. For example \code{percentile
+  = 50} for median values, \code{percentile = c(5, 50, 95} for multiple
+percentile values.}
 
 \item{data.thresh}{Data threshold to apply when aggregating data. See
-\code{timeAverage} for details.}
+\code{\link[=timeAverage]{timeAverage()}} for details.}
 
-\item{start}{Start date to use - see \code{timeAverage} for details.}
+\item{start}{Start date to use - see \code{\link[=timeAverage]{timeAverage()}} for details.}
 }
 \value{
-Returns a data frame with new columns for each percentile level.
-  New columns are given names like percentile.95 e.g. when percentile = 95
-  is chosen. See examples below.
+Returns a data frame with new columns for each percentile level. New
+columns are given names like percentile.95 e.g. when percentile = 95 is
+chosen. See examples below.
 }
 \description{
-Calculates multiple percentile values from a time series, with flexible
-time aggregation.
+Calculates multiple percentile values from a time series, with flexible time
+aggregation.
 }
 \details{
 This is a utility function to calculate percentiles and is used in, for
-example, \code{timePlot}. Given a data frame with a \code{date} field and
-one other numeric variable, percentiles are calculated.
+example, \code{timePlot}. Given a data frame with a \code{date} field and one
+other numeric variable, percentiles are calculated.
 }
 \examples{
-
-
 # 95th percentile monthly o3 concentrations
 percentiles <- calcPercentile(mydata, pollutant ="o3",
 avg.time = "month", percentile = 95)
@@ -62,12 +59,10 @@ avg.time = "month", percentile = c(5, 50, 95))
 
 head(percentiles)
 }
-
 }
 \seealso{
-\code{\link{timePlot}}, \code{\link{timeAverage}}
+\code{\link{timePlot}}, \code{\link[=timeAverage]{timeAverage()}}
 }
 \author{
 David Carslaw
 }
-\keyword{methods}

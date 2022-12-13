@@ -29,7 +29,7 @@
 #' principal aim of \code{polarPlot} is as a graphical analysis rather than for
 #' quantitative purposes. In this respect the smoothing aims to strike a balance
 #' between revealing interesting (real) features and overly noisy data. The
-#' defaults used in \code{polarPlot} are based on the analysis of data from many
+#' defaults used in [polarPlot()] are based on the analysis of data from many
 #' different sources. More advanced users may wish to modify the code and adopt
 #' other smoothing approaches.
 #'
@@ -49,19 +49,17 @@
 #' references below). For these conditions there can be very few measurements
 #' and therefore greater uncertainty in the calculation of the surface. There
 #' are several ways in which this issue can be tackled. First, it is possible to
-#' avoid smoothing altogether and use \code{polarFreq} in the package
-#' \code{openair}. Second, the effect of setting a minimum number of
-#' measurements in each wind speed-direction bin can be examined through
-#' \code{min.bin}. It is possible that a single point at high wind speed
-#' conditions can strongly affect the surface prediction. Therefore, setting
-#' \code{min.bin = 3}, for example, will remove all wind speed-direction bins
-#' with fewer than 3 measurements \emph{before} fitting the surface. Third,
-#' consider setting \code{uncertainty = TRUE}. This option will show the
-#' predicted surface together with upper and lower 95% confidence intervals,
-#' which take account of the frequency of measurements.
+#' avoid smoothing altogether and use [polarFreq()]. Second, the effect of
+#' setting a minimum number of measurements in each wind speed-direction bin can
+#' be examined through \code{min.bin}. It is possible that a single point at
+#' high wind speed conditions can strongly affect the surface prediction.
+#' Therefore, setting \code{min.bin = 3}, for example, will remove all wind
+#' speed-direction bins with fewer than 3 measurements \emph{before} fitting the
+#' surface. Third, consider setting \code{uncertainty = TRUE}. This option will
+#' show the predicted surface together with upper and lower 95% confidence
+#' intervals, which take account of the frequency of measurements.
 #'
-#' Variants on \code{polarPlot} include \code{polarAnnulus} and
-#' \code{polarFreq}.
+#' Variants on \code{polarPlot} include [polarAnnulus()] and [polarFreq()].
 #'
 #' @param mydata A data frame minimally containing \code{wd}, another variable
 #'   to plot in polar coordinates (the default is a column \dQuote{ws} --- wind
@@ -252,10 +250,9 @@
 #'   only a relatively few data points at very high wind speeds and plotting all
 #'   of them can reduce the useful information in the plot.
 #'
-#' @param angle.scale The wind speed scale is by default shown at a 315 degree
-#'   angle. Sometimes the placement of the scale may interfere with an
+#' @param angle.scale Sometimes the placement of the scale may interfere with an
 #'   interesting feature. The user can therefore set \code{angle.scale} to
-#'   another value (between 0 and 360 degrees) to mitigate such problems. For
+#'   any value between 0 and 360 degrees to mitigate such problems. For
 #'   example \code{angle.scale = 45} will draw the scale heading in a NE
 #'   direction.
 #'
@@ -333,8 +330,7 @@
 #'   and will be ignored if \code{"quantile.slope"} is not used.
 #'
 #' @param plot Should a plot be produced? \code{FALSE} can be useful when
-#'   analysing data to extract plot components and plotting them in other
-#'   ways.
+#'   analysing data to extract plot components and plotting them in other ways.
 #'
 #' @param ... Other graphical parameters passed onto \code{lattice:levelplot}
 #'   and \code{cutData}. For example, \code{polarPlot} passes the option
@@ -345,34 +341,15 @@
 #'   \code{quickText} to handle routine formatting.
 #'
 #' @import lattice
-#' @importFrom MASS rlm
-#' @importFrom latticeExtra useOuterStrips
 #' @import mgcv
-#' @import lattice
-#' @importFrom stats complete.cases
-#' @return As well as generating the plot itself, \code{polarPlot} also returns
-#'   an object of class ``openair''. The object includes three main components:
-#'   \code{call}, the command used to generate the plot; \code{data}, the data
-#'   frame of summarised information used to make the plot; and \code{plot}, the
-#'   plot itself. If retained, e.g. using \code{output <- polarPlot(mydata,
-#'   "nox")}, this output can be used to recover the data, reproduce or rework
-#'   the original plot or undertake further analysis.
-#'
-#'   An openair output can be manipulated using a number of generic operations,
-#'   including \code{print}, \code{plot} and \code{summary}.
-#'
-#'   \code{polarPlot} surface data can also be extracted directly using the
-#'   \code{results}, e.g.  \code{results(object)} for \code{output <-
-#'   polarPlot(mydata, "nox")}. This returns a data frame with four set columns:
-#'   \code{cond}, conditioning based on \code{type}; \code{u} and \code{v}, the
-#'   translational vectors based on \code{ws} and \code{wd}; and the local
-#'   \code{pollutant} estimate.
-#'
+#' @return an [openair][openair-package] object. \code{polarPlot} surface data
+#'   can also be extracted directly using the \code{results}, e.g.
+#'   \code{results(object)} for \code{output <- polarPlot(mydata, "nox")}. This
+#'   returns a data frame with four set columns: \code{cond}, conditioning based
+#'   on \code{type}; \code{u} and \code{v}, the translational vectors based on
+#'   \code{ws} and \code{wd}; and the local \code{pollutant} estimate.
 #' @author David Carslaw
-#'
-#' @seealso The openair package for many more functions for analysing air
-#'   pollution data.
-#'
+#' @family polar directional analaysis functions
 #' @references
 #'
 #' Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A residence time probability
@@ -414,8 +391,6 @@
 #' advances with bivariate polar plots, correlation, and regression techniques.
 #' Atmospheric Environment. 145, 128-134.
 #' \url{https://www.sciencedirect.com/science/article/pii/S1352231016307166}
-#'
-#' @keywords methods
 #' @examples
 #'
 #' # Use openair 'mydata'

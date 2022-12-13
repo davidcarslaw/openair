@@ -90,7 +90,7 @@ data are imported using the <code>importTraj</code> function.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>mydata</dt>
 <dd><p>Data frame, the result of importing a trajectory file using
-<code>importTraj</code></p></dd>
+<code>importTraj</code>.</p></dd>
 
 
 <dt>lon</dt>
@@ -102,26 +102,25 @@ data are imported using the <code>importTraj</code> function.</p>
 
 
 <dt>pollutant</dt>
-<dd><p>Pollutant to be plotted. By default the trajectory height
-is used.</p></dd>
+<dd><p>Pollutant to be plotted. By default the trajectory height is
+used.</p></dd>
 
 
 <dt>type</dt>
-<dd><p><code>type</code> determines how the data are split i.e. conditioned,
-  and then plotted. The default is will produce a single plot using the
-  entire data. Type can be one of the built-in types as detailed in
-  <code>cutData</code> e.g. "season", "year", "weekday" and so on. For example,
-  <code>type = "season"</code> will produce four plots --- one for each season.</p>
+<dd><p><code>type</code> determines how the data are split, i.e., conditioned,
+and then plotted. The default is will produce a single plot using the
+entire data. Type can be one of the built-in types as detailed in
+<code>cutData</code> e.g. "season", "year", "weekday" and so on. For example,
+<code>type = "season"</code> will produce four plots --- one for each season.</p>
 <p>It is also possible to choose <code>type</code> as another variable in the data
-  frame. If that variable is numeric, then the data will be split into four
-  quantiles (if possible) and labelled accordingly. If type is an existing
-  character or factor variable, then those categories/levels will be used
-  directly. This offers great flexibility for understanding the variation of
-  different variables and how they depend on one another.</p>
+frame. If that variable is numeric, then the data will be split into four
+quantiles (if possible) and labelled accordingly. If type is an existing
+character or factor variable, then those categories/levels will be used
+directly. This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.</p>
 <p><code>type</code> can be up length two e.g. <code>type = c("season", "weekday")</code>
-  will produce a 2x2 plot split by season and day of the week. Note, when
-  two types are provided the first forms the columns and the second the
-  rows.</p></dd>
+will produce a 2x2 plot split by season and day of the week. Note, when two
+types are provided the first forms the columns and the second the rows.</p></dd>
 
 
 <dt>smooth</dt>
@@ -130,26 +129,26 @@ is used.</p></dd>
 
 <dt>statistic</dt>
 <dd><p>For <code>trajLevel</code>. By default the function will plot the
-  trajectory frequencies.</p>
-<p>For <code>trajLevel</code>, the argument <code>method = "hexbin"</code> can be used.
-  In this case hexagonal binning of the trajectory <em>points</em> (i.e. a
-  point every three hours along each back trajectory). The plot then shows
-  the trajectory frequencies uses hexagonal binning. This is an alternative
-  way of viewing trajectory frequencies compared with <code>statistic =
+trajectory frequencies.</p>
+<p>For <code>trajLevel</code>, the argument <code>method = "hexbin"</code> can be used. In
+this case hexagonal binning of the trajectory <em>points</em> (i.e. a point
+every three hours along each back trajectory). The plot then shows the
+trajectory frequencies uses hexagonal binning. This is an alternative way
+of viewing trajectory frequencies compared with <code>statistic =
   "frequency"</code>.</p>
 <p>There are also various ways of plotting concentrations.</p>
 <p>It is also possible to set <code>statistic = "difference"</code>. In this case
-  trajectories where the associated concentration is greater than
-  <code>percentile</code> are compared with the the full set of trajectories to
-  understand the differences in frequencies of the origin of air masses. The
-  comparison is made by comparing the percentage change in gridded
-  frequencies. For example, such a plot could show that the top 10% of
-  concentrations of PM10 tend to originate from air-mass origins to the east.</p>
+trajectories where the associated concentration is greater than
+<code>percentile</code> are compared with the the full set of trajectories to
+understand the differences in frequencies of the origin of air masses. The
+comparison is made by comparing the percentage change in gridded
+frequencies. For example, such a plot could show that the top 10\<!-- % of -->
+concentrations of PM10 tend to originate from air-mass origins to the east.</p>
 <p>If <code>statistic = "pscf"</code> then a Potential Source Contribution Function
-  map is produced. If <code>statistic = "cwt"</code> then concentration weighted
-  trajectories are plotted.</p>
+map is produced. If <code>statistic = "cwt"</code> then concentration weighted
+trajectories are plotted.</p>
 <p>If <code>statistic = "cwt"</code> then the Concentration Weighted Trajectory
-  approach is used. See details.</p></dd>
+approach is used. See details.</p></dd>
 
 
 <dt>percentile</dt>
@@ -158,8 +157,8 @@ is used.</p></dd>
 
 
 <dt>map</dt>
-<dd><p>Should a base map be drawn? If <code>TRUE</code> the world base map
-from the <code>maps</code> package is used.</p></dd>
+<dd><p>Should a base map be drawn? If <code>TRUE</code> the world base map from
+the <code>maps</code> package is used.</p></dd>
 
 
 <dt>lon.inc</dt>
@@ -202,39 +201,38 @@ countries.</p></dd>
 <dt>map.res</dt>
 <dd><p>The resolution of the base map. By default the function uses
 the ‘world’ map from the <code>maps</code> package. If <code>map.res =
-"hires"</code> then the (much) more detailed base map ‘worldHires’ from
+  "hires"</code> then the (much) more detailed base map ‘worldHires’ from
 the <code>mapdata</code> package is used. Use <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(mapdata)</a></code>. Also
 available is a map showing the US states. In this case <code>map.res =
-"state"</code> should be used.</p></dd>
+  "state"</code> should be used.</p></dd>
 
 
 <dt>map.cols</dt>
 <dd><p>If <code>map.fill = TRUE</code> <code>map.cols</code> controls the fill
 colour. Examples include <code>map.fill = "grey40"</code> and <code>map.fill =
-openColours("default", 10)</code>. The latter colours the countries and can help
+  openColours("default", 10)</code>. The latter colours the countries and can help
 differentiate them.</p></dd>
 
 
 <dt>map.alpha</dt>
 <dd><p>The transparency level of the filled map which takes values
-from 0 (full transparency) to 1 (full opacity). Setting it below 1 can
-help view trajectories, trajectory surfaces etc. <em>and</em> a filled base
-map.</p></dd>
+from 0 (full transparency) to 1 (full opacity). Setting it below 1 can help
+view trajectories, trajectory surfaces etc. <em>and</em> a filled base map.</p></dd>
 
 
 <dt>projection</dt>
 <dd><p>The map projection to be used. Different map projections
-are possible through the <code>mapproj</code> package. See <code>?mapproject</code>
-for extensive details and information on setting other parameters and
+are possible through the <code>mapproj</code> package. See <code>?mapproject</code> for
+extensive details and information on setting other parameters and
 orientation (see below).</p></dd>
 
 
 <dt>parameters</dt>
-<dd><p>From the <code>mapproj</code> package. Optional numeric vector
-of parameters for use with the projection argument. This argument is
-optional only in the sense that certain projections do not require
-additional parameters. If a projection does not require additional
-parameters then set to null i.e. <code>parameters = NULL</code>.</p></dd>
+<dd><p>From the <code>mapproj</code> package. Optional numeric vector of
+parameters for use with the projection argument. This argument is optional
+only in the sense that certain projections do not require additional
+parameters. If a projection does not require additional parameters then set
+to null i.e. <code>parameters = NULL</code>.</p></dd>
 
 
 <dt>orientation</dt>
@@ -248,18 +246,18 @@ of the longitude coordinates in the map.</p></dd>
 
 
 <dt>grid.col</dt>
-<dd><p>The colour of the map grid to be used. To remove the grid
-set <code>grid.col = "transparent"</code>.</p></dd>
+<dd><p>The colour of the map grid to be used. To remove the grid set
+<code>grid.col = "transparent"</code>.</p></dd>
 
 
 <dt>origin</dt>
-<dd><p>should the receptor origin be shown by a black dot?</p></dd>
+<dd><p>If true a filled circle dot is shown to mark the receptor
+point.</p></dd>
 
 
 <dt>plot</dt>
 <dd><p>Should a plot be produced? <code>FALSE</code> can be useful when
-analysing data to extract plot components and plotting them in other
-ways.</p></dd>
+analysing data to extract plot components and plotting them in other ways.</p></dd>
 
 
 <dt>...</dt>
@@ -272,25 +270,31 @@ function <code>xyplot</code> where it is applied to set the plot symbol size.</p
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>an <a href="openair-package.html">openair</a> object</p>
+    </div>
+    <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>An alternative way of showing the trajectories compared with plotting
 trajectory lines is to bin the points into latitude/longitude intervals. For
 these purposes <code>trajLevel</code> should be used. There are several trajectory
 statistics that can be plotted as gridded surfaces. First, <code>statistic</code>
-can be set to “frequency” to show the number of back trajectory
-points in a grid square. Grid squares are by default at 1 degree intervals,
+can be set to “frequency” to show the number of back trajectory points
+in a grid square. Grid squares are by default at 1 degree intervals,
 controlled by <code>lat.inc</code> and <code>lon.inc</code>. Such plots are useful for
-showing the frequency of air mass locations. Note that it is also possible
-to set <code>method = "hexbin"</code> for plotting frequencies (not
-concentrations), which will produce a plot by hexagonal binning.</p>
+showing the frequency of air mass locations. Note that it is also possible to
+set <code>method = "hexbin"</code> for plotting frequencies (not concentrations),
+which will produce a plot by hexagonal binning.</p>
 <p>If <code>statistic = "difference"</code> the trajectories associated with a
 concentration greater than <code>percentile</code> are compared with the the full
 set of trajectories to understand the differences in frequencies of the
 origin of air masses of the highest concentration trajectories compared with
 the trajectories on average. The comparison is made by comparing the
-percentage change in gridded frequencies. For example, such a plot could
-show that the top 10% of concentrations of PM10 tend to originate from
-air-mass origins to the east.</p>
+percentage change in gridded frequencies. For example, such a plot could show
+that the top 10\<!-- % of concentrations of PM10 tend to originate from air-mass -->
+origins to the east.</p>
 <p>If <code>statistic = "pscf"</code> then the Potential Source Contribution Function
 is plotted. The PSCF calculates the probability that a source is located at
 latitude \(i\) and longitude \(j\) (Pekney et al., 2006).The basis of
@@ -300,9 +304,9 @@ collected and transported along the trajectory to the receptor site. PSCF
 solves $$PSCF = m_{ij}/n_{ij}$$ where \(n_{ij}\) is the number of times
 that the trajectories passed through the cell (i,j) and \(m_{ij}\) is the
 number of times that a source concentration was high when the trajectories
-passed through the cell (i,j). The criterion for determining \(m_{ij}\)
-is controlled by <code>percentile</code>, which by default is 90. Note also that
-cells with few data have a weighting factor applied to reduce their effect.</p>
+passed through the cell (i,j). The criterion for determining \(m_{ij}\) is
+controlled by <code>percentile</code>, which by default is 90. Note also that cells
+with few data have a weighting factor applied to reduce their effect.</p>
 <p>A limitation of the PSCF method is that grid cells can have the same PSCF
 value when sample concentrations are either only slightly higher or much
 higher than the criterion. As a result, it can be difficult to distinguish
@@ -325,8 +329,8 @@ possible by setting <code>smooth = TRUE</code>.</p>
 of PSCF and CPF to PMF-Modeled Sources of PM 2.5 in Pittsburgh. Aerosol
 Science and Technology, 40(10), 952-961.</p>
 <p>Seibert, P., Kromp-Kolb, H., Baltensperger, U., Jost, D., 1994. Trajectory
-analysis of high-alpine air pollution data. NATO Challenges of Modern
-Society 18, 595-595.</p>
+analysis of high-alpine air pollution data. NATO Challenges of Modern Society
+18, 595-595.</p>
 <p>Xie, Y., &amp; Berkowitz, C. M. (2007). The use of conditional probability
 functions and potential source contribution functions to identify source
 regions and advection pathways of hydrocarbon emissions in Houston, Texas.
@@ -334,9 +338,10 @@ Atmospheric Environment, 41(28), 5831-5847.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="importTraj.html">importTraj</a></code> to import trajectory data from the King's
-  College server and <code><a href="trajPlot.html">trajPlot</a></code> for plotting back trajectory
-  lines.</p></div>
+    <div class="dont-index"><p>Other trajectory analysis functions: 
+<code><a href="importTraj.html">importTraj</a>()</code>,
+<code><a href="trajCluster.html">trajCluster</a>()</code>,
+<code><a href="trajPlot.html">trajPlot</a>()</code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

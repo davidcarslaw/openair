@@ -124,12 +124,11 @@ decimal format.}  \item{height}{Height of trajectory (m).}
 }
 \note{
 The trajectories were run using the February 2011 HYSPLIT model.
- The function is primarily written to investigate a single
+The function is primarily written to investigate a single
 site at a time for a single year. The trajectory files are quite
 large and care should be exercised when importing several years and/or sites.
 }
 \examples{
-
 
 ## import trajectory data for London in 2009
 \dontrun{mytraj <- importTraj(site = "london", year = 2009)}
@@ -139,11 +138,25 @@ large and care should be exercised when importing several years and/or sites.
 mytraj <- merge(mytraj, theData, by = "date")}
 }
 \seealso{
-\code{\link{trajPlot}}, \code{\link{importAURN}},
-\code{\link{importKCL}},\code{\link{importADMS}},
-\code{\link{importSAQN}}
+Other import functions: 
+\code{\link{importADMS}()},
+\code{\link{importAQE}()},
+\code{\link{importAURN}()},
+\code{\link{importEurope}()},
+\code{\link{importKCL}()},
+\code{\link{importLocal}()},
+\code{\link{importMeta}()},
+\code{\link{importNI}()},
+\code{\link{importSAQN}()},
+\code{\link{importWAQN}()}
+
+Other trajectory analysis functions: 
+\code{\link{trajCluster}()},
+\code{\link{trajLevel}()},
+\code{\link{trajPlot}()}
 }
 \author{
 David Carslaw
 }
-\keyword{methods}
+\concept{import functions}
+\concept{trajectory analysis functions}

@@ -1,162 +1,122 @@
-##' K-means clustering of bivariate polar plots
-##'
-##' Function for identifying clusters in bivariate polar plots
-##' (\code{polarPlot}); identifying clusters in the original data for subsequent
-##' processing.
-##'
-##' Bivariate polar plots generated using the \code{polarPlot} function provide
-##' a very useful graphical technique for identifying and characterising
-##' different air pollution sources. While bivariate polar plots provide a
-##' useful graphical indication of potential sources, their location and
-##' wind-speed or other variable dependence, they do have several limitations.
-##' Often, a `feature' will be detected in a plot but the subsequent analysis of
-##' data meeting particular wind speed/direction criteria will be based only on
-##' the judgement of the investigator concerning the wind speed-direction
-##' intervals of interest. Furthermore, the identification of a feature can
-##' depend on the choice of the colour scale used, making the process somewhat
-##' arbitrary.
-##'
-##' \code{polarCluster} applies Partition Around Medoids (PAM) clustering
-##' techniques to \code{polarPlot} surfaces to help identify potentially
-##' interesting features for further analysis. Details of PAM can be found in
-##' the \code{cluster} package (a core R package that will be pre-installed on
-##' all R systems). PAM clustering is similar to k-means but has several
-##' advantages e.g. is more robust to outliers. The clustering is based on the
-##' equal contribution assumed from the u and v wind components and the
-##' associated concentration. The data are standardized before clustering takes
-##' place.
-##'
-##' The function works best by first trying different numbers of clusters and
-##' plotting them. This is achieved by setting \code{n.clusters} to be of length
-##' more than 1. For example, if \code{n.clusters = 2:10} then a plot will be
-##' output showing the 9 cluster levels 2 to 10.
-##'
-##' The clustering can also be applied to differences in polar plot surfaces
-##' (see \link{polarDiff}). On this case a second data frame (\code{after})
-##' should be supplied.
-##'
-##' Note that clustering is computationally intensive and the function can take
-##' a long time to run --- particularly when the number of clusters is
-##' increased. For this reason it can be a good idea to run a few clusters first
-##' to get a feel for it e.g. \code{n.clusters = 2:5}.
-##'
-##' Once the number of clusters has been decided, the user can then run
-##' \code{polarCluster} to return the original data frame together with a new
-##' column \code{cluster}, which gives the cluster number as a character (see
-##' example). Note that any rows where the value of \code{pollutant} is
-##' \code{NA} are ignored so that the returned data frame may have fewer rows
-##' than the original.
-##'
-##' Note that there are no automatic ways in ensuring the most appropriate
-##' number of clusters as this is application dependent. However, there is often
-##' a-priori information available on what different features in polar plots
-##' correspond to. Nevertheless, the appropriateness of different clusters is
-##' best determined by post-processing the data. The Carslaw and Beevers (2012)
-##' paper discusses these issues in more detail.
-##'
-##' Note that unlike most other \code{openair} functions only a single
-##' \code{type} \dQuote{default} is allowed.
-##'
-##' @param mydata A data frame minimally containing \code{wd}, another variable
-##'   to plot in polar coordinates (the default is a column \dQuote{ws} --- wind
-##'   speed) and a pollutant. Should also contain \code{date} if plots by time
-##'   period are required.
-##' @param pollutant Mandatory. A pollutant name corresponding to a variable in
-##'   a data frame should be supplied e.g. \code{pollutant = "nox"}. Only one
-##'   pollutant can be chosen.
-##' @param x Name of variable to plot against wind direction in polar
-##'   coordinates, the default is wind speed, \dQuote{ws}.
-##' @param wd Name of wind direction field.
-##' @param n.clusters Number of clusters to use. If \code{n.clusters} is more
-##'   than length 1, then a \code{lattice} panel plot will be output showing the
-##'   clusters identified for each one of \code{n.clusters}.
-##' @param after The function can be applied to differences between polar plot
-##'   surfaces (see \link{polarDiff} for details). If an \code{after} data frame
-##'   is supplied, the clustering will be carried out on the differences between
-##'   \code{after} and \code{mydata} in the same way as \link{polarDiff}.
-##' @param cols Colours to be used for plotting. Useful options for categorical
-##'   data are available from \code{RColorBrewer} colours --- see the
-##'   \code{openair} \code{openColours} function for more details. Useful
-##'   schemes include \dQuote{Accent}, \dQuote{Dark2}, \dQuote{Paired},
-##'   \dQuote{Pastel1}, \dQuote{Pastel2}, \dQuote{Set1}, \dQuote{Set2},
-##'   \dQuote{Set3} --- but see ?\code{brewer.pal} for the maximum useful
-##'   colours in each. For user defined the user can supply a list of colour
-##'   names recognised by R (type \code{colours()} to see the full list). An
-##'   example would be \code{cols = c("yellow", "green", "blue")}.
-##' @param angle.scale The wind speed scale is by default shown at a 315 degree
-##'   angle. Sometimes the placement of the scale may interfere with an
-##'   interesting feature. The user can therefore set \code{angle.scale} to
-##'   another value (between 0 and 360 degrees) to mitigate such problems. For
-##'   example \code{angle.scale = 45} will draw the scale heading in a NE
-##'   direction.
-##' @param units The units shown on the polar axis scale.
-##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
-##'   \code{TRUE} titles and axis labels will automatically try and format
-##'   pollutant names and units properly e.g.  by subscripting the `2' in NO2.
-##' @param plot Should a plot be produced? \code{FALSE} can be useful when
-##'   analysing data to extract plot components and plotting them in other
-##'   ways.
-##' @param ... Other graphical parameters passed onto \code{polarPlot},
-##'   \code{lattice:levelplot} and \code{cutData}. Common axis and title
-##'   labelling options (such as \code{xlab}, \code{ylab}, \code{main}) are
-##'   passed via \code{quickText} to handle routine formatting.
-##' @export
-##' @import cluster
-##' @return As well as generating the plot itself, \code{polarCluster} also
-##'   returns an object of class ``openair''. The object includes three main
-##'   components: \code{call}, the command used to generate the plot;
-##'   \code{data}, the original data frame with a new field \code{cluster}
-##'   identifying the cluster; and \code{plot}, the plot itself. Note that any
-##'   rows where the value of \code{pollutant} is \code{NA} are ignored so that
-##'   the returned data frame may have fewer rows than the original.
-##'
-##'   If the clustering is carried out considering differences i.e. an
-##'   \code{after} data frame is supplied, the output also includes the
-##'   \code{after} data frame with cluster identified.
-##'
-##'   An openair output can be manipulated using a number of generic operations,
-##'   including \code{print}, \code{plot} and \code{summary}.
-##'
-##' @author David Carslaw
-##' @seealso \code{\link{polarPlot}}
-##' @references
-##'
-##' Carslaw, D.C., Beevers, S.D, Ropkins, K and M.C. Bell (2006). Detecting and
-##' quantifying aircraft and other on-airport contributions to ambient nitrogen
-##' oxides in the vicinity of a large international airport.  Atmospheric
-##' Environment. 40/28 pp 5424-5434.
-##'
-##' Carslaw, D.C., & Beevers, S.D. (2013). Characterising and understanding
-##' emission sources using bivariate polar plots and k-means clustering.
-##' Environmental Modelling & Software, 40, 325-329.
-##' doi:10.1016/j.envsoft.2012.09.005
-##' @examples
-##'
-##' \dontrun{
-##' # load example data from package
-##' data(mydata)
-##'
-##' ## plot 2-8 clusters. Warning! This can take several minutes...
-##'
-##' polarCluster(mydata, pollutant = "nox", n.clusters = 2:8)
-##'
-##'
-##' # basic plot with 6 clusters
-##' results <- polarCluster(mydata, pollutant = "nox", n.clusters = 6)
-##'
-##' ## get results, could read into a new data frame to make it easier to refer to
-##' ## e.g. results <- results$data...
-##' head(results$data)
-##'
-##' ## how many points are there in each cluster?
-##' table(results$data$cluster)
-##'
-##' ## plot clusters 3 and 4 as a timeVariation plot using SAME colours as in
-##' ## cluster plot
-##' timeVariation(subset(results$data, cluster %in% c("3", "4")), pollutant = "nox",
-##' group = "cluster", col = openColours("Paired", 6)[c(3, 4)])
-##' }
-##'
+#' K-means clustering of bivariate polar plots
+#'
+#' Function for identifying clusters in bivariate polar plots ([polarPlot()]);
+#' identifying clusters in the original data for subsequent processing.
+#'
+#' Bivariate polar plots generated using the \code{polarPlot} function provide a
+#' very useful graphical technique for identifying and characterising different
+#' air pollution sources. While bivariate polar plots provide a useful graphical
+#' indication of potential sources, their location and wind-speed or other
+#' variable dependence, they do have several limitations. Often, a `feature'
+#' will be detected in a plot but the subsequent analysis of data meeting
+#' particular wind speed/direction criteria will be based only on the judgement
+#' of the investigator concerning the wind speed-direction intervals of
+#' interest. Furthermore, the identification of a feature can depend on the
+#' choice of the colour scale used, making the process somewhat arbitrary.
+#'
+#' \code{polarCluster} applies Partition Around Medoids (PAM) clustering
+#' techniques to [polarPlot()] surfaces to help identify potentially
+#' interesting features for further analysis. Details of PAM can be found in the
+#' \code{cluster} package (a core R package that will be pre-installed on all R
+#' systems). PAM clustering is similar to k-means but has several advantages
+#' e.g. is more robust to outliers. The clustering is based on the equal
+#' contribution assumed from the u and v wind components and the associated
+#' concentration. The data are standardized before clustering takes place.
+#'
+#' The function works best by first trying different numbers of clusters and
+#' plotting them. This is achieved by setting \code{n.clusters} to be of length
+#' more than 1. For example, if \code{n.clusters = 2:10} then a plot will be
+#' output showing the 9 cluster levels 2 to 10.
+#'
+#' The clustering can also be applied to differences in polar plot surfaces (see
+#' [polarDiff()]). On this case a second data frame (\code{after}) should be
+#' supplied.
+#'
+#' Note that clustering is computationally intensive and the function can take a
+#' long time to run --- particularly when the number of clusters is increased.
+#' For this reason it can be a good idea to run a few clusters first to get a
+#' feel for it e.g. \code{n.clusters = 2:5}.
+#'
+#' Once the number of clusters has been decided, the user can then run
+#' \code{polarCluster} to return the original data frame together with a new
+#' column \code{cluster}, which gives the cluster number as a character (see
+#' example). Note that any rows where the value of \code{pollutant} is \code{NA}
+#' are ignored so that the returned data frame may have fewer rows than the
+#' original.
+#'
+#' Note that there are no automatic ways in ensuring the most appropriate number
+#' of clusters as this is application dependent. However, there is often
+#' a-priori information available on what different features in polar plots
+#' correspond to. Nevertheless, the appropriateness of different clusters is
+#' best determined by post-processing the data. The Carslaw and Beevers (2012)
+#' paper discusses these issues in more detail.
+#'
+#' Note that unlike most other \code{openair} functions only a single
+#' \code{type} \dQuote{default} is allowed.
+#'
+#' @inheritParams polarPlot
+#' @param pollutant Mandatory. A pollutant name corresponding to a variable in a
+#'   data frame should be supplied e.g. \code{pollutant = "nox"}. Only one
+#'   pollutant can be chosen.
+#' @param x Name of variable to plot against wind direction in polar
+#'   coordinates, the default is wind speed, \dQuote{ws}.
+#' @param n.clusters Number of clusters to use. If \code{n.clusters} is more
+#'   than length 1, then a \code{lattice} panel plot will be output showing the
+#'   clusters identified for each one of \code{n.clusters}.
+#' @param after The function can be applied to differences between polar plot
+#'   surfaces (see \link{polarDiff} for details). If an \code{after} data frame
+#'   is supplied, the clustering will be carried out on the differences between
+#'   \code{after} and \code{mydata} in the same way as \link{polarDiff}.
+#' @inheritDotParams polarPlot -mydata -pollutant -x -wd -cols -angle.scale
+#'   -units -auto.text -plot
+#' @export
+#' @import cluster
+#' @return an [openair][openair-package] object. The object includes three main
+#'   components: \code{call}, the command used to generate the plot;
+#'   \code{data}, the original data frame with a new field \code{cluster}
+#'   identifying the cluster; and \code{plot}, the plot itself. Note that any
+#'   rows where the value of \code{pollutant} is \code{NA} are ignored so that
+#'   the returned data frame may have fewer rows than the original.
+#'
+#'   If the clustering is carried out considering differences i.e. an
+#'   \code{after} data frame is supplied, the output also includes the
+#'   \code{after} data frame with cluster identified.
+#' @author David Carslaw
+#' @family polar directional analaysis functions
+#' @family cluster analysis functions
+#' @references
+#'
+#' Carslaw, D.C., Beevers, S.D, Ropkins, K and M.C. Bell (2006). Detecting and
+#' quantifying aircraft and other on-airport contributions to ambient nitrogen
+#' oxides in the vicinity of a large international airport.  Atmospheric
+#' Environment. 40/28 pp 5424-5434.
+#'
+#' Carslaw, D.C., & Beevers, S.D. (2013). Characterising and understanding
+#' emission sources using bivariate polar plots and k-means clustering.
+#' Environmental Modelling & Software, 40, 325-329.
+#' doi:10.1016/j.envsoft.2012.09.005
+#' @examples
+#'
+#' \dontrun{
+#' ## plot 2-8 clusters. Warning! This can take several minutes...
+#' polarCluster(mydata, pollutant = "nox", n.clusters = 2:8)
+#'
+#' # basic plot with 6 clusters
+#' results <- polarCluster(mydata, pollutant = "nox", n.clusters = 6)
+#'
+#' ## get results, could read into a new data frame to make it easier to refer to
+#' ## e.g. results <- results$data...
+#' head(results$data)
+#'
+#' ## how many points are there in each cluster?
+#' table(results$data$cluster)
+#'
+#' ## plot clusters 3 and 4 as a timeVariation plot using SAME colours as in
+#' ## cluster plot
+#' timeVariation(subset(results$data, cluster %in% c("3", "4")), pollutant = "nox",
+#' group = "cluster", col = openColours("Paired", 6)[c(3, 4)])
+#' }
+#'
 polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clusters = 6,
                          after = NA,
                          cols = "Paired", angle.scale = 315, units = x,

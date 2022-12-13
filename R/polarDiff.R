@@ -14,19 +14,14 @@
 #' \code{before} and \code{after} periods and then subtracting the \code{before}
 #' surface from the \code{after} surface.
 #'
+#' @inheritParams polarPlot
 #' @param before A data frame that represents the "before" case. See
 #'   \code{\link{polarPlot}} for details of different input requirements.
 #' @param after A data frame that represents the "after" case. See
 #'   \code{\link{polarPlot}} for details of different input requirements.
-#' @param pollutant The pollutant to analyse.
-#' @param x The variable used for the radial axis (default = "ws").
-#' @param limits The colour scale limits e.g. \code{limits = c(-10, 10)}.
-#' @param plot Should a plot be produced? \code{FALSE} can be useful when
-#'   analysing data to extract plot components and plotting them in other
-#'   ways.
-#' @param ... Other arguments to \code{\link{polarPlot}}.
-#'
-#' @return Only plot at the moment.
+#' @inheritDotParams polarPlot -pollutant -x -limits -plot
+#' @family polar directional analaysis functions
+#' @return an [openair][openair-package] plot.
 #' @export
 #'
 #' @examples
@@ -42,46 +37,46 @@
 #' polarDiff(before_data, after_data, pollutant = "no2", cols = "RdYlBu", limits = c(-20, 20))
 #'
 #' }
-polarDiff <- function(before, after, pollutant = "nox", 
+polarDiff <- function(before, after, pollutant = "nox",
                       x = "ws",
-                      limits = NA, 
+                      limits = NA,
                       plot = TRUE, ...) {
-  
+
   # extra args setup
   Args <- list(...)
-  
+
   # check variables exists
-  before <- checkPrep(before, c(x, "wd", pollutant), 
+  before <- checkPrep(before, c(x, "wd", pollutant),
                       "default", remove.calm = FALSE)
-  
-  after <- checkPrep(after, c(x, "wd", pollutant), 
+
+  after <- checkPrep(after, c(x, "wd", pollutant),
                      "default", remove.calm = FALSE)
-  
+
   # need to pass on use limits only to final plot
   Args$new_limits <- limits
   Args$limits <- NA
-  
+
   before <- mutate(before, period = "before")
   after <- mutate(after, period = "after")
-  
+
   all_data <- bind_rows(before, after)
 
-  polar_plt <- polarPlot(all_data, 
+  polar_plt <- polarPlot(all_data,
                       pollutant = pollutant,
-                      x = x, 
+                      x = x,
                       type = "period",
                       plot = FALSE,
                       ...)
-  
-  polar_data <- pivot_wider(polar_plt$data, 
-                            id_cols = u:v, 
-                            names_from = period, 
-                            values_from = z) %>% 
+
+  polar_data <- pivot_wider(polar_plt$data,
+                            id_cols = u:v,
+                            names_from = period,
+                            values_from = z) %>%
     mutate({{ pollutant }} := after - before,
            {{ x }} := (u ^ 2 + v ^ 2) ^ 0.5,
            wd = 180 * atan2(u, v) / pi,
-           wd = ifelse(wd < 0, wd + 360, wd)) 
-  
+           wd = ifelse(wd < 0, wd + 360, wd))
+
   # other arguments
   Args$cols <- if ("cols" %in% names(Args)) {
     Args$cols
@@ -89,27 +84,27 @@ polarDiff <- function(before, after, pollutant = "nox",
     c("#002F70", "#3167BB", "#879FDB", "#C8D2F1", "#F6F6F6",
       "#F4C8C8", "#DA8A8B", "#AE4647", "#5F1415")
   }
-  
+
   lims_adj <- pretty(seq(0, max(abs(polar_data[[pollutant]]), na.rm = TRUE), 5))
   lims_adj <- lims_adj[length(lims_adj) - 1]
-  
- 
+
+
   Args$limits <- if (is.na(Args$new_limits[1])) {
     c(-lims_adj, lims_adj)
   } else {
     Args$new_limits
   }
-  
-  
-  polarPlot(polar_data, pollutant = pollutant, 
+
+
+  polarPlot(polar_data, pollutant = pollutant,
             x = x, plot = plot,
             cols = Args$cols,
             limits = Args$limits,
             force.positive = FALSE)
-  
+
   output <- list(data = polar_data, call = match.call())
-  
+
   invisible(output)
-  
+
 }
 

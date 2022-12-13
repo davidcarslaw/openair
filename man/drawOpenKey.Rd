@@ -8,22 +8,22 @@ drawOpenKey(key, draw = FALSE, vp = NULL)
 }
 \arguments{
 \item{key}{List defining the scale key structure to be produced. Most
-  options are identical to original \code{draw.colorkey} function.
+options are identical to original \code{draw.colorkey} function.
 
 Original \code{draw.colorkey} options:
 
 \code{space} location of the scale key ("left", "right", "top" or
-  "bottom").  Defaults to "right".
+"bottom").  Defaults to "right".
 
 \code{col} vector of colours, used in scale key.
 
 \code{at} numeric vector specifying where the colors change. Must be of
-  length 1 more than the col vector.
+length 1 more than the col vector.
 
 \code{labels} a character vector for labelling the at values, or more
-  commonly, a list describing characteristics of the labels. This list may
-  include components \code{labels}, \code{at}, \code{cex}, \code{col},
-  \code{rot}, \code{font}, \code{fontface} and \code{fontfamily}.
+commonly, a list describing characteristics of the labels. This list may
+include components \code{labels}, \code{at}, \code{cex}, \code{col},
+\code{rot}, \code{font}, \code{fontface} and \code{fontfamily}.
 
 \code{tick.number} approximate number of ticks.
 
@@ -32,68 +32,68 @@ Original \code{draw.colorkey} options:
 \code{height} height of key.
 
 Note: \code{width} and \code{height} refer to the key dimensions.
-  \code{height} is the length of the key along the plot axis it is
-  positioned against, and \code{width} is the length perpendicular to that.
+\code{height} is the length of the key along the plot axis it is
+positioned against, and \code{width} is the length perpendicular to that.
 
 Additional options include:
 
 \code{header} a character vector of extra text to be added above the key,
-  or a list describing some characteristics of the \code{header}. This list
-  may include components \code{header}, the character vector of header
-  labels, \code{tweaks}, a list of local controls, e.g. 'gap' and 'balance'
-  for spacing relative to scale and footer, respectively, \code{auto.text},
-  \code{TRUE/FALSE} option to apply \code{quickText}, and \code{slot}, a
-  numeric vector setting the size of the text boxes \code{header} text is
-  placed in.
+or a list describing some characteristics of the \code{header}. This list
+may include components \code{header}, the character vector of header
+labels, \code{tweaks}, a list of local controls, e.g. 'gap' and 'balance'
+for spacing relative to scale and footer, respectively, \code{auto.text},
+\code{TRUE/FALSE} option to apply \code{quickText}, and \code{slot}, a
+numeric vector setting the size of the text boxes \code{header} text is
+placed in.
 
 \code{footer} as in \code{header} but for labels below the scale key.
 
 Notes: \code{header} and \code{footer} formatting can not be set locally,
-  but instead are matched to those set in \code{labels}. \code{drawOpenKey}
-  allows for up to six additional labels (three above and three below scale
-  key). Any additional text is ignored.
+but instead are matched to those set in \code{labels}. \code{drawOpenKey}
+allows for up to six additional labels (three above and three below scale
+key). Any additional text is ignored.
 
 \code{tweak, auto.text, slot} as in \code{header} and \code{footer} but
-  sets all options uniformly. This also overwrites anything in
-  \code{header} and/or \code{footer}.
+sets all options uniformly. This also overwrites anything in
+\code{header} and/or \code{footer}.
 
 \code{fit} the fit method to be applied to the header, scale key and footer
-  when placing the scale key left or right of the plot. Options include:
-  'all', 'soft' and 'scale'.  The default 'all' fits header, key and footer
-  into \code{height} range. The alternative 'scale' fits only the key
-  within \code{height}. (This means that keys keep the same proportions
-  relative to the main plot regardless of positioning but that header and
-  footer may exceed plot dimensions if \code{height} and/or \code{slots}
-  are too large.
+when placing the scale key left or right of the plot. Options include:
+'all', 'soft' and 'scale'.  The default 'all' fits header, key and footer
+into \code{height} range. The alternative 'scale' fits only the key
+within \code{height}. (This means that keys keep the same proportions
+relative to the main plot regardless of positioning but that header and
+footer may exceed plot dimensions if \code{height} and/or \code{slots}
+are too large.
 
 \code{plot.style} a character vector of key plotting style instructions:
-  Options currently include: 'paddle', 'ticks' and 'border'. 'paddle'
-  applies the incremental paddle layout used by \code{winRose}. 'ticks'
-  places ticks between the labels scale key. 'border' places a border about
-  the scale key. Any combination of these may be used but if none set,
-  scale key defaults to \code{c("ticks", "border")} for most plotting
-  operations or \code{c("paddle")} for \code{windRose}.}
+Options currently include: 'paddle', 'ticks' and 'border'. 'paddle'
+applies the incremental paddle layout used by \code{winRose}. 'ticks'
+places ticks between the labels scale key. 'border' places a border about
+the scale key. Any combination of these may be used but if none set,
+scale key defaults to \code{c("ticks", "border")} for most plotting
+operations or \code{c("paddle")} for \code{windRose}.}
 
 \item{draw}{Option to return the key object or plot it directly.  The
 default, FALSE, should always be used within openair calls.}
 
 \item{vp}{View port to be used when plotting key. The default, NULL, should
-  always be used within openair calls.
+always be used within openair calls.
 
 (Note: \code{drawOpenKey} is a crude modification of
-  \code{lattice::draw.colorkey}, that provides labelling options for
-  \code{openair} plot scale keys. Some aspects of the function are in
-  development and may to subject to change. Therefore, it is recommended
-  that you use parent \code{openair} function controls, e.g.
-  \code{key.position}, \code{key.header}, \code{key.footer} options, where
-  possible.  \code{drawOpenKey} may obviously be used in other plots but it
-  is recommended that \code{draw.colorkey} itself be used wherever this
-  type of additional scale labelling is not required.)}
+\code{lattice::draw.colorkey}, that provides labelling options for
+\code{openair} plot scale keys. Some aspects of the function are in
+development and may to subject to change. Therefore, it is recommended
+that you use parent \code{openair} function controls, e.g.
+\code{key.position}, \code{key.header}, \code{key.footer} options, where
+possible.  \code{drawOpenKey} may obviously be used in other plots but it
+is recommended that \code{draw.colorkey} itself be used wherever this
+type of additional scale labelling is not required.)}
 }
 \value{
 The function is a modification of \code{lattice::draw.colorkey} and
-  returns a scale key using a similar mechanism to that used in in the
-  original function as developed by Deepayan Sarkar.
+returns a scale key using a similar mechanism to that used in in the
+original function as developed by Deepayan Sarkar.
 }
 \description{
 General function for producing scale keys for other openair functions.  The
@@ -130,7 +130,7 @@ The appearance of the scale can be controlled using \code{plot.style}.
 }
 \note{
 We gratefully acknowledge the considerable help and advice of
-  Deepayan Sarkar.
+Deepayan Sarkar.
 }
 \examples{
 
@@ -169,18 +169,17 @@ windRose(mydata,
 }
 \references{
 Deepayan Sarkar (2010). lattice: Lattice Graphics. R package
-  version 0.18-5.  http://r-forge.r-project.org/projects/lattice/
+version 0.18-5.  http://r-forge.r-project.org/projects/lattice/
 }
 \seealso{
 Functions using \code{drawOpenKey} currently include
-  \code{\link{windRose}}, \code{\link{pollutionRose}}.
+\code{\link{windRose}}, \code{\link{pollutionRose}}.
 
 For details of the original function, see \code{\link{draw.colorkey}}
 }
 \author{
 \code{draw.colorkey} is part of the \code{lattice} package,
-  developed by Deepayan Sarkar.
+developed by Deepayan Sarkar.
 
 Additional modifications by Karl Ropkins.
 }
-\keyword{methods}

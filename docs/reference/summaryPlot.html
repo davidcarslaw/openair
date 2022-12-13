@@ -106,7 +106,7 @@ would show where there are at least 4 days of continuous missing data.</p></dd>
 <dt>clip</dt>
 <dd><p>When data contain outliers, the histogram or density plot can
 fail to show the distribution of the main body of data. Setting <code>clip
-= TRUE</code>, will remove the top 1 <!-- % of data to yield what is often a better -->
+  = TRUE</code>, will remove the top 1 % of data to yield what is often a better
 display of the overall distribution of the data. The amount of clipping
 can be set with <code>percentile</code>.</p></dd>
 
@@ -213,8 +213,8 @@ axis and title labelling options (such as <code>xlab</code>, <code>ylab</code> a
 <code>main</code>), which are all passed to the plot via <code>quickText</code> to
 handle routine formatting. As <code>summaryPlot</code> has two components, the
 axis labels may be a vector. For example, the default case (<code>type =
-"histogram"</code>) sets y labels equivalent to <code>ylab = c("", "Percent of
-Total")</code>.</p></dd>
+  "histogram"</code>) sets y labels equivalent to <code>ylab = c("", "Percent of
+  Total")</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -257,12 +257,7 @@ expected.</b></p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># load example data from package</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># do not clip density plot data</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># do not clip density plot data</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fu">summaryPlot</span><span class="op">(</span><span class="va">mydata</span>, clip <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># exclude highest 5 % of data etc.</span></span></span>

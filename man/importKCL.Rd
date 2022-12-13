@@ -26,18 +26,16 @@ to 2000 use \code{year = 1990:2000}. To import several specific years use
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use \code{pollutant =
-c("nox", "no2")}.}
+  c("nox", "no2")}.}
 
 \item{met}{Should meteorological data be added to the import data? The
-  default is \code{FALSE}. If \code{TRUE} wind speed (m/s), wind direction
-  (degrees), solar radiation and rain amount are available. See details
-  below.
-
-  Access to reliable and free meteorological data is problematic.}
+default is \code{FALSE}. If \code{TRUE} wind speed (m/s), wind direction
+(degrees), solar radiation and rain amount are available. See details
+below.}
 
 \item{units}{By default the returned data frame expresses the units in mass
 terms (ug/m3 for NOx, NO2, O3, SO2; mg/m3 for CO). Use \code{units =
-"volume"} to use ppb etc. PM10_raw TEOM data are multiplied by 1.3 and
+  "volume"} to use ppb etc. PM10_raw TEOM data are multiplied by 1.3 and
 PM2.5 have no correction applied. See details below concerning PM10
 concentrations.}
 
@@ -52,7 +50,7 @@ a narrow format with a column identifying the pollutant name.}
 }
 \value{
 Returns a data frame of hourly mean values with date in POSIXct
-  class and time zone GMT.
+class and time zone GMT.
 }
 \description{
 Function for importing hourly mean data from King's College London networks.
@@ -174,7 +172,8 @@ Birmingham Tyburn CPC | Urban Background \item BL0 | Camden - Bloomsbury |
 Urban Background \item BL1 | Bloomsbury AURN SMPS | Urban Background \item
 BM1 | Ballymena - Ballykeel | Suburban \item BM2 | Ballymena - North Road |
 Roadside \item BN1 | Barnet - Tally Ho Corner | Kerbside \item BN2 | Barnet
-- Finchley | Urban Background \item BN3 | Barnet - Strawberry Vale | Urban
+\itemize{
+\item Finchley | Urban Background \item BN3 | Barnet - Strawberry Vale | Urban
 Background \item BO1 | Ballymoney 1 | Suburban \item BP0 | Westminster -
 Bridge Place | Urban Background \item BQ5 | Bexley - Manor Road West
 Gravimetric | Industrial \item BQ6 | Bexley - Manor Road East Gravimetric |
@@ -202,7 +201,9 @@ James | Urban Background \item CB4 | Chelmsford - Baddow Road | Roadside
 Brook Street | Roadside \item CC3 | Colchester - Mersea Road | Roadside
 \item CD1 | Camden - Swiss Cottage | Kerbside \item CD3 | Camden -
 Shaftesbury Avenue | Roadside \item CD4 | Camden - St Martins College (NOX
-1) | Urban Background \item CD5 | Camden - St Martins College (NOX 2) |
+}
+\enumerate{
+\item | Urban Background \item CD5 | Camden - St Martins College (NOX 2) |
 Urban Background \item CD7 | Camden - Swiss Cottage Partisol | Kerbside
 \item CD9 | Camden - Euston Road | Roadside \item CF1 | Cardiff Aethalometer
 | Urban Background \item CH1 | Cheltenham | Urban Background \item CI1 |
@@ -239,7 +240,9 @@ Roadside \item EL1 | Elmbridge - Bell Farm Hersham | Urban Background \item
 EL2 | Elmbridge - Esher High Street | Roadside \item EL3 | Elmbridge -
 Hampton Court Parade | Roadside \item EL4 | Elmbridge - Walton High Street |
 Kerbside \item EN1 | Enfield - Bushhill Park | Suburban \item EN2 | Enfield
-- Church Street | Roadside \item EN3 | Enfield - Salisbury School | Urban
+}
+\itemize{
+\item Church Street | Roadside \item EN3 | Enfield - Salisbury School | Urban
 Background \item EN4 | Enfield - Derby Road | Roadside \item EN5 | Enfield -
 Bowes Primary School | Roadside \item FB1 | Rushmoor - Medway Drive |
 Roadside \item GB0 | Greenwich and Bexley - Falconwood FDMS | Roadside \item
@@ -278,7 +281,7 @@ Hastings - Bulverhythe | Roadside \item HT2 | Hastings - Fresh Fields |
 Roadside \item HV1 | Havering - Rainham | Roadside \item HV2 | Havering -
 Harold Hill | Suburban \item HV3 | Havering - Romford | Roadside \item HX0 |
 Birmingham Tyburn Aethalometer | Urban Background \item IC6 | City of London
-- Walbrook Wharf Indoor | Roadside \item IG4 | Greenwich - Eltham Ecology
+\item Walbrook Wharf Indoor | Roadside \item IG4 | Greenwich - Eltham Ecology
 Centre Indoor | Urban Background \item IS1 | Islington - Upper Street |
 Urban Background \item IS2 | Islington - Holloway Road | Roadside \item IS4
 | Islington - Foxham Gardens | Urban Background \item IS5 | Islington -
@@ -304,7 +307,7 @@ College | Urban Background \item LS1 | Lewes - Telscombe Cliffs | Roadside
 \item LS2 | Lewes - Commercial Square | Roadside \item LS4 | Newhaven -
 Denton School | Urban Background \item LW1 | Lewisham - Catford | Urban
 Background \item LW2 | Lewisham - New Cross | Roadside \item LW3 | Lewisham
-- Mercury Way | Industrial \item MA1 | Manchester Piccadilly CPC | Urban
+\item Mercury Way | Industrial \item MA1 | Manchester Piccadilly CPC | Urban
 Background \item MA2 | Manchester Piccadilly | Urban Background \item MD1 |
 Mid Beds Biggleswade (Roadside) | Roadside \item MD2 | Mid Beds Silsoe
 (Rural) | Rural \item MD3 | Central Beds - Sandy | Roadside \item MD4 |
@@ -351,12 +354,12 @@ High St | Kerbside \item RHA | Richmond - Lower Mortlake Road | Roadside
 \item RHB | Richmond - Lower Mortlake Road | Roadside \item RI1 | Richmond -
 Castelnau | Roadside \item RI2 | Richmond - Barnes Wetlands | Suburban \item
 RI5 | Richmond Mobile - St Margarets | Kerbside \item RI6 | Richmond Mobile
-- St Margarets | Kerbside \item RI7 | Richmond Mobile - Richmond Park |
+\item St Margarets | Kerbside \item RI7 | Richmond Mobile - Richmond Park |
 Suburban \item RI8 | Richmond Mobile - Richmond Park | Suburban \item RIA |
 Richmond Mobile - George Street | Kerbside \item RIB | Richmond Mobile -
 George Street | Kerbside \item RIC | Richmond Mobile - Kew Rd | Kerbside
 \item RID | Richmond Mobile - Kew Rd | Kerbside \item RIE | Richmond Mobile
-- Richmond Rd Twickenham | Roadside \item RIF | Richmond Mobile - Richmond
+\item Richmond Rd Twickenham | Roadside \item RIF | Richmond Mobile - Richmond
 Rd Twickenham | Roadside \item RIG | Richmond Mobile - Upper Teddington Rd |
 Roadside \item RIH | Richmond Mobile - Upper Teddington Rd | Roadside \item
 RII | Richmond Mobile - Somerset Rd Teddington | Urban Background \item RIJ
@@ -461,9 +464,8 @@ Sheerness | Urban Background \item ZW3 | Swale Roadside 2 - Ospringe Street
 \item ZY2 | Canterbury Roadside - St Dunstans | Roadside \item ZY4 |
 Canterbury St Peters Place | Roadside }
 }
+}
 \examples{
-
-
 ## import all pollutants from Marylebone Rd from 1990:2009
 \dontrun{mary <- importKCL(site = "my1", year = 2000:2009)}
 
@@ -473,14 +475,21 @@ pollutant = c("nox", "no2", "o3"))}
 
 ## import met data too...
 \dontrun{my1 <- importKCL(site = "my1", year = 2008, met = TRUE)}
-
-
 }
 \seealso{
-\code{\link{importAURN}}, \code{\link{importADMS}},
-  \code{\link{importSAQN}}
+Other import functions: 
+\code{\link{importADMS}()},
+\code{\link{importAQE}()},
+\code{\link{importAURN}()},
+\code{\link{importEurope}()},
+\code{\link{importLocal}()},
+\code{\link{importMeta}()},
+\code{\link{importNI}()},
+\code{\link{importSAQN}()},
+\code{\link{importTraj}()},
+\code{\link{importWAQN}()}
 }
 \author{
 David Carslaw and Ben Barratt
 }
-\keyword{methods}
+\concept{import functions}

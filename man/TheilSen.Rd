@@ -50,22 +50,22 @@ Note that if \code{TRUE} missing data are first imputed using a
 Kalman filter and Kalman smooth.}
 
 \item{type}{\code{type} determines how the data are split i.e. conditioned,
-  and then plotted. The default is will produce a single plot using the
-  entire data. Type can be one of the built-in types as detailed in
-  \code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and
-  so on. For example, \code{type = "season"} will produce four plots --- one
-  for each season.
+and then plotted. The default is will produce a single plot using the
+entire data. Type can be one of the built-in types as detailed in
+\code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and
+so on. For example, \code{type = "season"} will produce four plots --- one
+for each season.
 
-  It is also possible to choose \code{type} as another variable in the data
-  frame. If that variable is numeric, then the data will be split into four
-  quantiles (if possible) and labelled accordingly. If type is an existing
-  character or factor variable, then those categories/levels will be used
-  directly. This offers great flexibility for understanding the variation of
-  different variables and how they depend on one another.
+It is also possible to choose \code{type} as another variable in the data
+frame. If that variable is numeric, then the data will be split into four
+quantiles (if possible) and labelled accordingly. If type is an existing
+character or factor variable, then those categories/levels will be used
+directly. This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.
 
-  Type can be up length two e.g. \code{type = c("season", "weekday")} will
-  produce a 2x2 plot split by season and day of the week. Note, when two
-  types are provided the first forms the columns and the second the rows.}
+Type can be up length two e.g. \code{type = c("season", "weekday")} will
+produce a 2x2 plot split by season and day of the week. Note, when two
+types are provided the first forms the columns and the second the rows.}
 
 \item{avg.time}{Can be \dQuote{month} (the default), \dQuote{season} or
 \dQuote{year}. Determines the time over which data should be averaged.
@@ -81,7 +81,7 @@ for more details.}
 \item{percentile}{Single percentile value to use if \code{statistic =
 "percentile"} is chosen.}
 
-\item{data.thresh}{The data capture threshold to use (%) when aggregating
+\item{data.thresh}{The data capture threshold to use (\%) when aggregating
 the data using \code{avg.time}. A value of zero means that all available
 data will be used in a particular period regardless if of the number of
 values available. Conversely, a value of 100 will mean that all data will
@@ -89,7 +89,7 @@ need to be present for the average to be calculated, else it is recorded
 as \code{NA}.}
 
 \item{alpha}{For the confidence interval calculations of the slope. The
-default is 0.05. To show 99\% confidence intervals for the value of the
+default is 0.05. To show 99\\% confidence intervals for the value of the
 trend, choose alpha = 0.01 etc.}
 
 \item{dec.place}{The number of decimal places to display the trend estimate
@@ -139,22 +139,22 @@ autocorrelation increases the uncertainty of the trend estimate ---
 sometimes by a large amount.}
 
 \item{slope.percent}{Should the slope and the slope uncertainties be
-  expressed as a percentage change per year? The default is \code{FALSE} and
-  the slope is expressed as an average units/year change e.g. ppb.
-  Percentage changes can often be confusing and should be clearly defined.
-  Here the percentage change is expressed as 100 * (C.end/C.start - 1) /
-  (end.year - start.year). Where C.start is the concentration at the start
-  date and C.end is the concentration at the end date.
+expressed as a percentage change per year? The default is \code{FALSE} and
+the slope is expressed as an average units/year change e.g. ppb.
+Percentage changes can often be confusing and should be clearly defined.
+Here the percentage change is expressed as 100 * (C.end/C.start - 1) /
+(end.year - start.year). Where C.start is the concentration at the start
+date and C.end is the concentration at the end date.
 
-  For \code{avg.time = "year"} (end.year - start.year) will be the total
-  number of years - 1. For example, given a concentration in year 1 of 100
-  units and a percentage reduction of 5%/yr, after 5 years there will be 75
-  units but the actual time span will be 6 years i.e. year 1 is used as a
-  reference year. Things are slightly different for monthly values e.g.
-  \code{avg.time = "month"}, which will use the total number of months as a
-  basis of the time span and is therefore able to deal with partial years.
-  There can be slight differences in the %/yr trend estimate therefore,
-  depending on whether monthly or annual values are considered.}
+For \code{avg.time = "year"} (end.year - start.year) will be the total
+number of years - 1. For example, given a concentration in year 1 of 100
+units and a percentage reduction of 5\%/yr, after 5 years there will be 75
+units but the actual time span will be 6 years i.e. year 1 is used as a
+reference year. Things are slightly different for monthly values e.g.
+\code{avg.time = "month"}, which will use the total number of months as a
+basis of the time span and is therefore able to deal with partial years.
+There can be slight differences in the \%/yr trend estimate therefore,
+depending on whether monthly or annual values are considered.}
 
 \item{date.breaks}{Number of major x-axis intervals to use. The function
 will try and choose a sensible number of dates/times as well as formatting
@@ -181,30 +181,17 @@ trend-fitting progress.}
 \code{lattice:xyplot}. For example, \code{TheilSen} passes the option
 \code{hemisphere = "southern"} on to \code{cutData} to provide southern
 (rather than default northern) hemisphere handling of \code{type =
-"season"}. Similarly, common axis and title labelling options (such as
+  "season"}. Similarly, common axis and title labelling options (such as
 \code{xlab}, \code{ylab}, \code{main}) are passed to \code{xyplot} via
 \code{quickText} to handle routine formatting.}
 }
 \value{
-As well as generating the plot itself, \code{TheilSen} also returns
-  an object of class ``openair''. The object includes three main components:
-  \code{call}, the command used to generate the plot; \code{data}, the data
-  frame of summarised information used to make the plot; and \code{plot},
-  the plot itself. If retained, e.g. using \code{output <- TheilSen(mydata,
-  "nox")}, this output can be used to recover the data, reproduce or rework
-  the original plot or undertake further analysis.
-
-  An openair output can be manipulated using a number of generic operations,
-  including \code{print}, \code{plot} and \code{summary}.
-
-  The \code{data} component of the \code{TheilSen} output includes two
-  subsets: \code{main.data}, the monthly data \code{res2} the trend
-  statistics. For \code{output <- TheilSen(mydata, "nox")}, these can be
-  extracted as \code{object$data$main.data} and \code{object$data$res2},
-  respectively.
-
-  Note: In the case of the intercept, it is assumed the y-axis crosses the
-  x-axis on 1/1/1970.
+an \link[=openair-package]{openair} object. The \code{data} component of the
+\code{TheilSen} output includes two subsets: \code{main.data}, the monthly
+data \code{res2} the trend statistics. For \code{output <- TheilSen(mydata,
+  "nox")}, these can be extracted as \code{object$data$main.data} and
+\code{object$data$res2}, respectively. Note: In the case of the intercept,
+it is assumed the y-axis crosses the x-axis on 1/1/1970.
 }
 \description{
 Theil-Sen slope estimates and tests for trend.
@@ -251,11 +238,6 @@ The slope estimate and confidence intervals in the slope are plotted and
 numerical information presented.
 }
 \examples{
-
-
-# load example data from package
-data(mydata)
-
 # trend plot for nox
 TheilSen(mydata, pollutant = "nox")
 
@@ -269,21 +251,19 @@ TheilSen(mydata, pollutant = "nox")
 
 # and for a subset of data (from year 2000 onwards)
 \dontrun{TheilSen(selectByDate(mydata, year = 2000:2005), pollutant = "o3", ylab = "o3 (ppb)")}
-
-
 }
 \references{
 Helsel, D., Hirsch, R., 2002. Statistical methods in water resources. US
-  Geological Survey. Note that
-  this is a very good resource for statistics as applied to environmental
-  data.
+Geological Survey. Note that
+this is a very good resource for statistics as applied to environmental
+data.
 
 Hirsch, R. M., Slack, J. R., Smith, R. A., 1982. Techniques of trend
-  analysis for monthly water-quality data. Water Resources Research 18 (1),
-  107-121.
+analysis for monthly water-quality data. Water Resources Research 18 (1),
+107-121.
 
 Kunsch, H. R., 1989. The jackknife and the bootstrap for general stationary
-  observations. Annals of Statistics 17 (3), 1217-1241.
+observations. Annals of Statistics 17 (3), 1217-1241.
 
 Sen, P. K., 1968. Estimates of regression coefficient based on
 Kendall's tau. Journal of the American Statistical Association
@@ -295,15 +275,18 @@ Nederlandse Akademie Wetenschappen, Series A - Mathematical
 Sciences 53, 386-392, 521-525, 1397-1412.
 
 \dots{} see also several of the Air Quality Expert Group (AQEG) reports for
-  the use of similar tests applied to UK/European air quality data.
+the use of similar tests applied to UK/European air quality data.
 }
 \seealso{
-See \code{\link{smoothTrend}} for a flexible approach to estimating
-  trends using nonparametric regression. The \code{smoothTrend} function is
-  suitable for cases where trends are not monotonic and is probably better
-  for exploring the shape of trends.
+Other time series and trend functions: 
+\code{\link{calendarPlot}()},
+\code{\link{smoothTrend}()},
+\code{\link{timePlot}()},
+\code{\link{timeProp}()},
+\code{\link{timeVariation}()},
+\code{\link{trendLevel}()}
 }
 \author{
 David Carslaw with some trend code from Rand Wilcox
 }
-\keyword{methods}
+\concept{time series and trend functions}

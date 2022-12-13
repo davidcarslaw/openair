@@ -1,322 +1,288 @@
-##' Flexible scatter plots
-##'
-##' Scatter plots with conditioning and three main approaches: conventional
-##' scatterPlot, hexagonal binning and kernel density estimates. The former
-##' also has options for fitting smooth fits and linear models with
-##' uncertainties shown.
-##'
-##' The \code{scatterPlot} is the basic function for plotting scatter plots in
-##' flexible ways in \code{openair}. It is flexible enough to consider lots of
-##' conditioning variables and takes care of fitting smooth or linear
-##' relationships to the data.
-##'
-##' There are four main ways of plotting the relationship between two
-##' variables, which are set using the \code{method} option. The default
-##' \code{"scatter"} will plot a conventional scatterPlot. In cases where there
-##' are lots of data and over-plotting becomes a problem, then \code{method =
-##' "hexbin"} or \code{method = "density"} can be useful. The former requires
-##' the \code{hexbin} package to be installed.
-##'
-##' There is also a \code{method = "level"} which will bin the \code{x} and
-##' \code{y} data according to the intervals set for \code{x.inc} and
-##' \code{y.inc} and colour the bins according to levels of a third variable,
-##' \code{z}. Sometimes however, a far better understanding of the relationship
-##' between three variables (\code{x}, \code{y} and \code{z}) is gained by
-##' fitting a smooth surface through the data. See examples below.
-##'
-##' A smooth fit is shown if \code{smooth = TRUE} which can help show the
-##' overall form of the data e.g. whether the relationship appears to be linear
-##' or not. Also, a linear fit can be shown using \code{linear = TRUE} as an
-##' option.
-##'
-##' The user has fine control over the choice of colours and symbol type used.
-##'
-##' Another way of reducing the number of points used in the plots which can
-##' sometimes be useful is to aggregate the data. For example, hourly data can
-##' be aggregated to daily data. See \code{timePlot} for examples here.
-##'
-##' By default plots are shown with a colour key at the bottom and in the case
-##' of conditioning, strips on the top of each plot. Sometimes this may be
-##' overkill and the user can opt to remove the key and/or the strip by setting
-##' \code{key} and/or \code{strip} to \code{FALSE}. One reason to do this is to
-##' maximise the plotting area and therefore the information shown.
-##' @param mydata A data frame containing at least two numeric variables to
-##' plot.
-##' @param x Name of the x-variable to plot. Note that x can be a date field or
-##'   a factor. For example, \code{x} can be one of the \code{openair} built in
-##'   types such as \code{"year"} or \code{"season"}.
-##' @param y Name of the numeric y-variable to plot.
-##' @param z Name of the numeric z-variable to plot for \code{method =
-##'   "scatter"} or \code{method = "level"}. Note that for \code{method =
-##'   "scatter"} points will be coloured according to a continuous colour
-##'   scale, whereas for \code{method = "level"} the surface is coloured.
-##' @param method Methods include \dQuote{scatter} (conventional scatter plot),
-##'   \dQuote{hexbin} (hexagonal binning using the \code{hexbin} package).
-##'   \dQuote{level} for a binned or smooth surface plot and \dQuote{density} (2D
-##'   kernel density estimates).
-##' @param group The grouping variable to use, if any. Setting this to a
-##'   variable in the data frame has the effect of plotting several series in
-##'   the same panel using different symbols/colours etc. If set to a variable
-##'   that is a character or factor, those categories or factor levels will be
-##'   used directly. If set to a numeric variable, it will split that variable
-##'   in to quantiles.
-##' @param avg.time This defines the time period to average to. Can be
-##' \dQuote{sec}, \dQuote{min}, \dQuote{hour}, \dQuote{day},
-##' \dQuote{DSTday}, \dQuote{week}, \dQuote{month}, \dQuote{quarter}
-##' or \dQuote{year}. For much increased flexibility a number can
-##' precede these options followed by a space. For example, a
-##' timeAverage of 2 months would be \code{period = "2 month"}. See
-##' function \code{timeAverage} for further details on this.  This
-##' option se useful as one method by which the number of points
-##' plotted is reduced i.e. by choosing a longer averaging time.
-##' @param data.thresh The data capture threshold to use (%) when aggregating
-##'   the data using \code{avg.time}. A value of zero means that all available
-##'   data will be used in a particular period regardless if of the number of
-##'   values available. Conversely, a value of 100 will mean that all data will
-##'   need to be present for the average to be calculated, else it is recorded
-##'   as \code{NA}. Not used if \code{avg.time = "default"}.
-##' @param statistic The statistic to apply when aggregating the data; default
-##'   is the mean. Can be one of "mean", "max", "min", "median", "frequency",
-##'   "sd", "percentile". Note that "sd" is the standard deviation and
-##'   "frequency" is the number (frequency) of valid records in the period.
-##'   "percentile" is the percentile level (%) between 0-100, which can be set
-##'   using the "percentile" option - see below. Not used if \code{avg.time =
-##'   "default"}.
-##' @param percentile The percentile level in \% used when \code{statistic =
-##'   "percentile"} and when aggregating the data with \code{avg.time}. The
-##'   default is 95. Not used if \code{avg.time = "default"}.
-##' @param type \code{type} determines how the data are split
-##' i.e. conditioned, and then plotted. The default is will produce a
-##' single plot using the entire data. Type can be one of the built-in
-##' types as detailed in \code{cutData} e.g. \dQuote{season},
-##' \dQuote{year}, \dQuote{weekday} and so on. For example, \code{type
-##' = "season"} will produce four plots --- one for each
-##' season.
-##'
-##' It is also possible to choose \code{type} as another variable in
-##' the data frame. If that variable is numeric, then the data will be
-##' split into four quantiles (if possible) and labelled
-##' accordingly. If type is an existing character or factor variable,
-##' then those categories/levels will be used directly. This offers
-##' great flexibility for understanding the variation of different
-##' variables and how they depend on one another.
-##'
-##' Type can be up length two e.g. \code{type = c("season",
-##' "weekday")} will produce a 2x2 plot split by season and day of the
-##' week. Note, when two types are provided the first forms the
-##' columns and the second the rows.
-##' @param smooth A smooth line is fitted to the data if \code{TRUE};
-##'   optionally with 95\% confidence intervals shown. For \code{method =
-##'   "level"} a smooth surface will be fitted to binned data.
-##' @param spline A smooth spline is fitted to the data if \code{TRUE}. This is
-##'   particularly useful when there are fewer data points or when a connection
-##'   line between a sequence of points is required.
-##' @param linear A linear model is fitted to the data if \code{TRUE};
-##'   optionally with 95\% confidence intervals shown. The equation of the line
-##'   and R2 value is also shown.
-##' @param ci Should the confidence intervals for the smooth/linear fit be
-##'   shown?
-##' @param mod.line If \code{TRUE} three lines are added to the
-##' scatter plot to help inform model evaluation. The 1:1 line is
-##' solid and the 1:0.5 and 1:2 lines are dashed. Together these lines
-##' help show how close a group of points are to a 1:1 relationship
-##' and also show the points that are within a factor of two
-##' (FAC2). \code{mod.line} is appropriately transformed when x or y
-##' axes are on a log scale.
-##' @param cols Colours to be used for plotting. Options include
-##' \dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet}
-##' and \code{RColorBrewer} colours --- see the \code{openair}
-##' \code{openColours} function for more details. For user defined the
-##' user can supply a list of colour names recognised by R (type
-##' \code{colours()} to see the full list). An example would be
-##' \code{cols = c("yellow", "green", "blue")}
-##' @param plot.type \code{lattice} plot type. Can be \dQuote{p}
-##' (points --- default), \dQuote{l} (lines) or \dQuote{b} (lines and
-##' points).
-##' @param key Should a key be drawn? The default is \code{TRUE}.
-##' @param key.title The title of the key (if used).
-##' @param key.columns Number of columns to be used in the key. With many
-##'   pollutants a single column can make to key too wide. The user can thus
-##'   choose to use several columns by setting \code{columns} to be less than
-##'   the number of pollutants.
-##' @param key.position Location where the scale key is to plotted.  Allowed
-##'   arguments currently include \dQuote{top}, \dQuote{right}, \dQuote{bottom}
-##'   and \dQuote{left}.
-##' @param strip Should a strip be drawn? The default is \code{TRUE}.
-##' @param log.x Should the x-axis appear on a log scale? The default is
-##'   \code{FALSE}. If \code{TRUE} a well-formatted log10 scale is used. This
-##'   can be useful for checking linearity once logged.
-##' @param log.y Should the y-axis appear on a log scale? The default is
-##'   \code{FALSE}. If \code{TRUE} a well-formatted log10 scale is used. This
-##'   can be useful for checking linearity once logged.
-##' @param x.inc The x-interval to be used for binning data when \code{method =
-##'   "level"}.
-##' @param y.inc The y-interval to be used for binning data when \code{method =
-##'   "level"}.
-##' @param limits For \code{method = "level"} the function does its
-##' best to choose sensible limits automatically. However, there are
-##' circumstances when the user will wish to set different ones. The
-##' limits are set in the form \code{c(lower, upper)}, so \code{limits
-##' = c(0, 100)} would force the plot limits to span 0-100.
-##' @param windflow This option allows a scatter plot to show the wind
-##' speed/direction shows as an arrow. The option is a list
-##' e.g. \code{windflow = list(col = "grey", lwd = 2, scale =
-##' 0.1)}. This option requires wind speed (\code{ws}) and wind
-##' direction (\code{wd}) to be available.
-##'
-##' The maximum length of the arrow plotted is a fraction of the plot
-##' dimension with the longest arrow being \code{scale} of the plot
-##' x-y dimension. Note, if the plot size is adjusted manually by the
-##' user it should be re-plotted to ensure the correct wind angle. The
-##' list may contain other options to \code{panel.arrows} in the
-##' \code{lattice} package. Other useful options include
-##' \code{length}, which controls the length of the arrow head and
-##' \code{angle}, which controls the angle of the arrow head.
-##'
-##' This option works best where there are not too many data to ensure
-##' over-plotting does not become a problem.
-##' @param y.relation This determines how the y-axis scale is
-##' plotted. \dQuote{same} ensures all panels use the same scale and
-##' \dQuote{free} will use panel-specific scales. The latter is a
-##' useful setting when plotting data with very different values.
-##' @param x.relation This determines how the x-axis scale is plotted. \dQuote{same}
-##'   ensures all panels use the same scale and \dQuote{free} will use panel-specific
-##'   scales. The latter is a useful setting when plotting data with very
-##'   different values.
-##' @param ref.x See \code{ref.y} for details.
-##' @param ref.y A list with details of the horizontal lines to be
-##' added representing reference line(s). For example, \code{ref.y =
-##' list(h = 50, lty = 5)} will add a dashed horizontal line at
-##' 50. Several lines can be plotted e.g. \code{ref.y = list(h = c(50,
-##' 100), lty = c(1, 5), col = c("green", "blue"))}. See
-##' \code{panel.abline} in the \code{lattice} package for more details
-##' on adding/controlling lines.
-##' @param k Smoothing parameter supplied to \code{gam} for fitting a smooth
-##'   surface when \code{method = "level"}.
-##' @param dist When plotting smooth surfaces (\code{method = "level"}
-##' and \code{smooth = TRUE}, \code{dist} controls how far from the
-##' original data the predictions should be made. See
-##' \code{exclude.too.far} from the \code{mgcv} package. Data are
-##' first transformed to a unit square. Values should be between 0 and
-##' 1.
-##' @param map Should a base map be drawn? This option is under
-##' development.
-##' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If
-##'   \code{TRUE} titles and axis labels will automatically try and format
-##'   pollutant names and units properly e.g.  by subscripting the \sQuote{2} in NO2.
-##' @param plot Should a plot be produced? \code{FALSE} can be useful when
-##'   analysing data to extract plot components and plotting them in other
-##'   ways.
-##' @param ... Other graphical parameters are passed onto
-##' \code{cutData} and an appropriate \code{lattice} plot function
-##' (\code{xyplot}, \code{levelplot} or \code{hexbinplot} depending on
-##' \code{method}). For example, \code{scatterPlot} passes the option
-##' \code{hemisphere = "southern"} on to \code{cutData} to provide
-##' southern (rather than default northern) hemisphere handling of
-##' \code{type = "season"}. Similarly, for the default case
-##' \code{method = "scatter"} common axis and title labelling options
-##' (such as \code{xlab}, \code{ylab}, \code{main}) are passed to
-##' \code{xyplot} via \code{quickText} to handle routine
-##' formatting. Other common graphical parameters, e.g. \code{layout}
-##' for panel arrangement, \code{pch} for plot symbol and \code{lwd}
-##' and \code{lty} for line width and type, as also available (see
-##' examples below).
-##'
-##' For \code{method = "hexbin"} it can be useful to transform the
-##' scale if it is dominated by a few very high values. This is
-##' possible by supplying two functions: one that that applies the
-##' transformation and the other that inverses it. For log scaling
-##' (the default) for example, \code{trans = function(x) log(x)} and
-##' \code{inv = function(x) exp(x)}. For a square root transform use
-##' \code{trans = sqrt} and \code{inv = function(x) x^2}. To not carry
-##' out any transformation the options \code{trans = NULL} and
-##' \code{inv = NULL} should be used.
-##' @export
-##' @import mapproj hexbin
-##' @return As well as generating the plot itself, \code{scatterPlot} also
-##'   returns an object of class ``openair''. The object includes three main
-##'   components: \code{call}, the command used to generate the plot;
-##'   \code{data}, the data frame of summarised information used to make the
-##'   plot; and \code{plot}, the plot itself. If retained, e.g. using
-##'   \code{output <- scatterPlot(mydata, "nox", "no2")}, this output can be
-##'   used to recover the data, reproduce or rework the original plot or
-##'   undertake further analysis.
-##'
-##' An openair output can be manipulated using a number of generic operations,
-##'   including \code{print}, \code{plot} and \code{summary}.
-##' @author David Carslaw
-##' @seealso \code{\link{linearRelation}}, \code{\link{timePlot}} and
-##'   \code{\link{timeAverage}} for details on selecting averaging times and
-##'   other statistics in a flexible way
-##' @keywords methods
-##' @examples
-##'
-##' # load openair data if not loaded already
-##' dat2004 <- selectByDate(mydata, year = 2004)
-##'
-##' # basic use, single pollutant
-##'
-##' scatterPlot(dat2004, x = "nox", y = "no2")
-##' \dontrun{
-##' # scatterPlot by year
-##' scatterPlot(mydata, x = "nox", y = "no2", type = "year")
-##' }
-##'
-##' # scatterPlot by day of the week, removing key at bottom
-##' scatterPlot(dat2004, x = "nox", y = "no2", type = "weekday", key =
-##' FALSE)
-##'
-##' # example of the use of continuous where colour is used to show
-##' # different levels of a third (numeric) variable
-##' # plot daily averages and choose a filled plot symbol (pch = 16)
-##' # select only 2004
-##' \dontrun{
-##' 
-##' scatterPlot(dat2004, x = "nox", y = "no2", z = "co", avg.time = "day", pch = 16)
-##'
-##' # show linear fit, by year
-##' scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
-##' FALSE, linear = TRUE)
-##'
-##' # do the same, but for daily means...
-##' scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
-##' FALSE, linear = TRUE, avg.time = "day")
-##'
-##' # log scales
-##' scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
-##' FALSE, linear = TRUE, avg.time = "day", log.x = TRUE, log.y = TRUE)
-##'
-##' # also works with the x-axis in date format (alternative to timePlot)
-##' scatterPlot(mydata, x = "date", y = "no2", avg.time = "month",
-##' key = FALSE)
-##'
-##' ## multiple types and grouping variable and continuous colour scale
-##' scatterPlot(mydata, x = "nox", y = "no2", z = "o3", type = c("season", "weekend"))
-##'
-##' # use hexagonal binning
-##'
-##' library(hexbin)
-##' # basic use, single pollutant
-##' scatterPlot(mydata, x = "nox", y = "no2", method = "hexbin")
-##'
-##' # scatterPlot by year
-##' scatterPlot(mydata, x = "nox", y = "no2", type = "year", method =
-##' "hexbin")
-##'
-##'
-##' ## bin data and plot it - can see how for high NO2, O3 is also high
-##'
-##' scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level", dist = 0.02)
-##'
-##'
-##' ## fit surface for clearer view of relationship - clear effect of
-##' ## increased O3
-##'
-##' scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level",
-##' x.inc = 10, y.inc = 2, smooth = TRUE)
-##' }
-##'
-##'
+#' Flexible scatter plots
+#'
+#' Scatter plots with conditioning and three main approaches: conventional
+#' scatterPlot, hexagonal binning and kernel density estimates. The former also
+#' has options for fitting smooth fits and linear models with uncertainties
+#' shown.
+#'
+#' [scatterPlot()] is the basic function for plotting scatter plots in flexible
+#' ways in \code{openair}. It is flexible enough to consider lots of
+#' conditioning variables and takes care of fitting smooth or linear
+#' relationships to the data.
+#'
+#' There are four main ways of plotting the relationship between two variables,
+#' which are set using the \code{method} option. The default \code{"scatter"}
+#' will plot a conventional scatterPlot. In cases where there are lots of data
+#' and over-plotting becomes a problem, then \code{method = "hexbin"} or
+#' \code{method = "density"} can be useful. The former requires the
+#' \code{hexbin} package to be installed.
+#'
+#' There is also a \code{method = "level"} which will bin the \code{x} and
+#' \code{y} data according to the intervals set for \code{x.inc} and
+#' \code{y.inc} and colour the bins according to levels of a third variable,
+#' \code{z}. Sometimes however, a far better understanding of the relationship
+#' between three variables (\code{x}, \code{y} and \code{z}) is gained by
+#' fitting a smooth surface through the data. See examples below.
+#'
+#' A smooth fit is shown if \code{smooth = TRUE} which can help show the overall
+#' form of the data e.g. whether the relationship appears to be linear or not.
+#' Also, a linear fit can be shown using \code{linear = TRUE} as an option.
+#'
+#' The user has fine control over the choice of colours and symbol type used.
+#'
+#' Another way of reducing the number of points used in the plots which can
+#' sometimes be useful is to aggregate the data. For example, hourly data can be
+#' aggregated to daily data. See [timePlot()] for examples here.
+#'
+#' By default plots are shown with a colour key at the bottom and in the case of
+#' conditioning, strips on the top of each plot. Sometimes this may be overkill
+#' and the user can opt to remove the key and/or the strip by setting \code{key}
+#' and/or \code{strip} to \code{FALSE}. One reason to do this is to maximise the
+#' plotting area and therefore the information shown.
+#' @param mydata A data frame containing at least two numeric variables to plot.
+#' @param x Name of the x-variable to plot. Note that x can be a date field or a
+#'   factor. For example, \code{x} can be one of the \code{openair} built in
+#'   types such as \code{"year"} or \code{"season"}.
+#' @param y Name of the numeric y-variable to plot.
+#' @param z Name of the numeric z-variable to plot for \code{method = "scatter"}
+#'   or \code{method = "level"}. Note that for \code{method = "scatter"} points
+#'   will be coloured according to a continuous colour scale, whereas for
+#'   \code{method = "level"} the surface is coloured.
+#' @param method Methods include \dQuote{scatter} (conventional scatter plot),
+#'   \dQuote{hexbin} (hexagonal binning using the \code{hexbin} package).
+#'   \dQuote{level} for a binned or smooth surface plot and \dQuote{density} (2D
+#'   kernel density estimates).
+#' @param group The grouping variable to use, if any. Setting this to a variable
+#'   in the data frame has the effect of plotting several series in the same
+#'   panel using different symbols/colours etc. If set to a variable that is a
+#'   character or factor, those categories or factor levels will be used
+#'   directly. If set to a numeric variable, it will split that variable in to
+#'   quantiles.
+#' @param avg.time This defines the time period to average to. Can be
+#'   \dQuote{sec}, \dQuote{min}, \dQuote{hour}, \dQuote{day}, \dQuote{DSTday},
+#'   \dQuote{week}, \dQuote{month}, \dQuote{quarter} or \dQuote{year}. For much
+#'   increased flexibility a number can precede these options followed by a
+#'   space. For example, a timeAverage of 2 months would be \code{period = "2
+#'   month"}. See function \code{timeAverage} for further details on this. This
+#'   option se useful as one method by which the number of points plotted is
+#'   reduced i.e. by choosing a longer averaging time.
+#' @param data.thresh The data capture threshold to use (\%) when aggregating
+#'   the data using \code{avg.time}. A value of zero means that all available
+#'   data will be used in a particular period regardless if of the number of
+#'   values available. Conversely, a value of 100 will mean that all data will
+#'   need to be present for the average to be calculated, else it is recorded as
+#'   \code{NA}. Not used if \code{avg.time = "default"}.
+#' @param statistic The statistic to apply when aggregating the data; default is
+#'   the mean. Can be one of "mean", "max", "min", "median", "frequency", "sd",
+#'   "percentile". Note that "sd" is the standard deviation and "frequency" is
+#'   the number (frequency) of valid records in the period. "percentile" is the
+#'   percentile level (\%) between 0-100, which can be set using the
+#'   "percentile" option - see below. Not used if \code{avg.time = "default"}.
+#' @param percentile The percentile level in percent used when \code{statistic =
+#'   "percentile"} and when aggregating the data with \code{avg.time}. The
+#'   default is 95. Not used if \code{avg.time = "default"}.
+#' @param type \code{type} determines how the data are split i.e. conditioned,
+#'   and then plotted. The default is will produce a single plot using the
+#'   entire data. Type can be one of the built-in types as detailed in
+#'   \code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so
+#'   on. For example, \code{type = "season"} will produce four plots --- one for
+#'   each season.
+#'
+#'   It is also possible to choose \code{type} as another variable in the data
+#'   frame. If that variable is numeric, then the data will be split into four
+#'   quantiles (if possible) and labelled accordingly. If type is an existing
+#'   character or factor variable, then those categories/levels will be used
+#'   directly. This offers great flexibility for understanding the variation of
+#'   different variables and how they depend on one another.
+#'
+#'   Type can be up length two e.g. \code{type = c("season", "weekday")} will
+#'   produce a 2x2 plot split by season and day of the week. Note, when two
+#'   types are provided the first forms the columns and the second the rows.
+#' @param smooth A smooth line is fitted to the data if \code{TRUE}; optionally
+#'   with 95 percent confidence intervals shown. For \code{method = "level"} a
+#'   smooth surface will be fitted to binned data.
+#' @param spline A smooth spline is fitted to the data if \code{TRUE}. This is
+#'   particularly useful when there are fewer data points or when a connection
+#'   line between a sequence of points is required.
+#' @param linear A linear model is fitted to the data if \code{TRUE}; optionally
+#'   with 95 percent confidence intervals shown. The equation of the line and R2
+#'   value is also shown.
+#' @param ci Should the confidence intervals for the smooth/linear fit be shown?
+#' @param mod.line If \code{TRUE} three lines are added to the scatter plot to
+#'   help inform model evaluation. The 1:1 line is solid and the 1:0.5 and 1:2
+#'   lines are dashed. Together these lines help show how close a group of
+#'   points are to a 1:1 relationship and also show the points that are within a
+#'   factor of two (FAC2). \code{mod.line} is appropriately transformed when x
+#'   or y axes are on a log scale.
+#' @param cols Colours to be used for plotting. Options include
+#'   \dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet} and
+#'   \code{RColorBrewer} colours --- see the \code{openair} \code{openColours}
+#'   function for more details. For user defined the user can supply a list of
+#'   colour names recognised by R (type \code{colours()} to see the full list).
+#'   An example would be \code{cols = c("yellow", "green", "blue")}
+#' @param plot.type \code{lattice} plot type. Can be \dQuote{p} (points ---
+#'   default), \dQuote{l} (lines) or \dQuote{b} (lines and points).
+#' @param key Should a key be drawn? The default is \code{TRUE}.
+#' @param key.title The title of the key (if used).
+#' @param key.columns Number of columns to be used in the key. With many
+#'   pollutants a single column can make to key too wide. The user can thus
+#'   choose to use several columns by setting \code{columns} to be less than the
+#'   number of pollutants.
+#' @param key.position Location where the scale key is to plotted.  Allowed
+#'   arguments currently include \dQuote{top}, \dQuote{right}, \dQuote{bottom}
+#'   and \dQuote{left}.
+#' @param strip Should a strip be drawn? The default is \code{TRUE}.
+#' @param log.x Should the x-axis appear on a log scale? The default is
+#'   \code{FALSE}. If \code{TRUE} a well-formatted log10 scale is used. This can
+#'   be useful for checking linearity once logged.
+#' @param log.y Should the y-axis appear on a log scale? The default is
+#'   \code{FALSE}. If \code{TRUE} a well-formatted log10 scale is used. This can
+#'   be useful for checking linearity once logged.
+#' @param x.inc The x-interval to be used for binning data when \code{method =
+#'   "level"}.
+#' @param y.inc The y-interval to be used for binning data when \code{method =
+#'   "level"}.
+#' @param limits For \code{method = "level"} the function does its best to
+#'   choose sensible limits automatically. However, there are circumstances when
+#'   the user will wish to set different ones. The limits are set in the form
+#'   \code{c(lower, upper)}, so \code{limits = c(0, 100)} would force the plot
+#'   limits to span 0-100.
+#' @param windflow This option allows a scatter plot to show the wind
+#'   speed/direction shows as an arrow. The option is a list e.g. \code{windflow
+#'   = list(col = "grey", lwd = 2, scale = 0.1)}. This option requires wind
+#'   speed (\code{ws}) and wind direction (\code{wd}) to be available.
+#'
+#'   The maximum length of the arrow plotted is a fraction of the plot dimension
+#'   with the longest arrow being \code{scale} of the plot x-y dimension. Note,
+#'   if the plot size is adjusted manually by the user it should be re-plotted
+#'   to ensure the correct wind angle. The list may contain other options to
+#'   \code{panel.arrows} in the \code{lattice} package. Other useful options
+#'   include \code{length}, which controls the length of the arrow head and
+#'   \code{angle}, which controls the angle of the arrow head.
+#'
+#'   This option works best where there are not too many data to ensure
+#'   over-plotting does not become a problem.
+#' @param y.relation This determines how the y-axis scale is plotted.
+#'   \dQuote{same} ensures all panels use the same scale and \dQuote{free} will
+#'   use panel-specific scales. The latter is a useful setting when plotting
+#'   data with very different values.
+#' @param x.relation This determines how the x-axis scale is plotted.
+#'   \dQuote{same} ensures all panels use the same scale and \dQuote{free} will
+#'   use panel-specific scales. The latter is a useful setting when plotting
+#'   data with very different values.
+#' @param ref.x See \code{ref.y} for details.
+#' @param ref.y A list with details of the horizontal lines to be added
+#'   representing reference line(s). For example, \code{ref.y = list(h = 50, lty
+#'   = 5)} will add a dashed horizontal line at 50. Several lines can be plotted
+#'   e.g. \code{ref.y = list(h = c(50, 100), lty = c(1, 5), col = c("green",
+#'   "blue"))}. See \code{panel.abline} in the \code{lattice} package for more
+#'   details on adding/controlling lines.
+#' @param k Smoothing parameter supplied to \code{gam} for fitting a smooth
+#'   surface when \code{method = "level"}.
+#' @param dist When plotting smooth surfaces (\code{method = "level"} and
+#'   \code{smooth = TRUE}, \code{dist} controls how far from the original data
+#'   the predictions should be made. See \code{exclude.too.far} from the
+#'   \code{mgcv} package. Data are first transformed to a unit square. Values
+#'   should be between 0 and 1.
+#' @param map Should a base map be drawn? This option is under development.
+#' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If \code{TRUE}
+#'   titles and axis labels will automatically try and format pollutant names
+#'   and units properly e.g.  by subscripting the \sQuote{2} in NO2.
+#' @param plot Should a plot be produced? \code{FALSE} can be useful when
+#'   analysing data to extract plot components and plotting them in other ways.
+#' @param ... Other graphical parameters are passed onto \code{cutData} and an
+#'   appropriate \code{lattice} plot function (\code{xyplot}, \code{levelplot}
+#'   or \code{hexbinplot} depending on \code{method}). For example,
+#'   \code{scatterPlot} passes the option \code{hemisphere = "southern"} on to
+#'   \code{cutData} to provide southern (rather than default northern)
+#'   hemisphere handling of \code{type = "season"}. Similarly, for the default
+#'   case \code{method = "scatter"} common axis and title labelling options
+#'   (such as \code{xlab}, \code{ylab}, \code{main}) are passed to \code{xyplot}
+#'   via \code{quickText} to handle routine formatting. Other common graphical
+#'   parameters, e.g. \code{layout} for panel arrangement, \code{pch} for plot
+#'   symbol and \code{lwd} and \code{lty} for line width and type, as also
+#'   available (see examples below).
+#'
+#'   For \code{method = "hexbin"} it can be useful to transform the scale if it
+#'   is dominated by a few very high values. This is possible by supplying two
+#'   functions: one that that applies the transformation and the other that
+#'   inverses it. For log scaling (the default) for example, \code{trans =
+#'   function(x) log(x)} and \code{inv = function(x) exp(x)}. For a square root
+#'   transform use \code{trans = sqrt} and \code{inv = function(x) x^2}. To not
+#'   carry out any transformation the options \code{trans = NULL} and \code{inv
+#'   = NULL} should be used.
+#' @export
+#' @import mapproj hexbin
+#' @return an [openair][openair-package] object
+#' @author David Carslaw
+#' @seealso \code{\link{linearRelation}}, \code{\link{timePlot}} and
+#'   [timeAverage()] for details on selecting averaging times and other
+#'   statistics in a flexible way
+#' @examples
+#' # load openair data if not loaded already
+#' dat2004 <- selectByDate(mydata, year = 2004)
+#'
+#' # basic use, single pollutant
+#'
+#' scatterPlot(dat2004, x = "nox", y = "no2")
+#' \dontrun{
+#' # scatterPlot by year
+#' scatterPlot(mydata, x = "nox", y = "no2", type = "year")
+#' }
+#'
+#' # scatterPlot by day of the week, removing key at bottom
+#' scatterPlot(dat2004, x = "nox", y = "no2", type = "weekday", key =
+#' FALSE)
+#'
+#' # example of the use of continuous where colour is used to show
+#' # different levels of a third (numeric) variable
+#' # plot daily averages and choose a filled plot symbol (pch = 16)
+#' # select only 2004
+#' \dontrun{
+#'
+#' scatterPlot(dat2004, x = "nox", y = "no2", z = "co", avg.time = "day", pch = 16)
+#'
+#' # show linear fit, by year
+#' scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
+#' FALSE, linear = TRUE)
+#'
+#' # do the same, but for daily means...
+#' scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
+#' FALSE, linear = TRUE, avg.time = "day")
+#'
+#' # log scales
+#' scatterPlot(mydata, x = "nox", y = "no2", type = "year", smooth =
+#' FALSE, linear = TRUE, avg.time = "day", log.x = TRUE, log.y = TRUE)
+#'
+#' # also works with the x-axis in date format (alternative to timePlot)
+#' scatterPlot(mydata, x = "date", y = "no2", avg.time = "month",
+#' key = FALSE)
+#'
+#' ## multiple types and grouping variable and continuous colour scale
+#' scatterPlot(mydata, x = "nox", y = "no2", z = "o3", type = c("season", "weekend"))
+#'
+#' # use hexagonal binning
+#'
+#' library(hexbin)
+#' # basic use, single pollutant
+#' scatterPlot(mydata, x = "nox", y = "no2", method = "hexbin")
+#'
+#' # scatterPlot by year
+#' scatterPlot(mydata, x = "nox", y = "no2", type = "year", method =
+#' "hexbin")
+#'
+#'
+#' ## bin data and plot it - can see how for high NO2, O3 is also high
+#'
+#' scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level", dist = 0.02)
+#'
+#'
+#' ## fit surface for clearer view of relationship - clear effect of
+#' ## increased O3
+#'
+#' scatterPlot(mydata, x = "nox", y = "no2", z = "o3", method = "level",
+#' x.inc = 10, y.inc = 2, smooth = TRUE)
+#' }
 scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter",
                         group = NA, avg.time = "default", data.thresh = 0,
                         statistic = "mean", percentile = NA,
@@ -348,7 +314,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-     
+
     fontsize = current.font
   ))
 
@@ -1047,7 +1013,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     ## bin data
     mydata$ygrid <- round_any(mydata[[y]], y.inc)
     mydata$xgrid <- round_any(mydata[[x]], x.inc)
-    
+
     vars <- c("xgrid", "ygrid", type) # for selecting / grouping
 
     ## only aggregate if we have to (for data pre-gridded)
@@ -1135,7 +1101,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     }
 
     if (smooth) {
-      mydata <- mydata %>% 
+      mydata <- mydata %>%
         group_by(across(type)) %>%
         do(smooth.grid(., z))
     }
@@ -1366,7 +1332,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
     }
 
     if (smooth) {
-      mydata <- mydata %>% 
+      mydata <- mydata %>%
         group_by(across(type)) %>%
         do(smooth.grid(., z))
     }
@@ -1571,7 +1537,7 @@ scatterPlot <- function(mydata, x = "nox", y = "no2", z = NA, method = "scatter"
 
     ## ###########################################################################
 
-    results.grid <- mydata %>% 
+    results.grid <- mydata %>%
       group_by(across(type)) %>%
       do(prepare.grid(.))
 
@@ -1869,7 +1835,7 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
           col = dat$col, pch = 16
         ))
     }
-    
+
   } else {
 
     ## colour by a z
@@ -1909,7 +1875,7 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
       ## make sure we match clusters in case order mixed
       vars <- c(type, "MyGroupVar")
 
-      pnts <- mydata %>% 
+      pnts <- mydata %>%
         group_by(across(vars)) %>%
         do(head(., 1))
 

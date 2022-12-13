@@ -24,7 +24,8 @@
 #'   pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 #'   a narrow format with a column identifying the pollutant name.
 #'
-#' @return A tibble of data.
+#' @return a [tibble][tibble::tibble-package]
+#' @family import functions
 #' @export
 #'
 #' @examples

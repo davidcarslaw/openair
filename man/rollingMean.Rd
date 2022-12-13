@@ -30,7 +30,7 @@ when hourly data are analysed.}
 not supplied it will create a name based on the name of the
 pollutant and the averaging period used.}
 
-\item{data.thresh}{The data capture threshold in %. No values are
+\item{data.thresh}{The data capture threshold in \%. No values are
 calculated if data capture over the period of interest is less
 than this value. For example, with \code{width = 8} and
 \code{data.thresh = 75} at least 6 hours are required to calculate
@@ -71,4 +71,3 @@ mydata <- rollingMean(mydata, pollutant = "o3", width = 8, new.name =
 \author{
 David Carslaw
 }
-\keyword{methods}

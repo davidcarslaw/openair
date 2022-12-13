@@ -95,31 +95,30 @@ imported using the <code>importTraj</code> function.</p>
 
 
 <dt>pollutant</dt>
-<dd><p>Pollutant to be plotted. By default the trajectory height
-is used.</p></dd>
+<dd><p>Pollutant to be plotted. By default the trajectory height is
+used.</p></dd>
 
 
 <dt>type</dt>
-<dd><p><code>type</code> determines how the data are split i.e. conditioned,
-  and then plotted. The default is will produce a single plot using the
-  entire data. Type can be one of the built-in types as detailed in
-  <code>cutData</code> e.g. "season", "year", "weekday" and so on. For example,
-  <code>type = "season"</code> will produce four plots --- one for each season.</p>
+<dd><p><code>type</code> determines how the data are split, i.e., conditioned,
+and then plotted. The default is will produce a single plot using the
+entire data. Type can be one of the built-in types as detailed in
+<code>cutData</code> e.g. "season", "year", "weekday" and so on. For example,
+<code>type = "season"</code> will produce four plots --- one for each season.</p>
 <p>It is also possible to choose <code>type</code> as another variable in the data
-  frame. If that variable is numeric, then the data will be split into four
-  quantiles (if possible) and labelled accordingly. If type is an existing
-  character or factor variable, then those categories/levels will be used
-  directly. This offers great flexibility for understanding the variation of
-  different variables and how they depend on one another.</p>
+frame. If that variable is numeric, then the data will be split into four
+quantiles (if possible) and labelled accordingly. If type is an existing
+character or factor variable, then those categories/levels will be used
+directly. This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.</p>
 <p><code>type</code> can be up length two e.g. <code>type = c("season", "weekday")</code>
-  will produce a 2x2 plot split by season and day of the week. Note, when
-  two types are provided the first forms the columns and the second the
-  rows.</p></dd>
+will produce a 2x2 plot split by season and day of the week. Note, when two
+types are provided the first forms the columns and the second the rows.</p></dd>
 
 
 <dt>map</dt>
-<dd><p>Should a base map be drawn? If <code>TRUE</code> the world base map
-from the <code>maps</code> package is used.</p></dd>
+<dd><p>Should a base map be drawn? If <code>TRUE</code> the world base map from
+the <code>maps</code> package is used.</p></dd>
 
 
 <dt>group</dt>
@@ -135,39 +134,38 @@ countries.</p></dd>
 <dt>map.res</dt>
 <dd><p>The resolution of the base map. By default the function uses
 the ‘world’ map from the <code>maps</code> package. If <code>map.res =
-"hires"</code> then the (much) more detailed base map ‘worldHires’ from
+  "hires"</code> then the (much) more detailed base map ‘worldHires’ from
 the <code>mapdata</code> package is used. Use <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(mapdata)</a></code>. Also
 available is a map showing the US states. In this case <code>map.res =
-"state"</code> should be used.</p></dd>
+  "state"</code> should be used.</p></dd>
 
 
 <dt>map.cols</dt>
 <dd><p>If <code>map.fill = TRUE</code> <code>map.cols</code> controls the fill
 colour. Examples include <code>map.fill = "grey40"</code> and <code>map.fill =
-openColours("default", 10)</code>. The latter colours the countries and can help
+  openColours("default", 10)</code>. The latter colours the countries and can help
 differentiate them.</p></dd>
 
 
 <dt>map.alpha</dt>
 <dd><p>The transparency level of the filled map which takes values
-from 0 (full transparency) to 1 (full opacity). Setting it below 1 can
-help view trajectories, trajectory surfaces etc. <em>and</em> a filled base
-map.</p></dd>
+from 0 (full transparency) to 1 (full opacity). Setting it below 1 can help
+view trajectories, trajectory surfaces etc. <em>and</em> a filled base map.</p></dd>
 
 
 <dt>projection</dt>
 <dd><p>The map projection to be used. Different map projections
-are possible through the <code>mapproj</code> package. See <code>?mapproject</code>
-for extensive details and information on setting other parameters and
+are possible through the <code>mapproj</code> package. See <code>?mapproject</code> for
+extensive details and information on setting other parameters and
 orientation (see below).</p></dd>
 
 
 <dt>parameters</dt>
-<dd><p>From the <code>mapproj</code> package. Optional numeric vector
-of parameters for use with the projection argument. This argument is
-optional only in the sense that certain projections do not require
-additional parameters. If a projection does not require additional
-parameters then set to null i.e. <code>parameters = NULL</code>.</p></dd>
+<dd><p>From the <code>mapproj</code> package. Optional numeric vector of
+parameters for use with the projection argument. This argument is optional
+only in the sense that certain projections do not require additional
+parameters. If a projection does not require additional parameters then set
+to null i.e. <code>parameters = NULL</code>.</p></dd>
 
 
 <dt>orientation</dt>
@@ -181,8 +179,8 @@ of the longitude coordinates in the map.</p></dd>
 
 
 <dt>grid.col</dt>
-<dd><p>The colour of the map grid to be used. To remove the grid
-set <code>grid.col = "transparent"</code>.</p></dd>
+<dd><p>The colour of the map grid to be used. To remove the grid set
+<code>grid.col = "transparent"</code>.</p></dd>
 
 
 <dt>npoints</dt>
@@ -225,9 +223,10 @@ should be remembered when selecting only part of a year to plot.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="importTraj.html">importTraj</a></code> to import trajectory data from the King's
-  College server and <code><a href="trajLevel.html">trajLevel</a></code> for trajectory binning
-  functions.</p></div>
+    <div class="dont-index"><p>Other trajectory analysis functions: 
+<code><a href="importTraj.html">importTraj</a>()</code>,
+<code><a href="trajCluster.html">trajCluster</a>()</code>,
+<code><a href="trajLevel.html">trajLevel</a>()</code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

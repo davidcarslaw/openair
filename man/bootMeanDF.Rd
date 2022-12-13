@@ -16,7 +16,7 @@ the mean are to be calculated}
 }
 \value{
 Returns a data frame with the mean, lower uncertainty, upper
-  uncertainty and number of values used in the calculation
+uncertainty and number of values used in the calculation
 }
 \description{
 A utility function to calculation the uncertainty intervals in the mean of a

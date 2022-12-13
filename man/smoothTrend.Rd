@@ -47,22 +47,22 @@ Note that if \code{TRUE} missing data are first imputed using a
 Kalman filter and Kalman smooth.}
 
 \item{type}{\code{type} determines how the data are split i.e. conditioned,
-  and then plotted. The default is will produce a single plot using the
-  entire data. Type can be one of the built-in types as detailed in
-  \code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and
-  so on. For example, \code{type = "season"} will produce four plots --- one
-  for each season.
+and then plotted. The default is will produce a single plot using the
+entire data. Type can be one of the built-in types as detailed in
+\code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and
+so on. For example, \code{type = "season"} will produce four plots --- one
+for each season.
 
-  It is also possible to choose \code{type} as another variable in the data
-  frame. If that variable is numeric, then the data will be split into four
-  quantiles (if possible) and labelled accordingly. If type is an existing
-  character or factor variable, then those categories/levels will be used
-  directly. This offers great flexibility for understanding the variation of
-  different variables and how they depend on one another.
+It is also possible to choose \code{type} as another variable in the data
+frame. If that variable is numeric, then the data will be split into four
+quantiles (if possible) and labelled accordingly. If type is an existing
+character or factor variable, then those categories/levels will be used
+directly. This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.
 
-  Type can be up length two e.g. \code{type = c("season", "weekday")} will
-  produce a 2x2 plot split by season and day of the week. Note, when two
-  types are provided the first forms the columns and the second the rows.}
+Type can be up length two e.g. \code{type = c("season", "weekday")} will
+produce a 2x2 plot split by season and day of the week. Note, when two
+types are provided the first forms the columns and the second the rows.}
 
 \item{statistic}{Statistic used for calculating monthly values. Default is
 \dQuote{mean}, but can also be \dQuote{percentile}. See \code{timeAverage}
@@ -76,11 +76,11 @@ Note that December is considered as belonging to winter of the following
 year.}
 
 \item{percentile}{Percentile value(s) to use if \code{statistic =
-"percentile"} is chosen. Can be a vector of numbers e.g. \code{percentile
-= c(5, 50, 95)} will plot the 5th, 50th and 95th percentile values
+  "percentile"} is chosen. Can be a vector of numbers e.g. \code{percentile
+  = c(5, 50, 95)} will plot the 5th, 50th and 95th percentile values
 together on the same plot.}
 
-\item{data.thresh}{The data capture threshold to use (%) when aggregating
+\item{data.thresh}{The data capture threshold to use (\%) when aggregating
 the data using \code{avg.time}. A value of zero means that all available
 data will be used in a particular period regardless if of the number of
 values available. Conversely, a value of 100 will mean that all data will
@@ -100,7 +100,7 @@ autocorrelation increases the uncertainty of the trend estimate sometimes
 by a large amount.}
 
 \item{cols}{Colours to use. Can be a vector of colours e.g. \code{cols =
-c("black", "green")} or pre-defined openair colours --- see
+  c("black", "green")} or pre-defined openair colours --- see
 \code{openColours} for more details.}
 
 \item{shade}{The colour used for marking alternate years. Use \dQuote{white}
@@ -113,15 +113,15 @@ ensures all panels use the same scale and "free" will use panel-specific
 scales. The latter is a useful setting when plotting data with very
 different values.  ref.x See \code{ref.y} for details. In this case the
 correct date format should be used for a vertical line e.g.  \code{ref.x =
-list(v = as.POSIXct("2000-06-15"), lty = 5)}.}
+  list(v = as.POSIXct("2000-06-15"), lty = 5)}.}
 
 \item{ref.x}{See \code{ref.y}.}
 
 \item{ref.y}{A list with details of the horizontal lines to be added
 representing reference line(s). For example, \code{ref.y = list(h = 50,
-lty = 5)} will add a dashed horizontal line at 50. Several lines can be
+  lty = 5)} will add a dashed horizontal line at 50. Several lines can be
 plotted e.g. \code{ref.y = list(h = c(50, 100), lty = c(1, 5), col =
-c("green", "blue"))}. See \code{panel.abline} in the \code{lattice}
+  c("green", "blue"))}. See \code{panel.abline} in the \code{lattice}
 package for more details on adding/controlling lines.}
 
 \item{key.columns}{Number of columns used if a key is drawn when using the
@@ -162,7 +162,7 @@ ways.}
 \code{lattice:xyplot}. For example, \code{smoothTrend} passes the option
 \code{hemisphere = "southern"} on to \code{cutData} to provide southern
 (rather than default northern) hemisphere handling of \code{type =
-"season"}. Similarly, common graphical arguments, such as \code{xlim} and
+  "season"}. Similarly, common graphical arguments, such as \code{xlim} and
 \code{ylim} for plotting ranges and \code{pch} and \code{cex} for plot
 symbol type and size, are passed on \code{xyplot}, although some local
 modifications may be applied by openair. For example, axis and title
@@ -173,20 +173,7 @@ when used with \code{statistic = "percentile"} and a vector of
 \code{percentile} values, see examples below.}
 }
 \value{
-As well as generating the plot itself, \code{smoothTrend} also
-  returns an object of class ``openair''. The object includes three main
-  components: \code{call}, the command used to generate the plot;
-  \code{data}, the data frame of summarised information used to make the
-  plot; and \code{plot}, the plot itself. Note that \code{data} is a list of
-  two data frames: \code{data} (the original data) and \code{fit} (the
-  smooth fit that has details of the fit and the uncertainties). If
-  retained, e.g. using \code{output <- smoothTrend(mydata, "nox")}, this
-  output can be \code{output <- smoothTrend(mydata, "nox")}, this output can
-  be used to recover the data, reproduce or rework the original plot or
-  undertake further analysis.
-
-  An openair output can be manipulated using a number of generic operations,
-  including \code{print}, \code{plot} and \code{summarise}.
+an \link[=openair-package]{openair} object
 }
 \description{
 Use non-parametric methods to calculate time series trends
@@ -201,11 +188,11 @@ of a seasonal cycle.
 \code{smoothTrend} uses a Generalized Additive Model (GAM) from the
 \code{\link{gam}} package to find the most appropriate level of smoothing.
 The function is particularly suited to situations where trends are not
-monotonic (see discussion with \code{\link{TheilSen}} for more details on
+monotonic (see discussion with \code{\link[=TheilSen]{TheilSen()}} for more details on
 this). The \code{smoothTrend} function is particularly useful as an
 exploratory technique e.g. to check how linear or non-linear trends are.
 
-95% confidence intervals are shown by shading. Bootstrap estimates of the
+95\% confidence intervals are shown by shading. Bootstrap estimates of the
 confidence intervals are also available through the \code{simulate} option.
 Residual resampling is used.
 
@@ -213,10 +200,6 @@ Trends can be considered in a very wide range of ways, controlled by setting
 \code{type} - see examples below.
 }
 \examples{
-
-# load example data from package
-data(mydata)
-
 # trend plot for nox
 smoothTrend(mydata, pollutant = "nox")
 
@@ -233,13 +216,17 @@ percentile = 95)}
 # several percentiles with control over lines used
 \dontrun{smoothTrend(mydata, pollutant = "o3", statistic = "percentile",
 percentile = c(5, 50, 95), lwd = c(1, 2, 1), lty = c(5, 1, 5))}
-
 }
 \seealso{
-\code{\link{TheilSen}} for an alternative method of
-  calculating trends.
+Other time series and trend functions: 
+\code{\link{TheilSen}()},
+\code{\link{calendarPlot}()},
+\code{\link{timePlot}()},
+\code{\link{timeProp}()},
+\code{\link{timeVariation}()},
+\code{\link{trendLevel}()}
 }
 \author{
 David Carslaw
 }
-\keyword{methods}
+\concept{time series and trend functions}

@@ -40,7 +40,7 @@ would show where there are at least 4 days of continuous missing data.}
 
 \item{clip}{When data contain outliers, the histogram or density plot can
 fail to show the distribution of the main body of data. Setting \code{clip
-= TRUE}, will remove the top 1 % of data to yield what is often a better
+  = TRUE}, will remove the top 1 \% of data to yield what is often a better
 display of the overall distribution of the data. The amount of clipping
 can be set with \code{percentile}.}
 
@@ -111,8 +111,8 @@ axis and title labelling options (such as \code{xlab}, \code{ylab} and
 \code{main}), which are all passed to the plot via \code{quickText} to
 handle routine formatting. As \code{summaryPlot} has two components, the
 axis labels may be a vector. For example, the default case (\code{type =
-"histogram"}) sets y labels equivalent to \code{ylab = c("", "Percent of
-Total")}.}
+  "histogram"}) sets y labels equivalent to \code{ylab = c("", "Percent of
+  Total")}.}
 }
 \description{
 This function provides a quick graphical and numerical summary of data. The
@@ -157,11 +157,6 @@ applied to all new imported data sets to ensure the data are imported as
 expected.}
 }
 \examples{
-
-
-# load example data from package
-data(mydata)
-
 # do not clip density plot data
 \dontrun{summaryPlot(mydata, clip = FALSE)}
 
@@ -186,4 +181,3 @@ data(mydata)
 \author{
 David Carslaw
 }
-\keyword{methods}

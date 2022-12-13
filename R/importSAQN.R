@@ -1,8 +1,11 @@
-##' Scottish Air Quality Network data import for openair
-##'
-##' @describeIn importAURN Import data from the Scottish Air Quality Network
-##' @export
-##'
+#' Import data from the Scottish Air Quality Network
+#'
+#' @inheritParams importAURN
+#' @param site Site code of the site to import e.g. \dQuote{gla4} is Glasgow
+#'   Kerbside. Several sites can be imported with \code{site = c("gla4",
+#'   "gla5")} --- to import Glasgow Kerbside and Anderston, for example.
+#' @family import functions
+#' @export
 importSAQN <- function(site = "gla4", year = 2009, data_type = "hourly",
                        pollutant = "all",
                        meta = FALSE, ratified = FALSE,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utilities.R
 \name{binData}
 \alias{binData}
-\title{Bin data, calculate mean and bootstrap 95\% confidence interval in the mean}
+\title{Bin data, calculate mean and bootstrap 95 \% confidence interval in the mean}
 \usage{
 binData(mydata, bin = "nox", uncer = "no2", n = 40, interval = NA, breaks = NA)
 }
@@ -22,15 +22,16 @@ uncertainties should be calculated for each interval of \code{bin}.}
 }
 \value{
 Returns a summarised data frame with new columns for the mean and
-  upper / lower 95\% confidence intervals in the mean.
+upper / lower 95 percent confidence intervals in the mean.
 }
 \description{
 Bin a variable and calculate mean an uncertainties in mean
 }
 \details{
 This function summarises data by intervals and calculates the mean and
-bootstrap 95\% confidence intervals in the mean of a chosen variable in a data
-frame. Any other numeric variables are summarised by their mean intervals.
+bootstrap 95 \% confidence intervals in the mean of a chosen variable in a
+data frame. Any other numeric variables are summarised by their mean
+intervals.
 
 There are three options for binning. The default is to bon \code{bin} into 40
 intervals. Second, the user can choose an binning interval e.g.
@@ -46,6 +47,5 @@ results <- binData(mydata, bin = "ws", uncer = "nox")
 library(ggplot2)
 ggplot(results, aes(ws, mean, ymin = min, ymax = max)) +
 geom_pointrange()
-
 }
 }

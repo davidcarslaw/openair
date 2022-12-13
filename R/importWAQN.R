@@ -1,10 +1,11 @@
-##' Welsh Air Quality Network data import for openair
-##'
-##' @keywords methods
-##' @describeIn importAURN Import data from the Welsh Air Quality Network
-##' @export
-##'
-
+#' Import data from the Welsh Air Quality Network
+#'
+#' @inheritParams importAURN
+#' @param site Site code of the site to import e.g. \dQuote{card} is Cardiff
+#'   Centre. Several sites can be imported with \code{site = c("card", "car04")}
+#'   --- to import Cardiff Centre and Castle Street, for example.
+#' @family import functions
+#' @export
 importWAQN <- function(site = "card", year = 2018, data_type = "hourly",
                        pollutant = "all",
                        meta = FALSE, ratified = FALSE,

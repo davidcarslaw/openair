@@ -22,66 +22,31 @@ reference:
   - mydata
 
 - title: Import
-
-- subtitle: Network Data
   desc: Import tidy air quality data from the UK and Europe.
   contents:
-  - importMeta
-  - importAURN
-  - importSAQN
-  - importAQE
-  - importWAQN
-  - importNI
-  - importLocal
-  - importEurope
-  - importKCL
-  - importADMS
-
-- subtitle: Helpers
-  desc:  Easily import data saved locally for use in openair.
-  contents:
-  - importADMS
+  - has_concept("import functions")
 
 - title: Directional Analysis
 
 - subtitle: Polar Analysis
   desc:  Examine the relationship between wind speed, wind direction and pollutant concentrations.
   contents:
-  - windRose
-  - pollutionRose
-  - polarFreq
-  - percentileRose
-  - polarPlot
-  - polarAnnulus
-  - polarDiff
-  - polarCluster
+  - has_concept("polar directional analaysis functions")
 
 - subtitle: Trajectory Analysis
   desc:  Analyse and visualise HYSPLIT trajectory files.
   contents:
-  - importTraj
-  - trajPlot
-  - trajLevel
-  - trajCluster
+  - has_concept("trajectory analysis functions")
 
 - title: Time Series and Trends
   desc:  Examine how pollutant concentrations change with time.
   contents:
-  - timePlot
-  - timeVariation
-  - timeProp
-  - trendLevel
-  - calendarPlot
-  - TheilSen
-  - smoothTrend
+  - has_concept("time series and trend functions")
 
 - title: Model Evaluation
   desc:  Compare models against measurements and models against other models.
   contents:
-  - modStats
-  - TaylorDiagram
-  - conditionalQuantile
-  - conditionalEval
+  - has_concept("model evaluation functions")
 
 - title: Other Plots
   desc: Additional plotting functions for visualising air quality data.
@@ -90,6 +55,7 @@ reference:
   - scatterPlot
   - corPlot
   - linearRelation
+  - calcFno2
 
 - title: Utilities
 - subtitle: Plot Utilities
@@ -105,7 +71,6 @@ reference:
   - aqStats
   - binData
   - bootMeanDF
-  - calcFno2
   - calcPercentile
   - cutData
   - rollingMean

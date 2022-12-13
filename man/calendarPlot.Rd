@@ -59,7 +59,7 @@ calendar. Can be: \dQuote{date} --- shows day of the month; \dQuote{wd}
 vector-averaged wind direction scaled by wind speed. Finally it can be
 \dQuote{value} which shows the daily mean value.}
 
-\item{statistic}{Statistic passed to \code{timeAverage}.}
+\item{statistic}{Statistic passed to \code{\link[=timeAverage]{timeAverage()}}.}
 
 \item{cols}{Colours to be used for plotting. Options include
 \dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet} and
@@ -73,7 +73,7 @@ is useful in the case when there is a need for two or more plots and a
 consistent scale is needed on each. Set the limits to cover the maximum
 range of the data for all plots of interest. For example, if one plot had
 data covering 0--60 and another 0--100, then set \code{limits = c(0,
-100)}. Note that data will be ignored if outside the limits range.}
+  100)}. Note that data will be ignored if outside the limits range.}
 
 \item{lim}{A threshold value to help differentiate values above and below
 \code{lim}. It is used when \code{annotate = "value"}. See next few
@@ -98,14 +98,14 @@ size of the text above \code{lim}.}
 \item{digits}{The number of digits used to display concentration values when
 \code{annotate = "value"}.}
 
-\item{data.thresh}{Data capture threshold passed to \code{timeAverage}. For
-example, \code{data.thresh = 75} means that at least 75\% of the data must
+\item{data.thresh}{Data capture threshold passed to \code{\link[=timeAverage]{timeAverage()}}. For
+example, \code{data.thresh = 75} means that at least 75\\% of the data must
 be available in a day for the value to be calculate, else the data is
 removed.}
 
 \item{labels}{If a categorical scale is required then these labels will be
 used. Note there is one less label than break. For example, \code{labels =
-c("good", "bad", "very bad")}. \code{breaks} must also be supplied if
+  c("good", "bad", "very bad")}. \code{breaks} must also be supplied if
 labels are given.}
 
 \item{breaks}{If a categorical scale is required then these breaks will be
@@ -126,7 +126,7 @@ is \code{TRUE}.}
 
 \item{key.header}{Adds additional text/labels to the scale key. For example,
 passing \code{calendarPlot(mydata, key.header = "header", key.footer =
-"footer")} adds addition text above and below the scale key. These
+  "footer")} adds addition text above and below the scale key. These
 arguments are passed to \code{drawOpenKey} via \code{quickText}, applying
 the \code{auto.text} argument, to handle formatting.}
 
@@ -153,17 +153,7 @@ options (such as \code{xlab}, \code{ylab}, \code{main}) being passed to
 via \code{quickText} to handle routine formatting.}
 }
 \value{
-As well as generating the plot itself, \code{calendarPlot} also
-  returns an object of class ``openair''. The object includes three main
-  components: \code{call}, the command used to generate the plot;
-  \code{data}, the data frame of summarised information used to make the
-  plot; and \code{plot}, the plot itself. If retained, e.g. using
-  \code{output <- calendarPlot(mydata, "nox")}, this output can be used to
-  recover the data, reproduce or rework the original plot or undertake
-  further analysis.
-
-  An openair output can be manipulated using a number of generic operations,
-  including \code{print}, \code{plot} and \code{summary}.
+an \link[=openair-package]{openair} object
 }
 \description{
 This function will plot data by month laid out in a conventional calendar
@@ -174,14 +164,14 @@ vectors if wind speed and direction are available.
 \details{
 \code{calendarPlot} will plot data in a conventional calendar format i.e. by
 month and day of the week. Daily statistics are calculated using
-\code{\link{timeAverage}}, which by default will calculate the daily mean
+\code{\link[=timeAverage]{timeAverage()}}, which by default will calculate the daily mean
 concentration.
 
 If wind direction is available it is then possible to plot the wind
 direction vector on each day. This is very useful for getting a feel for the
 meteorological conditions that affect pollutant concentrations. Note that if
 hourly or higher time resolution are supplied, then \code{calendarPlot} will
-calculate daily averages using \code{\link{timeAverage}}, which ensures that
+calculate daily averages using \code{\link[=timeAverage]{timeAverage()}}, which ensures that
 wind directions are vector-averaged.
 
 If wind speed is also available, then setting the option \code{annotate =
@@ -201,11 +191,6 @@ concentrations. The data can then be passed to \code{calendarPlot} and
 concentrations.
 }
 \examples{
-
-
-# load example data from package
-data(mydata)
-
 # basic plot
 calendarPlot(mydata, pollutant = "o3", year = 2003)
 
@@ -224,14 +209,18 @@ pollutant = "o3", year = 2003, annotate = "ws", cols = "heat")
 calendarPlot(mydata, pollutant = "no2", breaks = c(0, 50, 100, 150, 1000),
 labels = c("Very low", "Low", "High", "Very High"),
 cols = c("lightblue", "green", "yellow",  "red"), statistic = "max")
-
 }
-
 }
 \seealso{
-\code{\link{timePlot}}, \code{\link{timeVariation}}
+Other time series and trend functions: 
+\code{\link{TheilSen}()},
+\code{\link{smoothTrend}()},
+\code{\link{timePlot}()},
+\code{\link{timeProp}()},
+\code{\link{timeVariation}()},
+\code{\link{trendLevel}()}
 }
 \author{
 David Carslaw
 }
-\keyword{methods}
+\concept{time series and trend functions}

@@ -109,20 +109,20 @@ Kalman filter and Kalman smooth.</p></dd>
 
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split i.e. conditioned,
-  and then plotted. The default is will produce a single plot using the
-  entire data. Type can be one of the built-in types as detailed in
-  <code>cutData</code> e.g. “season”, “year”, “weekday” and
-  so on. For example, <code>type = "season"</code> will produce four plots --- one
-  for each season.</p>
+and then plotted. The default is will produce a single plot using the
+entire data. Type can be one of the built-in types as detailed in
+<code>cutData</code> e.g. “season”, “year”, “weekday” and
+so on. For example, <code>type = "season"</code> will produce four plots --- one
+for each season.</p>
 <p>It is also possible to choose <code>type</code> as another variable in the data
-  frame. If that variable is numeric, then the data will be split into four
-  quantiles (if possible) and labelled accordingly. If type is an existing
-  character or factor variable, then those categories/levels will be used
-  directly. This offers great flexibility for understanding the variation of
-  different variables and how they depend on one another.</p>
+frame. If that variable is numeric, then the data will be split into four
+quantiles (if possible) and labelled accordingly. If type is an existing
+character or factor variable, then those categories/levels will be used
+directly. This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.</p>
 <p>Type can be up length two e.g. <code>type = c("season", "weekday")</code> will
-  produce a 2x2 plot split by season and day of the week. Note, when two
-  types are provided the first forms the columns and the second the rows.</p></dd>
+produce a 2x2 plot split by season and day of the week. Note, when two
+types are provided the first forms the columns and the second the rows.</p></dd>
 
 
 <dt>avg.time</dt>
@@ -146,7 +146,7 @@ for more details.</p></dd>
 
 
 <dt>data.thresh</dt>
-<dd><p>The data capture threshold to use (<!-- %) when aggregating -->
+<dd><p>The data capture threshold to use (%) when aggregating
 the data using <code>avg.time</code>. A value of zero means that all available
 data will be used in a particular period regardless if of the number of
 values available. Conversely, a value of 100 will mean that all data will
@@ -156,7 +156,7 @@ as <code>NA</code>.</p></dd>
 
 <dt>alpha</dt>
 <dd><p>For the confidence interval calculations of the slope. The
-default is 0.05. To show 99% confidence intervals for the value of the
+default is 0.05. To show 99\<!-- % confidence intervals for the value of the -->
 trend, choose alpha = 0.01 etc.</p></dd>
 
 
@@ -236,21 +236,21 @@ sometimes by a large amount.</p></dd>
 
 <dt>slope.percent</dt>
 <dd><p>Should the slope and the slope uncertainties be
-  expressed as a percentage change per year? The default is <code>FALSE</code> and
-  the slope is expressed as an average units/year change e.g. ppb.
-  Percentage changes can often be confusing and should be clearly defined.
-  Here the percentage change is expressed as 100 * (C.end/C.start - 1) /
-  (end.year - start.year). Where C.start is the concentration at the start
-  date and C.end is the concentration at the end date.</p>
+expressed as a percentage change per year? The default is <code>FALSE</code> and
+the slope is expressed as an average units/year change e.g. ppb.
+Percentage changes can often be confusing and should be clearly defined.
+Here the percentage change is expressed as 100 * (C.end/C.start - 1) /
+(end.year - start.year). Where C.start is the concentration at the start
+date and C.end is the concentration at the end date.</p>
 <p>For <code>avg.time = "year"</code> (end.year - start.year) will be the total
-  number of years - 1. For example, given a concentration in year 1 of 100
-  units and a percentage reduction of 5<!-- %/yr, after 5 years there will be 75 -->
-  units but the actual time span will be 6 years i.e. year 1 is used as a
-  reference year. Things are slightly different for monthly values e.g.
-  <code>avg.time = "month"</code>, which will use the total number of months as a
-  basis of the time span and is therefore able to deal with partial years.
-  There can be slight differences in the <!-- %/yr trend estimate therefore, -->
-  depending on whether monthly or annual values are considered.</p></dd>
+number of years - 1. For example, given a concentration in year 1 of 100
+units and a percentage reduction of 5%/yr, after 5 years there will be 75
+units but the actual time span will be 6 years i.e. year 1 is used as a
+reference year. Things are slightly different for monthly values e.g.
+<code>avg.time = "month"</code>, which will use the total number of months as a
+basis of the time span and is therefore able to deal with partial years.
+There can be slight differences in the %/yr trend estimate therefore,
+depending on whether monthly or annual values are considered.</p></dd>
 
 
 <dt>date.breaks</dt>
@@ -287,7 +287,7 @@ trend-fitting progress.</p></dd>
 <code>lattice:xyplot</code>. For example, <code>TheilSen</code> passes the option
 <code>hemisphere = "southern"</code> on to <code>cutData</code> to provide southern
 (rather than default northern) hemisphere handling of <code>type =
-"season"</code>. Similarly, common axis and title labelling options (such as
+  "season"</code>. Similarly, common axis and title labelling options (such as
 <code>xlab</code>, <code>ylab</code>, <code>main</code>) are passed to <code>xyplot</code> via
 <code>quickText</code> to handle routine formatting.</p></dd>
 
@@ -296,29 +296,12 @@ trend-fitting progress.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>As well as generating the plot itself, <code>TheilSen</code> also returns
-  an object of class ``openair''. The object includes three main components:</p>
-<p></p>
-<p><code>call</code>, the command used to generate the plot; <code>data</code>, the data
-  frame of summarised information used to make the plot; and <code>plot</code>,
-  the plot itself. If retained, e.g. using <code>output &lt;- TheilSen(mydata,
-  "nox")</code>, this output can be used to recover the data, reproduce or rework
-  the original plot or undertake further analysis.</p>
-
-
-<p>An openair output can be manipulated using a number of generic operations,
-  including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
-
-
-<p>The <code>data</code> component of the <code>TheilSen</code> output includes two
-  subsets: <code>main.data</code>, the monthly data <code>res2</code> the trend
-  statistics. For <code>output &lt;- TheilSen(mydata, "nox")</code>, these can be
-  extracted as <code>object$data$main.data</code> and <code>object$data$res2</code>,
-  respectively.</p>
-
-
-<p>Note: In the case of the intercept, it is assumed the y-axis crosses the
-  x-axis on 1/1/1970.</p>
+<p>an <a href="openair-package.html">openair</a> object. The <code>data</code> component of the
+<code>TheilSen</code> output includes two subsets: <code>main.data</code>, the monthly
+data <code>res2</code> the trend statistics. For <code>output &lt;- TheilSen(mydata,
+  "nox")</code>, these can be extracted as <code>object$data$main.data</code> and
+<code>object$data$res2</code>, respectively. Note: In the case of the intercept,
+it is assumed the y-axis crosses the x-axis on 1/1/1970.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -359,14 +342,14 @@ numerical information presented.</p>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Helsel, D., Hirsch, R., 2002. Statistical methods in water resources. US
-  Geological Survey. Note that
-  this is a very good resource for statistics as applied to environmental
-  data.</p>
+Geological Survey. Note that
+this is a very good resource for statistics as applied to environmental
+data.</p>
 <p>Hirsch, R. M., Slack, J. R., Smith, R. A., 1982. Techniques of trend
-  analysis for monthly water-quality data. Water Resources Research 18 (1),
-  107-121.</p>
+analysis for monthly water-quality data. Water Resources Research 18 (1),
+107-121.</p>
 <p>Kunsch, H. R., 1989. The jackknife and the bootstrap for general stationary
-  observations. Annals of Statistics 17 (3), 1217-1241.</p>
+observations. Annals of Statistics 17 (3), 1217-1241.</p>
 <p>Sen, P. K., 1968. Estimates of regression coefficient based on
 Kendall's tau. Journal of the American Statistical Association
 63(324).</p>
@@ -375,14 +358,17 @@ regression analysis, i, ii, iii. Proceedings of the Koninklijke
 Nederlandse Akademie Wetenschappen, Series A - Mathematical
 Sciences 53, 386-392, 521-525, 1397-1412.</p>
 <p>... see also several of the Air Quality Expert Group (AQEG) reports for
-  the use of similar tests applied to UK/European air quality data.</p>
+the use of similar tests applied to UK/European air quality data.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>See <code><a href="smoothTrend.html">smoothTrend</a></code> for a flexible approach to estimating
-  trends using nonparametric regression. The <code>smoothTrend</code> function is
-  suitable for cases where trends are not monotonic and is probably better
-  for exploring the shape of trends.</p></div>
+    <div class="dont-index"><p>Other time series and trend functions: 
+<code><a href="calendarPlot.html">calendarPlot</a>()</code>,
+<code><a href="smoothTrend.html">smoothTrend</a>()</code>,
+<code><a href="timePlot.html">timePlot</a>()</code>,
+<code><a href="timeProp.html">timeProp</a>()</code>,
+<code><a href="timeVariation.html">timeVariation</a>()</code>,
+<code><a href="trendLevel.html">trendLevel</a>()</code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -391,12 +377,7 @@ Sciences 53, 386-392, 521-525, 1397-1412.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># load example data from package</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># trend plot for nox</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># trend plot for nox</span></span></span>
 <span class="r-in"><span><span class="fu">TheilSen</span><span class="op">(</span><span class="va">mydata</span>, pollutant <span class="op">=</span> <span class="st">"nox"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Taking bootstrap samples. Please wait."</span>
 <span class="r-plt img"><img src="TheilSen-1.png" alt="" width="700" height="433"></span>
@@ -411,8 +392,6 @@ Sciences 53, 386-392, 521-525, 1397-1412.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># and for a subset of data (from year 2000 onwards)</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fu">TheilSen</span><span class="op">(</span><span class="fu"><a href="selectByDate.html">selectByDate</a></span><span class="op">(</span><span class="va">mydata</span>, year <span class="op">=</span> <span class="fl">2000</span><span class="op">:</span><span class="fl">2005</span><span class="op">)</span>, pollutant <span class="op">=</span> <span class="st">"o3"</span>, ylab <span class="op">=</span> <span class="st">"o3 (ppb)"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -33,7 +33,7 @@ identity whether condition was met.}
 }
 \value{
 Returns a data frame that meets the chosen criteria. See examples
-  below.
+below.
 }
 \description{
 Utility function to extract user-defined run lengths (durations) above a
@@ -68,4 +68,3 @@ mydata <- selectRunning(mydata, run.len = 5, threshold = 500)
 \author{
 David Carslaw
 }
-\keyword{methods}

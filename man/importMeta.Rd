@@ -68,12 +68,19 @@ meta <- importMeta(source = "saqn", all = TRUE)
 }
 }
 \seealso{
-\code{\link{importAURN}}, \code{\link{importSAQN}},
-  \code{\link{importWAQN}}, \code{\link{importNI}}, \code{\link{importAQE}},
-  \code{\link{importKCL}}, and  \code{\link{importEurope}}, for importing
-  air quality data from each network.
+Other import functions: 
+\code{\link{importADMS}()},
+\code{\link{importAQE}()},
+\code{\link{importAURN}()},
+\code{\link{importEurope}()},
+\code{\link{importKCL}()},
+\code{\link{importLocal}()},
+\code{\link{importNI}()},
+\code{\link{importSAQN}()},
+\code{\link{importTraj}()},
+\code{\link{importWAQN}()}
 }
 \author{
 David Carslaw
 }
-\keyword{methods}
+\concept{import functions}
