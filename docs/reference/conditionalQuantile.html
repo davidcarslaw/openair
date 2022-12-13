@@ -93,21 +93,21 @@ representing observed and modelled values.</p></dd>
 
 
 <dt>type</dt>
-<dd><p><code>type</code> determines how the data are split
-i.e. conditioned, and then plotted. The default is will produce a
-single plot using the entire data. Type can be one of the built-in
-types as detailed in <code>cutData</code> e.g. “season”,
-“year”, “weekday” and so on. For example, <code>type
-= "season"</code> will produce four plots --- one for each season.</p>
+<dd><p><code>type</code> determines how the data are split i.e. conditioned,
+and then plotted. The default is will produce a single plot using the
+entire data. Type can be one of the built-in types as detailed in
+<code>cutData</code> e.g. “season”, “year”, “weekday” and so
+on. For example, <code>type = "season"</code> will produce four plots --- one for
+each season.</p>
 <p>It is also possible to choose <code>type</code> as another variable in the data
-  frame. If that variable is numeric, then the data will be split into four
-  quantiles (if possible) and labelled accordingly. If type is an existing
-  character or factor variable, then those categories/levels will be used
-  directly. This offers great flexibility for understanding the variation
-  of different variables and how they depend on one another.</p>
+frame. If that variable is numeric, then the data will be split into four
+quantiles (if possible) and labelled accordingly. If type is an existing
+character or factor variable, then those categories/levels will be used
+directly. This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.</p>
 <p>Type can be up length two e.g. <code>type = c("season", "weekday")</code> will
-  produce a 2x2 plot split by season and day of the week. Note, when two
-  types are provided the first forms the columns and the second the rows.</p></dd>
+produce a 2x2 plot split by season and day of the week. Note, when two
+types are provided the first forms the columns and the second the rows.</p></dd>
 
 
 <dt>bins</dt>
@@ -116,8 +116,8 @@ levels.</p></dd>
 
 
 <dt>min.bin</dt>
-<dd><p>The minimum number of points required for the estimates of
-the 25/75th and 10/90th percentiles.</p></dd>
+<dd><p>The minimum number of points required for the estimates of the
+25/75th and 10/90th percentiles.</p></dd>
 
 
 <dt>xlab</dt>
@@ -138,85 +138,86 @@ line. Must be of length 5 or more.</p></dd>
 
 
 <dt>key.position</dt>
-<dd><p>Location of the key e.g. “top”,
-“bottom”, “right”, “left”. See <code>lattice</code>
-<code>xyplot</code> for more details.</p></dd>
+<dd><p>Location of the key e.g. “top”, “bottom”,
+“right”, “left”. See <code>lattice</code> <code>xyplot</code> for more
+details.</p></dd>
 
 
 <dt>auto.text</dt>
-<dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
-<code>TRUE</code> titles and axis labels etc. will automatically try and format
-pollutant names and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
+<dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If <code>TRUE</code>
+titles and axis labels etc. will automatically try and format pollutant
+names and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
 
 
 <dt>...</dt>
 <dd><p>Other graphical parameters passed onto <code>cutData</code> and
-<code>lattice:xyplot</code>. For example, <code>conditionalQuantile</code> passes the option
-<code>hemisphere = "southern"</code> on to <code>cutData</code> to provide southern
-(rather than default northern) hemisphere handling of <code>type = "season"</code>.
-Similarly, common axis and title labelling options (such as <code>xlab</code>,
-<code>ylab</code>, <code>main</code>) are passed to <code>xyplot</code> via <code>quickText</code>
-to handle routine formatting.</p></dd>
+<code>lattice:xyplot</code>. For example, <code>conditionalQuantile</code> passes the
+option <code>hemisphere = "southern"</code> on to <code>cutData</code> to provide
+southern (rather than default northern) hemisphere handling of <code>type =
+  "season"</code>. Similarly, common axis and title labelling options (such as
+<code>xlab</code>, <code>ylab</code>, <code>main</code>) are passed to <code>xyplot</code> via
+<code>quickText</code> to handle routine formatting.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Conditional quantiles are a very useful way of considering model
-performance against observations for continuous measurements (Wilks, 2005).
-The conditional quantile plot splits the data into evenly spaced bins. For
-each predicted value bin e.g. from 0 to 10~ppb the <em>corresponding</em>
-values of the observations are identified and the median, 25/75th and 10/90
-percentile (quantile) calculated for that bin. The data are plotted to show
-how these values vary across all bins. For a time series of observations
-and predictions that agree precisely the median value of the predictions
-will equal that for the observations for each bin.</p>
+    <p>Conditional quantiles are a very useful way of considering model performance
+against observations for continuous measurements (Wilks, 2005). The
+conditional quantile plot splits the data into evenly spaced bins. For each
+predicted value bin e.g. from 0 to 10~ppb the <em>corresponding</em> values of
+the observations are identified and the median, 25/75th and 10/90 percentile
+(quantile) calculated for that bin. The data are plotted to show how these
+values vary across all bins. For a time series of observations and
+predictions that agree precisely the median value of the predictions will
+equal that for the observations for each bin.</p>
 <p>The conditional quantile plot differs from the quantile-quantile plot (Q-Q
-plot) that is often used to compare observations and predictions. A
-Q-Q~plot separately considers the distributions of observations and
-predictions, whereas the conditional quantile uses the corresponding
-observations for a particular interval in the predictions. Take as an
-example two time series, the first a series of real observations and the
-second a lagged time series of the same observations representing the
-predictions. These two time series will have identical (or very nearly
-identical) distributions (e.g. same median, minimum and maximum). A Q-Q
-plot would show a straight line showing perfect agreement, whereas the
-conditional quantile will not. This is because in any interval of the
-predictions the corresponding observations now have different values.</p>
+plot) that is often used to compare observations and predictions. A Q-Q~plot
+separately considers the distributions of observations and predictions,
+whereas the conditional quantile uses the corresponding observations for a
+particular interval in the predictions. Take as an example two time series,
+the first a series of real observations and the second a lagged time series
+of the same observations representing the predictions. These two time series
+will have identical (or very nearly identical) distributions (e.g. same
+median, minimum and maximum). A Q-Q plot would show a straight line showing
+perfect agreement, whereas the conditional quantile will not. This is because
+in any interval of the predictions the corresponding observations now have
+different values.</p>
 <p>Plotting the data in this way shows how well predictions agree with
 observations and can help reveal many useful characteristics of how well
-model predictions agree with observations --- across the full distribution
-of values. A single plot can therefore convey a considerable amount of
+model predictions agree with observations --- across the full distribution of
+values. A single plot can therefore convey a considerable amount of
 information concerning model performance. The <code>conditionalQuantile</code>
 function in openair allows conditional quantiles to be considered in a
 flexible way e.g. by considering how they vary by season.</p>
-<p>The function requires a data frame consisting of a column of
-observations and a column of predictions. The observations are
-split up into <code>bins</code> according to values of the
-predictions. The median prediction line together with the 25/75th
-and 10/90th quantile values are plotted together with a line
-showing a “perfect” model. Also shown is a histogram of
-predicted values (shaded grey) and a histogram of observed values
-(shown as a blue line).</p>
+<p>The function requires a data frame consisting of a column of observations and
+a column of predictions. The observations are split up into <code>bins</code>
+according to values of the predictions. The median prediction line together
+with the 25/75th and 10/90th quantile values are plotted together with a line
+showing a “perfect” model. Also shown is a histogram of predicted
+values (shaded grey) and a histogram of observed values (shown as a blue
+line).</p>
 <p>Far more insight can be gained into model performance through conditioning
-using <code>type</code>. For example, <code>type = "season"</code> will plot
-conditional quantiles by each season. <code>type</code> can also be a factor or
-character field e.g. representing different models used.</p>
+using <code>type</code>. For example, <code>type = "season"</code> will plot conditional
+quantiles by each season. <code>type</code> can also be a factor or character field
+e.g. representing different models used.</p>
 <p>See Wilks (2005) for more details and the examples below.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>Murphy, A. H., B.G. Brown and Y. Chen. (1989) Diagnostic
-Verification of Temperature Forecasts, Weather and Forecasting,
-Volume: 4, Issue: 4, Pages: 485-501.</p>
-<p>Wilks, D. S., 2005. Statistical Methods in the
-Atmospheric Sciences, Volume 91, Second Edition (International
-Geophysics), 2nd Edition. Academic Press.</p>
+    <p>Murphy, A. H., B.G. Brown and Y. Chen. (1989) Diagnostic Verification of
+Temperature Forecasts, Weather and Forecasting, Volume: 4, Issue: 4, Pages:
+485-501.</p>
+<p>Wilks, D. S., 2005. Statistical Methods in the Atmospheric Sciences, Volume
+91, Second Edition (International Geophysics), 2nd Edition. Academic Press.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>See <code><a href="modStats.html">modStats</a></code> for model evaluation statistics and the
-  package <code>verification</code> for comprehensive functions for forecast
-  verification.</p></div>
+    <div class="dont-index"><p>The <code>verification</code> package for comprehensive functions for
+forecast verification.</p>
+<p>Other model evaluation functions: 
+<code><a href="TaylorDiagram.html">TaylorDiagram</a>()</code>,
+<code><a href="conditionalEval.html">conditionalEval</a>()</code>,
+<code><a href="modStats.html">modStats</a>()</code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -225,12 +226,7 @@ Geophysics), 2nd Edition. Academic Press.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># load example data from package</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## make some dummy prediction data based on 'nox'</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## make some dummy prediction data based on 'nox'</span></span></span>
 <span class="r-in"><span><span class="va">mydata</span><span class="op">$</span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="va">mydata</span><span class="op">$</span><span class="va">nox</span><span class="op">*</span><span class="fl">1.1</span> <span class="op">+</span> <span class="va">mydata</span><span class="op">$</span><span class="va">nox</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># basic conditional quantile plot</span></span></span>
@@ -251,9 +247,6 @@ Geophysics), 2nd Edition. Academic Press.</p>
 <span class="r-in"><span><span class="co">## enlightening in this case - try some real data and it will be!)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fu">conditionalQuantile</span><span class="op">(</span><span class="va">mydata</span>, obs <span class="op">=</span> <span class="st">"nox"</span>, mod <span class="op">=</span> <span class="st">"mod"</span>, type <span class="op">=</span> <span class="st">"season"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

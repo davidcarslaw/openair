@@ -1,4 +1,4 @@
-#' corrgram plot with conditioning
+#' Correlation matrices with conditioning
 #'
 #' Function to to draw and visualise correlation matrices using lattice. The
 #' primary purpose is as a tool for exploratory data analysis. Hierarchical

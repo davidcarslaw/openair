@@ -141,12 +141,14 @@ situations.</p></dd>
 
 <dt>cols</dt>
 <dd><p>Colours to be used for plotting. Options include
-“default”, “increment”, “heat”, “jet”,
-“turbo”, and <code>RColorBrewer</code> colours --- see the <code>openair</code>
-<code>openColours</code> function for more details. For user defined the user
-can supply a list of colour names recognised by R (type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code>
-to see the full list). An example would be <code>cols = c("yellow",
-"green", "blue")</code></p></dd>
+“default”, “increment”, “heat”, “jet” and
+<code>RColorBrewer</code> colours --- see the <code>openair</code> <code>openColours</code>
+function for more details. For user defined the user can supply a list of
+colour names recognised by R (type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colours()</a></code> to see the full list).
+An example would be <code>cols = c("yellow", "green", "blue")</code>. <code>cols</code>
+can also take the values <code>"viridis"</code>, <code>"magma"</code>,
+<code>"inferno"</code>, or <code>"plasma"</code> which are the viridis colour maps
+ported from Python's Matplotlib library.</p></dd>
 
 
 <dt>trans</dt>
@@ -159,20 +161,20 @@ distribution. If set to <code>FALSE</code> a linear scale is used.</p></dd>
 
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split i.e. conditioned,
-  and then plotted. The default is will produce a single plot using the
-  entire data. Type can be one of the built-in types as detailed in
-  <code>cutData</code> e.g. “season”, “year”, “weekday” and
-  so on. For example, <code>type = "season"</code> will produce four plots --- one
-  for each season.</p>
+and then plotted. The default is will produce a single plot using the
+entire data. Type can be one of the built-in types as detailed in
+<code>cutData</code> e.g. “season”, “year”, “weekday” and so
+on. For example, <code>type = "season"</code> will produce four plots --- one for
+each season.</p>
 <p>It is also possible to choose <code>type</code> as another variable in the data
-  frame. If that variable is numeric, then the data will be split into four
-  quantiles (if possible) and labelled accordingly. If type is an existing
-  character or factor variable, then those categories/levels will be used
-  directly. This offers great flexibility for understanding the variation of
-  different variables and how they depend on one another.</p>
+frame. If that variable is numeric, then the data will be split into four
+quantiles (if possible) and labelled accordingly. If type is an existing
+character or factor variable, then those categories/levels will be used
+directly. This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.</p>
 <p>Type can be up length two e.g. <code>type = c("season", "weekday")</code> will
-  produce a 2x2 plot split by season and day of the week. Note, when two
-  types are provided the first forms the columns and the second the rows.</p></dd>
+produce a 2x2 plot split by season and day of the week. Note, when two
+types are provided the first forms the columns and the second the rows.</p></dd>
 
 
 <dt>min.bin</dt>
@@ -181,7 +183,7 @@ direction bin.  The default is 1. A value of two requires at least 2 valid
 records in each bin an so on; bins with less than 2 valid records are set
 to NA. Care should be taken when using a value &gt; 1 because of the risk of
 removing real data points. It is recommended to consider your data with
-care. Also, the <code>polarPlot</code> function can be of use in such
+care. Also, the <code>polarFreq</code> function can be of use in such
 circumstances.</p></dd>
 
 
@@ -196,7 +198,7 @@ always ensure that wind speeds are displayed between 1-10, set
 <dd><p><code>offset</code> controls the size of the ‘hole’ in the
 middle and is expressed as a percentage of the maximum wind speed. Setting
 a higher <code>offset</code> e.g. 50 is useful for <code>statistic =
-"weighted.mean"</code> when <code>ws.int</code> is greater than the maximum wind
+  "weighted.mean"</code> when <code>ws.int</code> is greater than the maximum wind
 speed. See example below.</p></dd>
 
 
@@ -206,16 +208,20 @@ bin. The default is transparent. Another useful choice sometimes is
 "white".</p></dd>
 
 
-<dt>key.header, key.footer</dt>
-<dd><p>Adds additional text/labels to the scale key.
-For example, passing options <code>key.header = "header", key.footer =
-"footer"</code> adds addition text above and below the scale key. These
-arguments are passed to <code>drawOpenKey</code> via <code>quickText</code>, applying
-the <code>auto.text</code> argument, to handle formatting.</p></dd>
+<dt>key.header</dt>
+<dd><p>Adds additional text/labels to the scale key. For example,
+passing the options <code>key.header = "header", key.footer = "footer1"</code>
+adds addition text above and below the scale key. These arguments are
+passed to <code>drawOpenKey</code> via <code>quickText</code>, applying the
+<code>auto.text</code> argument, to handle formatting.</p></dd>
+
+
+<dt>key.footer</dt>
+<dd><p>see <code>key.footer</code>.</p></dd>
 
 
 <dt>key.position</dt>
-<dd><p>Location where the scale key is to plotted.  Allowed
+<dd><p>Location where the scale key is to plotted. Allowed
 arguments currently include <code>"top"</code>, <code>"right"</code>, <code>"bottom"</code>
 and <code>"left"</code>.</p></dd>
 
@@ -226,10 +232,9 @@ and <code>"left"</code>.</p></dd>
 
 
 <dt>auto.text</dt>
-<dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If
-<code>TRUE</code> titles and axis labels will automatically try and format
-pollutant names and units properly e.g.  by subscripting the ‘2’ in
-NO2.</p></dd>
+<dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If <code>TRUE</code>
+titles and axis labels will automatically try and format pollutant names
+and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
 
 
 <dt>plot</dt>
@@ -242,7 +247,7 @@ analysing data to extract plot components and plotting them in other ways.</p></
 and <code>cutData</code>. For example, <code>polarFreq</code> passes the option
 <code>hemisphere = "southern"</code> on to <code>cutData</code> to provide southern
 (rather than default northern) hemisphere handling of <code>type =
-"season"</code>. Similarly, common axis and title labelling options (such as
+  "season"</code>. Similarly, common axis and title labelling options (such as
 <code>xlab</code>, <code>ylab</code>, <code>main</code>) are passed to <code>xyplot</code> via
 <code>quickText</code> to handle routine formatting.</p></dd>
 
@@ -251,20 +256,7 @@ and <code>cutData</code>. For example, <code>polarFreq</code> passes the option
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>As well as generating the plot itself, <code>polarFreq</code> also returns
-  an object of class “openair”. The object includes three main
-  components: <code>call</code>, the command used to generate the plot;</p>
-<p></p>
-<p><code>data</code>, the data frame of summarised information used to make the
-  plot; and <code>plot</code>, the plot itself. If retained, e.g. using</p>
-<p></p>
-<p><code>output &lt;- polarFreq(mydata, "nox")</code>, this output can be used to
-  recover the data, reproduce or rework the original plot or undertake
-  further analysis.</p>
-
-
-<p>An openair output can be manipulated using a number of generic operations,
-  including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
+<p>an <a href="openair-package.html">openair</a> object</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -275,12 +267,12 @@ and a user-specified wind speed interval. The frequency of wind
 speeds/directions formed by these ‘bins’ is represented on a colour
 scale.</p>
 <p>The <code>polarFreq</code> function is more flexible than either
-<code><a href="windRose.html">windRose</a></code> or <code><a href="polarPlot.html">polarPlot</a></code>. It can, for example, also
+<code><a href="windRose.html">windRose()</a></code> or <code><a href="polarPlot.html">polarPlot()</a></code>. It can, for example, also
 consider pollutant concentrations (see examples below). Instead of the
 number of data points in each bin, the concentration can be shown. Further,
 a range of statistics can be used to describe each bin - see
 <code>statistic</code> above. Plotting mean concentrations is useful for source
-identification and is the same as <code><a href="polarPlot.html">polarPlot</a></code> but without
+identification and is the same as <code><a href="polarPlot.html">polarPlot()</a></code> but without
 smoothing, which may be preferable for some data. Plotting with
 <code>statistic = "weighted.mean"</code> is particularly useful for understanding
 the relative importance of different source contributions. For example, high
@@ -291,12 +283,15 @@ concentrations is very low.</p>
 user has fine control over both the range, interval and colour.</p>
     </div>
     <div class="section level2">
-    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>~put references to the literature/web site here ~</p>
-    </div>
-    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>See Also as <code><a href="windRose.html">windRose</a></code>, <code><a href="polarPlot.html">polarPlot</a></code></p></div>
+    <div class="dont-index"><p>Other polar directional analaysis functions: 
+<code><a href="percentileRose.html">percentileRose</a>()</code>,
+<code><a href="polarAnnulus.html">polarAnnulus</a>()</code>,
+<code><a href="polarCluster.html">polarCluster</a>()</code>,
+<code><a href="polarDiff.html">polarDiff</a>()</code>,
+<code><a href="polarPlot.html">polarPlot</a>()</code>,
+<code><a href="pollutionRose.html">pollutionRose</a>()</code>,
+<code><a href="windRose.html">windRose</a>()</code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -305,9 +300,7 @@ user has fine control over both the range, interval and colour.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># basic wind frequency plot</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># basic wind frequency plot</span></span></span>
 <span class="r-in"><span><span class="fu">polarFreq</span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="polarFreq-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -336,7 +329,6 @@ user has fine control over both the range, interval and colour.</p>
 <span class="r-in"><span><span class="co"># source contribution plot and use of offset option</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fu">polarFreq</span><span class="op">(</span><span class="va">mydata</span>, pollutant <span class="op">=</span> <span class="st">"pm25"</span>, statistic</span></span>
 <span class="r-in"><span><span class="op">=</span><span class="st">"weighted.mean"</span>, offset <span class="op">=</span> <span class="fl">50</span>, ws.int <span class="op">=</span> <span class="fl">25</span>, trans <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

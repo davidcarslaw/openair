@@ -55,6 +55,7 @@ reference:
   - scatterPlot
   - corPlot
   - linearRelation
+  - calcFno2
 
 - title: Utilities
 - subtitle: Plot Utilities
@@ -70,7 +71,6 @@ reference:
   - aqStats
   - binData
   - bootMeanDF
-  - calcFno2
   - calcPercentile
   - cutData
   - rollingMean

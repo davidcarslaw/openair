@@ -117,15 +117,15 @@ period are required.</p></dd>
 <dd><p>Mandatory. A pollutant name corresponding to a variable in a
 data frame should be supplied e.g. <code>pollutant = "nox"</code>. There can also
 be more than one pollutant specified e.g. <code>pollutant = c("nox",
-"no2")</code>. The main use of using two or more pollutants is for model
+  "no2")</code>. The main use of using two or more pollutants is for model
 evaluation where two species would be expected to have similar
 concentrations. This saves the user stacking the data and it is possible to
 work with columns of data directly. A typical use would be <code>pollutant
-= c("obs", "mod")</code> to compare two columns “obs” (the observations)
+  = c("obs", "mod")</code> to compare two columns “obs” (the observations)
 and “mod” (modelled values). When pair-wise statistics such as
 Pearson correlation and regression techniques are to be plotted,
 <code>pollutant</code> takes two elements too. For example, <code>pollutant =
-c("bc", "pm25")</code> where <code>"bc"</code> is a function of <code>"pm25"</code>.</p></dd>
+  c("bc", "pm25")</code> where <code>"bc"</code> is a function of <code>"pm25"</code>.</p></dd>
 
 
 <dt>x</dt>
@@ -139,74 +139,74 @@ coordinates, the default is wind speed, “ws”.</p></dd>
 
 <dt>type</dt>
 <dd><p><code>type</code> determines how the data are split i.e. conditioned,
-  and then plotted. The default is will produce a single plot using the
-  entire data. Type can be one of the built-in types as detailed in
-  <code>cutData</code> e.g. “season”, “year”, “weekday” and so
-  on. For example, <code>type = "season"</code> will produce four plots --- one for
-  each season.</p>
+and then plotted. The default is will produce a single plot using the
+entire data. Type can be one of the built-in types as detailed in
+<code>cutData</code> e.g. “season”, “year”, “weekday” and so
+on. For example, <code>type = "season"</code> will produce four plots --- one for
+each season.</p>
 <p>It is also possible to choose <code>type</code> as another variable in the data
-  frame. If that variable is numeric, then the data will be split into four
-  quantiles (if possible) and labelled accordingly. If type is an existing
-  character or factor variable, then those categories/levels will be used
-  directly. This offers great flexibility for understanding the variation of
-  different variables and how they depend on one another.</p>
+frame. If that variable is numeric, then the data will be split into four
+quantiles (if possible) and labelled accordingly. If type is an existing
+character or factor variable, then those categories/levels will be used
+directly. This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.</p>
 <p>Type can be up length two e.g. <code>type = c("season", "weekday")</code> will
-  produce a 2x2 plot split by season and day of the week. Note, when two
-  types are provided the first forms the columns and the second the rows.</p></dd>
+produce a 2x2 plot split by season and day of the week. Note, when two
+types are provided the first forms the columns and the second the rows.</p></dd>
 
 
 <dt>statistic</dt>
 <dd><p>The statistic that should be applied to each wind
-  speed/direction bin. Because of the smoothing involved, the colour scale
-  for some of these statistics is only to provide an indication of overall
-  pattern and should not be interpreted in concentration units e.g. for
-  <code>statistic = "weighted.mean"</code> where the bin mean is multiplied by the
-  bin frequency and divided by the total frequency. In many cases using
-  <code>polarFreq</code> will be better. Setting <code>statistic = "weighted.mean"</code>
-  can be useful because it provides an indication of the concentration *
-  frequency of occurrence and will highlight the wind speed/direction
-  conditions that dominate the overall mean.Can be:</p>
-<p></p><ul><li><p>“mean” (default), “median”, “max”
-  (maximum), “frequency”. “stdev” (standard deviation),
-  “weighted.mean”.</p></li>
+speed/direction bin. Because of the smoothing involved, the colour scale
+for some of these statistics is only to provide an indication of overall
+pattern and should not be interpreted in concentration units e.g. for
+<code>statistic = "weighted.mean"</code> where the bin mean is multiplied by the
+bin frequency and divided by the total frequency. In many cases using
+<code>polarFreq</code> will be better. Setting <code>statistic = "weighted.mean"</code>
+can be useful because it provides an indication of the concentration *
+frequency of occurrence and will highlight the wind speed/direction
+conditions that dominate the overall mean.Can be:</p>
+<ul><li><p>“mean” (default), “median”, “max”
+(maximum), “frequency”. “stdev” (standard deviation),
+“weighted.mean”.</p></li>
 <li><p><code>statistic = "nwr"</code> Implements the Non-parametric Wind
-  Regression approach of Henry et al. (2009) that uses kernel smoothers. The
-  <code>openair</code> implementation is not identical because Gaussian kernels are
-  used for both wind direction and speed. The smoothing is controlled by
-  <code>ws_spread</code> and <code>wd_spread</code>.</p></li>
+Regression approach of Henry et al. (2009) that uses kernel smoothers. The
+<code>openair</code> implementation is not identical because Gaussian kernels are
+used for both wind direction and speed. The smoothing is controlled by
+<code>ws_spread</code> and <code>wd_spread</code>.</p></li>
 <li><p><code>statistic = "cpf"</code> the conditional probability function (CPF)
-  is plotted and a single (usually high) percentile level is supplied. The
-  CPF is defined as CPF = my/ny, where my is the number of samples in the y
-  bin (by default a wind direction, wind speed interval) with mixing ratios
-  greater than the <em>overall</em> percentile concentration, and ny is the
-  total number of samples in the same wind sector (see Ashbaugh et al.,
-  1985). Note that percentile intervals can also be considered; see
-  <code>percentile</code> for details.</p></li>
+is plotted and a single (usually high) percentile level is supplied. The
+CPF is defined as CPF = my/ny, where my is the number of samples in the y
+bin (by default a wind direction, wind speed interval) with mixing ratios
+greater than the <em>overall</em> percentile concentration, and ny is the
+total number of samples in the same wind sector (see Ashbaugh et al.,
+1985). Note that percentile intervals can also be considered; see
+<code>percentile</code> for details.</p></li>
 <li><p>When <code>statistic = "r"</code> or <code>statistic = "Pearson"</code>, the
-  Pearson correlation coefficient is calculated for <em>two</em> pollutants.
-  The calculation involves a weighted Pearson correlation coefficient, which
-  is weighted by Gaussian kernels for wind direction an the radial variable
-  (by default wind speed). More weight is assigned to values close to a wind
-  speed-direction interval. Kernel weighting is used to ensure that all data
-  are used rather than relying on the potentially small number of values in a
-  wind speed-direction interval.</p></li>
+Pearson correlation coefficient is calculated for <em>two</em> pollutants.
+The calculation involves a weighted Pearson correlation coefficient, which
+is weighted by Gaussian kernels for wind direction an the radial variable
+(by default wind speed). More weight is assigned to values close to a wind
+speed-direction interval. Kernel weighting is used to ensure that all data
+are used rather than relying on the potentially small number of values in a
+wind speed-direction interval.</p></li>
 <li><p>When <code>statistic = "Spearman"</code>, the Spearman correlation
-  coefficient is calculated for <em>two</em> pollutants. The calculation
-  involves a weighted Spearman correlation coefficient, which is weighted by
-  Gaussian kernels for wind direction an the radial variable (by default wind
-  speed). More weight is assigned to values close to a wind speed-direction
-  interval. Kernel weighting is used to ensure that all data are used rather
-  than relying on the potentially small number of values in a wind
-  speed-direction interval.</p></li>
+coefficient is calculated for <em>two</em> pollutants. The calculation
+involves a weighted Spearman correlation coefficient, which is weighted by
+Gaussian kernels for wind direction an the radial variable (by default wind
+speed). More weight is assigned to values close to a wind speed-direction
+interval. Kernel weighting is used to ensure that all data are used rather
+than relying on the potentially small number of values in a wind
+speed-direction interval.</p></li>
 <li><p><code>"robust_slope"</code> is another option for pair-wise statistics and
-  <code>"quantile.slope"</code>, which uses quantile regression to estimate the
-  slope for a particular quantile level (see also <code>tau</code> for setting the
-  quantile level).</p></li>
+<code>"quantile.slope"</code>, which uses quantile regression to estimate the
+slope for a particular quantile level (see also <code>tau</code> for setting the
+quantile level).</p></li>
 <li><p><code>"york_slope"</code> is another option for pair-wise statistics which
-  uses the <em>York regression method</em> to estimate the slope. In this
-  method the uncertainties in <code>x</code> and <code>y</code> are used in the
-  determination of the slope. The uncertainties are provided by
-  <code>x_error</code> and <code>y_error</code> --- see below.</p></li>
+uses the <em>York regression method</em> to estimate the slope. In this
+method the uncertainties in <code>x</code> and <code>y</code> are used in the
+determination of the slope. The uncertainties are provided by
+<code>x_error</code> and <code>y_error</code> --- see below.</p></li>
 </ul></dd>
 
 
@@ -231,7 +231,7 @@ produces a plot where it is clear where the original data lie. If set to
 <dd><p>Should the uncertainty in the calculated surface be shown?
 If <code>TRUE</code> three plots are produced on the same scale showing the
 predicted surface together with the estimated lower and upper uncertainties
-at the 95<!-- % confidence interval. Calculating the uncertainties is useful to -->
+at the 95% confidence interval. Calculating the uncertainties is useful to
 understand whether features are real or not.  For example, at high wind
 speeds where there are few data there is greater uncertainty over the
 predicted values. The uncertainties are calculated using the GAM and
@@ -242,25 +242,25 @@ type is set to "default".</p></dd>
 
 <dt>percentile</dt>
 <dd><p>If <code>statistic = "percentile"</code> then <code>percentile</code>
-  is used, expressed from 0 to 100. Note that the percentile value is
-  calculated in the wind speed, wind direction ‘bins’. For this reason
-  it can also be useful to set <code>min.bin</code> to ensure there are a
-  sufficient number of points available to estimate a percentile. See
-  <code>quantile</code> for more details of how percentiles are calculated.</p>
+is used, expressed from 0 to 100. Note that the percentile value is
+calculated in the wind speed, wind direction ‘bins’. For this reason
+it can also be useful to set <code>min.bin</code> to ensure there are a
+sufficient number of points available to estimate a percentile. See
+<code>quantile</code> for more details of how percentiles are calculated.</p>
 <p><code>percentile</code> is also used for the Conditional Probability Function
-  (CPF) plots. <code>percentile</code> can be of length two, in which case the
-  percentile <em>interval</em> is considered for use with CPF. For example,
-  <code>percentile = c(90, 100)</code> will plot the CPF for concentrations between
-  the 90 and 100th percentiles. Percentile intervals can be useful for
-  identifying specific sources. In addition, <code>percentile</code> can also be of
-  length 3. The third value is the ‘trim’ value to be applied. When
-  calculating percentile intervals many can cover very low values where there
-  is no useful information. The trim value ensures that values greater than
-  or equal to the trim * mean value are considered <em>before</em> the
-  percentile intervals are calculated. The effect is to extract more detail
-  from many source signatures. See the manual for examples. Finally, if the
-  trim value is less than zero the percentile range is interpreted as
-  absolute concentration values and subsetting is carried out directly.</p></dd>
+(CPF) plots. <code>percentile</code> can be of length two, in which case the
+percentile <em>interval</em> is considered for use with CPF. For example,
+<code>percentile = c(90, 100)</code> will plot the CPF for concentrations between
+the 90 and 100th percentiles. Percentile intervals can be useful for
+identifying specific sources. In addition, <code>percentile</code> can also be of
+length 3. The third value is the ‘trim’ value to be applied. When
+calculating percentile intervals many can cover very low values where there
+is no useful information. The trim value ensures that values greater than
+or equal to the trim * mean value are considered <em>before</em> the
+percentile intervals are calculated. The effect is to extract more detail
+from many source signatures. See the manual for examples. Finally, if the
+trim value is less than zero the percentile range is interpreted as
+absolute concentration values and subsetting is carried out directly.</p></dd>
 
 
 <dt>cols</dt>
@@ -277,14 +277,14 @@ ported from Python's Matplotlib library.</p></dd>
 
 <dt>weights</dt>
 <dd><p>At the edges of the plot there may only be a few data points
-  in each wind speed-direction interval, which could in some situations
-  distort the plot if the concentrations are high. <code>weights</code> applies a
-  weighting to reduce their influence. For example and by default if only a
-  single data point exists then the weighting factor is 0.25 and for two
-  points 0.5. To not apply any weighting and use the data as is, use
-  <code>weights = c(1, 1, 1)</code>.</p>
+in each wind speed-direction interval, which could in some situations
+distort the plot if the concentrations are high. <code>weights</code> applies a
+weighting to reduce their influence. For example and by default if only a
+single data point exists then the weighting factor is 0.25 and for two
+points 0.5. To not apply any weighting and use the data as is, use
+<code>weights = c(1, 1, 1)</code>.</p>
 <p>An alternative to down-weighting these points they can be removed
-  altogether using <code>min.bin</code>.</p></dd>
+altogether using <code>min.bin</code>.</p></dd>
 
 
 <dt>min.bin</dt>
@@ -318,10 +318,9 @@ of them can reduce the useful information in the plot.</p></dd>
 
 
 <dt>angle.scale</dt>
-<dd><p>The wind speed scale is by default shown at a 315 degree
-angle. Sometimes the placement of the scale may interfere with an
+<dd><p>Sometimes the placement of the scale may interfere with an
 interesting feature. The user can therefore set <code>angle.scale</code> to
-another value (between 0 and 360 degrees) to mitigate such problems. For
+any value between 0 and 360 degrees to mitigate such problems. For
 example <code>angle.scale = 45</code> will draw the scale heading in a NE
 direction.</p></dd>
 
@@ -431,8 +430,7 @@ and will be ignored if <code>"quantile.slope"</code> is not used.</p></dd>
 
 <dt>plot</dt>
 <dd><p>Should a plot be produced? <code>FALSE</code> can be useful when
-analysing data to extract plot components and plotting them in other
-ways.</p></dd>
+analysing data to extract plot components and plotting them in other ways.</p></dd>
 
 
 <dt>...</dt>
@@ -440,7 +438,7 @@ ways.</p></dd>
 and <code>cutData</code>. For example, <code>polarPlot</code> passes the option
 <code>hemisphere = "southern"</code> on to <code>cutData</code> to provide southern
 (rather than default northern) hemisphere handling of <code>type =
-"season"</code>. Similarly, common axis and title labelling options (such as
+  "season"</code>. Similarly, common axis and title labelling options (such as
 <code>xlab</code>, <code>ylab</code>, <code>main</code>) are passed to <code>levelplot</code> via
 <code>quickText</code> to handle routine formatting.</p></dd>
 
@@ -449,28 +447,12 @@ and <code>cutData</code>. For example, <code>polarPlot</code> passes the option
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>As well as generating the plot itself, <code>polarPlot</code> also returns
-  an object of class ``openair''. The object includes three main components:</p>
-<p></p>
-<p><code>call</code>, the command used to generate the plot; <code>data</code>, the data
-  frame of summarised information used to make the plot; and <code>plot</code>, the
-  plot itself. If retained, e.g. using <code>output &lt;- polarPlot(mydata,
-  "nox")</code>, this output can be used to recover the data, reproduce or rework
-  the original plot or undertake further analysis.</p>
-
-
-<p>An openair output can be manipulated using a number of generic operations,
-  including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
-<p></p>
-<p><code>polarPlot</code> surface data can also be extracted directly using the</p>
-<p></p>
-<p><code>results</code>, e.g.  <code>results(object)</code> for <code>output &lt;-
-  polarPlot(mydata, "nox")</code>. This returns a data frame with four set columns:</p>
-<p></p>
-<p><code>cond</code>, conditioning based on <code>type</code>; <code>u</code> and <code>v</code>, the
-  translational vectors based on <code>ws</code> and <code>wd</code>; and the local</p>
-<p></p>
-<p><code>pollutant</code> estimate.</p>
+<p>an <a href="openair-package.html">openair</a> object. <code>polarPlot</code> surface data
+can also be extracted directly using the <code>results</code>, e.g.
+<code>results(object)</code> for <code>output &lt;- polarPlot(mydata, "nox")</code>. This
+returns a data frame with four set columns: <code>cond</code>, conditioning based
+on <code>type</code>; <code>u</code> and <code>v</code>, the translational vectors based on
+<code>ws</code> and <code>wd</code>; and the local <code>pollutant</code> estimate.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -495,7 +477,7 @@ to find an optimum level of smoothness, they are not necessarily useful. The
 principal aim of <code>polarPlot</code> is as a graphical analysis rather than for
 quantitative purposes. In this respect the smoothing aims to strike a balance
 between revealing interesting (real) features and overly noisy data. The
-defaults used in <code>polarPlot</code> are based on the analysis of data from many
+defaults used in <code>polarPlot()</code> are based on the analysis of data from many
 different sources. More advanced users may wish to modify the code and adopt
 other smoothing approaches.</p>
 <p>Various statistics are possible to consider e.g. mean, maximum, median.
@@ -511,18 +493,16 @@ statistics.</p>
 references below). For these conditions there can be very few measurements
 and therefore greater uncertainty in the calculation of the surface. There
 are several ways in which this issue can be tackled. First, it is possible to
-avoid smoothing altogether and use <code>polarFreq</code> in the package
-<code>openair</code>. Second, the effect of setting a minimum number of
-measurements in each wind speed-direction bin can be examined through
-<code>min.bin</code>. It is possible that a single point at high wind speed
-conditions can strongly affect the surface prediction. Therefore, setting
-<code>min.bin = 3</code>, for example, will remove all wind speed-direction bins
-with fewer than 3 measurements <em>before</em> fitting the surface. Third,
-consider setting <code>uncertainty = TRUE</code>. This option will show the
-predicted surface together with upper and lower 95<!-- % confidence intervals, -->
-which take account of the frequency of measurements.</p>
-<p>Variants on <code>polarPlot</code> include <code>polarAnnulus</code> and
-<code>polarFreq</code>.</p>
+avoid smoothing altogether and use <code><a href="polarFreq.html">polarFreq()</a></code>. Second, the effect of
+setting a minimum number of measurements in each wind speed-direction bin can
+be examined through <code>min.bin</code>. It is possible that a single point at
+high wind speed conditions can strongly affect the surface prediction.
+Therefore, setting <code>min.bin = 3</code>, for example, will remove all wind
+speed-direction bins with fewer than 3 measurements <em>before</em> fitting the
+surface. Third, consider setting <code>uncertainty = TRUE</code>. This option will
+show the predicted surface together with upper and lower 95% confidence
+intervals, which take account of the frequency of measurements.</p>
+<p>Variants on <code>polarPlot</code> include <code><a href="polarAnnulus.html">polarAnnulus()</a></code> and <code><a href="polarFreq.html">polarFreq()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -560,8 +540,14 @@ Atmospheric Environment. 145, 128-134.
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>The openair package for many more functions for analysing air
-  pollution data.</p></div>
+    <div class="dont-index"><p>Other polar directional analaysis functions: 
+<code><a href="percentileRose.html">percentileRose</a>()</code>,
+<code><a href="polarAnnulus.html">polarAnnulus</a>()</code>,
+<code><a href="polarCluster.html">polarCluster</a>()</code>,
+<code><a href="polarDiff.html">polarDiff</a>()</code>,
+<code><a href="polarFreq.html">polarFreq</a>()</code>,
+<code><a href="pollutionRose.html">pollutionRose</a>()</code>,
+<code><a href="windRose.html">windRose</a>()</code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

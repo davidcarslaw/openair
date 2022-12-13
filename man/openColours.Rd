@@ -2,7 +2,7 @@
 % Please edit documentation in R/openColours.R
 \name{openColours}
 \alias{openColours}
-\title{openair colours}
+\title{Pre-defined openair colours and definition of user-defined colours}
 \usage{
 openColours(scheme = "default", n = 100)
 }
@@ -48,13 +48,11 @@ interpolate the colours.}
 Returns colour values - see examples below.
 }
 \description{
-Pre-defined openair colours and definition of user-defined colours
-}
-\details{
 This in primarily an internal openair function to make it easy for users to
 select particular colour schemes, or define their own range of colours of a
 user-defined length.
-
+}
+\details{
 Each of the pre-defined schemes have merits and their use will depend on a
 particular situation. For showing incrementing concentrations e.g. high
 concentrations emphasised, then "default", "heat", "jet", "turbo", and

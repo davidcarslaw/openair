@@ -2,7 +2,7 @@
 % Please edit documentation in R/windRose.R
 \name{windRose}
 \alias{windRose}
-\title{Traditional wind rose plot and pollution rose variation}
+\title{Traditional wind rose plot}
 \usage{
 windRose(
   mydata,

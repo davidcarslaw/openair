@@ -64,50 +64,52 @@ concentrations, wind speed and wind direction collected at the Marylebone
 June 2005. The data set is a tibble.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="va">mydata</span></span></code></pre></div>
+    </div>
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>Data frame with 65533 observations (rows) on the following 10
-  variables:</p><dl><dt>list("date")</dt>
-<dd><p>Observation date/time stamp in
-  year-month-day hour:minute:second format (POSIXct).</p></dd>
+    <p>Data frame with 65533 observations (rows) and 10 variables:</p><dl><dt>date</dt>
+<dd><p>Observation date/time stamp in year-month-day hour:minute:second
+format (POSIXct).</p></dd>
 
-  <dt>list("ws")</dt>
+<dt>ws</dt>
 <dd><p>Wind speed, in m/s, as numeric vector.</p></dd>
 
-  <dt>list("wd")</dt>
-<dd><p>Wind direction, in degrees from North, as a numeric
-  vector.</p></dd>
- <dt>list("nox")</dt>
-<dd><p>Oxides of nitrogen concentration, in ppb, as
-  a numeric vector.</p></dd>
- <dt>list("no2")</dt>
-<dd><p>Nitrogen dioxide concentration, in
-  ppb, as a numeric vector.</p></dd>
- <dt>list("o3")</dt>
-<dd><p>Ozone concentration, in ppb,
-  as a numeric vector.</p></dd>
- <dt>list("pm10")</dt>
-<dd><p>Particulate PM10 fraction
-  measurement, in ug/m3 (raw TEOM), as a numeric vector.</p></dd>
+<dt>wd</dt>
+<dd><p>Wind direction, in degrees from North, as a numeric vector.</p></dd>
 
-  <dt>list("so2")</dt>
-<dd><p>Sulfur dioxide concentration, in ppb, as a numeric
-  vector.</p></dd>
- <dt>list("co")</dt>
-<dd><p>Carbon monoxide concentration, in ppm, as a
-  numeric vector.</p></dd>
- <dt>list("pm25")</dt>
-<dd><p>Particulate PM2.5 fraction
-  measurement, in ug/m3, as a numeric vector.</p></dd>
- 
+<dt>nox</dt>
+<dd><p>Oxides of nitrogen concentration, in ppb, as a numeric vector.</p></dd>
+
+<dt>no2</dt>
+<dd><p>Nitrogen dioxide concentration, in ppb, as a numeric vector.</p></dd>
+
+<dt>o3</dt>
+<dd><p>Ozone concentration, in ppb, as a numeric vector.</p></dd>
+
+<dt>pm10</dt>
+<dd><p>Particulate PM10 fraction measurement, in ug/m3 (raw TEOM), as a
+numeric vector.</p></dd>
+
+<dt>so2</dt>
+<dd><p>Sulfur dioxide concentration, in ppb, as a numeric vector.</p></dd>
+
+<dt>co</dt>
+<dd><p>Carbon monoxide concentration, in ppm, as a numeric vector.</p></dd>
+
+<dt>pm25</dt>
+<dd><p>Particulate PM2.5 fraction measurement, in ug/m3, as a numeric
+vector.</p></dd>
+
+
 </dl></div>
     <div class="section level2">
     <h2 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a></h2>
     <p><code>mydata</code> was compiled from data archived in the London Air
-  Quality Archive.  See <a href="https://www.londonair.org.uk" class="external-link">https://www.londonair.org.uk</a> for site details.</p>
-<p>The same data is also provide in <code>'.csv'</code> format via the openair
-  project web site <a href="https://davidcarslaw.github.io/openair/" class="external-link">https://davidcarslaw.github.io/openair/</a>.</p>
+Quality Archive.  See <a href="https://www.londonair.org.uk" class="external-link">https://www.londonair.org.uk</a> for site details.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -117,16 +119,14 @@ dataset for use with documented examples.</p>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p><code>openair</code> functions generally require data frames with a field
-  "date" that can be in either <code>POSIXct</code> or <code>Date</code> format but
-  should be GMT time zone. This can be hourly data or higher resolution
-  data.</p>
+"date" that can be in either <code>POSIXct</code> or <code>Date</code> format but
+should be GMT time zone. This can be hourly data or higher resolution
+data.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#basic structure</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#basic structure</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 10</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   date                   ws    wd   nox   no2    o3  pm10   so2    co  pm25</span>
@@ -137,8 +137,6 @@ dataset for use with documented examples.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> 1998-01-01 <span style="color: #949494;">03:00:00</span>  2.16   170   493    52     3    35  7.66 10.2     <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> 1998-01-01 <span style="color: #949494;">04:00:00</span>  2.4    180   468    78     2    34  8.07  8.91    <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> 1998-01-01 <span style="color: #949494;">05:00:00</span>  3      190   264    42     0    16  5.50  3.05    <span style="color: #BB0000;">NA</span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

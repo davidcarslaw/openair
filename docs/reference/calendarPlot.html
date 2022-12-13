@@ -133,7 +133,7 @@ vector-averaged wind direction scaled by wind speed. Finally it can be
 
 
 <dt>statistic</dt>
-<dd><p>Statistic passed to <code>timeAverage</code>.</p></dd>
+<dd><p>Statistic passed to <code><a href="timeAverage.html">timeAverage()</a></code>.</p></dd>
 
 
 <dt>cols</dt>
@@ -151,7 +151,7 @@ is useful in the case when there is a need for two or more plots and a
 consistent scale is needed on each. Set the limits to cover the maximum
 range of the data for all plots of interest. For example, if one plot had
 data covering 0--60 and another 0--100, then set <code>limits = c(0,
-100)</code>. Note that data will be ignored if outside the limits range.</p></dd>
+  100)</code>. Note that data will be ignored if outside the limits range.</p></dd>
 
 
 <dt>lim</dt>
@@ -190,8 +190,8 @@ size of the text above <code>lim</code>.</p></dd>
 
 
 <dt>data.thresh</dt>
-<dd><p>Data capture threshold passed to <code>timeAverage</code>. For
-example, <code>data.thresh = 75</code> means that at least 75% of the data must
+<dd><p>Data capture threshold passed to <code><a href="timeAverage.html">timeAverage()</a></code>. For
+example, <code>data.thresh = 75</code> means that at least 75\<!-- % of the data must -->
 be available in a day for the value to be calculate, else the data is
 removed.</p></dd>
 
@@ -199,7 +199,7 @@ removed.</p></dd>
 <dt>labels</dt>
 <dd><p>If a categorical scale is required then these labels will be
 used. Note there is one less label than break. For example, <code>labels =
-c("good", "bad", "very bad")</code>. <code>breaks</code> must also be supplied if
+  c("good", "bad", "very bad")</code>. <code>breaks</code> must also be supplied if
 labels are given.</p></dd>
 
 
@@ -230,7 +230,7 @@ is <code>TRUE</code>.</p></dd>
 <dt>key.header</dt>
 <dd><p>Adds additional text/labels to the scale key. For example,
 passing <code>calendarPlot(mydata, key.header = "header", key.footer =
-"footer")</code> adds addition text above and below the scale key. These
+  "footer")</code> adds addition text above and below the scale key. These
 arguments are passed to <code>drawOpenKey</code> via <code>quickText</code>, applying
 the <code>auto.text</code> argument, to handle formatting.</p></dd>
 
@@ -273,32 +273,19 @@ via <code>quickText</code> to handle routine formatting.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>As well as generating the plot itself, <code>calendarPlot</code> also
-  returns an object of class ``openair''. The object includes three main
-  components: <code>call</code>, the command used to generate the plot;</p>
-<p></p>
-<p><code>data</code>, the data frame of summarised information used to make the
-  plot; and <code>plot</code>, the plot itself. If retained, e.g. using</p>
-<p></p>
-<p><code>output &lt;- calendarPlot(mydata, "nox")</code>, this output can be used to
-  recover the data, reproduce or rework the original plot or undertake
-  further analysis.</p>
-
-
-<p>An openair output can be manipulated using a number of generic operations,
-  including <code>print</code>, <code>plot</code> and <code>summary</code>.</p>
+<p>an <a href="openair-package.html">openair</a> object</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>calendarPlot</code> will plot data in a conventional calendar format i.e. by
 month and day of the week. Daily statistics are calculated using
-<code><a href="timeAverage.html">timeAverage</a></code>, which by default will calculate the daily mean
+<code><a href="timeAverage.html">timeAverage()</a></code>, which by default will calculate the daily mean
 concentration.</p>
 <p>If wind direction is available it is then possible to plot the wind
 direction vector on each day. This is very useful for getting a feel for the
 meteorological conditions that affect pollutant concentrations. Note that if
 hourly or higher time resolution are supplied, then <code>calendarPlot</code> will
-calculate daily averages using <code><a href="timeAverage.html">timeAverage</a></code>, which ensures that
+calculate daily averages using <code><a href="timeAverage.html">timeAverage()</a></code>, which ensures that
 wind directions are vector-averaged.</p>
 <p>If wind speed is also available, then setting the option <code>annotate =
 "ws"</code> will plot the wind vectors whose length is scaled to the wind speed.
@@ -316,7 +303,13 @@ concentrations.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="timePlot.html">timePlot</a></code>, <code><a href="timeVariation.html">timeVariation</a></code></p></div>
+    <div class="dont-index"><p>Other time series and trend functions: 
+<code><a href="TheilSen.html">TheilSen</a>()</code>,
+<code><a href="smoothTrend.html">smoothTrend</a>()</code>,
+<code><a href="timePlot.html">timePlot</a>()</code>,
+<code><a href="timeProp.html">timeProp</a>()</code>,
+<code><a href="timeVariation.html">timeVariation</a>()</code>,
+<code><a href="trendLevel.html">trendLevel</a>()</code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -325,12 +318,7 @@ concentrations.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># load example data from package</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># basic plot</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># basic plot</span></span></span>
 <span class="r-in"><span><span class="fu">calendarPlot</span><span class="op">(</span><span class="va">mydata</span>, pollutant <span class="op">=</span> <span class="st">"o3"</span>, year <span class="op">=</span> <span class="fl">2003</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="calendarPlot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
@@ -350,9 +338,7 @@ concentrations.</p>
 <span class="r-in"><span><span class="fu">calendarPlot</span><span class="op">(</span><span class="va">mydata</span>, pollutant <span class="op">=</span> <span class="st">"no2"</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">150</span>, <span class="fl">1000</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Very low"</span>, <span class="st">"Low"</span>, <span class="st">"High"</span>, <span class="st">"Very High"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lightblue"</span>, <span class="st">"green"</span>, <span class="st">"yellow"</span>,  <span class="st">"red"</span><span class="op">)</span>, statistic <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

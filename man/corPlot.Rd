@@ -2,7 +2,7 @@
 % Please edit documentation in R/corPlot.R
 \name{corPlot}
 \alias{corPlot}
-\title{corrgram plot with conditioning}
+\title{Correlation matrices with conditioning}
 \usage{
 corPlot(
   mydata,

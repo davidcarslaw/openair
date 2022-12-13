@@ -1,4 +1,4 @@
-#' trendLevel
+#' Plot heat map trends
 #'
 #' The trendLevel function provides a way of rapidly showing a large amount of
 #' data in a condensed form. In one plot, the variation in the concentration of

@@ -102,7 +102,7 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
   )
 }
 
-#' Traditional wind rose plot and pollution rose variation
+#' Traditional wind rose plot
 #'
 #' The traditional wind rose plot that plots wind speed and wind direction by
 #' different intervals. The pollution rose applies the same plot structure but

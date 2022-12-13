@@ -2,7 +2,7 @@
 % Please edit documentation in R/trendLevel.R
 \name{trendLevel}
 \alias{trendLevel}
-\title{trendLevel}
+\title{Plot heat map trends}
 \usage{
 trendLevel(
   mydata,

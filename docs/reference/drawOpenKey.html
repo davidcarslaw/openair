@@ -73,55 +73,55 @@ and scaling.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>key</dt>
 <dd><p>List defining the scale key structure to be produced. Most
-  options are identical to original <code>draw.colorkey</code> function.</p>
+options are identical to original <code>draw.colorkey</code> function.</p>
 <p>Original <code>draw.colorkey</code> options:</p>
 <p><code>space</code> location of the scale key ("left", "right", "top" or
-  "bottom").  Defaults to "right".</p>
+"bottom").  Defaults to "right".</p>
 <p><code>col</code> vector of colours, used in scale key.</p>
 <p><code>at</code> numeric vector specifying where the colors change. Must be of
-  length 1 more than the col vector.</p>
+length 1 more than the col vector.</p>
 <p><code>labels</code> a character vector for labelling the at values, or more
-  commonly, a list describing characteristics of the labels. This list may
-  include components <code>labels</code>, <code>at</code>, <code>cex</code>, <code>col</code>,
-  <code>rot</code>, <code>font</code>, <code>fontface</code> and <code>fontfamily</code>.</p>
+commonly, a list describing characteristics of the labels. This list may
+include components <code>labels</code>, <code>at</code>, <code>cex</code>, <code>col</code>,
+<code>rot</code>, <code>font</code>, <code>fontface</code> and <code>fontfamily</code>.</p>
 <p><code>tick.number</code> approximate number of ticks.</p>
 <p><code>width</code> width of the key.</p>
 <p><code>height</code> height of key.</p>
 <p>Note: <code>width</code> and <code>height</code> refer to the key dimensions.
-  <code>height</code> is the length of the key along the plot axis it is
-  positioned against, and <code>width</code> is the length perpendicular to that.</p>
+<code>height</code> is the length of the key along the plot axis it is
+positioned against, and <code>width</code> is the length perpendicular to that.</p>
 <p>Additional options include:</p>
 <p><code>header</code> a character vector of extra text to be added above the key,
-  or a list describing some characteristics of the <code>header</code>. This list
-  may include components <code>header</code>, the character vector of header
-  labels, <code>tweaks</code>, a list of local controls, e.g. 'gap' and 'balance'
-  for spacing relative to scale and footer, respectively, <code>auto.text</code>,
-  <code>TRUE/FALSE</code> option to apply <code>quickText</code>, and <code>slot</code>, a
-  numeric vector setting the size of the text boxes <code>header</code> text is
-  placed in.</p>
+or a list describing some characteristics of the <code>header</code>. This list
+may include components <code>header</code>, the character vector of header
+labels, <code>tweaks</code>, a list of local controls, e.g. 'gap' and 'balance'
+for spacing relative to scale and footer, respectively, <code>auto.text</code>,
+<code>TRUE/FALSE</code> option to apply <code>quickText</code>, and <code>slot</code>, a
+numeric vector setting the size of the text boxes <code>header</code> text is
+placed in.</p>
 <p><code>footer</code> as in <code>header</code> but for labels below the scale key.</p>
 <p>Notes: <code>header</code> and <code>footer</code> formatting can not be set locally,
-  but instead are matched to those set in <code>labels</code>. <code>drawOpenKey</code>
-  allows for up to six additional labels (three above and three below scale
-  key). Any additional text is ignored.</p>
+but instead are matched to those set in <code>labels</code>. <code>drawOpenKey</code>
+allows for up to six additional labels (three above and three below scale
+key). Any additional text is ignored.</p>
 <p><code>tweak, auto.text, slot</code> as in <code>header</code> and <code>footer</code> but
-  sets all options uniformly. This also overwrites anything in
-  <code>header</code> and/or <code>footer</code>.</p>
+sets all options uniformly. This also overwrites anything in
+<code>header</code> and/or <code>footer</code>.</p>
 <p><code>fit</code> the fit method to be applied to the header, scale key and footer
-  when placing the scale key left or right of the plot. Options include:
-  'all', 'soft' and 'scale'.  The default 'all' fits header, key and footer
-  into <code>height</code> range. The alternative 'scale' fits only the key
-  within <code>height</code>. (This means that keys keep the same proportions
-  relative to the main plot regardless of positioning but that header and
-  footer may exceed plot dimensions if <code>height</code> and/or <code>slots</code>
-  are too large.</p>
+when placing the scale key left or right of the plot. Options include:
+'all', 'soft' and 'scale'.  The default 'all' fits header, key and footer
+into <code>height</code> range. The alternative 'scale' fits only the key
+within <code>height</code>. (This means that keys keep the same proportions
+relative to the main plot regardless of positioning but that header and
+footer may exceed plot dimensions if <code>height</code> and/or <code>slots</code>
+are too large.</p>
 <p><code>plot.style</code> a character vector of key plotting style instructions:
-  Options currently include: 'paddle', 'ticks' and 'border'. 'paddle'
-  applies the incremental paddle layout used by <code>winRose</code>. 'ticks'
-  places ticks between the labels scale key. 'border' places a border about
-  the scale key. Any combination of these may be used but if none set,
-  scale key defaults to <code>c("ticks", "border")</code> for most plotting
-  operations or <code>c("paddle")</code> for <code>windRose</code>.</p></dd>
+Options currently include: 'paddle', 'ticks' and 'border'. 'paddle'
+applies the incremental paddle layout used by <code>winRose</code>. 'ticks'
+places ticks between the labels scale key. 'border' places a border about
+the scale key. Any combination of these may be used but if none set,
+scale key defaults to <code>c("ticks", "border")</code> for most plotting
+operations or <code>c("paddle")</code> for <code>windRose</code>.</p></dd>
 
 
 <dt>draw</dt>
@@ -131,16 +131,16 @@ default, FALSE, should always be used within openair calls.</p></dd>
 
 <dt>vp</dt>
 <dd><p>View port to be used when plotting key. The default, NULL, should
-  always be used within openair calls.</p>
+always be used within openair calls.</p>
 <p>(Note: <code>drawOpenKey</code> is a crude modification of
-  <code><a href="https://rdrr.io/pkg/lattice/man/draw.colorkey.html" class="external-link">lattice::draw.colorkey</a></code>, that provides labelling options for
-  <code>openair</code> plot scale keys. Some aspects of the function are in
-  development and may to subject to change. Therefore, it is recommended
-  that you use parent <code>openair</code> function controls, e.g.
-  <code>key.position</code>, <code>key.header</code>, <code>key.footer</code> options, where
-  possible.  <code>drawOpenKey</code> may obviously be used in other plots but it
-  is recommended that <code>draw.colorkey</code> itself be used wherever this
-  type of additional scale labelling is not required.)</p></dd>
+<code><a href="https://rdrr.io/pkg/lattice/man/draw.colorkey.html" class="external-link">lattice::draw.colorkey</a></code>, that provides labelling options for
+<code>openair</code> plot scale keys. Some aspects of the function are in
+development and may to subject to change. Therefore, it is recommended
+that you use parent <code>openair</code> function controls, e.g.
+<code>key.position</code>, <code>key.header</code>, <code>key.footer</code> options, where
+possible.  <code>drawOpenKey</code> may obviously be used in other plots but it
+is recommended that <code>draw.colorkey</code> itself be used wherever this
+type of additional scale labelling is not required.)</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -148,8 +148,8 @@ default, FALSE, should always be used within openair calls.</p></dd>
     
 
 <p>The function is a modification of <code><a href="https://rdrr.io/pkg/lattice/man/draw.colorkey.html" class="external-link">lattice::draw.colorkey</a></code> and
-  returns a scale key using a similar mechanism to that used in in the
-  original function as developed by Deepayan Sarkar.</p>
+returns a scale key using a similar mechanism to that used in in the
+original function as developed by Deepayan Sarkar.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -176,23 +176,23 @@ itself can be controlled using <code>fit</code> options. These can be set in
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>We gratefully acknowledge the considerable help and advice of
-  Deepayan Sarkar.</p>
+Deepayan Sarkar.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Deepayan Sarkar (2010). lattice: Lattice Graphics. R package
-  version 0.18-5.  http://r-forge.r-project.org/projects/lattice/</p>
+version 0.18-5.  http://r-forge.r-project.org/projects/lattice/</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Functions using <code>drawOpenKey</code> currently include
-  <code><a href="windRose.html">windRose</a></code>, <code><a href="windRose.html">pollutionRose</a></code>.</p>
+<code><a href="windRose.html">windRose</a></code>, <code><a href="pollutionRose.html">pollutionRose</a></code>.</p>
 <p>For details of the original function, see <code>draw.colorkey</code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p><code>draw.colorkey</code> is part of the <code>lattice</code> package,
-  developed by Deepayan Sarkar.</p>
+developed by Deepayan Sarkar.</p>
 <p>Additional modifications by Karl Ropkins.</p>
     </div>
 

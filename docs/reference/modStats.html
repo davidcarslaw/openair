@@ -119,8 +119,45 @@ available.</p></dd>
 
 
 <dt>...</dt>
-<dd><p>Other arguments to be passed to <code>cutData</code> e.g.
-<code>hemisphere = "southern"</code></p></dd>
+<dd><p>Arguments passed on to <code><a href="cutData.html">cutData</a></code></p><dl><dt><code>x</code></dt>
+<dd><p>A data frame containing a field <code>date</code>.</p></dd>
+
+    <dt><code>hemisphere</code></dt>
+<dd><p>Can be <code>"northern"</code> or <code>"southern"</code>, used to
+split data into seasons.</p></dd>
+
+    <dt><code>n.levels</code></dt>
+<dd><p>Number of quantiles to split numeric data into.</p></dd>
+
+    <dt><code>start.day</code></dt>
+<dd><p>What day of the week should the <code>type = "weekday"</code>
+start on?  The user can change the start day by supplying an integer
+between 0 and 6. Sunday = 0, Monday = 1, ... For example to start the
+weekday plots on a Saturday, choose <code>start.day = 6</code>.</p></dd>
+
+    <dt><code>is.axis</code></dt>
+<dd><p>A logical (<code>TRUE</code>/<code>FALSE</code>), used to request
+shortened cut labels for axes.</p></dd>
+
+    <dt><code>local.tz</code></dt>
+<dd><p>Used for identifying whether a date has daylight savings time
+(DST) applied or not. Examples include <code>local.tz = "Europe/London"</code>,
+<code>local.tz = "America/New_York"</code> i.e. time zones that assume DST.
+<a href="https://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones" class="external-link">https://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones</a> shows time
+zones that should be valid for most systems. It is important that the
+original data are in GMT (UTC) or a fixed offset from GMT. See
+<code>import</code> and the openair manual for information on how to import data
+and ensure no DST is applied.</p></dd>
+
+    <dt><code>latitude</code></dt>
+<dd><p>The decimal latitude used in <code>type = "daylight"</code>.</p></dd>
+
+    <dt><code>longitude</code></dt>
+<dd><p>The decimal longitude. Note that locations west of Greenwich
+are negative.</p></dd>
+
+  
+</dl></dd>
 
 </dl></div>
     <div class="section level2">
@@ -173,7 +210,6 @@ is needed when the IOA approaches -1.</p></li>
 </ul><p>All statistics are based on complete pairs of <code>mod</code> and <code>obs</code>.</p>
 <p>Conditioning is possible through setting <code>type</code>, which can be
 a vector e.g. <code>type = c("weekday", "season")</code>.</p>
-<p>Details of the formulas are given in the openair manual.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -185,6 +221,13 @@ performance: a rejoinder, International Journal of Climatology.</p>
 <p>Willmott, C.J., Robeson, S.M., Matsuura, K., 2011. A
 refined index of model performance. International Journal of
 Climatology.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other model evaluation functions: 
+<code><a href="TaylorDiagram.html">TaylorDiagram</a>()</code>,
+<code><a href="conditionalEval.html">conditionalEval</a>()</code>,
+<code><a href="conditionalQuantile.html">conditionalQuantile</a>()</code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

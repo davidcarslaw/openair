@@ -1,5 +1,3 @@
-#' openair colours
-#'
 #' Pre-defined openair colours and definition of user-defined colours
 #'
 #' This in primarily an internal openair function to make it easy for users to
