@@ -33,10 +33,10 @@ trajPlot(
 
 \item{lat}{Column containing the latitude, as a decimal.}
 
-\item{pollutant}{Pollutant to be plotted. By default the trajectory height
-is used.}
+\item{pollutant}{Pollutant to be plotted. By default the trajectory height is
+used.}
 
-\item{type}{\code{type} determines how the data are split i.e. conditioned,
+\item{type}{\code{type} determines how the data are split, i.e., conditioned,
 and then plotted. The default is will produce a single plot using the
 entire data. Type can be one of the built-in types as detailed in
 \code{cutData} e.g. "season", "year", "weekday" and so on. For example,
@@ -50,12 +50,11 @@ directly. This offers great flexibility for understanding the variation of
 different variables and how they depend on one another.
 
 \code{type} can be up length two e.g. \code{type = c("season", "weekday")}
-will produce a 2x2 plot split by season and day of the week. Note, when
-two types are provided the first forms the columns and the second the
-rows.}
+will produce a 2x2 plot split by season and day of the week. Note, when two
+types are provided the first forms the columns and the second the rows.}
 
-\item{map}{Should a base map be drawn? If \code{TRUE} the world base map
-from the \code{maps} package is used.}
+\item{map}{Should a base map be drawn? If \code{TRUE} the world base map from
+the \code{maps} package is used.}
 
 \item{group}{It is sometimes useful to group and colour trajectories
 according to a grouping variable. See example below.}
@@ -76,20 +75,19 @@ colour. Examples include \code{map.fill = "grey40"} and \code{map.fill =
 differentiate them.}
 
 \item{map.alpha}{The transparency level of the filled map which takes values
-from 0 (full transparency) to 1 (full opacity). Setting it below 1 can
-help view trajectories, trajectory surfaces etc. \emph{and} a filled base
-map.}
+from 0 (full transparency) to 1 (full opacity). Setting it below 1 can help
+view trajectories, trajectory surfaces etc. \emph{and} a filled base map.}
 
 \item{projection}{The map projection to be used. Different map projections
-are possible through the \code{mapproj} package. See \code{?mapproject}
-for extensive details and information on setting other parameters and
+are possible through the \code{mapproj} package. See \code{?mapproject} for
+extensive details and information on setting other parameters and
 orientation (see below).}
 
-\item{parameters}{From the \code{mapproj} package. Optional numeric vector
-of parameters for use with the projection argument. This argument is
-optional only in the sense that certain projections do not require
-additional parameters. If a projection does not require additional
-parameters then set to null i.e. \code{parameters = NULL}.}
+\item{parameters}{From the \code{mapproj} package. Optional numeric vector of
+parameters for use with the projection argument. This argument is optional
+only in the sense that certain projections do not require additional
+parameters. If a projection does not require additional parameters then set
+to null i.e. \code{parameters = NULL}.}
 
 \item{orientation}{From the \code{mapproj} package. An optional vector
 c(latitude, longitude, rotation) which describes where the "North Pole"
@@ -99,8 +97,8 @@ projection, you should set it to the desired point of tangency. The third
 value is a clockwise rotation (in degrees), which defaults to the midrange
 of the longitude coordinates in the map.}
 
-\item{grid.col}{The colour of the map grid to be used. To remove the grid
-set \code{grid.col = "transparent"}.}
+\item{grid.col}{The colour of the map grid to be used. To remove the grid set
+\code{grid.col = "transparent"}.}
 
 \item{npoints}{A dot is placed every \code{npoints} along each full
 trajectory. For hourly back trajectories points are plotted every

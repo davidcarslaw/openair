@@ -34,16 +34,16 @@ trajLevel(
 }
 \arguments{
 \item{mydata}{Data frame, the result of importing a trajectory file using
-\code{importTraj}}
+\code{importTraj}.}
 
 \item{lon}{Column containing the longitude, as a decimal.}
 
 \item{lat}{Column containing the latitude, as a decimal.}
 
-\item{pollutant}{Pollutant to be plotted. By default the trajectory height
-is used.}
+\item{pollutant}{Pollutant to be plotted. By default the trajectory height is
+used.}
 
-\item{type}{\code{type} determines how the data are split i.e. conditioned,
+\item{type}{\code{type} determines how the data are split, i.e., conditioned,
 and then plotted. The default is will produce a single plot using the
 entire data. Type can be one of the built-in types as detailed in
 \code{cutData} e.g. "season", "year", "weekday" and so on. For example,
@@ -57,20 +57,19 @@ directly. This offers great flexibility for understanding the variation of
 different variables and how they depend on one another.
 
 \code{type} can be up length two e.g. \code{type = c("season", "weekday")}
-will produce a 2x2 plot split by season and day of the week. Note, when
-two types are provided the first forms the columns and the second the
-rows.}
+will produce a 2x2 plot split by season and day of the week. Note, when two
+types are provided the first forms the columns and the second the rows.}
 
 \item{smooth}{Should the trajectory surface be smoothed?}
 
 \item{statistic}{For \code{trajLevel}. By default the function will plot the
 trajectory frequencies.
 
-For \code{trajLevel}, the argument \code{method = "hexbin"} can be used.
-In this case hexagonal binning of the trajectory \emph{points} (i.e. a
-point every three hours along each back trajectory). The plot then shows
-the trajectory frequencies uses hexagonal binning. This is an alternative
-way of viewing trajectory frequencies compared with \code{statistic =
+For \code{trajLevel}, the argument \code{method = "hexbin"} can be used. In
+this case hexagonal binning of the trajectory \emph{points} (i.e. a point
+every three hours along each back trajectory). The plot then shows the
+trajectory frequencies uses hexagonal binning. This is an alternative way
+of viewing trajectory frequencies compared with \code{statistic =
   "frequency"}.
 
 There are also various ways of plotting concentrations.
@@ -93,8 +92,8 @@ approach is used. See details.}
 \item{percentile}{For \code{trajLevel}. The percentile concentration of
 \code{pollutant} against which the all trajectories are compared.}
 
-\item{map}{Should a base map be drawn? If \code{TRUE} the world base map
-from the \code{maps} package is used.}
+\item{map}{Should a base map be drawn? If \code{TRUE} the world base map from
+the \code{maps} package is used.}
 
 \item{lon.inc}{The longitude-interval to be used for binning data for
 \code{trajLevel}.}
@@ -134,20 +133,19 @@ colour. Examples include \code{map.fill = "grey40"} and \code{map.fill =
 differentiate them.}
 
 \item{map.alpha}{The transparency level of the filled map which takes values
-from 0 (full transparency) to 1 (full opacity). Setting it below 1 can
-help view trajectories, trajectory surfaces etc. \emph{and} a filled base
-map.}
+from 0 (full transparency) to 1 (full opacity). Setting it below 1 can help
+view trajectories, trajectory surfaces etc. \emph{and} a filled base map.}
 
 \item{projection}{The map projection to be used. Different map projections
-are possible through the \code{mapproj} package. See \code{?mapproject}
-for extensive details and information on setting other parameters and
+are possible through the \code{mapproj} package. See \code{?mapproject} for
+extensive details and information on setting other parameters and
 orientation (see below).}
 
-\item{parameters}{From the \code{mapproj} package. Optional numeric vector
-of parameters for use with the projection argument. This argument is
-optional only in the sense that certain projections do not require
-additional parameters. If a projection does not require additional
-parameters then set to null i.e. \code{parameters = NULL}.}
+\item{parameters}{From the \code{mapproj} package. Optional numeric vector of
+parameters for use with the projection argument. This argument is optional
+only in the sense that certain projections do not require additional
+parameters. If a projection does not require additional parameters then set
+to null i.e. \code{parameters = NULL}.}
 
 \item{orientation}{From the \code{mapproj} package. An optional vector
 c(latitude, longitude, rotation) which describes where the "North Pole"
@@ -157,14 +155,11 @@ projection, you should set it to the desired point of tangency. The third
 value is a clockwise rotation (in degrees), which defaults to the midrange
 of the longitude coordinates in the map.}
 
-\item{grid.col}{The colour of the map grid to be used. To remove the grid
-set \code{grid.col = "transparent"}.}
+\item{grid.col}{The colour of the map grid to be used. To remove the grid set
+\code{grid.col = "transparent"}.}
 
-\item{origin}{should the receptor origin be shown by a black dot?}
-
-\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
-analysing data to extract plot components and plotting them in other
-ways.}
+\item{origin}{If true a filled circle dot is shown to mark the receptor
+point.}
 
 \item{...}{other arguments are passed to \code{cutData} and
 \code{scatterPlot}. This provides access to arguments used in both these
@@ -172,6 +167,9 @@ functions and functions that they in turn pass arguments on to. For
 example, \code{plotTraj} passes the argument \code{cex} on to
 \code{scatterPlot} which in turn passes it on to the \code{lattice}
 function \code{xyplot} where it is applied to set the plot symbol size.}
+}
+\value{
+an \link[=openair-package]{openair} object
 }
 \description{
 This function plots gridded back trajectories. This function requires that
@@ -182,21 +180,21 @@ An alternative way of showing the trajectories compared with plotting
 trajectory lines is to bin the points into latitude/longitude intervals. For
 these purposes \code{trajLevel} should be used. There are several trajectory
 statistics that can be plotted as gridded surfaces. First, \code{statistic}
-can be set to \dQuote{frequency} to show the number of back trajectory
-points in a grid square. Grid squares are by default at 1 degree intervals,
+can be set to \dQuote{frequency} to show the number of back trajectory points
+in a grid square. Grid squares are by default at 1 degree intervals,
 controlled by \code{lat.inc} and \code{lon.inc}. Such plots are useful for
-showing the frequency of air mass locations. Note that it is also possible
-to set \code{method = "hexbin"} for plotting frequencies (not
-concentrations), which will produce a plot by hexagonal binning.
+showing the frequency of air mass locations. Note that it is also possible to
+set \code{method = "hexbin"} for plotting frequencies (not concentrations),
+which will produce a plot by hexagonal binning.
 
 If \code{statistic = "difference"} the trajectories associated with a
 concentration greater than \code{percentile} are compared with the the full
 set of trajectories to understand the differences in frequencies of the
 origin of air masses of the highest concentration trajectories compared with
 the trajectories on average. The comparison is made by comparing the
-percentage change in gridded frequencies. For example, such a plot could
-show that the top 10\\% of concentrations of PM10 tend to originate from
-air-mass origins to the east.
+percentage change in gridded frequencies. For example, such a plot could show
+that the top 10\\% of concentrations of PM10 tend to originate from air-mass
+origins to the east.
 
 If \code{statistic = "pscf"} then the Potential Source Contribution Function
 is plotted. The PSCF calculates the probability that a source is located at
@@ -207,9 +205,9 @@ collected and transported along the trajectory to the receptor site. PSCF
 solves \deqn{PSCF = m_{ij}/n_{ij}} where \eqn{n_{ij}} is the number of times
 that the trajectories passed through the cell (i,j) and \eqn{m_{ij}} is the
 number of times that a source concentration was high when the trajectories
-passed through the cell (i,j). The criterion for determining \eqn{m_{ij}}
-is controlled by \code{percentile}, which by default is 90. Note also that
-cells with few data have a weighting factor applied to reduce their effect.
+passed through the cell (i,j). The criterion for determining \eqn{m_{ij}} is
+controlled by \code{percentile}, which by default is 90. Note also that cells
+with few data have a weighting factor applied to reduce their effect.
 
 A limitation of the PSCF method is that grid cells can have the same PSCF
 value when sample concentrations are either only slightly higher or much
@@ -265,8 +263,8 @@ of PSCF and CPF to PMF-Modeled Sources of PM 2.5 in Pittsburgh. Aerosol
 Science and Technology, 40(10), 952-961.
 
 Seibert, P., Kromp-Kolb, H., Baltensperger, U., Jost, D., 1994. Trajectory
-analysis of high-alpine air pollution data. NATO Challenges of Modern
-Society 18, 595-595.
+analysis of high-alpine air pollution data. NATO Challenges of Modern Society
+18, 595-595.
 
 Xie, Y., & Berkowitz, C. M. (2007). The use of conditional probability
 functions and potential source contribution functions to identify source
