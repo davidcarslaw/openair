@@ -31,7 +31,7 @@ reference:
 - subtitle: Polar Analysis
   desc:  Examine the relationship between wind speed, wind direction and pollutant concentrations.
   contents:
-  - has_concept("polar directional analaysis functions")
+  - has_concept("polar directional analysis functions")
 
 - subtitle: Trajectory Analysis
   desc:  Analyse and visualise HYSPLIT trajectory files.

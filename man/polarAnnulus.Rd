@@ -258,7 +258,7 @@ mydata$pmc <- mydata$pm10 - mydata$pm25
 main = "trend in pmc at Marylebone Road")}
 }
 \seealso{
-Other polar directional analaysis functions: 
+Other polar directional analysis functions: 
 \code{\link{percentileRose}()},
 \code{\link{polarCluster}()},
 \code{\link{polarDiff}()},
@@ -270,4 +270,4 @@ Other polar directional analaysis functions:
 \author{
 David Carslaw
 }
-\concept{polar directional analaysis functions}
+\concept{polar directional analysis functions}

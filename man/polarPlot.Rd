@@ -468,7 +468,7 @@ Atmospheric Environment. 145, 128-134.
 \url{https://www.sciencedirect.com/science/article/pii/S1352231016307166}
 }
 \seealso{
-Other polar directional analaysis functions: 
+Other polar directional analysis functions: 
 \code{\link{percentileRose}()},
 \code{\link{polarAnnulus}()},
 \code{\link{polarCluster}()},
@@ -480,4 +480,4 @@ Other polar directional analaysis functions:
 \author{
 David Carslaw
 }
-\concept{polar directional analaysis functions}
+\concept{polar directional analysis functions}

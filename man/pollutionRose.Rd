@@ -205,7 +205,7 @@ mydata$wd2[id] <- mydata$wd2[id] + 360
 pollutionRose(mydata, ws = "ws", wd = "wd", ws2 = "ws2", wd2 = "wd2")
 }
 \seealso{
-Other polar directional analaysis functions: 
+Other polar directional analysis functions: 
 \code{\link{percentileRose}()},
 \code{\link{polarAnnulus}()},
 \code{\link{polarCluster}()},
@@ -214,4 +214,4 @@ Other polar directional analaysis functions:
 \code{\link{polarPlot}()},
 \code{\link{windRose}()}
 }
-\concept{polar directional analaysis functions}
+\concept{polar directional analysis functions}

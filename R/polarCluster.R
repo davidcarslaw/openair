@@ -82,7 +82,7 @@
 #'   \code{after} data frame is supplied, the output also includes the
 #'   \code{after} data frame with cluster identified.
 #' @author David Carslaw
-#' @family polar directional analaysis functions
+#' @family polar directional analysis functions
 #' @family cluster analysis functions
 #' @references
 #'

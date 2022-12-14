@@ -20,7 +20,7 @@
 #' @param after A data frame that represents the "after" case. See
 #'   \code{\link{polarPlot}} for details of different input requirements.
 #' @inheritDotParams polarPlot -pollutant -x -limits -plot
-#' @family polar directional analaysis functions
+#' @family polar directional analysis functions
 #' @return an [openair][openair-package] plot.
 #' @export
 #'

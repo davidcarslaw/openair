@@ -249,7 +249,7 @@ Roses and Conducting Sector-Based Air Dispersion Modeling, Journal of the Air
 & Waste Management Association, 58:7, 913-918.
 }
 \seealso{
-Other polar directional analaysis functions: 
+Other polar directional analysis functions: 
 \code{\link{percentileRose}()},
 \code{\link{polarAnnulus}()},
 \code{\link{polarCluster}()},
@@ -261,4 +261,4 @@ Other polar directional analaysis functions:
 \author{
 David Carslaw (with some additional contributions by Karl Ropkins)
 }
-\concept{polar directional analaysis functions}
+\concept{polar directional analysis functions}

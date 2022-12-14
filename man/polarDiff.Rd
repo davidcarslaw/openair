@@ -302,7 +302,7 @@ polarDiff(before_data, after_data, pollutant = "no2", cols = "RdYlBu", limits = 
 }
 }
 \seealso{
-Other polar directional analaysis functions: 
+Other polar directional analysis functions: 
 \code{\link{percentileRose}()},
 \code{\link{polarAnnulus}()},
 \code{\link{polarCluster}()},
@@ -311,4 +311,4 @@ Other polar directional analaysis functions:
 \code{\link{pollutionRose}()},
 \code{\link{windRose}()}
 }
-\concept{polar directional analaysis functions}
+\concept{polar directional analysis functions}

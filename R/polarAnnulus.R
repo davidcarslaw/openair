@@ -127,7 +127,7 @@
 #' @export
 #' @return an [openair][openair-package] object
 #' @author David Carslaw
-#' @family polar directional analaysis functions
+#' @family polar directional analysis functions
 #' @examples
 #' # diurnal plot for PM10 at Marylebone Rd
 #' \dontrun{polarAnnulus(mydata, pollutant = "pm10",

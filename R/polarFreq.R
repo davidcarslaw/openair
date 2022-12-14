@@ -85,7 +85,7 @@
 #' @export
 #' @return an [openair][openair-package] object
 #' @author David Carslaw
-#' @family polar directional analaysis functions
+#' @family polar directional analysis functions
 #' @examples
 #' # basic wind frequency plot
 #' polarFreq(mydata)

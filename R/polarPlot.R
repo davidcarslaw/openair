@@ -349,7 +349,7 @@
 #'   on \code{type}; \code{u} and \code{v}, the translational vectors based on
 #'   \code{ws} and \code{wd}; and the local \code{pollutant} estimate.
 #' @author David Carslaw
-#' @family polar directional analaysis functions
+#' @family polar directional analysis functions
 #' @references
 #'
 #' Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A residence time probability

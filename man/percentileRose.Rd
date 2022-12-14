@@ -191,7 +191,7 @@ probability analysis of sulfur concentrations at ground canyon national
 park. Atmospheric Environment 19 (8), 1263-1270.
 }
 \seealso{
-Other polar directional analaysis functions: 
+Other polar directional analysis functions: 
 \code{\link{polarAnnulus}()},
 \code{\link{polarCluster}()},
 \code{\link{polarDiff}()},
@@ -203,4 +203,4 @@ Other polar directional analaysis functions:
 \author{
 David Carslaw
 }
-\concept{polar directional analaysis functions}
+\concept{polar directional analysis functions}

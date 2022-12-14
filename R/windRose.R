@@ -44,7 +44,7 @@
 #'   several (one for each range binned for the plot) columns giving proportions
 #'   of measurements associated with each \code{ws} or \code{pollutant} range
 #'   plotted as a discrete panel.
-#' @family polar directional analaysis functions
+#' @family polar directional analysis functions
 #' @examples
 #' # pollutionRose of nox
 #' pollutionRose(mydata, pollutant = "nox")
@@ -259,7 +259,7 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 #' @note \code{windRose} and \code{pollutionRose} both use [drawOpenKey()] to
 #'   produce scale keys.
 #' @author David Carslaw (with some additional contributions by Karl Ropkins)
-#' @family polar directional analaysis functions
+#' @family polar directional analysis functions
 #' @references
 #'
 #' Applequist, S, 2012: Wind Rose Bias Correction. J. Appl. Meteor. Climatol.,

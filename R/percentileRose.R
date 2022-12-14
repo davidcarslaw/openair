@@ -66,7 +66,7 @@
 #'   passed to \code{xyplot} via \code{quickText} to handle routine formatting.
 #' @export
 #' @return an [openair][openair-package] object
-#' @family polar directional analaysis functions
+#' @family polar directional analysis functions
 #' @author David Carslaw
 #' @references Ashbaugh, L.L., Malm, W.C., Sadeh, W.Z., 1985. A residence time
 #'   probability analysis of sulfur concentrations at ground canyon national

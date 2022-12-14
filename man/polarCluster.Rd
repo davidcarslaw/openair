@@ -375,7 +375,7 @@ Environmental Modelling & Software, 40, 325-329.
 doi:10.1016/j.envsoft.2012.09.005
 }
 \seealso{
-Other polar directional analaysis functions: 
+Other polar directional analysis functions: 
 \code{\link{percentileRose}()},
 \code{\link{polarAnnulus}()},
 \code{\link{polarDiff}()},
@@ -392,4 +392,4 @@ Other cluster analysis functions:
 David Carslaw
 }
 \concept{cluster analysis functions}
-\concept{polar directional analaysis functions}
+\concept{polar directional analysis functions}
