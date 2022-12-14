@@ -126,6 +126,7 @@ documentation and examples.
 
 Authors:
 \itemize{
+  \item Jack Davison \email{jack.davison@ricardo.com}
   \item Karl Ropkins \email{K.Ropkins@its.leeds.ac.uk}
 }
 

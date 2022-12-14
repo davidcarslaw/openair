@@ -4,7 +4,9 @@ Title: Tools for the Analysis of Air Pollution Data
 Version: 2.12
 Date: 2022-11-08
 Authors@R: c(person("David", "Carslaw", role = c("aut", "cre"), email =
-    "david.carslaw@york.ac.uk"), person("Karl", "Ropkins", role =
+    "david.carslaw@york.ac.uk"), person("Jack", "Davison", role =
+    "aut", email = "jack.davison@ricardo.com"),
+    person("Karl", "Ropkins", role =
     "aut", email = "K.Ropkins@its.leeds.ac.uk"))
 ByteCompile: true
 Depends:
