@@ -28,9 +28,7 @@
 #' vector.}
 #' }
 #' @note \code{openair} functions generally require data frames with a field
-#'   "date" that can be in either \code{POSIXct} or \code{Date} format but
-#'   should be GMT time zone. This can be hourly data or higher resolution
-#'   data.
+#'   "date" that can be in either \code{POSIXct} or \code{Date} format 
 #' @source \code{mydata} was compiled from data archived in the London Air
 #'   Quality Archive.  See \url{https://www.londonair.org.uk} for site details.
 #' @keywords datasets
