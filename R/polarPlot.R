@@ -1623,7 +1623,13 @@ YorkFit <- function(input_data, X = "X", Y = "Y",
     sumTOP <- sum(wTOPint, na.rm = TRUE)
     sumBOT <- sum(wBOTint, na.rm = TRUE)
     b <- sumTOP / sumBOT
-
+    
+    # zero or problematic data
+    if (anyNA(b, b.old)) 
+      return(tibble(Intercept = NA, Slope = NA,
+                    Int_error = NA, Slope_error = NA,
+                    OLS_slope = NA)) 
+    
     b.diff <- abs(b - b.old)
   }
 
