@@ -53,7 +53,10 @@
 #' @export
 #' @useDynLib openair, .registration = TRUE
 #' @import cluster
-#' @return an [openair][openair-package] object
+#' @return an [openair][openair-package] object. The `data` component contains
+#'   both `traj` (the original data appended with its cluster) and `results`
+#'   (the average trajectory path per cluster, shown in the `trajCluster()`
+#'   plot.)
 #' @family trajectory analysis functions
 #' @family cluster analysis functions
 #' @author David Carslaw
@@ -278,7 +281,15 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
   plt <- do.call(scatterPlot, plot.args)
 
   ## create output with plot
-  output <- list(plot = plt, data = list(traj = traj, results = resRtn), call = match.call())
+  output <-
+    list(
+      plot = plt,
+      data = list(
+        traj = traj,
+        results = dplyr::left_join(resRtn, clusters, by = c("cluster", type))
+      ),
+      call = match.call()
+    )
   class(output) <- "openair"
   invisible(output)
 }
