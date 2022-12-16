@@ -16,6 +16,7 @@ polarCluster(
   units = x,
   auto.text = TRUE,
   plot = TRUE,
+  plot.data = FALSE,
   ...
 )
 }
@@ -67,6 +68,13 @@ and units properly e.g.  by subscripting the `2' in NO2.}
 
 \item{plot}{Should a plot be produced? \code{FALSE} can be useful when
 analysing data to extract plot components and plotting them in other ways.}
+
+\item{plot.data}{By default, the \code{data} component of \code{polarCluster()}
+contains the original data frame appended with a new "cluster" column. When
+\code{plot.data = TRUE}, the \code{data} component instead contains data to reproduce
+the clustered polar plot itself (similar to \code{data} returned by
+\code{\link[=polarPlot]{polarPlot()}}). This may be useful for re-plotting the \code{polarCluster()}
+plot in other ways.}
 
 \item{...}{
   Arguments passed on to \code{\link[=polarPlot]{polarPlot}}
@@ -275,12 +283,12 @@ and will be ignored if \code{"quantile.slope"} is not used.}
 \value{
 an \link[=openair-package]{openair} object. The object includes three main
 components: \code{call}, the command used to generate the plot;
-\code{data}, the original data frame with a new field \code{cluster}
+\code{data}, by default the original data frame with a new field \code{cluster}
 identifying the cluster; and \code{plot}, the plot itself. Note that any
 rows where the value of \code{pollutant} is \code{NA} are ignored so that
 the returned data frame may have fewer rows than the original.
 
-If the clustering is carried out considering differences i.e. an
+If the clustering is carried out considering differences, i.e., an
 \code{after} data frame is supplied, the output also includes the
 \code{after} data frame with cluster identified.
 }
@@ -301,8 +309,8 @@ interest. Furthermore, the identification of a feature can depend on the
 choice of the colour scale used, making the process somewhat arbitrary.
 
 \code{polarCluster} applies Partition Around Medoids (PAM) clustering
-techniques to \code{\link[=polarPlot]{polarPlot()}} surfaces to help identify potentially
-interesting features for further analysis. Details of PAM can be found in the
+techniques to \code{\link[=polarPlot]{polarPlot()}} surfaces to help identify potentially interesting
+features for further analysis. Details of PAM can be found in the
 \code{cluster} package (a core R package that will be pre-installed on all R
 systems). PAM clustering is similar to k-means but has several advantages
 e.g. is more robust to outliers. The clustering is based on the equal
@@ -341,7 +349,6 @@ Note that unlike most other \code{openair} functions only a single
 \code{type} \dQuote{default} is allowed.
 }
 \examples{
-
 \dontrun{
 ## plot 2-8 clusters. Warning! This can take several minutes...
 polarCluster(mydata, pollutant = "nox", n.clusters = 2:8)
@@ -358,8 +365,10 @@ table(results$data$cluster)
 
 ## plot clusters 3 and 4 as a timeVariation plot using SAME colours as in
 ## cluster plot
-timeVariation(subset(results$data, cluster \%in\% c("3", "4")), pollutant = "nox",
-group = "cluster", col = openColours("Paired", 6)[c(3, 4)])
+timeVariation(subset(results$data, cluster \%in\% c("3", "4")),
+  pollutant = "nox",
+  group = "cluster", col = openColours("Paired", 6)[c(3, 4)]
+)
 }
 
 }

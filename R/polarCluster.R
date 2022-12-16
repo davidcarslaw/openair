@@ -15,8 +15,8 @@
 #' choice of the colour scale used, making the process somewhat arbitrary.
 #'
 #' \code{polarCluster} applies Partition Around Medoids (PAM) clustering
-#' techniques to [polarPlot()] surfaces to help identify potentially
-#' interesting features for further analysis. Details of PAM can be found in the
+#' techniques to [polarPlot()] surfaces to help identify potentially interesting
+#' features for further analysis. Details of PAM can be found in the
 #' \code{cluster} package (a core R package that will be pre-installed on all R
 #' systems). PAM clustering is similar to k-means but has several advantages
 #' e.g. is more robust to outliers. The clustering is based on the equal
@@ -67,18 +67,24 @@
 #'   surfaces (see \link{polarDiff} for details). If an \code{after} data frame
 #'   is supplied, the clustering will be carried out on the differences between
 #'   \code{after} and \code{mydata} in the same way as \link{polarDiff}.
+#' @param plot.data By default, the `data` component of `polarCluster()`
+#'   contains the original data frame appended with a new "cluster" column. When
+#'   `plot.data = TRUE`, the `data` component instead contains data to reproduce
+#'   the clustered polar plot itself (similar to `data` returned by
+#'   [polarPlot()]). This may be useful for re-plotting the `polarCluster()`
+#'   plot in other ways.
 #' @inheritDotParams polarPlot -mydata -pollutant -x -wd -cols -angle.scale
 #'   -units -auto.text -plot
 #' @export
 #' @import cluster
 #' @return an [openair][openair-package] object. The object includes three main
 #'   components: \code{call}, the command used to generate the plot;
-#'   \code{data}, the original data frame with a new field \code{cluster}
+#'   \code{data}, by default the original data frame with a new field \code{cluster}
 #'   identifying the cluster; and \code{plot}, the plot itself. Note that any
 #'   rows where the value of \code{pollutant} is \code{NA} are ignored so that
 #'   the returned data frame may have fewer rows than the original.
 #'
-#'   If the clustering is carried out considering differences i.e. an
+#'   If the clustering is carried out considering differences, i.e., an
 #'   \code{after} data frame is supplied, the output also includes the
 #'   \code{after} data frame with cluster identified.
 #' @author David Carslaw
@@ -96,7 +102,6 @@
 #' Environmental Modelling & Software, 40, 325-329.
 #' doi:10.1016/j.envsoft.2012.09.005
 #' @examples
-#'
 #' \dontrun{
 #' ## plot 2-8 clusters. Warning! This can take several minutes...
 #' polarCluster(mydata, pollutant = "nox", n.clusters = 2:8)
@@ -113,319 +118,376 @@
 #'
 #' ## plot clusters 3 and 4 as a timeVariation plot using SAME colours as in
 #' ## cluster plot
-#' timeVariation(subset(results$data, cluster %in% c("3", "4")), pollutant = "nox",
-#' group = "cluster", col = openColours("Paired", 6)[c(3, 4)])
+#' timeVariation(subset(results$data, cluster %in% c("3", "4")),
+#'   pollutant = "nox",
+#'   group = "cluster", col = openColours("Paired", 6)[c(3, 4)]
+#' )
 #' }
 #'
-polarCluster <- function(mydata, pollutant = "nox", x = "ws", wd = "wd", n.clusters = 6,
-                         after = NA,
-                         cols = "Paired", angle.scale = 315, units = x,
-                         auto.text = TRUE, plot = TRUE, ...) {
+polarCluster <-
+  function(mydata,
+           pollutant = "nox",
+           x = "ws",
+           wd = "wd",
+           n.clusters = 6,
+           after = NA,
+           cols = "Paired",
+           angle.scale = 315,
+           units = x,
+           auto.text = TRUE,
+           plot = TRUE,
+           plot.data = FALSE,
+           ...) {
+    ## avoid R check annoyances
+    u <- v <- z <- strip <- strip.left <- NULL
 
-  ## avoid R check annoyances
-  u <- v <- z <- strip <- strip.left <- NULL
+    ## greyscale handling
+    if (length(cols) == 1 && cols == "greyscale") {
+      trellis.par.set(list(strip.background = list(col = "white")))
+    }
 
-  ## greyscale handling
-  if (length(cols) == 1 && cols == "greyscale") {
-    trellis.par.set(list(strip.background = list(col = "white")))
-  }
+    ## set graphics
+    current.strip <- trellis.par.get("strip.background")
+    current.font <- trellis.par.get("fontsize")
 
-  ## set graphics
-  current.strip <- trellis.par.get("strip.background")
-  current.font <- trellis.par.get("fontsize")
+    ## reset graphic parameters
+    on.exit(trellis.par.set(fontsize = current.font))
 
-  ## reset graphic parameters
-  on.exit(trellis.par.set(
+    # add id for later merging
+    mydata <- mutate(mydata, .id = 1:nrow(mydata))
 
-    fontsize = current.font
-  ))
+    if (is.data.frame(after)) {
+      after <- mutate(after, .id = 1:nrow(after))
+      data.orig.after <- after
+    }
 
-  # add id for later merging
-  mydata <- mutate(mydata, .id = 1:nrow(mydata))
+    data.orig <-
+      mydata ## keep original data so cluster can be merged with it
+    type <- "default"
+    vars <- c("wd", x, pollutant)
+    vars <- c(vars, "date", ".id")
 
-  if (is.data.frame(after)) {
+    mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
 
-    after <- mutate(after, .id = 1:nrow(after))
-    data.orig.after <- after
+    if (is.data.frame(after)) {
+      after <- checkPrep(after, vars, type, remove.calm = FALSE)
+    }
 
-  }
+    max.x <- ceiling(max(mydata[, x], na.rm = TRUE))
+    min.ws <- floor(min(mydata[[x]], na.rm = TRUE))
+    upper <- max.x
 
-  data.orig <- mydata ## keep original data so cluster can be merged with it
-  type <- "default"
-  vars <- c("wd", x, pollutant)
-  vars <- c(vars, "date", ".id")
+    min.scale <- floor(min(mydata[[x]], na.rm = TRUE))
 
-  mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
+    extra.args <- list(...)
 
-  if (is.data.frame(after))
-    after <- checkPrep(after, vars, type, remove.calm = FALSE)
+    ## label controls
+    extra.args$xlab <- if ("xlab" %in% names(extra.args)) {
+      quickText(extra.args$xlab, auto.text)
+    } else {
+      quickText("", auto.text)
+    }
+    extra.args$ylab <- if ("ylab" %in% names(extra.args)) {
+      quickText(extra.args$ylab, auto.text)
+    } else {
+      quickText("", auto.text)
+    }
+    extra.args$main <- if ("main" %in% names(extra.args)) {
+      quickText(extra.args$main, auto.text)
+    } else {
+      quickText("", auto.text)
+    }
 
-  max.x <- ceiling(max(mydata[, x], na.rm = TRUE))
-  min.ws <- floor(min(mydata[[x]], na.rm = TRUE))
-  upper <- max.x
+    if ("fontsize" %in% names(extra.args)) {
+      trellis.par.set(fontsize = list(text = extra.args$fontsize))
+    }
 
-  min.scale <- floor(min(mydata[[x]], na.rm = TRUE))
+    ## layout default
+    if (!"layout" %in% names(extra.args)) {
+      extra.args$layout <- NULL
+    }
 
-  extra.args <- list(...)
+    # if considering differences
+    if (is.data.frame(after)) {
+      results.grid <- polarDiff(
+        before = mydata,
+        after = after,
+        plot = FALSE,
+        pollutant = pollutant,
+        cluster = TRUE,
+        ...
+      )$data
 
-  ## label controls
-  extra.args$xlab <- if ("xlab" %in% names(extra.args)) {
-    quickText(extra.args$xlab, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
-  extra.args$ylab <- if ("ylab" %in% names(extra.args)) {
-    quickText(extra.args$ylab, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
-  extra.args$main <- if ("main" %in% names(extra.args)) {
-    quickText(extra.args$main, auto.text)
-  } else {
-    quickText("", auto.text)
-  }
+      results.grid$z <- results.grid[[pollutant]]
+    } else {
+      results.grid <- polarPlot(
+        mydata,
+        plot = FALSE,
+        pollutant = pollutant,
+        x = x,
+        cluster = TRUE,
+        ...
+      )$data
+    }
 
-  if ("fontsize" %in% names(extra.args)) {
-    trellis.par.set(fontsize = list(text = extra.args$fontsize))
-  }
+    ## remove missing because we don't want to find clusters for those points
+    ## saves a lot on computation
+    results.grid <- na.omit(results.grid)
+    results.grid <- subset(results.grid, select = c(u, v, z))
 
-  ## layout default
-  if (!"layout" %in% names(extra.args)) {
-    extra.args$layout <- NULL
-  }
+    ## sequence of u or v, based on unique values that already exist
+    uv.id <- with(results.grid, sort(unique(c(u, v))))
 
-  # if considering differences
-  if (is.data.frame(after)) {
-
-    results.grid <- polarDiff(before = mydata,
-                              after = after,
-                              plot = FALSE,
-                              pollutant = pollutant,
-                              cluster = TRUE, ...)$data
-
-    results.grid$z <- results.grid[[pollutant]]
-
-  } else {
-
-    results.grid <- polarPlot(mydata,
-                              plot = FALSE,
-                              pollutant = pollutant, x = x,
-                              cluster = TRUE, ...
-    )$data
-
-  }
-
-  ## remove missing because we don't want to find clusters for those points
-  ## saves a lot on computation
-  results.grid <- na.omit(results.grid)
-  results.grid <- subset(results.grid, select = c(u, v, z))
-
-  ## sequence of u or v, based on unique values that already exist
-  uv.id <- with(results.grid, sort(unique(c(u, v))))
-
-  make.clust <- function(i, results.grid) {
-    i <- n.clusters[i]
-    dat.orig <- results.grid
-    clusters <- pam(results.grid, i, stand = TRUE, pamonce = 3)
-    dat.orig$cluster <- clusters$clustering
-    dat.orig$nclust <- paste(i, "clusters")
-    dat.orig
-  }
+    make.clust <- function(i, results.grid) {
+      i <- n.clusters[i]
+      dat.orig <- results.grid
+      clusters <- pam(results.grid, i, stand = TRUE, pamonce = 3)
+      dat.orig$cluster <- clusters$clustering
+      dat.orig$nclust <- paste(i, "clusters")
+      dat.orig
+    }
 
 
-  results.grid <- group_by(data.frame(n = seq_along(n.clusters)), n) %>%
-    do(make.clust(i = .$n, results.grid))
+    results.grid <-
+      group_by(data.frame(n = seq_along(n.clusters)), n) %>%
+      do(make.clust(i = .$n, results.grid))
 
-  results.grid$nclust <- ordered(results.grid$nclust, levels = paste(n.clusters, "clusters"))
+    results.grid$nclust <-
+      ordered(results.grid$nclust, levels = paste(n.clusters, "clusters"))
 
-  ## auto scaling
-  nlev <- max(n.clusters) + 1
-  breaks <- c(0, 1:max(n.clusters))
-  nlev2 <- length(breaks)
-  col <- openColours(cols, (nlev2 - 1))
-  col.scale <- breaks
+    ## auto scaling
+    nlev <- max(n.clusters) + 1
+    breaks <- c(0, 1:max(n.clusters))
+    nlev2 <- length(breaks)
+    col <- openColours(cols, (nlev2 - 1))
+    col.scale <- breaks
 
-  myform <- formula("cluster ~ u * v | nclust")
+    myform <- formula("cluster ~ u * v | nclust")
 
-  ## find ids of u and v if only one cluster used
-  if (length(n.clusters) == 1L) {
+    ## find ids of u and v if only one cluster used
+    if (length(n.clusters) == 1L) {
+      ## find indices in u-v space
+      results.grid$u.id <- findInterval(results.grid$u, uv.id)
+      results.grid$v.id <- findInterval(results.grid$v, uv.id)
 
-    ## find indices in u-v space
-    results.grid$u.id <- findInterval(results.grid$u, uv.id)
-    results.grid$v.id <- findInterval(results.grid$v, uv.id)
+      mydata <- na.omit(mydata)
 
-    mydata <- na.omit(mydata)
-
-    mydata <- transform(mydata,
-      u = get(x) * sin(wd * pi / 180),
-      v = get(x) * cos(wd * pi / 180)
-    )
-    mydata$u.id <- findInterval(mydata$u, uv.id, all.inside = TRUE)
-    mydata$v.id <- findInterval(mydata$v, uv.id, all.inside = TRUE)
-
-    ## convert to matrix for direct lookup
-    ## need to do this because some data are missing due to exclude.missing in polarPlot
-    mat.dim <- max(results.grid[, c("u.id", "v.id")]) ## size of lookup matrix
-    temp <- matrix(NA, ncol = mat.dim, nrow = mat.dim)
-
-    ## matrix of clusters by u.id, v.id with missings
-    temp[cbind(results.grid$u.id, results.grid$v.id)] <- results.grid$cluster
-
-    ## match u.id, v.id in mydata to cluster
-    mydata$cluster <- as.factor(temp[cbind(mydata$u.id, mydata$v.id)])
-
-    mydata <- select(mydata, date, cluster, .id) ## just need date/cluster
-    mydata <- left_join(data.orig, mydata, by = c(".id", "date"))
-    results <- mydata
-    myform <- formula("cluster ~ u * v")
-
-    # also find clusters in after data if there is any
-    if (is.data.frame((after))) {
-
-      after <- na.omit(after)
-
-      after <- transform(after,
-                          u = get(x) * sin(wd * pi / 180),
-                          v = get(x) * cos(wd * pi / 180)
+      mydata <- transform(mydata,
+        u = get(x) * sin(wd * pi / 180),
+        v = get(x) * cos(wd * pi / 180)
       )
-      after$u.id <- findInterval(after$u, uv.id, all.inside = TRUE)
-      after$v.id <- findInterval(after$v, uv.id, all.inside = TRUE)
+      mydata$u.id <- findInterval(mydata$u, uv.id, all.inside = TRUE)
+      mydata$v.id <- findInterval(mydata$v, uv.id, all.inside = TRUE)
 
       ## convert to matrix for direct lookup
       ## need to do this because some data are missing due to exclude.missing in polarPlot
-      mat.dim <- max(results.grid[, c("u.id", "v.id")]) ## size of lookup matrix
+      mat.dim <-
+        max(results.grid[, c("u.id", "v.id")]) ## size of lookup matrix
       temp <- matrix(NA, ncol = mat.dim, nrow = mat.dim)
 
       ## matrix of clusters by u.id, v.id with missings
-      temp[cbind(results.grid$u.id, results.grid$v.id)] <- results.grid$cluster
+      temp[cbind(results.grid$u.id, results.grid$v.id)] <-
+        results.grid$cluster
 
-      ## match u.id, v.id in after to cluster
-      after$cluster <- as.factor(temp[cbind(after$u.id, after$v.id)])
+      ## match u.id, v.id in mydata to cluster
+      mydata$cluster <-
+        as.factor(temp[cbind(mydata$u.id, mydata$v.id)])
 
-      after <- select(after, date, cluster, .id) ## just need date/cluster
-      after <- left_join(data.orig.after, after, by = c(".id", "date"))
+      mydata <-
+        select(mydata, date, cluster, .id) ## just need date/cluster
+      mydata <- left_join(data.orig, mydata, by = c(".id", "date"))
+      results <- mydata
+      myform <- formula("cluster ~ u * v")
 
+      # also find clusters in after data if there is any
+      if (is.data.frame((after))) {
+        after <- na.omit(after)
+
+        after <- transform(after,
+          u = get(x) * sin(wd * pi / 180),
+          v = get(x) * cos(wd * pi / 180)
+        )
+        after$u.id <- findInterval(after$u, uv.id, all.inside = TRUE)
+        after$v.id <- findInterval(after$v, uv.id, all.inside = TRUE)
+
+        ## convert to matrix for direct lookup
+        ## need to do this because some data are missing due to exclude.missing in polarPlot
+        mat.dim <-
+          max(results.grid[, c("u.id", "v.id")]) ## size of lookup matrix
+        temp <- matrix(NA, ncol = mat.dim, nrow = mat.dim)
+
+        ## matrix of clusters by u.id, v.id with missings
+        temp[cbind(results.grid$u.id, results.grid$v.id)] <-
+          results.grid$cluster
+
+        ## match u.id, v.id in after to cluster
+        after$cluster <-
+          as.factor(temp[cbind(after$u.id, after$v.id)])
+
+        after <-
+          select(after, date, cluster, .id) ## just need date/cluster
+        after <-
+          left_join(data.orig.after, after, by = c(".id", "date"))
+      }
     }
 
-  }
+    ## scaling of 'zeroed' data
+    ## scale data by subtracting the min value
+    ## this helps with dealing with data with offsets - e.g. negative data
+    mydata[[x]] <- mydata[[x]] - min(mydata[[x]], na.rm = TRUE)
+    intervals <- pretty(range(mydata[, x], na.rm = TRUE))
 
-  ## scaling of 'zeroed' data
-  ## scale data by subtracting the min value
-  ## this helps with dealing with data with offsets - e.g. negative data
-  mydata[[x]] <- mydata[[x]] - min(mydata[[x]], na.rm = TRUE)
-  intervals <- pretty(range(mydata[, x], na.rm = TRUE))
+    ## labels for scaling
+    labels <- pretty(intervals + min.scale)
+    upper <- max(mydata[[x]], na.rm = TRUE)
 
-  ## labels for scaling
-  labels <- pretty(intervals + min.scale)
-  upper <- max(mydata[[x]], na.rm = TRUE)
+    ## offset the lines/labels if necessary
+    intervals <- intervals + (min(labels) - min.scale)
 
-  ## offset the lines/labels if necessary
-  intervals <- intervals + (min(labels) - min.scale)
-
-  ## add zero in the middle if it exists
-  if (min.scale != 0) {
-    labels <- labels[-1]
-    intervals <- intervals[-1]
-  }
-
-# interpolate grid, but first must make rectangular
-
-  # interval
-  int <- as.numeric(tail(names(sort(table(diff(results.grid$u)))), 1))
-
-  # extent of grid required
-  extent <- max(abs(c(results.grid$u, results.grid$v)))
-
-  new_grid <- expand.grid(u = seq(-extent, extent, by = int),
-                          v = seq(-extent, extent, by = int))
-
-
-  levelplot.args <- list(
-    x = myform, results.grid, axes = FALSE,
-    as.table = TRUE,
-    col.regions = col,
-    region = TRUE,
-    aspect = 1,
-    at = col.scale,
-    par.strip.text = list(cex = 0.8),
-    scales = list(draw = FALSE),
-    xlim = c(-upper * 1.025, upper * 1.025),
-    ylim = c(-upper * 1.025, upper * 1.025),
-    colorkey = FALSE, # legend = legend,
-    key = list(
-      rectangles = list(col = openColours(
-        cols,
-        max(n.clusters)
-      ), border = NA),
-      text = list(lab = as.character(1:max(n.clusters))),
-      space = "right", columns = 1, title = "cluster",
-      cex.title = 1, lines.title = 2
-    ),
-
-    panel = function(x, y, z, subscripts, ...) {
-      panel.levelplot(x, y, z,
-        subscripts,
-        at = col.scale,
-        pretty = TRUE,
-        col.regions = col,
-        labels = FALSE
-      )
-
-      angles <- seq(0, 2 * pi, length = 360)
-
-      sapply(intervals, function(x) llines(x * sin(angles), x * cos(angles),
-          col = "grey", lty = 5
-        ))
-
-      ltext(1.07 * intervals * sin(pi * angle.scale / 180),
-        1.07 * intervals * cos(pi * angle.scale / 180),
-        sapply(paste(labels, c("", "", units, rep("", 7))), function(x)
-          quickText(x, auto.text)),
-        cex = 0.7, pos = 4
-      )
-
-
-      ## add axis line to central polarPlot
-      larrows(-upper, 0, upper, 0, code = 3, length = 0.1)
-      larrows(0, -upper, 0, upper, code = 3, length = 0.1)
-
-      ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
-      ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
-      ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
-      ltext(upper * 0.95, 0.07 * upper, "E", cex = 0.7)
+    ## add zero in the middle if it exists
+    if (min.scale != 0) {
+      labels <- labels[-1]
+      intervals <- intervals[-1]
     }
-  )
 
-  ## reset for extra.args
-  levelplot.args <- listUpdate(levelplot.args, extra.args)
+    # interpolate grid, but first must make rectangular
 
-  ## plot
-  plt <- do.call(levelplot, levelplot.args)
+    # interval
+    int <-
+      as.numeric(tail(names(sort(table(
+        diff(results.grid$u)
+      ))), 1))
 
-  ## output ################################################################
-  if (plot) {
-    if (length(type) == 1L)
-      plot(plt)
-    else
-      plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
-  }
-  ## change cluster output to C1, C2 etc
-  mydata$cluster <- paste("C", mydata$cluster, sep = "")
+    # extent of grid required
+    extent <- max(abs(c(results.grid$u, results.grid$v)))
 
-  if (is.data.frame(after)) {
-    output <-
-      list(
+    new_grid <- expand.grid(
+      u = seq(-extent, extent, by = int),
+      v = seq(-extent, extent, by = int)
+    )
+
+
+    levelplot.args <- list(
+      x = myform,
+      results.grid,
+      axes = FALSE,
+      as.table = TRUE,
+      col.regions = col,
+      region = TRUE,
+      aspect = 1,
+      at = col.scale,
+      par.strip.text = list(cex = 0.8),
+      scales = list(draw = FALSE),
+      xlim = c(-upper * 1.025, upper * 1.025),
+      ylim = c(-upper * 1.025, upper * 1.025),
+      colorkey = FALSE,
+      # legend = legend,
+      key = list(
+        rectangles = list(col = openColours(
+          cols,
+          max(n.clusters)
+        ), border = NA),
+        text = list(lab = as.character(1:max(n.clusters))),
+        space = "right",
+        columns = 1,
+        title = "cluster",
+        cex.title = 1,
+        lines.title = 2
+      ),
+      panel = function(x, y, z, subscripts, ...) {
+        panel.levelplot(
+          x,
+          y,
+          z,
+          subscripts,
+          at = col.scale,
+          pretty = TRUE,
+          col.regions = col,
+          labels = FALSE
+        )
+
+        angles <- seq(0, 2 * pi, length = 360)
+
+        sapply(intervals, function(x) {
+          llines(
+            x * sin(angles),
+            x * cos(angles),
+            col = "grey",
+            lty = 5
+          )
+        })
+
+        ltext(
+          1.07 * intervals * sin(pi * angle.scale / 180),
+          1.07 * intervals * cos(pi * angle.scale / 180),
+          sapply(paste(labels, c(
+            "", "", units, rep("", 7)
+          )), function(x) {
+            quickText(x, auto.text)
+          }),
+          cex = 0.7,
+          pos = 4
+        )
+
+
+        ## add axis line to central polarPlot
+        larrows(-upper, 0, upper, 0, code = 3, length = 0.1)
+        larrows(0, -upper, 0, upper, code = 3, length = 0.1)
+
+        ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
+        ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
+        ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
+        ltext(upper * 0.95, 0.07 * upper, "E", cex = 0.7)
+      }
+    )
+
+    ## reset for extra.args
+    levelplot.args <- listUpdate(levelplot.args, extra.args)
+
+    ## plot
+    plt <- do.call(levelplot, levelplot.args)
+
+    ## output ################################################################
+    if (plot) {
+      if (length(type) == 1L) {
+        plot(plt)
+      } else {
+        plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
+      }
+    }
+    # control output data
+    if (plot.data) {
+      out_data <- results.grid
+    } else {
+      out_data <- results
+    }
+
+    # currently conflicts with length(n.clusters) > 1 - resolve
+    if (is.function(out_data)) {
+      out_data <- NULL
+    }
+
+    # change cluster output to C1, C2 etc
+    if ("cluster" %in% names(out_data)) {
+      out_data$cluster <- paste("C", out_data$cluster, sep = "")
+      out_data$cluster[out_data$cluster == "CNA"] <- NA_character_
+    }
+
+    # output
+    if (is.data.frame(after)) {
+      output <-
+        list(
+          plot = plt,
+          data = out_data,
+          after = after,
+          call = match.call()
+        )
+    } else {
+      output <- list(
         plot = plt,
-        data = results,
-        after = after,
+        data = out_data,
         call = match.call()
       )
-
-  } else {
-    output <- list(plot = plt,
-                   data = results,
-                   call = match.call())
-
+    }
+    invisible(output)
   }
-  invisible(output)
-}
