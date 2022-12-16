@@ -100,7 +100,10 @@ and \code{cutData}. Similarly, common axis and title labelling options
 \code{levelplot} via \code{quickText} to handle routine formatting.}
 }
 \value{
-an \link[=openair-package]{openair} object
+an \link[=openair-package]{openair} object. The \code{data} component contains
+both \code{traj} (the original data appended with its cluster) and \code{results}
+(the average trajectory path per cluster, shown in the \code{trajCluster()}
+plot.)
 }
 \description{
 This function carries out cluster analysis of HYSPLIT back trajectories. The
