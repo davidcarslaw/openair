@@ -1,66 +1,60 @@
-
 #' Import pre-calculated HYSPLIT 96-hour back trajectories
 #'
-#' Function to import pre-calculated back trajectories using the NOAA
-#' HYSPLIT model. The trajectories have been calculated for a select
-#' range of locations which will expand in time. They cover the last
-#' 20 years or so and can be used together with other \code{openair}
-#' functions.
+#' Function to import pre-calculated back trajectories using the NOAA HYSPLIT
+#' model. The trajectories have been calculated for a select range of locations
+#' which will expand in time. They cover the last 20 years or so and can be used
+#' together with other \code{openair} functions.
 #'
-#' This function imports pre-calculated back trajectories using the
-#' HYSPLIT trajectory model (Hybrid Single Particle Lagrangian
-#' Integrated Trajectory Model. Back trajectories
-#' provide some very useful information for air quality data
-#' analysis. However, while they are commonly calculated by
-#' researchers it is generally difficult for them to be calculated on
-#' a routine basis and used easily. In addition, the availability of
-#' back trajectories over several years can be very useful, but again
-#' difficult to calculate.
+#' This function imports pre-calculated back trajectories using the HYSPLIT
+#' trajectory model (Hybrid Single Particle Lagrangian Integrated Trajectory
+#' Model. Back trajectories provide some very useful information for air quality
+#' data analysis. However, while they are commonly calculated by researchers it
+#' is generally difficult for them to be calculated on a routine basis and used
+#' easily. In addition, the availability of back trajectories over several years
+#' can be very useful, but again difficult to calculate.
 #'
-#' Trajectories are run at 3-hour intervals and stored in yearly
-#' files (see below). The trajectories are started at ground-level
-#' (10m) and propagated backwards in time.
+#' Trajectories are run at 3-hour intervals and stored in yearly files (see
+#' below). The trajectories are started at ground-level (10m) and propagated
+#' backwards in time.
 #'
-#' These trajectories have been calculated using the Global
-#' NOAA-NCEP/NCAR reanalysis data archives. The global data are on a
-#' latitude-longitude grid (2.5 degree). Note that there are many
-#' different meteorological data sets that can be used to run HYSPLIT
-#' e.g. including ECMWF data. However, in order to make it
-#' practicable to run and store trajectories for many years and
-#' sites, the NOAA-NCEP/NCAR reanalysis data is most useful. In
-#' addition, these archives are available for use widely, which is
-#' not the case for many other data sets e.g. ECMWF. HYSPLIT
-#' calculated trajectories based on archive data may be distributed
-#' without permission. For those
-#' wanting, for example, to consider higher resolution meteorological
-#' data sets it may be better to run the trajectories separately.
+#' These trajectories have been calculated using the Global NOAA-NCEP/NCAR
+#' reanalysis data archives. The global data are on a latitude-longitude grid
+#' (2.5 degree). Note that there are many different meteorological data sets
+#' that can be used to run HYSPLIT e.g. including ECMWF data. However, in order
+#' to make it practicable to run and store trajectories for many years and
+#' sites, the NOAA-NCEP/NCAR reanalysis data is most useful. In addition, these
+#' archives are available for use widely, which is not the case for many other
+#' data sets e.g. ECMWF. HYSPLIT calculated trajectories based on archive data
+#' may be distributed without permission. For those wanting, for example, to
+#' consider higher resolution meteorological data sets it may be better to run
+#' the trajectories separately.
 #'
-#' We are extremely grateful to NOAA for making HYSPLIT available to
-#' produce back trajectories in an open way. We ask that you cite
-#' HYSPLIT if used in published work.
+#' We are extremely grateful to NOAA for making HYSPLIT available to produce
+#' back trajectories in an open way. We ask that you cite HYSPLIT if used in
+#' published work.
 #'
-#' Users can supply their own trajectory files to plot in
-#' openair. These files must have the following fields: date, lat,
-#' lon and hour.inc (see details below).
+#' Users can supply their own trajectory files to plot in openair. These files
+#' must have the following fields: date, lat, lon and hour.inc (see details
+#' below).
 #'
 #' The files consist of the following information:
 #'
-#' \describe{ \item{date}{This is the arrival point time and is
-#' repeated the number of times equal to the length of the back
-#' trajectory --- typically 96 hours (except early on in the
-#' file). The format is \code{POSIXct}. It is this field that should
-#' be used to link with air quality data. See example below.}
-#' \item{receptor}{Receptor number, currently only 1.}
-#' \item{year}{The year} \item{month}{Month 1-12} \item{day}{Day of
-#' the month 1-31} \item{hour}{Hour of the day 0-23 GMT}
-#' \item{hour.inc}{Number of hours back in time e.g. 0 to -96.}
-#' \item{lat}{Latitude in decimal format.}  \item{lon}{Longitude in
+#' \describe{ \item{date}{This is the arrival point time and is repeated the
+#' number of times equal to the length of the back trajectory --- typically 96
+#' hours (except early on in the file). The format is \code{POSIXct}. It is this
+#' field that should be used to link with air quality data. See example below.}
+#' \item{receptor}{Receptor number, currently only 1.} \item{year}{The year}
+#' \item{month}{Month 1-12} \item{day}{Day of the month 1-31} \item{hour}{Hour
+#' of the day 0-23 GMT} \item{hour.inc}{Number of hours back in time e.g. 0 to
+#' -96.} \item{lat}{Latitude in decimal format.}  \item{lon}{Longitude in
 #' decimal format.}  \item{height}{Height of trajectory (m).}
 #' \item{pressure}{Pressure of trajectory (kPa).}  }
-#' @param site Site code of the network site to import
-#' e.g. "london". Only one site can be imported at a time. The
-#' following sites are typically available from 2000-2012, although
-#' some UK ozone sites go back to 1988 (code, location, lat, lon, year):
+#' @param site Site code of the network site to import e.g. "london". Only one
+#'   site can be imported at a time. The following sites are typically available
+#'   from 2000-2012, although some UK ozone sites go back to 1988 (code,
+#'   location, lat, lon, year):
+#' @param progress Show a progress bar when many receptors/years are being
+#'   imported? Defaults to `TRUE`.
 #'
 #' \tabular{llrrl}{
 #' abudhabi   \tab Abu Dhabi                    \tab  24.43000 \tab  54.408000 \tab 2012-2013\cr
@@ -125,7 +119,11 @@
 #' ## combine with measurements
 #' \dontrun{theData <- importAURN(site = "kc1", year = 2009)
 #' mytraj <- merge(mytraj, theData, by = "date")}
-importTraj <- function(site = "london", year = 2009, local = NA) {
+importTraj <-
+  function(site = "london",
+           year = 2009,
+           local = NA,
+           progress = TRUE) {
 
   ## get rid of R check annoyances
   traj <- NULL
@@ -157,7 +155,8 @@ importTraj <- function(site = "london", year = 2009, local = NA) {
         traj
       },
       error = function(ex) {
-        cat(x, "does not exist - ignoring that one.\n")
+        warning(x, "does not exist - ignoring that one.\n")
+        NULL
       },
       finally = {
         if (is.na(local)) close(con)
@@ -165,11 +164,12 @@ importTraj <- function(site = "london", year = 2009, local = NA) {
     )
   }
 
-  thedata <- lapply(files, loadData)
-  thedata <- do.call(bind_rows, thedata)
+  if (progress) progress <- "Importing Trajectories"
+  thedata <- purrr::map(files, loadData, .progress = progress) %>%
+    purrr::list_rbind()
 
   ## change names
   names(thedata) <- tolower(names(thedata))
 
-  thedata
+  dplyr::tibble(thedata)
 }
