@@ -39,10 +39,11 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
     flatten_chr()
 
   # Download and load data.
-  thedata <- map_df(files, ~ loadData(
-    .x, verbose, ratified, meta_data,
-    url_data, data_type
-  ))
+  thedata <- purrr::map(files,
+                        ~ loadData(.x, verbose, ratified, meta_data,
+                                   url_data, data_type),
+                        .progress = "Importing Air Quality Data") %>%
+    purrr::list_rbind()
 
   # Return if no data
   if (nrow(thedata) == 0) {
@@ -104,7 +105,7 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
       warning("Cannot re-shape if ratified is TRUE")
       return()
     }
-    
+
     # variables to selct or not select
     the_vars <- c(
       "date", "site", "code",
@@ -117,7 +118,7 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
         cols = -any_of(the_vars),
         names_to = "pollutant"
       ) %>%
-      relocate(any_of(the_vars)) %>% 
+      relocate(any_of(the_vars)) %>%
       arrange(site, code, pollutant, date)
   }
 

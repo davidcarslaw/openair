@@ -14,7 +14,7 @@ Depends:
 Imports:
     grid,
     dplyr (>= 1.0),
-    purrr,
+    purrr (>= 1.0.0),
     tidyr,
     readr,
     mgcv,
