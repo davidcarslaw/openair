@@ -47,6 +47,9 @@ latitude and longitude are returned.}
 \item{to_narrow}{By default the returned data has a column for each
 pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 a narrow format with a column identifying the pollutant name.}
+
+\item{progress}{Show a progress bar when many sites/years are being imported?
+Defaults to \code{TRUE}.}
 }
 \value{
 Returns a data frame of hourly mean values with date in POSIXct
