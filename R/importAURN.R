@@ -201,7 +201,7 @@ importAURN <- function(site = "my1",
     if (progress)
       progress <- "Importing DAQI"
     aq_data <-
-      purrr:::map(files, readDAQI, .progress = progress) %>%
+      purrr::map(files, readDAQI, .progress = progress) %>%
       purrr::list_rbind()
 
     if (meta) {

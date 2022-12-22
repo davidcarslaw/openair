@@ -444,7 +444,8 @@ importKCL <-
            units = "mass",
            extra = FALSE,
            meta = FALSE,
-           to_narrow = FALSE) {
+           to_narrow = FALSE,
+           progress = TRUE) {
     ## get rid of R check annoyances
     sites <- NULL
     v10 <- NULL

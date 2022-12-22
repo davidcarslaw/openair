@@ -61,7 +61,8 @@
 <span>  pollutant <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  meta <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ratified <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  to_narrow <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  to_narrow <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  progress <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -121,6 +122,11 @@ species was ratified i.e. quality-checked. Available for hourly data only.</p></
 <dd><p>By default the returned data has a column for each
 pollutant/variable. When <code>to_narrow = TRUE</code> the data are stacked into
 a narrow format with a column identifying the pollutant name.</p></dd>
+
+
+<dt>progress</dt>
+<dd><p>Show a progress bar when many sites/years are being imported?
+Defaults to <code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
