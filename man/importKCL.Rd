@@ -12,7 +12,8 @@ importKCL(
   units = "mass",
   extra = FALSE,
   meta = FALSE,
-  to_narrow = FALSE
+  to_narrow = FALSE,
+  progress = TRUE
 )
 }
 \arguments{
