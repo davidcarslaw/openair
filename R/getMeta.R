@@ -5,43 +5,45 @@
 #' This function imports site meta data from several networks in the UK and
 #' Europe:
 #'
-#' \itemize{
+#' - `"aurn"`,  The UK Automatic Urban and Rural Network.
 #'
-#' \item \dQuote{aurn}, The UK Automatic Urban and Rural Network.
+#' - `"saqn"`,  The Scottish Air Quality Network.
 #'
-#' \item \dQuote{saqn}, The Scottish Air Quality Network.
+#' - `"waqn"`,  The Welsh Air Quality Network.
 #'
-#' \item \dQuote{waqn}, The Welsh Air Quality Network.
+#' - `"ni"`,  The Northern Ireland Air Quality Network.
 #'
-#' \item \dQuote{ni}, The Northern Ireland Air Quality Network.
+#' - `"aqe"`,  The Air Quality England Network.
 #'
-#' \item \dQuote{aqe}, The Air Quality England Network.
+#' - `"local"`,  Locally managed air quality networks in England.
 #'
-#' \item \dQuote{local}, Locally managed air quality networks in England.
+#' - `"kcl"`,  King's College London networks.
 #'
-#' \item \dQuote{kcl}, King's College London networks.
-#'
-#' \item \dQuote{europe}, Import hourly European data (Airbase/e-reporting)
-#' based on a simplified version of the \code{saqgetr} package. }
+#' - `"europe"`,  Import hourly European data (Airbase/e-reporting) based on a
+#' simplified version of the `saqgetr` package.
 #'
 #' By default, the function will return the site latitude, longitude and site
-#' type. If the option \code{all = TRUE} is used, much more detailed
-#' information is returned. For most networks, this detailed information
-#' includes per-pollutant summaries, opening and closing dates of sites etc.
+#' type. If the option `all = TRUE` is used, much more detailed information is
+#' returned. For most networks, this detailed information includes per-pollutant
+#' summaries, opening and closing dates of sites etc.
 #'
 #' Thanks go to Trevor Davies (Ricardo), Dr Stuart Grange (EMPA) and Dr Ben
 #' Barratt (KCL) and  for making these data available.
-#' @param source The data source for the meta data. Can be \dQuote{aurn},
-#'   \dQuote{saqn} (or \dQuote{saqd}), \dQuote{aqe}, \dQuote{waqn},
-#'   \dQuote{ni}, \dQuote{local}, \dQuote{kcl} or \dQuote{europe}; upper or
-#'   lower case.
-#' @param all When \code{all = FALSE} only the site code, site name, latitude
-#'   and longitude and site type are imported. Setting \code{all = TRUE} will
-#'   import all available meta data and provide details (when available) or the
-#'   individual pollutants measured at each site.
+#' @param source One or more sources of meta data. Can be `aurn`, `saqn` (or
+#'   `saqd`), `aqe`, `waqn`, `ni`, `local` (or `lmam`), `kcl` or `europe`; upper
+#'   or lower case.
+#' @param all When `all = FALSE` only the site code, site name, latitude and
+#'   longitude and site type are imported. Setting `all = TRUE` will import all
+#'   available meta data and provide details (when available) or the individual
+#'   pollutants measured at each site.
+#' @param duplicate Some UK air quality sites are part of multiple networks, so
+#'   could appear more than once when `source` is a vector of two or more. The
+#'   default argument, `FALSE`, drops duplicate sites. `TRUE` will return them.
 #' @return A data frame with meta data.
 #' @author David Carslaw
 #' @family import functions
+#' @seealso the `networkMap()` function from the `openairmaps` package which can
+#'   visualise site metadata
 #' @export
 #' @import readr
 #' @examples
@@ -55,268 +57,112 @@
 #'
 #' # from the Scottish Air Quality Network
 #' meta <- importMeta(source = "saqn", all = TRUE)
+#'
+#' # from multiple networks
+#' meta <- importMeta(source = c("aurn", "aqe", "local"))
 #' }
 
-importMeta <- function(source = "aurn", all = FALSE) {
-  # fix CRAN checks (due to use of `load()`)
-  AURN_metadata <- NULL
-  metadata <- NULL
+importMeta <- function(source = "aurn", all = FALSE, duplicate = FALSE) {
 
   ## meta data sources
-  meta.source <- c("aurn", "kcl", "saqn", "saqd", "waqn", "aqe", "local", "lmam", "ni", "europe")
+  meta.source <-
+    c("aurn", "kcl", "saqn", "saqd", "waqn",
+      "aqe", "local", "lmam", "ni", "europe")
 
   ## ensure lower case
   source <- tolower(source)
 
-  if (!source %in% meta.source) {
+  if (any(!source %in% meta.source)) {
     stop("Meta data sources are 'aurn', 'saqn' 'waqn', 'aqe', 'kcl', 'local', 'europe'.")
   }
 
-  # AURN
-  if (source == "aurn") {
-    tmp <- tempfile()
-
-    fileName <-
-      "https://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData"
-    download.file(fileName,
-      method = "libcurl",
-      destfile = tmp,
-      quiet = TRUE
-    )
-    load(tmp)
-
-    meta <- AURN_metadata
-    ## only extract one line per site to make it easier to use file
-    ## mostly interested in coordinates
-
-    ## rename to match imported names e.g. importAURN
-    # ratified_to - parse fail means not ratified
-    meta <- rename(
-      meta,
-      code = "site_id",
-      site = "site_name",
-      site_type = "location_type",
-      variable = "parameter"
-    ) %>%
-      mutate(
-        start_date = ymd(.data$start_date, tz = "GMT"),
-        ratified_to = ymd(.data$ratified_to, tz = "GMT", quiet = TRUE)
+  # function to import any of the source networks
+  get_meta <- function(source, all){
+    if (!source %in% c("kcl", "europe")) {
+      url <- switch(
+        source,
+        aurn = "https://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData",
+        saqn = "https://www.scottishairquality.scot/openair/R_data/SCOT_metadata.RData",
+        saqd = "https://www.scottishairquality.scot/openair/R_data/SCOT_metadata.RData",
+        ni = "https://www.airqualityni.co.uk/openair/R_data/NI_metadata.RData",
+        waqn = "https://airquality.gov.wales/sites/default/files/openair/R_data/WAQ_metadata.RData",
+        aqe = "https://airqualityengland.co.uk/assets/openair/R_data/AQE_metadata.RData",
+        local = "https://uk-air.defra.gov.uk/openair/LMAM/R_data/LMAM_metadata.RData",
+        lmam = "https://uk-air.defra.gov.uk/openair/LMAM/R_data/LMAM_metadata.RData"
       )
 
-    ## unique ids
-    if (!all) {
-      meta <- distinct(meta, .data$site, .keep_all = TRUE)
+      meta <- clean_ricardo_meta(url, all = all)
     }
-  }
 
-  # SAQN/SAQD
-  if (source %in% tolower(c("saqn", "saqd"))) {
-    tmp <- tempfile()
+    # KCL
+    if (source == "kcl") {
+      con <- url("https://www.londonair.org.uk/r_data/sites.RData")
+      meta <- get(load(con))
+      close(con)
 
-    # load data
-    load(
-      url(
-        "https://www.scottishairquality.scot/openair/R_data/SCOT_metadata.RData"
+      ## rename to match imported names e.g. importKCL
+      meta <- dplyr::rename(
+        meta,
+        code = "SiteCode",
+        site = "SiteName",
+        site_type = "Classification",
+        latitude = "Latitude",
+        longitude = "Longitude"
       )
-    )
-
-    meta <- rename(
-      meta,
-      code = "site_id",
-      site = "site_name",
-      site_type = "location_type",
-      variable = "parameter"
-    ) %>%
-      mutate(
-        start_date = ymd(.data$start_date, tz = "GMT"),
-        ratified_to = ymd(.data$ratified_to, tz = "GMT", quiet = TRUE)
-      )
-
-    ## only extract one line per site to make it easier to use file
-    ## mostly interested in coordinates
-    if (!all) {
-      meta <- distinct(meta, .data$site, .keep_all = TRUE)
     }
-  }
 
-  # NI
-  if (source == "ni") {
-    tmp <- tempfile()
+    # EUROPE
+    if (source == "europe") {
+      file <-
+        "http://aq-data.ricardo-aea.com/R_data/saqgetr/helper_tables/sites_table.csv.gz"
 
-    # load data
-    load(url(
-      "https://www.airqualityni.co.uk/openair/R_data/NI_metadata.RData"
-    ))
-
-    meta <- rename(
-      metadata,
-      code = "site_id",
-      site = "site_name",
-      site_type = "location_type",
-      variable = "parameter"
-    ) %>%
-      mutate(
-        start_date = ymd(.data$start_date, tz = "GMT"),
-        ratified_to = ymd(.data$ratified_to, tz = "GMT", quiet = TRUE)
+      # Define data types
+      col_types <- cols(
+        site = col_character(),
+        site_name = col_character(),
+        latitude = col_double(),
+        longitude = col_double(),
+        elevation = col_double(),
+        country = col_character(),
+        country_iso_code = col_character(),
+        site_type = col_character(),
+        site_area = col_character(),
+        date_start = col_character(),
+        date_end = col_character(),
+        network = col_character(),
+        eu_code = col_character(),
+        eoi_code = col_character(),
+        data_source = col_character()
       )
 
-    ## only extract one line per site to make it easier to use file
-    ## mostly interested in coordinates
-    if (!all) {
-      meta <- distinct(meta, .data$site, .keep_all = TRUE)
-    }
-  }
-
-  # WAQN
-  if (source %in% tolower(c("waqn"))) {
-    tmp <- tempfile()
-
-    # load data
-    load(
-      url(
-        "https://airquality.gov.wales/sites/default/files/openair/R_data/WAQ_metadata.RData"
-      )
-    )
-
-    meta <- rename(
-      metadata,
-      code = "site_id",
-      site = "site_name",
-      site_type = "location_type",
-      variable = "parameter"
-    ) %>%
-      mutate(
-        start_date = ymd(.data$start_date, tz = "GMT"),
-        ratified_to = ymd(.data$ratified_to, tz = "GMT", quiet = TRUE)
-      )
-    ## only extract one line per site to make it easier to use file
-    ## mostly interested in coordinates
-    if (!all) {
-      meta <- distinct(meta, .data$site, .keep_all = TRUE)
-    }
-  }
-
-  # AQE
-  if (source %in% tolower(c("aqe"))) {
-    tmp <- tempfile()
-
-    # load data
-    load(
-      url(
-        "https://airqualityengland.co.uk/assets/openair/R_data/AQE_metadata.RData"
-      )
-    )
-
-    meta <- rename(
-      metadata,
-      code = "site_id",
-      site = "site_name",
-      site_type = "location_type",
-      variable = "parameter"
-    ) %>%
-      mutate(
-        start_date = ymd(.data$start_date, tz = "GMT"),
-        ratified_to = ymd(.data$ratified_to, tz = "GMT", quiet = TRUE),
-        site_type = gsub(
-          pattern = "Urban traffic",
-          replacement = "Urban Traffic", .data$site_type
+      # Read data and parse dates
+      meta <-
+        read_csv(file, col_types = col_types, progress = FALSE) %>%
+        mutate(
+          date_start = lubridate::ymd_hms(.data$date_start, tz = "UTC"),
+          date_end = lubridate::ymd_hms(.data$date_end, tz = "UTC")
         )
-      )
 
-    ## only extract one line per site to make it easier to use file
-    ## mostly interested in coordinates
-    if (!all) {
-      meta <- distinct(meta, .data$site, .keep_all = TRUE)
+      meta <- rename(meta, code = "site", site = "site_name")
     }
+
+    # return data source
+    meta$source <- source
+
+    return(meta)
   }
 
-  # LOCAL/LMAM
-  if (source %in% tolower(c("lmam", "local"))) {
-    tmp <- tempfile()
-
-    # load data
-    load(url(
-      "https://uk-air.defra.gov.uk/openair/LMAM/R_data/LMAM_metadata.RData"
-    ))
-
-    meta <- rename(
-      metadata,
-      code = "site_id",
-      site = "site_name",
-      site_type = "location_type",
-      variable = "parameter"
-    ) %>%
-      mutate(
-        start_date = ymd(.data$start_date, tz = "GMT"),
-        site_type = gsub(
-          pattern = "Urban traffic",
-          replacement = "Urban Traffic", .data$site_type
-        )
-      )
-
-    ## only extract one line per site to make it easier to use file
-    ## mostly interested in coordinates
-    if (!all) {
-      meta <- distinct(meta, .data$site, .keep_all = TRUE)
-    }
-  }
-
-  # KCL
-  if (source == "kcl") {
-    con <- url("https://www.londonair.org.uk/r_data/sites.RData")
-    meta <- get(load(con))
-    close(con)
-
-    ## rename to match imported names e.g. importKCL
-    meta <- rename(
-      meta,
-      code = "SiteCode",
-      site = "SiteName",
-      site_type = "Classification",
-      latitude = "Latitude",
-      longitude = "Longitude"
-    )
-  }
-
-  # EUROPE
-  if (source == "europe") {
-    file <-
-      "http://aq-data.ricardo-aea.com/R_data/saqgetr/helper_tables/sites_table.csv.gz"
-
-    # Define data types
-    col_types <- cols(
-      site = col_character(),
-      site_name = col_character(),
-      latitude = col_double(),
-      longitude = col_double(),
-      elevation = col_double(),
-      country = col_character(),
-      country_iso_code = col_character(),
-      site_type = col_character(),
-      site_area = col_character(),
-      date_start = col_character(),
-      date_end = col_character(),
-      network = col_character(),
-      eu_code = col_character(),
-      eoi_code = col_character(),
-      data_source = col_character()
-    )
-
-    # Read data and parse dates
-    meta <-
-      read_csv(file, col_types = col_types, progress = FALSE) %>%
-      mutate(
-        date_start = lubridate::ymd_hms(.data$date_start, tz = "UTC"),
-        date_end = lubridate::ymd_hms(.data$date_end, tz = "UTC")
-      )
-
-    meta <- rename(meta, code = "site", site = "site_name")
-  }
+  # import meta data
+  meta <-
+    purrr::map(.x = source, .f = ~ get_meta(source = .x, all = all)) %>%
+    purrr::list_rbind()
 
   # drop extra columns if not "all"
   if (!all) {
     meta <-
-      select(meta, all_of(c("site", "code", "latitude", "longitude", "site_type")))
+      dplyr::select(meta, dplyr::all_of(
+        c("site", "code", "latitude", "longitude", "site_type", "source")
+      ))
   }
 
   # change some names
@@ -328,5 +174,54 @@ importMeta <- function(source = "aurn", all = FALSE) {
     }
   }
 
+  # deal with duplicates
+  if (!duplicate) {
+    meta <- dplyr::distinct(meta, .data$site, .data$latitude, .data$longitude, .keep_all = TRUE)
+  }
+
   as_tibble(meta)
+}
+
+#' Clean data from Ricardo (not KCL or Europe)
+#' @param url URL to use
+#' @param all inherited from parent function
+#' @noRd
+clean_ricardo_meta <- function(url, all) {
+  tmp <- tempfile()
+
+  # load data
+  con <- url(url)
+  meta <- get(load(con))
+  close(con)
+
+  # manipulate data
+  meta <- dplyr::rename(
+    .data = meta,
+    code = "site_id",
+    site = "site_name",
+    site_type = "location_type",
+    variable = "parameter"
+  ) %>%
+    dplyr::mutate(
+      start_date = lubridate::ymd(.data$start_date, tz = "GMT"),
+      site_type = gsub(
+        pattern = "Urban traffic",
+        replacement = "Urban Traffic",
+        .data$site_type
+      )
+    )
+
+  # sort out ratified to (not needed in LMAM data)
+  if ("ratified_to" %in% names(meta)) {
+    meta$ratified_to <-
+      lubridate::ymd(meta$ratified_to, tz = "GMT", quiet = TRUE)
+  }
+
+  ## only extract one line per site to make it easier to use file
+  ## mostly interested in coordinates
+  if (!all) {
+    meta <- dplyr::distinct(meta, .data$site, .keep_all = TRUE)
+  }
+
+  return(meta)
 }
