@@ -337,7 +337,8 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
 
     percentiles$percentile <- 999
 
-    Mean <- map_df(999, mod.percentiles)
+    Mean <- purrr::map(999, mod.percentiles) %>%
+      purrr::list_rbind()
 
     if (stat == "percentile") results <- results else results <- Mean
     results
