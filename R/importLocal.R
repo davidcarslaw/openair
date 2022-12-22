@@ -12,7 +12,8 @@ importLocal <-
            data_type = "hourly",
            pollutant = "all",
            meta = FALSE,
-           to_narrow = FALSE) {
+           to_narrow = FALSE,
+           progress = TRUE) {
     # Warn about QC/QA every 8 hrs
     rlang::warn(
       c("i" = "This data is associated with locally managed air quality network sites in England.",
@@ -32,13 +33,17 @@ importLocal <-
         )
 
       # read data
-      aq_data <- map_df(
+      if (progress)
+        progress <- "Importing Statistics"
+      aq_data <- purrr::map(
         files,
         readSummaryData,
         data_type = data_type,
         to_narrow = to_narrow,
-        hc = FALSE
-      )
+        hc = FALSE,
+        .progress = progress
+      ) %>%
+        purrr::list_rbind()
 
       # add meta data?
       if (meta) {
@@ -62,7 +67,7 @@ importLocal <-
       # map over sites and pcodes
       # needed because sites may come from different pcodes
       aq_data <-
-        map2_dfr(
+        purrr::map2(
           .x = site_pcodes$code,
           .y = site_pcodes$pcode,
           .f = ~ importUKAQ(
@@ -74,9 +79,11 @@ importLocal <-
             ratified = FALSE,
             to_narrow = to_narrow,
             source = "local",
-            lmam_subfolder = .y
+            lmam_subfolder = .y,
+            progress = progress
           )
-        )
+        ) %>%
+        purrr::list_rbind()
     }
 
     return(as_tibble(aq_data))

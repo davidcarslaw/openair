@@ -11,7 +11,8 @@ importSAQN(
   pollutant = "all",
   meta = FALSE,
   ratified = FALSE,
-  to_narrow = FALSE
+  to_narrow = FALSE,
+  progress = TRUE
 )
 }
 \arguments{
@@ -57,6 +58,9 @@ species was ratified i.e. quality-checked. Available for hourly data only.}
 \item{to_narrow}{By default the returned data has a column for each
 pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 a narrow format with a column identifying the pollutant name.}
+
+\item{progress}{Show a progress bar when many sites/years are being imported?
+Defaults to \code{TRUE}.}
 }
 \description{
 Import data from the Scottish Air Quality Network

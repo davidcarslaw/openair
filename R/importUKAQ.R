@@ -5,7 +5,7 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
                        pollutant = "all",
                        hc = FALSE, meta = FALSE, ratified = FALSE,
                        to_narrow = FALSE, verbose = FALSE,
-                       source = "aurn", lmam_subfolder) {
+                       source = "aurn", lmam_subfolder, progress = TRUE) {
   # force source to be lowercase
   source <- tolower(source)
 
@@ -35,14 +35,15 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
   }
 
   # combine site with year to create file names
-  files <- map(site, ~ paste0(.x, "_", year)) %>%
-    flatten_chr()
+  files <- purrr::map(site, ~ paste0(.x, "_", year)) %>%
+    purrr::list_c()
 
   # Download and load data.
+  if (progress) progress <- "Importing Air Quality Data"
   thedata <- purrr::map(files,
                         ~ loadData(.x, verbose, ratified, meta_data,
                                    url_data, data_type),
-                        .progress = "Importing Air Quality Data") %>%
+                        .progress = progress) %>%
     purrr::list_rbind()
 
   # Return if no data
@@ -188,8 +189,8 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
 
         for (i in 1:nrow(meta_data)) {
           dat <- add_ratified(dat,
-            variable = meta_data$variable[i],
-            ratified_to = meta_data$ratified_to[i]
+                              variable = meta_data$variable[i],
+                              ratified_to = meta_data$ratified_to[i]
           )
         }
       }

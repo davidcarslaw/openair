@@ -10,7 +10,8 @@ importLocal(
   data_type = "hourly",
   pollutant = "all",
   meta = FALSE,
-  to_narrow = FALSE
+  to_narrow = FALSE,
+  progress = TRUE
 )
 }
 \arguments{
@@ -53,6 +54,9 @@ latitude and longitude are returned.}
 \item{to_narrow}{By default the returned data has a column for each
 pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 a narrow format with a column identifying the pollutant name.}
+
+\item{progress}{Show a progress bar when many sites/years are being imported?
+Defaults to \code{TRUE}.}
 }
 \description{
 Import data from locally managed AQ networks in England.
