@@ -23,6 +23,8 @@
 #' @param to_narrow By default the returned data has a column for each
 #'   pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 #'   a narrow format with a column identifying the pollutant name.
+#' @param progress Show a progress bar when many sites/years are being imported?
+#'   Defaults to `TRUE`.
 #'
 #' @return a [tibble][tibble::tibble-package]
 #' @family import functions
@@ -35,22 +37,23 @@
 #' stuttgart <- importEurope("debw118", year = 2010:2019, meta = TRUE)
 #' }
 #'
-importEurope <- function(site = "debw118", year = 2018, tz = "UTC",
-                         meta = FALSE, to_narrow = FALSE) {
+importEurope <- function(site = "debw118",
+                         year = 2018,
+                         tz = "UTC",
+                         meta = FALSE,
+                         to_narrow = FALSE,
+                         progress = TRUE) {
   site <- tolower(site)
 
   # The directory
-  remote_path <- "http://aq-data.ricardo-aea.com/R_data/saqgetr/observations"
+  remote_path <-
+    "http://aq-data.ricardo-aea.com/R_data/saqgetr/observations"
 
   # Produce file names
-  file_remote <- crossing(
-    site = site,
-    year = year
-  ) %>%
-    arrange(
-      site,
-      year
-    ) %>%
+  file_remote <- crossing(site = site,
+                          year = year) %>%
+    arrange(site,
+            year) %>%
     mutate(
       file_remote = paste0(
         remote_path,
@@ -67,10 +70,12 @@ importEurope <- function(site = "debw118", year = 2018, tz = "UTC",
     pull(file_remote)
 
   # Load files
-  df <- map_dfr(
-    file_remote,
-    ~ get_saq_observations_worker(file = .x, tz = tz)
-  )
+  if (progress)
+    progress <- "Importing Air Quality Data"
+  df <- purrr::map(file_remote,
+                   ~ get_saq_observations_worker(file = .x, tz = tz),
+                   .progress = progress) %>%
+    purrr::list_rbind()
 
   if (nrow(df) == 0L) {
     warning("No data available,")
@@ -83,11 +88,11 @@ importEurope <- function(site = "debw118", year = 2018, tz = "UTC",
   if (!to_narrow) {
     df <- make_saq_observations_wider(df)
   } else {
-    df <- select(df, -summary, -process, -validity)
+    df <- select(df,-summary,-process,-validity)
   }
 
   # don't need end date
-  df <- select(df, -date_end) %>%
+  df <- select(df,-date_end) %>%
     rename(code = site)
 
   if (meta) {
@@ -102,7 +107,6 @@ importEurope <- function(site = "debw118", year = 2018, tz = "UTC",
 
 
 get_saq_observations_worker <- function(file, tz) {
-
   # Read data
   df <- read_saq_observations(file, tz)
 
@@ -118,7 +122,6 @@ get_saq_observations_worker <- function(file, tz) {
 
 # Reading function
 read_saq_observations <- function(file, tz = tz, verbose) {
-
   # Data types
   col_types <- cols(
     date = col_character(),
@@ -137,26 +140,22 @@ read_saq_observations <- function(file, tz = tz, verbose) {
     url() %>%
     gzcon()
 
-  df <- tryCatch(
-    {
-
-      # Read and parse dates, quiet supresses time zone conversion messages and
-      # warning supression is for when url does not exist
-      suppressWarnings(
-        readr::read_csv(con, col_types = col_types, progress = FALSE) %>%
-          mutate(
-            date = lubridate::ymd_hms(date, tz = tz, quiet = TRUE),
-            date_end = lubridate::ymd_hms(date_end, tz = tz, quiet = TRUE)
-          )
-      )
-    },
-    error = function(e) {
-
-      # Close the connection on error
-      close.connection(con)
-      tibble()
-    }
-  )
+  df <- tryCatch({
+    # Read and parse dates, quiet supresses time zone conversion messages and
+    # warning supression is for when url does not exist
+    suppressWarnings(
+      readr::read_csv(con, col_types = col_types, progress = FALSE) %>%
+        mutate(
+          date = lubridate::ymd_hms(date, tz = tz, quiet = TRUE),
+          date_end = lubridate::ymd_hms(date_end, tz = tz, quiet = TRUE)
+        )
+    )
+  },
+  error = function(e) {
+    # Close the connection on error
+    close.connection(con)
+    tibble()
+  })
 
   if (nrow(df) == 0) {
     warning(paste(basename(file), "is missing."))
@@ -167,38 +166,31 @@ read_saq_observations <- function(file, tz = tz, verbose) {
 
 
 make_saq_observations_wider <- function(df) {
-  tryCatch(
-    {
-      df %>%
-        select(
-          date,
-          date_end,
-          site,
-          variable,
-          value
-        ) %>%
-        spread(variable, value)
-    },
-    error = function(e) {
-      warning(
-        "Duplicated date-site-variable combinations detected, observations have been removed...",
-        call. = FALSE
-      )
+  tryCatch({
+    df %>%
+      select(date,
+             date_end,
+             site,
+             variable,
+             value) %>%
+      spread(variable, value)
+  },
+  error = function(e) {
+    warning(
+      "Duplicated date-site-variable combinations detected, observations have been removed...",
+      call. = FALSE
+    )
 
-      df %>%
-        select(
-          date,
-          date_end,
-          site,
-          variable,
-          value
-        ) %>%
-        distinct(date,
-          site,
-          variable,
-          .keep_all = TRUE
-        ) %>%
-        spread(variable, value)
-    }
-  )
+    df %>%
+      select(date,
+             date_end,
+             site,
+             variable,
+             value) %>%
+      distinct(date,
+               site,
+               variable,
+               .keep_all = TRUE) %>%
+      spread(variable, value)
+  })
 }

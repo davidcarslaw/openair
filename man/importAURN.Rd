@@ -13,7 +13,8 @@ importAURN(
   meta = FALSE,
   ratified = FALSE,
   to_narrow = FALSE,
-  verbose = FALSE
+  verbose = FALSE,
+  progress = TRUE
 )
 }
 \arguments{
@@ -67,6 +68,9 @@ a narrow format with a column identifying the pollutant name.}
 
 \item{verbose}{Should the function give messages when downloading files?
 Default is \code{FALSE}.}
+
+\item{progress}{Show a progress bar when many sites/years are being imported?
+Defaults to \code{TRUE}.}
 }
 \value{
 Returns a data frame of hourly mean values with date in POSIXct

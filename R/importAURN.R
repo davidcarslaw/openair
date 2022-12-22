@@ -109,6 +109,8 @@
 #'   a narrow format with a column identifying the pollutant name.
 #' @param verbose Should the function give messages when downloading files?
 #'   Default is \code{FALSE}.
+#' @param progress Show a progress bar when many sites/years are being imported?
+#'   Defaults to `TRUE`.
 #'
 #' @export
 #' @return Returns a data frame of hourly mean values with date in POSIXct
@@ -131,18 +133,34 @@
 #' \dontrun{aq <- importAURN(year = 2010:2020, data_type = "annual", meta = TRUE, to_narrow = TRUE)}
 #'
 #' \dontrun{cardiff <- importWAQN(site = "card", year = 2020)}
-importAURN <- function(site = "my1", year = 2009,
-                       data_type = "hourly", pollutant = "all",
-                       hc = FALSE, meta = FALSE, ratified = FALSE,
-                       to_narrow = FALSE, verbose = FALSE) {
+importAURN <- function(site = "my1",
+                       year = 2009,
+                       data_type = "hourly",
+                       pollutant = "all",
+                       hc = FALSE,
+                       meta = FALSE,
+                       ratified = FALSE,
+                       to_narrow = FALSE,
+                       verbose = FALSE,
+                       progress = TRUE) {
   if (!tolower(data_type) %in%
-    c(
-      "hourly", "daily", "15min", "monthly", "annual", "daqi", "15_min",
-      "24_hour", "8_hour", "daily_max_8"
-    )) {
-    warning("data_type should be one of 'hourly', 'daily',
+      c(
+        "hourly",
+        "daily",
+        "15min",
+        "monthly",
+        "annual",
+        "daqi",
+        "15_min",
+        "24_hour",
+        "8_hour",
+        "daily_max_8"
+      )) {
+    warning(
+      "data_type should be one of 'hourly', 'daily',
             'monthly', 'annual', '15_min', '24_hour', '8_hour',
-            'daily_max_8', 'daqi'")
+            'daily_max_8', 'daqi'"
+    )
 
     data_type <- "hourly"
   }
@@ -151,42 +169,57 @@ importAURN <- function(site = "my1", year = 2009,
   if (data_type %in% c("annual", "monthly")) {
     files <- paste0(
       "https://uk-air.defra.gov.uk/openair/R_data/summary_",
-      data_type, "_AURN_", year, ".rds"
+      data_type,
+      "_AURN_",
+      year,
+      ".rds"
     )
 
-
-    aq_data <- map_df(files, readSummaryData,
+    if (progress)
+      progress <- "Importing Statistics"
+    aq_data <- purrr::map(
+      files,
+      readSummaryData,
       data_type = data_type,
       to_narrow = to_narrow,
       meta = meta,
-      hc = hc
-    )
+      hc = hc,
+      .progress = progress
+    ) %>%
+      purrr::list_rbind()
 
     # add meta data?
     if (meta) {
       aq_data <- add_meta(source = "aurn", aq_data)
     }
   } else if (data_type == "daqi") {
-
     # daily air quality index
-    files <- paste0(
-      "https://uk-air.defra.gov.uk/openair/R_data/annual_DAQI_AURN_",
-      year, ".rds"
-    )
+    files <- paste0("https://uk-air.defra.gov.uk/openair/R_data/annual_DAQI_AURN_",
+                    year,
+                    ".rds")
 
-    aq_data <- map_df(files, readDAQI)
-
+    if (progress)
+      progress <- "Importing DAQI"
+    aq_data <-
+      purrr::map(files, readDAQI, .progress = progress) %>%
+      purrr::list_rbind()
 
     if (meta) {
       aq_data <- add_meta(source = "aurn", aq_data)
     }
   } else {
-    aq_data <- importUKAQ(site, year,
+    aq_data <- importUKAQ(
+      site,
+      year,
       data_type,
       pollutant,
-      hc, meta, ratified,
-      to_narrow, verbose,
-      source = "aurn"
+      hc,
+      meta,
+      ratified,
+      to_narrow,
+      verbose,
+      source = "aurn",
+      progress = progress
     )
   }
 
@@ -195,80 +228,111 @@ importAURN <- function(site = "my1", year = 2009,
 
 # function to read annual or monthly files
 
-readSummaryData <- function(fileName, data_type, to_narrow, meta, hc) {
-  thedata <- try(readRDS(url(fileName)), TRUE)
+readSummaryData <-
+  function(fileName, data_type, to_narrow, meta, hc) {
+    thedata <- try(readRDS(url(fileName)), TRUE)
 
-  if (inherits(thedata, "try-error")) {
-    return()
-  }
+    if (inherits(thedata, "try-error")) {
+      return()
+    }
 
-  names(thedata)[names(thedata) == "NOXasNO2.mean"] <- "nox"
-  names(thedata)[names(thedata) == "NOXasNO2.capture"] <- "nox_capture"
-  names(thedata) <- tolower(names(thedata))
-  names(thedata) <- gsub(".mean", "", names(thedata))
-  names(thedata) <- gsub(".capture", "_capture", names(thedata))
+    names(thedata)[names(thedata) == "NOXasNO2.mean"] <- "nox"
+    names(thedata)[names(thedata) == "NOXasNO2.capture"] <-
+      "nox_capture"
+    names(thedata) <- tolower(names(thedata))
+    names(thedata) <- gsub(".mean", "", names(thedata))
+    names(thedata) <- gsub(".capture", "_capture", names(thedata))
 
-  if (!hc) {
+    if (!hc) {
+      thedata <- thedata %>%
+        select(any_of(
+          c(
+            "date",
+            "uka_code",
+            "code",
+            "site",
+            "year",
+            "o3",
+            "o3_capture",
+            "o3.summer_capture",
+            "o3.daily.max.8hour",
+            "o3.aot40v",
+            "o3.aot40f",
+            "somo35",
+            "somo35_capture",
+            "no",
+            "no_capture",
+            "no2",
+            "no2_capture",
+            "nox",
+            "nox_capture",
+            "so2",
+            "so2_capture",
+            "co",
+            "co_capture",
+            "pm10",
+            "pm10_capture",
+            "nv10",
+            "nv10_capture",
+            "v10",
+            "v10_capture",
+            "pm2.5",
+            "pm2.5_capture",
+            "nv2.5",
+            "nv2.5_capture",
+            "v2.5",
+            "v2.5_capture",
+            "gr10",
+            "gr10_capture",
+            "gr2.5",
+            "gr2.5_capture"
+          )
+        ))
+    }
+
+
+    if (data_type == "monthly") {
+      thedata <- mutate(thedata, date = ymd(date, tz = "UTC"))
+    }
+
+    if (data_type == "annual") {
+      thedata <- rename(thedata, date = year) %>%
+        drop_na(date) %>%
+        mutate(date = ymd(paste0(date, "-01-01"), tz = "UTC"))
+    }
+
+    if (to_narrow) {
+      # make sure numbers are numbers
+      values <- select(thedata,!contains("capture")) %>%
+        select(!matches("uka_code"))
+
+      capture <-
+        select(thedata, contains("capture") | c(code, date, site)) %>%
+        select(!matches("uka_code"))
+
+      values <- pivot_longer(values,
+                             -c(date, code, site),
+                             values_to = "value",
+                             names_to = "species")
+
+      capture <- pivot_longer(capture,
+                              -c(date, code, site),
+                              values_to = "data_capture",
+                              names_to = "species")
+
+      capture$species <- gsub("_capture", "", capture$species)
+
+      thedata <- full_join(values, capture,
+                           by = c("date", "code", "site", "species"))
+    }
+
     thedata <- thedata %>%
-      select(any_of(c(
-        "date", "uka_code", "code", "site", "year",
-        "o3", "o3_capture", "o3.summer_capture",
-        "o3.daily.max.8hour", "o3.aot40v",
-        "o3.aot40f", "somo35", "somo35_capture", "no",
-        "no_capture", "no2", "no2_capture", "nox",
-        "nox_capture", "so2", "so2_capture", "co",
-        "co_capture", "pm10", "pm10_capture", "nv10",
-        "nv10_capture", "v10", "v10_capture", "pm2.5",
-        "pm2.5_capture", "nv2.5", "nv2.5_capture", "v2.5",
-        "v2.5_capture", "gr10", "gr10_capture", "gr2.5",
-        "gr2.5_capture"
-      )))
+      mutate(site = as.character(site),
+             code = as.character(code))
+
+
+    return(thedata)
   }
-
-
-  if (data_type == "monthly") {
-    thedata <- mutate(thedata, date = ymd(date, tz = "UTC"))
-  }
-
-  if (data_type == "annual") {
-    thedata <- rename(thedata, date = year) %>%
-      drop_na(date) %>%
-      mutate(date = ymd(paste0(date, "-01-01"), tz = "UTC"))
-  }
-
-  if (to_narrow) {
-
-    # make sure numbers are numbers
-    values <- select(thedata, !contains("capture")) %>%
-      select(!matches("uka_code"))
-
-    capture <- select(thedata, contains("capture") | c(code, date, site)) %>%
-      select(!matches("uka_code"))
-
-    values <- pivot_longer(values, -c(date, code, site),
-      values_to = "value", names_to = "species"
-    )
-
-    capture <- pivot_longer(capture, -c(date, code, site),
-      values_to = "data_capture", names_to = "species"
-    )
-
-    capture$species <- gsub("_capture", "", capture$species)
-
-    thedata <- full_join(values, capture,
-      by = c("date", "code", "site", "species")
-    )
-  }
-
-  thedata <- thedata %>%
-    mutate(
-      site = as.character(site),
-      code = as.character(code)
-    )
-
-
-  return(thedata)
-}
 
 readDAQI <- function(fileName) {
   thedata <- try(readRDS(url(fileName)), TRUE)
