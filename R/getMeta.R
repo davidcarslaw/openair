@@ -176,7 +176,11 @@ importMeta <- function(source = "aurn", all = FALSE, duplicate = FALSE) {
 
   # deal with duplicates
   if (!duplicate) {
-    meta <- dplyr::distinct(meta, .data$site, .data$latitude, .data$longitude, .keep_all = TRUE)
+    if (all) {
+      meta <- dplyr::distinct(meta, .data$site, .data$latitude, .data$longitude, .data$variable, .keep_all = TRUE)
+    } else {
+      meta <- dplyr::distinct(meta, .data$site, .data$latitude, .data$longitude, .keep_all = TRUE)
+    }
   }
 
   as_tibble(meta)
