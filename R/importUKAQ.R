@@ -74,7 +74,8 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
     ## no hydrocarbons - therefore select conventional pollutants
     theNames <- c(
       "site", "code", "date", "co", "nox", "no2", "no", "o3", "so2", "pm10",
-      "pm2.5", "v10", "v2.5", "nv10", "nv2.5", "ws", "wd", "temp"
+      "pm2.5", "v10", "v2.5", "nv10", "nv2.5", "gr_pm10", "gr_pm2.5", 
+      "ws", "wd", "temp"
     )
 
     thedata <- select(thedata, any_of(theNames) | matches("_qc"))
@@ -152,7 +153,13 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
       }
 
       if (data_type == "daily") {
+        
+        # gravimetric PM10/PM2.5 are in a separate table
+        # These are 'proper' daily means rather than derived from hourly
+        x2 <- paste0(x, "_daily")
+        
         x <- paste0(x, "_daily_mean")
+        
       }
 
       if (data_type == "8_hour") {
@@ -170,6 +177,24 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
 
       # Reasign
       dat <- get(x)
+      
+      # if there are two daily data frames to combine
+      if (data_type == "daily") {
+        
+        if (exists(x2)) {
+          
+          dat2 <- get(x2)
+          dat <- left_join(dat, dat2,
+                           by = c("date", "site", "code"))
+          
+          lookup <- c(gr_pm2.5 = "GR2.5", gr_pm10 = "GR10")
+          
+          dat <- dat |> 
+            rename(any_of(lookup))
+          
+        }
+        
+      }
 
       # make sure class is correct for lubridate
       class(dat$date) <- c("POSIXct", "POSIXt")

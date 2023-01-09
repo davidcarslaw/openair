@@ -1,4 +1,8 @@
-# openair 2.11-99
+# openair 2.13-99
+
+- make sure full daily gravimetric data are returned for PM10 and PM2.5 if vailable when using `importAURN` family of functions. These data will be returned as `gr_pm2.5` and `gr_pm10` if `data_type = "daily"`
+
+# openair 2.13
 
 - add `importLocal` to access locally-managed automatic monitoring data 
 - fix bug in `pollutionRose` when single number of breaks given (was ignored)
