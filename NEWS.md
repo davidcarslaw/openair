@@ -1,5 +1,7 @@
 # openair 2.13-99
 
+- add `year` as an option to `importMeta`. This allows the user to select sites that were only open at some point in the chosen year or duration of years.
+
 - make sure full daily gravimetric data are returned for PM10 and PM2.5 if vailable when using `importAURN` family of functions. These data will be returned as `gr_pm2.5` and `gr_pm10` if `data_type = "daily"`
 
 # openair 2.13

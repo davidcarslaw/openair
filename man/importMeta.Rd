@@ -4,7 +4,7 @@
 \alias{importMeta}
 \title{Import monitoring site meta data for the UK and European networks}
 \usage{
-importMeta(source = "aurn", all = FALSE, duplicate = FALSE)
+importMeta(source = "aurn", all = FALSE, duplicate = FALSE, year = NA)
 }
 \arguments{
 \item{source}{One or more sources of meta data. Can be \code{aurn}, \code{saqn} (or
@@ -19,6 +19,12 @@ pollutants measured at each site.}
 \item{duplicate}{Some UK air quality sites are part of multiple networks, so
 could appear more than once when \code{source} is a vector of two or more. The
 default argument, \code{FALSE}, drops duplicate sites. \code{TRUE} will return them.}
+
+\item{year}{If a single year is selected, only sites that were open at some
+point in that year are returned. If \code{all = TRUE} only sites that
+measured a particular pollutant in that year are returned. Year can also be
+of length 2 e.g. \code{year = c(2010, 2020)}, which will return only sites
+that were open over the duration.}
 }
 \value{
 A data frame with meta data.

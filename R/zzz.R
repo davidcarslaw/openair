@@ -13,5 +13,6 @@
                            "pmfr", "p2fr", "pmfb", "p2fb", ":=",
                            "pollutant", "Date", "measurement_period",
                            "Q", "Q_c", "SQTBA", "lat_rnd", "lon_rnd", "sigma",
-                           "hour.inc", "ygrid", "xgrid", "SQTBA_norm"))
+                           "hour.inc", "ygrid", "xgrid", "SQTBA_norm",
+                           "start_year", "end_year"))
 }
