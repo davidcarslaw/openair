@@ -26,7 +26,7 @@ measured a particular pollutant in that year are returned. Year can also be
 a sequence e.g. \code{year = 2010:2020} or of length 2 e.g. \code{year =
   c(2010, 2020)}, which will return only sites that were open over the
 duration. Note that \code{year} is ignored when the \code{source} is either
-\code{"kcl"} or \code{"europe}.}
+\code{"kcl"} or \code{"europe"}.}
 }
 \value{
 A data frame with meta data.
