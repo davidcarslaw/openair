@@ -42,8 +42,10 @@
 #' @param year If a single year is selected, only sites that were open at some
 #'   point in that year are returned. If \code{all = TRUE} only sites that
 #'   measured a particular pollutant in that year are returned. Year can also be
-#'   of length 2 e.g. \code{year = c(2010, 2020)}, which will return only sites
-#'   that were open over the duration.
+#'   a sequence e.g. \code{year = 2010:2020} or of length 2 e.g. \code{year =
+#'   c(2010, 2020)}, which will return only sites that were open over the
+#'   duration. Note that \code{year} is ignored when the \code{source} is either
+#'   \code{"kcl"} or \code{"europe}.
 #' @return A data frame with meta data.
 #' @author David Carslaw
 #' @family import functions
@@ -229,19 +231,11 @@ clean_ricardo_meta <- function(url, all, year) {
   
   # select year or period when sites were open
   if (!anyNA(year)) {
-    
     # format end_date - set "ongoing" to current date
     meta$end_date[which(meta$end_date == "ongoing")] <- as.character(Sys.Date())
     meta$end_year <- lubridate::year(as.Date(meta$end_date))
     meta$start_year <- lubridate::year(meta$start_date)
-    
-    if (length(year) == 1) 
-      meta <- filter(meta, start_year <= year & end_year >= year)
-    
-    if (length(year) == 2) 
-      meta <- filter(meta, start_year <= year[1] & end_year >= year[2])
-    
-    
+    meta <- dplyr::filter(meta, start_year <= min(year) & end_year >= max(year))
   }
 
   ## only extract one line per site to make it easier to use file

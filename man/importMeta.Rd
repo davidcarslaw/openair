@@ -23,8 +23,10 @@ default argument, \code{FALSE}, drops duplicate sites. \code{TRUE} will return t
 \item{year}{If a single year is selected, only sites that were open at some
 point in that year are returned. If \code{all = TRUE} only sites that
 measured a particular pollutant in that year are returned. Year can also be
-of length 2 e.g. \code{year = c(2010, 2020)}, which will return only sites
-that were open over the duration.}
+a sequence e.g. \code{year = 2010:2020} or of length 2 e.g. \code{year =
+  c(2010, 2020)}, which will return only sites that were open over the
+duration. Note that \code{year} is ignored when the \code{source} is either
+\code{"kcl"} or \code{"europe}.}
 }
 \value{
 A data frame with meta data.
