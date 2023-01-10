@@ -82,8 +82,10 @@ default argument, <code>FALSE</code>, drops duplicate sites. <code>TRUE</code> w
 <dd><p>If a single year is selected, only sites that were open at some
 point in that year are returned. If <code>all = TRUE</code> only sites that
 measured a particular pollutant in that year are returned. Year can also be
-of length 2 e.g. <code>year = c(2010, 2020)</code>, which will return only sites
-that were open over the duration.</p></dd>
+a sequence e.g. <code>year = 2010:2020</code> or of length 2 e.g. <code>year =
+  c(2010, 2020)</code>, which will return only sites that were open over the
+duration. Note that <code>year</code> is ignored when the <code>source</code> is either
+<code>"kcl"</code> or <code>"europe"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
