@@ -6,7 +6,6 @@
 ^inst/web$
 ^docs$
 ^_pkgdown\.yml$
-NEWS\.md
 ^data-raw$
 README_files
 README_cache
