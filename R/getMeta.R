@@ -45,7 +45,7 @@
 #'   a sequence e.g. \code{year = 2010:2020} or of length 2 e.g. \code{year =
 #'   c(2010, 2020)}, which will return only sites that were open over the
 #'   duration. Note that \code{year} is ignored when the \code{source} is either
-#'   \code{"kcl"} or \code{"europe}.
+#'   \code{"kcl"} or \code{"europe"}.
 #' @return A data frame with meta data.
 #' @author David Carslaw
 #' @family import functions
@@ -54,9 +54,8 @@
 #' @export
 #' @import readr
 #' @examples
-#' ## basic data
-#'
 #' \dontrun{
+#' # basic info
 #' meta <- importMeta(source = "aurn")
 #'
 #' # more detailed information:
