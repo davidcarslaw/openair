@@ -4,6 +4,8 @@
 
 - make sure full daily gravimetric data are returned for PM10 and PM2.5 if vailable when using `importAURN` family of functions. These data will be returned as `gr_pm2.5` and `gr_pm10` if `data_type = "daily"`
 
+- add `alpha` argument to all polar directional analysis functions. This is mainly for use in `openairmaps` but may be of general interest for specific use cases.
+
 # openair 2.13
 
 - add `importLocal` to access locally-managed automatic monitoring data 
