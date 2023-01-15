@@ -35,6 +35,7 @@ windRose(
   annotate = TRUE,
   angle.scale = 315,
   border = NA,
+  alpha = 1,
   plot = TRUE,
   ...
 )
@@ -179,6 +180,11 @@ feature. The user can therefore set \code{angle.scale} to another value
 \code{angle.scale = 45} will draw the scale heading in a NE direction.}
 
 \item{border}{Border colour for shaded areas. Default is no border.}
+
+\item{alpha}{The alpha transparency to use for the plotting surface (a value
+between 0 and 1 with zero being fully transparent and 1 fully opaque).
+Setting a value below 1 can be useful when plotting surfaces on a map using
+the package \code{openairmapss}.}
 
 \item{plot}{Should a plot be produced? \code{FALSE} can be useful when
 analysing data to extract plot components and plotting them in other ways.}

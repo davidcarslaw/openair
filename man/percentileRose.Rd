@@ -26,6 +26,7 @@ percentileRose(
   key.footer = "percentile",
   key.position = "bottom",
   key = TRUE,
+  alpha = 1,
   plot = TRUE,
   ...
 )
@@ -123,6 +124,11 @@ and \code{"left"}.}
 
 \item{key}{Fine control of the scale key via \code{drawOpenKey}. See
 \code{drawOpenKey} for further details.}
+
+\item{alpha}{The alpha transparency to use for the plotting surface (a value
+between 0 and 1 with zero being fully transparent and 1 fully opaque).
+Setting a value below 1 can be useful when plotting surfaces on a map using
+the package \code{openairmapss}.}
 
 \item{plot}{Should a plot be produced? \code{FALSE} can be useful when
 analysing data to extract plot components and plotting them in other ways.}

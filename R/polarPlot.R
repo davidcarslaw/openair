@@ -426,17 +426,41 @@
 #'
 #' @export
 polarPlot <-
-  function(mydata, pollutant = "nox", x = "ws", wd = "wd",
-           type = "default", statistic = "mean",
-           limits = NA, exclude.missing = TRUE, uncertainty = FALSE,
-           percentile = NA, cols = "default", weights = c(0.25, 0.5, 0.75),
-           min.bin = 1, mis.col = "grey", alpha = 1, upper = NA, angle.scale = 315,
-           units = x, force.positive = TRUE, k = 100, normalise = FALSE,
-           key.header = "", key.footer = pollutant, key.position = "right",
-           key = TRUE, auto.text = TRUE, ws_spread = 1.5, wd_spread = 5,
-           x_error = NA, y_error = NA,
-           kernel = "gaussian", tau = 0.5, plot = TRUE, ...) {
-
+  function(mydata,
+           pollutant = "nox",
+           x = "ws",
+           wd = "wd",
+           type = "default",
+           statistic = "mean",
+           limits = NA,
+           exclude.missing = TRUE,
+           uncertainty = FALSE,
+           percentile = NA,
+           cols = "default",
+           weights = c(0.25, 0.5, 0.75),
+           min.bin = 1,
+           mis.col = "grey",
+           upper = NA,
+           angle.scale = 315,
+           units = x,
+           force.positive = TRUE,
+           k = 100,
+           normalise = FALSE,
+           key.header = "",
+           key.footer = pollutant,
+           key.position = "right",
+           key = TRUE,
+           auto.text = TRUE,
+           ws_spread = 1.5,
+           wd_spread = 5,
+           x_error = NA,
+           y_error = NA,
+           kernel = "gaussian",
+           tau = 0.5,
+           alpha = 1,
+           plot = TRUE,
+           ...) {
+    
     ## get rid of R check annoyances
     z <- . <- NULL
 
@@ -1108,7 +1132,8 @@ polarPlot <-
           at = col.scale,
           pretty = TRUE,
           col.regions = col,
-          labels = FALSE, alpha.regions = alpha
+          labels = FALSE,
+          alpha.regions = alpha
         )
 
         angles <- seq(0, 2 * pi, length = 360)

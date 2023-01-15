@@ -14,6 +14,7 @@ pollutionRose(
   paddle = FALSE,
   seg = 0.9,
   normalise = FALSE,
+  alpha = 1,
   plot = TRUE,
   ...
 )
@@ -52,6 +53,11 @@ equal one. This is useful for showing how the concentrations (or other
 parameters) contribute to each wind sector when the proportion of time the
 wind is from that direction is low. A line showing the probability that the
 wind directions is from a particular wind sector is also shown.}
+
+\item{alpha}{The alpha transparency to use for the plotting surface (a value
+between 0 and 1 with zero being fully transparent and 1 fully opaque).
+Setting a value below 1 can be useful when plotting surfaces on a map using
+the package \code{openairmapss}.}
 
 \item{plot}{Should a plot be produced? \code{FALSE} can be useful when
 analysing data to extract plot components and plotting them in other ways.}

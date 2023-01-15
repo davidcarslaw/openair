@@ -19,7 +19,6 @@ polarPlot(
   weights = c(0.25, 0.5, 0.75),
   min.bin = 1,
   mis.col = "grey",
-  alpha = 1,
   upper = NA,
   angle.scale = 315,
   units = x,
@@ -37,6 +36,7 @@ polarPlot(
   y_error = NA,
   kernel = "gaussian",
   tau = 0.5,
+  alpha = 1,
   plot = TRUE,
   ...
 )
@@ -222,11 +222,6 @@ are removed on the plots. This is done by shading the missing data in
 \code{mis.col}. To not highlight missing data when \code{min.bin} > 1
 choose \code{mis.col = "transparent"}.}
 
-\item{alpha}{The alpha transparency to use for the plotting surface (a value
-between 0 and 1 with zero being fully transparent and 1 fully opaque).
-Setting a value below 1 can be useful when plotting surfaces on a map using
-the package \code{openairmapss}.}
-
 \item{upper}{This sets the upper limit wind speed to be used. Often there are
 only a relatively few data points at very high wind speeds and plotting all
 of them can reduce the useful information in the plot.}
@@ -309,6 +304,11 @@ supported but this may be enhanced in the future.}
 \item{tau}{The quantile to be estimated when \code{statistic} is set to
 \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
 and will be ignored if \code{"quantile.slope"} is not used.}
+
+\item{alpha}{The alpha transparency to use for the plotting surface (a value
+between 0 and 1 with zero being fully transparent and 1 fully opaque).
+Setting a value below 1 can be useful when plotting surfaces on a map using
+the package \code{openairmapss}.}
 
 \item{plot}{Should a plot be produced? \code{FALSE} can be useful when
 analysing data to extract plot components and plotting them in other ways.}
