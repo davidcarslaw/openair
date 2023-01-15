@@ -182,10 +182,16 @@ importMeta <- function(source = "aurn", all = FALSE, duplicate = FALSE, year = N
 
   # deal with duplicates
   if (!duplicate) {
-    if (all) {
-      meta <- dplyr::distinct(meta, .data$site, .data$latitude, .data$longitude, .data$variable, .keep_all = TRUE)
+    if (all & "variable" %in% names(meta)) {
+      meta <- dplyr::distinct(meta, .data$code, .data$site, .data$latitude,
+        .data$longitude, .data$variable,
+        .keep_all = TRUE
+      )
     } else {
-      meta <- dplyr::distinct(meta, .data$site, .data$latitude, .data$longitude, .keep_all = TRUE)
+      meta <- dplyr::distinct(meta, .data$code, .data$site, .data$latitude,
+        .data$longitude,
+        .keep_all = TRUE
+      )
     }
   }
 
