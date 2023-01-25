@@ -6,6 +6,8 @@
 
 - add `alpha` argument to all polar directional analysis functions. This is mainly for use in `openairmaps` but may be of general interest for specific use cases.
 
+- fix small bug in `smoothTrend` in retruned fit data when data is missing.
+
 # openair 2.13
 
 - add `importLocal` to access locally-managed automatic monitoring data 

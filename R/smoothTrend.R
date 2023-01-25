@@ -388,7 +388,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   fit <- res %>%
     group_by(across(vars)) %>%
-    do(fitGam(., x = "date", y = "conc", k = k, ...))
+    group_modify(~ fitGam(x = "date", y = "conc", k = k, ...))
 
   class(fit$date) <- c("POSIXct", "POSIXt")
 
