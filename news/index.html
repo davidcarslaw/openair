@@ -96,7 +96,7 @@
 </li>
 <li>fix <code>trajCluster</code> issue to do with <code>dplyr</code>
 </li>
-<li>access other time-averaged air quality data using <code>importAURN</code>, <code>importSAQN</code>, <code>importWAQN</code>, <code>importAQE</code> and <code>importNI</code>. New option <code>data_type</code>, which can be “hourly” (default), “annual”, “monthly”, “daily” and “15min” (for SO<sub>2</sub>). These new data sources should make it much easier to work with long-term time series with many sites. See <a href="https://bookdown.org/david_carslaw/openair/importAURN.html" class="external-link">the openair manual</a> for more details.</li>
+<li>access other time-averaged air quality data using <code>importAURN</code>, <code>importSAQN</code>, <code>importWAQN</code>, <code>importAQE</code> and <code>importNI</code>. New option <code>data_type</code>, which can be “hourly” (default), “annual”, “monthly”, “daily” and “15min” (for SO<sub>2</sub>). These new data sources should make it much easier to work with long-term time series with many sites. See <a href="https://bookdown.org/david_carslaw/openair/UK-air-quality-data.html" class="external-link">the openair manual</a> for more details.</li>
 <li>fix terrible spelling in <code>selectRunning</code>.</li>
 </ul></div>
     <div class="section level2">
@@ -295,7 +295,7 @@
 <h3 id="main-changes-2-0-0">Main changes<a class="anchor" aria-label="anchor" href="#main-changes-2-0-0"></a></h3>
 <ul><li>silence download progress by default in <code>importAURN</code>
 </li>
-<li>update <code>polarPlot</code> to work with pairwise statistics to compare two pollutants. The function can consider Pearson correlation and slopes from ordinary linear regression, robust regression (using <strong>MASS</strong> function <code>rlm</code>) and quantile regression (requires the <strong>quantreg</strong> package to be installed). See <a href="http://www.sciencedirect.com/science/article/pii/S1352231016307166" class="external-link">open access version</a> of the paper.</li>
+<li>update <code>polarPlot</code> to work with pairwise statistics to compare two pollutants. The function can consider Pearson correlation and slopes from ordinary linear regression, robust regression (using <strong>MASS</strong> function <code>rlm</code>) and quantile regression (requires the <strong>quantreg</strong> package to be installed). See <a href="https://www.sciencedirect.com/science/article/pii/S1352231016307166" class="external-link">open access version</a> of the paper.</li>
 <li>change default <code>polarPlot</code> plot resolution to “fine”.</li>
 <li>fix <code>windRose</code> problem with some data due to missing data</li>
 <li>move <code>mapdata</code> package to Suggests</li>
