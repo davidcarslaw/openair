@@ -94,6 +94,7 @@ wind speed.</p>
 <span>  annotate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  angle.scale <span class="op">=</span> <span class="fl">315</span>,</span>
 <span>  border <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -295,6 +296,13 @@ feature. The user can therefore set <code>angle.scale</code> to another value
 
 <dt>border</dt>
 <dd><p>Border colour for shaded areas. Default is no border.</p></dd>
+
+
+<dt>alpha</dt>
+<dd><p>The alpha transparency to use for the plotting surface (a value
+between 0 and 1 with zero being fully transparent and 1 fully opaque).
+Setting a value below 1 can be useful when plotting surfaces on a map using
+the package <code>openairmapss</code>.</p></dd>
 
 
 <dt>plot</dt>

@@ -79,6 +79,7 @@ conditioning. The plot can display multiple percentile lines or filled areas.</p
 <span>  key.footer <span class="op">=</span> <span class="st">"percentile"</span>,</span>
 <span>  key.position <span class="op">=</span> <span class="st">"bottom"</span>,</span>
 <span>  key <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -217,6 +218,13 @@ and <code>"left"</code>.</p></dd>
 <dt>key</dt>
 <dd><p>Fine control of the scale key via <code>drawOpenKey</code>. See
 <code>drawOpenKey</code> for further details.</p></dd>
+
+
+<dt>alpha</dt>
+<dd><p>The alpha transparency to use for the plotting surface (a value
+between 0 and 1 with zero being fully transparent and 1 fully opaque).
+Setting a value below 1 can be useful when plotting surfaces on a map using
+the package <code>openairmapss</code>.</p></dd>
 
 
 <dt>plot</dt>

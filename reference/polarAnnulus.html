@@ -86,6 +86,7 @@ month, day of week.</p>
 <span>  key.position <span class="op">=</span> <span class="st">"right"</span>,</span>
 <span>  key <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  auto.text <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -298,6 +299,13 @@ and <code>"left"</code>.</p></dd>
 <dd><p>Either <code>TRUE</code> (default) or <code>FALSE</code>. If <code>TRUE</code>
 titles and axis labels will automatically try and format pollutant names
 and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
+
+
+<dt>alpha</dt>
+<dd><p>The alpha transparency to use for the plotting surface (a value
+between 0 and 1 with zero being fully transparent and 1 fully opaque).
+Setting a value below 1 can be useful when plotting surfaces on a map using
+the package <code>openairmapss</code>.</p></dd>
 
 
 <dt>plot</dt>

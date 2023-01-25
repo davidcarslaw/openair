@@ -73,6 +73,7 @@ wind speed.</p>
 <span>  paddle <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  seg <span class="op">=</span> <span class="fl">0.9</span>,</span>
 <span>  normalise <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -130,6 +131,13 @@ equal one. This is useful for showing how the concentrations (or other
 parameters) contribute to each wind sector when the proportion of time the
 wind is from that direction is low. A line showing the probability that the
 wind directions is from a particular wind sector is also shown.</p></dd>
+
+
+<dt>alpha</dt>
+<dd><p>The alpha transparency to use for the plotting surface (a value
+between 0 and 1 with zero being fully transparent and 1 fully opaque).
+Setting a value below 1 can be useful when plotting surfaces on a map using
+the package <code>openairmapss</code>.</p></dd>
 
 
 <dt>plot</dt>

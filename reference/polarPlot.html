@@ -81,7 +81,6 @@ concentrations are calculated for wind speed-direction ‘bins’ (e.g.
 <span>  weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>  min.bin <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  mis.col <span class="op">=</span> <span class="st">"grey"</span>,</span>
-<span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  upper <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  angle.scale <span class="op">=</span> <span class="fl">315</span>,</span>
 <span>  units <span class="op">=</span> <span class="va">x</span>,</span>
@@ -99,6 +98,7 @@ concentrations are calculated for wind speed-direction ‘bins’ (e.g.
 <span>  y_error <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  kernel <span class="op">=</span> <span class="st">"gaussian"</span>,</span>
 <span>  tau <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -304,13 +304,6 @@ are removed on the plots. This is done by shading the missing data in
 choose <code>mis.col = "transparent"</code>.</p></dd>
 
 
-<dt>alpha</dt>
-<dd><p>The alpha transparency to use for the plotting surface (a value
-between 0 and 1 with zero being fully transparent and 1 fully opaque).
-Setting a value below 1 can be useful when plotting surfaces on a map using
-the package <code>openairmapss</code>.</p></dd>
-
-
 <dt>upper</dt>
 <dd><p>This sets the upper limit wind speed to be used. Often there are
 only a relatively few data points at very high wind speeds and plotting all
@@ -426,6 +419,13 @@ supported but this may be enhanced in the future.</p></dd>
 <dd><p>The quantile to be estimated when <code>statistic</code> is set to
 <code>"quantile.slope"</code>. Default is <code>0.5</code> which is equal to the median
 and will be ignored if <code>"quantile.slope"</code> is not used.</p></dd>
+
+
+<dt>alpha</dt>
+<dd><p>The alpha transparency to use for the plotting surface (a value
+between 0 and 1 with zero being fully transparent and 1 fully opaque).
+Setting a value below 1 can be useful when plotting surfaces on a map using
+the package <code>openairmapss</code>.</p></dd>
 
 
 <dt>plot</dt>
