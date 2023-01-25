@@ -54,9 +54,8 @@
 #' @export
 #' @import readr
 #' @examples
-#' ## basic data
-#'
 #' \dontrun{
+#' # basic info
 #' meta <- importMeta(source = "aurn")
 #'
 #' # more detailed information:

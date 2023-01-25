@@ -134,6 +134,7 @@ polarFreq <- function(mydata,
                       key.position = "right",
                       key = TRUE,
                       auto.text = TRUE,
+                      alpha = 1,
                       plot = TRUE,
                       ...) {
 
@@ -371,6 +372,7 @@ polarFreq <- function(mydata,
 
       for (i in 1:nrow(subdata)) {
         colour <- col[as.numeric(subdata$div[i])]
+        colour <- grDevices::adjustcolor(colour, alpha.f = alpha)
         #   if (subdata$weights[i] == 0) colour <- "transparent"
         poly(subdata$wd[i], subdata$ws[i], colour)
       }

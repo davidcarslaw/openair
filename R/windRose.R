@@ -65,11 +65,20 @@
 #'
 #' ## results show postive bias in wd and ws
 #' pollutionRose(mydata, ws = "ws", wd = "wd", ws2 = "ws2", wd2 = "wd2")
-pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
-                          key.position = "right", key = TRUE,
-                          breaks = 6, paddle = FALSE, seg = 0.9, normalise = FALSE,
-                          plot = TRUE,
-                          ...) {
+pollutionRose <- function(
+    mydata,
+    pollutant = "nox",
+    key.footer = pollutant,
+    key.position = "right",
+    key = TRUE,
+    breaks = 6,
+    paddle = FALSE,
+    seg = 0.9,
+    normalise = FALSE,
+    alpha = 1,
+    plot = TRUE,
+    ...
+) {
 
   ## extra args setup
   extra <- list(...)
@@ -98,7 +107,7 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
     mydata,
     pollutant = pollutant, paddle = paddle, seg = seg,
     key.position = key.position, key.footer = key.footer, key = key,
-    breaks = breaks, normalise = normalise, plot = plot, ...
+    breaks = breaks, normalise = normalise, alpha = alpha, plot = plot, ...
   )
 }
 
@@ -126,7 +135,7 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 #' The option \code{statistic = "prop.mean"} provides a measure of the relative
 #' contribution of each bin to the panel mean, and is intended for use with
 #' \code{pollutionRose}.
-#'
+#' 
 #' @param mydata A data frame containing fields \code{ws} and \code{wd}
 #' @param ws Name of the column representing wind speed.
 #' @param wd Name of the column representing wind direction.
@@ -238,6 +247,10 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 #'   (between 0 and 360 degrees) to mitigate such problems. For example
 #'   \code{angle.scale = 45} will draw the scale heading in a NE direction.
 #' @param border Border colour for shaded areas. Default is no border.
+#' @param alpha The alpha transparency to use for the plotting surface (a value
+#'   between 0 and 1 with zero being fully transparent and 1 fully opaque).
+#'   Setting a value below 1 can be useful when plotting surfaces on a map using
+#'   the package \code{openairmapss}.
 #' @param plot Should a plot be produced? \code{FALSE} can be useful when
 #'   analysing data to extract plot components and plotting them in other ways.
 #' @param ... Other parameters that are passed on to \code{drawOpenKey},
@@ -280,16 +293,41 @@ pollutionRose <- function(mydata, pollutant = "nox", key.footer = pollutant,
 #' \dontrun{
 #' windRose(mydata, angle = 10, width = 0.2, grid.line = 1)
 #' }
-windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
-                     ws.int = 2, angle = 30, type = "default", bias.corr = TRUE,
-                     cols = "default", grid.line = NULL, width = 1, seg = NULL,
-                     auto.text = TRUE, breaks = 4, offset = 10, normalise = FALSE,
-                     max.freq = NULL, paddle = TRUE, key.header = NULL,
-                     key.footer = "(m/s)", key.position = "bottom",
-                     key = TRUE, dig.lab = 5, include.lowest = FALSE, statistic = "prop.count",
-                     pollutant = NULL, annotate = TRUE, angle.scale = 315, border = NA,
-                     plot = TRUE,
-                     ...) {
+windRose <- function(
+    mydata,
+    ws = "ws",
+    wd = "wd",
+    ws2 = NA,
+    wd2 = NA,
+    ws.int = 2,
+    angle = 30,
+    type = "default",
+    bias.corr = TRUE,
+    cols = "default",
+    grid.line = NULL,
+    width = 1,
+    seg = NULL,
+    auto.text = TRUE,
+    breaks = 4,
+    offset = 10,
+    normalise = FALSE,
+    max.freq = NULL,
+    paddle = TRUE,
+    key.header = NULL,
+    key.footer = "(m/s)",
+    key.position = "bottom",
+    key = TRUE,
+    dig.lab = 5,
+    include.lowest = FALSE,
+    statistic = "prop.count",
+    pollutant = NULL,
+    annotate = TRUE,
+    angle.scale = 315,
+    border = NA,
+    alpha = 1,
+    plot = TRUE,
+    ...
+) {
   if (is.null(seg)) seg <- 0.9
 
   ## greyscale handling
@@ -680,6 +718,9 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
   } else {
     col <- openColours(cols, length(labs))
   }
+  
+  legend_col <- col
+  col <- grDevices::adjustcolor(col, alpha.f = alpha)
 
   ## normalise by sector
 
@@ -719,7 +760,7 @@ windRose <- function(mydata, ws = "ws", wd = "wd", ws2 = NA, wd2 = NA,
 
   ## key, colorkey, legend
   legend <- list(
-    col = col, space = key.position, auto.text = auto.text,
+    col = legend_col, space = key.position, auto.text = auto.text,
     labels = labs, footer = key.footer, header = key.header,
     height = 0.60, width = 1.5, fit = "scale",
     plot.style = if (paddle) "paddle" else "other"

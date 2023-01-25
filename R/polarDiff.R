@@ -16,9 +16,9 @@
 #'
 #' @inheritParams polarPlot
 #' @param before A data frame that represents the "before" case. See
-#'   \code{\link{polarPlot}} for details of different input requirements.
-#' @param after A data frame that represents the "after" case. See
-#'   \code{\link{polarPlot}} for details of different input requirements.
+#'   [polarPlot()] for details of different input requirements.
+#' @param after A data frame that represents the "after" case. See [polarPlot()]
+#'   for details of different input requirements.
 #' @inheritDotParams polarPlot -pollutant -x -limits -plot
 #' @family polar directional analysis functions
 #' @return an [openair][openair-package] plot.
@@ -37,10 +37,16 @@
 #' polarDiff(before_data, after_data, pollutant = "no2", cols = "RdYlBu", limits = c(-20, 20))
 #'
 #' }
-polarDiff <- function(before, after, pollutant = "nox",
-                      x = "ws",
-                      limits = NA,
-                      plot = TRUE, ...) {
+polarDiff <- function(
+    before,
+    after,
+    pollutant = "nox",
+    x = "ws",
+    limits = NA,
+    alpha = 1,
+    plot = TRUE,
+    ...
+) {
 
   # extra args setup
   Args <- list(...)
@@ -66,6 +72,7 @@ polarDiff <- function(before, after, pollutant = "nox",
                       x = x,
                       type = "period",
                       plot = FALSE,
+                      alpha = alpha,
                       ...)
 
   polar_data <- pivot_wider(polar_plt$data,
@@ -100,7 +107,8 @@ polarDiff <- function(before, after, pollutant = "nox",
             x = x, plot = plot,
             cols = Args$cols,
             limits = Args$limits,
-            force.positive = FALSE)
+            force.positive = FALSE,
+            alpha = alpha)
 
   output <- list(data = polar_data, call = match.call())
 

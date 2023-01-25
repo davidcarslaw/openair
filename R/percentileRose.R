@@ -85,14 +85,32 @@
 #' # percentile concentrations by season and day/nighttime..
 #' percentileRose(mydata, type = c("season", "daylight"), pollutant = "o3", col = "brewer1")
 #' }
-percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default",
-                           percentile = c(25, 50, 75, 90, 95), smooth = FALSE,
-                           method = "default", cols = "default", angle = 10,
-                           mean = TRUE, mean.lty = 1, mean.lwd = 3, mean.col = "grey",
-                           fill = TRUE, intervals = NULL, angle.scale = 45,
-                           auto.text = TRUE, key.header = NULL,
-                           key.footer = "percentile", key.position = "bottom",
-                           key = TRUE, plot = TRUE, ...) {
+percentileRose <- function(
+    mydata,
+    pollutant = "nox",
+    wd = "wd",
+    type = "default",
+    percentile = c(25, 50, 75, 90, 95),
+    smooth = FALSE,
+    method = "default",
+    cols = "default",
+    angle = 10,
+    mean = TRUE,
+    mean.lty = 1,
+    mean.lwd = 3,
+    mean.col = "grey",
+    fill = TRUE,
+    intervals = NULL,
+    angle.scale = 45,
+    auto.text = TRUE,
+    key.header = NULL,
+    key.footer = "percentile",
+    key.position = "bottom",
+    key = TRUE,
+    alpha = 1,
+    plot = TRUE,
+    ...
+) {
 
   ## get rid of R check annoyances
   sub <- NULL
@@ -412,6 +430,9 @@ percentileRose <- function(mydata, pollutant = "nox", wd = "wd", type = "default
     height = 0.60, width = 1.5, fit = "scale",
     plot.style = "other"
   )
+  
+  col <- grDevices::adjustcolor(col, alpha.f = alpha)
+  
   legend <- makeOpenKeyLegend(key, legend, "percentileRose")
 
   if (mean.only || tolower(method) == "cpf") legend <- NULL

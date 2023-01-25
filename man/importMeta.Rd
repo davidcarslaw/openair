@@ -58,9 +58,8 @@ Thanks go to Trevor Davies (Ricardo), Dr Stuart Grange (EMPA) and Dr Ben
 Barratt (KCL) and  for making these data available.
 }
 \examples{
-## basic data
-
 \dontrun{
+# basic info
 meta <- importMeta(source = "aurn")
 
 # more detailed information:
