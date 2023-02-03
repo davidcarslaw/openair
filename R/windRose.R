@@ -135,7 +135,7 @@ pollutionRose <- function(
 #' The option \code{statistic = "prop.mean"} provides a measure of the relative
 #' contribution of each bin to the panel mean, and is intended for use with
 #' \code{pollutionRose}.
-#' 
+#'
 #' @param mydata A data frame containing fields \code{ws} and \code{wd}
 #' @param ws Name of the column representing wind speed.
 #' @param wd Name of the column representing wind direction.
@@ -250,7 +250,7 @@ pollutionRose <- function(
 #' @param alpha The alpha transparency to use for the plotting surface (a value
 #'   between 0 and 1 with zero being fully transparent and 1 fully opaque).
 #'   Setting a value below 1 can be useful when plotting surfaces on a map using
-#'   the package \code{openairmapss}.
+#'   the package \code{openairmaps}.
 #' @param plot Should a plot be produced? \code{FALSE} can be useful when
 #'   analysing data to extract plot components and plotting them in other ways.
 #' @param ... Other parameters that are passed on to \code{drawOpenKey},
@@ -718,7 +718,7 @@ windRose <- function(
   } else {
     col <- openColours(cols, length(labs))
   }
-  
+
   legend_col <- col
   col <- grDevices::adjustcolor(col, alpha.f = alpha)
 
@@ -947,7 +947,7 @@ windRose <- function(
   }
 
   newdata <- as_tibble(results)
-  
+
   # give informative labels
   attr(newdata, "intervals") <- labs
 

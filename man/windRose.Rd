@@ -184,7 +184,7 @@ feature. The user can therefore set \code{angle.scale} to another value
 \item{alpha}{The alpha transparency to use for the plotting surface (a value
 between 0 and 1 with zero being fully transparent and 1 fully opaque).
 Setting a value below 1 can be useful when plotting surfaces on a map using
-the package \code{openairmapss}.}
+the package \code{openairmaps}.}
 
 \item{plot}{Should a plot be produced? \code{FALSE} can be useful when
 analysing data to extract plot components and plotting them in other ways.}

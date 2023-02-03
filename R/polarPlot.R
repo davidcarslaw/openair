@@ -244,7 +244,7 @@
 #' @param alpha The alpha transparency to use for the plotting surface (a value
 #'   between 0 and 1 with zero being fully transparent and 1 fully opaque).
 #'   Setting a value below 1 can be useful when plotting surfaces on a map using
-#'   the package \code{openairmapss}.
+#'   the package \code{openairmaps}.
 #'
 #' @param upper This sets the upper limit wind speed to be used. Often there are
 #'   only a relatively few data points at very high wind speeds and plotting all
@@ -460,7 +460,7 @@ polarPlot <-
            alpha = 1,
            plot = TRUE,
            ...) {
-    
+
     ## get rid of R check annoyances
     z <- . <- NULL
 
@@ -1648,13 +1648,13 @@ YorkFit <- function(input_data, X = "X", Y = "Y",
     sumTOP <- sum(wTOPint, na.rm = TRUE)
     sumBOT <- sum(wBOTint, na.rm = TRUE)
     b <- sumTOP / sumBOT
-    
+
     # zero or problematic data
-    if (anyNA(b, b.old)) 
+    if (anyNA(b, b.old))
       return(tibble(Intercept = NA, Slope = NA,
                     Int_error = NA, Slope_error = NA,
-                    OLS_slope = NA)) 
-    
+                    OLS_slope = NA))
+
     b.diff <- abs(b - b.old)
   }
 
