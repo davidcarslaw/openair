@@ -1,3 +1,7 @@
+# openair (development version)
+
+- fix issue with `polarDiff()` where the resulting `openair` object did not contain the `plot` element.
+
 # openair 2.13-99
 
 - add `year` as an option to `importMeta`. This allows the user to select sites that were only open at some point in the chosen year or duration of years.

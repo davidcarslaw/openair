@@ -68,12 +68,12 @@ polarDiff <- function(
   all_data <- bind_rows(before, after)
 
   polar_plt <- polarPlot(all_data,
-                      pollutant = pollutant,
-                      x = x,
-                      type = "period",
-                      plot = FALSE,
-                      alpha = alpha,
-                      ...)
+                         pollutant = pollutant,
+                         x = x,
+                         type = "period",
+                         plot = FALSE,
+                         alpha = alpha,
+                         ...)
 
   polar_data <- pivot_wider(polar_plt$data,
                             id_cols = u:v,
@@ -102,17 +102,16 @@ polarDiff <- function(
     Args$new_limits
   }
 
+  plt <-
+    polarPlot(polar_data, pollutant = pollutant,
+              x = x, plot = plot,
+              cols = Args$cols,
+              limits = Args$limits,
+              force.positive = FALSE,
+              alpha = alpha)
 
-  polarPlot(polar_data, pollutant = pollutant,
-            x = x, plot = plot,
-            cols = Args$cols,
-            limits = Args$limits,
-            force.positive = FALSE,
-            alpha = alpha)
-
-  output <- list(data = polar_data, call = match.call())
+  output <- list(plot = plt$plot, data = polar_data, call = match.call())
 
   invisible(output)
-
 }
 
