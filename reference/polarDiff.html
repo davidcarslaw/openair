@@ -69,7 +69,6 @@ between two periods.</p>
 <span>  pollutant <span class="op">=</span> <span class="st">"nox"</span>,</span>
 <span>  x <span class="op">=</span> <span class="st">"ws"</span>,</span>
 <span>  limits <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -113,13 +112,6 @@ automatically. However, there are circumstances when the user will wish to
 set different ones. An example would be a series of plots showing each year
 of data separately. The limits are set in the form <code>c(lower, upper)</code>,
 so <code>limits = c(0, 100)</code> would force the plot limits to span 0-100.</p></dd>
-
-
-<dt>alpha</dt>
-<dd><p>The alpha transparency to use for the plotting surface (a value
-between 0 and 1 with zero being fully transparent and 1 fully opaque).
-Setting a value below 1 can be useful when plotting surfaces on a map using
-the package <code>openairmapss</code>.</p></dd>
 
 
 <dt>plot</dt>
@@ -286,6 +278,12 @@ circumstances.</p></dd>
 are removed on the plots. This is done by shading the missing data in
 <code>mis.col</code>. To not highlight missing data when <code>min.bin</code> &gt; 1
 choose <code>mis.col = "transparent"</code>.</p></dd>
+
+    <dt><code>alpha</code></dt>
+<dd><p>The alpha transparency to use for the plotting surface (a value
+between 0 and 1 with zero being fully transparent and 1 fully opaque).
+Setting a value below 1 can be useful when plotting surfaces on a map using
+the package <code>openairmaps</code>.</p></dd>
 
     <dt><code>upper</code></dt>
 <dd><p>This sets the upper limit wind speed to be used. Often there are

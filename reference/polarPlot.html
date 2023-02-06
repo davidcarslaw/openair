@@ -425,7 +425,7 @@ and will be ignored if <code>"quantile.slope"</code> is not used.</p></dd>
 <dd><p>The alpha transparency to use for the plotting surface (a value
 between 0 and 1 with zero being fully transparent and 1 fully opaque).
 Setting a value below 1 can be useful when plotting surfaces on a map using
-the package <code>openairmapss</code>.</p></dd>
+the package <code>openairmaps</code>.</p></dd>
 
 
 <dt>plot</dt>
@@ -561,12 +561,6 @@ Atmospheric Environment. 145, 128-134.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># basic plot</span></span></span>
 <span class="r-in"><span><span class="fu">polarPlot</span><span class="op">(</span><span class="fu">openair</span><span class="fu">::</span><span class="va"><a href="mydata.html">mydata</a></span>, pollutant <span class="op">=</span> <span class="st">"nox"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There was 1 warning in `summarise()`.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `prepare.grid(across())`.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In group 1: `default = all data`.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Using `across()` without supplying `.cols` was deprecated in dplyr 1.1.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please supply `.cols` instead.</span>
 <span class="r-plt img"><img src="polarPlot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span></span></span>
