@@ -10,7 +10,6 @@ polarDiff(
   pollutant = "nox",
   x = "ws",
   limits = NA,
-  alpha = 1,
   plot = TRUE,
   ...
 )
@@ -43,11 +42,6 @@ automatically. However, there are circumstances when the user will wish to
 set different ones. An example would be a series of plots showing each year
 of data separately. The limits are set in the form \code{c(lower, upper)},
 so \code{limits = c(0, 100)} would force the plot limits to span 0-100.}
-
-\item{alpha}{The alpha transparency to use for the plotting surface (a value
-between 0 and 1 with zero being fully transparent and 1 fully opaque).
-Setting a value below 1 can be useful when plotting surfaces on a map using
-the package \code{openairmapss}.}
 
 \item{plot}{Should a plot be produced? \code{FALSE} can be useful when
 analysing data to extract plot components and plotting them in other ways.}
@@ -202,6 +196,10 @@ circumstances.}
 are removed on the plots. This is done by shading the missing data in
 \code{mis.col}. To not highlight missing data when \code{min.bin} > 1
 choose \code{mis.col = "transparent"}.}
+    \item{\code{alpha}}{The alpha transparency to use for the plotting surface (a value
+between 0 and 1 with zero being fully transparent and 1 fully opaque).
+Setting a value below 1 can be useful when plotting surfaces on a map using
+the package \code{openairmaps}.}
     \item{\code{upper}}{This sets the upper limit wind speed to be used. Often there are
 only a relatively few data points at very high wind speeds and plotting all
 of them can reduce the useful information in the plot.}

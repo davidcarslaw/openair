@@ -43,7 +43,6 @@ polarDiff <- function(
     pollutant = "nox",
     x = "ws",
     limits = NA,
-    alpha = 1,
     plot = TRUE,
     ...
 ) {
@@ -68,12 +67,11 @@ polarDiff <- function(
   all_data <- bind_rows(before, after)
 
   polar_plt <- polarPlot(all_data,
-                      pollutant = pollutant,
-                      x = x,
-                      type = "period",
-                      plot = FALSE,
-                      alpha = alpha,
-                      ...)
+                         pollutant = pollutant,
+                         x = x,
+                         type = "period",
+                         plot = FALSE,
+                         ...)
 
   polar_data <- pivot_wider(polar_plt$data,
                             id_cols = u:v,
@@ -85,6 +83,7 @@ polarDiff <- function(
            wd = ifelse(wd < 0, wd + 360, wd))
 
   # other arguments
+  # colours
   Args$cols <- if ("cols" %in% names(Args)) {
     Args$cols
   } else {
@@ -92,9 +91,9 @@ polarDiff <- function(
       "#F4C8C8", "#DA8A8B", "#AE4647", "#5F1415")
   }
 
+  # limits
   lims_adj <- pretty(seq(0, max(abs(polar_data[[pollutant]]), na.rm = TRUE), 5))
   lims_adj <- lims_adj[length(lims_adj) - 1]
-
 
   Args$limits <- if (is.na(Args$new_limits[1])) {
     c(-lims_adj, lims_adj)
@@ -102,17 +101,41 @@ polarDiff <- function(
     Args$new_limits
   }
 
+  # key (for openairmaps)
+  Args$key <- if ("key" %in% names(Args)) {
+    Args$key
+  } else {
+    TRUE
+  }
 
-  polarPlot(polar_data, pollutant = pollutant,
-            x = x, plot = plot,
-            cols = Args$cols,
-            limits = Args$limits,
-            force.positive = FALSE,
-            alpha = alpha)
+  # par settings (for openairmaps)
+  Args$par.settings <- if ("par.settings" %in% names(Args)) {
+    Args$par.settings
+  } else {
+    list(axis.line = list(col = "black"))
+  }
 
-  output <- list(data = polar_data, call = match.call())
+  # alpha (for openairmaps
+  Args$alpha <- if ("alpha" %in% names(Args)) {
+    Args$alpha
+  } else {
+    1
+  }
+
+  # final plot
+  plt <-
+    polarPlot(polar_data, pollutant = pollutant,
+              x = x, plot = plot,
+              cols = Args$cols,
+              limits = Args$limits,
+              force.positive = FALSE,
+              alpha = Args$alpha,
+              key = Args$key,
+              par.settings = Args$par.settings)
+
+  # return
+  output <- list(plot = plt$plot, data = polar_data, call = match.call())
 
   invisible(output)
-
 }
 

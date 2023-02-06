@@ -220,7 +220,7 @@ choose \code{mis.col = "transparent"}.}
     \item{\code{alpha}}{The alpha transparency to use for the plotting surface (a value
 between 0 and 1 with zero being fully transparent and 1 fully opaque).
 Setting a value below 1 can be useful when plotting surfaces on a map using
-the package \code{openairmapss}.}
+the package \code{openairmaps}.}
     \item{\code{upper}}{This sets the upper limit wind speed to be used. Often there are
 only a relatively few data points at very high wind speeds and plotting all
 of them can reduce the useful information in the plot.}
