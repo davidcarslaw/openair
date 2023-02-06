@@ -1,8 +1,10 @@
-# openair (development version)
+# openair 2.15
+
+- do not use native pipe yet - does not work with old versions of R
 
 - fix issue with `polarDiff()` where the resulting `openair` object did not contain the `plot` element.
 
-# openair 2.13-99
+# openair 2.14
 
 - add `year` as an option to `importMeta`. This allows the user to select sites that were only open at some point in the chosen year or duration of years.
 
@@ -10,7 +12,7 @@
 
 - add `alpha` argument to all polar directional analysis functions. This is mainly for use in `openairmaps` but may be of general interest for specific use cases.
 
-- fix small bug in `smoothTrend` in retruned fit data when data is missing.
+- fix small bug in `smoothTrend` in returned fit data when data is missing.
 
 # openair 2.13
 
