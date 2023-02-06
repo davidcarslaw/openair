@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.14</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.15</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,11 +48,15 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.13-99" id="openair-213-99">openair 2.13-99<a class="anchor" aria-label="anchor" href="#openair-213-99"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.15" id="openair-215">openair 2.15<a class="anchor" aria-label="anchor" href="#openair-215"></a></h2>
+<ul><li>do not use native pipe yet - does not work with old versions of R</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.14" id="openair-214">openair 2.14<a class="anchor" aria-label="anchor" href="#openair-214"></a></h2><p class="text-muted">CRAN release: 2023-01-25</p>
 <ul><li><p>add <code>year</code> as an option to <code>importMeta</code>. This allows the user to select sites that were only open at some point in the chosen year or duration of years.</p></li>
 <li><p>make sure full daily gravimetric data are returned for PM10 and PM2.5 if vailable when using <code>importAURN</code> family of functions. These data will be returned as <code>gr_pm2.5</code> and <code>gr_pm10</code> if <code>data_type = "daily"</code></p></li>
 <li><p>add <code>alpha</code> argument to all polar directional analysis functions. This is mainly for use in <code>openairmaps</code> but may be of general interest for specific use cases.</p></li>
-<li><p>fix small bug in <code>smoothTrend</code> in retruned fit data when data is missing.</p></li>
+<li><p>fix small bug in <code>smoothTrend</code> in returned fit data when data is missing.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.13" id="openair-213">openair 2.13<a class="anchor" aria-label="anchor" href="#openair-213"></a></h2><p class="text-muted">CRAN release: 2023-01-06</p>
