@@ -786,7 +786,7 @@ polarPlot <-
       } else if (toupper(statistic) == "NWR") {
         binned <- rowwise(ws.wd) %>%
           summarise(simple_kernel(
-            across(),
+            across(.cols = everything()),
             mydata,
             x = nam.x, y = nam.wd, pollutant = pollutant,
             ws_spread = ws_spread, wd_spread = wd_spread, kernel
@@ -797,7 +797,7 @@ polarPlot <-
       } else if (toupper(statistic) == "TREND") {
         binned <- rowwise(ws.wd) %>%
           summarise(simple_kernel_trend(
-            across(),
+            across(.cols = everything()),
             mydata,
             x = nam.x, y = nam.wd, pollutant = pollutant, "date",
             ws_spread = ws_spread, wd_spread = wd_spread, kernel,
@@ -810,7 +810,7 @@ polarPlot <-
 
         binned <- rowwise(ws.wd) %>%
           summarise(calculate_weighted_statistics(
-            across(),
+            across(.cols = everything()),
             mydata,
             statistic = statistic,
             x = nam.x, y = nam.wd, pol_1 = pollutant[1], pol_2 = pollutant[2],
@@ -941,19 +941,19 @@ polarPlot <-
       min.bin <- 0
       res1 <- mydata %>%
         group_by(across(type)) %>%
-        summarise(prepare.grid(across()))
+        summarise(prepare.grid(across(.cols = everything())))
 
       min.bin <- tmp
 
       res <- mydata %>%
         group_by(across(type)) %>%
-        summarise(prepare.grid(across()))
+        summarise(prepare.grid(across(.cols = everything())))
 
       res$miss <- res1$z
     } else {
       res <- mydata %>%
         group_by(across(type)) %>%
-        summarise(prepare.grid(across()))
+        summarise(prepare.grid(across(.cols = everything())))
     }
 
     ## with CPF make sure not >1 due to surface fitting
