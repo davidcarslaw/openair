@@ -1,6 +1,6 @@
 citHeader("To cite package 'openair' in publications use:")
 
-citEntry(entry="Article",
+bibentry(bibtype="Article",
 title = "openair --- An R package for air quality data analysis",
 author = "David C. Carslaw and Karl Ropkins",
 journal = "Environmental Modelling & Software",
