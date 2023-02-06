@@ -189,7 +189,7 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
           
           lookup <- c(gr_pm2.5 = "GR2.5", gr_pm10 = "GR10")
           
-          dat <- dat |> 
+          dat <- dat %>% 
             rename(any_of(lookup))
           
         }
