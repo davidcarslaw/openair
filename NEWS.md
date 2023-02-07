@@ -2,6 +2,8 @@
 
 - fixed issue with `modStats()` such that "method" can now be changed (e.g., to "spearman").
 
+- fixed issue with `aqStats()` where output wasn't being properly split by pollutant/type.
+
 # openair 2.15
 
 - do not use native pipe yet - does not work with old versions of R
