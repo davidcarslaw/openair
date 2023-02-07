@@ -1,3 +1,7 @@
+# openair (development version)
+
+- fixed issue with `modStats()` such that "method" can now be changed (e.g., to "spearman").
+
 # openair 2.15
 
 - do not use native pipe yet - does not work with old versions of R

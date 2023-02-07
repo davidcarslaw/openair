@@ -220,7 +220,7 @@ modStats <- function(mydata, mod = "mod", obs = "obs",
   if ("r" %in% statistic) {
     res.r <- mydata %>%
       group_by(across(type)) %>%
-      do(r(., mod, obs))
+      do(r(., mod, obs, ...))
   } else {
     res.r <- NULL
   }
