@@ -12,3 +12,4 @@ README_cache
 ^README\.Rmd$
 ^\.github$
 ^pkgdown$
+^LICENSE\.md$
