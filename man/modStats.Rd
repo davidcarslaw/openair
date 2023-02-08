@@ -23,34 +23,30 @@ values.}
 \item{obs}{Name of a variable in \code{mydata} that represents measured
 values.}
 
-\item{statistic}{The statistic to be calculated. See details below
-for a description of each.}
+\item{statistic}{The statistic to be calculated. See details below for a
+description of each.}
 
-\item{type}{\code{type} determines how the data are split
-i.e. conditioned, and then plotted. The default is will produce
-statistics using the entire data. \code{type} can be one of the
-built-in types as detailed in \code{cutData} e.g. \dQuote{season},
-\dQuote{year}, \dQuote{weekday} and so on. For example, \code{type
-= "season"} will produce four sets of statistics --- one for each
-season.
+\item{type}{\code{type} determines how the data are split i.e. conditioned,
+and then plotted. The default is will produce statistics using the entire
+data. \code{type} can be one of the built-in types as detailed in
+\code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so
+on. For example, \code{type = "season"} will produce four sets of
+statistics --- one for each season.
 
-It is also possible to choose \code{type} as another variable in
-the data frame. If that variable is numeric, then the data will be
-split into four quantiles (if possible) and labelled
-accordingly. If type is an existing character or factor variable,
-then those categories/levels will be used directly. This offers
-great flexibility for understanding the variation of different
-variables and how they depend on one another.
+It is also possible to choose \code{type} as another variable in the data
+frame. If that variable is numeric, then the data will be split into four
+quantiles (if possible) and labelled accordingly. If type is an existing
+character or factor variable, then those categories/levels will be used
+directly. This offers great flexibility for understanding the variation of
+different variables and how they depend on one another.
 
 More than one type can be considered e.g. \code{type = c("season",
-"weekday")} will produce statistics split by season and day of the
-week.}
+  "weekday")} will produce statistics split by season and day of the week.}
 
-\item{rank.name}{Simple model ranking can be carried out if
-\code{rank.name} is supplied. \code{rank.name} will generally
-refer to a column representing a model name, which is to
-ranked. The ranking is based the COE performance, as that
-indicator is arguably the best single model performance indicator
+\item{rank.name}{Simple model ranking can be carried out if \code{rank.name}
+is supplied. \code{rank.name} will generally refer to a column representing
+a model name, which is to ranked. The ranking is based the COE performance,
+as that indicator is arguably the best single model performance indicator
 available.}
 
 \item{...}{
@@ -84,7 +80,7 @@ Returns a data frame with model evaluation statistics.
 }
 \description{
 Function to calculate common numerical model evaluation statistics with
-flexible conditioning
+flexible conditioning.
 }
 \details{
 This function is under development and currently provides some common model
@@ -106,46 +102,43 @@ evaluation statistics. These include (to be mathematically defined later):
 
 \item \eqn{RMSE}, the root mean squared error.
 
-\item \eqn{r}, the Pearson correlation coefficient. Note, can also
-supply and argument \code{method} e.g. \code{method = "spearman"}
+\item \eqn{r}, the Pearson correlation coefficient. Note, can also supply and
+argument \code{method} e.g. \code{method = "spearman"}. Also returned is the
+P value of the correlation coefficient, \eqn{P}, which may present as \code{0} for
+very low values.
 
-\item \eqn{COE}, the \emph{Coefficient of Efficiency} based on
-Legates and McCabe (1999, 2012). There have been many suggestions
-for measuring model performance over the years, but the COE is a
-simple formulation which is easy to interpret.
+\item \eqn{COE}, the \emph{Coefficient of Efficiency} based on Legates and
+McCabe (1999, 2012). There have been many suggestions for measuring model
+performance over the years, but the COE is a simple formulation which is easy
+to interpret.
 
-A perfect model has a COE = 1. As noted by Legates and McCabe
-although the COE has no lower bound, a value of COE = 0.0 has a
-fundamental meaning. It implies that the model is no more able to
-predict the observed values than does the observed
-mean. Therefore, since the model can explain no more of the
-variation in the observed values than can the observed mean, such
-a model can have no predictive advantage.
+A perfect model has a COE = 1. As noted by Legates and McCabe although the
+COE has no lower bound, a value of COE = 0.0 has a fundamental meaning. It
+implies that the model is no more able to predict the observed values than
+does the observed mean. Therefore, since the model can explain no more of the
+variation in the observed values than can the observed mean, such a model can
+have no predictive advantage.
 
-For negative values of COE, the model is less effective than the
-observed mean in predicting the variation in the
-observations.
-\item \eqn{IOA}, the Index of Agreement based on Willmott et
-al. (2011), which spans between -1 and +1 with values approaching
-+1 representing better model performance.
+For negative values of COE, the model is less effective than the observed
+mean in predicting the variation in the observations. \item \eqn{IOA}, the
+Index of Agreement based on Willmott et al. (2011), which spans between -1
+and +1 with values approaching +1 representing better model performance.
 
-An IOA of 0.5, for example, indicates that the sum of the
-error-magnitudes is one half of the sum of the observed-deviation
-magnitudes.  When IOA = 0.0, it signifies that the sum of the
-magnitudes of the errors and the sum of the observed-deviation
-magnitudes are equivalent. When IOA = -0.5, it indicates that the
-sum of the error-magnitudes is twice the sum of the perfect
-model-deviation and observed-deviation magnitudes. Values of IOA
-near -1.0 can mean that the model-estimated deviations about O are
-poor estimates of the observed deviations; but, they also can mean
-that there simply is little observed variability - so some caution
-is needed when the IOA approaches -1.
+An IOA of 0.5, for example, indicates that the sum of the error-magnitudes is
+one half of the sum of the observed-deviation magnitudes.  When IOA = 0.0, it
+signifies that the sum of the magnitudes of the errors and the sum of the
+observed-deviation magnitudes are equivalent. When IOA = -0.5, it indicates
+that the sum of the error-magnitudes is twice the sum of the perfect
+model-deviation and observed-deviation magnitudes. Values of IOA near -1.0
+can mean that the model-estimated deviations about O are poor estimates of
+the observed deviations; but, they also can mean that there simply is little
+observed variability - so some caution is needed when the IOA approaches -1.
 }
 
 All statistics are based on complete pairs of \code{mod} and \code{obs}.
 
-Conditioning is possible through setting \code{type}, which can be
-a vector e.g. \code{type = c("weekday", "season")}.
+Conditioning is possible through setting \code{type}, which can be a vector
+e.g. \code{type = c("weekday", "season")}.
 }
 \examples{
 
@@ -161,16 +154,15 @@ modStats(mydata, mod = "no2", obs = "nox", type = "season")
 
 }
 \references{
-Legates DR, McCabe GJ. (1999). Evaluating the use of goodness-of-fit
-measures in hydrologic and hydroclimatic model validation. Water
-Resources Research 35(1): 233-241.
+Legates DR, McCabe GJ. (1999). Evaluating the use of
+goodness-of-fit measures in hydrologic and hydroclimatic model validation.
+Water Resources Research 35(1): 233-241.
 
-Legates DR, McCabe GJ. (2012). A refined index of model
-performance: a rejoinder, International Journal of Climatology.
+Legates DR, McCabe GJ. (2012). A refined index of model performance: a
+rejoinder, International Journal of Climatology.
 
-Willmott, C.J., Robeson, S.M., Matsuura, K., 2011. A
-refined index of model performance. International Journal of
-Climatology.
+Willmott, C.J., Robeson, S.M., Matsuura, K., 2011. A refined index of model
+performance. International Journal of Climatology.
 }
 \seealso{
 Other model evaluation functions: 
