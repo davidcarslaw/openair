@@ -53,9 +53,6 @@
 #'   site can be imported at a time. The following sites are typically available
 #'   from 2000-2012, although some UK ozone sites go back to 1988 (code,
 #'   location, lat, lon, year):
-#' @param progress Show a progress bar when many receptors/years are being
-#'   imported? Defaults to `TRUE`.
-#'
 #' \tabular{llrrl}{
 #' abudhabi   \tab Abu Dhabi                    \tab  24.43000 \tab  54.408000 \tab 2012-2013\cr
 #' ah         \tab Aston Hill                   \tab  52.50385 \tab  -3.041780 \tab 1988-2013\cr
@@ -93,6 +90,8 @@
 #' wuhan      \tab Wuhan, China                 \tab  30.58300 \tab 114.280000 \tab 2008-2013\cr
 #' yw         \tab Yarner Wood                  \tab  50.59760 \tab  -3.716510 \tab 1988-2013
 #' }
+#' @param progress Show a progress bar when many receptors/years are being
+#'   imported? Defaults to `TRUE`.
 #' @param year Year or years to import. To import a sequence of years from
 #'   1990 to 2000 use \code{year = 1990:2000}. To import several specific years
 #'   use \code{year = c(1990, 1995, 2000)} for example.
