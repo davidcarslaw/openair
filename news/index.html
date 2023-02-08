@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.15.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.15.0.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,7 @@
 <ul><li><p>added a new column to <code><a href="../reference/modStats.html">modStats()</a></code>, “P”, which represents the P-value of the correlation as reported by <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test()</a></code>.</p></li>
 <li><p>fixed issue with <code><a href="../reference/modStats.html">modStats()</a></code> such that “method” can now be changed (e.g., to “spearman”).</p></li>
 <li><p>fixed issue with <code><a href="../reference/aqStats.html">aqStats()</a></code> where output wasn’t being properly split by pollutant/type.</p></li>
+<li><p>fixed issue with <code><a href="../reference/conditionalQuantile.html">conditionalQuantile()</a></code> where the plot would fail to be produced when “type” was not specified.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.15" id="openair-215">openair 2.15<a class="anchor" aria-label="anchor" href="#openair-215"></a></h2><p class="text-muted">CRAN release: 2023-02-06</p>
