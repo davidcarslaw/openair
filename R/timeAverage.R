@@ -236,7 +236,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
 
   if (statistic == "percentile") {
     FUN <- function(x)
-      quantile(x, probs = percentile, na.rm = TRUE)
+      quantile(x, probs = percentile, type=3,na.rm = TRUE)
   }
 
   calc.mean <- function(mydata, start.date) { ## function to calculate means
