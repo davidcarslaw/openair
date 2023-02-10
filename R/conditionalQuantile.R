@@ -382,7 +382,7 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
   thePlot <- latticeExtra::doubleYScale(scatter, histo, add.ylab2 = TRUE)
   thePlot <- update(thePlot, par.settings = simpleTheme(col = c("black", "black")))
 
-  if (length(type) == 1) {
+  if (length(type) <= 1) {
     plot(thePlot)
   } else {
     plot(latticeExtra::useOuterStrips(

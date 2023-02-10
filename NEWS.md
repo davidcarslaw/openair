@@ -6,6 +6,8 @@
 
 - fixed issue with `aqStats()` where output wasn't being properly split by pollutant/type.
 
+- fixed issue with `conditionalQuantile()` where the plot would fail to be produced when "type" was not specified.
+
 # openair 2.15
 
 - do not use native pipe yet - does not work with old versions of R
