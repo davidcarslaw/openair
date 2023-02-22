@@ -89,6 +89,7 @@
 #'   as that indicator is arguably the best single model performance indicator
 #'   available.
 #' @inheritDotParams cutData -type
+#' @importFrom stats cor.test
 #' @export
 #' @return Returns a data frame with model evaluation statistics.
 #' @author David Carslaw
