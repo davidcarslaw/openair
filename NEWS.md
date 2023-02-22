@@ -1,8 +1,12 @@
 # openair (development version)
 
+- added a new column to `modStats()`, "P", which represents the P-value of the correlation as reported by `cor.test()`.
+
 - fixed issue with `modStats()` such that "method" can now be changed (e.g., to "spearman").
 
 - fixed issue with `aqStats()` where output wasn't being properly split by pollutant/type.
+
+- fixed issue with `conditionalQuantile()` where the plot would fail to be produced when "type" was not specified.
 
 # openair 2.15
 
