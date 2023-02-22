@@ -72,6 +72,9 @@ polarDiff <- function(
                          type = "period",
                          plot = FALSE,
                          ...)
+  
+  if (length(pollutant > 1))
+    pollutant <- paste(pollutant, collapse = "_")
 
   polar_data <- pivot_wider(polar_plt$data,
                             id_cols = u:v,
