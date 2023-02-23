@@ -49,12 +49,24 @@ polarDiff <- function(
 
   # extra args setup
   Args <- list(...)
+  
+  # variables needed, check for York regression where x and y error needed
+  if (all(c("x_error", "y_error") %in% names(Args))) {
+    
+    vars <- c(x, "wd", pollutant, Args$x_error, Args$y_error)
+    
+  } else {
+    
+    vars <- c(x, "wd", pollutant)
+    
+  }
+  
 
   # check variables exists
-  before <- checkPrep(before, c(x, "wd", pollutant),
+  before <- checkPrep(before, vars,
                       "default", remove.calm = FALSE)
 
-  after <- checkPrep(after, c(x, "wd", pollutant),
+  after <- checkPrep(after, vars,
                      "default", remove.calm = FALSE)
 
   # need to pass on use limits only to final plot
