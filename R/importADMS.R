@@ -643,7 +643,7 @@ importADMSMop <- function(file = file.choose(),
   
   if (all) {
     
-    return(all)
+    return(ans)
     
   } else {
     
