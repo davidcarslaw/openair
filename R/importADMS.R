@@ -649,7 +649,7 @@ importADMSMop <- function(file = file.choose(),
     
     # select variables only
     ans <- ans %>% 
-      select(any_of(c("date", "ws", "wd", "air_temp", "rhum", 
+      select(any_of(c("date", "ws", "wd", "air_temp", "rhu", 
                       "cl", "H",
                       "recip_lmo", "H_LMO", "stability")))
   }
