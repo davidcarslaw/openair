@@ -14,5 +14,6 @@
                            "pollutant", "Date", "measurement_period",
                            "Q", "Q_c", "SQTBA", "lat_rnd", "lon_rnd", "sigma",
                            "hour.inc", "ygrid", "xgrid", "SQTBA_norm",
-                           "start_year", "end_year"))
+                           "start_year", "end_year", "process.recip.lmo",
+                           "process.h", "stability"))
 }

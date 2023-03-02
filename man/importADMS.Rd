@@ -20,14 +20,15 @@ importADMS(
   drop.delim = TRUE,
   add.prefixes = TRUE,
   names = NULL,
+  all = FALSE,
   ...
 )
 }
 \arguments{
 \item{file}{The ADMS file to be imported. Default, \code{\link[=file.choose]{file.choose()}} opens
-browser. Use of \code{\link[utils:read.table]{utils::read.csv()}} also allows this to be a
-readable text-mode connection or url (although these options are currently
-not fully tested).}
+browser. Use of \code{\link[utils:read.table]{utils::read.csv()}} also allows this to be a readable
+text-mode connection or url (although these options are currently not fully
+tested).}
 
 \item{file.type}{Type of ADMS file to be imported. With default, "unknown",
 the import uses the file extension to identify the file type and, where
@@ -91,6 +92,9 @@ names, while the argument (\code{add.prefixes=c("in","out")}) would add
 \item{names}{Option applied by \code{simplifyNamesADMS} when
 \code{simplify.names} is enabled.  All names are simplified for the default
 setting, \code{NULL}.}
+
+\item{all}{For .MOP files, return all variables or not. If \code{all = TRUE}
+a large number of processed variables are returned.}
 
 \item{...}{
   Arguments passed on to \code{\link[utils:read.table]{utils::read.csv}}
