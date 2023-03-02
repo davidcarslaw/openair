@@ -8,6 +8,8 @@
 
 - fixed issue with `conditionalQuantile()` where the plot would fail to be produced when "type" was not specified.
 
+- update processing of ADMS meteorological (.MOP) files to return stability and tidier data.
+
 # openair 2.15
 
 - do not use native pipe yet - does not work with old versions of R
