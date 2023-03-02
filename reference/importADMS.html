@@ -77,6 +77,7 @@ testing.</p>
 <span>  drop.delim <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  add.prefixes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  names <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  all <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -85,9 +86,9 @@ testing.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>file</dt>
 <dd><p>The ADMS file to be imported. Default, <code><a href="https://rdrr.io/r/base/file.choose.html" class="external-link">file.choose()</a></code> opens
-browser. Use of <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">utils::read.csv()</a></code> also allows this to be a
-readable text-mode connection or url (although these options are currently
-not fully tested).</p></dd>
+browser. Use of <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">utils::read.csv()</a></code> also allows this to be a readable
+text-mode connection or url (although these options are currently not fully
+tested).</p></dd>
 
 
 <dt>file.type</dt>
@@ -169,6 +170,11 @@ names, while the argument (<code>add.prefixes=c("in","out")</code>) would add
 <dd><p>Option applied by <code>simplifyNamesADMS</code> when
 <code>simplify.names</code> is enabled.  All names are simplified for the default
 setting, <code>NULL</code>.</p></dd>
+
+
+<dt>all</dt>
+<dd><p>For .MOP files, return all variables or not. If <code>all = TRUE</code>
+a large number of processed variables are returned.</p></dd>
 
 
 <dt>...</dt>
