@@ -10,6 +10,8 @@
 
 - update processing of ADMS meteorological (.MOP) files to return stability and tidier data.
 
+- fixed issue with `cutData()` where "season" wouldn't respect system locale (e.g., would still show "(DJF)" on Italian systems, instead of the correct "(gla)"). Note that the season name itself (e.g., "Winter") cannot be automatically converted.
+
 # openair 2.15
 
 - do not use native pipe yet - does not work with old versions of R
@@ -20,7 +22,7 @@
 
 - add `year` as an option to `importMeta`. This allows the user to select sites that were only open at some point in the chosen year or duration of years.
 
-- make sure full daily gravimetric data are returned for PM10 and PM2.5 if vailable when using `importAURN` family of functions. These data will be returned as `gr_pm2.5` and `gr_pm10` if `data_type = "daily"`
+- make sure full daily gravimetric data are returned for PM10 and PM2.5 if available when using `importAURN` family of functions. These data will be returned as `gr_pm2.5` and `gr_pm10` if `data_type = "daily"`
 
 - add `alpha` argument to all polar directional analysis functions. This is mainly for use in `openairmaps` but may be of general interest for specific use cases.
 

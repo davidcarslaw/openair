@@ -89,7 +89,6 @@
 #'   as that indicator is arguably the best single model performance indicator
 #'   available.
 #' @inheritDotParams cutData -type
-#' @importFrom stats cor.test
 #' @export
 #' @return Returns a data frame with model evaluation statistics.
 #' @author David Carslaw
@@ -114,7 +113,7 @@
 #'
 #' modStats(mydata, mod = "no2", obs = "nox", type = "season")
 #'
-#' 
+#'
 modStats <- function(mydata, mod = "mod", obs = "obs",
                      statistic = c(
                        "n", "FAC2", "MB", "MGE", "NMB",
@@ -342,7 +341,7 @@ RMSE <- function(x, mod = "mod", obs = "obs") {
 # when SD=0; will return(NA)
 r <- function(x, mod = "mod", obs = "obs", ...) {
   x <- na.omit(x[, c(mod, obs)])
-  res <- suppressWarnings(cor.test(x[[mod]], x[[obs]], ...))
+  res <- suppressWarnings(stats::cor.test(x[[mod]], x[[obs]], ...))
 
   data.frame(r = res$estimate, P = res$p.value)
 }
