@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.15.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.15.0.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,6 +54,7 @@
 <li><p>fixed issue with <code><a href="../reference/aqStats.html">aqStats()</a></code> where output wasn’t being properly split by pollutant/type.</p></li>
 <li><p>fixed issue with <code><a href="../reference/conditionalQuantile.html">conditionalQuantile()</a></code> where the plot would fail to be produced when “type” was not specified.</p></li>
 <li><p>update processing of ADMS meteorological (.MOP) files to return stability and tidier data.</p></li>
+<li><p>fixed issue with <code><a href="../reference/cutData.html">cutData()</a></code> where “season” wouldn’t respect system locale (e.g., would still show “(DJF)” on Italian systems, instead of the correct “(gla)”). Note that the season name itself (e.g., “Winter”) cannot be automatically converted.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.15" id="openair-215">openair 2.15<a class="anchor" aria-label="anchor" href="#openair-215"></a></h2><p class="text-muted">CRAN release: 2023-02-06</p>
@@ -63,7 +64,7 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.14" id="openair-214">openair 2.14<a class="anchor" aria-label="anchor" href="#openair-214"></a></h2><p class="text-muted">CRAN release: 2023-01-25</p>
 <ul><li><p>add <code>year</code> as an option to <code>importMeta</code>. This allows the user to select sites that were only open at some point in the chosen year or duration of years.</p></li>
-<li><p>make sure full daily gravimetric data are returned for PM10 and PM2.5 if vailable when using <code>importAURN</code> family of functions. These data will be returned as <code>gr_pm2.5</code> and <code>gr_pm10</code> if <code>data_type = "daily"</code></p></li>
+<li><p>make sure full daily gravimetric data are returned for PM10 and PM2.5 if available when using <code>importAURN</code> family of functions. These data will be returned as <code>gr_pm2.5</code> and <code>gr_pm10</code> if <code>data_type = "daily"</code></p></li>
 <li><p>add <code>alpha</code> argument to all polar directional analysis functions. This is mainly for use in <code>openairmaps</code> but may be of general interest for specific use cases.</p></li>
 <li><p>fix small bug in <code>smoothTrend</code> in returned fit data when data is missing.</p></li>
 </ul></div>
