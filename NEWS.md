@@ -10,6 +10,8 @@
 
 - update processing of ADMS meteorological (.MOP) files to return stability and tidier data.
 
+- add option `meteo` to `importAURN` family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if `meteo = FALSE`.
+
 # openair 2.15
 
 - do not use native pipe yet - does not work with old versions of R
