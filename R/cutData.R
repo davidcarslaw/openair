@@ -261,22 +261,40 @@ cutData <- function(x, type = "default", hemisphere = "northern",
     }
 
     if (type == "season") {
+      ## need to generate month abbrevs on the fly for different languages
+      temp <- if (is.axis) "%b" else "%B"
+      x[[type]] <- format(x$date, temp)
+
+      ## month names
+      month.abbs <- format(seq(
+        as.Date("2000-01-01"),
+        as.Date("2000-12-31"), "month"
+      ), temp)
+
+      make_month_abbr <- function(x){
+        month.starts <- substr(month.abbs, 1, 1)
+        paste(month.starts[x], collapse = "")
+      }
+
       if (!hemisphere %in% c("northern", "southern")) {
         stop("hemisphere must be 'northern' or 'southern'")
       }
 
       if (hemisphere == "northern") {
-        x[[type]] <- "winter (DJF)" ## define all as winter first, then assign others
+        ## define all as winter first, then assign others
+        x[[type]] <- paste0("winter (", make_month_abbr(c(12,1,2)), ")")
         ids <- which(as.numeric(format(x$date, "%m")) %in% 3:5)
-        x[[type]][ids] <- "spring (MAM)"
+        x[[type]][ids] <- paste0("spring (", make_month_abbr(3:5), ")")
         ids <- which(as.numeric(format(x$date, "%m")) %in% 6:8)
-        x[[type]][ids] <- "summer (JJA)"
+        x[[type]][ids] <- paste0("summer (", make_month_abbr(6:8), ")")
         ids <- which(as.numeric(format(x$date, "%m")) %in% 9:11)
-        x[[type]][ids] <- "autumn (SON)"
+        x[[type]][ids] <- paste0("autumn (", make_month_abbr(9:11), ")")
 
         seasons <- c(
-          "spring (MAM)", "summer (JJA)", "autumn (SON)",
-          "winter (DJF)"
+          paste0("spring (", make_month_abbr(3:5), ")"),
+          paste0("summer (", make_month_abbr(6:8), ")"),
+          paste0("autumn (", make_month_abbr(9:11), ")"),
+          paste0("winter (", make_month_abbr(c(12, 1:2)), ")")
         )
 
         ## might only be partial year...
@@ -285,17 +303,20 @@ cutData <- function(x, type = "default", hemisphere = "northern",
         x[[type]] <- ordered(x[[type]], levels = the.season)
       }
       if (hemisphere == "southern") {
-        x[[type]] <- "summer (DJF)" ## define all as winter first, then assign others
+        ## define all as winter first, then assign others
+        x[[type]] <- paste0("summer (", make_month_abbr(c(12,1,2)), ")")
         ids <- which(as.numeric(format(x$date, "%m")) %in% 3:5)
-        x[[type]][ids] <- "autumn (MAM)"
+        x[[type]][ids] <- paste0("autumn (", make_month_abbr(c(3:5)), ")")
         ids <- which(as.numeric(format(x$date, "%m")) %in% 6:8)
-        x[[type]][ids] <- "winter (JJA)"
+        x[[type]][ids] <- paste0("winter (", make_month_abbr(c(6:8)), ")")
         ids <- which(as.numeric(format(x$date, "%m")) %in% 9:11)
-        x[[type]][ids] <- "spring (SON)"
+        x[[type]][ids] <- paste0("spring (", make_month_abbr(c(9:11)), ")")
 
         seasons <- c(
-          "spring (SON)", "summer (DJF)", "autumn (MAM)",
-          "winter (JJA)"
+          paste0("spring (", make_month_abbr(c(9:11)), ")"),
+          paste0("summer (", make_month_abbr(c(12,1,2)), ")"),
+          paste0("autumn (", make_month_abbr(c(3:5)), ")"),
+          paste0("winter (", make_month_abbr(c(6:8)), ")")
         )
 
         ## might only be partial year...
@@ -303,10 +324,7 @@ cutData <- function(x, type = "default", hemisphere = "northern",
         the.season <- seasons[ids]
         x[[type]] <- ordered(
           x[[type]],
-          levels = c(
-            "spring (SON)", "summer (DJF)",
-            "autumn (MAM)", "winter (JJA)"
-          )
+          levels = seasons
         )
       }
     }
