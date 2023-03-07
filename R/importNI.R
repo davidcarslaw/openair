@@ -13,6 +13,7 @@ importNI <-
            data_type = "hourly",
            pollutant = "all",
            meta = FALSE,
+           meteo = TRUE,
            ratified = FALSE,
            to_narrow = FALSE,
            progress = TRUE) {
@@ -53,6 +54,14 @@ importNI <-
         source = "ni",
         progress = progress
       )
+    }
+    
+    # check to see if met data needed
+    if (meteo == FALSE) {
+      
+      aq_data <- aq_data %>% 
+        select(-any_of(c("ws", "wd", "air_temp")))
+      
     }
 
     return(as_tibble(aq_data))

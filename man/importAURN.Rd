@@ -11,6 +11,7 @@ importAURN(
   pollutant = "all",
   hc = FALSE,
   meta = FALSE,
+  meteo = TRUE,
   ratified = FALSE,
   to_narrow = FALSE,
   verbose = FALSE,
@@ -58,6 +59,14 @@ data and the resulting data frames are considerably larger.}
 
 \item{meta}{Should meta data be returned? If \code{TRUE} the site type,
 latitude and longitude are returned.}
+
+\item{meteo}{Should modelled meteorological data be returned if available.
+The default is \code{TRUE} and will return wind speed (\code{ws}), wind
+direction (\code{wd}) and ambient temperature (\code{air_temp}). The
+variables are calculated from using the WRF model run by Ricardo Energy &
+Environment and are available for most but not all networks. Setting
+\code{meteo = FALSE} is useful if you have other meteorological data to use
+in preference e.g. from \code{\link[worldmet]{worldmet}}.}
 
 \item{ratified}{If \code{TRUE} columns are returned indicating when each
 species was ratified i.e. quality-checked. Available for hourly data only.}

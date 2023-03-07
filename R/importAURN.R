@@ -108,6 +108,13 @@
 #'   data and the resulting data frames are considerably larger.
 #' @param meta Should meta data be returned? If \code{TRUE} the site type,
 #'   latitude and longitude are returned.
+#' @param meteo Should modelled meteorological data be returned if available.
+#'   The default is \code{TRUE} and will return wind speed (\code{ws}), wind
+#'   direction (\code{wd}) and ambient temperature (\code{air_temp}). The
+#'   variables are calculated from using the WRF model run by Ricardo Energy &
+#'   Environment and are available for most but not all networks. Setting
+#'   \code{meteo = FALSE} is useful if you have other meteorological data to use
+#'   in preference e.g. from \code{\link[worldmet]{worldmet}}.
 #' @param ratified If \code{TRUE} columns are returned indicating when each
 #'   species was ratified i.e. quality-checked. Available for hourly data only.
 #' @param to_narrow By default the returned data has a column for each
@@ -145,6 +152,7 @@ importAURN <- function(site = "my1",
                        pollutant = "all",
                        hc = FALSE,
                        meta = FALSE,
+                       meteo = TRUE,
                        ratified = FALSE,
                        to_narrow = FALSE,
                        verbose = FALSE,
@@ -227,6 +235,14 @@ importAURN <- function(site = "my1",
       source = "aurn",
       progress = progress
     )
+  }
+  
+  # check to see if met data needed
+  if (meteo == FALSE) {
+    
+  aq_data <- aq_data %>% 
+    select(-any_of(c("ws", "wd", "air_temp")))
+  
   }
 
   return(as_tibble(aq_data))
