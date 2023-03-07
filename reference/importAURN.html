@@ -16,7 +16,7 @@ data objects."><meta property="og:image" content="https://davidcarslaw.github.io
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.15.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.16-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,7 @@ data objects.</p>
 <span>  pollutant <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  hc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  meta <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  meteo <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ratified <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  to_narrow <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -129,6 +130,16 @@ data and the resulting data frames are considerably larger.</p></dd>
 <dt>meta</dt>
 <dd><p>Should meta data be returned? If <code>TRUE</code> the site type,
 latitude and longitude are returned.</p></dd>
+
+
+<dt>meteo</dt>
+<dd><p>Should modelled meteorological data be returned if available.
+The default is <code>TRUE</code> and will return wind speed (<code>ws</code>), wind
+direction (<code>wd</code>) and ambient temperature (<code>air_temp</code>). The
+variables are calculated from using the WRF model run by Ricardo Energy &amp;
+Environment and are available for most but not all networks. Setting
+<code>meteo = FALSE</code> is useful if you have other meteorological data to use
+in preference e.g. from <code>worldmet</code>.</p></dd>
 
 
 <dt>ratified</dt>
