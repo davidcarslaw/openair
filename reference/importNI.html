@@ -60,6 +60,7 @@
 <span>  data_type <span class="op">=</span> <span class="st">"hourly"</span>,</span>
 <span>  pollutant <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  meta <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  meteo <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ratified <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  to_narrow <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  progress <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -111,6 +112,16 @@ from a site. To import only NOx and NO2 for example use <code>pollutant =
 <dt>meta</dt>
 <dd><p>Should meta data be returned? If <code>TRUE</code> the site type,
 latitude and longitude are returned.</p></dd>
+
+
+<dt>meteo</dt>
+<dd><p>Should modelled meteorological data be returned if available.
+The default is <code>TRUE</code> and will return wind speed (<code>ws</code>), wind
+direction (<code>wd</code>) and ambient temperature (<code>air_temp</code>). The
+variables are calculated from using the WRF model run by Ricardo Energy &amp;
+Environment and are available for most but not all networks. Setting
+<code>meteo = FALSE</code> is useful if you have other meteorological data to use
+in preference e.g. from <code>worldmet</code>.</p></dd>
 
 
 <dt>ratified</dt>
