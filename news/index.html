@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.16-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.16.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,8 +54,9 @@
 <li><p>fixed issue with <code><a href="../reference/aqStats.html">aqStats()</a></code> where output wasn’t being properly split by pollutant/type.</p></li>
 <li><p>fixed issue with <code><a href="../reference/conditionalQuantile.html">conditionalQuantile()</a></code> where the plot would fail to be produced when “type” was not specified.</p></li>
 <li><p>update processing of ADMS meteorological (.MOP) files to return stability and tidier data.</p></li>
-<li><p>add option <code>meteo</code> to <code>importAURN</code> family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if <code>meteo = FALSE</code>.</p></li>
+<li><p>add option <code>meteo</code> to <code><a href="../reference/importAURN.html">importAURN()</a></code> family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if <code>meteo = FALSE</code>.</p></li>
 <li><p>fixed issue with <code><a href="../reference/cutData.html">cutData()</a></code> where “season” wouldn’t respect system locale (e.g., would still show “(DJF)” on Italian systems, instead of the correct “(gla)”). Note that the season name itself (e.g., “Winter”) cannot be automatically converted.</p></li>
+<li><p>refined the output of <code><a href="../reference/pollutionRose.html">pollutionRose()</a></code> where the <code>ws2</code> and <code>wd2</code> options are provided; instead of the misleading N/E/S/W, the markers become 0, +90, +/-180, -90.</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.15" id="openair-215">openair 2.15<a class="anchor" aria-label="anchor" href="#openair-215"></a></h2><p class="text-muted">CRAN release: 2023-02-06</p>
