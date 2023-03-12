@@ -10,10 +10,11 @@
 
 - update processing of ADMS meteorological (.MOP) files to return stability and tidier data.
 
-- add option `meteo` to `importAURN` family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if `meteo = FALSE`.
+- add option `meteo` to `importAURN()` family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if `meteo = FALSE`.
 
 - fixed issue with `cutData()` where "season" wouldn't respect system locale (e.g., would still show "(DJF)" on Italian systems, instead of the correct "(gla)"). Note that the season name itself (e.g., "Winter") cannot be automatically converted.
 
+- refined the output of `pollutionRose()` where the `ws2` and `wd2` options are provided; instead of the misleading N/E/S/W, the markers become 0, +90, +/-180, -90.
 
 # openair 2.15
 
