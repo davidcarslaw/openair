@@ -159,7 +159,7 @@ date.pad <- function(mydata, type = NULL, print.int = FALSE) {
   ## return the same TZ that we started with
   attr(mydata$date, "tzone") <- TZ
 
-  if (print.int) print(paste0("Input data time interval assumed is ", interval))
+  if (print.int) message("Input data time interval assumed is ", interval)
 
   # make sure date-sorted
   mydata <- arrange(mydata, date)
@@ -635,7 +635,7 @@ panel.gam <- function(x, y, form = y ~ x, method = "loess", k = k, Args, ..., si
 
       boot.pred <- matrix(nrow = sam.size, ncol = n.sim)
 
-      print("Taking bootstrap samples. Please wait...")
+      message("Taking bootstrap samples. Please wait...")
 
       ## set up bootstrap
       block.length <- 1
@@ -738,7 +738,7 @@ fitGam <- function(thedata, x = "date", y = "conc", form = y ~ x, k = k,
 
       boot.pred <- matrix(nrow = sam.size, ncol = n.sim)
 
-      print("Taking bootstrap samples. Please wait...")
+      message("Taking bootstrap samples. Please wait...")
 
       ## set up bootstrap
       block.length <- 1
