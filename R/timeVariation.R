@@ -1144,7 +1144,7 @@ errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
   ## warnings from dplyr seem harmless FIXME
   res <- mydata %>%
     group_by(across(splits)) %>%
-    do(bootMeanDiff(., x = poll1, y = poll2, B = B))
+    do(bootMeanDiff(., x = poll1, y = poll2, B = B, na.rm = TRUE))
 
   # make sure we keep the order correct
   res$variable <- ordered(res$variable, levels = res$variable[1:3])

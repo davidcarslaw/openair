@@ -853,7 +853,7 @@ bootMeanDF <- function(x, conf.int = 0.95, B = 1000) {
 }
 
 
-bootMeanDiff <- function(mydata, x = "x", y = "y", conf.int = 0.95, B = 1000) {
+bootMeanDiff <- function(mydata, x = "x", y = "y", conf.int = 0.95, B = 1000, na.rm = FALSE) {
 
   ## calculates bootstrap mean differences
   ## assumes y - x
@@ -881,9 +881,9 @@ bootMeanDiff <- function(mydata, x = "x", y = "y", conf.int = 0.95, B = 1000) {
 
   x <- bootMean(x, B = B)
   y <- bootMean(y, B = B)
-  quant1 <- quantile(x, c((1 - conf.int) / 2, (1 + conf.int) / 2))
-  quant2 <- quantile(y, c((1 - conf.int) / 2, (1 + conf.int) / 2))
-  quant <- quantile(y - x, c((1 - conf.int) / 2, (1 + conf.int) / 2))
+  quant1 <- quantile(x, c((1 - conf.int) / 2, (1 + conf.int) / 2), na.rm = na.rm)
+  quant2 <- quantile(y, c((1 - conf.int) / 2, (1 + conf.int) / 2), na.rm = na.rm)
+  quant <- quantile(y - x, c((1 - conf.int) / 2, (1 + conf.int) / 2), na.rm = na.rm)
   names(quant1) <- NULL
   names(quant2) <- NULL
   names(quant) <- NULL
