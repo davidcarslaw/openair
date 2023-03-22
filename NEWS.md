@@ -28,6 +28,8 @@
 
 - fixed the `theilSen()` `silent` argument. The message "taking bootstrap samples. please wait" is also now sent via `message()` rather than `print()` and only appears once per function call.
 
+- fixed issue where `trajCluster()` proportions would overlap when clustering forward trajectories. Proportions should now appear at the end of cluster paths, regardless of whether the trajectory is back or forward.
+
 # openair 2.15
 
 - do not use native pipe yet - does not work with old versions of R
