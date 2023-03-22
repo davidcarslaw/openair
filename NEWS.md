@@ -1,6 +1,18 @@
 # openair (development version)
 
+## New Features
+
+- add option `meteo` to `importAURN()` family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if `meteo = FALSE`.
+
 - added a new column to `modStats()`, "P", which represents the P-value of the correlation as reported by `cor.test()`.
+
+- update processing of ADMS meteorological (.MOP) files to return stability and tidier data.
+
+- refined the output of `pollutionRose()` where the `ws2` and `wd2` options are provided; instead of the misleading N/E/S/W, the markers become 0, +90, +/-180, -90.
+
+- the `timeAverage()` progress bar is now powered by `{cli}`/`{purrr}` and can be silenced using the new `progress` argument.
+
+## Bug Fixes
 
 - fixed issue with `modStats()` such that "method" can now be changed (e.g., to "spearman").
 
@@ -8,13 +20,9 @@
 
 - fixed issue with `conditionalQuantile()` where the plot would fail to be produced when "type" was not specified.
 
-- update processing of ADMS meteorological (.MOP) files to return stability and tidier data.
-
-- add option `meteo` to `importAURN()` family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if `meteo = FALSE`.
-
 - fixed issue with `cutData()` where "season" wouldn't respect system locale (e.g., would still show "(DJF)" on Italian systems, instead of the correct "(gla)"). Note that the season name itself (e.g., "Winter") cannot be automatically converted.
 
-- refined the output of `pollutionRose()` where the `ws2` and `wd2` options are provided; instead of the misleading N/E/S/W, the markers become 0, +90, +/-180, -90.
+- fixed the `theilSen()` `silent` argument. The message "taking bootstrap samples. please wait" is also now sent via `message()` rather than `print()` and only appears once per function call.
 
 # openair 2.15
 
