@@ -14,7 +14,7 @@ user-defined length."><meta property="og:image" content="https://davidcarslaw.gi
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.16.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.16.0.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,18 +69,17 @@ user-defined length.</p>
 <dd><p>The pre-defined schemes are "increment", "default", "brewer1",
 "heat", "jet", "turbo", "hue", "greyscale", or a vector of R colour names
 e.g. c("green", "blue"). It is also possible to supply colour schemes from
-the <code>RColorBrewer</code> package. This package defines three types of
-colour schemes: sequential, diverging or qualitative. See
+the <code>RColorBrewer</code> package. This package defines three types of colour
+schemes: sequential, diverging or qualitative. See
 <a href="https://colorbrewer2.org/" class="external-link">https://colorbrewer2.org/</a> for more details concerning the original
 work on which this is based.</p>
-<p>Simplified versions of the <code>viridis</code> colours are also available.
-These include "viridis", "plasma", "magma", "inferno" and "cividis".</p>
+<p>Simplified versions of the <code>viridis</code> colours are also available. These
+include "viridis", "plasma", "magma", "inferno" and "cividis".</p>
 <p>Sequential colours are useful for ordered data where there is a need to
-show a difference between low and high values with colours going from
-light to dark. The pre-defined colours that can be supplied are: "Blues",
-"BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
-"PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr",
-"YlOrRd".</p>
+show a difference between low and high values with colours going from light
+to dark. The pre-defined colours that can be supplied are: "Blues", "BuGn",
+"BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu", "PuBuGn",
+"PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd".</p>
 <p>Diverging palettes put equal emphasis on mid-range critical values and
 extremes at both ends of the data range. Pre-defined values are: "BrBG",
 "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral".</p>
@@ -88,12 +87,18 @@ extremes at both ends of the data range. Pre-defined values are: "BrBG",
 data types. The pre-defined schemes are "Accent", "Dark2", "Paired",
 "Pastel1", "Pastel2", "Set1", "Set2", "Set3".</p>
 <p>A colour-blind safe palette "cbPalette" is available based on the work of:
-http://jfly.iam.u-tokyo.ac.jp/color/</p>
+<a href="http://jfly.iam.u-tokyo.ac.jp/color/" class="external-link">http://jfly.iam.u-tokyo.ac.jp/color/</a></p>
+<p>The colour's associated with the UK daily air quality index are also
+available using "daqi" (a palette of 10 colours, corresponding to each
+index value) or "daqi.bands" (4 colours, corresponding to each band - Low,
+Moderate, High, and Very High). These colours were taken directly from
+<a href="https://uk-air.defra.gov.uk/air-pollution/daqi" class="external-link">https://uk-air.defra.gov.uk/air-pollution/daqi</a> and may be useful in
+figures like <code><a href="calendarPlot.html">calendarPlot()</a></code>.</p>
 <p>Note that because of the way these schemes have been developed they only
 exist over certain number of colour gradations (typically 3--10) --- see
 ?<code>brewer.pal</code> for actual details. If less than or more than the
-required number of colours is supplied then <code>openair</code> will
-interpolate the colours.</p></dd>
+required number of colours is supplied then <code>openair</code> will interpolate
+the colours.</p></dd>
 
 
 <dt>n</dt>
@@ -113,12 +118,12 @@ particular situation. For showing incrementing concentrations e.g. high
 concentrations emphasised, then "default", "heat", "jet", "turbo", and
 "increment" are very useful. See also the description of <code>RColorBrewer</code>
 schemes for the option <code>scheme</code>.</p>
-<p>To colour-code categorical-type problems e.g. colours for different
+<p>To colour-code categorical-type problems, e.g., colours for different
 pollutants, "hue" and "brewer1" are useful.</p>
 <p>When publishing in black and white, "greyscale" is often convenient.  With
-most openair functions, as well as generating a greyscale colour gradient,
-it also resets strip background and other coloured text and lines to
-greyscale values.</p>
+most openair functions, as well as generating a greyscale colour gradient, it
+also resets strip background and other coloured text and lines to greyscale
+values.</p>
 <p>Failing that, the user can define their own schemes based on R colour names.
 To see the full list of names, type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colors()</a></code> into R.</p>
     </div>
@@ -129,6 +134,7 @@ To see the full list of names, type <code><a href="https://rdrr.io/r/grDevices/c
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>David Carslaw</p>
+<p>Jack Davison</p>
     </div>
 
     <div class="section level2">
