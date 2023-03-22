@@ -132,6 +132,8 @@
 #'   than the original time series, data are \sQuote{padded out} with \code{NA}.
 #'   To \sQuote{pad-out} the additional data with the first row in each original
 #'   time interval, choose \code{fill = TRUE}.
+#' @param progress Show a progress bar when many groups make up `type`? Defaults
+#'   to `TRUE`.
 #' @param ... Additional arguments for other functions calling
 #'   \code{timeAverage}.
 #' @import dplyr
@@ -171,7 +173,7 @@
 timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
                         statistic = "mean", type = "default", percentile = NA,
                         start.date = NA, end.date = NA, interval = NA,
-                        vector.ws = FALSE, fill = FALSE, ...) {
+                        vector.ws = FALSE, fill = FALSE, progress = TRUE, ...) {
 
   ## get rid of R check annoyances
   year <- season <- month <- Uu <- Vv <- site <- default <- wd <- ws <- NULL
@@ -547,9 +549,13 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
   }
 
   ## calculate stats split by type
+  if (progress) progress <- "Calculating Time Averages"
   mydata <- mydata %>%
     group_by(across(type)) %>%
-    do(suppressWarnings(calc.mean(., start.date)))
+    group_split() %>%
+    purrr::map(calc.mean, start.date = start.date,
+               .progress = progress) %>%
+    purrr::list_rbind()
 
   ## don't need default column
   if ("default" %in% names(mydata)) {
