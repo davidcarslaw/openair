@@ -10,13 +10,13 @@
 #' "increment" are very useful. See also the description of \code{RColorBrewer}
 #' schemes for the option \code{scheme}.
 #'
-#' To colour-code categorical-type problems e.g. colours for different
+#' To colour-code categorical-type problems, e.g., colours for different
 #' pollutants, "hue" and "brewer1" are useful.
 #'
 #' When publishing in black and white, "greyscale" is often convenient.  With
-#' most openair functions, as well as generating a greyscale colour gradient,
-#' it also resets strip background and other coloured text and lines to
-#' greyscale values.
+#' most openair functions, as well as generating a greyscale colour gradient, it
+#' also resets strip background and other coloured text and lines to greyscale
+#' values.
 #'
 #' Failing that, the user can define their own schemes based on R colour names.
 #' To see the full list of names, type \code{colors()} into R.
@@ -24,20 +24,19 @@
 #' @param scheme The pre-defined schemes are "increment", "default", "brewer1",
 #'   "heat", "jet", "turbo", "hue", "greyscale", or a vector of R colour names
 #'   e.g. c("green", "blue"). It is also possible to supply colour schemes from
-#'   the \code{RColorBrewer} package. This package defines three types of
-#'   colour schemes: sequential, diverging or qualitative. See
+#'   the \code{RColorBrewer} package. This package defines three types of colour
+#'   schemes: sequential, diverging or qualitative. See
 #'   \url{https://colorbrewer2.org/} for more details concerning the original
 #'   work on which this is based.
 #'
-#'   Simplified versions of the \code{viridis} colours are also available.
-#'   These include "viridis", "plasma", "magma", "inferno" and "cividis".
+#'   Simplified versions of the \code{viridis} colours are also available. These
+#'   include "viridis", "plasma", "magma", "inferno" and "cividis".
 #'
 #'   Sequential colours are useful for ordered data where there is a need to
-#'   show a difference between low and high values with colours going from
-#'   light to dark. The pre-defined colours that can be supplied are: "Blues",
-#'   "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
-#'   "PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr",
-#'   "YlOrRd".
+#'   show a difference between low and high values with colours going from light
+#'   to dark. The pre-defined colours that can be supplied are: "Blues", "BuGn",
+#'   "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu", "PuBuGn",
+#'   "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd".
 #'
 #'   Diverging palettes put equal emphasis on mid-range critical values and
 #'   extremes at both ends of the data range. Pre-defined values are: "BrBG",
@@ -48,17 +47,25 @@
 #'   "Pastel1", "Pastel2", "Set1", "Set2", "Set3".
 #'
 #'   A colour-blind safe palette "cbPalette" is available based on the work of:
-#'   http://jfly.iam.u-tokyo.ac.jp/color/
+#'   <http://jfly.iam.u-tokyo.ac.jp/color/>
+#'
+#'   The colour's associated with the UK daily air quality index are also
+#'   available using "daqi" (a palette of 10 colours, corresponding to each
+#'   index value) or "daqi.bands" (4 colours, corresponding to each band - Low,
+#'   Moderate, High, and Very High). These colours were taken directly from
+#'   <https://uk-air.defra.gov.uk/air-pollution/daqi> and may be useful in
+#'   figures like [calendarPlot()].
 #'
 #'   Note that because of the way these schemes have been developed they only
 #'   exist over certain number of colour gradations (typically 3--10) --- see
 #'   ?\code{brewer.pal} for actual details. If less than or more than the
-#'   required number of colours is supplied then \code{openair} will
-#'   interpolate the colours.
+#'   required number of colours is supplied then \code{openair} will interpolate
+#'   the colours.
 #' @param n number of colours required.
 #' @export
 #' @return Returns colour values - see examples below.
 #' @author David Carslaw
+#' @author Jack Davison
 #' @references \url{https://colorbrewer2.org/}
 #' @examples
 #'
@@ -88,8 +95,7 @@ openColours <- function(scheme = "default", n = 100) {
   ## predefined schemes
   schemes <- c("increment", "default", "brewer1", "heat", "jet", "hue",
                "greyscale", brewer.col, "cbPalette", "viridis", "magma",
-               "inferno", "plasma", "cividis", "turbo")
-
+               "inferno", "plasma", "cividis", "turbo", "daqi", "daqi.bands")
 
   ## schemes
   heat <- colorRampPalette(brewer.pal(9, "YlOrRd"), interpolate = "spline")
@@ -178,21 +184,41 @@ openColours <- function(scheme = "default", n = 100) {
 
   # The palette with grey:
   cbPalette <- function(n) {
-
     cols <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
               "#D55E00", "#CC79A7")
 
     if (n >= 1 && n < 9) {
-
       cols <- cols[1:n]
-
     } else {
-
-      warning("Too many colours selected. Should be 1 to 8.")
+      cli::cli_abort(
+        c("!" = "Too many colours selected for {.code {scheme}}.",
+          "i" = "{.code n} should be between 1 and 8."),
+        call = NULL
+      )
     }
   }
 
+  # Defra's DAQI Colours
+  daqi_pal <- function(n, extent){
+    if (extent == "i") {
+      cols <- c("#9CFF9C", "#31FF00", "#31CF00", "#FFFF00", "#FFCF00",
+                "#FF9A00", "#FF6464", "#FF0000", "#990000", "#CE30FF")
+      max <- 10
+    } else if (extent == "b") {
+      cols <- c("#009900", "#ff9900", "#ff0000", "#990099")
+      max <- 4
+    }
 
+    if (n >= 1 && n <= max) {
+      cols <- cols[1:n]
+    } else {
+      cli::cli_abort(
+        c("!" = "Too many colours selected for {.code {scheme}}.",
+          "i" = "{.code n} should be between 1 and {max}."),
+        call = NULL
+      )
+    }
+  }
 
   ## error catcher
   if (length(scheme) == 1) {
@@ -212,6 +238,8 @@ openColours <- function(scheme = "default", n = 100) {
     if (scheme == "hue") cols <- hue
     if (scheme == "greyscale") cols <- greyscale
     if (scheme == "cbPalette") cols <- cbPalette(n)
+    if (scheme == "daqi") cols <- daqi_pal(n, extent = "i")
+    if (scheme == "daqi.bands") cols <- daqi_pal(n, extent = "b")
   }
 
   if (!any(scheme %in% schemes)) { # assume user has given own colours

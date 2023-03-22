@@ -145,6 +145,11 @@
 #' calendarPlot(mydata, pollutant = "no2", breaks = c(0, 50, 100, 150, 1000),
 #' labels = c("Very low", "Low", "High", "Very High"),
 #' cols = c("lightblue", "green", "yellow",  "red"), statistic = "max")
+#'
+#' # UK daily air quality index
+#' pm10.breaks <- c(0, 17, 34, 50, 59, 67, 75, 84, 92, 100, 1000)
+#' calendarPlot(mydata, "pm10", year = 1999, breaks = pm10.breaks,
+#' labels = c(1:10), cols = "daqi", statistic = "mean", key.header = "DAQI")
 #' }
 calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
                          type = "default",

@@ -10,20 +10,19 @@ openColours(scheme = "default", n = 100)
 \item{scheme}{The pre-defined schemes are "increment", "default", "brewer1",
 "heat", "jet", "turbo", "hue", "greyscale", or a vector of R colour names
 e.g. c("green", "blue"). It is also possible to supply colour schemes from
-the \code{RColorBrewer} package. This package defines three types of
-colour schemes: sequential, diverging or qualitative. See
+the \code{RColorBrewer} package. This package defines three types of colour
+schemes: sequential, diverging or qualitative. See
 \url{https://colorbrewer2.org/} for more details concerning the original
 work on which this is based.
 
-Simplified versions of the \code{viridis} colours are also available.
-These include "viridis", "plasma", "magma", "inferno" and "cividis".
+Simplified versions of the \code{viridis} colours are also available. These
+include "viridis", "plasma", "magma", "inferno" and "cividis".
 
 Sequential colours are useful for ordered data where there is a need to
-show a difference between low and high values with colours going from
-light to dark. The pre-defined colours that can be supplied are: "Blues",
-"BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
-"PuBuGn", "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr",
-"YlOrRd".
+show a difference between low and high values with colours going from light
+to dark. The pre-defined colours that can be supplied are: "Blues", "BuGn",
+"BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu", "PuBuGn",
+"PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd".
 
 Diverging palettes put equal emphasis on mid-range critical values and
 extremes at both ends of the data range. Pre-defined values are: "BrBG",
@@ -34,13 +33,20 @@ data types. The pre-defined schemes are "Accent", "Dark2", "Paired",
 "Pastel1", "Pastel2", "Set1", "Set2", "Set3".
 
 A colour-blind safe palette "cbPalette" is available based on the work of:
-http://jfly.iam.u-tokyo.ac.jp/color/
+\url{http://jfly.iam.u-tokyo.ac.jp/color/}
+
+The colour's associated with the UK daily air quality index are also
+available using "daqi" (a palette of 10 colours, corresponding to each
+index value) or "daqi.bands" (4 colours, corresponding to each band - Low,
+Moderate, High, and Very High). These colours were taken directly from
+\url{https://uk-air.defra.gov.uk/air-pollution/daqi} and may be useful in
+figures like \code{\link[=calendarPlot]{calendarPlot()}}.
 
 Note that because of the way these schemes have been developed they only
 exist over certain number of colour gradations (typically 3--10) --- see
 ?\code{brewer.pal} for actual details. If less than or more than the
-required number of colours is supplied then \code{openair} will
-interpolate the colours.}
+required number of colours is supplied then \code{openair} will interpolate
+the colours.}
 
 \item{n}{number of colours required.}
 }
@@ -59,13 +65,13 @@ concentrations emphasised, then "default", "heat", "jet", "turbo", and
 "increment" are very useful. See also the description of \code{RColorBrewer}
 schemes for the option \code{scheme}.
 
-To colour-code categorical-type problems e.g. colours for different
+To colour-code categorical-type problems, e.g., colours for different
 pollutants, "hue" and "brewer1" are useful.
 
 When publishing in black and white, "greyscale" is often convenient.  With
-most openair functions, as well as generating a greyscale colour gradient,
-it also resets strip background and other coloured text and lines to
-greyscale values.
+most openair functions, as well as generating a greyscale colour gradient, it
+also resets strip background and other coloured text and lines to greyscale
+values.
 
 Failing that, the user can define their own schemes based on R colour names.
 To see the full list of names, type \code{colors()} into R.
@@ -88,4 +94,6 @@ cols
 }
 \author{
 David Carslaw
+
+Jack Davison
 }
