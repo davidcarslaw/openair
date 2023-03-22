@@ -333,14 +333,16 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   end.month <- endMonth(mydata$date)
 
   mydata <- suppressWarnings(
-    timeAverage(mydata,
-    type = type,
-    avg.time = avg.time,
-    statistic = statistic,
-    percentile = percentile,
-    data.thresh = data.thresh,
-    interval = interval
-  )
+    timeAverage(
+      mydata,
+      type = type,
+      avg.time = avg.time,
+      statistic = statistic,
+      percentile = percentile,
+      data.thresh = data.thresh,
+      interval = interval,
+      progress = !silent
+    )
   )
 
   # timeAverage drops type if default
@@ -449,10 +451,16 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
   }
 
   # need to work out how to use dplyr if it does not return a data frame due to too few data
+  if (!silent) {
+    message("Taking bootstrap samples. Please wait.", appendLF = TRUE)
+  }
+
   split.data <- mydata %>%
     group_by(across(type)) %>%
-    do(process.cond(.))
-
+    nest() %>%
+    mutate(data = purrr::map(data, process.cond,
+                             .progress = "Taking Bootstrap Samples")) %>%
+    unnest(cols = c(data))
 
   if (nrow(split.data) < 2) return()
 

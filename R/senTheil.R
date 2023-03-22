@@ -43,7 +43,7 @@ regci <- function(x, y, regfun = tsreg, nboot = 599, alpha = 0.05, autocor = aut
   } ## set seed of random number generator so that
   ##             results can be duplicated.
   if (!pr) {
-    message("Taking bootstrap samples. Please wait.")
+    # message("Taking bootstrap samples. Please wait.")
   }
 
   #   data <- matrix(sample(length(y), size = length(y) * nboot, replace = T), nrow = nboot)
