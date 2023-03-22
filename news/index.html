@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.16.0.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.16.0.9005</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +66,7 @@
 <li><p>fixed issue with <code><a href="../reference/conditionalQuantile.html">conditionalQuantile()</a></code> where the plot would fail to be produced when “type” was not specified.</p></li>
 <li><p>fixed issue with <code><a href="../reference/cutData.html">cutData()</a></code> where “season” wouldn’t respect system locale (e.g., would still show “(DJF)” on Italian systems, instead of the correct “(gla)”). Note that the season name itself (e.g., “Winter”) cannot be automatically converted.</p></li>
 <li><p>fixed the <code>theilSen()</code> <code>silent</code> argument. The message “taking bootstrap samples. please wait” is also now sent via <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code> rather than <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and only appears once per function call.</p></li>
+<li><p>fixed issue where <code><a href="../reference/trajCluster.html">trajCluster()</a></code> proportions would overlap when clustering forward trajectories. Proportions should now appear at the end of cluster paths, regardless of whether the trajectory is back or forward.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
