@@ -520,11 +520,11 @@ TheilSen <- function(mydata, pollutant = "nox", deseason = FALSE,
 
   start <- split.data %>%
     group_by(across(type)) %>%
-    do(head(., 1))
+    dplyr::slice_head(n = 1)
 
   end <- split.data %>%
     group_by(across(type)) %>%
-    do(tail(., 1))
+    dplyr::slice_tail(n = 1)
 
   percent.change <- merge(start, end, by = type, suffixes = c(".start", ".end"))
 

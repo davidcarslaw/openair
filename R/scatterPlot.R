@@ -1877,7 +1877,7 @@ addTraj <- function(mydata, subscripts, Args, z, lty, myColors,
 
       pnts <- mydata %>%
         group_by(across(vars)) %>%
-        do(head(., 1))
+        dplyr::slice_head(n = 1)
 
       pnts <- merge(
         pnts, Args$clusters,
