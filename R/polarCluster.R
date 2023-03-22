@@ -247,10 +247,15 @@ polarCluster <-
       dat.orig
     }
 
+    # results.grid <-
+    #   group_by(data.frame(n = seq_along(n.clusters)), n) %>%
+    #   do(make.clust(i = .$n, results.grid))
 
     results.grid <-
-      group_by(data.frame(n = seq_along(n.clusters)), n) %>%
-      do(make.clust(i = .$n, results.grid))
+      purrr::map(.x = seq_along(n.clusters),
+               .f = make.clust,
+               results.grid = results.grid, .progress = "Calculating Clusters") %>%
+      purrr::list_rbind()
 
     results.grid$nclust <-
       ordered(results.grid$nclust, levels = paste(n.clusters, "clusters"))

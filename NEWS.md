@@ -12,6 +12,8 @@
 
 - the `timeAverage()` progress bar is now powered by `{cli}`/`{purrr}` and can be silenced using the new `progress` argument.
 
+- the `polarCluster()` progress bar is now also powered by `{cli}`/`{purrr}`.
+
 - colours corresponding to the UK daily air quality index (<https://uk-air.defra.gov.uk/air-pollution/daqi>) have been added as options to `openColours()`.
 
 ## Bug Fixes
