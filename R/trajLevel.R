@@ -506,17 +506,8 @@ trajLevel <- function(mydata, lon = "lon", lat = "lat",
 
   ## plot
   plt <- do.call(scatterPlot, scatterPlot.args)
-  
-  if (smooth) {
-    output <- list(plot = plt$plot,
-                   data = plt$data %>%
-                     dplyr::select(-"col") %>%
-                     tidyr::drop_na(),
-                   call = match.call())
-  } else {
-    output <- list(plot = plt$plot, data = mydata, call = match.call())
-  }
-  
+
+  output <- list(plot = plt$plot, data = mydata, call = match.call())
   class(output) <- "openair"
 
   invisible(output)

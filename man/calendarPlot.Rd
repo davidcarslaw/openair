@@ -215,6 +215,7 @@ pm10.breaks <- c(0, 17, 34, 50, 59, 67, 75, 84, 92, 100, 1000)
 calendarPlot(mydata, "pm10", year = 1999, breaks = pm10.breaks,
 labels = c(1:10), cols = "daqi", statistic = "mean", key.header = "DAQI")
 }
+
 }
 \seealso{
 Other time series and trend functions: 
