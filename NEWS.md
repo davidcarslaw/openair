@@ -16,6 +16,8 @@
 
 - colours corresponding to the UK daily air quality index (<https://uk-air.defra.gov.uk/air-pollution/daqi>) have been added as options to `openColours()`.
 
+- the `{openair}` object returned by `trajLevel()` now reflects the value of the `smooth` argument.
+
 ## Bug Fixes
 
 - fixed issue with `modStats()` such that "method" can now be changed (e.g., to "spearman").
