@@ -312,10 +312,9 @@ of them can reduce the useful information in the plot.</p></dd>
 
 <dt>angle.scale</dt>
 <dd><p>Sometimes the placement of the scale may interfere with an
-interesting feature. The user can therefore set <code>angle.scale</code> to
-any value between 0 and 360 degrees to mitigate such problems. For
-example <code>angle.scale = 45</code> will draw the scale heading in a NE
-direction.</p></dd>
+interesting feature. The user can therefore set <code>angle.scale</code> to any
+value between 0 and 360 degrees to mitigate such problems. For example
+<code>angle.scale = 45</code> will draw the scale heading in a NE direction.</p></dd>
 
 
 <dt>units</dt>
@@ -447,12 +446,10 @@ and <code>cutData</code>. For example, <code>polarPlot</code> passes the option
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>an <a href="openair-package.html">openair</a> object. <code>polarPlot</code> surface data
-can also be extracted directly using the <code>results</code>, e.g.
-<code>results(object)</code> for <code>output &lt;- polarPlot(mydata, "nox")</code>. This
-returns a data frame with four set columns: <code>cond</code>, conditioning based
-on <code>type</code>; <code>u</code> and <code>v</code>, the translational vectors based on
-<code>ws</code> and <code>wd</code>; and the local <code>pollutant</code> estimate.</p>
+<p>an <a href="openair-package.html">openair</a> object. <code>data</code> contians four set
+columns: <code>cond</code>, conditioning based on <code>type</code>; <code>u</code> and
+<code>v</code>, the translational vectors based on <code>ws</code> and <code>wd</code>; and
+the local <code>pollutant</code> estimate.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
