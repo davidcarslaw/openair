@@ -254,6 +254,15 @@ print.openair <- function(x,
       cli::cli_ol(paste0("$plot{.field $", x$plot$subsets, "}"))
     }
     cli::cli_end(id = "plots")
+    
+    other <- names(x)[!names(x) %in% c("data", "call", "plot")]
+    
+    if (length(other) > 0){
+      cli::cli_par(id = "other-stuff")
+      cli::cli_inform("Other object(s):")
+      cli::cli_ul(paste0("{.field $", other, "}"))
+      cli::cli_end(id = "other-stuff")
+    }
   }
   
   if (plot) {
