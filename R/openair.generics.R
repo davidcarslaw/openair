@@ -360,27 +360,49 @@ print.openair <- function(x, silent = FALSE, plot = TRUE, ...) {
   # must have call, data and plot elements
 
   if (!silent) {
-    message("\nopenair object created by:\n\t", deparse(x$call))
-
-    message("\nthis contains:")
-
-    test <- x$data$subsets
-    if (is.null(test)) {
-      message("\ta single data frame:\n\t$data [with no subset structure]")
+    # print function call
+    cli::cli_par(id = "opening")
+    cli::cli_h1("{.pkg openair} object")
+    cli::cli_inform("Created by:")
+    cli::cli_inform("{cli::symbol$play} {.code \t{deparse(object$call)}}")
+    cli::cli_end(id = "opening")
+    
+    # contains header
+    cli::cli_h2("This contains:")
+    
+    # check if subsets exist
+    if ("subsets" %in% names(x$data)) {
+      test <- FALSE
     } else {
-      message("\t", length(test), " data frame(s):")
-      message("\t$data$", paste(test, collapse = ", $data$", sep = ", $data$"))
+      test <- TRUE
     }
-
-    test <- x$plot$subsets
-    if (is.null(test)) {
-      message("\ta single plot object:\n\t$plot [with no subset structure]")
+    
+    cli::cli_par(id = "dfs")
+    if (test) {
+      cli::cli_inform("A single data frame:")
+      cli::cli_ul("{.field $data} [with no subset structure]")
     } else {
-      message("\t", length(test), " plot objects(s):")
-      message("\t$plot$", paste(test, collapse = ", $plot$", sep = ", $plot$"), "\n")
+      cli::cli_inform("Data frame(s):")
+      cli::cli_ol(paste0("$data{.field $", x$data$subsets, "}"))
     }
+    cli::cli_end(id = "dfs")
 
-    message("") # tidy
+    # check if subsets exist
+    if ("subsets" %in% names(x$plot)) {
+      test <- FALSE
+    } else {
+      test <- TRUE
+    }
+    
+    cli::cli_par(id = "plots")
+    if (test) {
+      cli::cli_inform("A single plot:")
+      cli::cli_ul("{.field $plot} [with no subset structure]")
+    } else {
+      cli::cli_inform("Plot object(s):")
+      cli::cli_ol(paste0("$plot{.field $", x$plot$subsets, "}"))
+    }
+    cli::cli_end(id = "plots")
   }
 
   if (plot) plot(x, silent = TRUE, ...)
