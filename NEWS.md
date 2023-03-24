@@ -16,6 +16,8 @@
 
 - colours corresponding to the UK daily air quality index (<https://uk-air.defra.gov.uk/air-pollution/daqi>) have been added as options to `openColours()`.
 
+- the `{openair}` object's `data` property returned by the `trajLevel()` function is now consistently formatted regardless of `statistic` choice, and contains relevant statistic-specific information (e.g., `sigma` for `"SQTBA"`).
+
 ## Bug Fixes
 
 - fixed issue with `modStats()` such that "method" can now be changed (e.g., to "spearman").

@@ -62,57 +62,52 @@ types are provided the first forms the columns and the second the rows.}
 
 \item{smooth}{Should the trajectory surface be smoothed?}
 
-\item{statistic}{For \code{trajLevel}. By default the function will plot the
-trajectory frequencies.
-
-For \code{trajLevel}, the argument \code{method = "hexbin"} can be used. In
-this case hexagonal binning of the trajectory \emph{points} (i.e. a point
-every three hours along each back trajectory). The plot then shows the
-trajectory frequencies uses hexagonal binning. This is an alternative way
-of viewing trajectory frequencies compared with \code{statistic =
-  "frequency"}.
+\item{statistic}{Statistic to use for \code{\link[=trajLevel]{trajLevel()}}. By default, the function
+will plot the trajectory frequencies (\code{statistic = "frequency"}). As an
+alternative way of viewing trajectory frequencies, the argument \code{method = "hexbin"} can be used. In this case hexagonal binning of the trajectory
+\emph{points} (i.e., a point every three hours along each back trajectory).
+The plot then shows the trajectory frequencies uses hexagonal binning.
 
 There are also various ways of plotting concentrations.
 
-It is also possible to set \code{statistic = "difference"}. In this case
-trajectories where the associated concentration is greater than
-\code{percentile} are compared with the the full set of trajectories to
-understand the differences in frequencies of the origin of air masses. The
-comparison is made by comparing the percentage change in gridded
-frequencies. For example, such a plot could show that the top 10\\% of
-concentrations of PM10 tend to originate from air-mass origins to the east.
+It is possible to set \code{statistic = "difference"}. In this case trajectories
+where the associated concentration is greater than \code{percentile} are
+compared with the the full set of trajectories to understand the
+differences in frequencies of the origin of air masses. The comparison is
+made by comparing the percentage change in gridded frequencies. For
+example, such a plot could show that the top 10\\% of concentrations of PM10
+tend to originate from air-mass origins to the east.
 
-If \code{statistic = "pscf"} then a Potential Source Contribution Function
-map is produced. If \code{statistic = "cwt"} then concentration weighted
-trajectories are plotted.
+If \code{statistic = "pscf"} then a Potential Source Contribution Function map
+is produced. This statistic method interacts with \code{percentile}.
 
-If \code{statistic = "cwt"} then the Concentration Weighted Trajectory
-approach is used. See details.}
+If \code{statistic = "cwt"} then concentration weighted trajectories are
+plotted.
 
-\item{percentile}{For \code{trajLevel}. The percentile concentration of
-\code{pollutant} against which the all trajectories are compared.}
+If \code{statistic = "sqtba"} then Simplified Quantitative Transport Bias
+Analysis is undertaken. This statistic method interacts with \code{.combine} and
+\code{sigma}.}
+
+\item{percentile}{The percentile concentration of \code{pollutant} against which
+the all trajectories are compared.}
 
 \item{map}{Should a base map be drawn? If \code{TRUE} the world base map from
 the \code{maps} package is used.}
 
-\item{lon.inc}{The longitude-interval to be used for binning data for
-\code{trajLevel}.}
+\item{lon.inc, lat.inc}{The longitude and latitude intervals to be used for
+binning data.}
 
-\item{lat.inc}{The latitude-interval to be used for binning data when
-\code{trajLevel}.}
-
-\item{min.bin}{For \code{trajLevel} the minimum number of unique points in a
-grid cell. Counts below \code{min.bin} are set as missing. For
-\code{trajLevel} gridded outputs.}
+\item{min.bin}{The minimum number of unique points in a grid cell. Counts
+below \code{min.bin} are set as missing.}
 
 \item{.combine}{When statistic is "SQTBA" it is possible to combine lots of
-receptor locations to derive a single map. \code{.combine} identifies the
-column that differentiates different sites (commonly a column named
-\code{site}). Note that individual site maps are normalised first by
-dividing by their mean value.}
+receptor locations to derive a single map. \code{.combine} identifies the column
+that differentiates different sites (commonly a column named \code{"site"}).
+Note that individual site maps are normalised first by dividing by their
+mean value.}
 
-\item{sigma}{For the SQTBA approach \code{sigma} determines the amount of
-back trajectory spread based on the Gaussian plume equation. Values in the
+\item{sigma}{For the SQTBA approach \code{sigma} determines the amount of back
+trajectory spread based on the Gaussian plume equation. Values in the
 literature suggest 5.4 km after one hour. However, testing suggests lower
 values reveal source regions more effectively while not introducing too
 much noise.}
@@ -161,46 +156,46 @@ of the longitude coordinates in the map.}
 \item{origin}{If true a filled circle dot is shown to mark the receptor
 point.}
 
-\item{plot}{Should a plot be produced? \code{FALSE} can be useful when
-analysing data to extract plot components and plotting them in other ways.}
+\item{plot}{Should a plot be produced? \code{FALSE} can be useful when analysing
+data to extract plot components and plotting them in other ways.}
 
-\item{...}{other arguments are passed to \code{cutData} and
-\code{scatterPlot}. This provides access to arguments used in both these
-functions and functions that they in turn pass arguments on to. For
-example, \code{plotTraj} passes the argument \code{cex} on to
-\code{scatterPlot} which in turn passes it on to the \code{lattice}
-function \code{xyplot} where it is applied to set the plot symbol size.}
+\item{...}{other arguments are passed to \code{\link[=cutData]{cutData()}} and \code{\link[=scatterPlot]{scatterPlot()}}.
+This provides access to arguments used in both these functions and
+functions that they in turn pass arguments on to. For example,
+\code{\link[=trajLevel]{trajLevel()}} passes the argument \code{cex} on to \code{\link[=scatterPlot]{scatterPlot()}} which in
+turn passes it on to \code{\link[lattice:xyplot]{lattice::xyplot()}} where it is applied to set the
+plot symbol size.}
 }
 \value{
 an \link[=openair-package]{openair} object
 }
 \description{
 This function plots gridded back trajectories. This function requires that
-data are imported using the \code{importTraj} function.
+data are imported using the \code{\link[=importTraj]{importTraj()}} function.
 }
 \details{
 An alternative way of showing the trajectories compared with plotting
 trajectory lines is to bin the points into latitude/longitude intervals. For
-these purposes \code{trajLevel} should be used. There are several trajectory
-statistics that can be plotted as gridded surfaces. First, \code{statistic}
-can be set to \dQuote{frequency} to show the number of back trajectory points
-in a grid square. Grid squares are by default at 1 degree intervals,
-controlled by \code{lat.inc} and \code{lon.inc}. Such plots are useful for
-showing the frequency of air mass locations. Note that it is also possible to
-set \code{method = "hexbin"} for plotting frequencies (not concentrations),
-which will produce a plot by hexagonal binning.
+these purposes \code{\link[=trajLevel]{trajLevel()}} should be used. There are several trajectory
+statistics that can be plotted as gridded surfaces. First, \code{statistic} can be
+set to "frequency" to show the number of back trajectory points in a grid
+square. Grid squares are by default at 1 degree intervals, controlled by
+\code{lat.inc} and \code{lon.inc}. Such plots are useful for showing the frequency of
+air mass locations. Note that it is also possible to set \code{method = "hexbin"}
+for plotting frequencies (not concentrations), which will produce a plot by
+hexagonal binning.
 
 If \code{statistic = "difference"} the trajectories associated with a
-concentration greater than \code{percentile} are compared with the the full
-set of trajectories to understand the differences in frequencies of the
-origin of air masses of the highest concentration trajectories compared with
-the trajectories on average. The comparison is made by comparing the
-percentage change in gridded frequencies. For example, such a plot could show
-that the top 10\\% of concentrations of PM10 tend to originate from air-mass
-origins to the east.
+concentration greater than \code{percentile} are compared with the the full set of
+trajectories to understand the differences in frequencies of the origin of
+air masses of the highest concentration trajectories compared with the
+trajectories on average. The comparison is made by comparing the percentage
+change in gridded frequencies. For example, such a plot could show that the
+top 10\\% of concentrations of PM10 tend to originate from air-mass origins to
+the east.
 
-If \code{statistic = "pscf"} then the Potential Source Contribution Function
-is plotted. The PSCF calculates the probability that a source is located at
+If \code{statistic = "pscf"} then the Potential Source Contribution Function is
+plotted. The PSCF calculates the probability that a source is located at
 latitude \eqn{i} and longitude \eqn{j} (Pekney et al., 2006).The basis of
 PSCF is that if a source is located at (i,j), an air parcel back trajectory
 passing through that location indicates that material from the source can be
@@ -209,8 +204,8 @@ solves \deqn{PSCF = m_{ij}/n_{ij}} where \eqn{n_{ij}} is the number of times
 that the trajectories passed through the cell (i,j) and \eqn{m_{ij}} is the
 number of times that a source concentration was high when the trajectories
 passed through the cell (i,j). The criterion for determining \eqn{m_{ij}} is
-controlled by \code{percentile}, which by default is 90. Note also that cells
-with few data have a weighting factor applied to reduce their effect.
+controlled by \code{percentile}, which by default is 90. Note also that cells with
+few data have a weighting factor applied to reduce their effect.
 
 A limitation of the PSCF method is that grid cells can have the same PSCF
 value when sample concentrations are either only slightly higher or much
