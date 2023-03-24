@@ -227,10 +227,9 @@ only a relatively few data points at very high wind speeds and plotting all
 of them can reduce the useful information in the plot.}
 
 \item{angle.scale}{Sometimes the placement of the scale may interfere with an
-interesting feature. The user can therefore set \code{angle.scale} to
-any value between 0 and 360 degrees to mitigate such problems. For
-example \code{angle.scale = 45} will draw the scale heading in a NE
-direction.}
+interesting feature. The user can therefore set \code{angle.scale} to any
+value between 0 and 360 degrees to mitigate such problems. For example
+\code{angle.scale = 45} will draw the scale heading in a NE direction.}
 
 \item{units}{The units shown on the polar axis scale.}
 
@@ -322,12 +321,10 @@ and \code{cutData}. For example, \code{polarPlot} passes the option
 \code{quickText} to handle routine formatting.}
 }
 \value{
-an \link[=openair-package]{openair} object. \code{polarPlot} surface data
-can also be extracted directly using the \code{results}, e.g.
-\code{results(object)} for \code{output <- polarPlot(mydata, "nox")}. This
-returns a data frame with four set columns: \code{cond}, conditioning based
-on \code{type}; \code{u} and \code{v}, the translational vectors based on
-\code{ws} and \code{wd}; and the local \code{pollutant} estimate.
+an \link[=openair-package]{openair} object. \code{data} contians four set
+columns: \code{cond}, conditioning based on \code{type}; \code{u} and
+\code{v}, the translational vectors based on \code{ws} and \code{wd}; and
+the local \code{pollutant} estimate.
 }
 \description{
 Function for plotting pollutant concentration in polar coordinates showing

@@ -143,9 +143,7 @@ handling and \code{levelplot} in \code{lattice} for finer control of the
 plot itself.}
 }
 \value{
-an \link[=openair-package]{openair} object. Summary statistics can also be
-extracted directly using \code{results}, e.g., \code{results(object)} for
-\code{output <- trendLevel(mydata)}.
+an \link[=openair-package]{openair} object.
 }
 \description{
 The trendLevel function provides a way of rapidly showing a large amount of

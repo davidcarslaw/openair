@@ -242,7 +242,7 @@
 #' ## plot(myplot, subset="month") for the monthly plot
 #'
 #' ## numerical results (mean, lower/upper uncertainties)
-#' ## results(myplot, subset = "day.hour") # the weekday and hour data set
+#' ## myplot$data$day.hour # the weekday and hour data set
 #' ## summary(myplot, subset = "hour") #summary of hour data set
 #' ## head(myplot, subset = "day") #head/top of day data set
 #' ## tail(myplot, subset = "month") #tail/top of month data set

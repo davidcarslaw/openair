@@ -251,10 +251,9 @@
 #'   of them can reduce the useful information in the plot.
 #'
 #' @param angle.scale Sometimes the placement of the scale may interfere with an
-#'   interesting feature. The user can therefore set \code{angle.scale} to
-#'   any value between 0 and 360 degrees to mitigate such problems. For
-#'   example \code{angle.scale = 45} will draw the scale heading in a NE
-#'   direction.
+#'   interesting feature. The user can therefore set \code{angle.scale} to any
+#'   value between 0 and 360 degrees to mitigate such problems. For example
+#'   \code{angle.scale = 45} will draw the scale heading in a NE direction.
 #'
 #' @param units The units shown on the polar axis scale.
 #'
@@ -342,12 +341,10 @@
 #'
 #' @import lattice
 #' @import mgcv
-#' @return an [openair][openair-package] object. \code{polarPlot} surface data
-#'   can also be extracted directly using the \code{results}, e.g.
-#'   \code{results(object)} for \code{output <- polarPlot(mydata, "nox")}. This
-#'   returns a data frame with four set columns: \code{cond}, conditioning based
-#'   on \code{type}; \code{u} and \code{v}, the translational vectors based on
-#'   \code{ws} and \code{wd}; and the local \code{pollutant} estimate.
+#' @return an [openair][openair-package] object. `data` contians four set
+#'   columns: \code{cond}, conditioning based on \code{type}; \code{u} and
+#'   \code{v}, the translational vectors based on \code{ws} and \code{wd}; and
+#'   the local \code{pollutant} estimate.
 #' @author David Carslaw
 #' @family polar directional analysis functions
 #' @references

@@ -204,10 +204,9 @@ the package \code{openairmaps}.}
 only a relatively few data points at very high wind speeds and plotting all
 of them can reduce the useful information in the plot.}
     \item{\code{angle.scale}}{Sometimes the placement of the scale may interfere with an
-interesting feature. The user can therefore set \code{angle.scale} to
-any value between 0 and 360 degrees to mitigate such problems. For
-example \code{angle.scale = 45} will draw the scale heading in a NE
-direction.}
+interesting feature. The user can therefore set \code{angle.scale} to any
+value between 0 and 360 degrees to mitigate such problems. For example
+\code{angle.scale = 45} will draw the scale heading in a NE direction.}
     \item{\code{units}}{The units shown on the polar axis scale.}
     \item{\code{force.positive}}{The default is \code{TRUE}. Sometimes if smoothing data
 with steep gradients it is possible for predicted values to be negative.

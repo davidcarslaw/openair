@@ -101,10 +101,9 @@ lines be drawn (\code{fill = FALSE}).}
 c(0, 10, 30, 50)}}
 
 \item{angle.scale}{Sometimes the placement of the scale may interfere with an
-interesting feature. The user can therefore set \code{angle.scale} to
-any value between 0 and 360 degrees to mitigate such problems. For
-example \code{angle.scale = 45} will draw the scale heading in a NE
-direction.}
+interesting feature. The user can therefore set \code{angle.scale} to any
+value between 0 and 360 degrees to mitigate such problems. For example
+\code{angle.scale = 45} will draw the scale heading in a NE direction.}
 
 \item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If \code{TRUE}
 titles and axis labels will automatically try and format pollutant names
