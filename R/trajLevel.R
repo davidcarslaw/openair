@@ -556,13 +556,16 @@ trajLevel <- function(
   ## reset for Args
   scatterPlot.args <- listUpdate(scatterPlot.args, Args)
   scatterPlot.args <- listUpdate(scatterPlot.args, list(plot = plot))
-
+  
   ## plot
   plt <- do.call(scatterPlot, scatterPlot.args)
 
-  output <- list(plot = plt$plot, data = out_data, call = match.call())
+  output <-
+    list(plot = plt$plot,
+         data = out_data,
+         call = match.call())
   class(output) <- "openair"
-
+  
   invisible(output)
 }
 

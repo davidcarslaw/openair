@@ -385,7 +385,14 @@ corPlot <- function(mydata, pollutants = NULL, type = "default",
   newdata <- cbind(x = x2, y = y2, newdata)
 
   # main handling
-  output <- list(plot = plt, data = newdata, call = match.call(), clust = clust)
+  output <-
+    list(
+      plot = plt,
+      data = dplyr::tibble(newdata),
+      call = match.call(),
+      clust = clust
+    )
+  class(output) <- "openair"
   invisible(output)
 }
 

@@ -656,7 +656,9 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
   ## ############################
   if (plot) plot(plt)
 
-  output <- list(plot = plt, data = newdata, call = match.call())
+  output <- list(plot = plt,
+                 data = dplyr::tibble(newdata),
+                 call = match.call())
   class(output) <- "openair"
   invisible(output)
 }

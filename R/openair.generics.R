@@ -266,7 +266,7 @@ print.openair <- function(x,
 #' @export
 names.openair <- function(x, ...) {
   # stuff we own up to...
-  vis.elements <- c("data", "plot", "call")
+  vis.elements <- c("data", "plot", "call", "clust")
   # make names non-recursive
   class(x) <- "not-openair"
   

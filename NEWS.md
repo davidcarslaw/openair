@@ -32,6 +32,8 @@
 
 - fixed issue where `trajCluster()` proportions would overlap when clustering forward trajectories. Proportions should now appear at the end of cluster paths, regardless of whether the trajectory is back or forward.
 
+- fixed issue where not all `{openair}` plotting functions would properly return an openair S3 object, and that not all `data` objects were tibbles.
+
 # openair 2.15
 
 - do not use native pipe yet - does not work with old versions of R
