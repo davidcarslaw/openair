@@ -243,16 +243,20 @@ lond <- merge(lond, kc1, by = "date")
 
 # trajectory plot, no smoothing - and limit lat/lon area of interest
 # use PSCF
-trajLevel(subset(lond, lat > 40 & lat < 70 & lon >-20 & lon <20),
-pollutant = "pm10", statistic = "pscf")
+trajLevel(subset(lond, lat > 40 & lat < 70 & lon > -20 & lon < 20),
+  pollutant = "pm10", statistic = "pscf"
+)
 
 # can smooth surface, suing CWT approach:
-trajLevel(subset(lond, lat > 40 & lat < 70 & lon >-20 & lon <20),
-pollutant = "pm2.5", statistic = "cwt",  smooth = TRUE)
+trajLevel(subset(lond, lat > 40 & lat < 70 & lon > -20 & lon < 20),
+  pollutant = "pm2.5", statistic = "cwt", smooth = TRUE
+)
 
 # plot by season:
-trajLevel(subset(lond, lat > 40 & lat < 70 & lon >-20 & lon <20), pollutant = "pm2.5",
-statistic = "pscf", type = "season")
+trajLevel(subset(lond, lat > 40 & lat < 70 & lon > -20 & lon < 20),
+  pollutant = "pm2.5",
+  statistic = "pscf", type = "season"
+)
 }
 }
 \references{
