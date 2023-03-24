@@ -286,7 +286,8 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       plot = plt,
       data = list(
         traj = traj,
-        results = dplyr::left_join(resRtn, clusters, by = c("cluster", type))
+        results = dplyr::left_join(resRtn, clusters, by = c("cluster", type)),
+        subsets = c("traj", "results")
       ),
       call = match.call()
     )
