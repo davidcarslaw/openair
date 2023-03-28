@@ -372,7 +372,7 @@ trajLevel <- function(
 
     # prep output data
     out_data <- dplyr::ungroup(mydata) %>%
-      dplyr::select(-"date", -"count") %>%
+      dplyr::select(-dplyr::any_of(c("date", "count"))) %>%
       dplyr::rename("count" = "N") %>%
       dplyr::mutate(
         statistic = statistic,
@@ -393,7 +393,7 @@ trajLevel <- function(
 
     # prep output data
     out_data <- dplyr::ungroup(mydata) %>%
-      dplyr::select(-"date") %>%
+      dplyr::select(-dplyr::any_of(c("date"))) %>%
       dplyr::mutate(
         statistic = statistic,
         .before = dplyr::everything()
@@ -429,7 +429,7 @@ trajLevel <- function(
 
     # prep output data
     out_data <- dplyr::ungroup(mydata) %>%
-      dplyr::select(-"date", -"count") %>%
+      dplyr::select(-dplyr::any_of(c("date", "count"))) %>%
       dplyr::rename("count" = "N") %>%
       dplyr::mutate(
         statistic = statistic,
@@ -482,7 +482,7 @@ trajLevel <- function(
 
     # prep output data
     out_data <- dplyr::ungroup(mydata) %>%
-      dplyr::select(-"lat_rnd", -"lon_rnd", -"Q", -"Q_c") %>%
+      dplyr::select(-dplyr::any_of(c("lat_rnd", "lon_rnd", "Q", "Q_c"))) %>%
       dplyr::rename("count" = "n") %>%
       dplyr::relocate("count", .before = pollutant) %>%
       dplyr::relocate("xgrid", .before = "ygrid") %>%
@@ -527,7 +527,7 @@ trajLevel <- function(
 
     # prep output data
     out_data <- dplyr::ungroup(mydata) %>%
-      dplyr::select(-"date") %>%
+      dplyr::select(-dplyr::any_of(c("date"))) %>%
       dplyr::mutate(
         statistic = statistic,
         percentile = percentile,
