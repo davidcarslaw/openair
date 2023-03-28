@@ -479,16 +479,18 @@ trajLevel <- function(
         mutate(SQTBA_norm = SQTBA_norm * mean(SQTBA)) %>%
         rename({{ pollutant }} := SQTBA_norm)
     }
-
+    
     # prep output data
+    names(mydata)[names(mydata) == "n"] <- "count"
+    
     out_data <- dplyr::ungroup(mydata) %>%
-      dplyr::select(-dplyr::any_of(c("lat_rnd", "lon_rnd", "Q", "Q_c"))) %>%
-      dplyr::rename("count" = "n") %>%
-      dplyr::relocate("count", .before = pollutant) %>%
+      dplyr::select(-dplyr::any_of(c("lat_rnd", "lon_rnd", "Q", "Q_c", "SQTBA"))) %>%
+      dplyr::relocate(dplyr::any_of("count"), .before = pollutant) %>%
       dplyr::relocate("xgrid", .before = "ygrid") %>%
       dplyr::mutate(
         statistic = statistic,
         sigma = sigma,
+        combine = .combine,
         .before = dplyr::everything()
       )
   }
