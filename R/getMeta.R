@@ -79,7 +79,10 @@ importMeta <- function(source = "aurn", all = FALSE, duplicate = FALSE, year = N
   source <- tolower(source)
 
   if (any(!source %in% meta.source)) {
-    stop("Meta data sources are 'aurn', 'saqn' 'waqn', 'aqe', 'kcl', 'local', 'europe'.")
+    cli::cli_abort(
+      c("!" = '"{source}" not a recognised {.field source}.',
+        "i" = "{.field source} can be any of {.or {meta.source}}.")
+    )
   }
 
   # function to import any of the source networks
@@ -233,7 +236,7 @@ clean_ricardo_meta <- function(url, all, year) {
     meta$ratified_to <-
       lubridate::ymd(meta$ratified_to, tz = "GMT", quiet = TRUE)
   }
-  
+
   # select year or period when sites were open
   if (!anyNA(year)) {
     # format end_date - set "ongoing" to current date
