@@ -34,6 +34,8 @@
 
 - fixed issue where not all `{openair}` plotting functions would properly return an openair S3 object, and that not all `data` objects were tibbles.
 
+- Fixed issue with `timeAverage` where date formatting caused problems, possibly due to latest version of R (4.3.0).
+
 # openair 2.15
 
 - do not use native pipe yet - does not work with old versions of R
