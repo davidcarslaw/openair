@@ -920,7 +920,7 @@ windRose <- function(
         lsegments(0, -upper, 0, upper)
 
         if (!is.na(ws2) & !is.na(wd2)) {
-          axislabs <- c("0", "+90", "±180", "-90")
+          axislabs <- c("0", "+90", paste0("\u2213", 180), "-90")
           s_adj <- 0.1
         } else {
           axislabs <- c("N", "E", "S", "W")
