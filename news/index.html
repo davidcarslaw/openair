@@ -69,6 +69,7 @@
 <li><p>fixed the <code>theilSen()</code> <code>silent</code> argument. The message “taking bootstrap samples. please wait” is also now sent via <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code> rather than <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and only appears once per function call.</p></li>
 <li><p>fixed issue where <code><a href="../reference/trajCluster.html">trajCluster()</a></code> proportions would overlap when clustering forward trajectories. Proportions should now appear at the end of cluster paths, regardless of whether the trajectory is back or forward.</p></li>
 <li><p>fixed issue where not all <a href="https://davidcarslaw.github.io/openair/">openair</a> plotting functions would properly return an openair S3 object, and that not all <code>data</code> objects were tibbles.</p></li>
+<li><p>Fixed issue with <code>timeAverage</code> where date formatting caused problems, possibly due to latest version of R (4.3.0).</p></li>
 </ul></div>
 </div>
     <div class="section level2">
