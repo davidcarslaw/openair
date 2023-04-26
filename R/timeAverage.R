@@ -441,10 +441,13 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       ## need to make sure all data are present..
       ## print out time interval assumed for input time series
       ## useful for debugging
-      if (!padded) mydata <- date.pad(mydata, type = type)
-
-      if (avg.time != "season") mydata$date <- lubridate::as_datetime(as.character(cut(mydata$date, avg.time)), tz = TZ)
-
+      if (!padded)
+        mydata <- date.pad(mydata, type = type)
+      
+      if (avg.time != "season")
+        mydata$date <-
+          lubridate::as_datetime(as.character(cut(mydata$date, avg.time)), tz = TZ)
+      
       if (statistic == "mean") { ## faster for some reason?
 
         avmet <- mydata %>%
@@ -475,8 +478,9 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
 
       ## faster if do not need data capture
       if (avg.time != "season") {
-         mydata$date <- lubridate::as_datetime(as.character(cut(mydata$date, avg.time)), tz = TZ)
-       # mydata$date <- as.POSIXct(cut(mydata$date, avg.time), tz = TZ)
+        mydata$date <-
+          lubridate::as_datetime(as.character(cut(mydata$date, avg.time)), tz = TZ)
+        # mydata$date <- as.POSIXct(cut(mydata$date, avg.time), tz = TZ)
       }
 
       avmet <- # select(mydata, -date) %>%
