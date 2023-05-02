@@ -8,8 +8,7 @@
 [![R-CMD-check](https://github.com/davidcarslaw/openair/workflows/R-CMD-check/badge.svg)](https://github.com/davidcarslaw/openair/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/openair)](https://CRAN.R-project.org/package=openair)
-![](http://cranlogs.r-pkg.org/badges/grand-total/openair) [![Conda
-Version](https://img.shields.io/conda/vn/conda-forge/r-openair.svg)](https://anaconda.org/conda-forge/r-openair)
+![](http://cranlogs.r-pkg.org/badges/grand-total/openair)
 <!-- badges: end -->
 
 **openair** is an R package developed for the purpose of analysing air
