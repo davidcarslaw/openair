@@ -33,7 +33,7 @@ data types. The pre-defined schemes are "Accent", "Dark2", "Paired",
 "Pastel1", "Pastel2", "Set1", "Set2", "Set3".
 
 A colour-blind safe palette "cbPalette" is available based on the work of:
-\url{http://jfly.iam.u-tokyo.ac.jp/color/}
+\url{https://www.nature.com/articles/nmeth.1618}
 
 The colour's associated with the UK daily air quality index are also
 available using "daqi" (a palette of 10 colours, corresponding to each

@@ -16,8 +16,8 @@ Version](https://img.shields.io/conda/vn/conda-forge/r-openair.svg)](https://ana
 quality data — or more generally atmospheric composition data. The
 package is extensively used in academia, the public and private sectors.
 The project was initially funded by the UK Natural Environment Research
-Council ([NERC](https://nerc.ukri.org/)), with additional funds from
-Defra.
+Council ([NERC](https://www.ukri.org/councils/nerc/)), with additional
+funds from Defra.
 
 The most up to date information on `openair` can be found in the package
 itself and at the book website
@@ -96,8 +96,8 @@ kc1
 #>  8 London N… KC1   2020-01-01 07:00:00 0.178  60.5  44.7 10.3   1.20    NA  42.1
 #>  9 London N… KC1   2020-01-01 08:00:00 0.233  71.8  47.9 15.6   2.25    NA  41.8
 #> 10 London N… KC1   2020-01-01 09:00:00 0.329 128.   46.9 53.2   2.25    NA  37.6
-#> # … with 8,774 more rows, and 4 more variables: pm2.5 <dbl>, ws <dbl>,
-#> #   wd <dbl>, air_temp <dbl>
+#> # ℹ 8,774 more rows
+#> # ℹ 4 more variables: pm2.5 <dbl>, ws <dbl>, wd <dbl>, air_temp <dbl>
 ```
 
 ### Utility functions
@@ -128,8 +128,8 @@ sub
 #>  8 2020-06-01 14:00:00 London … KC1   0.0927  12.5 10.8  1.14  114.   2.81  11.9
 #>  9 2020-06-01 15:00:00 London … KC1   0.0811  10.7  9.48 0.822 115.   2.88  10  
 #> 10 2020-06-01 16:00:00 London … KC1   0.0898  13.9 11.9  1.29  104.   2.22   9.1
-#> # … with 1,134 more rows, and 4 more variables: pm2.5 <dbl>, ws <dbl>,
-#> #   wd <dbl>, air_temp <dbl>
+#> # ℹ 1,134 more rows
+#> # ℹ 4 more variables: pm2.5 <dbl>, ws <dbl>, wd <dbl>, air_temp <dbl>
 ```
 
 Similarly it is easy to time-average data in many flexible ways. For
@@ -200,8 +200,8 @@ windRose(mydata,
 <img src="man/figures/README-windrose2-1.png" width="100%" />
 
 There are many flavours of bivariate polar plots, as described
-[here](https://bookdown.org/david_carslaw/openair/polar-plots.html) that
-are useful for understanding air pollution sources.
+[here](https://bookdown.org/david_carslaw/openair/sections/directional-analysis/polar-plots.html)
+that are useful for understanding air pollution sources.
 
 ``` r
 polarPlot(mydata,

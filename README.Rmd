@@ -35,7 +35,7 @@ status](https://www.r-pkg.org/badges/version/openair)](https://CRAN.R-project.or
 quality data --- or more generally atmospheric composition data. The
 package is extensively used in academia, the public and private sectors.
 The project was initially funded by the UK Natural Environment Research
-Council ([NERC](https://nerc.ukri.org/)), with additional funds from
+Council ([NERC](https://www.ukri.org/councils/nerc/)), with additional funds from
 Defra.
 
 The most up to date information on `openair` can be found in the package
@@ -185,7 +185,7 @@ windRose(mydata,
 ```
 
 There are many flavours of bivariate polar plots, as described
-[here](https://bookdown.org/david_carslaw/openair/polar-plots.html) that
+[here](https://bookdown.org/david_carslaw/openair/sections/directional-analysis/polar-plots.html) that
 are useful for understanding air pollution sources.
 
 ```{r polarCPF, eval = TRUE, fig.width = 4.5, fig.height = 4, out.width = '60%'}
