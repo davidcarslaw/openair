@@ -1032,7 +1032,7 @@ proc <- function(conf.int = conf.int, mydata, vars = "day.hour", pollutant, type
   if (statistic == "mean") {
     stat <- bootMean
   } else {
-    stat <- median.hilow
+    stat <- median_hilow
   }
 
   summary.values <- function(conf.int = conf.int, mydata, vars = vars, FUN, type = type, B = B,
@@ -1104,7 +1104,7 @@ wd.smean.normal <- function(wd, B = B, statistic, conf.int) {
   if (statistic == "mean") {
     intervals <- bootMean(wd.diff, B = B, conf.int)
   } else {
-    intervals <- median.hilow(wd.diff, conf.int)
+    intervals <- median_hilow(wd.diff, conf.int)
   }
   Lower <- intervals[2]
   names(Lower) <- NULL
@@ -1155,7 +1155,7 @@ errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
 
 
 ## function to calculate median and lower/upper quantiles
-median.hilow <- function(x, conf.int = 0.95, na.rm = TRUE, ...) {
+median_hilow <- function(x, conf.int = 0.95, na.rm = TRUE, ...) {
   quant <- quantile(x, probs = c(0.5, (1 - conf.int), conf.int), na.rm = na.rm)
   names(quant) <- c("Mean", "Lower", "Upper")
   quant
