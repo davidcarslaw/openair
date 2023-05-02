@@ -41,7 +41,7 @@
     
     <a class="navbar-brand me-2" href="index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.16.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17-0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,7 +85,7 @@
 </div>
 <!-- badges: start -->
 
-<p><strong>openair</strong> is an R package developed for the purpose of analysing air quality data — or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council (<a href="https://nerc.ukri.org/" class="external-link">NERC</a>), with additional funds from Defra.</p>
+<p><strong>openair</strong> is an R package developed for the purpose of analysing air quality data — or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council (<a href="https://www.ukri.org/councils/nerc/" class="external-link">NERC</a>), with additional funds from Defra.</p>
 <p>The most up to date information on <code>openair</code> can be found in the package itself and at the book website (<a href="https://bookdown.org/david_carslaw/openair/" class="external-link uri">https://bookdown.org/david_carslaw/openair/</a>).</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -139,8 +139,8 @@
 <span><span class="co">#&gt;  8 London N… KC1   2020-01-01 07:00:00 0.178  60.5  44.7 10.3   1.20    NA  42.1</span></span>
 <span><span class="co">#&gt;  9 London N… KC1   2020-01-01 08:00:00 0.233  71.8  47.9 15.6   2.25    NA  41.8</span></span>
 <span><span class="co">#&gt; 10 London N… KC1   2020-01-01 09:00:00 0.329 128.   46.9 53.2   2.25    NA  37.6</span></span>
-<span><span class="co">#&gt; # … with 8,774 more rows, and 4 more variables: pm2.5 &lt;dbl&gt;, ws &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 8,774 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 4 more variables: pm2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="utility-functions">Utility functions<a class="anchor" aria-label="anchor" href="#utility-functions"></a>
@@ -167,8 +167,8 @@
 <span><span class="co">#&gt;  8 2020-06-01 14:00:00 London … KC1   0.0927  12.5 10.8  1.14  114.   2.81  11.9</span></span>
 <span><span class="co">#&gt;  9 2020-06-01 15:00:00 London … KC1   0.0811  10.7  9.48 0.822 115.   2.88  10  </span></span>
 <span><span class="co">#&gt; 10 2020-06-01 16:00:00 London … KC1   0.0898  13.9 11.9  1.29  104.   2.22   9.1</span></span>
-<span><span class="co">#&gt; # … with 1,134 more rows, and 4 more variables: pm2.5 &lt;dbl&gt;, ws &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 1,134 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 4 more variables: pm2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></span></code></pre></div>
 <p>Similarly it is easy to time-average data in many flexible ways. For example, 2-week means can be calculated as</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sub2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/timeAverage.html">timeAverage</a></span><span class="op">(</span><span class="va">kc1</span>, avg.time <span class="op">=</span> <span class="st">"2 week"</span><span class="op">)</span></span></code></pre></div>
@@ -207,7 +207,7 @@
 <span>  layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-windrose2-1.png" width="100%"></p>
-<p>There are many flavours of bivariate polar plots, as described <a href="https://bookdown.org/david_carslaw/openair/polar-plots.html" class="external-link">here</a> that are useful for understanding air pollution sources.</p>
+<p>There are many flavours of bivariate polar plots, as described <a href="https://bookdown.org/david_carslaw/openair/sections/directional-analysis/polar-plots.html" class="external-link">here</a> that are useful for understanding air pollution sources.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/polarPlot.html">polarPlot</a></span><span class="op">(</span><span class="va">mydata</span>,</span>
 <span>  pollutant <span class="op">=</span> <span class="st">"so2"</span>,</span>
