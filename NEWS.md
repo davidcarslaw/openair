@@ -1,4 +1,12 @@
-# openair (development)
+# openair (development version)
+
+## New Features
+
+- `calendarPlot()` now automatically creates its own `labels` if `breaks` are specified. For example, `c(0, 10, 20)` will create the labels `c("0 - 10", "10 - 20")`. `labels` can still be used to override the default values. (#341)
+
+## Bug Fixes
+
+- `quickText()` will now automatically capitalise "no" to "NO". (#343)
 
 # openair (2.17-0)
 
