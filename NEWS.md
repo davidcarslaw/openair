@@ -8,7 +8,7 @@
 
 - `quickText()` will now automatically capitalise "no" to "NO". (#343)
 
-# openair (2.17-0)
+# openair 2.17-0
 
 ## New Features
 
