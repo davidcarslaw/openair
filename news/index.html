@@ -61,6 +61,31 @@
 </ul></div>
 </div>
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.17-0" id="openair-217-0">openair 2.17-0<a class="anchor" aria-label="anchor" href="#openair-217-0"></a></h2><p class="text-muted">CRAN release: 2023-05-02</p>
+<div class="section level3">
+<h3 id="new-features-2-17-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-17-0"></a></h3>
+<ul><li><p>add option <code>meteo</code> to <code><a href="../reference/importAURN.html">importAURN()</a></code> family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if <code>meteo = FALSE</code>.</p></li>
+<li><p>added a new column to <code><a href="../reference/modStats.html">modStats()</a></code>, “P”, which represents the P-value of the correlation as reported by <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test()</a></code>.</p></li>
+<li><p>update processing of ADMS meteorological (.MOP) files to return stability and tidier data.</p></li>
+<li><p>refined the output of <code><a href="../reference/pollutionRose.html">pollutionRose()</a></code> where the <code>ws2</code> and <code>wd2</code> options are provided; instead of the misleading N/E/S/W, the markers become 0, +90, +/-180, -90.</p></li>
+<li><p>the <code><a href="../reference/timeAverage.html">timeAverage()</a></code> progress bar is now powered by <a href="https://cli.r-lib.org" class="external-link">cli</a>/<a href="https://purrr.tidyverse.org/" class="external-link">purrr</a> and can be silenced using the new <code>progress</code> argument.</p></li>
+<li><p>the <code><a href="../reference/polarCluster.html">polarCluster()</a></code> progress bar is now also powered by <a href="https://cli.r-lib.org" class="external-link">cli</a>/<a href="https://purrr.tidyverse.org/" class="external-link">purrr</a>.</p></li>
+<li><p>colours corresponding to the UK daily air quality index (<a href="https://uk-air.defra.gov.uk/air-pollution/daqi" class="external-link uri">https://uk-air.defra.gov.uk/air-pollution/daqi</a>) have been added as options to <code><a href="../reference/openColours.html">openColours()</a></code>.</p></li>
+<li><p>the <a href="https://davidcarslaw.github.io/openair/">openair</a> object’s <code>data</code> property returned by the <code><a href="../reference/trajLevel.html">trajLevel()</a></code> function is now consistently formatted regardless of <code>statistic</code> choice, and contains relevant statistic-specific information (e.g., <code>sigma</code> for <code>"SQTBA"</code>).</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-2-17-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-17-0"></a></h3>
+<ul><li><p>fixed issue with <code><a href="../reference/modStats.html">modStats()</a></code> such that “method” can now be changed (e.g., to “spearman”).</p></li>
+<li><p>fixed issue with <code><a href="../reference/aqStats.html">aqStats()</a></code> where output wasn’t being properly split by pollutant/type.</p></li>
+<li><p>fixed issue with <code><a href="../reference/conditionalQuantile.html">conditionalQuantile()</a></code> where the plot would fail to be produced when “type” was not specified.</p></li>
+<li><p>fixed issue with <code><a href="../reference/cutData.html">cutData()</a></code> where “season” wouldn’t respect system locale (e.g., would still show “(DJF)” on Italian systems, instead of the correct “(gla)”). Note that the season name itself (e.g., “Winter”) cannot be automatically converted.</p></li>
+<li><p>fixed the <code>theilSen()</code> <code>silent</code> argument. The message “taking bootstrap samples. please wait” is also now sent via <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code> rather than <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and only appears once per function call.</p></li>
+<li><p>fixed issue where <code><a href="../reference/trajCluster.html">trajCluster()</a></code> proportions would overlap when clustering forward trajectories. Proportions should now appear at the end of cluster paths, regardless of whether the trajectory is back or forward.</p></li>
+<li><p>fixed issue where not all <a href="https://davidcarslaw.github.io/openair/">openair</a> plotting functions would properly return an openair S3 object, and that not all <code>data</code> objects were tibbles.</p></li>
+<li><p>Fixed issue with <code>timeAverage</code> where date formatting caused problems, possibly due to latest version of R (4.3.0).</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.15" id="openair-215">openair 2.15<a class="anchor" aria-label="anchor" href="#openair-215"></a></h2><p class="text-muted">CRAN release: 2023-02-06</p>
 <ul><li><p>do not use native pipe yet - does not work with old versions of R</p></li>
 <li><p>fix issue with <code><a href="../reference/polarDiff.html">polarDiff()</a></code> where the resulting <code>openair</code> object did not contain the <code>plot</code> element.</p></li>
