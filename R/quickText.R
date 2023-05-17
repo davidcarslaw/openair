@@ -3,8 +3,6 @@
 #' Workhorse function that automatically applies routine text formatting to
 #' common expressions and data names used in openair.
 #'
-
-#'
 #' \code{quickText} is routine formatting lookup table. It screens the
 #' supplied character vector \code{text} and automatically applies formatting
 #' to any recognised character sub-series. The function is used in a number of
@@ -45,6 +43,7 @@ quickText <- function(text, auto.text = TRUE) {
   ans <- paste("expression(paste('", text, " ", sep = "")
   ans <- gsub("NO2", "' 'NO' [2] * '", ans)
   ans <- gsub("no2", "' 'NO' [2] * '", ans)
+  ans <- gsub("\\bno\\b", "NO", ans)
   ans <- gsub("\\bNOX\\b", "' 'NO' [x] * '", ans)
   ans <- gsub("\\bnox\\b", "' 'NO' [x] * '", ans)
   ans <- gsub("\\bNOx\\b", "' 'NO' [x] * '", ans)
