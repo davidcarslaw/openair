@@ -559,7 +559,8 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     group_split() %>%
     purrr::map(calc.mean, start.date = start.date,
                .progress = progress) %>%
-    purrr::list_rbind()
+    purrr::list_rbind() %>% 
+    as_tibble()
 
   ## don't need default column
   if ("default" %in% names(mydata)) {
