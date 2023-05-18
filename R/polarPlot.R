@@ -990,13 +990,10 @@ polarPlot <-
       id <- which(res$z < -1)
       if (length(id) > 0) res$z[id] <- -1
     }
-
-    # annotation for trend statistic
-    if (statistic == "trend") {
-      if (missing(key.footer)) {
-        key.footer <- paste0(pollutant[1], " / year")
-      }
-    }
+    
+    # if regression, set key.footer to 'm' (slope)
+    if (grepl("slope|intercept", statistic) & length(pollutant == 2)) 
+      key.footer <- "m"
 
 
     # Labels for correlation and regression, keep lower case like other labels
@@ -1109,8 +1106,23 @@ polarPlot <-
       scales = list(draw = FALSE),
       xlim = c(-upper * 1.025, upper * 1.025),
       ylim = c(-upper * 1.025, upper * 1.025),
-      colorkey = FALSE, legend = legend,
-
+      colorkey = FALSE,
+      legend = legend,
+      
+      # add footnote formula if regression used
+      page = function(n)
+        if (grepl("slope|intercept", statistic) & length(pollutant == 2)) {
+        grid.text(
+          quickText(paste0(
+            "Formula: ", pollutant[1], " = m.", pollutant[2], " + c"
+          )),
+          x = .99,
+          y = 0.01,
+          default.units = "npc",
+          gp = gpar(fontsize = 10),
+          just = c("right", "bottom")
+        )},
+      
       panel = function(x, y, z, subscripts, ...) {
 
         ## show missing data due to min.bin
@@ -1164,18 +1176,6 @@ polarPlot <-
         ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
         ltext(upper * 0.95, 0.07 * upper, "E", cex = 0.7)
 
-        # Add formula to plot if regression
-        if (grepl("slope|intercept", statistic) & length(pollutant == 2)) {
-
-          # Build label
-          # To-do: use quickText
-          label_formula <- quickText(
-            paste0("Formula:\n", pollutant[1], " = m.", pollutant[2], " + c")
-          )
-
-          # Add to plot
-          ltext(upper * 0.8, 0.8 * upper, label_formula, cex = 0.7)
-        }
       }
     )
 
