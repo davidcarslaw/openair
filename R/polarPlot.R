@@ -893,16 +893,24 @@ polarPlot <-
         pred <- pred^(1 / n)
 
         n <- length(pred)
-
+        
         results <- data.frame(
           u = rep(input.data$u, 3),
           v = rep(input.data$v, 3),
           z = c(pred, Lower, Upper),
-          default = rep(c(
+          uncertainty = rep(c(
             "prediction", "lower uncertainty",
             "upper uncertainty"
           ), each = n)
         )
+
+        # interpolate each uncertainty surface - to do
+        
+        # lower_uncer = interp_grid(input.data, z = Lower, n = 201) %>% mutate(uncertainty = "lower uncertainty")
+        # upper_uncer = interp_grid(input.data, z = Upper, n = 201) %>% mutate(uncertainty = "upper uncertainty")
+        # prediction = interp_grid(input.data, z = pred, n = 201) %>% mutate(uncertainty = "prediction")
+        # results <- bind_rows(lower_uncer, upper_uncer, prediction)
+        #   
       }
 
 
@@ -1089,6 +1097,10 @@ polarPlot <-
       labels <- labels[-1]
       intervals <- intervals[-1]
     }
+    
+    # if uncertainty = TRUE, change type for plotting (3 panels)
+    if (uncertainty)
+      type <- "uncertainty"
 
     temp <- paste(type, collapse = "+")
     myform <- formula(paste("z ~ u * v | ", temp, sep = ""))
