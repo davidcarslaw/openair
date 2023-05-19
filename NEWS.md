@@ -4,6 +4,9 @@
 
 - `calendarPlot()` now automatically creates its own `labels` if `breaks` are specified. For example, `c(0, 10, 20)` will create the labels `c("0 - 10", "10 - 20")`. `labels` can still be used to override the default values. (#341)
 
+- return tibble from `timeAverage`.
+- Move regression formula off main plot for `polarPlot` for clarity and label slope as 'm'.
+
 ## Bug Fixes
 
 - `quickText()` will now automatically capitalise "no" to "NO". (#343)
