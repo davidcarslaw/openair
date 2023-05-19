@@ -40,16 +40,16 @@ calendarPlot(
 other numeric variable. The date should be in either \code{Date} format or
 class \code{POSIXct}.}
 
-\item{pollutant}{Mandatory. A pollutant name corresponding to a variable in
-a data frame should be supplied e.g. \code{pollutant = "nox". }}
+\item{pollutant}{Mandatory. A pollutant name corresponding to a variable in a
+data frame should be supplied e.g. \code{pollutant = "nox". }}
 
 \item{year}{Year to plot e.g. \code{year = 2003}. If not supplied all data
 potentially spanning several years will be plotted.}
 
-\item{month}{If only certain month are required. By default the function
-will plot an entire year even if months are missing. To only plot certain
-months use the \code{month} option where month is a numeric 1:12 e.g.
-\code{month = c(1, 12)} to only plot January and December.}
+\item{month}{If only certain month are required. By default the function will
+plot an entire year even if months are missing. To only plot certain months
+use the \code{month} option where month is a numeric 1:12 e.g. \code{month
+  = c(1, 12)} to only plot January and December.}
 
 \item{type}{Not yet implemented.}
 
@@ -76,8 +76,8 @@ data covering 0--60 and another 0--100, then set \code{limits = c(0,
   100)}. Note that data will be ignored if outside the limits range.}
 
 \item{lim}{A threshold value to help differentiate values above and below
-\code{lim}. It is used when \code{annotate = "value"}. See next few
-options for control over the labels used.}
+\code{lim}. It is used when \code{annotate = "value"}. See next few options
+for control over the labels used.}
 
 \item{col.lim}{For the annotation of concentration labels on each day. The
 first sets the colour of the text below \code{lim} and the second sets the
@@ -103,24 +103,23 @@ example, \code{data.thresh = 75} means that at least 75\\% of the data must
 be available in a day for the value to be calculate, else the data is
 removed.}
 
-\item{labels}{If a categorical scale is required then these labels will be
-used. Note there is one less label than break. For example, \code{labels =
-  c("good", "bad", "very bad")}. \code{breaks} must also be supplied if
-labels are given.}
+\item{labels}{If a categorical scale is defined using \code{breaks}, then \code{labels}
+can be used to override the default category labels, e.g., \code{labels =
+  c("good", "bad", "very bad")}. Note there is one less label than break.}
 
 \item{breaks}{If a categorical scale is required then these breaks will be
 used. For example, \code{breaks = c(0, 50, 100, 1000)}. In this case
 \dQuote{good} corresponds to values between 0 and 50 and so on. Users
 should set the maximum value of \code{breaks} to exceed the maximum data
-value to ensure it is within the maximum final range e.g. 100--1000 in
-this case.}
+value to ensure it is within the maximum final range e.g. 100--1000 in this
+case.}
 
 \item{w.shift}{Controls the order of the days of the week. By default the
 plot shows Saturday first (\code{w.shift = 0}). To change this so that it
 starts on a Monday for example, set \code{w.shift = 2}, and so on.}
 
-\item{remove.empty}{Should months with no data present be removed? Default
-is \code{TRUE}.}
+\item{remove.empty}{Should months with no data present be removed? Default is
+\code{TRUE}.}
 
 \item{main}{The plot title; default is pollutant and year.}
 
@@ -139,9 +138,9 @@ and \code{"left"}.}
 \item{key}{Fine control of the scale key via \code{drawOpenKey}. See
 \code{drawOpenKey} for further details.}
 
-\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
-\code{TRUE} titles and axis labels will automatically try and format
-pollutant names and units properly e.g.  by subscripting the `2' in NO2.}
+\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If \code{TRUE}
+titles and axis labels will automatically try and format pollutant names
+and units properly e.g.  by subscripting the `2' in NO2.}
 
 \item{plot}{Should a plot be produced? \code{FALSE} can be useful when
 analysing data to extract calendar plot components and plotting them in
@@ -149,8 +148,8 @@ other ways.}
 
 \item{...}{Other graphical parameters are passed onto the \code{lattice}
 function \code{lattice:levelplot}, with common axis and title labelling
-options (such as \code{xlab}, \code{ylab}, \code{main}) being passed to
-via \code{quickText} to handle routine formatting.}
+options (such as \code{xlab}, \code{ylab}, \code{main}) being passed to via
+\code{quickText} to handle routine formatting.}
 }
 \value{
 an \link[=openair-package]{openair} object
@@ -158,8 +157,8 @@ an \link[=openair-package]{openair} object
 \description{
 This function will plot data by month laid out in a conventional calendar
 format. The main purpose is to help rapidly visualise potentially complex
-data in a familiar way. Users can also choose to show daily mean wind
-vectors if wind speed and direction are available.
+data in a familiar way. Users can also choose to show daily mean wind vectors
+if wind speed and direction are available.
 }
 \details{
 \code{calendarPlot} will plot data in a conventional calendar format i.e. by
@@ -167,12 +166,12 @@ month and day of the week. Daily statistics are calculated using
 \code{\link[=timeAverage]{timeAverage()}}, which by default will calculate the daily mean
 concentration.
 
-If wind direction is available it is then possible to plot the wind
-direction vector on each day. This is very useful for getting a feel for the
+If wind direction is available it is then possible to plot the wind direction
+vector on each day. This is very useful for getting a feel for the
 meteorological conditions that affect pollutant concentrations. Note that if
 hourly or higher time resolution are supplied, then \code{calendarPlot} will
-calculate daily averages using \code{\link[=timeAverage]{timeAverage()}}, which ensures that
-wind directions are vector-averaged.
+calculate daily averages using \code{\link[=timeAverage]{timeAverage()}}, which ensures that wind
+directions are vector-averaged.
 
 If wind speed is also available, then setting the option \code{annotate =
 "ws"} will plot the wind vectors whose length is scaled to the wind speed.

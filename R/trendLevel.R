@@ -170,7 +170,7 @@ trendLevel <- function(mydata, pollutant = "nox", x = "month", y = "hour",
 
   category <- FALSE ## assume pollutant scale is not a categorical value
 
-  if (!is.na(labels) && !is.na(breaks)) category <- TRUE
+  if (any(!is.na(labels)) && any(!is.na(breaks))) category <- TRUE
 
 
   ## check.valid function
