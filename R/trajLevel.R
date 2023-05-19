@@ -479,10 +479,10 @@ trajLevel <- function(
         mutate(SQTBA_norm = SQTBA_norm * mean(SQTBA)) %>%
         rename({{ pollutant }} := SQTBA_norm)
     }
-    
+
     # prep output data
     names(mydata)[names(mydata) == "n"] <- "count"
-    
+
     out_data <- dplyr::ungroup(mydata) %>%
       dplyr::select(-dplyr::any_of(c("lat_rnd", "lon_rnd", "Q", "Q_c", "SQTBA"))) %>%
       dplyr::relocate(dplyr::any_of("count"), .before = pollutant) %>%
@@ -558,16 +558,16 @@ trajLevel <- function(
   ## reset for Args
   scatterPlot.args <- listUpdate(scatterPlot.args, Args)
   scatterPlot.args <- listUpdate(scatterPlot.args, list(plot = plot))
-  
+
   ## plot
   plt <- do.call(scatterPlot, scatterPlot.args)
 
   output <-
     list(plot = plt$plot,
-         data = out_data,
+         data = if (exists("out_data")) {out_data} else {mydata},
          call = match.call())
   class(output) <- "openair"
-  
+
   invisible(output)
 }
 
