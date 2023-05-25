@@ -187,10 +187,7 @@ Other import functions:
 \code{\link{importKCL}()},
 \code{\link{importLocal}()},
 \code{\link{importMeta}()},
-\code{\link{importNI}()},
-\code{\link{importSAQN}()},
-\code{\link{importTraj}()},
-\code{\link{importWAQN}()}
+\code{\link{importTraj}()}
 }
 \author{
 Karl Ropkins, David Carslaw and Matthew Williams (CERC).

@@ -488,10 +488,7 @@ Other import functions:
 \code{\link{importEurope}()},
 \code{\link{importLocal}()},
 \code{\link{importMeta}()},
-\code{\link{importNI}()},
-\code{\link{importSAQN}()},
-\code{\link{importTraj}()},
-\code{\link{importWAQN}()}
+\code{\link{importTraj}()}
 }
 \author{
 David Carslaw and Ben Barratt

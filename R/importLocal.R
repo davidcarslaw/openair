@@ -1,6 +1,6 @@
 #' Import data from locally managed AQ networks in England.
 #'
-#' @inheritParams importAURN
+#' @inheritParams importAQE
 #' @param site Site code of the site to import e.g. \dQuote{ad1} is Adur,
 #'   Shoreham-by-Sea. Several sites can be imported with \code{site = c("ad1",
 #'   "ci1")} --- to import Adur and A27 Chichester Bypass, for example.
