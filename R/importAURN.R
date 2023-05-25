@@ -228,6 +228,17 @@ importAURN <- function(site = "my1",
       purrr::map(files, readDAQI, .progress = progress) %>%
       purrr::list_rbind()
     
+    # filtering
+    aq_data <-
+      filter_annual_stats(
+        aq_data,
+        missing(site),
+        site = site,
+        pollutant = pollutant,
+        to_narrow = to_narrow
+      )
+    
+    # add meta if needed
     if (meta) {
       aq_data <- add_meta(source = "aurn", aq_data)
     }
@@ -401,7 +412,7 @@ add_meta <- function(source, aq_data) {
   return(aq_data)
 }
 
-#' Function to filter annual stats using
+#' Function to filter annual/DAQI stats using
 #' @param missing_site Input should be `missing(site)`
 #' @param site,pollutant,to_narrow Inherits from parent function
 #' @noRd
@@ -413,7 +424,7 @@ filter_annual_stats <- function(aq_data, missing_site, site, pollutant, to_narro
   
   # if pollutant isn't "all", filter pollutants
   if (any(pollutant != "all")) {
-    polls <- paste(c("uka_code", "code", "site", "date", pollutant), collapse = "|")
+    polls <- paste(c("uka_code", "code", "site", "date", "pollutant", pollutant), collapse = "|")
     if (to_narrow) {
       aq_data <- aq_data[grepl(polls, aq_data$species),]
     } else {
