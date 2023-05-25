@@ -45,6 +45,16 @@ importLocal <-
       ) %>%
         purrr::list_rbind()
 
+      # filtering
+      aq_data <-
+        filter_annual_stats(
+          aq_data,
+          missing(site),
+          site = site,
+          pollutant = pollutant,
+          to_narrow = to_narrow
+        )
+      
       # add meta data?
       if (meta) {
         aq_data <- add_meta(source = "local", aq_data)
