@@ -483,7 +483,6 @@ pollutant = c("nox", "no2", "o3"))}
 \seealso{
 Other import functions: 
 \code{\link{importADMS}()},
-\code{\link{importAQE}()},
 \code{\link{importAURN}()},
 \code{\link{importEurope}()},
 \code{\link{importLocal}()},

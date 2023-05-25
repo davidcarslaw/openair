@@ -61,7 +61,6 @@ stuttgart <- importEurope("debw118", year = 2010:2019, meta = TRUE)
 \seealso{
 Other import functions: 
 \code{\link{importADMS}()},
-\code{\link{importAQE}()},
 \code{\link{importAURN}()},
 \code{\link{importKCL}()},
 \code{\link{importLocal}()},

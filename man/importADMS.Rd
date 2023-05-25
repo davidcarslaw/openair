@@ -181,7 +181,6 @@ new.name
 }
 \seealso{
 Other import functions: 
-\code{\link{importAQE}()},
 \code{\link{importAURN}()},
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},

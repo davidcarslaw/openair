@@ -32,14 +32,17 @@ to 2000 use \code{year = 1990:2000}. To import several specific years use
 data with data capture information for the whole network.}
 \item{"annual"}{ Annual average data with data capture information for the
 whole network.}
-\item{"15_min"}{To import 15-minute average SO2
+\item{"15_min"}{ To import 15-minute average SO2
 concentrations.}
 \item{"8_hour"}{ To import 8-hour rolling mean
 concentrations for O3 and CO.}
 \item{"24_hour"}{ To import 24-hour rolling
 mean concentrations for particulates.}
 \item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3 and CO.}
-}}
+\item{"daqi"}{ To import Daily
+Air Quality Index (DAQI). See
+\href{https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant}{here}
+for more details of how the index is defined.} }}
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use \code{pollutant =
@@ -135,7 +138,6 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 \seealso{
 Other import functions: 
 \code{\link{importADMS}()},
-\code{\link{importAQE}()},
 \code{\link{importAURN}()},
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},

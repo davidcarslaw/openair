@@ -78,7 +78,6 @@ visualise site metadata
 
 Other import functions: 
 \code{\link{importADMS}()},
-\code{\link{importAQE}()},
 \code{\link{importAURN}()},
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},
