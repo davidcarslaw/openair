@@ -175,11 +175,10 @@ importAURN <- function(site = "my1",
             'monthly', 'annual', '15_min', '24_hour', '8_hour',
             'daily_max_8', 'daqi'"
     )
-
+    
     data_type <- "hourly"
   }
-
-
+  
   if (data_type %in% c("annual", "monthly")) {
     files <- paste0(
       "https://uk-air.defra.gov.uk/openair/R_data/summary_",
@@ -188,7 +187,7 @@ importAURN <- function(site = "my1",
       year,
       ".rds"
     )
-
+    
     if (progress)
       progress <- "Importing Statistics"
     aq_data <- purrr::map(
@@ -201,23 +200,34 @@ importAURN <- function(site = "my1",
       .progress = progress
     ) %>%
       purrr::list_rbind()
-
+    
+    # filtering
+    aq_data <-
+      filter_annual_stats(
+        aq_data,
+        missing(site),
+        site = site,
+        pollutant = pollutant,
+        to_narrow = to_narrow
+      )
+    
     # add meta data?
     if (meta) {
       aq_data <- add_meta(source = "aurn", aq_data)
     }
+    
   } else if (data_type == "daqi") {
     # daily air quality index
     files <- paste0("https://uk-air.defra.gov.uk/openair/R_data/annual_DAQI_AURN_",
                     year,
                     ".rds")
-
+    
     if (progress)
       progress <- "Importing DAQI"
     aq_data <-
       purrr::map(files, readDAQI, .progress = progress) %>%
       purrr::list_rbind()
-
+    
     if (meta) {
       aq_data <- add_meta(source = "aurn", aq_data)
     }
@@ -240,11 +250,11 @@ importAURN <- function(site = "my1",
   # check to see if met data needed
   if (meteo == FALSE) {
     
-  aq_data <- aq_data %>% 
-    select(-any_of(c("ws", "wd", "air_temp")))
-  
+    aq_data <- aq_data %>% 
+      select(-any_of(c("ws", "wd", "air_temp")))
+    
   }
-
+  
   return(as_tibble(aq_data))
 }
 
@@ -253,18 +263,18 @@ importAURN <- function(site = "my1",
 readSummaryData <-
   function(fileName, data_type, to_narrow, meta, hc) {
     thedata <- try(readRDS(url(fileName)), TRUE)
-
+    
     if (inherits(thedata, "try-error")) {
       return()
     }
-
+    
     names(thedata)[names(thedata) == "NOXasNO2.mean"] <- "nox"
     names(thedata)[names(thedata) == "NOXasNO2.capture"] <-
       "nox_capture"
     names(thedata) <- tolower(names(thedata))
     names(thedata) <- gsub(".mean", "", names(thedata))
     names(thedata) <- gsub(".capture", "_capture", names(thedata))
-
+    
     if (!hc) {
       thedata <- thedata %>%
         select(any_of(
@@ -313,58 +323,58 @@ readSummaryData <-
           )
         ))
     }
-
-
+    
+    
     if (data_type == "monthly") {
       thedata <- mutate(thedata, date = ymd(date, tz = "UTC"))
     }
-
+    
     if (data_type == "annual") {
       thedata <- rename(thedata, date = year) %>%
         drop_na(date) %>%
         mutate(date = ymd(paste0(date, "-01-01"), tz = "UTC"))
     }
-
+    
     if (to_narrow) {
       # make sure numbers are numbers
       values <- select(thedata,!contains("capture")) %>%
         select(!matches("uka_code"))
-
+      
       capture <-
         select(thedata, contains("capture") | c(code, date, site)) %>%
         select(!matches("uka_code"))
-
+      
       values <- pivot_longer(values,
                              -c(date, code, site),
                              values_to = "value",
                              names_to = "species")
-
+      
       capture <- pivot_longer(capture,
                               -c(date, code, site),
                               values_to = "data_capture",
                               names_to = "species")
-
+      
       capture$species <- gsub("_capture", "", capture$species)
-
+      
       thedata <- full_join(values, capture,
                            by = c("date", "code", "site", "species"))
     }
-
+    
     thedata <- thedata %>%
       mutate(site = as.character(site),
              code = as.character(code))
-
-
+    
+    
     return(thedata)
   }
 
 readDAQI <- function(fileName) {
   thedata <- try(readRDS(url(fileName)), TRUE)
-
+  
   if (inherits(thedata, "try-error")) {
     return()
   }
-
+  
   thedata <- thedata %>%
     mutate(
       code = as.character(code),
@@ -375,18 +385,43 @@ readDAQI <- function(fileName) {
     ) %>%
     select(-Date) %>%
     relocate(date, .after = pollutant)
-
+  
   return(thedata)
 }
 
 # function to add meta data based on network and supply of aq data
 add_meta <- function(source, aq_data) {
   meta_data <- importMeta(source = source)
-
+  
   meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>%
     select(site, code, latitude, longitude, site_type)
-
+  
   aq_data <- left_join(aq_data, meta_data, by = c("code", "site"))
+  
+  return(aq_data)
+}
 
+#' Function to filter annual stats using
+#' @param missing_site Input should be `missing(site)`
+#' @param site,pollutant,to_narrow Inherits from parent function
+#' @noRd
+filter_annual_stats <- function(aq_data, missing_site, site, pollutant, to_narrow){
+  # if site isn't missing, filter by sites
+  if (!missing_site) {
+    aq_data <- aq_data[tolower(aq_data$code) %in% tolower(site),]
+  }
+  
+  # if pollutant isn't "all", filter pollutants
+  if (any(pollutant != "all")) {
+    polls <- paste(c("uka_code", "code", "site", "date", pollutant), collapse = "|")
+    if (to_narrow) {
+      aq_data <- aq_data[grepl(polls, aq_data$species),]
+    } else {
+      
+      aq_data <- aq_data[grepl(polls, names(aq_data))]
+    }
+  }
+  
+  # return output
   return(aq_data)
 }
