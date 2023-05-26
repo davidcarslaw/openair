@@ -165,7 +165,7 @@ importAURN <-
     url_abbr = "_AURN_"
     source = "aurn"
     missing_site <- missing(site)
-    
+
     import_network_worker(
       site = site,
       year = year,
@@ -200,7 +200,7 @@ importAQE <-
     url_abbr = "_AQE_"
     source = "aqe"
     missing_site <- missing(site)
-    
+
     import_network_worker(
       site = site,
       year = year,
@@ -235,7 +235,7 @@ importSAQN <-
     url_abbr = "_SCOT_"
     source = "saqn"
     missing_site <- missing(site)
-    
+
     import_network_worker(
       site = site,
       year = year,
@@ -270,7 +270,7 @@ importWAQN <-
     url_abbr = "_WAQ_"
     source = "waqn"
     missing_site <- missing(site)
-    
+
     import_network_worker(
       site = site,
       year = year,
@@ -305,7 +305,7 @@ importNI <-
     url_abbr = "_NI_"
     source = "ni"
     missing_site <- missing(site)
-    
+
     import_network_worker(
       site = site,
       year = year,
@@ -351,19 +351,19 @@ import_network_worker <-
       "8_hour",
       "daily_max_8"
     )
-    
+
     if (!tolower(data_type) %in% allowed_types) {
       cli::cli_warn(
         c("!" = "'{data_type}' not recognised. Setting {.arg data_type} to 'hourly'",
           "i" = "{.arg data_type} should be one of: {allowed_types}")
       )
-      
+
       data_type <- "hourly"
     }
-    
+
     if (data_type %in% c("annual", "monthly")) {
       files <- paste0(url_slug, "summary_", data_type, url_abbr, year, ".rds")
-      
+
       if (progress)
         progress <- "Importing Statistics"
       aq_data <- purrr::map(
@@ -375,7 +375,7 @@ import_network_worker <-
         .progress = progress
       ) %>%
         purrr::list_rbind()
-      
+
       # filtering
       aq_data <-
         filter_annual_stats(
@@ -385,7 +385,7 @@ import_network_worker <-
           pollutant = pollutant,
           to_narrow = to_narrow
         )
-      
+
       # add meta data?
       if (meta) {
         aq_data <- add_meta(source = source, aq_data)
@@ -394,23 +394,23 @@ import_network_worker <-
       # daily air quality index
       files <-
         paste0(url_slug, "annual_DAQI", url_abbr, year, ".rds")
-      
+
       if (progress)
         progress <- "Importing DAQI"
       aq_data <-
         purrr::map(files, readDAQI, .progress = progress) %>%
         purrr::list_rbind()
-      
+
       # filtering
       aq_data <-
         filter_annual_stats(
           aq_data,
-          missing(site),
+          missing_site = missing_site,
           site = site,
           pollutant = pollutant,
           to_narrow = to_narrow
         )
-      
+
       # add meta if needed
       if (meta) {
         aq_data <- add_meta(source = "aurn", aq_data)
@@ -428,13 +428,13 @@ import_network_worker <-
         progress = progress
       )
     }
-    
+
     # check to see if met data needed
     if (meteo == FALSE) {
       aq_data <- aq_data %>%
         select(-any_of(c("ws", "wd", "air_temp")))
-      
+
     }
-    
+
     return(as_tibble(aq_data))
   }
