@@ -400,12 +400,12 @@ filter_annual_stats <- function(aq_data, missing_site, site, pollutant, to_narro
     polls <- paste(c("uka_code", "code", "site", "date", "pollutant", pollutant), collapse = "|")
     if (data_type != "daqi") {
       if (to_narrow) {
-        aq_data <- aq_data[grepl(polls, aq_data$species),]
+        aq_data <- aq_data[grepl(polls, aq_data$species, ignore.case = TRUE),]
       } else {
-        aq_data <- aq_data[grepl(polls, names(aq_data))]
+        aq_data <- aq_data[grepl(polls, names(aq_data), ignore.case = TRUE)]
       }
     } else {
-      aq_data <- aq_data[grepl(polls, aq_data$pollutant),]
+      aq_data <- aq_data[grepl(polls, aq_data$pollutant, ignore.case = TRUE),]
     }
   }
 
