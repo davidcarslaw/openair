@@ -161,9 +161,6 @@ importAURN <-
            to_narrow = FALSE,
            verbose = FALSE,
            progress = TRUE) {
-    url_slug = "https://uk-air.defra.gov.uk/openair/R_data/"
-    url_abbr = "_AURN_"
-    source = "aurn"
     missing_site <- missing(site)
 
     import_network_worker(
@@ -178,9 +175,7 @@ importAURN <-
       to_narrow = to_narrow,
       progress = progress,
       verbose = verbose,
-      source = source,
-      url_slug = url_slug,
-      url_abbr = url_abbr,
+      source = "aurn",
       missing_site = missing_site
     )
   }
@@ -199,9 +194,6 @@ importAQE <-
            to_narrow = FALSE,
            verbose = FALSE,
            progress = TRUE) {
-    url_slug = "https://airqualityengland.co.uk/assets/openair/R_data/"
-    url_abbr = "_AQE_"
-    source = "aqe"
     missing_site <- missing(site)
 
     import_network_worker(
@@ -215,9 +207,7 @@ importAQE <-
       to_narrow = to_narrow,
       progress = progress,
       verbose = verbose,
-      source = source,
-      url_slug = url_slug,
-      url_abbr = url_abbr,
+      source = "aqe",
       missing_site = missing_site
     )
   }
@@ -236,9 +226,6 @@ importSAQN <-
            to_narrow = FALSE,
            verbose = FALSE,
            progress = TRUE) {
-    url_slug = "https://www.scottishairquality.scot/openair/R_data/"
-    url_abbr = "_SCOT_"
-    source = "saqn"
     missing_site <- missing(site)
 
     import_network_worker(
@@ -252,9 +239,7 @@ importSAQN <-
       to_narrow = to_narrow,
       progress = progress,
       verbose = verbose,
-      source = source,
-      url_slug = url_slug,
-      url_abbr = url_abbr,
+      source = "saqn",
       missing_site = missing_site
     )
   }
@@ -273,9 +258,6 @@ importWAQN <-
            to_narrow = FALSE,
            verbose = FALSE,
            progress = TRUE) {
-    url_slug = "https://airquality.gov.wales/sites/default/files/openair/R_data/"
-    url_abbr = "_WAQ_"
-    source = "waqn"
     missing_site <- missing(site)
 
     import_network_worker(
@@ -289,9 +271,7 @@ importWAQN <-
       to_narrow = to_narrow,
       progress = progress,
       verbose = verbose,
-      source = source,
-      url_slug = url_slug,
-      url_abbr = url_abbr,
+      source = "waqn",
       missing_site = missing_site
     )
   }
@@ -310,9 +290,6 @@ importNI <-
            to_narrow = FALSE,
            verbose = FALSE,
            progress = TRUE) {
-    url_slug = "https://www.airqualityni.co.uk/openair/R_data/"
-    url_abbr = "_NI_"
-    source = "ni"
     missing_site <- missing(site)
 
     import_network_worker(
@@ -326,9 +303,7 @@ importNI <-
       to_narrow = to_narrow,
       progress = progress,
       verbose = verbose,
-      source = source,
-      url_slug = url_slug,
-      url_abbr = url_abbr,
+      source = "ni",
       missing_site = missing_site
     )
   }
@@ -348,9 +323,29 @@ import_network_worker <-
            verbose,
            progress,
            source,
-           url_slug,
            url_abbr,
            missing_site) {
+    
+    url_domain <- switch(
+      source,
+      aurn = "https://uk-air.defra.gov.uk/openair/R_data/",
+      aqe = "https://airqualityengland.co.uk/assets/openair/R_data/",
+      saqn = "https://www.scottishairquality.scot/openair/R_data/",
+      waqn = "https://airquality.gov.wales/sites/default/files/openair/R_data/",
+      ni = "https://www.airqualityni.co.uk/openair/R_data/",
+      stop("Source not recognised")
+    )
+    
+    url_abbr <- switch(
+      source,
+      aurn = "_AURN_",
+      aqe = "_AQE_",
+      saqn = "_SCOT_",
+      waqn = "_WAQ_",
+      ni = "_NI_"
+    )
+    
+    
     allowed_types <- c(
       "hourly",
       "daily",
@@ -374,7 +369,7 @@ import_network_worker <-
     }
 
     if (data_type %in% c("annual", "monthly")) {
-      files <- paste0(url_slug, "summary_", data_type, url_abbr, year, ".rds")
+      files <- paste0(url_domain, "summary_", data_type, url_abbr, year, ".rds")
 
       if (progress)
         progress <- "Importing Statistics"
@@ -406,7 +401,7 @@ import_network_worker <-
     } else if (data_type == "daqi") {
       # daily air quality index
       files <-
-        paste0(url_slug, "annual_DAQI", url_abbr, year, ".rds")
+        paste0(url_domain, "annual_DAQI", url_abbr, year, ".rds")
 
       if (progress)
         progress <- "Importing DAQI"
