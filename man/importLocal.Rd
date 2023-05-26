@@ -39,10 +39,7 @@ concentrations for O3 and CO.}
 \item{"24_hour"}{ To import 24-hour rolling
 mean concentrations for particulates.}
 \item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3 and CO.}
-\item{"daqi"}{ To import Daily
-Air Quality Index (DAQI). See
-\href{https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant}{here}
-for more details of how the index is defined.} }}
+}}
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use \code{pollutant =

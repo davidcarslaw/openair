@@ -7,7 +7,24 @@
 #'
 #' @inheritSection importAURN Importing UK Air Pollution Data
 #'
-#' @inheritParams importAQE
+#' @param data_type The data type averaging period. These include:
+#'
+#'   \itemize{
+#'   \item{"hourly"}{ Default is to return hourly data.}
+#'   \item{"daily"}{ Daily average data.}
+#'   \item{"monthly"}{ Monthly average
+#'   data with data capture information for the whole network.}
+#'   \item{"annual"}{ Annual average data with data capture information for the
+#'   whole network.}
+#'   \item{"15_min"}{ To import 15-minute average SO2
+#'   concentrations.}
+#'   \item{"8_hour"}{ To import 8-hour rolling mean
+#'   concentrations for O3 and CO.}
+#'   \item{"24_hour"}{ To import 24-hour rolling
+#'   mean concentrations for particulates.}
+#'   \item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3 and CO.}
+#'   }
+#' @inheritParams importAURN
 #' @param site Site code of the site to import e.g. \dQuote{ad1} is Adur,
 #'   Shoreham-by-Sea. Several sites can be imported with \code{site = c("ad1",
 #'   "ci1")} --- to import Adur and A27 Chichester Bypass, for example.
@@ -61,7 +78,7 @@ importLocal <-
           pollutant = pollutant,
           to_narrow = to_narrow
         )
-      
+
       # add meta data?
       if (meta) {
         aq_data <- add_meta(source = "local", aq_data)
