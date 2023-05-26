@@ -33,11 +33,11 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
   if (meta | ratified) {
     meta_data <- importMeta(source = source, all = TRUE)
   }
-  
+
   # combine site with year to create file names
   files <- purrr::map(site, ~ paste0(.x, "_", year)) %>%
     purrr::list_c()
-  
+
   # Download and load data.
   if (progress) progress <- "Importing Air Quality Data"
   thedata <- purrr::map(files,
@@ -45,28 +45,28 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
                                    url_data, data_type),
                         .progress = progress) %>%
     purrr::list_rbind()
-  
+
   # Return if no data
   if (nrow(thedata) == 0) {
     return()
   } ## no data
-  
+
   ## suppress warnings for now - unequal factors, harmless
   if (is.null(thedata)) {
     stop("No data to import - check site codes and year.", call. = FALSE)
   }
-  
+
   ## change names
   names(thedata) <- tolower(names(thedata))
-  
+
   ## change nox as no2
   id <- which(names(thedata) %in% "noxasno2")
   if (length(id) == 1) names(thedata)[id] <- "nox"
-  
+
   # change code to character
   thedata$code <- as.character(thedata$code)
-  
-  
+
+
   ## should hydrocarbons be imported?
   if (hc) {
     thedata <- thedata
@@ -74,47 +74,47 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
     ## no hydrocarbons - therefore select conventional pollutants
     theNames <- c(
       "site", "code", "date", "co", "nox", "no2", "no", "o3", "so2", "pm10",
-      "pm2.5", "v10", "v2.5", "nv10", "nv2.5", "gr_pm10", "gr_pm2.5", 
+      "pm2.5", "v10", "v2.5", "nv10", "nv2.5", "gr_pm10", "gr_pm2.5",
       "ws", "wd", "temp"
     )
-    
+
     thedata <- select(thedata, any_of(theNames) | matches("_qc"))
   }
-  
+
   if ("temp" %in% names(thedata)) {
     thedata <- rename(thedata, air_temp = temp)
   }
-  
+
   ## if particular pollutants have been selected
   if (pollutant[1] != "all") {
     thedata <- thedata[, c("date", pollutant, "site", "code")]
   }
-  
+
   ## make sure it is in GMT
   attr(thedata$date, "tzone") <- "GMT"
-  
-  
+
+
   if (meta) {
     meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>%
       select(site, code, latitude, longitude, site_type)
     # suppress warnings about factors
     thedata <- left_join(thedata, meta_data, by = c("code", "site"))
   }
-  
-  
+
+
   if (to_narrow) {
     if (ratified) {
       warning("Cannot re-shape if ratified is TRUE")
       return()
     }
-    
+
     # variables to selct or not select
     the_vars <- c(
       "date", "site", "code",
       "latitude", "longitude", "site_type",
       "ws", "wd", "air_temp"
     )
-    
+
     thedata <- thedata %>%
       pivot_longer(
         cols = -any_of(the_vars),
@@ -123,7 +123,7 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
       relocate(any_of(the_vars)) %>%
       arrange(site, code, pollutant, date)
   }
-  
+
   as_tibble(thedata)
 }
 
@@ -139,70 +139,70 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
         url_data, x,
         ".RData"
       )
-      
+
       # Load the rdata object
       con <- url(fileName)
       load(con)
-      
+
       if (data_type == "hourly") {
         x <- x
       }
-      
+
       if (data_type == "15min") {
         x <- paste0(x, "_15min")
       }
-      
+
       if (data_type == "daily") {
-        
+
         # gravimetric PM10/PM2.5 are in a separate table
         # These are 'proper' daily means rather than derived from hourly
         x2 <- paste0(x, "_daily")
-        
+
         x <- paste0(x, "_daily_mean")
-        
+
       }
-      
+
       if (data_type == "8_hour") {
         x <- paste0(x, "_8hour_mean")
       }
-      
+
       if (data_type == "24_hour") {
         x <- paste0(x, "_24hour_mean")
       }
-      
+
       if (data_type == "daily_max_8") {
         x <- paste0(x, "_daily_max_8hour")
       }
-      
-      
+
+
       # Reasign
       dat <- get(x)
-      
+
       # if there are two daily data frames to combine
       if (data_type == "daily") {
-        
+
         if (exists(x2)) {
-          
+
           dat2 <- get(x2)
           dat <- left_join(dat, dat2,
                            by = c("date", "site", "code"))
-          
+
           lookup <- c(gr_pm2.5 = "GR2.5", gr_pm10 = "GR10")
-          
-          dat <- dat %>% 
+
+          dat <- dat %>%
             rename(any_of(lookup))
-          
+
         }
-        
+
       }
-      
+
       # make sure class is correct for lubridate
       class(dat$date) <- c("POSIXct", "POSIXt")
-      
+
       # add ratification information
       if (ratified && data_type == "hourly") {
         site_code <- strsplit(x, split = "_")[[1]][1]
-        
+
         meta_data <- filter(
           meta_data, code == site_code,
           !variable %in% c(
@@ -211,7 +211,7 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
           )
         ) %>%
           select(variable, ratified_to)
-        
+
         for (i in 1:nrow(meta_data)) {
           dat <- add_ratified(dat,
                               variable = meta_data$variable[i],
@@ -219,8 +219,8 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
           )
         }
       }
-      
-      
+
+
       return(dat)
     },
     error = function(ex) {
@@ -238,7 +238,7 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
 add_ratified <- function(data, variable, ratified_to) {
   new_var <- paste0(variable, "_qc")
   data <- mutate(data, {{ new_var }} := ifelse(date <= ratified_to, TRUE, FALSE))
-  
+
   return(data)
 }
 
@@ -247,18 +247,18 @@ add_ratified <- function(data, variable, ratified_to) {
 readSummaryData <-
   function(fileName, data_type, to_narrow, meta, hc) {
     thedata <- try(readRDS(url(fileName)), TRUE)
-    
+
     if (inherits(thedata, "try-error")) {
       return()
     }
-    
+
     names(thedata)[names(thedata) == "NOXasNO2.mean"] <- "nox"
     names(thedata)[names(thedata) == "NOXasNO2.capture"] <-
       "nox_capture"
     names(thedata) <- tolower(names(thedata))
     names(thedata) <- gsub(".mean", "", names(thedata))
     names(thedata) <- gsub(".capture", "_capture", names(thedata))
-    
+
     if (!hc) {
       thedata <- thedata %>%
         select(any_of(
@@ -307,58 +307,58 @@ readSummaryData <-
           )
         ))
     }
-    
-    
+
+
     if (data_type == "monthly") {
       thedata <- mutate(thedata, date = ymd(date, tz = "UTC"))
     }
-    
+
     if (data_type == "annual") {
       thedata <- rename(thedata, date = year) %>%
         drop_na(date) %>%
         mutate(date = ymd(paste0(date, "-01-01"), tz = "UTC"))
     }
-    
+
     if (to_narrow) {
       # make sure numbers are numbers
       values <- select(thedata,!contains("capture")) %>%
         select(!matches("uka_code"))
-      
+
       capture <-
         select(thedata, contains("capture") | c(code, date, site)) %>%
         select(!matches("uka_code"))
-      
+
       values <- pivot_longer(values,
                              -c(date, code, site),
                              values_to = "value",
                              names_to = "species")
-      
+
       capture <- pivot_longer(capture,
                               -c(date, code, site),
                               values_to = "data_capture",
                               names_to = "species")
-      
+
       capture$species <- gsub("_capture", "", capture$species)
-      
+
       thedata <- full_join(values, capture,
                            by = c("date", "code", "site", "species"))
     }
-    
+
     thedata <- thedata %>%
       mutate(site = as.character(site),
              code = as.character(code))
-    
-    
+
+
     return(thedata)
   }
 
 readDAQI <- function(fileName) {
   thedata <- try(readRDS(url(fileName)), TRUE)
-  
+
   if (inherits(thedata, "try-error")) {
     return()
   }
-  
+
   thedata <- thedata %>%
     mutate(
       code = as.character(code),
@@ -369,19 +369,19 @@ readDAQI <- function(fileName) {
     ) %>%
     select(-Date) %>%
     relocate(date, .after = pollutant)
-  
+
   return(thedata)
 }
 
 # function to add meta data based on network and supply of aq data
 add_meta <- function(source, aq_data) {
   meta_data <- importMeta(source = source)
-  
+
   meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>%
     select(site, code, latitude, longitude, site_type)
-  
+
   aq_data <- left_join(aq_data, meta_data, by = c("code", "site"))
-  
+
   return(aq_data)
 }
 
@@ -389,23 +389,26 @@ add_meta <- function(source, aq_data) {
 #' @param missing_site Input should be `missing(site)`
 #' @param site,pollutant,to_narrow Inherits from parent function
 #' @noRd
-filter_annual_stats <- function(aq_data, missing_site, site, pollutant, to_narrow){
+filter_annual_stats <- function(aq_data, missing_site, site, pollutant, to_narrow, data_type){
   # if site isn't missing, filter by sites
   if (!missing_site) {
     aq_data <- aq_data[tolower(aq_data$code) %in% tolower(site),]
   }
-  
+
   # if pollutant isn't "all", filter pollutants
   if (any(pollutant != "all")) {
     polls <- paste(c("uka_code", "code", "site", "date", "pollutant", pollutant), collapse = "|")
-    if (to_narrow) {
-      aq_data <- aq_data[grepl(polls, aq_data$species),]
+    if (data_type != "daqi") {
+      if (to_narrow) {
+        aq_data <- aq_data[grepl(polls, aq_data$species),]
+      } else {
+        aq_data <- aq_data[grepl(polls, names(aq_data))]
+      }
     } else {
-      
-      aq_data <- aq_data[grepl(polls, names(aq_data))]
+      aq_data <- aq_data[grepl(polls, aq_data$pollutant),]
     }
   }
-  
+
   # return output
   return(aq_data)
 }

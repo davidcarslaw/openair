@@ -383,7 +383,8 @@ import_network_worker <-
           missing_site = missing_site,
           site = site,
           pollutant = pollutant,
-          to_narrow = to_narrow
+          to_narrow = to_narrow,
+          data_type = data_type
         )
 
       # add meta data?
@@ -408,7 +409,8 @@ import_network_worker <-
           missing_site = missing_site,
           site = site,
           pollutant = pollutant,
-          to_narrow = to_narrow
+          to_narrow = to_narrow,
+          data_type = data_type
         )
 
       # add meta if needed
