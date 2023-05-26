@@ -64,12 +64,6 @@
     <loc>https://davidcarslaw.github.io/openair/reference/importADMS.html</loc>
   </url>
   <url>
-    <loc>https://davidcarslaw.github.io/openair/reference/importAQE.html</loc>
-  </url>
-  <url>
-    <loc>https://davidcarslaw.github.io/openair/reference/importAURN.html</loc>
-  </url>
-  <url>
     <loc>https://davidcarslaw.github.io/openair/reference/importEurope.html</loc>
   </url>
   <url>
@@ -82,16 +76,10 @@
     <loc>https://davidcarslaw.github.io/openair/reference/importMeta.html</loc>
   </url>
   <url>
-    <loc>https://davidcarslaw.github.io/openair/reference/importNI.html</loc>
-  </url>
-  <url>
-    <loc>https://davidcarslaw.github.io/openair/reference/importSAQN.html</loc>
-  </url>
-  <url>
     <loc>https://davidcarslaw.github.io/openair/reference/importTraj.html</loc>
   </url>
   <url>
-    <loc>https://davidcarslaw.github.io/openair/reference/importWAQN.html</loc>
+    <loc>https://davidcarslaw.github.io/openair/reference/import_ukaq.html</loc>
   </url>
   <url>
     <loc>https://davidcarslaw.github.io/openair/reference/index.html</loc>

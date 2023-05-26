@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,21 +51,22 @@
 <h2 class="pkg-version" data-toc-text="development version" id="openair-development-version">openair (development version)<a class="anchor" aria-label="anchor" href="#openair-development-version"></a></h2>
 <div class="section level3">
 <h3 id="new-features-development-version">New Features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
-<ul><li><p><code><a href="../reference/calendarPlot.html">calendarPlot()</a></code> now automatically creates its own <code>labels</code> if <code>breaks</code> are specified. For example, <code>c(0, 10, 20)</code> will create the labels <code>c("0 - 10", "10 - 20")</code>. <code>labels</code> can still be used to override the default values. (<a href="https://github.com/davidcarslaw/openair/issues/341" class="external-link">#341</a>)</p></li>
+<ul><li><p><code><a href="../reference/import_ukaq.html">importAQE()</a></code>, <code><a href="../reference/import_ukaq.html">importWAQN()</a></code>, <code><a href="../reference/import_ukaq.html">importSAQN()</a></code> and <code><a href="../reference/import_ukaq.html">importNI()</a></code> all now allow <code>data_type = "daqi"</code>, which allows for the daily pollutant index to be downloaded. At time of writing, only data from 2022 is present.</p></li>
+<li><p><code><a href="../reference/calendarPlot.html">calendarPlot()</a></code> now automatically creates its own <code>labels</code> if <code>breaks</code> are specified. For example, <code>c(0, 10, 20)</code> will create the labels <code>c("0 - 10", "10 - 20")</code>. <code>labels</code> can still be used to override the default values. (<a href="https://github.com/davidcarslaw/openair/issues/341" class="external-link">#341</a>)</p></li>
 <li><p>return tibble from <code>timeAverage</code>.</p></li>
 <li><p>Move regression formula off main plot for <code>polarPlot</code> for clarity and label slope as ‘m’.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
-<ul><li>
-<code><a href="../reference/quickText.html">quickText()</a></code> will now automatically capitalise “no” to “NO”. (<a href="https://github.com/davidcarslaw/openair/issues/343" class="external-link">#343</a>)</li>
+<ul><li><p><code><a href="../reference/quickText.html">quickText()</a></code> will now automatically capitalise “no” to “NO”. (<a href="https://github.com/davidcarslaw/openair/issues/343" class="external-link">#343</a>)</p></li>
+<li><p>the <code>site</code> and <code>pollutant</code> arguments of import functions (e.g., <code><a href="../reference/import_ukaq.html">importAURN()</a></code>) are now respected when <code>data_type</code> is “daqi”, “annual” or “monthly”. The default behaviour to return all available statistics has not changed. (<a href="https://github.com/davidcarslaw/openair/issues/346" class="external-link">#346</a>)</p></li>
 </ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.17-0" id="openair-217-0">openair 2.17-0<a class="anchor" aria-label="anchor" href="#openair-217-0"></a></h2><p class="text-muted">CRAN release: 2023-05-02</p>
 <div class="section level3">
 <h3 id="new-features-2-17-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-17-0"></a></h3>
-<ul><li><p>add option <code>meteo</code> to <code><a href="../reference/importAURN.html">importAURN()</a></code> family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if <code>meteo = FALSE</code>.</p></li>
+<ul><li><p>add option <code>meteo</code> to <code><a href="../reference/import_ukaq.html">importAURN()</a></code> family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if <code>meteo = FALSE</code>.</p></li>
 <li><p>added a new column to <code><a href="../reference/modStats.html">modStats()</a></code>, “P”, which represents the P-value of the correlation as reported by <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test()</a></code>.</p></li>
 <li><p>update processing of ADMS meteorological (.MOP) files to return stability and tidier data.</p></li>
 <li><p>refined the output of <code><a href="../reference/pollutionRose.html">pollutionRose()</a></code> where the <code>ws2</code> and <code>wd2</code> options are provided; instead of the misleading N/E/S/W, the markers become 0, +90, +/-180, -90.</p></li>
