@@ -2,14 +2,19 @@
 
 ## New Features
 
+- `importAQE()`, `importWAQN()`, `importSAQN()` and `importNI()` all now allow `data_type = "daqi"`, which allows for the daily pollutant index to be downloaded. At time of writing, only data from 2022 is present.
+
 - `calendarPlot()` now automatically creates its own `labels` if `breaks` are specified. For example, `c(0, 10, 20)` will create the labels `c("0 - 10", "10 - 20")`. `labels` can still be used to override the default values. (#341)
 
 - return tibble from `timeAverage`.
+
 - Move regression formula off main plot for `polarPlot` for clarity and label slope as 'm'.
 
 ## Bug Fixes
 
 - `quickText()` will now automatically capitalise "no" to "NO". (#343)
+
+- the `site` and `pollutant` arguments of import functions (e.g., `importAURN()`) are now respected when `data_type` is "daqi", "annual" or "monthly". The default behaviour to return all available statistics has not changed. (#346)
 
 # openair 2.17-0
 

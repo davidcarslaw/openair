@@ -78,15 +78,11 @@ visualise site metadata
 
 Other import functions: 
 \code{\link{importADMS}()},
-\code{\link{importAQE}()},
 \code{\link{importAURN}()},
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},
 \code{\link{importLocal}()},
-\code{\link{importNI}()},
-\code{\link{importSAQN}()},
-\code{\link{importTraj}()},
-\code{\link{importWAQN}()}
+\code{\link{importTraj}()}
 }
 \author{
 David Carslaw
