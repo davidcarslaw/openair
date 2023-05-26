@@ -177,6 +177,7 @@ importAURN <-
       ratified = ratified,
       to_narrow = to_narrow,
       progress = progress,
+      verbose = verbose,
       source = source,
       url_slug = url_slug,
       url_abbr = url_abbr,
@@ -196,6 +197,7 @@ importAQE <-
            meteo = TRUE,
            ratified = FALSE,
            to_narrow = FALSE,
+           verbose = FALSE,
            progress = TRUE) {
     url_slug = "https://airqualityengland.co.uk/assets/openair/R_data/"
     url_abbr = "_AQE_"
@@ -212,6 +214,7 @@ importAQE <-
       ratified = ratified,
       to_narrow = to_narrow,
       progress = progress,
+      verbose = verbose,
       source = source,
       url_slug = url_slug,
       url_abbr = url_abbr,
@@ -231,6 +234,7 @@ importSAQN <-
            meteo = TRUE,
            ratified = FALSE,
            to_narrow = FALSE,
+           verbose = FALSE,
            progress = TRUE) {
     url_slug = "https://www.scottishairquality.scot/openair/R_data/"
     url_abbr = "_SCOT_"
@@ -247,6 +251,7 @@ importSAQN <-
       ratified = ratified,
       to_narrow = to_narrow,
       progress = progress,
+      verbose = verbose,
       source = source,
       url_slug = url_slug,
       url_abbr = url_abbr,
@@ -266,6 +271,7 @@ importWAQN <-
            meteo = TRUE,
            ratified = FALSE,
            to_narrow = FALSE,
+           verbose = FALSE,
            progress = TRUE) {
     url_slug = "https://airquality.gov.wales/sites/default/files/openair/R_data/"
     url_abbr = "_WAQ_"
@@ -282,6 +288,7 @@ importWAQN <-
       ratified = ratified,
       to_narrow = to_narrow,
       progress = progress,
+      verbose = verbose,
       source = source,
       url_slug = url_slug,
       url_abbr = url_abbr,
@@ -301,6 +308,7 @@ importNI <-
            meteo = TRUE,
            ratified = FALSE,
            to_narrow = FALSE,
+           verbose = FALSE,
            progress = TRUE) {
     url_slug = "https://www.airqualityni.co.uk/openair/R_data/"
     url_abbr = "_NI_"
@@ -317,6 +325,7 @@ importNI <-
       ratified = ratified,
       to_narrow = to_narrow,
       progress = progress,
+      verbose = verbose,
       source = source,
       url_slug = url_slug,
       url_abbr = url_abbr,
@@ -336,6 +345,7 @@ import_network_worker <-
            hc = FALSE,
            ratified,
            to_narrow,
+           verbose,
            progress,
            source,
            url_slug,
@@ -430,7 +440,8 @@ import_network_worker <-
         ratified = ratified,
         to_narrow = to_narrow,
         source = source,
-        progress = progress
+        progress = progress,
+        verbose = verbose
       )
     }
 

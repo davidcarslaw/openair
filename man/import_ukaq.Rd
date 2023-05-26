@@ -31,6 +31,7 @@ importAQE(
   meteo = TRUE,
   ratified = FALSE,
   to_narrow = FALSE,
+  verbose = FALSE,
   progress = TRUE
 )
 
@@ -43,6 +44,7 @@ importSAQN(
   meteo = TRUE,
   ratified = FALSE,
   to_narrow = FALSE,
+  verbose = FALSE,
   progress = TRUE
 )
 
@@ -55,6 +57,7 @@ importWAQN(
   meteo = TRUE,
   ratified = FALSE,
   to_narrow = FALSE,
+  verbose = FALSE,
   progress = TRUE
 )
 
@@ -67,6 +70,7 @@ importNI(
   meteo = TRUE,
   ratified = FALSE,
   to_narrow = FALSE,
+  verbose = FALSE,
   progress = TRUE
 )
 }
