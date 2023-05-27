@@ -42,8 +42,8 @@ importLocal <-
     cli::cli_warn(
       c("i" = "This data is associated with locally managed air quality network sites in England.",
         "!" = "These sites are not part of the AURN national network, and therefore may not have the same level of quality control applied to them."),
-      # .frequency = "regularly",
-      # .frequency_id = "lmam"
+      .frequency = "regularly",
+      .frequency_id = "lmam"
     )
 
     if (data_type %in% c("annual", "monthly")) {
