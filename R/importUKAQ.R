@@ -134,19 +134,29 @@
 #' @examples
 #'
 #' ## import all pollutants from Marylebone Rd from 1990:2009
-#' \dontrun{mary <- importAURN(site = "my1", year = 2000:2009)}
+#' \dontrun{
+#' mary <- importAURN(site = "my1", year = 2000:2009)
+#' }
 #'
 #' ## import nox, no2, o3 from Marylebone Road and Nottingham Centre for 2000
-#' \dontrun{thedata <- importAURN(site = c("my1", "nott"), year = 2000,
-#' pollutant = c("nox", "no2", "o3"))}
+#' \dontrun{
+#' thedata <- importAURN(
+#'   site = c("my1", "nott"), year = 2000,
+#'   pollutant = c("nox", "no2", "o3")
+#' )
+#' }
 #'
 #' # Other functions work in the same way e.g. to import Cardiff Centre data
 #'
 #' # Import annual data over a period, make it narrow format and return site information
 #'
-#' \dontrun{aq <- importAURN(year = 2010:2020, data_type = "annual", meta = TRUE, to_narrow = TRUE)}
+#' \dontrun{
+#' aq <- importAURN(year = 2010:2020, data_type = "annual", meta = TRUE, to_narrow = TRUE)
+#' }
 #'
-#' \dontrun{cardiff <- importWAQN(site = "card", year = 2020)}
+#' \dontrun{
+#' cardiff <- importWAQN(site = "card", year = 2020)
+#' }
 #' @rdname import_ukaq
 #' @order 1
 importAURN <-
@@ -325,9 +335,7 @@ import_network_worker <-
            source,
            url_abbr,
            missing_site) {
-
-    url_domain <- switch(
-      source,
+    url_domain <- switch(source,
       aurn = "https://uk-air.defra.gov.uk/openair/R_data/",
       aqe = "https://airqualityengland.co.uk/assets/openair/R_data/",
       saqn = "https://www.scottishairquality.scot/openair/R_data/",
@@ -336,8 +344,7 @@ import_network_worker <-
       stop("Source not recognised")
     )
 
-    url_abbr <- switch(
-      source,
+    url_abbr <- switch(source,
       aurn = "_AURN_",
       aqe = "_AQE_",
       saqn = "_SCOT_",
@@ -361,8 +368,10 @@ import_network_worker <-
 
     if (!tolower(data_type) %in% allowed_types) {
       cli::cli_warn(
-        c("!" = "'{data_type}' not recognised. Setting {.arg data_type} to 'hourly'",
-          "i" = "{.arg data_type} should be one of: {allowed_types}")
+        c(
+          "!" = "'{data_type}' not recognised. Setting {.arg data_type} to 'hourly'",
+          "i" = "{.arg data_type} should be one of: {allowed_types}"
+        )
       )
 
       data_type <- "hourly"
@@ -371,8 +380,9 @@ import_network_worker <-
     if (data_type %in% c("annual", "monthly")) {
       files <- paste0(url_domain, "summary_", data_type, url_abbr, year, ".rds")
 
-      if (progress)
+      if (progress) {
         progress <- "Importing Statistics"
+      }
       aq_data <- purrr::map(
         files,
         readSummaryData,
@@ -403,8 +413,9 @@ import_network_worker <-
       files <-
         paste0(url_domain, "annual_DAQI", url_abbr, year, ".rds")
 
-      if (progress)
+      if (progress) {
         progress <- "Importing DAQI"
+      }
       aq_data <-
         purrr::map(files, readDAQI, .progress = progress) %>%
         purrr::list_rbind()
@@ -444,7 +455,6 @@ import_network_worker <-
     if (meteo == FALSE) {
       aq_data <- aq_data %>%
         select(-any_of(c("ws", "wd", "air_temp")))
-
     }
 
     return(as_tibble(aq_data))
