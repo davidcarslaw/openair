@@ -325,7 +325,7 @@ import_network_worker <-
            source,
            url_abbr,
            missing_site) {
-    
+
     url_domain <- switch(
       source,
       aurn = "https://uk-air.defra.gov.uk/openair/R_data/",
@@ -335,7 +335,7 @@ import_network_worker <-
       ni = "https://www.airqualityni.co.uk/openair/R_data/",
       stop("Source not recognised")
     )
-    
+
     url_abbr <- switch(
       source,
       aurn = "_AURN_",
@@ -344,8 +344,8 @@ import_network_worker <-
       waqn = "_WAQ_",
       ni = "_NI_"
     )
-    
-    
+
+
     allowed_types <- c(
       "hourly",
       "daily",
@@ -422,7 +422,7 @@ import_network_worker <-
 
       # add meta if needed
       if (meta) {
-        aq_data <- add_meta(source = "aurn", aq_data)
+        aq_data <- add_meta(source = source, aq_data)
       }
     } else {
       aq_data <- importUKAQ(
