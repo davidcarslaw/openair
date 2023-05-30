@@ -109,7 +109,6 @@ importLocal <-
             year = year,
             data_type,
             pollutant = pollutant,
-            meta = meta,
             ratified = FALSE,
             to_narrow = to_narrow,
             source = "local",
@@ -118,6 +117,10 @@ importLocal <-
           )
         ) %>%
         purrr::list_rbind()
+
+      if (meta) {
+        aq_data <- add_meta(source = "local", aq_data)
+      }
     }
 
     return(as_tibble(aq_data))
