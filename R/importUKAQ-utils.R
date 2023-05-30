@@ -1,12 +1,19 @@
 
 #' worker function that downloads data from a range of networks run by Ricardo
 #' @noRd
-importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
-                       pollutant = "all",
-                       hc = FALSE, meta = FALSE, ratified = FALSE,
-                       to_narrow = FALSE, verbose = FALSE,
-                       source = "aurn", lmam_subfolder, progress = TRUE) {
-  # force source to be lowercase
+importUKAQ <-
+  function(site = "my1",
+           year = 2009,
+           data_type = "hourly",
+           pollutant = "all",
+           hc = FALSE,
+           ratified = FALSE,
+           to_narrow = FALSE,
+           verbose = FALSE,
+           source = "aurn",
+           lmam_subfolder,
+           progress = TRUE) {
+    # force source to be lowercase
   source <- tolower(source)
 
   # obtain url
@@ -30,7 +37,7 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
   site <- toupper(site)
 
   # If meta or ratified, get metadata
-  if (meta | ratified) {
+  if (ratified) {
     meta_data <- importMeta(source = source, all = TRUE)
   }
 
@@ -92,15 +99,6 @@ importUKAQ <- function(site = "my1", year = 2009, data_type = "hourly",
 
   ## make sure it is in GMT
   attr(thedata$date, "tzone") <- "GMT"
-
-
-  if (meta) {
-    meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>%
-      select(site, code, latitude, longitude, site_type)
-    # suppress warnings about factors
-    thedata <- left_join(thedata, meta_data, by = c("code", "site"))
-  }
-
 
   if (to_narrow) {
     if (ratified) {

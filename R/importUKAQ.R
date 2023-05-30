@@ -335,7 +335,9 @@ import_network_worker <-
            source,
            url_abbr,
            missing_site) {
-    url_domain <- switch(source,
+    # obtain correct URL info for the source
+    url_domain <- switch(
+      source,
       aurn = "https://uk-air.defra.gov.uk/openair/R_data/",
       aqe = "https://airqualityengland.co.uk/assets/openair/R_data/",
       saqn = "https://www.scottishairquality.scot/openair/R_data/",
@@ -344,7 +346,8 @@ import_network_worker <-
       stop("Source not recognised")
     )
 
-    url_abbr <- switch(source,
+    url_abbr <- switch(
+      source,
       aurn = "_AURN_",
       aqe = "_AQE_",
       saqn = "_SCOT_",
@@ -352,7 +355,7 @@ import_network_worker <-
       ni = "_NI_"
     )
 
-
+    # detect allowed types
     allowed_types <- c(
       "hourly",
       "daily",
@@ -368,81 +371,51 @@ import_network_worker <-
 
     if (!tolower(data_type) %in% allowed_types) {
       cli::cli_warn(
-        c(
-          "!" = "'{data_type}' not recognised. Setting {.arg data_type} to 'hourly'",
-          "i" = "{.arg data_type} should be one of: {allowed_types}"
-        )
+        c("!" = "'{data_type}' not recognised. Setting {.arg data_type} to 'hourly'",
+          "i" = "{.arg data_type} should be one of: {allowed_types}")
       )
 
       data_type <- "hourly"
     }
 
+    # Import Annual / Monthly Stats?
     if (data_type %in% c("annual", "monthly")) {
-      files <- paste0(url_domain, "summary_", data_type, url_abbr, year, ".rds")
+      files <-
+        paste0(url_domain, "summary_", data_type, url_abbr, year, ".rds")
 
-      if (progress) {
-        progress <- "Importing Statistics"
-      }
       aq_data <- purrr::map(
         files,
         readSummaryData,
         data_type = data_type,
         to_narrow = to_narrow,
         hc = FALSE,
-        .progress = progress
+        .progress = ifelse(progress, "Importing Statistics", FALSE)
       ) %>%
         purrr::list_rbind()
+    }
 
-      # filtering
-      aq_data <-
-        filter_annual_stats(
-          aq_data,
-          missing_site = missing_site,
-          site = site,
-          pollutant = pollutant,
-          to_narrow = to_narrow,
-          data_type = data_type
-        )
-
-      # add meta data?
-      if (meta) {
-        aq_data <- add_meta(source = source, aq_data)
-      }
-    } else if (data_type == "daqi") {
+    # Import pre-calculated DAQI?
+    if (data_type == "daqi") {
       # daily air quality index
       files <-
         paste0(url_domain, "annual_DAQI", url_abbr, year, ".rds")
 
-      if (progress) {
-        progress <- "Importing DAQI"
-      }
       aq_data <-
-        purrr::map(files, readDAQI, .progress = progress) %>%
+        purrr::map(files,
+                   readDAQI,
+                   .progress = ifelse(progress, "Importing DAQI", FALSE)) %>%
         purrr::list_rbind()
 
-      # filtering
-      aq_data <-
-        filter_annual_stats(
-          aq_data,
-          missing_site = missing_site,
-          site = site,
-          pollutant = pollutant,
-          to_narrow = to_narrow,
-          data_type = data_type
-        )
+    }
 
-      # add meta if needed
-      if (meta) {
-        aq_data <- add_meta(source = source, aq_data)
-      }
-    } else {
+    # Import any other stat
+    if (!data_type %in% c("annual", "monthly", "daqi")) {
       aq_data <- importUKAQ(
         site = site,
         year = year,
         data_type,
         pollutant = pollutant,
         hc = hc,
-        meta = meta,
         ratified = ratified,
         to_narrow = to_narrow,
         source = source,
@@ -451,10 +424,28 @@ import_network_worker <-
       )
     }
 
+    # filter annual/monthly/DAQI data
+    if (data_type %in% c("annual", "monthly", "daqi")) {
+      aq_data <-
+        filter_annual_stats(
+          aq_data,
+          missing_site = missing_site,
+          site = site,
+          pollutant = pollutant,
+          to_narrow = to_narrow,
+          data_type = data_type
+        )
+    }
+
     # check to see if met data needed
-    if (meteo == FALSE) {
+    if (!meteo) {
       aq_data <- aq_data %>%
         select(-any_of(c("ws", "wd", "air_temp")))
+    }
+
+    # add meta data?
+    if (meta) {
+      aq_data <- add_meta(source = source, aq_data)
     }
 
     return(as_tibble(aq_data))
