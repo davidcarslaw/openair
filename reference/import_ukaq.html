@@ -18,7 +18,7 @@ quality data files as R data objects."><meta property="og:image" content="https:
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9004</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -307,19 +307,29 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## import all pollutants from Marylebone Rd from 1990:2009</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="va">mary</span> <span class="op">&lt;-</span> <span class="fu">importAURN</span><span class="op">(</span>site <span class="op">=</span> <span class="st">"my1"</span>, year <span class="op">=</span> <span class="fl">2000</span><span class="op">:</span><span class="fl">2009</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">mary</span> <span class="op">&lt;-</span> <span class="fu">importAURN</span><span class="op">(</span>site <span class="op">=</span> <span class="st">"my1"</span>, year <span class="op">=</span> <span class="fl">2000</span><span class="op">:</span><span class="fl">2009</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## import nox, no2, o3 from Marylebone Road and Nottingham Centre for 2000</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="va">thedata</span> <span class="op">&lt;-</span> <span class="fu">importAURN</span><span class="op">(</span>site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"my1"</span>, <span class="st">"nott"</span><span class="op">)</span>, year <span class="op">=</span> <span class="fl">2000</span>,</span></span>
-<span class="r-in"><span>pollutant <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nox"</span>, <span class="st">"no2"</span>, <span class="st">"o3"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">thedata</span> <span class="op">&lt;-</span> <span class="fu">importAURN</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"my1"</span>, <span class="st">"nott"</span><span class="op">)</span>, year <span class="op">=</span> <span class="fl">2000</span>,</span></span>
+<span class="r-in"><span>  pollutant <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nox"</span>, <span class="st">"no2"</span>, <span class="st">"o3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Other functions work in the same way e.g. to import Cardiff Centre data</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Import annual data over a period, make it narrow format and return site information</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="va">aq</span> <span class="op">&lt;-</span> <span class="fu">importAURN</span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2010</span><span class="op">:</span><span class="fl">2020</span>, data_type <span class="op">=</span> <span class="st">"annual"</span>, meta <span class="op">=</span> <span class="cn">TRUE</span>, to_narrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">aq</span> <span class="op">&lt;-</span> <span class="fu">importAURN</span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2010</span><span class="op">:</span><span class="fl">2020</span>, data_type <span class="op">=</span> <span class="st">"annual"</span>, meta <span class="op">=</span> <span class="cn">TRUE</span>, to_narrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="va">cardiff</span> <span class="op">&lt;-</span> <span class="fu">importWAQN</span><span class="op">(</span>site <span class="op">=</span> <span class="st">"card"</span>, year <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">cardiff</span> <span class="op">&lt;-</span> <span class="fu">importWAQN</span><span class="op">(</span>site <span class="op">=</span> <span class="st">"card"</span>, year <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
