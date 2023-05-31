@@ -221,19 +221,29 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 \examples{
 
 ## import all pollutants from Marylebone Rd from 1990:2009
-\dontrun{mary <- importAURN(site = "my1", year = 2000:2009)}
+\dontrun{
+mary <- importAURN(site = "my1", year = 2000:2009)
+}
 
 ## import nox, no2, o3 from Marylebone Road and Nottingham Centre for 2000
-\dontrun{thedata <- importAURN(site = c("my1", "nott"), year = 2000,
-pollutant = c("nox", "no2", "o3"))}
+\dontrun{
+thedata <- importAURN(
+  site = c("my1", "nott"), year = 2000,
+  pollutant = c("nox", "no2", "o3")
+)
+}
 
 # Other functions work in the same way e.g. to import Cardiff Centre data
 
 # Import annual data over a period, make it narrow format and return site information
 
-\dontrun{aq <- importAURN(year = 2010:2020, data_type = "annual", meta = TRUE, to_narrow = TRUE)}
+\dontrun{
+aq <- importAURN(year = 2010:2020, data_type = "annual", meta = TRUE, to_narrow = TRUE)
+}
 
-\dontrun{cardiff <- importWAQN(site = "card", year = 2020)}
+\dontrun{
+cardiff <- importWAQN(site = "card", year = 2020)
+}
 }
 \seealso{
 Other import functions: 

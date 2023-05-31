@@ -35,6 +35,7 @@ polarPlot(
   x_error = NA,
   y_error = NA,
   kernel = "gaussian",
+  formula.label = TRUE,
   tau = 0.5,
   alpha = 1,
   plot = TRUE,
@@ -299,6 +300,9 @@ regression statistics are used such as \emph{r}. Default is \code{4}.}
 \item{kernel}{Type of kernel used for the weighting procedure for when
 correlation or regression techniques are used. Only \code{"gaussian"} is
 supported but this may be enhanced in the future.}
+
+\item{formula.label}{When pair-wise statistics such as regression slopes are
+calculated and plotted, should a formula label be displayed?}
 
 \item{tau}{The quantile to be estimated when \code{statistic} is set to
 \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
