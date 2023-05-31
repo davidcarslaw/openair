@@ -323,6 +323,9 @@
 #' @param kernel Type of kernel used for the weighting procedure for when
 #'   correlation or regression techniques are used. Only \code{"gaussian"} is
 #'   supported but this may be enhanced in the future.
+#'   
+#' @param formula.label When pair-wise statistics such as regression slopes are
+#'   calculated and plotted, should a formula label be displayed? 
 #'
 #' @param tau The quantile to be estimated when \code{statistic} is set to
 #'   \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
@@ -453,6 +456,7 @@ polarPlot <-
            x_error = NA,
            y_error = NA,
            kernel = "gaussian",
+           formula.label = TRUE,
            tau = 0.5,
            alpha = 1,
            plot = TRUE,
@@ -1114,7 +1118,8 @@ polarPlot <-
       
       # add footnote formula if regression used
       page = function(n)
-        if (grepl("slope|intercept", statistic) & length(pollutant == 2)) {
+        if (formula.label & grepl("slope|intercept", statistic) & 
+            length(pollutant == 2)) {
         grid.text(
           quickText(paste0(
             "Formula: ", pollutant[1], " = m.", pollutant[2], " + c"

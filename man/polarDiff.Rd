@@ -262,6 +262,8 @@ regression statistics are used such as \emph{r}. Default is \code{4}.}
     \item{\code{kernel}}{Type of kernel used for the weighting procedure for when
 correlation or regression techniques are used. Only \code{"gaussian"} is
 supported but this may be enhanced in the future.}
+    \item{\code{formula.label}}{When pair-wise statistics such as regression slopes are
+calculated and plotted, should a formula label be displayed?}
     \item{\code{tau}}{The quantile to be estimated when \code{statistic} is set to
 \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
 and will be ignored if \code{"quantile.slope"} is not used.}
