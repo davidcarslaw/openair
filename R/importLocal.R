@@ -113,8 +113,9 @@ importLocal <-
             to_narrow = to_narrow,
             source = "local",
             lmam_subfolder = .y,
-            progress = progress
-          )
+            progress = FALSE
+          ),
+          .progress = progress
         ) %>%
         purrr::list_rbind()
 
