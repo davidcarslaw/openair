@@ -63,7 +63,6 @@ Other import functions:
 \code{\link{importADMS}()},
 \code{\link{importAURN}()},
 \code{\link{importKCL}()},
-\code{\link{importLocal}()},
 \code{\link{importMeta}()},
 \code{\link{importTraj}()}
 }

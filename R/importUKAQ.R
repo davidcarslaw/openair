@@ -1,8 +1,9 @@
 #' Import data from the UK Air Pollution Networks
 #'
 #' Functions for importing air pollution data from a range of UK networks
-#' including the Automatic Urban and Rural Network (AURN) and individual England
-#' (AQE), Scotland (SAQN), Wales (WAQN) and Northern Ireland (NI) Networks.
+#' including the Automatic Urban and Rural Network (AURN), the individual
+#' England (AQE), Scotland (SAQN), Wales (WAQN) and Northern Ireland (NI)
+#' Networks, and many "locally managed" monitoring networks across England.
 #' Files are imported from a remote server operated by Ricardo that provides air
 #' quality data files as R data objects.
 #'
@@ -90,17 +91,18 @@
 #'   data with data capture information for the whole network.}
 #'   \item{"annual"}{ Annual average data with data capture information for the
 #'   whole network.}
-#'   \item{"15_min"}{ To import 15-minute average SO2
-#'   concentrations.}
-#'   \item{"8_hour"}{ To import 8-hour rolling mean
-#'   concentrations for O3 and CO.}
-#'   \item{"24_hour"}{ To import 24-hour rolling
-#'   mean concentrations for particulates.}
-#'   \item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3 and CO.}
-#'   \item{"daqi"}{ To import Daily
-#'   Air Quality Index (DAQI). See
-#'   \href{https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant}{here}
-#'    for more details of how the index is defined.} }
+#'   \item{"15_min"}{ To import 15-minute average SO2 concentrations.}
+#'   \item{"8_hour"}{ To import 8-hour rolling mean concentrations for O3 and
+#'   CO.}
+#'   \item{"24_hour"}{ To import 24-hour rolling mean concentrations for
+#'   particulates.}
+#'   \item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3
+#'   and CO.}
+#'   \item{"daqi"}{ To import Daily Air Quality Index (DAQI). See
+#'   [here](https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info) for
+#'   more details of how the index is defined. Note that this `data_type` is not
+#'   available for locally managed monitoring networks.}
+#'   }
 #' @param pollutant Pollutants to import. If omitted will import all pollutants
 #'   from a site. To import only NOx and NO2 for example use \code{pollutant =
 #'   c("nox", "no2")}.
@@ -122,8 +124,9 @@
 #' @param to_narrow By default the returned data has a column for each
 #'   pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 #'   a narrow format with a column identifying the pollutant name.
-#' @param verbose Should the function give messages when downloading files?
-#'   Default is \code{FALSE}.
+#' @param verbose Should the function print messages if it cannot find hourly
+#'   data to import? Default is `FALSE`. `TRUE` is useful for debugging as the
+#'   specific "year" and "site" which cannot be imported will be returned.
 #' @param progress Show a progress bar when many sites/years are being imported?
 #'   Defaults to `TRUE`.
 #'
@@ -318,6 +321,36 @@ importNI <-
     )
   }
 
+#' @rdname import_ukaq
+#' @order 6
+#' @export
+importLocal <-
+  function(site = "ad1",
+           year = 2018,
+           data_type = "hourly",
+           pollutant = "all",
+           meta = FALSE,
+           to_narrow = FALSE,
+           verbose = FALSE,
+           progress = TRUE) {
+    missing_site <- missing(site)
+
+    import_network_worker(
+      site = site,
+      year = year,
+      data_type = data_type,
+      pollutant = pollutant,
+      meta = meta,
+      meteo = TRUE,
+      ratified = FALSE,
+      to_narrow = to_narrow,
+      progress = progress,
+      verbose = verbose,
+      source = "local",
+      missing_site = missing_site
+    )
+  }
+
 #' Helper to import AURN/SAQN/WAQN/NIAQN/AQE data
 #' @noRd
 import_network_worker <-
@@ -335,6 +368,16 @@ import_network_worker <-
            source,
            url_abbr,
            missing_site) {
+    # warn if source == "local"
+    if (source == "local") {
+      cli::cli_warn(
+        c("i" = "This data is associated with locally managed air quality network sites in England.",
+          "!" = "These sites are not part of the AURN national network, and therefore may not have the same level of quality control applied to them."),
+        .frequency = "regularly",
+        .frequency_id = "lmam"
+      )
+    }
+
     # obtain correct URL info for the source
     url_domain <- switch(
       source,
@@ -343,6 +386,7 @@ import_network_worker <-
       saqn = "https://www.scottishairquality.scot/openair/R_data/",
       waqn = "https://airquality.gov.wales/sites/default/files/openair/R_data/",
       ni = "https://www.airqualityni.co.uk/openair/R_data/",
+      local = "https://uk-air.defra.gov.uk/openair/LMAM/R_data/",
       stop("Source not recognised")
     )
 
@@ -352,7 +396,9 @@ import_network_worker <-
       aqe = "_AQE_",
       saqn = "_SCOT_",
       waqn = "_WAQ_",
-      ni = "_NI_"
+      ni = "_NI_",
+      local = "_LMAM_",
+      stop("Source not recognised")
     )
 
     # detect allowed types
@@ -396,6 +442,10 @@ import_network_worker <-
 
     # Import pre-calculated DAQI?
     if (data_type == "daqi") {
+      if (source == "local") {
+        cli::cli_abort(c("!" = "{.arg data_type} 'DAQI' is not available for locally managed networks"))
+      }
+
       # daily air quality index
       files <-
         paste0(url_domain, "annual_DAQI", url_abbr, year, ".rds")
@@ -410,18 +460,58 @@ import_network_worker <-
 
     # Import any other stat
     if (!data_type %in% c("annual", "monthly", "daqi")) {
-      aq_data <- importUKAQ(
-        site = site,
-        year = year,
-        data_type,
-        pollutant = pollutant,
-        hc = hc,
-        ratified = ratified,
-        to_narrow = to_narrow,
-        source = source,
-        progress = progress,
-        verbose = verbose
-      )
+      site = toupper(site)
+
+      # deal with additional paths needed for local data
+      if (source == "local") {
+        # get pcodes for file paths
+        pcodes <-
+          importMeta("local", all = TRUE) %>%
+          dplyr::distinct(.data$site, .keep_all = TRUE) %>%
+          select("code", "pcode")
+
+        # get sites and pcodes
+        site_info <-
+          data.frame(code = site) %>%
+          merge(pcodes) %>%
+          tidyr::crossing(year = year)
+      } else {
+        site_info <-
+          data.frame(site) %>%
+          dplyr::mutate(pcode = rep(NA, times = length(site))) %>%
+          tidyr::crossing(year = year)
+      }
+
+      aq_data <-
+        purrr::pmap(
+          .l = site_info,
+          .f = purrr::possibly(
+            ~ readUKAQData(
+              site = ..1,
+              lmam_subfolder = ..2,
+              year = ..3,
+              data_type,
+              pollutant = pollutant,
+              hc = hc,
+              to_narrow = to_narrow,
+              source = source,
+              verbose = verbose
+            ), quiet = !verbose),
+          .progress = ifelse(progress, "Importing AQ Data", FALSE)
+        ) %>%
+        purrr::list_rbind()
+
+      if (nrow(aq_data) == 0) {
+        cli::cli_abort("No data returned. Check {.arg site} and {.arg year}.",
+                       call = NULL)
+      }
+
+      if (ratified && data_type == "hourly"){
+        aq_data <-
+          add_ratified(aq_data = aq_data,
+                       source = source,
+                       to_narrow = to_narrow)
+      }
     }
 
     # filter annual/monthly/DAQI data

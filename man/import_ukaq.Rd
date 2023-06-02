@@ -6,6 +6,7 @@
 \alias{importSAQN}
 \alias{importWAQN}
 \alias{importNI}
+\alias{importLocal}
 \title{Import data from the UK Air Pollution Networks}
 \usage{
 importAURN(
@@ -73,6 +74,17 @@ importNI(
   verbose = FALSE,
   progress = TRUE
 )
+
+importLocal(
+  site = "ad1",
+  year = 2018,
+  data_type = "hourly",
+  pollutant = "all",
+  meta = FALSE,
+  to_narrow = FALSE,
+  verbose = FALSE,
+  progress = TRUE
+)
 }
 \arguments{
 \item{site}{Site code of the site to import e.g. \dQuote{my1} is Marylebone
@@ -92,17 +104,18 @@ to 2000 use \code{year = 1990:2000}. To import several specific years use
 data with data capture information for the whole network.}
 \item{"annual"}{ Annual average data with data capture information for the
 whole network.}
-\item{"15_min"}{ To import 15-minute average SO2
-concentrations.}
-\item{"8_hour"}{ To import 8-hour rolling mean
-concentrations for O3 and CO.}
-\item{"24_hour"}{ To import 24-hour rolling
-mean concentrations for particulates.}
-\item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3 and CO.}
-\item{"daqi"}{ To import Daily
-Air Quality Index (DAQI). See
-\href{https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info&pollutant=ozone#pollutant}{here}
-for more details of how the index is defined.} }}
+\item{"15_min"}{ To import 15-minute average SO2 concentrations.}
+\item{"8_hour"}{ To import 8-hour rolling mean concentrations for O3 and
+CO.}
+\item{"24_hour"}{ To import 24-hour rolling mean concentrations for
+particulates.}
+\item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3
+and CO.}
+\item{"daqi"}{ To import Daily Air Quality Index (DAQI). See
+\href{https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info}{here} for
+more details of how the index is defined. Note that this \code{data_type} is not
+available for locally managed monitoring networks.}
+}}
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use \code{pollutant =
@@ -131,8 +144,9 @@ species was ratified i.e. quality-checked. Available for hourly data only.}
 pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 a narrow format with a column identifying the pollutant name.}
 
-\item{verbose}{Should the function give messages when downloading files?
-Default is \code{FALSE}.}
+\item{verbose}{Should the function print messages if it cannot find hourly
+data to import? Default is \code{FALSE}. \code{TRUE} is useful for debugging as the
+specific "year" and "site" which cannot be imported will be returned.}
 
 \item{progress}{Show a progress bar when many sites/years are being imported?
 Defaults to \code{TRUE}.}
@@ -142,8 +156,9 @@ a \link[tibble:tibble-package]{tibble}
 }
 \description{
 Functions for importing air pollution data from a range of UK networks
-including the Automatic Urban and Rural Network (AURN) and individual England
-(AQE), Scotland (SAQN), Wales (WAQN) and Northern Ireland (NI) Networks.
+including the Automatic Urban and Rural Network (AURN), the individual
+England (AQE), Scotland (SAQN), Wales (WAQN) and Northern Ireland (NI)
+Networks, and many "locally managed" monitoring networks across England.
 Files are imported from a remote server operated by Ricardo that provides air
 quality data files as R data objects.
 }
@@ -250,7 +265,6 @@ Other import functions:
 \code{\link{importADMS}()},
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},
-\code{\link{importLocal}()},
 \code{\link{importMeta}()},
 \code{\link{importTraj}()}
 }

@@ -184,7 +184,6 @@ Other import functions:
 \code{\link{importAURN}()},
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},
-\code{\link{importLocal}()},
 \code{\link{importMeta}()},
 \code{\link{importTraj}()}
 }
