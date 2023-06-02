@@ -11,8 +11,7 @@ importUKAQ <-
            to_narrow = FALSE,
            verbose = FALSE,
            source = "aurn",
-           lmam_subfolder,
-           progress = TRUE) {
+           lmam_subfolder) {
     # force source to be lowercase
   source <- tolower(source)
 
@@ -42,16 +41,11 @@ importUKAQ <-
   }
 
   # combine site with year to create file names
-  files <- purrr::map(site, ~ paste0(.x, "_", year)) %>%
-    purrr::list_c()
+  files <- paste0(site, "_", year)
 
   # Download and load data.
-  if (progress) progress <- "Importing Air Quality Data"
-  thedata <- purrr::map(files,
-                        ~ loadData(.x, verbose, ratified, meta_data,
-                                   url_data, data_type),
-                        .progress = progress) %>%
-    purrr::list_rbind()
+  thedata <-
+    loadData(files, verbose, ratified, meta_data, url_data, data_type)
 
   # Return if no data
   if (nrow(thedata) == 0) {
@@ -106,7 +100,7 @@ importUKAQ <-
       return()
     }
 
-    # variables to selct or not select
+    # variables to select or not select
     the_vars <- c(
       "date", "site", "code",
       "latitude", "longitude", "site_type",
