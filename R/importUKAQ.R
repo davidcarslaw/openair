@@ -486,7 +486,7 @@ import_network_worker <-
         purrr::pmap(
           .l = site_info,
           .f = purrr::possibly(
-            ~ importUKAQ(
+            ~ readUKAQData(
               site = ..1,
               lmam_subfolder = ..2,
               year = ..3,

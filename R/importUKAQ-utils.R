@@ -1,7 +1,7 @@
 
 #' worker function that downloads data from a range of networks run by Ricardo
 #' @noRd
-importUKAQ <-
+readUKAQData <-
   function(site = "my1",
            year = 2009,
            data_type = "hourly",
@@ -176,48 +176,6 @@ loadData <- function(x, verbose, url_data, data_type) {
   )
 }
 
-#' Function to add ratified flag to hourly data
-#' @noRd
-add_ratified <- function(aq_data, source, to_narrow){
-  meta <-
-    importMeta(source, all = T) %>%
-    dplyr::filter(code %in% aq_data$code,
-                  !variable %in% c(
-                    "V10", "NV10", "V2.5", "NV2.5",
-                    "ws", "wd", "temp"
-                  )) %>%
-    dplyr::select(code, variable, ratified_to) %>%
-    dplyr::mutate(variable = tolower(variable))
-
-  if (to_narrow) {
-    meta <- dplyr::rename(meta, pollutant = variable, qc = ratified_to) %>%
-      dplyr::filter(pollutant %in% tolower(aq_data$pollutant))
-    aq_data <-
-      aq_data %>%
-      dplyr::left_join(meta, by = dplyr::join_by(code, pollutant)) %>%
-      dplyr::mutate(qc = date <= qc)
-
-    return(aq_data)
-  }
-
-  meta <-
-    meta %>%
-    dplyr::filter(variable %in% names(aq_data)) %>%
-    tidyr::pivot_wider(
-      names_from = variable,
-      values_from = ratified_to,
-      names_glue = "{variable}_qc"
-    )
-
-  aq_data <-
-    aq_data %>%
-    dplyr::left_join(meta, by = dplyr::join_by(code)) %>%
-    dplyr::mutate(dplyr::across(dplyr::contains("_qc"), function(x)
-      date <= x))
-
-  return(aq_data)
-}
-
 #' function to read annual or monthly files
 #' @noRd
 readSummaryData <-
@@ -365,6 +323,48 @@ add_meta <- function(source, aq_data) {
 
   return(aq_data)
 }
+
+#' Function to add ratified flag to hourly data
+#' @noRd
+add_ratified <- function(aq_data, source, to_narrow) {
+  meta <-
+    importMeta(source, all = T) %>%
+    dplyr::filter(
+      code %in% aq_data$code,
+      !variable %in% c("V10", "NV10", "V2.5", "NV2.5",
+                       "ws", "wd", "temp")
+    ) %>%
+    dplyr::select(code, variable, ratified_to) %>%
+    dplyr::mutate(variable = tolower(variable))
+
+  if (to_narrow) {
+    meta <-
+      dplyr::rename(meta, "pollutant" = variable, "qc" = ratified_to) %>%
+      dplyr::filter(pollutant %in% tolower(aq_data$pollutant))
+    aq_data <-
+      aq_data %>%
+      dplyr::left_join(meta, by = dplyr::join_by(code, pollutant)) %>%
+      dplyr::mutate(qc = date <= .data$qc)
+
+    return(aq_data)
+  }
+
+  meta <-
+    meta %>%
+    dplyr::filter(variable %in% names(aq_data)) %>%
+    tidyr::pivot_wider(names_from = variable,
+                       values_from = ratified_to,
+                       names_glue = "{variable}_qc")
+
+  aq_data <-
+    aq_data %>%
+    dplyr::left_join(meta, by = dplyr::join_by(code)) %>%
+    dplyr::mutate(dplyr::across(dplyr::contains("_qc"), function(x)
+      date <= x))
+
+  return(aq_data)
+}
+
 
 #' Function to filter annual/DAQI stats using
 #' @param missing_site Input should be `missing(site)`
