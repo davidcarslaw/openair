@@ -136,56 +136,32 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
       con <- url(fileName)
       load(con)
 
-      if (data_type == "hourly") {
-        x <- x
-      }
+      # Find appropriate extension per `data_type`
+      x <- switch(data_type,
+                  hourly = x,
+                  `15min` = paste0(x, "_15min"),
+                  daily = paste0(x, "_daily_mean"),
+                  `8_hour` = paste0(x, "_8hour_mean"),
+                  `24_hour` = paste0(x, "_24hour_mean"),
+                  daily_max_8 = paste0(x, "_daily_max_8hour"))
 
-      if (data_type == "15min") {
-        x <- paste0(x, "_15min")
-      }
-
-      if (data_type == "daily") {
-
-        # gravimetric PM10/PM2.5 are in a separate table
-        # These are 'proper' daily means rather than derived from hourly
-        x2 <- paste0(x, "_daily")
-
-        x <- paste0(x, "_daily_mean")
-
-      }
-
-      if (data_type == "8_hour") {
-        x <- paste0(x, "_8hour_mean")
-      }
-
-      if (data_type == "24_hour") {
-        x <- paste0(x, "_24hour_mean")
-      }
-
-      if (data_type == "daily_max_8") {
-        x <- paste0(x, "_daily_max_8hour")
-      }
-
+      # Gravimetric PM is in separate file
+      # These are measured daily PM measurements rather than daily mean hourly
+      x2 <- gsub("_daily_mean", "_daily", x)
 
       # Reasign
       dat <- get(x)
 
       # if there are two daily data frames to combine
-      if (data_type == "daily") {
+      if (data_type == "daily" & exists(x2)) {
+        dat2 <- get(x2)
+        dat <- left_join(dat, dat2,
+                         by = c("date", "site", "code"))
 
-        if (exists(x2)) {
+        lookup <- c(gr_pm2.5 = "GR2.5", gr_pm10 = "GR10")
 
-          dat2 <- get(x2)
-          dat <- left_join(dat, dat2,
-                           by = c("date", "site", "code"))
-
-          lookup <- c(gr_pm2.5 = "GR2.5", gr_pm10 = "GR10")
-
-          dat <- dat %>%
-            rename(any_of(lookup))
-
-        }
-
+        dat <- dat %>%
+          rename(any_of(lookup))
       }
 
       # make sure class is correct for lubridate
