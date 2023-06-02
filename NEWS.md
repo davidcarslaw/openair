@@ -4,11 +4,13 @@
 
 - `importAQE()`, `importWAQN()`, `importSAQN()` and `importNI()` all now allow `data_type = "daqi"`, which allows for the daily pollutant index to be downloaded. At time of writing, only data from 2022 is present.
 
+- the `importAURN()` family of import functions now allow `ratified = TRUE` and `to_narrow = TRUE` simultaneously. This will return a tibble with two columns per observation - "value" containing the concentration and "qc" containing `TRUE`/`FALSE` which indicates whether the concentration is validated.
+
 - `calendarPlot()` now automatically creates its own `labels` if `breaks` are specified. For example, `c(0, 10, 20)` will create the labels `c("0 - 10", "10 - 20")`. `labels` can still be used to override the default values. (#341)
 
-- return tibble from `timeAverage`.
+- return tibble from `timeAverage()`.
 
-- Move regression formula off main plot for `polarPlot` for clarity and label slope as 'm'.
+- Move regression formula off main plot for `polarPlot()` for clarity and label slope as 'm'.
 
 ## Bug Fixes
 

@@ -95,11 +95,6 @@ importUKAQ <-
   attr(thedata$date, "tzone") <- "GMT"
 
   if (to_narrow) {
-    if (ratified) {
-      warning("Cannot re-shape if ratified is TRUE")
-      return()
-    }
-
     # variables to select or not select
     the_vars <- c(
       "date", "site", "code",
@@ -107,13 +102,30 @@ importUKAQ <-
       "ws", "wd", "air_temp"
     )
 
+    if (ratified) {
+      thedata <- thedata %>%
+        tidyr::pivot_longer(-dplyr::any_of(the_vars),
+                            names_to = "pollutant",
+                            values_to = "temp_val") %>%
+        dplyr::mutate(
+          name = dplyr::if_else(stringr::str_detect(pollutant, "_qc"), "qc", "value"),
+          pollutant = stringr::str_remove(pollutant, "_qc")
+        ) %>%
+        tidyr::pivot_wider(names_from = "name", values_from = "temp_val") %>%
+        dplyr::mutate(qc = as.logical(qc)) %>%
+        dplyr::group_by(pollutant, site) %>%
+        dplyr::filter(!all(is.na(value))) %>%
+        dplyr::ungroup()
+    } else {
+      thedata <-
+        tidyr::pivot_longer(thedata,
+                            cols = -dplyr::any_of(the_vars),
+                            names_to = "pollutant")
+    }
+
     thedata <- thedata %>%
-      pivot_longer(
-        cols = -any_of(the_vars),
-        names_to = "pollutant"
-      ) %>%
-      relocate(any_of(the_vars)) %>%
-      arrange(site, code, pollutant, date)
+      dplyr::relocate(dplyr::any_of(the_vars)) %>%
+      dplyr::arrange(site, code, pollutant, date)
   }
 
   as_tibble(thedata)
