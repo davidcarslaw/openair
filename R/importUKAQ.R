@@ -501,6 +501,11 @@ import_network_worker <-
         ) %>%
         purrr::list_rbind()
 
+      if (nrow(aq_data) == 0) {
+        cli::cli_abort("No data returned. Check {.arg site} and {.arg year}.",
+                       call = NULL)
+      }
+
       if (ratified && data_type == "hourly"){
         aq_data <-
           add_ratified(aq_data = aq_data,
