@@ -40,22 +40,22 @@ importUKAQ <-
 
     # Download and load data.
     thedata <-
-      loadData(
+      suppressWarnings(loadData(
         x = files,
         verbose = verbose,
         url_data = url_data,
         data_type = data_type
-      )
+      ))
+
+    # suppress warnings for now - unequal factors, harmless
+    if (is.null(thedata)) {
+      cli::cli_abort(c("x" = "No data to import for {.arg site} {.field {site}} and {.arg year} {.field {year}}"))
+    }
 
     # Return if no data
     if (nrow(thedata) == 0) {
       return()
     } ## no data
-
-    # suppress warnings for now - unequal factors, harmless
-    if (is.null(thedata)) {
-      stop("No data to import - check site codes and year.", call. = FALSE)
-    }
 
     # change names
     names(thedata) <- tolower(names(thedata))
@@ -166,7 +166,8 @@ loadData <- function(x, verbose, url_data, data_type) {
     error = function(ex) {
       # Print a message
       if (verbose) {
-        message(x, "does not exist - ignoring that one.")
+        cli::cli_warn(c("i" = "{x} does not exist - ignoring that one."))
+        return(NULL)
       }
     },
     finally = {

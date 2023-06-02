@@ -144,8 +144,9 @@ species was ratified i.e. quality-checked. Available for hourly data only.}
 pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 a narrow format with a column identifying the pollutant name.}
 
-\item{verbose}{Should the function give messages when downloading files?
-Default is \code{FALSE}.}
+\item{verbose}{Should the function print messages if it cannot find hourly
+data to import? Default is \code{FALSE}. \code{TRUE} is useful for debugging as the
+specific "year" and "site" which cannot be imported will be returned.}
 
 \item{progress}{Show a progress bar when many sites/years are being imported?
 Defaults to \code{TRUE}.}

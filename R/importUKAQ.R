@@ -124,8 +124,9 @@
 #' @param to_narrow By default the returned data has a column for each
 #'   pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
 #'   a narrow format with a column identifying the pollutant name.
-#' @param verbose Should the function give messages when downloading files?
-#'   Default is \code{FALSE}.
+#' @param verbose Should the function print messages if it cannot find hourly
+#'   data to import? Default is `FALSE`. `TRUE` is useful for debugging as the
+#'   specific "year" and "site" which cannot be imported will be returned.
 #' @param progress Show a progress bar when many sites/years are being imported?
 #'   Defaults to `TRUE`.
 #'
@@ -484,17 +485,18 @@ import_network_worker <-
       aq_data <-
         purrr::pmap(
           .l = site_info,
-          .f = ~ importUKAQ(
-            site = ..1,
-            lmam_subfolder = ..2,
-            year = ..3,
-            data_type,
-            pollutant = pollutant,
-            hc = hc,
-            to_narrow = to_narrow,
-            source = source,
-            verbose = verbose
-          ),
+          .f = purrr::possibly(
+            ~ importUKAQ(
+              site = ..1,
+              lmam_subfolder = ..2,
+              year = ..3,
+              data_type,
+              pollutant = pollutant,
+              hc = hc,
+              to_narrow = to_narrow,
+              source = source,
+              verbose = verbose
+            ), quiet = !verbose),
           .progress = ifelse(progress, "Importing AQ Data", FALSE)
         ) %>%
         purrr::list_rbind()
