@@ -18,6 +18,8 @@
 
 - the `site` and `pollutant` arguments of import functions (e.g., `importAURN()`) are now respected when `data_type` is "daqi", "annual" or "monthly". The default behaviour to return all available statistics has not changed. (#346)
 
+- the various arguments which augment import function outputs now behave more consistently with one another. For example, `ratified` now respects `pollutant` and only returns the "_qc" columns for the pollutants of interest.
+
 # openair 2.17-0
 
 ## New Features

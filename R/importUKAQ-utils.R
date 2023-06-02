@@ -13,129 +13,111 @@ importUKAQ <-
            source = "aurn",
            lmam_subfolder) {
     # force source to be lowercase
-  source <- tolower(source)
+    source <- tolower(source)
 
-  # obtain url
-  url_data <-
-    switch(source,
-      aurn = "https://uk-air.defra.gov.uk/openair/R_data/",
-      saqn = "https://www.scottishairquality.scot/openair/R_data/",
-      aqe = "https://airqualityengland.co.uk/assets/openair/R_data/",
-      waqn = "https://airquality.gov.wales/sites/default/files/openair/R_data/",
-      ni = "https://www.airqualityni.co.uk/openair/R_data/",
-      local = "https://uk-air.defra.gov.uk/openair/LMAM/R_data/",
-      stop("Invalid source.")
-    )
+    # obtain url
+    url_data <-
+      switch(source,
+             aurn = "https://uk-air.defra.gov.uk/openair/R_data/",
+             saqn = "https://www.scottishairquality.scot/openair/R_data/",
+             aqe = "https://airqualityengland.co.uk/assets/openair/R_data/",
+             waqn = "https://airquality.gov.wales/sites/default/files/openair/R_data/",
+             ni = "https://www.airqualityni.co.uk/openair/R_data/",
+             local = "https://uk-air.defra.gov.uk/openair/LMAM/R_data/",
+             stop("Invalid source.")
+      )
 
-  # add to path if source = "local"
-  if (source == "local") {
-    url_data <- paste0(url_data, lmam_subfolder, "/")
-  }
+    # add to path if source = "local"
+    if (source == "local") {
+      url_data <- paste0(url_data, lmam_subfolder, "/")
+    }
 
-  # For file name matching, needs to be exact
-  site <- toupper(site)
+    # For file name matching, needs to be exact
+    site <- toupper(site)
 
-  # If meta or ratified, get metadata
-  if (ratified) {
-    meta_data <- importMeta(source = source, all = TRUE)
-  }
+    # combine site with year to create file names
+    files <- paste0(site, "_", year)
 
-  # combine site with year to create file names
-  files <- paste0(site, "_", year)
+    # Download and load data.
+    thedata <-
+      loadData(
+        x = files,
+        verbose = verbose,
+        url_data = url_data,
+        data_type = data_type
+      )
 
-  # Download and load data.
-  thedata <-
-    loadData(files, verbose, ratified, meta_data, url_data, data_type)
+    # Return if no data
+    if (nrow(thedata) == 0) {
+      return()
+    } ## no data
 
-  # Return if no data
-  if (nrow(thedata) == 0) {
-    return()
-  } ## no data
+    # suppress warnings for now - unequal factors, harmless
+    if (is.null(thedata)) {
+      stop("No data to import - check site codes and year.", call. = FALSE)
+    }
 
-  ## suppress warnings for now - unequal factors, harmless
-  if (is.null(thedata)) {
-    stop("No data to import - check site codes and year.", call. = FALSE)
-  }
+    # change names
+    names(thedata) <- tolower(names(thedata))
 
-  ## change names
-  names(thedata) <- tolower(names(thedata))
+    # change nox as no2
+    id <- which(names(thedata) %in% "noxasno2")
+    if (length(id) == 1) names(thedata)[id] <- "nox"
 
-  ## change nox as no2
-  id <- which(names(thedata) %in% "noxasno2")
-  if (length(id) == 1) names(thedata)[id] <- "nox"
+    # change code to character
+    thedata$code <- as.character(thedata$code)
 
-  # change code to character
-  thedata$code <- as.character(thedata$code)
+    # should hydrocarbons be imported?
+    if (!hc) {
+      ## no hydrocarbons - therefore select conventional pollutants
+      theNames <- c(
+        "site", "code", "date", "co", "nox", "no2", "no", "o3", "so2", "pm10",
+        "pm2.5", "v10", "v2.5", "nv10", "nv2.5", "gr_pm10", "gr_pm2.5",
+        "ws", "wd", "temp"
+      )
 
+      thedata <- select(thedata, any_of(theNames) | matches("_qc"))
+    }
 
-  ## should hydrocarbons be imported?
-  if (hc) {
-    thedata <- thedata
-  } else {
-    ## no hydrocarbons - therefore select conventional pollutants
-    theNames <- c(
-      "site", "code", "date", "co", "nox", "no2", "no", "o3", "so2", "pm10",
-      "pm2.5", "v10", "v2.5", "nv10", "nv2.5", "gr_pm10", "gr_pm2.5",
-      "ws", "wd", "temp"
-    )
+    # rename "temp" to "air_temp" if appropriate
+    if ("temp" %in% names(thedata)) {
+      thedata <- rename(thedata, air_temp = temp)
+    }
 
-    thedata <- select(thedata, any_of(theNames) | matches("_qc"))
-  }
+    # if particular pollutants have been selected
+    if (pollutant[1] != "all") {
+      thedata <- thedata[, c("date", pollutant, "site", "code")]
+    }
 
-  if ("temp" %in% names(thedata)) {
-    thedata <- rename(thedata, air_temp = temp)
-  }
+    # make sure it is in GMT
+    attr(thedata$date, "tzone") <- "GMT"
 
-  ## if particular pollutants have been selected
-  if (pollutant[1] != "all") {
-    thedata <- thedata[, c("date", pollutant, "site", "code")]
-  }
+    # tidy data if requested
+    if (to_narrow) {
+      # variables to select or not select
+      the_vars <- c(
+        "date", "site", "code",
+        "latitude", "longitude", "site_type",
+        "ws", "wd", "air_temp"
+      )
 
-  ## make sure it is in GMT
-  attr(thedata$date, "tzone") <- "GMT"
-
-  if (to_narrow) {
-    # variables to select or not select
-    the_vars <- c(
-      "date", "site", "code",
-      "latitude", "longitude", "site_type",
-      "ws", "wd", "air_temp"
-    )
-
-    if (ratified) {
-      thedata <- thedata %>%
-        tidyr::pivot_longer(-dplyr::any_of(the_vars),
-                            names_to = "pollutant",
-                            values_to = "temp_val") %>%
-        dplyr::mutate(
-          name = dplyr::if_else(stringr::str_detect(pollutant, "_qc"), "qc", "value"),
-          pollutant = stringr::str_remove(pollutant, "_qc")
-        ) %>%
-        tidyr::pivot_wider(names_from = "name", values_from = "temp_val") %>%
-        dplyr::mutate(qc = as.logical(qc)) %>%
-        dplyr::group_by(pollutant, site) %>%
-        dplyr::filter(!all(is.na(value))) %>%
-        dplyr::ungroup()
-    } else {
       thedata <-
         tidyr::pivot_longer(thedata,
                             cols = -dplyr::any_of(the_vars),
                             names_to = "pollutant")
+
+      # clean tidied data before returning
+      thedata <- thedata %>%
+        dplyr::relocate(dplyr::any_of(the_vars)) %>%
+        dplyr::arrange(site, code, pollutant, date)
     }
 
-    thedata <- thedata %>%
-      dplyr::relocate(dplyr::any_of(the_vars)) %>%
-      dplyr::arrange(site, code, pollutant, date)
+    as_tibble(thedata)
   }
 
-  as_tibble(thedata)
-}
-
-
-
-# Define downloading and loading function
-# No export
-loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
+#' Define downloading and loading function
+#' @noRd
+loadData <- function(x, verbose, url_data, data_type) {
   tryCatch(
     {
       # Build the file name
@@ -179,28 +161,6 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
       # make sure class is correct for lubridate
       class(dat$date) <- c("POSIXct", "POSIXt")
 
-      # add ratification information
-      if (ratified && data_type == "hourly") {
-        site_code <- strsplit(x, split = "_")[[1]][1]
-
-        meta_data <- filter(
-          meta_data, code == site_code,
-          !variable %in% c(
-            "V10", "NV10", "V2.5", "NV2.5",
-            "ws", "wd", "temp"
-          )
-        ) %>%
-          select(variable, ratified_to)
-
-        for (i in 1:nrow(meta_data)) {
-          dat <- add_ratified(dat,
-                              variable = meta_data$variable[i],
-                              ratified_to = meta_data$ratified_to[i]
-          )
-        }
-      }
-
-
       return(dat)
     },
     error = function(ex) {
@@ -215,15 +175,50 @@ loadData <- function(x, verbose, ratified, meta_data, url_data, data_type) {
   )
 }
 
-add_ratified <- function(data, variable, ratified_to) {
-  new_var <- paste0(variable, "_qc")
-  data <- mutate(data, {{ new_var }} := ifelse(date <= ratified_to, TRUE, FALSE))
+#' Function to add ratified flag to hourly data
+#' @noRd
+add_ratified <- function(aq_data, source, to_narrow){
+  meta <-
+    importMeta(source, all = T) %>%
+    dplyr::filter(code %in% aq_data$code,
+                  !variable %in% c(
+                    "V10", "NV10", "V2.5", "NV2.5",
+                    "ws", "wd", "temp"
+                  )) %>%
+    dplyr::select(code, variable, ratified_to) %>%
+    dplyr::mutate(variable = tolower(variable))
 
-  return(data)
+  if (to_narrow) {
+    meta <- dplyr::rename(meta, pollutant = variable, qc = ratified_to) %>%
+      dplyr::filter(pollutant %in% tolower(aq_data$pollutant))
+    aq_data <-
+      aq_data %>%
+      dplyr::left_join(meta, by = dplyr::join_by(code, pollutant)) %>%
+      dplyr::mutate(qc = date <= qc)
+
+    return(aq_data)
+  }
+
+  meta <-
+    meta %>%
+    dplyr::filter(variable %in% names(aq_data)) %>%
+    tidyr::pivot_wider(
+      names_from = variable,
+      values_from = ratified_to,
+      names_glue = "{variable}_qc"
+    )
+
+  aq_data <-
+    aq_data %>%
+    dplyr::left_join(meta, by = dplyr::join_by(code)) %>%
+    dplyr::mutate(dplyr::across(dplyr::contains("_qc"), function(x)
+      date <= x))
+
+  return(aq_data)
 }
 
-# function to read annual or monthly files
-
+#' function to read annual or monthly files
+#' @noRd
 readSummaryData <-
   function(fileName, data_type, to_narrow, meta, hc) {
     thedata <- try(readRDS(url(fileName)), TRUE)
@@ -332,6 +327,8 @@ readSummaryData <-
     return(thedata)
   }
 
+#' Function to read DAQI data from a file
+#' @noRd
 readDAQI <- function(fileName) {
   thedata <- try(readRDS(url(fileName)), TRUE)
 
@@ -353,7 +350,10 @@ readDAQI <- function(fileName) {
   return(thedata)
 }
 
-# function to add meta data based on network and supply of aq data
+#' function to add meta data based on network and supply of aq data
+#' @param source network of interest (e.g., "aurn")
+#' @param aq_data imported air quality data (annual, daqi, or otherwise)
+#' @noRd
 add_meta <- function(source, aq_data) {
   meta_data <- importMeta(source = source)
 

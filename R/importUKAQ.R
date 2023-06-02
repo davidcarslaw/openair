@@ -491,7 +491,6 @@ import_network_worker <-
             data_type,
             pollutant = pollutant,
             hc = hc,
-            ratified = ratified,
             to_narrow = to_narrow,
             source = source,
             verbose = verbose
@@ -499,6 +498,13 @@ import_network_worker <-
           .progress = ifelse(progress, "Importing AQ Data", FALSE)
         ) %>%
         purrr::list_rbind()
+
+      if (ratified && data_type == "hourly"){
+        aq_data <-
+          add_ratified(aq_data = aq_data,
+                       source = source,
+                       to_narrow = to_narrow)
+      }
     }
 
     # filter annual/monthly/DAQI data
