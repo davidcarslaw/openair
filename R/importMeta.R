@@ -156,7 +156,7 @@ importMeta <- function(source = "aurn", all = FALSE, duplicate = FALSE, year = N
     }
 
     # return data source
-    meta$source <- source
+    meta <- dplyr::mutate(meta, source = source, .before = dplyr::everything())
 
     return(meta)
   }
@@ -170,7 +170,7 @@ importMeta <- function(source = "aurn", all = FALSE, duplicate = FALSE, year = N
   if (!all) {
     meta <-
       dplyr::select(meta, dplyr::all_of(
-        c("site", "code", "latitude", "longitude", "site_type", "source")
+        c("source", "site", "code", "latitude", "longitude", "site_type")
       ))
   }
 
