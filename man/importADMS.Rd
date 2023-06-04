@@ -185,7 +185,8 @@ Other import functions:
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},
 \code{\link{importMeta}()},
-\code{\link{importTraj}()}
+\code{\link{importTraj}()},
+\code{\link{importUKAQ}()}
 }
 \author{
 Karl Ropkins, David Carslaw and Matthew Williams (CERC).

@@ -81,7 +81,8 @@ Other import functions:
 \code{\link{importAURN}()},
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},
-\code{\link{importTraj}()}
+\code{\link{importTraj}()},
+\code{\link{importUKAQ}()}
 }
 \author{
 David Carslaw

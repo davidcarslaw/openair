@@ -7,7 +7,7 @@
 \alias{importWAQN}
 \alias{importNI}
 \alias{importLocal}
-\title{Import data from the UK Air Pollution Networks}
+\title{Import data from individual UK Air Pollution Networks}
 \usage{
 importAURN(
   site = "my1",
@@ -87,80 +87,72 @@ importLocal(
 )
 }
 \arguments{
-\item{site}{Site code of the site to import e.g. \dQuote{my1} is Marylebone
-Road. Several sites can be imported with \code{site = c("my1", "nott")}
---- to import Marylebone Road and Nottingham for example.}
+\item{site}{Site code of the site to import, e.g., \code{"my1"} is Marylebone
+Road. Site codes can be discovered through the use of \code{\link[=importMeta]{importMeta()}}.
+Several sites can be imported at once. For example, \code{site = c("my1", "nott")} imports both Marylebone Road and Nottingham.}
 
-\item{year}{Year or years to import. To import a sequence of years from 1990
-to 2000 use \code{year = 1990:2000}. To import several specific years use
-\code{year = c(1990, 1995, 2000)} for example.}
+\item{year}{Year(s) to import. To import a series of years use, e.g.,
+\code{2000:2020}. To import several specific years use \code{year = c(2000, 2010, 2020)}.}
 
-\item{data_type}{The data type averaging period. These include:
-
+\item{data_type}{The type of data to be returned, defaulting to \code{"hourly"}
+data. Alternative data types include:
 \itemize{
-\item{"hourly"}{ Default is to return hourly data.}
-\item{"daily"}{ Daily average data.}
-\item{"monthly"}{ Monthly average
-data with data capture information for the whole network.}
-\item{"annual"}{ Annual average data with data capture information for the
-whole network.}
-\item{"15_min"}{ To import 15-minute average SO2 concentrations.}
-\item{"8_hour"}{ To import 8-hour rolling mean concentrations for O3 and
-CO.}
-\item{"24_hour"}{ To import 24-hour rolling mean concentrations for
-particulates.}
-\item{"daily_max_8"}{ To import maximum daily rolling 8-hour maximum for O3
-and CO.}
-\item{"daqi"}{ To import Daily Air Quality Index (DAQI). See
+\item \code{"daily"}: Daily average data.
+\item \code{"monthly"}: Monthly average data with data capture information for the whole network.
+\item \code{"annual"}: Annual average data with data capture information for the whole network.
+\item \code{"15_min"}: 15-minute average SO2 concentrations.
+\item \code{"8_hour"}: 8-hour rolling mean concentrations for O3 and CO.
+\item \code{"24_hour"}: 24-hour rolling mean concentrations for particulates.
+\item \code{"daily_max_8"}: Maximum daily rolling 8-hour maximum for O3 and CO.
+\item \code{"daqi"}: Daily Air Quality Index (DAQI). See
 \href{https://uk-air.defra.gov.uk/air-pollution/daqi?view=more-info}{here} for
 more details of how the index is defined. Note that this \code{data_type} is not
-available for locally managed monitoring networks.}
+available for locally managed monitoring networks.
 }}
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use \code{pollutant =
   c("nox", "no2")}.}
 
-\item{hc}{A few sites have hydrocarbon measurements available and setting
-\code{hc = TRUE} will ensure hydrocarbon data are imported. The default is
-however not to as most users will not be interested in using hydrocarbon
-data and the resulting data frames are considerably larger.}
+\item{hc}{Include hydrocarbon measurements in the imported data? Defaults to
+\code{FALSE} as most users will not be interested in using hydrocarbon data.}
 
-\item{meta}{Should meta data be returned? If \code{TRUE} the site type,
-latitude and longitude are returned.}
+\item{meta}{Append the site type, latitude and longitude of each selected
+\code{site}? Defaults to \code{FALSE}.}
 
-\item{meteo}{Should modelled meteorological data be returned if available.
-The default is \code{TRUE} and will return wind speed (\code{ws}), wind
-direction (\code{wd}) and ambient temperature (\code{air_temp}). The
-variables are calculated from using the WRF model run by Ricardo Energy &
-Environment and are available for most but not all networks. Setting
-\code{meteo = FALSE} is useful if you have other meteorological data to use
-in preference e.g. from \code{\link[worldmet]{worldmet}}.}
+\item{meteo}{Append modelled meteorological data, if available? Defaults to
+\code{TRUE}, which will return wind speed (\code{ws}), wind direction (\code{wd}) and
+ambient temperature (\code{air_temp}). The variables are calculated from using
+the WRF model run by Ricardo Energy & Environment and are available for
+most but not all networks. Setting \code{meteo = FALSE} is useful if you have
+other meteorological data to use in preference, for example from
+\code{\link[worldmet]{worldmet}}.}
 
-\item{ratified}{If \code{TRUE} columns are returned indicating when each
-species was ratified i.e. quality-checked. Available for hourly data only.}
+\item{ratified}{Append \code{qc} column(s) to hourly data indicating whether each
+species was ratified (i.e., quality-checked)?  Defaults to \code{FALSE}.}
 
-\item{to_narrow}{By default the returned data has a column for each
-pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
-a narrow format with a column identifying the pollutant name.}
+\item{to_narrow}{Return the data in a "narrow"/"long"/"tidy" format? By
+default the returned data is "wide" and has a column for each
+pollutant/variable. When \code{to_narrow = TRUE} the data are returned with a
+column identifying the pollutant name and a column containing the
+corresponding concentration/statistic. Defaults to \code{FALSE}.}
 
-\item{verbose}{Should the function print messages if it cannot find hourly
-data to import? Default is \code{FALSE}. \code{TRUE} is useful for debugging as the
-specific "year" and "site" which cannot be imported will be returned.}
+\item{verbose}{Print messages to the console if hourly data cannot be
+imported? Default is \code{FALSE}. \code{TRUE} is useful for debugging as the
+specific \code{year}(s), \code{site}(s) and \code{source}(s) which cannot be imported will
+be returned.}
 
 \item{progress}{Show a progress bar when many sites/years are being imported?
 Defaults to \code{TRUE}.}
 }
-\value{
-a \link[tibble:tibble-package]{tibble}
-}
 \description{
-Functions for importing air pollution data from a range of UK networks
-including the Automatic Urban and Rural Network (AURN), the individual
-England (AQE), Scotland (SAQN), Wales (WAQN) and Northern Ireland (NI)
-Networks, and many "locally managed" monitoring networks across England.
-Files are imported from a remote server operated by Ricardo that provides air
-quality data files as R data objects.
+These functions act as wrappers for \code{\link[=importUKAQ]{importUKAQ()}} to import air pollution
+data from a range of UK networks including the Automatic Urban and Rural
+Network (AURN), the individual England (AQE), Scotland (SAQN), Wales (WAQN)
+and Northern Ireland (NI) Networks, and many "locally managed" monitoring
+networks across England. While \code{\link[=importUKAQ]{importUKAQ()}} allows for data to be imported
+more flexibly, including across multiple monitoring networks, these functions
+are provided for convenience and back-compatibility.
 }
 \section{Importing UK Air Pollution Data}{
 
@@ -183,7 +175,7 @@ objects is very efficient as they are about four times smaller than .csv
 files --- which means the data downloads quickly and saves bandwidth.
 Third, the function completely avoids any need for data manipulation or
 setting time formats, time zones etc. The function also has the advantage
-that the proper site name is imported and used in \code{openair} functions.
+that the proper site name is imported and used in \code{{openair}} functions.
 
 The data are imported by stacking sites on top of one another and will have
 field names \code{site}, \code{code} (the site code) and \code{pollutant}.
@@ -207,16 +199,15 @@ to the use of FDMS the measurements used TEOM (Tapered Element Oscillating.
 Microbalance) and these concentrations have been multiplied by 1.3 to
 provide an estimate of the total mass including the volatile fraction.
 
-Some sites report hourly and daily PM10 and / or PM2.5. When \code{data_type
-= "daily"} and there are both hourly and 'proper' daily measurements
+Some sites report hourly and daily PM10 and / or PM2.5. When \code{data_type = "daily"} and there are both hourly and 'proper' daily measurements
 available, these will be returned as e.g. "pm2.5" and "gr_pm2.5"; the
 former corresponding to data based on original hourly measurements and the
 latter corresponding to daily gravimetric measurements.
 
 The function returns modelled hourly values of wind speed (\code{ws}), wind
-direction (\code{wd}) and ambient temperature (\code{air_temp}) if
-available (generally from around 2010). These values are modelled using the
-WRF model operated by Ricardo.
+direction (\code{wd}) and ambient temperature (\code{air_temp}) if available
+(generally from around 2010). These values are modelled using the WRF model
+operated by Ricardo.
 
 The BAM (Beta-Attenuation Monitor) instruments that have been incorporated
 into the network throughout its history have been scaled by 1.3 if they
@@ -233,42 +224,13 @@ No corrections have been made to the PM2.5 data. The volatile component of
 FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 }
 
-\examples{
-
-## import all pollutants from Marylebone Rd from 1990:2009
-\dontrun{
-mary <- importAURN(site = "my1", year = 2000:2009)
-}
-
-## import nox, no2, o3 from Marylebone Road and Nottingham Centre for 2000
-\dontrun{
-thedata <- importAURN(
-  site = c("my1", "nott"), year = 2000,
-  pollutant = c("nox", "no2", "o3")
-)
-}
-
-# Other functions work in the same way e.g. to import Cardiff Centre data
-
-# Import annual data over a period, make it narrow format and return site information
-
-\dontrun{
-aq <- importAURN(year = 2010:2020, data_type = "annual", meta = TRUE, to_narrow = TRUE)
-}
-
-\dontrun{
-cardiff <- importWAQN(site = "card", year = 2020)
-}
-}
 \seealso{
 Other import functions: 
 \code{\link{importADMS}()},
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},
 \code{\link{importMeta}()},
-\code{\link{importTraj}()}
-}
-\author{
-David Carslaw and Trevor Davies
+\code{\link{importTraj}()},
+\code{\link{importUKAQ}()}
 }
 \concept{import functions}

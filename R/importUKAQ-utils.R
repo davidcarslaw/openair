@@ -11,22 +11,8 @@ readUKAQData <-
            to_narrow = FALSE,
            verbose = FALSE,
            source = "aurn",
+           url_data,
            lmam_subfolder) {
-    # force source to be lowercase
-    source <- tolower(source)
-
-    # obtain url
-    url_data <-
-      switch(source,
-             aurn = "https://uk-air.defra.gov.uk/openair/R_data/",
-             saqn = "https://www.scottishairquality.scot/openair/R_data/",
-             aqe = "https://airqualityengland.co.uk/assets/openair/R_data/",
-             waqn = "https://airquality.gov.wales/sites/default/files/openair/R_data/",
-             ni = "https://www.airqualityni.co.uk/openair/R_data/",
-             local = "https://uk-air.defra.gov.uk/openair/LMAM/R_data/",
-             stop("Invalid source.")
-      )
-
     # add to path if source = "local"
     if (source == "local") {
       url_data <- paste0(url_data, lmam_subfolder, "/")
@@ -35,7 +21,6 @@ readUKAQData <-
     # For file name matching, needs to be exact
     site <- toupper(site)
 
-    # combine site with year to create file names
     files <- paste0(site, "_", year)
 
     # Download and load data.
@@ -49,7 +34,7 @@ readUKAQData <-
 
     # suppress warnings for now - unequal factors, harmless
     if (is.null(thedata)) {
-      cli::cli_abort(c("x" = "No data to import for {.arg site} {.field {site}} and {.arg year} {.field {year}}"))
+      cli::cli_abort("No data to import for {.arg site} {.field {site}} and {.arg year} {.field {year}} from {.arg source} {.field {source}}.")
     }
 
     # Return if no data
@@ -86,7 +71,7 @@ readUKAQData <-
 
     # if particular pollutants have been selected
     if (pollutant[1] != "all") {
-      thedata <- thedata[, c("date", pollutant, "site", "code")]
+      thedata <- thedata[, c("date", "site", "code", pollutant)]
     }
 
     # make sure it is in GMT
@@ -111,6 +96,10 @@ readUKAQData <-
         dplyr::relocate(dplyr::any_of(the_vars)) %>%
         dplyr::arrange(site, code, pollutant, date)
     }
+
+    # add source to output
+    thedata <-
+      dplyr::mutate(thedata, source = source, .before = dplyr::everything())
 
     as_tibble(thedata)
   }
@@ -179,7 +168,10 @@ loadData <- function(x, verbose, url_data, data_type) {
 #' function to read annual or monthly files
 #' @noRd
 readSummaryData <-
-  function(fileName, data_type, to_narrow, meta, hc) {
+  function(files, year, source, data_type, to_narrow, meta, hc) {
+    fileName <- purrr::map(year, function(x) paste0(files, x, ".rds")) %>%
+      purrr::list_c()
+
     thedata <- try(readRDS(url(fileName)), TRUE)
 
     if (inherits(thedata, "try-error")) {
@@ -242,7 +234,6 @@ readSummaryData <-
         ))
     }
 
-
     if (data_type == "monthly") {
       thedata <- mutate(thedata, date = ymd(date, tz = "UTC"))
     }
@@ -280,15 +271,19 @@ readSummaryData <-
 
     thedata <- thedata %>%
       mutate(site = as.character(site),
-             code = as.character(code))
-
+             code = as.character(code)) %>%
+      mutate(source = source,
+             .before = dplyr::everything())
 
     return(thedata)
   }
 
 #' Function to read DAQI data from a file
 #' @noRd
-readDAQI <- function(fileName) {
+readDAQI <- function(files, year, source) {
+  fileName <- purrr::map(year, function(x) paste0(files, x, ".rds")) %>%
+    purrr::list_c()
+
   thedata <- try(readRDS(url(fileName)), TRUE)
 
   if (inherits(thedata, "try-error")) {
@@ -304,7 +299,9 @@ readDAQI <- function(fileName) {
       measurement_period = as.character(measurement_period)
     ) %>%
     select(-Date) %>%
-    relocate(date, .after = pollutant)
+    relocate(date, .after = pollutant) %>%
+    mutate(source = source,
+           .before = dplyr::everything())
 
   return(thedata)
 }
@@ -317,9 +314,9 @@ add_meta <- function(source, aq_data) {
   meta_data <- importMeta(source = source)
 
   meta_data <- distinct(meta_data, site, .keep_all = TRUE) %>%
-    select(site, code, latitude, longitude, site_type)
+    select(source, site, code, latitude, longitude, site_type)
 
-  aq_data <- left_join(aq_data, meta_data, by = c("code", "site"))
+  aq_data <- left_join(aq_data, meta_data, by = c("source", "code", "site"))
 
   return(aq_data)
 }
@@ -328,13 +325,13 @@ add_meta <- function(source, aq_data) {
 #' @noRd
 add_ratified <- function(aq_data, source, to_narrow) {
   meta <-
-    importMeta(source, all = T) %>%
+    importMeta(unique(source), all = T) %>%
     dplyr::filter(
       code %in% aq_data$code,
       !variable %in% c("V10", "NV10", "V2.5", "NV2.5",
                        "ws", "wd", "temp")
     ) %>%
-    dplyr::select(code, variable, ratified_to) %>%
+    dplyr::select(source, code, variable, ratified_to) %>%
     dplyr::mutate(variable = tolower(variable))
 
   if (to_narrow) {
@@ -343,7 +340,7 @@ add_ratified <- function(aq_data, source, to_narrow) {
       dplyr::filter(pollutant %in% tolower(aq_data$pollutant))
     aq_data <-
       aq_data %>%
-      dplyr::left_join(meta, by = dplyr::join_by(code, pollutant)) %>%
+      dplyr::left_join(meta, by = dplyr::join_by(source, code, pollutant)) %>%
       dplyr::mutate(qc = date <= .data$qc)
 
     return(aq_data)
@@ -358,7 +355,7 @@ add_ratified <- function(aq_data, source, to_narrow) {
 
   aq_data <-
     aq_data %>%
-    dplyr::left_join(meta, by = dplyr::join_by(code)) %>%
+    dplyr::left_join(meta, by = dplyr::join_by(source, code)) %>%
     dplyr::mutate(dplyr::across(dplyr::contains("_qc"), function(x)
       date <= x))
 
@@ -367,18 +364,17 @@ add_ratified <- function(aq_data, source, to_narrow) {
 
 
 #' Function to filter annual/DAQI stats using
-#' @param missing_site Input should be `missing(site)`
 #' @param site,pollutant,to_narrow Inherits from parent function
 #' @noRd
-filter_annual_stats <- function(aq_data, missing_site, site, pollutant, to_narrow, data_type){
+filter_annual_stats <- function(aq_data, site, pollutant, to_narrow, data_type){
   # if site isn't missing, filter by sites
-  if (!missing_site) {
+  if (site != "all") {
     aq_data <- aq_data[tolower(aq_data$code) %in% tolower(site),]
   }
 
   # if pollutant isn't "all", filter pollutants
   if (any(pollutant != "all")) {
-    polls <- paste(c("uka_code", "code", "site", "date", "pollutant", pollutant), collapse = "|")
+    polls <- paste(c("source", "uka_code", "code", "site", "date", "pollutant", pollutant), collapse = "|")
     if (data_type != "daqi") {
       if (to_narrow) {
         aq_data <- aq_data[grepl(polls, aq_data$species, ignore.case = TRUE),]
