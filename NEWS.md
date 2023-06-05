@@ -28,6 +28,8 @@
 
 - `quickText()` will now automatically capitalise "no" to "NO". (#343)
 
+- The order of columns in `importUKAQ()` will remain consistent (metadata, date, pollutants, meteo) regardless of whether `hc` is `TRUE` or `FALSE`.
+
 # openair 2.17-0
 
 ## New Features
