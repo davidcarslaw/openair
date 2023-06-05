@@ -60,7 +60,9 @@ readUKAQData <-
         "ws", "wd", "temp"
       )
 
-      thedata <- select(thedata, any_of(theNames) | matches("_qc"))
+      thedata <- select(thedata, any_of(theNames), matches("_qc"))
+    } else {
+      thedata <- dplyr::relocate(thedata, dplyr::any_of(c("site", "code", "date")))
     }
 
     # rename "temp" to "air_temp" if appropriate
