@@ -76,7 +76,10 @@
     <loc>https://davidcarslaw.github.io/openair/reference/importTraj.html</loc>
   </url>
   <url>
-    <loc>https://davidcarslaw.github.io/openair/reference/import_ukaq.html</loc>
+    <loc>https://davidcarslaw.github.io/openair/reference/importUKAQ.html</loc>
+  </url>
+  <url>
+    <loc>https://davidcarslaw.github.io/openair/reference/import_ukaq_helper.html</loc>
   </url>
   <url>
     <loc>https://davidcarslaw.github.io/openair/reference/index.html</loc>

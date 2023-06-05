@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9007</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +51,16 @@
 <h2 class="pkg-version" data-toc-text="development version" id="openair-development-version">openair (development version)<a class="anchor" aria-label="anchor" href="#openair-development-version"></a></h2>
 <div class="section level3">
 <h3 id="new-features-development-version">New Features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
-<ul><li><p><code><a href="../reference/import_ukaq.html">importAQE()</a></code>, <code><a href="../reference/import_ukaq.html">importWAQN()</a></code>, <code><a href="../reference/import_ukaq.html">importSAQN()</a></code> and <code><a href="../reference/import_ukaq.html">importNI()</a></code> all now allow <code>data_type = "daqi"</code>, which allows for the daily pollutant index to be downloaded. At time of writing, only data from 2022 is present.</p></li>
-<li><p>the <code><a href="../reference/import_ukaq.html">importAURN()</a></code> family of import functions now allow <code>ratified = TRUE</code> and <code>to_narrow = TRUE</code> simultaneously. This will return a tibble with two columns per observation - “value” containing the concentration and “qc” containing <code>TRUE</code>/<code>FALSE</code> which indicates whether the concentration is validated.</p></li>
+<ul><li>
+<p>added a new <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> function, which supersedes <code><a href="../reference/import_ukaq_helper.html">importAURN()</a></code>, <code><a href="../reference/import_ukaq_helper.html">importAQE()</a></code>, <code><a href="../reference/import_ukaq_helper.html">importWAQN()</a></code>, <code><a href="../reference/import_ukaq_helper.html">importSAQN()</a></code>, <code><a href="../reference/import_ukaq_helper.html">importNI()</a></code> and <code><a href="../reference/import_ukaq_helper.html">importLocal()</a></code>. <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> brings a lot of new functionality to accessing UK air quality data through <a href="https://davidcarslaw.github.io/openair/">openair</a>.</p>
+<ul><li><p><code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> has all of the same arguments as the functions it supersedes, as well as “source” to define the specific network of interest. The “source” argument can either be of length 1 or equal to the length of the “site” argument. This means that <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> can import statistics from multiple different networks at once.</p></li>
+<li><p><code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> allows <code>ratified = TRUE</code> and <code>to_narrow = TRUE</code> simultaneously. This will return a tibble with two columns per observation - “value” containing the concentration and “qc” containing <code>TRUE</code>/<code>FALSE</code> which indicates whether the concentration is validated.</p></li>
+<li><p>The AQE, WAQN, SAQN and NI networks now allow for <code>data_type = "daqi"</code>. At time of writing, only data from 2022 is present.</p></li>
+<li><p>the <code>site</code> and <code>pollutant</code> arguments of <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> are respected when <code>data_type</code> is “daqi”, “annual” or “monthly”. The default behaviour to return all available statistics has not changed. (<a href="https://github.com/davidcarslaw/openair/issues/346" class="external-link">#346</a>)</p></li>
+<li><p>the various arguments which augment import function outputs now behave more consistently with one another. For example, <code>ratified</code> now respects <code>pollutant</code> and only returns the “_qc” columns for the pollutants of interest.</p></li>
+<li><p><code><a href="../reference/import_ukaq_helper.html">importAURN()</a></code>, <code><a href="../reference/import_ukaq_helper.html">importAQE()</a></code>, <code><a href="../reference/import_ukaq_helper.html">importWAQN()</a></code>, <code><a href="../reference/import_ukaq_helper.html">importSAQN()</a></code>, <code><a href="../reference/import_ukaq_helper.html">importNI()</a></code> and <code><a href="../reference/import_ukaq_helper.html">importLocal()</a></code> are still exported by <a href="https://davidcarslaw.github.io/openair/">openair</a>. These are all simply wrappers around <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> with forced “source” arguments, and remain for back-compatibility and convenience.</p></li>
+<li><p>While <code><a href="../reference/importKCL.html">importKCL()</a></code> also imports uk air quality data, it is not currently made available through <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code>. Users should continue to import KCL data via <code><a href="../reference/importKCL.html">importKCL()</a></code> for the time being.</p></li>
+</ul></li>
 <li><p><code><a href="../reference/calendarPlot.html">calendarPlot()</a></code> now automatically creates its own <code>labels</code> if <code>breaks</code> are specified. For example, <code>c(0, 10, 20)</code> will create the labels <code>c("0 - 10", "10 - 20")</code>. <code>labels</code> can still be used to override the default values. (<a href="https://github.com/davidcarslaw/openair/issues/341" class="external-link">#341</a>)</p></li>
 <li><p>return tibble from <code><a href="../reference/timeAverage.html">timeAverage()</a></code>.</p></li>
 <li><p>Move regression formula off main plot for <code><a href="../reference/polarPlot.html">polarPlot()</a></code> for clarity and label slope as ‘m’.</p></li>
@@ -60,15 +68,14 @@
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
 <ul><li><p><code><a href="../reference/quickText.html">quickText()</a></code> will now automatically capitalise “no” to “NO”. (<a href="https://github.com/davidcarslaw/openair/issues/343" class="external-link">#343</a>)</p></li>
-<li><p>the <code>site</code> and <code>pollutant</code> arguments of import functions (e.g., <code><a href="../reference/import_ukaq.html">importAURN()</a></code>) are now respected when <code>data_type</code> is “daqi”, “annual” or “monthly”. The default behaviour to return all available statistics has not changed. (<a href="https://github.com/davidcarslaw/openair/issues/346" class="external-link">#346</a>)</p></li>
-<li><p>the various arguments which augment import function outputs now behave more consistently with one another. For example, <code>ratified</code> now respects <code>pollutant</code> and only returns the “_qc” columns for the pollutants of interest.</p></li>
+<li><p>The order of columns in <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> will remain consistent (metadata, date, pollutants, meteo) regardless of whether <code>hc</code> is <code>TRUE</code> or <code>FALSE</code>.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.17-0" id="openair-217-0">openair 2.17-0<a class="anchor" aria-label="anchor" href="#openair-217-0"></a></h2><p class="text-muted">CRAN release: 2023-05-02</p>
 <div class="section level3">
 <h3 id="new-features-2-17-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-17-0"></a></h3>
-<ul><li><p>add option <code>meteo</code> to <code><a href="../reference/import_ukaq.html">importAURN()</a></code> family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if <code>meteo = FALSE</code>.</p></li>
+<ul><li><p>add option <code>meteo</code> to <code><a href="../reference/import_ukaq_helper.html">importAURN()</a></code> family of functions. By default modelled wind speed, direction and ambient temperature are returned if available, but not if <code>meteo = FALSE</code>.</p></li>
 <li><p>added a new column to <code><a href="../reference/modStats.html">modStats()</a></code>, “P”, which represents the P-value of the correlation as reported by <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test()</a></code>.</p></li>
 <li><p>update processing of ADMS meteorological (.MOP) files to return stability and tidier data.</p></li>
 <li><p>refined the output of <code><a href="../reference/pollutionRose.html">pollutionRose()</a></code> where the <code>ws2</code> and <code>wd2</code> options are provided; instead of the misleading N/E/S/W, the markers become 0, +90, +/-180, -90.</p></li>
@@ -86,7 +93,7 @@
 <li><p>fixed the <code>theilSen()</code> <code>silent</code> argument. The message “taking bootstrap samples. please wait” is also now sent via <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code> rather than <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and only appears once per function call.</p></li>
 <li><p>fixed issue where <code><a href="../reference/trajCluster.html">trajCluster()</a></code> proportions would overlap when clustering forward trajectories. Proportions should now appear at the end of cluster paths, regardless of whether the trajectory is back or forward.</p></li>
 <li><p>fixed issue where not all <a href="https://davidcarslaw.github.io/openair/">openair</a> plotting functions would properly return an openair S3 object, and that not all <code>data</code> objects were tibbles.</p></li>
-<li><p>Fixed issue with <code>timeAverage</code> where date formatting caused problems, possibly due to latest version of R (4.3.0).</p></li>
+<li><p>Fixed issue with <code><a href="../reference/timeAverage.html">timeAverage()</a></code> where date formatting caused problems, possibly due to latest version of R (4.3.0).</p></li>
 </ul></div>
 </div>
     <div class="section level2">

@@ -14,7 +14,7 @@ that provides air quality data files as R data objects."><meta property="og:imag
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9007</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,9 +82,8 @@ to import Marylebone Road and North Kensignton for example.</p></dd>
 
 
 <dt>year</dt>
-<dd><p>Year or years to import. To import a sequence of years from 1990
-to 2000 use <code>year = 1990:2000</code>. To import several specific years use
-<code>year = c(1990, 1995, 2000)</code> for example.</p></dd>
+<dd><p>Year(s) to import. To import a series of years use, e.g.,
+<code>2000:2020</code>. To import several specific years use <code>year = c(2000, 2010, 2020)</code>.</p></dd>
 
 
 <dt>pollutant</dt>
@@ -113,14 +112,16 @@ concentrations.</p></dd>
 
 
 <dt>meta</dt>
-<dd><p>Should meta data be returned? If <code>TRUE</code> the site type,
-latitude and longitude are returned.</p></dd>
+<dd><p>Append the site type, latitude and longitude of each selected
+<code>site</code>? Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>to_narrow</dt>
-<dd><p>By default the returned data has a column for each
-pollutant/variable. When <code>to_narrow = TRUE</code> the data are stacked into
-a narrow format with a column identifying the pollutant name.</p></dd>
+<dd><p>Return the data in a "narrow"/"long"/"tidy" format? By
+default the returned data is "wide" and has a column for each
+pollutant/variable. When <code>to_narrow = TRUE</code> the data are returned with a
+column identifying the pollutant name and a column containing the
+corresponding concentration/statistic. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>progress</dt>
@@ -909,10 +910,11 @@ Canterbury St Peters Place | Roadside</p></li>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other import functions: 
 <code><a href="importADMS.html">importADMS</a>()</code>,
-<code><a href="import_ukaq.html">importAURN</a>()</code>,
+<code><a href="import_ukaq_helper.html">importAURN</a>()</code>,
 <code><a href="importEurope.html">importEurope</a>()</code>,
 <code><a href="importMeta.html">importMeta</a>()</code>,
-<code><a href="importTraj.html">importTraj</a>()</code></p></div>
+<code><a href="importTraj.html">importTraj</a>()</code>,
+<code><a href="importUKAQ.html">importUKAQ</a>()</code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
