@@ -80,150 +80,152 @@
 #' # from multiple networks:
 #' meta <- importMeta(source = c("aurn", "aqe", "local"))
 #' }
-
 importMeta <-
   function(source = "aurn",
            all = FALSE,
            year = NA,
            duplicate = FALSE) {
     ## special source arguments
-  if (any(source == "ukaq")) {
-    source <- c("aurn", "aqe", "saqn", "waqn", "ni", "local")
-  }
-  if (any(source == "all")) {
-    source <- c("aurn", "aqe", "saqn", "waqn", "ni", "local", "kcl", "europe")
-  }
-  
-  ## meta data sources
-  meta.source <-
-    c("aurn", "kcl", "saqn", "saqd", "waqn",
-      "aqe", "local", "lmam", "ni", "europe")
-
-  ## ensure lower case
-  source <- tolower(source)
-
-  if (any(!source %in% meta.source)) {
-    cli::cli_abort(
-      c("!" = '"{source}" not a recognised {.field source}.',
-        "i" = "{.field source} can be any of {.or {meta.source}}.")
-    )
-  }
-
-  # function to import any of the source networks
-  get_meta <- function(source, all){
-    if (!source %in% c("kcl", "europe")) {
-      url <- switch(
-        source,
-        aurn = "https://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData",
-        saqn = "https://www.scottishairquality.scot/openair/R_data/SCOT_metadata.RData",
-        saqd = "https://www.scottishairquality.scot/openair/R_data/SCOT_metadata.RData",
-        ni = "https://www.airqualityni.co.uk/openair/R_data/NI_metadata.RData",
-        waqn = "https://airquality.gov.wales/sites/default/files/openair/R_data/WAQ_metadata.RData",
-        aqe = "https://airqualityengland.co.uk/assets/openair/R_data/AQE_metadata.RData",
-        local = "https://uk-air.defra.gov.uk/openair/LMAM/R_data/LMAM_metadata.RData",
-        lmam = "https://uk-air.defra.gov.uk/openair/LMAM/R_data/LMAM_metadata.RData"
-      )
-
-      meta <- clean_ricardo_meta(url, all = all, year = year)
+    if (any(source == "ukaq")) {
+      source <- c("aurn", "aqe", "saqn", "waqn", "ni", "local")
+    }
+    if (any(source == "all")) {
+      source <- c("aurn", "aqe", "saqn", "waqn", "ni", "local", "kcl", "europe")
     }
 
-    # KCL
-    if (source == "kcl") {
-      con <- url("https://www.londonair.org.uk/r_data/sites.RData")
-      meta <- get(load(con))
-      close(con)
+    ## meta data sources
+    meta.source <-
+      c(
+        "aurn", "kcl", "saqn", "saqd", "waqn",
+        "aqe", "local", "lmam", "ni", "europe"
+      )
 
-      ## rename to match imported names e.g. importKCL
-      meta <- dplyr::rename(
-        meta,
-        code = "SiteCode",
-        site = "SiteName",
-        site_type = "Classification",
-        latitude = "Latitude",
-        longitude = "Longitude"
+    ## ensure lower case
+    source <- tolower(source)
+
+    if (any(!source %in% meta.source)) {
+      cli::cli_abort(
+        c(
+          "!" = '"{source}" not a recognised {.field source}.',
+          "i" = "{.field source} can be any of {.or {meta.source}}."
+        )
       )
     }
 
-    # EUROPE
-    if (source == "europe") {
-      file <-
-        "http://aq-data.ricardo-aea.com/R_data/saqgetr/helper_tables/sites_table.csv.gz"
-
-      # Define data types
-      col_types <- cols(
-        site = col_character(),
-        site_name = col_character(),
-        latitude = col_double(),
-        longitude = col_double(),
-        elevation = col_double(),
-        country = col_character(),
-        country_iso_code = col_character(),
-        site_type = col_character(),
-        site_area = col_character(),
-        date_start = col_character(),
-        date_end = col_character(),
-        network = col_character(),
-        eu_code = col_character(),
-        eoi_code = col_character(),
-        data_source = col_character()
-      )
-
-      # Read data and parse dates
-      meta <-
-        read_csv(file, col_types = col_types, progress = FALSE) %>%
-        mutate(
-          date_start = lubridate::ymd_hms(.data$date_start, tz = "UTC"),
-          date_end = lubridate::ymd_hms(.data$date_end, tz = "UTC")
+    # function to import any of the source networks
+    get_meta <- function(source, all) {
+      if (!source %in% c("kcl", "europe")) {
+        url <- switch(source,
+          aurn = "https://uk-air.defra.gov.uk/openair/R_data/AURN_metadata.RData",
+          saqn = "https://www.scottishairquality.scot/openair/R_data/SCOT_metadata.RData",
+          saqd = "https://www.scottishairquality.scot/openair/R_data/SCOT_metadata.RData",
+          ni = "https://www.airqualityni.co.uk/openair/R_data/NI_metadata.RData",
+          waqn = "https://airquality.gov.wales/sites/default/files/openair/R_data/WAQ_metadata.RData",
+          aqe = "https://airqualityengland.co.uk/assets/openair/R_data/AQE_metadata.RData",
+          local = "https://uk-air.defra.gov.uk/openair/LMAM/R_data/LMAM_metadata.RData",
+          lmam = "https://uk-air.defra.gov.uk/openair/LMAM/R_data/LMAM_metadata.RData"
         )
 
-      meta <- rename(meta, code = "site", site = "site_name")
+        meta <- clean_ricardo_meta(url, all = all, year = year)
+      }
+
+      # KCL
+      if (source == "kcl") {
+        con <- url("https://www.londonair.org.uk/r_data/sites.RData")
+        meta <- get(load(con))
+        close(con)
+
+        ## rename to match imported names e.g. importKCL
+        meta <- dplyr::rename(
+          meta,
+          code = "SiteCode",
+          site = "SiteName",
+          site_type = "Classification",
+          latitude = "Latitude",
+          longitude = "Longitude"
+        )
+      }
+
+      # EUROPE
+      if (source == "europe") {
+        file <-
+          "http://aq-data.ricardo-aea.com/R_data/saqgetr/helper_tables/sites_table.csv.gz"
+
+        # Define data types
+        col_types <- cols(
+          site = col_character(),
+          site_name = col_character(),
+          latitude = col_double(),
+          longitude = col_double(),
+          elevation = col_double(),
+          country = col_character(),
+          country_iso_code = col_character(),
+          site_type = col_character(),
+          site_area = col_character(),
+          date_start = col_character(),
+          date_end = col_character(),
+          network = col_character(),
+          eu_code = col_character(),
+          eoi_code = col_character(),
+          data_source = col_character()
+        )
+
+        # Read data and parse dates
+        meta <-
+          read_csv(file, col_types = col_types, progress = FALSE) %>%
+          mutate(
+            date_start = lubridate::ymd_hms(.data$date_start, tz = "UTC"),
+            date_end = lubridate::ymd_hms(.data$date_end, tz = "UTC")
+          )
+
+        meta <- rename(meta, code = "site", site = "site_name")
+      }
+
+      # return data source
+      meta <- dplyr::mutate(meta, source = source, .before = dplyr::everything())
+
+      return(meta)
     }
 
-    # return data source
-    meta <- dplyr::mutate(meta, source = source, .before = dplyr::everything())
-
-    return(meta)
-  }
-
-  # import meta data
-  meta <-
-    purrr::map(.x = source, .f = ~ get_meta(source = .x, all = all)) %>%
-    purrr::list_rbind()
-
-  # drop extra columns if not "all"
-  if (!all) {
+    # import meta data
     meta <-
-      dplyr::select(meta, dplyr::all_of(
-        c("source", "site", "code", "latitude", "longitude", "site_type")
-      ))
-  }
+      purrr::map(.x = source, .f = ~ get_meta(source = .x, all = all)) %>%
+      purrr::list_rbind()
 
-  # change some names
-  if ("variable" %in% names(meta)) {
-    id <- which(meta$variable == "NOXasNO2")
-
-    if (length(id) > 0) {
-      meta$variable[id] <- "NOx"
+    # drop extra columns if not "all"
+    if (!all) {
+      meta <-
+        dplyr::select(meta, dplyr::all_of(
+          c("source", "site", "code", "latitude", "longitude", "site_type")
+        ))
     }
-  }
 
-  # deal with duplicates
-  if (!duplicate) {
-    if (all & "variable" %in% names(meta)) {
-      meta <- dplyr::distinct(meta, .data$code, .data$site, .data$latitude,
-        .data$longitude, .data$variable,
-        .keep_all = TRUE
-      )
-    } else {
-      meta <- dplyr::distinct(meta, .data$code, .data$site, .data$latitude,
-        .data$longitude,
-        .keep_all = TRUE
-      )
+    # change some names
+    if ("variable" %in% names(meta)) {
+      id <- which(meta$variable == "NOXasNO2")
+
+      if (length(id) > 0) {
+        meta$variable[id] <- "NOx"
+      }
     }
-  }
 
-  as_tibble(meta)
-}
+    # deal with duplicates
+    if (!duplicate) {
+      if (all & "variable" %in% names(meta)) {
+        meta <- dplyr::distinct(meta, .data$code, .data$site, .data$latitude,
+          .data$longitude, .data$variable,
+          .keep_all = TRUE
+        )
+      } else {
+        meta <- dplyr::distinct(meta, .data$code, .data$site, .data$latitude,
+          .data$longitude,
+          .keep_all = TRUE
+        )
+      }
+    }
+
+    as_tibble(meta)
+  }
 
 #' Clean data from Ricardo (not KCL or Europe)
 #' @param url URL to use

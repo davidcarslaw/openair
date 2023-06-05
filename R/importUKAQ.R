@@ -149,8 +149,9 @@
 #'
 #' # import sites across multiple networks
 #' importUKAQ(c("my1", "bn1", "bn2"),
-#'            year = 2022,
-#'            source = c("aurn", "aqe", "aqe"))
+#'   year = 2022,
+#'   source = c("aurn", "aqe", "aqe")
+#' )
 #'
 #' # get "long" format hourly data with a ratification flag
 #' importUKAQ(
@@ -183,8 +184,10 @@ importUKAQ <-
     # warn if source == "local"
     if ("local" %in% source) {
       cli::cli_warn(
-        c("i" = "'local' data is associated with locally managed air quality network sites in England.",
-          "!" = "These sites are not part of the AURN national network, and therefore may not have the same level of quality control applied to them."),
+        c(
+          "i" = "'local' data is associated with locally managed air quality network sites in England.",
+          "!" = "These sites are not part of the AURN national network, and therefore may not have the same level of quality control applied to them."
+        ),
         .frequency = "regularly",
         .frequency_id = "lmam"
       )
@@ -227,8 +230,10 @@ importUKAQ <-
 
     if (!tolower(data_type) %in% allowed_types) {
       cli::cli_warn(
-        c("!" = "'{data_type}' not recognised. Setting {.arg data_type} to 'hourly'",
-          "i" = "{.arg data_type} should be one of: {allowed_types}")
+        c(
+          "!" = "'{data_type}' not recognised. Setting {.arg data_type} to 'hourly'",
+          "i" = "{.arg data_type} should be one of: {allowed_types}"
+        )
       )
 
       data_type <- "hourly"
@@ -274,15 +279,16 @@ importUKAQ <-
       # import DAQI
       aq_data <-
         purrr::pmap(list(files, year, source),
-                    readDAQI,
-                    .progress = ifelse(progress, "Importing DAQI", FALSE)) %>%
+          readDAQI,
+          .progress = ifelse(progress, "Importing DAQI", FALSE)
+        ) %>%
         purrr::list_rbind()
     }
 
     # Import any other stat
     if (!data_type %in% c("annual", "monthly", "daqi")) {
-      site = toupper(site)
-      if (length(source) == 1){
+      site <- toupper(site)
+      if (length(source) == 1) {
         source <- rep(source, times = length(site))
       } else if (length(source) != length(site)) {
         cli::cli_abort("Length of {.arg source} ({length(source)}) not equal to 1 or length of {.arg site} ({length(site)}).")
@@ -298,16 +304,20 @@ importUKAQ <-
 
         # get sites and pcodes
         site_info <-
-          data.frame(code = site,
-                     source = source,
-                     url_data = url_domain) %>%
+          data.frame(
+            code = site,
+            source = source,
+            url_data = url_domain
+          ) %>%
           merge(pcodes) %>%
           tidyr::crossing(year = year)
       } else {
         site_info <-
-          data.frame(code = site,
-                     source = source,
-                     url_data = url_domain) %>%
+          data.frame(
+            code = site,
+            source = source,
+            url_data = url_domain
+          ) %>%
           dplyr::mutate(pcode = rep(NA, times = length(site))) %>%
           tidyr::crossing(year = year)
       }
@@ -333,21 +343,24 @@ importUKAQ <-
 
       if (nrow(aq_data) == 0) {
         cli::cli_abort("No data returned. Check {.arg site}, {.arg year} and {.arg source}.",
-                       call = NULL)
+          call = NULL
+        )
       }
 
-      if (ratified && data_type == "hourly"){
+      if (ratified && data_type == "hourly") {
         aq_data <-
-          add_ratified(aq_data = aq_data,
-                       source = source,
-                       to_narrow = to_narrow)
+          add_ratified(
+            aq_data = aq_data,
+            source = source,
+            to_narrow = to_narrow
+          )
       }
     }
 
     # filter annual/monthly/DAQI data
     if (data_type %in% c("annual", "monthly", "daqi")) {
       aq_data <-
-        filter_annual_stats(
+        filter_site_pollutant(
           aq_data,
           site = site,
           pollutant = pollutant,

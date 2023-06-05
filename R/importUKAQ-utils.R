@@ -1,4 +1,3 @@
-
 #' worker function that downloads data from a range of networks run by Ricardo
 #' @noRd
 readUKAQData <-
@@ -88,8 +87,9 @@ readUKAQData <-
 
       thedata <-
         tidyr::pivot_longer(thedata,
-                            cols = -dplyr::any_of(the_vars),
-                            names_to = "pollutant")
+          cols = -dplyr::any_of(the_vars),
+          names_to = "pollutant"
+        )
 
       # clean tidied data before returning
       thedata <- thedata %>%
@@ -121,12 +121,13 @@ loadData <- function(x, verbose, url_data, data_type) {
 
       # Find appropriate extension per `data_type`
       x <- switch(data_type,
-                  hourly = x,
-                  `15min` = paste0(x, "_15min"),
-                  daily = paste0(x, "_daily_mean"),
-                  `8_hour` = paste0(x, "_8hour_mean"),
-                  `24_hour` = paste0(x, "_24hour_mean"),
-                  daily_max_8 = paste0(x, "_daily_max_8hour"))
+        hourly = x,
+        `15min` = paste0(x, "_15min"),
+        daily = paste0(x, "_daily_mean"),
+        `8_hour` = paste0(x, "_8hour_mean"),
+        `24_hour` = paste0(x, "_24hour_mean"),
+        daily_max_8 = paste0(x, "_daily_max_8hour")
+      )
 
       # Gravimetric PM is in separate file
       # These are measured daily PM measurements rather than daily mean hourly
@@ -139,7 +140,8 @@ loadData <- function(x, verbose, url_data, data_type) {
       if (data_type == "daily" & exists(x2)) {
         dat2 <- get(x2)
         dat <- left_join(dat, dat2,
-                         by = c("date", "site", "code"))
+          by = c("date", "site", "code")
+        )
 
         lookup <- c(gr_pm2.5 = "GR2.5", gr_pm10 = "GR10")
 
@@ -246,7 +248,7 @@ readSummaryData <-
 
     if (to_narrow) {
       # make sure numbers are numbers
-      values <- select(thedata,!contains("capture")) %>%
+      values <- select(thedata, !contains("capture")) %>%
         select(!matches("uka_code"))
 
       capture <-
@@ -254,26 +256,33 @@ readSummaryData <-
         select(!matches("uka_code"))
 
       values <- pivot_longer(values,
-                             -c(date, code, site),
-                             values_to = "value",
-                             names_to = "species")
+        -c(date, code, site),
+        values_to = "value",
+        names_to = "species"
+      )
 
       capture <- pivot_longer(capture,
-                              -c(date, code, site),
-                              values_to = "data_capture",
-                              names_to = "species")
+        -c(date, code, site),
+        values_to = "data_capture",
+        names_to = "species"
+      )
 
       capture$species <- gsub("_capture", "", capture$species)
 
       thedata <- full_join(values, capture,
-                           by = c("date", "code", "site", "species"))
+        by = c("date", "code", "site", "species")
+      )
     }
 
     thedata <- thedata %>%
-      mutate(site = as.character(site),
-             code = as.character(code)) %>%
-      mutate(source = source,
-             .before = dplyr::everything())
+      mutate(
+        site = as.character(site),
+        code = as.character(code)
+      ) %>%
+      mutate(
+        source = source,
+        .before = dplyr::everything()
+      )
 
     return(thedata)
   }
@@ -300,8 +309,10 @@ readDAQI <- function(files, year, source) {
     ) %>%
     select(-Date) %>%
     relocate(date, .after = pollutant) %>%
-    mutate(source = source,
-           .before = dplyr::everything())
+    mutate(
+      source = source,
+      .before = dplyr::everything()
+    )
 
   return(thedata)
 }
@@ -328,8 +339,10 @@ add_ratified <- function(aq_data, source, to_narrow) {
     importMeta(unique(source), all = T) %>%
     dplyr::filter(
       code %in% aq_data$code,
-      !variable %in% c("V10", "NV10", "V2.5", "NV2.5",
-                       "ws", "wd", "temp")
+      !variable %in% c(
+        "V10", "NV10", "V2.5", "NV2.5",
+        "ws", "wd", "temp"
+      )
     ) %>%
     dplyr::select(source, code, variable, ratified_to) %>%
     dplyr::mutate(variable = tolower(variable))
@@ -349,15 +362,18 @@ add_ratified <- function(aq_data, source, to_narrow) {
   meta <-
     meta %>%
     dplyr::filter(variable %in% names(aq_data)) %>%
-    tidyr::pivot_wider(names_from = variable,
-                       values_from = ratified_to,
-                       names_glue = "{variable}_qc")
+    tidyr::pivot_wider(
+      names_from = variable,
+      values_from = ratified_to,
+      names_glue = "{variable}_qc"
+    )
 
   aq_data <-
     aq_data %>%
     dplyr::left_join(meta, by = dplyr::join_by(source, code)) %>%
-    dplyr::mutate(dplyr::across(dplyr::contains("_qc"), function(x)
-      date <= x))
+    dplyr::mutate(dplyr::across(dplyr::contains("_qc"), function(x) {
+      date <= x
+    }))
 
   return(aq_data)
 }
@@ -366,10 +382,10 @@ add_ratified <- function(aq_data, source, to_narrow) {
 #' Function to filter annual/DAQI stats using
 #' @param site,pollutant,to_narrow Inherits from parent function
 #' @noRd
-filter_annual_stats <- function(aq_data, site, pollutant, to_narrow, data_type){
+filter_site_pollutant <- function(aq_data, site, pollutant, to_narrow, data_type) {
   # if site isn't missing, filter by sites
   if (site != "all") {
-    aq_data <- aq_data[tolower(aq_data$code) %in% tolower(site),]
+    aq_data <- aq_data[tolower(aq_data$code) %in% tolower(site), ]
   }
 
   # if pollutant isn't "all", filter pollutants
@@ -377,12 +393,12 @@ filter_annual_stats <- function(aq_data, site, pollutant, to_narrow, data_type){
     polls <- paste(c("source", "uka_code", "code", "site", "date", "pollutant", pollutant), collapse = "|")
     if (data_type != "daqi") {
       if (to_narrow) {
-        aq_data <- aq_data[grepl(polls, aq_data$species, ignore.case = TRUE),]
+        aq_data <- aq_data[grepl(polls, aq_data$species, ignore.case = TRUE), ]
       } else {
         aq_data <- aq_data[grepl(polls, names(aq_data), ignore.case = TRUE)]
       }
     } else {
-      aq_data <- aq_data[grepl(polls, aq_data$pollutant, ignore.case = TRUE),]
+      aq_data <- aq_data[grepl(polls, aq_data$pollutant, ignore.case = TRUE), ]
     }
   }
 
