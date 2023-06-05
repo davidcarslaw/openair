@@ -138,7 +138,8 @@ Other import functions:
 \code{\link{importAURN}()},
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},
-\code{\link{importMeta}()}
+\code{\link{importMeta}()},
+\code{\link{importUKAQ}()}
 
 Other trajectory analysis functions: 
 \code{\link{trajCluster}()},

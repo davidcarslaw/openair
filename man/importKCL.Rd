@@ -21,9 +21,8 @@ importKCL(
 Road. Several sites can be imported with \code{site = c("my1", "kc1")} ---
 to import Marylebone Road and North Kensignton for example.}
 
-\item{year}{Year or years to import. To import a sequence of years from 1990
-to 2000 use \code{year = 1990:2000}. To import several specific years use
-\code{year = c(1990, 1995, 2000)} for example.}
+\item{year}{Year(s) to import. To import a series of years use, e.g.,
+\code{2000:2020}. To import several specific years use \code{year = c(2000, 2010, 2020)}.}
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use \code{pollutant =
@@ -42,12 +41,14 @@ concentrations.}
 
 \item{extra}{Not currently used.}
 
-\item{meta}{Should meta data be returned? If \code{TRUE} the site type,
-latitude and longitude are returned.}
+\item{meta}{Append the site type, latitude and longitude of each selected
+\code{site}? Defaults to \code{FALSE}.}
 
-\item{to_narrow}{By default the returned data has a column for each
-pollutant/variable. When \code{to_narrow = TRUE} the data are stacked into
-a narrow format with a column identifying the pollutant name.}
+\item{to_narrow}{Return the data in a "narrow"/"long"/"tidy" format? By
+default the returned data is "wide" and has a column for each
+pollutant/variable. When \code{to_narrow = TRUE} the data are returned with a
+column identifying the pollutant name and a column containing the
+corresponding concentration/statistic. Defaults to \code{FALSE}.}
 
 \item{progress}{Show a progress bar when many sites/years are being imported?
 Defaults to \code{TRUE}.}
@@ -486,7 +487,8 @@ Other import functions:
 \code{\link{importAURN}()},
 \code{\link{importEurope}()},
 \code{\link{importMeta}()},
-\code{\link{importTraj}()}
+\code{\link{importTraj}()},
+\code{\link{importUKAQ}()}
 }
 \author{
 David Carslaw and Ben Barratt

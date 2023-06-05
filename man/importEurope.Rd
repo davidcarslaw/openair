@@ -64,6 +64,7 @@ Other import functions:
 \code{\link{importAURN}()},
 \code{\link{importKCL}()},
 \code{\link{importMeta}()},
-\code{\link{importTraj}()}
+\code{\link{importTraj}()},
+\code{\link{importUKAQ}()}
 }
 \concept{import functions}

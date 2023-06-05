@@ -2,9 +2,21 @@
 
 ## New Features
 
-- `importAQE()`, `importWAQN()`, `importSAQN()` and `importNI()` all now allow `data_type = "daqi"`, which allows for the daily pollutant index to be downloaded. At time of writing, only data from 2022 is present.
+- added a new `importUKAQ()` function, which supersedes `importAURN()`, `importAQE()`, `importWAQN()`, `importSAQN()`, `importNI()` and `importLocal()`. `importUKAQ()` brings a lot of new functionality to accessing UK air quality data through `{openair}`.
 
-- the `importAURN()` family of import functions now allow `ratified = TRUE` and `to_narrow = TRUE` simultaneously. This will return a tibble with two columns per observation - "value" containing the concentration and "qc" containing `TRUE`/`FALSE` which indicates whether the concentration is validated.
+  - `importUKAQ()` has all of the same arguments as the functions it supersedes, as well as "source" to define the specific network of interest. The "source" argument can either be of length 1 or equal to the length of the "site" argument. This means that `importUKAQ()` can import statistics from multiple different networks at once.
+  
+  - `importUKAQ()` allows `ratified = TRUE` and `to_narrow = TRUE` simultaneously. This will return a tibble with two columns per observation - "value" containing the concentration and "qc" containing `TRUE`/`FALSE` which indicates whether the concentration is validated.
+  
+  - The AQE, WAQN, SAQN and NI networks now allow for `data_type = "daqi"`. At time of writing, only data from 2022 is present.
+  
+  - the `site` and `pollutant` arguments of `importUKAQ()` are respected when `data_type` is "daqi", "annual" or "monthly". The default behaviour to return all available statistics has not changed. (#346)
+  
+  - the various arguments which augment import function outputs now behave more consistently with one another. For example, `ratified` now respects `pollutant` and only returns the "_qc" columns for the pollutants of interest.
+  
+  - `importAURN()`, `importAQE()`, `importWAQN()`, `importSAQN()`, `importNI()` and `importLocal()` are still exported by `{openair}`. These are all simply wrappers around `importUKAQ()` with forced "source" arguments, and remain for back-compatibility and convenience.
+  
+  - While `importKCL()` also imports uk air quality data, it is not currently made available through `importUKAQ()`. Users should continue to import KCL data via `importKCL()` for the time being.
 
 - `calendarPlot()` now automatically creates its own `labels` if `breaks` are specified. For example, `c(0, 10, 20)` will create the labels `c("0 - 10", "10 - 20")`. `labels` can still be used to override the default values. (#341)
 
@@ -16,9 +28,7 @@
 
 - `quickText()` will now automatically capitalise "no" to "NO". (#343)
 
-- the `site` and `pollutant` arguments of import functions (e.g., `importAURN()`) are now respected when `data_type` is "daqi", "annual" or "monthly". The default behaviour to return all available statistics has not changed. (#346)
-
-- the various arguments which augment import function outputs now behave more consistently with one another. For example, `ratified` now respects `pollutant` and only returns the "_qc" columns for the pollutants of interest.
+- The order of columns in `importUKAQ()` will remain consistent (metadata, date, pollutants, meteo) regardless of whether `hc` is `TRUE` or `FALSE`.
 
 # openair 2.17-0
 
@@ -56,7 +66,7 @@
 
 - fixed issue where not all `{openair}` plotting functions would properly return an openair S3 object, and that not all `data` objects were tibbles.
 
-- Fixed issue with `timeAverage` where date formatting caused problems, possibly due to latest version of R (4.3.0).
+- Fixed issue with `timeAverage()` where date formatting caused problems, possibly due to latest version of R (4.3.0).
 
 # openair 2.15
 
