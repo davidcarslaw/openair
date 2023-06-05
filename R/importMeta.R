@@ -1,26 +1,29 @@
-#' Import monitoring site meta data for the UK and European networks
+#' Import monitoring site meta data for UK and European networks
 #'
-#' Function to import meta data for air quality monitoring sites
+#' Function to import meta data for air quality monitoring sites. By default,
+#' the function will return the site latitude, longitude and site type, as well
+#' as the code used in functions like [importUKAQ()], [importKCL()] and
+#' [importEurope()]. Additional information may optionally be returned.
 #'
 #' This function imports site meta data from several networks in the UK and
 #' Europe:
 #'
-#' - `"aurn"`,  The UK Automatic Urban and Rural Network.
+#' - `"aurn"`,  The [UK Automatic Urban and Rural Network](https://uk-air.defra.gov.uk/).
 #'
-#' - `"saqn"`,  The Scottish Air Quality Network.
+#' - `"aqe"`,  The [Air Quality England Network](https://www.airqualityengland.co.uk/).
 #'
-#' - `"waqn"`,  The Welsh Air Quality Network.
+#' - `"saqn"`,  The [Scottish Air Quality Network](https://www.scottishairquality.scot/).
 #'
-#' - `"ni"`,  The Northern Ireland Air Quality Network.
+#' - `"waqn"`,  The [Welsh Air Quality Network](https://airquality.gov.wales/).
 #'
-#' - `"aqe"`,  The Air Quality England Network.
+#' - `"ni"`,  The [Northern Ireland Air Quality Network](https://www.airqualityni.co.uk/).
 #'
 #' - `"local"`,  Locally managed air quality networks in England.
 #'
 #' - `"kcl"`,  King's College London networks.
 #'
-#' - `"europe"`,  Import hourly European data (Airbase/e-reporting) based on a
-#' simplified version of the `saqgetr` package.
+#' - `"europe"`,  Hourly European data ([Air Quality e-Reporting](https://www.eea.europa.eu/data-and-maps/data/aqereporting-9)) based on a
+#' simplified version of the `{saqgetr}` package.
 #'
 #' By default, the function will return the site latitude, longitude and site
 #' type. If the option `all = TRUE` is used, much more detailed information is
@@ -29,9 +32,19 @@
 #'
 #' Thanks go to Trevor Davies (Ricardo), Dr Stuart Grange (EMPA) and Dr Ben
 #' Barratt (KCL) and  for making these data available.
-#' @param source One or more sources of meta data. Can be `aurn`, `saqn` (or
-#'   `saqd`), `aqe`, `waqn`, `ni`, `local` (or `lmam`), `kcl` or `europe`; upper
-#'   or lower case.
+#' @param source One or more air quality networks for which data is available
+#'   through openair. Available networks include:
+#'   - `"aurn"`,  The UK Automatic Urban and Rural Network.
+#'   - `"aqe"`,  The Air Quality England Network.
+#'   - `"saqn"`,  The Scottish Air Quality Network.
+#'   - `"waqn"`,  The Welsh Air Quality Network.
+#'   - `"ni"`,  The Northern Ireland Air Quality Network.
+#'   - `"local"`,  Locally managed air quality networks in England.
+#'   - `"kcl"`, King's College London networks.
+#'   - `"europe"`, European AirBase/e-reporting data.
+#'   There are two additional options provided for convenience:
+#'   - `"ukaq"` will return metadata for all networks for which data is imported by [importUKAQ()] (i.e., AURN, AQE, SAQN, WAQN, NI, and the local networks).
+#'   - `"all"` will import all available metadata (i.e., `"ukaq"` plus `"kcl"` and `"europe"`).
 #' @param all When `all = FALSE` only the site code, site name, latitude and
 #'   longitude and site type are imported. Setting `all = TRUE` will import all
 #'   available meta data and provide details (when available) or the individual
@@ -40,36 +53,47 @@
 #'   could appear more than once when `source` is a vector of two or more. The
 #'   default argument, `FALSE`, drops duplicate sites. `TRUE` will return them.
 #' @param year If a single year is selected, only sites that were open at some
-#'   point in that year are returned. If \code{all = TRUE} only sites that
+#'   point in that year are returned. If `all = TRUE` only sites that
 #'   measured a particular pollutant in that year are returned. Year can also be
-#'   a sequence e.g. \code{year = 2010:2020} or of length 2 e.g. \code{year =
-#'   c(2010, 2020)}, which will return only sites that were open over the
-#'   duration. Note that \code{year} is ignored when the \code{source} is either
-#'   \code{"kcl"} or \code{"europe"}.
+#'   a sequence e.g. `year = 2010:2020` or of length 2 e.g. `year =
+#'   c(2010, 2020)`, which will return only sites that were open over the
+#'   duration. Note that `year` is ignored when the `source` is either
+#'   `"kcl"` or `"europe"`.
 #' @return A data frame with meta data.
 #' @author David Carslaw
 #' @family import functions
 #' @seealso the `networkMap()` function from the `openairmaps` package which can
-#'   visualise site metadata
+#'   visualise site metadata on an interactive map.
 #' @export
 #' @import readr
 #' @examples
 #' \dontrun{
-#' # basic info
+#' # basic info:
 #' meta <- importMeta(source = "aurn")
 #'
 #' # more detailed information:
 #' meta <- importMeta(source = "aurn", all = TRUE)
 #'
-#' # from the Scottish Air Quality Network
+#' # from the Scottish Air Quality Network:
 #' meta <- importMeta(source = "saqn", all = TRUE)
 #'
-#' # from multiple networks
+#' # from multiple networks:
 #' meta <- importMeta(source = c("aurn", "aqe", "local"))
 #' }
 
-importMeta <- function(source = "aurn", all = FALSE, duplicate = FALSE, year = NA) {
-
+importMeta <-
+  function(source = "aurn",
+           all = FALSE,
+           year = NA,
+           duplicate = FALSE) {
+    ## special source arguments
+  if (any(source == "ukaq")) {
+    source <- c("aurn", "aqe", "saqn", "waqn", "ni", "local")
+  }
+  if (any(source == "all")) {
+    source <- c("aurn", "aqe", "saqn", "waqn", "ni", "local", "kcl", "europe")
+  }
+  
   ## meta data sources
   meta.source <-
     c("aurn", "kcl", "saqn", "saqd", "waqn",
