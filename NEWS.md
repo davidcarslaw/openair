@@ -18,6 +18,12 @@
   
   - While `importKCL()` also imports uk air quality data, it is not currently made available through `importUKAQ()`. Users should continue to import KCL data via `importKCL()` for the time being.
 
+- `importMeta()` has gained two new "source" options to assist with the new `importUKAQ()` function:
+
+  - `source = "ukaq"` will return metadata for all of the "UKAQ" networks.
+  
+  - `source = "all"` will return all available metadata (including KCL and Europe).
+
 - `calendarPlot()` now automatically creates its own `labels` if `breaks` are specified. For example, `c(0, 10, 20)` will create the labels `c("0 - 10", "10 - 20")`. `labels` can still be used to override the default values. (#341)
 
 - return tibble from `timeAverage()`.
