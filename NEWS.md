@@ -34,9 +34,11 @@
 
 ## Bug Fixes
 
+- The order of columns in `importUKAQ()` will remain consistent (metadata, date, pollutants, meteo) regardless of whether `hc` is `TRUE` or `FALSE`.
+
 - `quickText()` will now automatically capitalise "no" to "NO". (#343)
 
-- The order of columns in `importUKAQ()` will remain consistent (metadata, date, pollutants, meteo) regardless of whether `hc` is `TRUE` or `FALSE`.
+- The `year` argument of `importMeta()` is now respected when `source = "kcl"` and `"europe"`.
 
 # openair 2.17-0
 
