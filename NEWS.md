@@ -22,6 +22,8 @@
 
 - return tibble from `timeAverage()`.
 
+- add option `panel.gap` to leave space between panels in `timeAverage` day-hour plots. Set to 0 for previous behaviour.
+
 - Move regression formula off main plot for `polarPlot()` for clarity and label slope as 'm'.
 
 ## Bug Fixes

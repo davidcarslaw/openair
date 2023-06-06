@@ -23,6 +23,7 @@ timeVariation(
   key = NULL,
   key.columns = 1,
   start.day = 1,
+  panel.gap = 0.2,
   auto.text = TRUE,
   alpha = 0.4,
   month.last = FALSE,
@@ -146,6 +147,8 @@ number of pollutants.}
 change the start day by supplying an integer between 0 and 6. Sunday = 0,
 Monday = 1, \ldots For example to start the weekday plots on a Saturday,
 choose \code{start.day = 6}.}
+
+\item{panel.gap}{The gap between panels in the hour-day plot.}
 
 \item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If \code{TRUE}
 titles and axis labels will automatically try and format pollutant names
