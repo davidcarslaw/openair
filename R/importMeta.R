@@ -90,14 +90,23 @@ importMeta <-
       source <- c("aurn", "aqe", "saqn", "waqn", "ni", "local")
     }
     if (any(source == "all")) {
-      source <- c("aurn", "aqe", "saqn", "waqn", "ni", "local", "kcl", "europe")
+      source <-
+        c("aurn", "aqe", "saqn", "waqn", "ni", "local", "kcl", "europe")
     }
 
     ## meta data sources
     meta.source <-
       c(
-        "aurn", "kcl", "saqn", "saqd", "waqn",
-        "aqe", "local", "lmam", "ni", "europe"
+        "aurn",
+        "kcl",
+        "saqn",
+        "saqd",
+        "waqn",
+        "aqe",
+        "local",
+        "lmam",
+        "ni",
+        "europe"
       )
 
     ## ensure lower case
@@ -144,6 +153,22 @@ importMeta <-
           latitude = "Latitude",
           longitude = "Longitude"
         )
+
+        # select year or period when sites were open
+        if (!anyNA(year)) {
+          # format end_date - set "ongoing" to current date
+          meta$end_year <-
+            lubridate::year(as.Date(meta$ClosingDate))
+          meta$end_year <-
+            ifelse(is.na(meta$end_year),
+              as.numeric(format(Sys.Date(), "%Y")),
+              meta$end_year
+            )
+          meta$start_year <- lubridate::year(meta$OpeningDate)
+          meta <-
+            dplyr::filter(meta, start_year <= min(year) &
+              end_year >= max(year))
+        }
       }
 
       # EUROPE
@@ -178,11 +203,31 @@ importMeta <-
             date_end = lubridate::ymd_hms(.data$date_end, tz = "UTC")
           )
 
+        # select year or period when sites were open
+        if (!anyNA(year)) {
+          # format end_date - set "ongoing" to current date
+          meta$end_year <-
+            lubridate::year(as.Date(meta$date_end))
+          meta$end_year <-
+            ifelse(is.na(meta$end_year),
+              as.numeric(format(Sys.Date(), "%Y")),
+              meta$end_year
+            )
+          meta$start_year <- lubridate::year(meta$date_start)
+          meta <-
+            dplyr::filter(meta, start_year <= min(year) &
+              end_year >= max(year))
+        }
+
         meta <- rename(meta, code = "site", site = "site_name")
       }
 
       # return data source
-      meta <- dplyr::mutate(meta, source = source, .before = dplyr::everything())
+      meta <-
+        dplyr::mutate(meta,
+          source = source,
+          .before = dplyr::everything()
+        )
 
       return(meta)
     }
@@ -196,7 +241,14 @@ importMeta <-
     if (!all) {
       meta <-
         dplyr::select(meta, dplyr::all_of(
-          c("source", "site", "code", "latitude", "longitude", "site_type")
+          c(
+            "source",
+            "site",
+            "code",
+            "latitude",
+            "longitude",
+            "site_type"
+          )
         ))
     }
 
@@ -212,12 +264,17 @@ importMeta <-
     # deal with duplicates
     if (!duplicate) {
       if (all & "variable" %in% names(meta)) {
-        meta <- dplyr::distinct(meta, .data$code, .data$site, .data$latitude,
-          .data$longitude, .data$variable,
+        meta <- dplyr::distinct(meta,
+          .data$code,
+          .data$latitude,
+          .data$longitude,
+          .data$variable,
           .keep_all = TRUE
         )
       } else {
-        meta <- dplyr::distinct(meta, .data$code, .data$site, .data$latitude,
+        meta <- dplyr::distinct(meta,
+          .data$code,
+          .data$latitude,
           .data$longitude,
           .keep_all = TRUE
         )
@@ -266,10 +323,13 @@ clean_ricardo_meta <- function(url, all, year) {
   # select year or period when sites were open
   if (!anyNA(year)) {
     # format end_date - set "ongoing" to current date
-    meta$end_date[which(meta$end_date == "ongoing")] <- as.character(Sys.Date())
+    meta$end_date[which(meta$end_date == "ongoing")] <-
+      as.character(Sys.Date())
     meta$end_year <- lubridate::year(as.Date(meta$end_date))
     meta$start_year <- lubridate::year(meta$start_date)
-    meta <- dplyr::filter(meta, start_year <= min(year) & end_year >= max(year))
+    meta <-
+      dplyr::filter(meta, start_year <= min(year) &
+        end_year >= max(year))
   }
 
   ## only extract one line per site to make it easier to use file
