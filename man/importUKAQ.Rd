@@ -184,8 +184,9 @@ importUKAQ(c("bn1", "bn2"), year = 2022, source = "aqe")
 
 # import sites across multiple networks
 importUKAQ(c("my1", "bn1", "bn2"),
-           year = 2022,
-           source = c("aurn", "aqe", "aqe"))
+  year = 2022,
+  source = c("aurn", "aqe", "aqe")
+)
 
 # get "long" format hourly data with a ratification flag
 importUKAQ(
