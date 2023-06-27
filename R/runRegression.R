@@ -26,6 +26,7 @@
 #'   other information to plot dilution lines.
 #' @importFrom stats coefficients
 #' @export
+#' @family time series and trend functions
 #' @references
 #'
 #'
