@@ -1211,6 +1211,14 @@ polarPlot <-
     invisible(output)
   }
 
+# Gaussian bivariate density function
+gauss_dens <- function(x, y, mx, my, sx, sy) {
+  
+  (1 / (2 * pi * sx *sy )) *
+    exp((-1/2) * ((x - mx) ^ 2 / sx ^ 2 + (y - my) ^ 2 / sy^2))
+  
+}
+
 # NWR kernel calculations
 simple_kernel <- function(data, mydata, x = "ws",
                           y = "wd", pollutant,
@@ -1218,30 +1226,17 @@ simple_kernel <- function(data, mydata, x = "ws",
   # Centres
   ws1 <- data[[1]]
   wd1 <- data[[2]]
+  
+  # centred ws, wd
+  ws_cent <- mydata[[x]] - ws1
+  wd_cent <- mydata[[y]] - wd1
+  wd_cent = ifelse(wd_cent < -180, wd_cent + 360, wd_cent)
+  
+  weight <- gauss_dens(ws_cent, wd_cent, 0, 0, ws_spread, wd_spread)
 
-  # Gaussian kernel for wd
-
-  # Scale wd
-  mydata$wd.scale <- mydata[[y]] - wd1
-
-  # get correct angular distance
-  mydata$wd.scale <- (mydata$wd.scale + 180) %% 360 - 180
-
-  # Scale with kernel
-  mydata$wd.scale <- mydata$wd.scale * 2 * pi / 360
-
-  # Scale with kernel
-  mydata$wd.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$wd.scale / (2 * pi * wd_spread / 360))^2)
-
-  # Scale ws
-  mydata$ws.scale <- (mydata[[x]] - ws1) / (max(mydata[[x]]) - min(mydata[[x]]))
-
-  # Apply kernel smoother
-  mydata$ws.scale <- (2 * pi)^-0.5 * exp(-0.5 * (mydata$ws.scale / (ws_spread / (max(mydata[[x]]) - min(mydata[[x]]))))^2)
-
-  conc <- sum(mydata[[pollutant]] * mydata$wd.scale * mydata$ws.scale) /
-    (sum(mydata$wd.scale * mydata$ws.scale))
-
+  conc <- sum(mydata[[pollutant]] * weight) /
+    sum(weight)
+  
   return(data.frame(conc = conc))
 }
 
@@ -1314,14 +1309,6 @@ calculate_weighted_statistics <-
   # Centres
   ws1 <- data[[1]]
   wd1 <- data[[2]]
-
-  # Gaussian bivariate density function
-  gauss_dens <- function(x, y, mx, my, sx, sy) {
-
-    (1 / (2 * pi * sx *sy )) *
-      exp((-1/2) * ((x - mx) ^ 2 / sx ^ 2 + (y - my) ^ 2 / sy^2))
-
-  }
 
   # centred ws, wd
   ws_cent <- mydata[[x]] - ws1
