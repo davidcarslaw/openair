@@ -102,8 +102,10 @@ runRegression <- function(.data, x = "nox", y = "pm10", run.len = 3) {
   #   seslope <- models %>% map_dbl(seslope)
   r_squared <- models %>% map_dbl(rsq)
   date <- .data %>% map_vec(~ median(.x$date)) # use median date
+  date_start <- .data %>% map_vec(~ min(.x$date)) 
+  date_end <- .data %>% map_vec(~ max(.x$date)) 
   
-  results <- tibble(date, intercept, slope, r_squared) # , seslope)
+  results <- tibble(date, date_start, date_end, intercept, slope, r_squared) # , seslope)
   
   # info for regression lines
   x1 <- .data %>%
