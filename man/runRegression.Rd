@@ -4,10 +4,10 @@
 \alias{runRegression}
 \title{Rolling regression for pollutant source characterisation.}
 \usage{
-runRegression(.data, x = "nox", y = "pm10", run.len = 3)
+runRegression(mydata, x = "nox", y = "pm10", run.len = 3)
 }
 \arguments{
-\item{.data}{A data frame with  colums for \code{date} and at least two
+\item{mydata}{A data frame with  colums for \code{date} and at least two
 variables for use in a regression.}
 
 \item{x}{The column name of the \code{x} variable for use in a linear
@@ -46,7 +46,9 @@ x = "nox", y = "pm10", run.len = 3)
 output
 }
 \references{
-For original inspiration: Bentley, S. T. (2004). Graphical techniques for
+For original inspiration:
+
+Bentley, S. T. (2004). Graphical techniques for
 constraining estimates of aerosol emissions from motor vehicles using air
 monitoring network data. Atmospheric Environment,(10), 1491–1500.
 https://doi.org/10.1016/j.atmosenv.2003.11.033
@@ -59,3 +61,14 @@ determination from road vehicles using a range of remote emission sensing
 techniques. Science of The Total Environment, 875.
 https://doi.org/10.1016/j.scitotenv.2023.162621.
 }
+\seealso{
+Other time series and trend functions: 
+\code{\link{TheilSen}()},
+\code{\link{calendarPlot}()},
+\code{\link{smoothTrend}()},
+\code{\link{timePlot}()},
+\code{\link{timeProp}()},
+\code{\link{timeVariation}()},
+\code{\link{trendLevel}()}
+}
+\concept{time series and trend functions}

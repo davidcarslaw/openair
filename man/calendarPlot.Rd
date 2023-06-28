@@ -218,6 +218,7 @@ labels = c(1:10), cols = "daqi", statistic = "mean", key.header = "DAQI")
 \seealso{
 Other time series and trend functions: 
 \code{\link{TheilSen}()},
+\code{\link{runRegression}()},
 \code{\link{smoothTrend}()},
 \code{\link{timePlot}()},
 \code{\link{timeProp}()},
