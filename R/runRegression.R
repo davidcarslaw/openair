@@ -13,7 +13,7 @@
 #' more fully descfibed and used in the \code{openair} online manual, together
 #' with examples.
 #'
-#' @param .data A data frame with  colums for \code{date} and at least two
+#' @param mydata A data frame with  colums for \code{date} and at least two
 #'   variables for use in a regression.
 #' @param x The column name of the \code{x} variable for use in a linear
 #'   regression \code{y = m.x + c}.
@@ -30,7 +30,9 @@
 #' @references
 #'
 #'
-#' For original inspiration: Bentley, S. T. (2004). Graphical techniques for
+#' For original inspiration: 
+#'
+#' Bentley, S. T. (2004). Graphical techniques for
 #' constraining estimates of aerosol emissions from motor vehicles using air
 #' monitoring network data. Atmospheric Environment,(10), 1491–1500.
 #' https://doi.org/10.1016/j.atmosenv.2003.11.033
@@ -49,26 +51,26 @@
 #' x = "nox", y = "pm10", run.len = 3)
 #'
 #' output
-runRegression <- function(.data, x = "nox", y = "pm10", run.len = 3) {
+runRegression <- function(mydata, x = "nox", y = "pm10", run.len = 3) {
   ## think about it in terms of y = fn(x) e.g. pm10 = a.nox + b
   
   vars <- c("date", x, y)
   
-  .data <- checkPrep(.data, vars, type = "default")
+  mydata <- checkPrep(mydata, vars, type = "default")
   
   ## pad missing data
-  .data <- date.pad(.data)
+  mydata <- date.pad(mydata)
   
   # list of rolling data frames
-  .data <-
-    lapply(seq_len(nrow(.data) - run.len + 1), function(i) {
-      .data[i:(i + run.len - 1), ]
+  mydata <-
+    lapply(seq_len(nrow(mydata) - run.len + 1), function(i) {
+      mydata[i:(i + run.len - 1), ]
     })
   
   ## select non-missing with run.len rows
   
-  .data <-
-    .data[which(lapply(.data, function(x) {
+  mydata <-
+    mydata[which(lapply(mydata, function(x) {
       nrow(na.omit(x))
     }) == run.len)]
   
@@ -90,7 +92,7 @@ runRegression <- function(.data, x = "nox", y = "pm10", run.len = 3) {
   }
   
   # und models
-  models <- lapply(.data, model)
+  models <- lapply(mydata, model)
   
   # extract components
   slope <- models %>%
@@ -101,17 +103,17 @@ runRegression <- function(.data, x = "nox", y = "pm10", run.len = 3) {
     map_dbl(1)
   #   seslope <- models %>% map_dbl(seslope)
   r_squared <- models %>% map_dbl(rsq)
-  date <- .data %>% map_vec(~ median(.x$date)) # use median date
-  date_start <- .data %>% map_vec(~ min(.x$date)) 
-  date_end <- .data %>% map_vec(~ max(.x$date)) 
+  date <- mydata %>% map_vec(~ median(.x$date)) # use median date
+  date_start <- mydata %>% map_vec(~ min(.x$date)) 
+  date_end <- mydata %>% map_vec(~ max(.x$date)) 
   
   results <- tibble(date, date_start, date_end, intercept, slope, r_squared) # , seslope)
   
   # info for regression lines
-  x1 <- .data %>%
+  x1 <- mydata %>%
     map_dbl(~ min(.x[[x]]))
   
-  x2 <- .data %>%
+  x2 <- mydata %>%
     map_dbl(~ max(.x[[x]]))
   
   results <- cbind(results, x1, x2)
