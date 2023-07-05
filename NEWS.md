@@ -24,6 +24,8 @@
   
   - `source = "all"` will return all available metadata (including KCL and Europe).
 
+- new function `runRegression()` for extracting 'dilution lines' from air quality and other data. Online manual will be updated with principles and examples. 
+
 - `calendarPlot()` now automatically creates its own `labels` if `breaks` are specified. For example, `c(0, 10, 20)` will create the labels `c("0 - 10", "10 - 20")`. `labels` can still be used to override the default values. (#341)
 
 - return tibble from `timeAverage()`.
@@ -32,8 +34,6 @@
 
 - Move regression formula off main plot for `polarPlot()` for clarity and label slope as 'm'.
 
-- new function `runRegression()` for extracting 'dilution lines' from air quality and other data. Online manual will be updated with principles and examples. 
-
 ## Bug Fixes
 
 - The order of columns in `importUKAQ()` will remain consistent (metadata, date, pollutants, meteo) regardless of whether `hc` is `TRUE` or `FALSE`.
@@ -41,6 +41,8 @@
 - `quickText()` will now automatically capitalise "no" to "NO". (#343)
 
 - The `year` argument of `importMeta()` is now respected when `source = "kcl"` and `"europe"`.
+
+- Several of the directional analysis plot family (e.g., `polarFreq()`) have been refactored to use `is.null()` or `is.na()` over `missing()`. While predominantly an internal change, this should be make these functions easier to use inside of other functions (e.g., `function(data, breaks = NA) polarFreq(data, breaks = breaks))` will now run successfully).
 
 # openair 2.17-0
 
