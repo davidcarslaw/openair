@@ -116,12 +116,12 @@
 #' \dontrun{polarFreq(mydata, pollutant = "pm25", statistic
 #' ="weighted.mean", offset = 50, ws.int = 25, trans = FALSE) }
 polarFreq <- function(mydata,
-                      pollutant = "",
+                      pollutant = NULL,
                       statistic = "frequency",
                       ws.int = 1,
                       wd.nint = 36,
                       grid.line = 5,
-                      breaks = seq(0, 5000, 500),
+                      breaks = NULL,
                       cols = "default",
                       trans = TRUE,
                       type = "default",
@@ -183,7 +183,7 @@ polarFreq <- function(mydata,
     trellis.par.set(fontsize = list(text = extra.args$fontsize))
   }
 
-  if (!missing(pollutant)) vars <- c(vars, pollutant)
+  if (!is.null(pollutant)) vars <- c(vars, pollutant)
 
   ## data checks
   mydata <- checkPrep(mydata, vars, type, remove.calm = FALSE)
@@ -198,19 +198,20 @@ polarFreq <- function(mydata,
   mydata <- cutData(mydata, type, ...)
 
   ## if pollutant chosen but no statistic - use mean, issue warning
-  if (!missing(pollutant) & missing(statistic)) {
+  if (statistic == "frequency" & !is.null(pollutant)) {
+    cli::cli_warn(c("x" = "{.code statistic == 'frequency'} incompatible with a defined {.field pollutant}.",
+                    "i" = "Setting {.field statistic} to {.code 'mean'}."))
     statistic <- "mean"
-    warning("No statistic chosen, using mean")
   }
 
   ## if statistic chosen but no pollutant stop
-  if (!missing(statistic) & missing(pollutant)) {
-    stop("No pollutant chosen, please choose one e.g. pollutant = 'nox'")
+  if (statistic != "frequency" & is.null(pollutant)) {
+    cli::cli_abort(c("x" = "No {.field pollutant} chosen",
+                     "i" = "Please choose a {.field pollutant}, e.g., {.code pollutant = 'nox'}"))
   }
 
-  if (!missing(breaks)) trans <- FALSE ## over-ride transform if breaks supplied
+  if (!is.null(breaks)) trans <- FALSE ## over-ride transform if breaks supplied
 
-  if (missing(key.header)) key.header <- statistic
   if (key.header == "weighted.mean") key.header <- c("contribution", "(%)")
 
   ## apply square root transform?
@@ -319,7 +320,7 @@ polarFreq <- function(mydata,
 
   nlev <- 200
   ## handle missing breaks arguments
-  if (missing(breaks)) {
+  if (is.null(breaks)) {
     breaks <- unique(c(0, pretty(results.grid$weights, nlev)))
     br <- pretty((c(0, results.grid$weights) ^ coef), n = 10) ## breaks for scale
   } else {

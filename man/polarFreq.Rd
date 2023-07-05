@@ -6,12 +6,12 @@
 \usage{
 polarFreq(
   mydata,
-  pollutant = "",
+  pollutant = NULL,
   statistic = "frequency",
   ws.int = 1,
   wd.nint = 36,
   grid.line = 5,
-  breaks = seq(0, 5000, 500),
+  breaks = NULL,
   cols = "default",
   trans = TRUE,
   type = "default",
