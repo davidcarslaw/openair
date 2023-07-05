@@ -509,7 +509,7 @@ polarAnnulus <-
   ## auto-scaling
   nlev <- 200 # preferred number of intervals
   ## handle missing breaks arguments
-  if (is.null(limits)) {
+  if (any(is.null(limits)) | any(is.na(limits))) {
     # breaks <- pretty(results.grid$z, n = nlev)
     breaks <- seq(min(results.grid$z, na.rm = TRUE), max(results.grid$z, na.rm = TRUE),
                   length.out = nlev

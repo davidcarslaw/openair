@@ -42,10 +42,13 @@ polarDiff <- function(
     after,
     pollutant = "nox",
     x = "ws",
-    limits = NA,
+    limits = NULL,
     plot = TRUE,
     ...
 ) {
+  if (is.null(limits)){
+    limits <- NA
+  }
 
   # extra args setup
   Args <- list(...)

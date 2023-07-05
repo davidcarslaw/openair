@@ -210,7 +210,7 @@ polarFreq <- function(mydata,
                      "i" = "Please choose a {.field pollutant}, e.g., {.code pollutant = 'nox'}"))
   }
 
-  if (!is.null(breaks)) trans <- FALSE ## over-ride transform if breaks supplied
+  if (!(any(is.null(breaks)) | any(is.na(breaks)))) trans <- FALSE ## over-ride transform if breaks supplied
 
   if (key.header == "weighted.mean") key.header <- c("contribution", "(%)")
 
@@ -320,7 +320,7 @@ polarFreq <- function(mydata,
 
   nlev <- 200
   ## handle missing breaks arguments
-  if (is.null(breaks)) {
+  if (any(is.null(breaks)) | any(is.na(breaks))) {
     breaks <- unique(c(0, pretty(results.grid$weights, nlev)))
     br <- pretty((c(0, results.grid$weights) ^ coef), n = 10) ## breaks for scale
   } else {
