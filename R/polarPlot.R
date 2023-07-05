@@ -432,7 +432,7 @@ polarPlot <-
            wd = "wd",
            type = "default",
            statistic = "mean",
-           limits = NA,
+           limits = NULL,
            exclude.missing = TRUE,
            uncertainty = FALSE,
            percentile = NA,
@@ -446,7 +446,7 @@ polarPlot <-
            force.positive = TRUE,
            k = 100,
            normalise = FALSE,
-           key.header = "",
+           key.header = statistic,
            key.footer = pollutant,
            key.position = "right",
            key = TRUE,
@@ -515,7 +515,6 @@ polarPlot <-
 
     if (length(weights) != 3) stop("weights should be of length 3.")
 
-    if (missing(key.header)) key.header <- statistic
     if (key.header == "nwr") key.header <- "NWR"
     if (key.header == "weighted_mean") key.header <- "weighted\nmean"
     if (key.header == "percentile") {
@@ -1023,7 +1022,7 @@ polarPlot <-
 
     ## handle missing breaks arguments
 
-    if (is.na(limits[1])) {
+    if (any(is.null(limits)) | any(is.na(limits))) {
 
       # breaks <- pretty(res$z, n = nlev)
       breaks <- seq(
