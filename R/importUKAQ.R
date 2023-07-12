@@ -256,7 +256,7 @@ importUKAQ <-
         readSummaryData,
         data_type = data_type,
         to_narrow = to_narrow,
-        hc = FALSE,
+        hc = hc,
         .progress = ifelse(progress, "Importing Statistics", FALSE)
       ) %>%
         purrr::list_rbind()
