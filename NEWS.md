@@ -44,6 +44,8 @@
 
 - The `year` argument of `importMeta()` is now respected when `source = "kcl"` and `"europe"`.
 
+- For `calendarPlot` when annotated with ws or wd arrows, use max ws/wd that corresponds to hour of maximum pollutant concentration and not simple the max ws/wd for a day.
+
 # openair 2.17-0
 
 ## New Features

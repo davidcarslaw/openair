@@ -314,15 +314,40 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
 
     results
   }
-
-  ## calculate daily means
-
-  mydata <- timeAverage(mydata, "day", statistic = statistic,
-                        data.thresh = data.thresh)
-
-
-  mydata$date <- as_date(mydata$date)
-
+  
+  # if statistic = "max" we want the corresponding ws/wd for the pollutant, not
+  # simply the max ws/wd
+  
+  if (statistic == "max") {
+    
+    vars <- c("ws", "wd")
+    
+    # max ws/wd for hour with max pollutant value
+    maxes <- mydata %>%
+      mutate(date = as_date(date)) %>%
+      group_by(date) %>%
+      slice(which.max(.data[[pollutant]]))
+    
+    # averaged data
+    mydata <- timeAverage(mydata, "day",
+                          statistic = statistic,
+                          data.thresh = data.thresh)
+    # replace with parallel max
+    mydata <- left_join(mydata %>%
+                          select(!any_of(vars)),
+                        maxes %>%
+                          select(!.data[[pollutant]]),
+                        by = join_by(date))
+  } else {
+    ## calculate daily means
+    
+    mydata <- timeAverage(mydata, "day",
+                          statistic = statistic,
+                          data.thresh = data.thresh)
+    
+    mydata$date <- as_date(mydata$date)
+  }
+  
   type <- "cuts"
 
   # make sure all days are available
