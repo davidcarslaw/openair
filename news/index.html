@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9020</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,6 +78,7 @@
 <ul><li><p>The order of columns in <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> will remain consistent (metadata, date, pollutants, meteo) regardless of whether <code>hc</code> is <code>TRUE</code> or <code>FALSE</code>.</p></li>
 <li><p><code><a href="../reference/quickText.html">quickText()</a></code> will now automatically capitalise “no” to “NO”. (<a href="https://github.com/davidcarslaw/openair/issues/343" class="external-link">#343</a>)</p></li>
 <li><p>The <code>year</code> argument of <code><a href="../reference/importMeta.html">importMeta()</a></code> is now respected when <code>source = "kcl"</code> and <code>"europe"</code>.</p></li>
+<li><p>For <code>calendarPlot</code> when annotated with ws or wd arrows, use max ws/wd that corresponds to hour of maximum pollutant concentration and not simple the max ws/wd for a day.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
