@@ -59,7 +59,11 @@ calendar. Can be: \dQuote{date} --- shows day of the month; \dQuote{wd}
 vector-averaged wind direction scaled by wind speed. Finally it can be
 \dQuote{value} which shows the daily mean value.}
 
-\item{statistic}{Statistic passed to \code{\link[=timeAverage]{timeAverage()}}.}
+\item{statistic}{Statistic passed to \code{\link[=timeAverage]{timeAverage()}}. Note that if
+\code{statistic = "max"} and \code{annotate} is "ws" or "wd", the hour
+corresponding to the maximum concentration of \code{polluant} is used to
+provide the associated \code{ws} or \code{wd} and not the maximum daily
+\code{ws} or \code{wd}.}
 
 \item{cols}{Colours to be used for plotting. Options include
 \dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet} and

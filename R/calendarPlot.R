@@ -50,7 +50,11 @@
 #'   --- shows vector-averaged wind direction, or \dQuote{ws} --- shows
 #'   vector-averaged wind direction scaled by wind speed. Finally it can be
 #'   \dQuote{value} which shows the daily mean value.
-#' @param statistic Statistic passed to [timeAverage()].
+#' @param statistic Statistic passed to [timeAverage()]. Note that if
+#'   \code{statistic = "max"} and \code{annotate} is "ws" or "wd", the hour
+#'   corresponding to the maximum concentration of \code{polluant} is used to
+#'   provide the associated \code{ws} or \code{wd} and not the maximum daily
+#'   \code{ws} or \code{wd}.
 #' @param cols Colours to be used for plotting. Options include
 #'   \dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet} and
 #'   \code{RColorBrewer} colours --- see the \code{openair} \code{openColours}
