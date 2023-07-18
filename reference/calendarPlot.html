@@ -133,7 +133,11 @@ vector-averaged wind direction scaled by wind speed. Finally it can be
 
 
 <dt>statistic</dt>
-<dd><p>Statistic passed to <code><a href="timeAverage.html">timeAverage()</a></code>.</p></dd>
+<dd><p>Statistic passed to <code><a href="timeAverage.html">timeAverage()</a></code>. Note that if
+<code>statistic = "max"</code> and <code>annotate</code> is "ws" or "wd", the hour
+corresponding to the maximum concentration of <code>polluant</code> is used to
+provide the associated <code>ws</code> or <code>wd</code> and not the maximum daily
+<code>ws</code> or <code>wd</code>.</p></dd>
 
 
 <dt>cols</dt>
