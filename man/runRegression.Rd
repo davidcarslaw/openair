@@ -4,7 +4,7 @@
 \alias{runRegression}
 \title{Rolling regression for pollutant source characterisation.}
 \usage{
-runRegression(mydata, x = "nox", y = "pm10", run.len = 3)
+runRegression(mydata, x = "nox", y = "pm10", run.len = 3, date.pad = TRUE)
 }
 \arguments{
 \item{mydata}{A data frame with  colums for \code{date} and at least two
@@ -18,6 +18,9 @@ regression \code{y = m.x + c}.}
 
 \item{run.len}{The window width to be used for a rolling regression. A value
 of 3 for example for hourly data will consider 3 one-hour time sequences.}
+
+\item{date.pad}{Should gaps in time series be filled before calculations are
+made?}
 }
 \value{
 A tibble with \code{date} and calculated regression coefficients and
@@ -40,7 +43,7 @@ with examples.
 }
 \examples{
 # Just use part of a year of data
-output <- runRegression(selectByDate(mydata, year = 2004, month = 1:3), 
+output <- runRegression(selectByDate(mydata, year = 2004, month = 1:3),
 x = "nox", y = "pm10", run.len = 3)
 
 output
@@ -48,9 +51,9 @@ output
 \references{
 For original inspiration:
 
-Bentley, S. T. (2004). Graphical techniques for
-constraining estimates of aerosol emissions from motor vehicles using air
-monitoring network data. Atmospheric Environment,(10), 1491–1500.
+Bentley, S. T. (2004). Graphical techniques for constraining estimates of
+aerosol emissions from motor vehicles using air monitoring network data.
+Atmospheric Environment,(10), 1491–1500.
 https://doi.org/10.1016/j.atmosenv.2003.11.033
 
 Example for vehicle emissions high time resolution data:

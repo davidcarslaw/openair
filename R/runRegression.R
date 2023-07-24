@@ -21,7 +21,8 @@
 #'   regression \code{y = m.x + c}.
 #' @param run.len The window width to be used for a rolling regression. A value
 #'   of 3 for example for hourly data will consider 3 one-hour time sequences.
-#'
+#' @param date.pad Should gaps in time series be filled before calculations are
+#'   made?
 #' @return A tibble with \code{date} and calculated regression coefficients and
 #'   other information to plot dilution lines.
 #' @importFrom stats coefficients
@@ -30,11 +31,11 @@
 #' @references
 #'
 #'
-#' For original inspiration: 
+#' For original inspiration:
 #'
-#' Bentley, S. T. (2004). Graphical techniques for
-#' constraining estimates of aerosol emissions from motor vehicles using air
-#' monitoring network data. Atmospheric Environment,(10), 1491–1500.
+#' Bentley, S. T. (2004). Graphical techniques for constraining estimates of
+#' aerosol emissions from motor vehicles using air monitoring network data.
+#' Atmospheric Environment,(10), 1491–1500.
 #' https://doi.org/10.1016/j.atmosenv.2003.11.033
 #'
 #' Example for vehicle emissions high time resolution data:
@@ -47,11 +48,12 @@
 #'
 #' @examples
 #' # Just use part of a year of data
-#' output <- runRegression(selectByDate(mydata, year = 2004, month = 1:3), 
+#' output <- runRegression(selectByDate(mydata, year = 2004, month = 1:3),
 #' x = "nox", y = "pm10", run.len = 3)
 #'
 #' output
-runRegression <- function(mydata, x = "nox", y = "pm10", run.len = 3) {
+runRegression <- function(mydata, x = "nox", y = "pm10", run.len = 3,
+                          date.pad = TRUE) {
   ## think about it in terms of y = fn(x) e.g. pm10 = a.nox + b
   
   vars <- c("date", x, y)
@@ -59,7 +61,8 @@ runRegression <- function(mydata, x = "nox", y = "pm10", run.len = 3) {
   mydata <- checkPrep(mydata, vars, type = "default")
   
   ## pad missing data
-  mydata <- date.pad(mydata)
+  if (date.pad)
+    mydata <- date.pad(mydata)
   
   # list of rolling data frames
   mydata <-
@@ -75,20 +78,22 @@ runRegression <- function(mydata, x = "nox", y = "pm10", run.len = 3) {
     }) == run.len)]
   
   model <- function(df) {
-    lm(eval(paste(y, "~", x)), data = df)
+   # lm(eval(paste(y, "~", x)), data = df)
+    # fast model fitting
+    fit <- .lm.fit(cbind(1, df[[x]]),df[[y]])
+
+    r.sq <- 1 - var(fit$residuals) / var(df[[y]])
+
+    if (all(fit$residuals < 1e-7)) r.sq <- 1
+
+    fit$r.sq <-  r.sq
+    return(fit)
+
   }
   
   # suppress warnings (perfect fit)
   rsq <- function(x) {
     tryCatch(summary(x)$r.squared, warning = function(w) return(1))
-  }
-  
-  seslope <- function(x) {
-    if (nrow(summary(x)$coefficients) == 2) {
-      2 * summary(x)$coefficients[2, 2] ## 95 % CI; need two rows in coefs
-    } else {
-      NA
-    }
   }
   
   # und models
@@ -98,16 +103,18 @@ runRegression <- function(mydata, x = "nox", y = "pm10", run.len = 3) {
   slope <- models %>%
     map(coefficients) %>%
     map_dbl(2)
+  
   intercept <- models %>%
     map(coefficients) %>%
     map_dbl(1)
-  #   seslope <- models %>% map_dbl(seslope)
-  r_squared <- models %>% map_dbl(rsq)
+  
+ # r_squared <- models %>% map_dbl(rsq)
+  r_squared <- models %>% map("r.sq") %>% map_dbl(1)
   date <- mydata %>% map_vec(~ median(.x$date)) # use median date
   date_start <- mydata %>% map_vec(~ min(.x$date)) 
   date_end <- mydata %>% map_vec(~ max(.x$date)) 
   
-  results <- tibble(date, date_start, date_end, intercept, slope, r_squared) # , seslope)
+  results <- tibble(date, date_start, date_end, intercept, slope, r_squared) 
   
   # info for regression lines
   x1 <- mydata %>%
