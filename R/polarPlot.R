@@ -323,9 +323,9 @@
 #' @param kernel Type of kernel used for the weighting procedure for when
 #'   correlation or regression techniques are used. Only \code{"gaussian"} is
 #'   supported but this may be enhanced in the future.
-#'   
+#'
 #' @param formula.label When pair-wise statistics such as regression slopes are
-#'   calculated and plotted, should a formula label be displayed? 
+#'   calculated and plotted, should a formula label be displayed?
 #'
 #' @param tau The quantile to be estimated when \code{statistic} is set to
 #'   \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
@@ -638,7 +638,7 @@ polarPlot <-
     min.ws <- min(mydata[[x]], na.rm = TRUE)
     clip <- TRUE ## used for removing data where ws > upper
 
-    if (missing(upper)) {
+    if (is.na(upper)) {
       upper <- max.ws
       clip <- FALSE
     }
@@ -897,14 +897,14 @@ polarPlot <-
 
         n <- length(pred)
 
-        # interpolate each uncertainty surface 
-        
+        # interpolate each uncertainty surface
+
          lower_uncer = interp_grid(input.data, z = Lower, n = 201) %>% mutate(uncertainty = "lower uncertainty")
          upper_uncer = interp_grid(input.data, z = Upper, n = 201) %>% mutate(uncertainty = "upper uncertainty")
          prediction = interp_grid(input.data, z = pred, n = 201) %>% mutate(uncertainty = "prediction")
          results <- bind_rows(prediction, lower_uncer, upper_uncer)
          int <- 201
-        
+
       }
 
 
@@ -992,9 +992,9 @@ polarPlot <-
       id <- which(res$z < -1)
       if (length(id) > 0) res$z[id] <- -1
     }
-    
+
     # if regression, set key.footer to 'm' (slope)
-    if (grepl("slope|intercept", statistic) & length(pollutant == 2)) 
+    if (grepl("slope|intercept", statistic) & length(pollutant == 2))
       key.footer <- "m"
 
 
@@ -1091,7 +1091,7 @@ polarPlot <-
       labels <- labels[-1]
       intervals <- intervals[-1]
     }
-    
+
     # if uncertainty = TRUE, change type for plotting (3 panels)
     if (uncertainty)
       type <- "uncertainty"
@@ -1114,10 +1114,10 @@ polarPlot <-
       ylim = c(-upper * 1.025, upper * 1.025),
       colorkey = FALSE,
       legend = legend,
-      
+
       # add footnote formula if regression used
       page = function(n)
-        if (formula.label & grepl("slope|intercept", statistic) & 
+        if (formula.label & grepl("slope|intercept", statistic) &
             length(pollutant == 2)) {
         grid.text(
           quickText(paste0(
@@ -1129,7 +1129,7 @@ polarPlot <-
           gp = gpar(fontsize = 10),
           just = c("right", "bottom")
         )},
-      
+
       panel = function(x, y, z, subscripts, ...) {
 
         ## show missing data due to min.bin
@@ -1212,10 +1212,10 @@ polarPlot <-
 
 # Gaussian bivariate density function
 gauss_dens <- function(x, y, mx, my, sx, sy) {
-  
+
   (1 / (2 * pi * sx *sy )) *
     exp((-1/2) * ((x - mx) ^ 2 / sx ^ 2 + (y - my) ^ 2 / sy^2))
-  
+
 }
 
 # NWR kernel calculations
@@ -1225,17 +1225,17 @@ simple_kernel <- function(data, mydata, x = "ws",
   # Centres
   ws1 <- data[[1]]
   wd1 <- data[[2]]
-  
+
   # centred ws, wd
   ws_cent <- mydata[[x]] - ws1
   wd_cent <- mydata[[y]] - wd1
   wd_cent = ifelse(wd_cent < -180, wd_cent + 360, wd_cent)
-  
+
   weight <- gauss_dens(ws_cent, wd_cent, 0, 0, ws_spread, wd_spread)
 
   conc <- sum(mydata[[pollutant]] * weight) /
     sum(weight)
-  
+
   return(data.frame(conc = conc))
 }
 
