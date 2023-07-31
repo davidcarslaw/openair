@@ -358,7 +358,7 @@ smoothTrend <- function(mydata, pollutant = "nox", deseason = FALSE,
 
       }
 
-      ssd <- stl(myts, s.window = 35, robust = TRUE, s.degree = 0)
+      ssd <- stl(myts, s.window = 11, robust = TRUE, s.degree = 1)
 
       deseas <- ssd$time.series[, "trend"] + ssd$time.series[, "remainder"]
       deseas <- as.vector(deseas)

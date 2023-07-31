@@ -50,7 +50,11 @@
 #'   --- shows vector-averaged wind direction, or \dQuote{ws} --- shows
 #'   vector-averaged wind direction scaled by wind speed. Finally it can be
 #'   \dQuote{value} which shows the daily mean value.
-#' @param statistic Statistic passed to [timeAverage()].
+#' @param statistic Statistic passed to [timeAverage()]. Note that if
+#'   \code{statistic = "max"} and \code{annotate} is "ws" or "wd", the hour
+#'   corresponding to the maximum concentration of \code{polluant} is used to
+#'   provide the associated \code{ws} or \code{wd} and not the maximum daily
+#'   \code{ws} or \code{wd}.
 #' @param cols Colours to be used for plotting. Options include
 #'   \dQuote{default}, \dQuote{increment}, \dQuote{heat}, \dQuote{jet} and
 #'   \code{RColorBrewer} colours --- see the \code{openair} \code{openColours}
@@ -314,15 +318,40 @@ calendarPlot <- function(mydata, pollutant = "nox", year = 2003, month = 1:12,
 
     results
   }
-
-  ## calculate daily means
-
-  mydata <- timeAverage(mydata, "day", statistic = statistic,
-                        data.thresh = data.thresh)
-
-
-  mydata$date <- as_date(mydata$date)
-
+  
+  # if statistic = "max" we want the corresponding ws/wd for the pollutant, not
+  # simply the max ws/wd
+  
+  if (statistic == "max") {
+    
+    vars <- c("ws", "wd")
+    
+    # max ws/wd for hour with max pollutant value
+    maxes <- mydata %>%
+      mutate(date = as_date(date)) %>%
+      group_by(date) %>%
+      slice(which.max(.data[[pollutant]]))
+    
+    # averaged data
+    mydata <- timeAverage(mydata, "day",
+                          statistic = statistic,
+                          data.thresh = data.thresh)
+    # replace with parallel max
+    mydata <- left_join(mydata %>%
+                          select(!any_of(vars)),
+                        maxes %>%
+                          select(!.data[[pollutant]]),
+                        by = join_by(date))
+  } else {
+    ## calculate daily means
+    
+    mydata <- timeAverage(mydata, "day",
+                          statistic = statistic,
+                          data.thresh = data.thresh)
+    
+    mydata$date <- as_date(mydata$date)
+  }
+  
   type <- "cuts"
 
   # make sure all days are available

@@ -386,7 +386,7 @@ add_ratified <- function(aq_data, source, to_narrow) {
 #' @noRd
 filter_site_pollutant <- function(aq_data, site, pollutant, to_narrow, data_type) {
   # if site isn't missing, filter by sites
-  if (site != "all") {
+  if (any(site != "all")) {
     aq_data <- aq_data[tolower(aq_data$code) %in% tolower(site), ]
   }
 

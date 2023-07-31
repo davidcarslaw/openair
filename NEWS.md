@@ -34,6 +34,8 @@
 
 - Move regression formula off main plot for `polarPlot()` for clarity and label slope as 'm'.
 
+- Tweak seasonal trend decomposition using STL to allow the seasonal amplitude to vary more. Affects `smoothTrend()` and `TheilSen()`.
+
 ## Bug Fixes
 
 - The order of columns in `importUKAQ()` will remain consistent (metadata, date, pollutants, meteo) regardless of whether `hc` is `TRUE` or `FALSE`.
@@ -43,6 +45,8 @@
 - The `year` argument of `importMeta()` is now respected when `source = "kcl"` and `"europe"`.
 
 - Several of the directional analysis plot family (e.g., `polarFreq()`) have been refactored to use `is.null()` or `is.na()` over `missing()`. While predominantly an internal change, this should be make these functions easier to use inside of other functions (e.g., `function(data, breaks = NA) polarFreq(data, breaks = breaks))` will now run successfully).
+
+- For `calendarPlot` when annotated with ws or wd arrows, use max ws/wd that corresponds to hour of maximum pollutant concentration and not simple the max ws/wd for a day.
 
 # openair 2.17-0
 
