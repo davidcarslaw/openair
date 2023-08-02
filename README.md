@@ -31,14 +31,14 @@ install.packages("openair")
 ```
 
 The development version can be installed from GitHub. Installation of
-`openair` from GitHub is easy using the `devtools` package. Note,
-because `openair` contains C++ code a compiler is also needed. For
-Windows - for example,
-[Rtools](https://cran.r-project.org/bin/windows/Rtools/) is needed.
+`openair` from GitHub is easy using the `pak` package. Note, because
+`openair` contains C++ code a compiler is also needed. For Windows - for
+example, [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is
+needed.
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("davidcarslaw/openair")
+# install.packages("pak")
+pak::pak("davidcarslaw/openair")
 ```
 
 ## Description
@@ -82,21 +82,22 @@ several sites at one time and several years of data.
 library(openair)
 kc1 <- importAURN(site = "kc1", year = 2020)
 kc1
-#> # A tibble: 8,784 × 14
-#>    site      code  date                   co   nox   no2    no    o3   so2  pm10
-#>    <chr>     <chr> <dttm>              <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#>  1 London N… KC1   2020-01-01 00:00:00 0.214  64.8  46.2 12.1   1.13    NA  41.8
-#>  2 London N… KC1   2020-01-01 01:00:00 0.237  74.1  45.0 19.0   1.20    NA  43  
-#>  3 London N… KC1   2020-01-01 02:00:00 0.204  60.5  41.4 12.4   1.50    NA  46.0
-#>  4 London N… KC1   2020-01-01 03:00:00 0.204  53.5  39.8  8.93  1.60    NA  48.5
-#>  5 London N… KC1   2020-01-01 04:00:00 0.169  37.7  33.6  2.63  5.79    NA  45.4
-#>  6 London N… KC1   2020-01-01 05:00:00 0.160  43.3  36.8  4.25  6.09    NA  43.8
-#>  7 London N… KC1   2020-01-01 06:00:00 0.157  48.2  39.4  5.76  2.74    NA  43.6
-#>  8 London N… KC1   2020-01-01 07:00:00 0.178  60.5  44.7 10.3   1.20    NA  42.1
-#>  9 London N… KC1   2020-01-01 08:00:00 0.233  71.8  47.9 15.6   2.25    NA  41.8
-#> 10 London N… KC1   2020-01-01 09:00:00 0.329 128.   46.9 53.2   2.25    NA  37.6
+#> # A tibble: 8,784 × 15
+#>    source site     code  date                   co   nox   no2    no    o3   so2
+#>    <chr>  <chr>    <chr> <dttm>              <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#>  1 aurn   London … KC1   2020-01-01 00:00:00 0.214  64.8  46.2 12.1   1.13    NA
+#>  2 aurn   London … KC1   2020-01-01 01:00:00 0.237  74.1  45.0 19.0   1.20    NA
+#>  3 aurn   London … KC1   2020-01-01 02:00:00 0.204  60.5  41.4 12.4   1.50    NA
+#>  4 aurn   London … KC1   2020-01-01 03:00:00 0.204  53.5  39.8  8.93  1.60    NA
+#>  5 aurn   London … KC1   2020-01-01 04:00:00 0.169  37.7  33.6  2.63  5.79    NA
+#>  6 aurn   London … KC1   2020-01-01 05:00:00 0.160  43.3  36.8  4.25  6.09    NA
+#>  7 aurn   London … KC1   2020-01-01 06:00:00 0.157  48.2  39.4  5.76  2.74    NA
+#>  8 aurn   London … KC1   2020-01-01 07:00:00 0.178  60.5  44.7 10.3   1.20    NA
+#>  9 aurn   London … KC1   2020-01-01 08:00:00 0.233  71.8  47.9 15.6   2.25    NA
+#> 10 aurn   London … KC1   2020-01-01 09:00:00 0.329 128.   46.9 53.2   2.25    NA
 #> # ℹ 8,774 more rows
-#> # ℹ 4 more variables: pm2.5 <dbl>, ws <dbl>, wd <dbl>, air_temp <dbl>
+#> # ℹ 5 more variables: pm10 <dbl>, pm2.5 <dbl>, ws <dbl>, wd <dbl>,
+#> #   air_temp <dbl>
 ```
 
 ### Utility functions
@@ -114,21 +115,22 @@ sub <- selectByDate(kc1,
   hour = 7:19
 )
 sub
-#> # A tibble: 1,144 × 14
-#>    date                site     code      co   nox   no2    no    o3   so2  pm10
-#>    <dttm>              <chr>    <chr>  <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#>  1 2020-06-01 07:00:00 London … KC1   0.125   23.1 16.8  4.14   56.5  2.29  14.8
-#>  2 2020-06-01 08:00:00 London … KC1   0.133   25.2 17.8  4.79   61.7  2.68  17.8
-#>  3 2020-06-01 09:00:00 London … KC1   0.119   15.6 12.2  2.22   75.8  2.35  15.4
-#>  4 2020-06-01 10:00:00 London … KC1   0.104   13.8 11.1  1.79   87.1  1.57  15.2
-#>  5 2020-06-01 11:00:00 London … KC1   0.0956  14.0 11.8  1.46   96.7  1.44  11.4
-#>  6 2020-06-01 12:00:00 London … KC1   0.0985  11.3  9.97 0.893 106.   1.44  11.9
-#>  7 2020-06-01 13:00:00 London … KC1   0.0927  11.0  9.64 0.893 112.   2.03  11.8
-#>  8 2020-06-01 14:00:00 London … KC1   0.0927  12.5 10.8  1.14  114.   2.81  11.9
-#>  9 2020-06-01 15:00:00 London … KC1   0.0811  10.7  9.48 0.822 115.   2.88  10  
-#> 10 2020-06-01 16:00:00 London … KC1   0.0898  13.9 11.9  1.29  104.   2.22   9.1
+#> # A tibble: 1,144 × 15
+#>    date                source site    code      co   nox   no2    no    o3   so2
+#>    <dttm>              <chr>  <chr>   <chr>  <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#>  1 2020-06-01 07:00:00 aurn   London… KC1   0.125   23.1 16.8  4.14   56.5  2.29
+#>  2 2020-06-01 08:00:00 aurn   London… KC1   0.133   25.2 17.8  4.79   61.7  2.68
+#>  3 2020-06-01 09:00:00 aurn   London… KC1   0.119   15.6 12.2  2.22   75.8  2.35
+#>  4 2020-06-01 10:00:00 aurn   London… KC1   0.104   13.8 11.1  1.79   87.1  1.57
+#>  5 2020-06-01 11:00:00 aurn   London… KC1   0.0956  14.0 11.8  1.46   96.7  1.44
+#>  6 2020-06-01 12:00:00 aurn   London… KC1   0.0985  11.3  9.97 0.893 106.   1.44
+#>  7 2020-06-01 13:00:00 aurn   London… KC1   0.0927  11.0  9.64 0.893 112.   2.03
+#>  8 2020-06-01 14:00:00 aurn   London… KC1   0.0927  12.5 10.8  1.14  114.   2.81
+#>  9 2020-06-01 15:00:00 aurn   London… KC1   0.0811  10.7  9.48 0.822 115.   2.88
+#> 10 2020-06-01 16:00:00 aurn   London… KC1   0.0898  13.9 11.9  1.29  104.   2.22
 #> # ℹ 1,134 more rows
-#> # ℹ 4 more variables: pm2.5 <dbl>, ws <dbl>, wd <dbl>, air_temp <dbl>
+#> # ℹ 5 more variables: pm10 <dbl>, pm2.5 <dbl>, ws <dbl>, wd <dbl>,
+#> #   air_temp <dbl>
 ```
 
 Similarly it is easy to time-average data in many flexible ways. For
@@ -184,7 +186,14 @@ indicate how many quantiles to use.
 windRose(mydata)
 ```
 
-<img src="man/figures/README-windrose-1.png" width="50%" />
+<div class="figure">
+
+<img src="man/figures/README-windrose-1.png" alt="A polar bar chart showing the proportion of wind coming from 12 compass directions, where we show most wind at the monitoring station arrives from the South West." width="50%" />
+<p class="caption">
+A wind rose summarising the wind conditions at a monitoring station.
+</p>
+
+</div>
 
 However, the real flexibility comes from being able to use the `type`
 option.
@@ -196,7 +205,15 @@ windRose(mydata,
 )
 ```
 
-<img src="man/figures/README-windrose2-1.png" width="100%" />
+<div class="figure">
+
+<img src="man/figures/README-windrose2-1.png" alt="Polar bar charts showing the proportion of wind coming from 12 compass directions. There are 8 charts, each representing a year of data from 1998 to 2005. While there is a small amount of variation, the dominant wind direction for each year is from the south west." width="100%" />
+<p class="caption">
+Wind roses summarising the wind conditions at a monitoring station per
+year, demonstrating the `{openair}` type option.
+</p>
+
+</div>
 
 There are many flavours of bivariate polar plots, as described
 [here](https://bookdown.org/david_carslaw/openair/sections/directional-analysis/polar-plots.html)
@@ -211,4 +228,12 @@ polarPlot(mydata,
 )
 ```
 
-<img src="man/figures/README-polarCPF-1.png" width="60%" />
+<div class="figure">
+
+<img src="man/figures/README-polarCPF-1.png" alt="A polar heatmap with wind direction on the spoke axes and wind speed on the radial axes showing the probability of sulfur dioxide being higher than the 90th percentile. The chart indicates the highest probabilities occur when the wind is coming from the east and is blowing at between 0 and 12 metres per second." width="60%" />
+<p class="caption">
+A bivariate polar plot showing the wind conditions which give rise to
+elevated pollutant concentrations.
+</p>
+
+</div>
