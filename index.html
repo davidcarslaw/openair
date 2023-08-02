@@ -93,10 +93,10 @@
 <p>Installation can be done in the normal way:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"openair"</span><span class="op">)</span></span></code></pre></div>
-<p>The development version can be installed from GitHub. Installation of <code>openair</code> from GitHub is easy using the <code>devtools</code> package. Note, because <code>openair</code> contains C++ code a compiler is also needed. For Windows - for example, <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a> is needed.</p>
+<p>The development version can be installed from GitHub. Installation of <code>openair</code> from GitHub is easy using the <code>pak</code> package. Note, because <code>openair</code> contains C++ code a compiler is also needed. For Windows - for example, <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a> is needed.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"davidcarslaw/openair"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="http://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"davidcarslaw/openair"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
@@ -126,21 +126,22 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidcarslaw.github.io/openair/">openair</a></span><span class="op">)</span></span>
 <span><span class="va">kc1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/import_ukaq_helper.html">importAURN</a></span><span class="op">(</span>site <span class="op">=</span> <span class="st">"kc1"</span>, year <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span></span>
 <span><span class="va">kc1</span></span>
-<span><span class="co">#&gt; # A tibble: 8,784 × 14</span></span>
-<span><span class="co">#&gt;    site      code  date                   co   nox   no2    no    o3   so2  pm10</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 London N… KC1   2020-01-01 00:00:00 0.214  64.8  46.2 12.1   1.13    NA  41.8</span></span>
-<span><span class="co">#&gt;  2 London N… KC1   2020-01-01 01:00:00 0.237  74.1  45.0 19.0   1.20    NA  43  </span></span>
-<span><span class="co">#&gt;  3 London N… KC1   2020-01-01 02:00:00 0.204  60.5  41.4 12.4   1.50    NA  46.0</span></span>
-<span><span class="co">#&gt;  4 London N… KC1   2020-01-01 03:00:00 0.204  53.5  39.8  8.93  1.60    NA  48.5</span></span>
-<span><span class="co">#&gt;  5 London N… KC1   2020-01-01 04:00:00 0.169  37.7  33.6  2.63  5.79    NA  45.4</span></span>
-<span><span class="co">#&gt;  6 London N… KC1   2020-01-01 05:00:00 0.160  43.3  36.8  4.25  6.09    NA  43.8</span></span>
-<span><span class="co">#&gt;  7 London N… KC1   2020-01-01 06:00:00 0.157  48.2  39.4  5.76  2.74    NA  43.6</span></span>
-<span><span class="co">#&gt;  8 London N… KC1   2020-01-01 07:00:00 0.178  60.5  44.7 10.3   1.20    NA  42.1</span></span>
-<span><span class="co">#&gt;  9 London N… KC1   2020-01-01 08:00:00 0.233  71.8  47.9 15.6   2.25    NA  41.8</span></span>
-<span><span class="co">#&gt; 10 London N… KC1   2020-01-01 09:00:00 0.329 128.   46.9 53.2   2.25    NA  37.6</span></span>
+<span><span class="co">#&gt; # A tibble: 8,784 × 15</span></span>
+<span><span class="co">#&gt;    source site     code  date                   co   nox   no2    no    o3   so2</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 aurn   London … KC1   2020-01-01 00:00:00 0.214  64.8  46.2 12.1   1.13    NA</span></span>
+<span><span class="co">#&gt;  2 aurn   London … KC1   2020-01-01 01:00:00 0.237  74.1  45.0 19.0   1.20    NA</span></span>
+<span><span class="co">#&gt;  3 aurn   London … KC1   2020-01-01 02:00:00 0.204  60.5  41.4 12.4   1.50    NA</span></span>
+<span><span class="co">#&gt;  4 aurn   London … KC1   2020-01-01 03:00:00 0.204  53.5  39.8  8.93  1.60    NA</span></span>
+<span><span class="co">#&gt;  5 aurn   London … KC1   2020-01-01 04:00:00 0.169  37.7  33.6  2.63  5.79    NA</span></span>
+<span><span class="co">#&gt;  6 aurn   London … KC1   2020-01-01 05:00:00 0.160  43.3  36.8  4.25  6.09    NA</span></span>
+<span><span class="co">#&gt;  7 aurn   London … KC1   2020-01-01 06:00:00 0.157  48.2  39.4  5.76  2.74    NA</span></span>
+<span><span class="co">#&gt;  8 aurn   London … KC1   2020-01-01 07:00:00 0.178  60.5  44.7 10.3   1.20    NA</span></span>
+<span><span class="co">#&gt;  9 aurn   London … KC1   2020-01-01 08:00:00 0.233  71.8  47.9 15.6   2.25    NA</span></span>
+<span><span class="co">#&gt; 10 aurn   London … KC1   2020-01-01 09:00:00 0.329 128.   46.9 53.2   2.25    NA</span></span>
 <span><span class="co">#&gt; # ℹ 8,774 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 4 more variables: pm2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 5 more variables: pm10 &lt;dbl&gt;, pm2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   air_temp &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="utility-functions">Utility functions<a class="anchor" aria-label="anchor" href="#utility-functions"></a>
@@ -154,21 +155,22 @@
 <span>  hour <span class="op">=</span> <span class="fl">7</span><span class="op">:</span><span class="fl">19</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">sub</span></span>
-<span><span class="co">#&gt; # A tibble: 1,144 × 14</span></span>
-<span><span class="co">#&gt;    date                site     code      co   nox   no2    no    o3   so2  pm10</span></span>
-<span><span class="co">#&gt;    &lt;dttm&gt;              &lt;chr&gt;    &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 2020-06-01 07:00:00 London … KC1   0.125   23.1 16.8  4.14   56.5  2.29  14.8</span></span>
-<span><span class="co">#&gt;  2 2020-06-01 08:00:00 London … KC1   0.133   25.2 17.8  4.79   61.7  2.68  17.8</span></span>
-<span><span class="co">#&gt;  3 2020-06-01 09:00:00 London … KC1   0.119   15.6 12.2  2.22   75.8  2.35  15.4</span></span>
-<span><span class="co">#&gt;  4 2020-06-01 10:00:00 London … KC1   0.104   13.8 11.1  1.79   87.1  1.57  15.2</span></span>
-<span><span class="co">#&gt;  5 2020-06-01 11:00:00 London … KC1   0.0956  14.0 11.8  1.46   96.7  1.44  11.4</span></span>
-<span><span class="co">#&gt;  6 2020-06-01 12:00:00 London … KC1   0.0985  11.3  9.97 0.893 106.   1.44  11.9</span></span>
-<span><span class="co">#&gt;  7 2020-06-01 13:00:00 London … KC1   0.0927  11.0  9.64 0.893 112.   2.03  11.8</span></span>
-<span><span class="co">#&gt;  8 2020-06-01 14:00:00 London … KC1   0.0927  12.5 10.8  1.14  114.   2.81  11.9</span></span>
-<span><span class="co">#&gt;  9 2020-06-01 15:00:00 London … KC1   0.0811  10.7  9.48 0.822 115.   2.88  10  </span></span>
-<span><span class="co">#&gt; 10 2020-06-01 16:00:00 London … KC1   0.0898  13.9 11.9  1.29  104.   2.22   9.1</span></span>
+<span><span class="co">#&gt; # A tibble: 1,144 × 15</span></span>
+<span><span class="co">#&gt;    date                source site    code      co   nox   no2    no    o3   so2</span></span>
+<span><span class="co">#&gt;    &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 2020-06-01 07:00:00 aurn   London… KC1   0.125   23.1 16.8  4.14   56.5  2.29</span></span>
+<span><span class="co">#&gt;  2 2020-06-01 08:00:00 aurn   London… KC1   0.133   25.2 17.8  4.79   61.7  2.68</span></span>
+<span><span class="co">#&gt;  3 2020-06-01 09:00:00 aurn   London… KC1   0.119   15.6 12.2  2.22   75.8  2.35</span></span>
+<span><span class="co">#&gt;  4 2020-06-01 10:00:00 aurn   London… KC1   0.104   13.8 11.1  1.79   87.1  1.57</span></span>
+<span><span class="co">#&gt;  5 2020-06-01 11:00:00 aurn   London… KC1   0.0956  14.0 11.8  1.46   96.7  1.44</span></span>
+<span><span class="co">#&gt;  6 2020-06-01 12:00:00 aurn   London… KC1   0.0985  11.3  9.97 0.893 106.   1.44</span></span>
+<span><span class="co">#&gt;  7 2020-06-01 13:00:00 aurn   London… KC1   0.0927  11.0  9.64 0.893 112.   2.03</span></span>
+<span><span class="co">#&gt;  8 2020-06-01 14:00:00 aurn   London… KC1   0.0927  12.5 10.8  1.14  114.   2.81</span></span>
+<span><span class="co">#&gt;  9 2020-06-01 15:00:00 aurn   London… KC1   0.0811  10.7  9.48 0.822 115.   2.88</span></span>
+<span><span class="co">#&gt; 10 2020-06-01 16:00:00 aurn   London… KC1   0.0898  13.9 11.9  1.29  104.   2.22</span></span>
 <span><span class="co">#&gt; # ℹ 1,134 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 4 more variables: pm2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;, air_temp &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 5 more variables: pm10 &lt;dbl&gt;, pm2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   air_temp &lt;dbl&gt;</span></span></code></pre></div>
 <p>Similarly it is easy to time-average data in many flexible ways. For example, 2-week means can be calculated as</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sub2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/timeAverage.html">timeAverage</a></span><span class="op">(</span><span class="va">kc1</span>, avg.time <span class="op">=</span> <span class="st">"2 week"</span><span class="op">)</span></span></code></pre></div>
@@ -199,14 +201,22 @@
 <p><code>openair</code> can plot basic wind roses very easily provided the variables <code>ws</code> (wind speed) and <code>wd</code> (wind direction) are available.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-windrose-1.png" width="50%"></p>
+<div class="figure">
+<img src="reference/figures/README-windrose-1.png" alt="A polar bar chart showing the proportion of wind coming from 12 compass directions, where we show most wind at the monitoring station arrives from the South West." width="50%"><p class="caption">
+A wind rose summarising the wind conditions at a monitoring station.
+</p>
+</div>
 <p>However, the real flexibility comes from being able to use the <code>type</code> option.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"year"</span>,</span>
 <span>  layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-windrose2-1.png" width="100%"></p>
+<div class="figure">
+<img src="reference/figures/README-windrose2-1.png" alt="Polar bar charts showing the proportion of wind coming from 12 compass directions. There are 8 charts, each representing a year of data from 1998 to 2005. While there is a small amount of variation, the dominant wind direction for each year is from the south west." width="100%"><p class="caption">
+Wind roses summarising the wind conditions at a monitoring station per year, demonstrating the <a href="https://davidcarslaw.github.io/openair/">openair</a> type option.
+</p>
+</div>
 <p>There are many flavours of bivariate polar plots, as described <a href="https://bookdown.org/david_carslaw/openair/sections/directional-analysis/polar-plots.html" class="external-link">here</a> that are useful for understanding air pollution sources.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/polarPlot.html">polarPlot</a></span><span class="op">(</span><span class="va">mydata</span>,</span>
@@ -215,7 +225,11 @@
 <span>  percentile <span class="op">=</span> <span class="fl">90</span>,</span>
 <span>  cols <span class="op">=</span> <span class="st">"YlGnBu"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-polarCPF-1.png" width="60%"></p>
+<div class="figure">
+<img src="reference/figures/README-polarCPF-1.png" alt="A polar heatmap with wind direction on the spoke axes and wind speed on the radial axes showing the probability of sulfur dioxide being higher than the 90th percentile. The chart indicates the highest probabilities occur when the wind is coming from the east and is blowing at between 0 and 12 metres per second." width="60%"><p class="caption">
+A bivariate polar plot showing the wind conditions which give rise to elevated pollutant concentrations.
+</p>
+</div>
 </div>
 </div>
 </div>
