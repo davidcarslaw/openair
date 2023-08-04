@@ -150,7 +150,7 @@ polarAnnulus <-
            type = "default",
            statistic = "mean",
            percentile = NA,
-           limits = c(0, 100),
+           limits = NULL,
            cols = "default",
            width = "normal",
            min.bin = 1,
@@ -159,7 +159,7 @@ polarAnnulus <-
            force.positive = TRUE,
            k = c(20, 10),
            normalise = FALSE,
-           key.header = "",
+           key.header = statistic,
            key.footer = pollutant,
            key.position = "right",
            key = TRUE,
@@ -183,7 +183,6 @@ polarAnnulus <-
     percentile <- 50
   }
 
-  if (missing(key.header)) key.header <- statistic
   if (key.header[1] == "weighted.mean") key.header <- c("weighted", "mean")
   if (key.header[1] == "percentile") key.header <- c(paste(percentile, "th", sep = ""), "percentile")
   if (key.header[1] == "cpf") key.header <- c("CPF", "probability")
@@ -510,7 +509,7 @@ polarAnnulus <-
   ## auto-scaling
   nlev <- 200 # preferred number of intervals
   ## handle missing breaks arguments
-  if (missing(limits)) {
+  if (any(is.null(limits)) | any(is.na(limits))) {
     # breaks <- pretty(results.grid$z, n = nlev)
     breaks <- seq(min(results.grid$z, na.rm = TRUE), max(results.grid$z, na.rm = TRUE),
                   length.out = nlev
