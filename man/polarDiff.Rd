@@ -9,7 +9,7 @@ polarDiff(
   after,
   pollutant = "nox",
   x = "ws",
-  limits = NA,
+  limits = NULL,
   plot = TRUE,
   ...
 )

@@ -453,9 +453,7 @@ percentileRose <- function(
 
   ## nice intervals for pollutant concentrations
   tmp <- (results.grid$x ^ 2 + results.grid$y ^ 2) ^ 0.5
-  if (missing(intervals)) intervals <- pretty(c(min(tmp, na.rm = TRUE), max(tmp, na.rm = TRUE)))
-
-
+  if (is.null(intervals)) intervals <- pretty(c(min(tmp, na.rm = TRUE), max(tmp, na.rm = TRUE)))
 
   labs <- intervals ## the labels
 
