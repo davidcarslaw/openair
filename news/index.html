@@ -66,18 +66,19 @@
 <ul><li><p><code>source = "ukaq"</code> will return metadata for all of the “UKAQ” networks.</p></li>
 <li><p><code>source = "all"</code> will return all available metadata (including KCL and Europe).</p></li>
 </ul></li>
+<li><p>new function <code><a href="../reference/runRegression.html">runRegression()</a></code> for extracting ‘dilution lines’ from air quality and other data. Online manual will be updated with principles and examples.</p></li>
 <li><p><code><a href="../reference/calendarPlot.html">calendarPlot()</a></code> now automatically creates its own <code>labels</code> if <code>breaks</code> are specified. For example, <code>c(0, 10, 20)</code> will create the labels <code>c("0 - 10", "10 - 20")</code>. <code>labels</code> can still be used to override the default values. (<a href="https://github.com/davidcarslaw/openair/issues/341" class="external-link">#341</a>)</p></li>
 <li><p>return tibble from <code><a href="../reference/timeAverage.html">timeAverage()</a></code>.</p></li>
 <li><p>add option <code>panel.gap</code> to leave space between panels in <code>timeAverage</code> day-hour plots. Set to 0 for previous behaviour.</p></li>
 <li><p>Move regression formula off main plot for <code><a href="../reference/polarPlot.html">polarPlot()</a></code> for clarity and label slope as ‘m’.</p></li>
-<li><p>new function <code><a href="../reference/runRegression.html">runRegression()</a></code> for extracting ‘dilution lines’ from air quality and other data. Online manual will be updated with principles and examples.</p></li>
-<li><p>Tweak seasonal trend decomposition using STL to allow the seasonal amplitude to vary more. Affects <code>smoothTrend</code> and <code>TheilSen</code>.</p></li>
+<li><p>Tweak seasonal trend decomposition using STL to allow the seasonal amplitude to vary more. Affects <code><a href="../reference/smoothTrend.html">smoothTrend()</a></code> and <code><a href="../reference/TheilSen.html">TheilSen()</a></code>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
 <ul><li><p>The order of columns in <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> will remain consistent (metadata, date, pollutants, meteo) regardless of whether <code>hc</code> is <code>TRUE</code> or <code>FALSE</code>.</p></li>
 <li><p><code><a href="../reference/quickText.html">quickText()</a></code> will now automatically capitalise “no” to “NO”. (<a href="https://github.com/davidcarslaw/openair/issues/343" class="external-link">#343</a>)</p></li>
 <li><p>The <code>year</code> argument of <code><a href="../reference/importMeta.html">importMeta()</a></code> is now respected when <code>source = "kcl"</code> and <code>"europe"</code>.</p></li>
+<li><p>Several of the directional analysis plot family (e.g., <code><a href="../reference/polarFreq.html">polarFreq()</a></code>) have been refactored to use <code><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null()</a></code> or <code><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na()</a></code> over <code><a href="https://rdrr.io/r/base/missing.html" class="external-link">missing()</a></code>. While predominantly an internal change, this should be make these functions easier to use inside of other functions (e.g., <code>function(data, breaks = NA) polarFreq(data, breaks = breaks))</code> will now run successfully).</p></li>
 <li><p>For <code>calendarPlot</code> when annotated with ws or wd arrows, use max ws/wd that corresponds to hour of maximum pollutant concentration and not simple the max ws/wd for a day.</p></li>
 </ul></div>
 </div>
