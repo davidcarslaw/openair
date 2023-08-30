@@ -49,12 +49,18 @@
 #'   A colour-blind safe palette "cbPalette" is available based on the work of:
 #'   <https://www.nature.com/articles/nmeth.1618>
 #'
-#'   The colour's associated with the UK daily air quality index are also
+#'   The colours associated with the UK daily air quality index are also
 #'   available using "daqi" (a palette of 10 colours, corresponding to each
 #'   index value) or "daqi.bands" (4 colours, corresponding to each band - Low,
 #'   Moderate, High, and Very High). These colours were taken directly from
 #'   <https://uk-air.defra.gov.uk/air-pollution/daqi> and may be useful in
 #'   figures like [calendarPlot()].
+#'
+#'   Colours recommended by the UK Government Analysis function
+#'   (<https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/>)
+#'   are also defined. "gaf.cat" will return the 'categorical' palette (max 6
+#'   colours), "gaf.focus" the 'focus' palette (max 2 colours), and "gaf.seq"
+#'   the 'sequential' palette.
 #'
 #'   Note that because of the way these schemes have been developed they only
 #'   exist over certain number of colour gradations (typically 3--10) --- see
@@ -78,7 +84,7 @@
 #' cols <- openColours(c("yellow", "green", "red"), 10)
 #' cols
 #'
-#'
+#' 
 openColours <- function(scheme = "default", n = 100) {
 
   ## pre-defined brewer colour palletes sequential, diverging, qualitative
@@ -95,7 +101,8 @@ openColours <- function(scheme = "default", n = 100) {
   ## predefined schemes
   schemes <- c("increment", "default", "brewer1", "heat", "jet", "hue",
                "greyscale", brewer.col, "cbPalette", "viridis", "magma",
-               "inferno", "plasma", "cividis", "turbo", "daqi", "daqi.bands")
+               "inferno", "plasma", "cividis", "turbo", "daqi", "daqi.bands",
+               "gaf.cat", "gaf.seq", "gaf.focus")
 
   ## schemes
   heat <- colorRampPalette(brewer.pal(9, "YlOrRd"), interpolate = "spline")
@@ -134,6 +141,10 @@ openColours <- function(scheme = "default", n = 100) {
   turbo <- colorRampPalette(c(
     '#30123BFF', '#4662D7FF', '#36AAF9FF', '#1AE4B6FF', '#72FE5EFF',
     '#C7EF34FF', '#FABA39FF', '#F66B19FF', '#CB2A04FF', '#7A0403FF'
+  ))
+  
+  gaf_ramp <- colorRampPalette(c(
+    "#12436D", "#2073BC", "#6BACE6"
   ))
 
   default.col <- colorRampPalette(brewer.pal(11, "Spectral"), interpolate = "spline")
@@ -219,6 +230,27 @@ openColours <- function(scheme = "default", n = 100) {
       )
     }
   }
+  
+  gaf_pal <- function(n, extent){
+    if (extent == "c") {
+      cols <- c("#12436D", "#28A197", "#801650", "#F46A25", "#3D3D3D", "#A285D1")
+      max <- 6
+    } else if (extent == "f") {
+      cols <- c("#BFBFBF", "#12436D")
+      max <- 2
+    }
+    
+    if (n >= 1 && n <= max) {
+      cols <- cols[1:n]
+    } else {
+      cli::cli_abort(
+        c("!" = "Too many colours selected for {.code {scheme}}.",
+          "i" = "{.code n} should be between 1 and {max}."),
+        call = NULL
+      )
+    }
+  }
+  
 
   ## error catcher
   if (length(scheme) == 1) {
@@ -240,6 +272,9 @@ openColours <- function(scheme = "default", n = 100) {
     if (scheme == "cbPalette") cols <- cbPalette(n)
     if (scheme == "daqi") cols <- daqi_pal(n, extent = "i")
     if (scheme == "daqi.bands") cols <- daqi_pal(n, extent = "b")
+    if (scheme == "gaf.cat") cols <- gaf_pal(n, extent = "c")
+    if (scheme == "gaf.focus") cols <- gaf_pal(n, extent = "f")
+    if (scheme == "gaf.seq") cols <- gaf_ramp(n)
   }
 
   if (!any(scheme %in% schemes)) { # assume user has given own colours

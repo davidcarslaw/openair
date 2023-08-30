@@ -35,12 +35,18 @@ data types. The pre-defined schemes are "Accent", "Dark2", "Paired",
 A colour-blind safe palette "cbPalette" is available based on the work of:
 \url{https://www.nature.com/articles/nmeth.1618}
 
-The colour's associated with the UK daily air quality index are also
+The colours associated with the UK daily air quality index are also
 available using "daqi" (a palette of 10 colours, corresponding to each
 index value) or "daqi.bands" (4 colours, corresponding to each band - Low,
 Moderate, High, and Very High). These colours were taken directly from
 \url{https://uk-air.defra.gov.uk/air-pollution/daqi} and may be useful in
 figures like \code{\link[=calendarPlot]{calendarPlot()}}.
+
+Colours recommended by the UK Government Analysis function
+(\url{https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/})
+are also defined. "gaf.cat" will return the 'categorical' palette (max 6
+colours), "gaf.focus" the 'focus' palette (max 2 colours), and "gaf.seq"
+the 'sequential' palette.
 
 Note that because of the way these schemes have been developed they only
 exist over certain number of colour gradations (typically 3--10) --- see
