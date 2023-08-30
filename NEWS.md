@@ -36,6 +36,8 @@
 
 - Tweak seasonal trend decomposition using STL to allow the seasonal amplitude to vary more. Affects `smoothTrend()` and `TheilSen()`.
 
+- Added colours recommended by the UK Government Analysis Function (https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/) to `openColours()`.
+
 ## Bug Fixes
 
 - The order of columns in `importUKAQ()` will remain consistent (metadata, date, pollutants, meteo) regardless of whether `hc` is `TRUE` or `FALSE`.

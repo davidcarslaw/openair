@@ -4,69 +4,84 @@
 #' select particular colour schemes, or define their own range of colours of a
 #' user-defined length.
 #'
-#' Each of the pre-defined schemes have merits and their use will depend on a
-#' particular situation. For showing incrementing concentrations e.g. high
-#' concentrations emphasised, then "default", "heat", "jet", "turbo", and
-#' "increment" are very useful. See also the description of \code{RColorBrewer}
-#' schemes for the option \code{scheme}.
+#' @section Schemes:
 #'
-#' To colour-code categorical-type problems, e.g., colours for different
-#' pollutants, "hue" and "brewer1" are useful.
+#'   The following schemes are made available by `openColours()`:
 #'
-#' When publishing in black and white, "greyscale" is often convenient.  With
-#' most openair functions, as well as generating a greyscale colour gradient, it
-#' also resets strip background and other coloured text and lines to greyscale
-#' values.
+#'   **Sequential Colours:**
 #'
-#' Failing that, the user can define their own schemes based on R colour names.
-#' To see the full list of names, type \code{colors()} into R.
+#'   * "default", "increment", "brewer1", "heat", "jet", "turbo", "hue",
+#'   "greyscale".
 #'
-#' @param scheme The pre-defined schemes are "increment", "default", "brewer1",
-#'   "heat", "jet", "turbo", "hue", "greyscale", or a vector of R colour names
-#'   e.g. c("green", "blue"). It is also possible to supply colour schemes from
-#'   the \code{RColorBrewer} package. This package defines three types of colour
-#'   schemes: sequential, diverging or qualitative. See
-#'   \url{https://colorbrewer2.org/} for more details concerning the original
-#'   work on which this is based.
+#'   * Simplified versions of the `viridis` colours: "viridis", "plasma",
+#'   "magma", "inferno", "cividis", and "turbo".
 #'
-#'   Simplified versions of the \code{viridis} colours are also available. These
-#'   include "viridis", "plasma", "magma", "inferno" and "cividis".
-#'
-#'   Sequential colours are useful for ordered data where there is a need to
-#'   show a difference between low and high values with colours going from light
-#'   to dark. The pre-defined colours that can be supplied are: "Blues", "BuGn",
+#'   * Simplified versions of the `RColorBrewer` sequential palettes: "Blues", "BuGn",
 #'   "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu", "PuBuGn",
 #'   "PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd".
 #'
-#'   Diverging palettes put equal emphasis on mid-range critical values and
-#'   extremes at both ends of the data range. Pre-defined values are: "BrBG",
+#'   **Diverging Palettes:**
+#'
+#'   * Simplified versions of the `RColorBrewer` diverging palettes: "BrBG",
 #'   "PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral".
 #'
-#'   Qualitative palettes are useful for differentiating between categorical
-#'   data types. The pre-defined schemes are "Accent", "Dark2", "Paired",
-#'   "Pastel1", "Pastel2", "Set1", "Set2", "Set3".
+#'   **Qualitative Palettes:**
 #'
-#'   A colour-blind safe palette "cbPalette" is available based on the work of:
+#'   * Simplified versions of the `RColorBrewer` qualitative palettes:
+#'   "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3".
+#'
+#'   * "cbPalette", a colour-blind safe palette based on the work of
 #'   <https://www.nature.com/articles/nmeth.1618>
 #'
-#'   The colour's associated with the UK daily air quality index are also
-#'   available using "daqi" (a palette of 10 colours, corresponding to each
+#'   **UK Government Palettes:**
+#'
+#'   * "daqi" and "daqi.bands", the colours associated with the UK daily air quality index; "daqi" (a palette of 10 colours, corresponding to each
 #'   index value) or "daqi.bands" (4 colours, corresponding to each band - Low,
 #'   Moderate, High, and Very High). These colours were taken directly from
 #'   <https://uk-air.defra.gov.uk/air-pollution/daqi> and may be useful in
 #'   figures like [calendarPlot()].
 #'
-#'   Note that because of the way these schemes have been developed they only
-#'   exist over certain number of colour gradations (typically 3--10) --- see
-#'   ?\code{brewer.pal} for actual details. If less than or more than the
-#'   required number of colours is supplied then \code{openair} will interpolate
-#'   the colours.
+#'   * "gaf.cat", "gaf.focus" and "gaf.seq", colours recommended by the UK Government Analysis function
+#'   (<https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/>).
+#'   "gaf.cat" will return the 'categorical' palette (max 6 colours),
+#'   "gaf.focus" the 'focus' palette (max 2 colours), and "gaf.seq" the
+#'   'sequential' palette.
+#'
+#' @section Details:
+#'
+#'   Because of the way many of the schemes have been developed they only exist
+#'   over certain number of colour gradations (typically 3--10) --- see
+#'   `?brewer.pal` for actual details. If less than or more than the required
+#'   number of colours is supplied then `openair` will interpolate the colours.
+#'
+#'   Each of the pre-defined schemes have merits and their use will depend on a
+#'   particular situation. For showing incrementing concentrations, e.g., high
+#'   concentrations emphasised, then "default", "heat", "jet", "turbo", and
+#'   "increment" are very useful. See also the description of `RColorBrewer`
+#'   schemes for the option `scheme`.
+#'
+#'   To colour-code categorical-type problems, e.g., colours for different
+#'   pollutants, "hue" and "brewer1" are useful.
+#'
+#'   When publishing in black and white, "greyscale" is often convenient.  With
+#'   most openair functions, as well as generating a greyscale colour gradient,
+#'   it also resets strip background and other coloured text and lines to
+#'   greyscale values.
+#'
+#'   Failing that, the user can define their own schemes based on R colour
+#'   names. To see the full list of names, type [colors()] into R.
+#'
+#' @param scheme Any one of the pre-defined `openair` schemes (e.g.,
+#'   `"increment"`) or a user-defined palette (e.g., `c("red", "orange",
+#'   "gold")`). See `?openColours` for a full list of available schemes.
 #' @param n number of colours required.
 #' @export
-#' @return Returns colour values - see examples below.
+#' @return A character vector of hex codes
 #' @author David Carslaw
 #' @author Jack Davison
 #' @references \url{https://colorbrewer2.org/}
+#' @references \url{https://uk-air.defra.gov.uk/air-pollution/daqi}
+#' @references \url{https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/}
 #' @examples
 #'
 #' # to return 5 colours from the "jet" scheme:
@@ -78,9 +93,7 @@
 #' cols <- openColours(c("yellow", "green", "red"), 10)
 #' cols
 #'
-#'
 openColours <- function(scheme = "default", n = 100) {
-
   ## pre-defined brewer colour palletes sequential, diverging, qualitative
   brewer.col <- c(
     "Blues", "BuGn", "BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu",
@@ -93,9 +106,12 @@ openColours <- function(scheme = "default", n = 100) {
   brewer.n <- c(rep(9, 18), rep(9, 9), c(8, 8, 12, 9, 8, 9, 8, 12))
 
   ## predefined schemes
-  schemes <- c("increment", "default", "brewer1", "heat", "jet", "hue",
-               "greyscale", brewer.col, "cbPalette", "viridis", "magma",
-               "inferno", "plasma", "cividis", "turbo", "daqi", "daqi.bands")
+  schemes <- c(
+    "increment", "default", "brewer1", "heat", "jet", "hue",
+    "greyscale", brewer.col, "cbPalette", "viridis", "magma",
+    "inferno", "plasma", "cividis", "turbo", "daqi", "daqi.bands",
+    "gaf.cat", "gaf.seq", "gaf.focus"
+  )
 
   ## schemes
   heat <- colorRampPalette(brewer.pal(9, "YlOrRd"), interpolate = "spline")
@@ -132,8 +148,12 @@ openColours <- function(scheme = "default", n = 100) {
   ))
 
   turbo <- colorRampPalette(c(
-    '#30123BFF', '#4662D7FF', '#36AAF9FF', '#1AE4B6FF', '#72FE5EFF',
-    '#C7EF34FF', '#FABA39FF', '#F66B19FF', '#CB2A04FF', '#7A0403FF'
+    "#30123BFF", "#4662D7FF", "#36AAF9FF", "#1AE4B6FF", "#72FE5EFF",
+    "#C7EF34FF", "#FABA39FF", "#F66B19FF", "#CB2A04FF", "#7A0403FF"
+  ))
+
+  gaf_ramp <- colorRampPalette(c(
+    "#12436D", "#2073BC", "#6BACE6"
   ))
 
   default.col <- colorRampPalette(brewer.pal(11, "Spectral"), interpolate = "spline")
@@ -184,25 +204,31 @@ openColours <- function(scheme = "default", n = 100) {
 
   # The palette with grey:
   cbPalette <- function(n) {
-    cols <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
-              "#D55E00", "#CC79A7")
+    cols <- c(
+      "#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
+      "#D55E00", "#CC79A7"
+    )
 
     if (n >= 1 && n < 9) {
       cols <- cols[1:n]
     } else {
       cli::cli_abort(
-        c("!" = "Too many colours selected for {.code {scheme}}.",
-          "i" = "{.code n} should be between 1 and 8."),
+        c(
+          "!" = "Too many colours selected for {.code {scheme}}.",
+          "i" = "{.code n} should be between 1 and 8."
+        ),
         call = NULL
       )
     }
   }
 
   # Defra's DAQI Colours
-  daqi_pal <- function(n, extent){
+  daqi_pal <- function(n, extent) {
     if (extent == "i") {
-      cols <- c("#9CFF9C", "#31FF00", "#31CF00", "#FFFF00", "#FFCF00",
-                "#FF9A00", "#FF6464", "#FF0000", "#990000", "#CE30FF")
+      cols <- c(
+        "#9CFF9C", "#31FF00", "#31CF00", "#FFFF00", "#FFCF00",
+        "#FF9A00", "#FF6464", "#FF0000", "#990000", "#CE30FF"
+      )
       max <- 10
     } else if (extent == "b") {
       cols <- c("#009900", "#ff9900", "#ff0000", "#990099")
@@ -213,12 +239,37 @@ openColours <- function(scheme = "default", n = 100) {
       cols <- cols[1:n]
     } else {
       cli::cli_abort(
-        c("!" = "Too many colours selected for {.code {scheme}}.",
-          "i" = "{.code n} should be between 1 and {max}."),
+        c(
+          "!" = "Too many colours selected for {.code {scheme}}.",
+          "i" = "{.code n} should be between 1 and {max}."
+        ),
         call = NULL
       )
     }
   }
+
+  gaf_pal <- function(n, extent) {
+    if (extent == "c") {
+      cols <- c("#12436D", "#28A197", "#801650", "#F46A25", "#3D3D3D", "#A285D1")
+      max <- 6
+    } else if (extent == "f") {
+      cols <- c("#BFBFBF", "#12436D")
+      max <- 2
+    }
+
+    if (n >= 1 && n <= max) {
+      cols <- cols[1:n]
+    } else {
+      cli::cli_abort(
+        c(
+          "!" = "Too many colours selected for {.code {scheme}}.",
+          "i" = "{.code n} should be between 1 and {max}."
+        ),
+        call = NULL
+      )
+    }
+  }
+
 
   ## error catcher
   if (length(scheme) == 1) {
@@ -240,6 +291,9 @@ openColours <- function(scheme = "default", n = 100) {
     if (scheme == "cbPalette") cols <- cbPalette(n)
     if (scheme == "daqi") cols <- daqi_pal(n, extent = "i")
     if (scheme == "daqi.bands") cols <- daqi_pal(n, extent = "b")
+    if (scheme == "gaf.cat") cols <- gaf_pal(n, extent = "c")
+    if (scheme == "gaf.focus") cols <- gaf_pal(n, extent = "f")
+    if (scheme == "gaf.seq") cols <- gaf_ramp(n)
   }
 
   if (!any(scheme %in% schemes)) { # assume user has given own colours
