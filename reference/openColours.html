@@ -66,39 +66,8 @@ user-defined length.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>scheme</dt>
-<dd><p>The pre-defined schemes are "increment", "default", "brewer1",
-"heat", "jet", "turbo", "hue", "greyscale", or a vector of R colour names
-e.g. c("green", "blue"). It is also possible to supply colour schemes from
-the <code>RColorBrewer</code> package. This package defines three types of colour
-schemes: sequential, diverging or qualitative. See
-<a href="https://colorbrewer2.org/" class="external-link">https://colorbrewer2.org/</a> for more details concerning the original
-work on which this is based.</p>
-<p>Simplified versions of the <code>viridis</code> colours are also available. These
-include "viridis", "plasma", "magma", "inferno" and "cividis".</p>
-<p>Sequential colours are useful for ordered data where there is a need to
-show a difference between low and high values with colours going from light
-to dark. The pre-defined colours that can be supplied are: "Blues", "BuGn",
-"BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu", "PuBuGn",
-"PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd".</p>
-<p>Diverging palettes put equal emphasis on mid-range critical values and
-extremes at both ends of the data range. Pre-defined values are: "BrBG",
-"PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral".</p>
-<p>Qualitative palettes are useful for differentiating between categorical
-data types. The pre-defined schemes are "Accent", "Dark2", "Paired",
-"Pastel1", "Pastel2", "Set1", "Set2", "Set3".</p>
-<p>A colour-blind safe palette "cbPalette" is available based on the work of:
-<a href="https://www.nature.com/articles/nmeth.1618" class="external-link">https://www.nature.com/articles/nmeth.1618</a></p>
-<p>The colour's associated with the UK daily air quality index are also
-available using "daqi" (a palette of 10 colours, corresponding to each
-index value) or "daqi.bands" (4 colours, corresponding to each band - Low,
-Moderate, High, and Very High). These colours were taken directly from
-<a href="https://uk-air.defra.gov.uk/air-pollution/daqi" class="external-link">https://uk-air.defra.gov.uk/air-pollution/daqi</a> and may be useful in
-figures like <code><a href="calendarPlot.html">calendarPlot()</a></code>.</p>
-<p>Note that because of the way these schemes have been developed they only
-exist over certain number of colour gradations (typically 3--10) --- see
-?<code>brewer.pal</code> for actual details. If less than or more than the
-required number of colours is supplied then <code>openair</code> will interpolate
-the colours.</p></dd>
+<dd><p>Any one of the pre-defined <code>openair</code> schemes (e.g.,
+<code>"increment"</code>) or a user-defined palette (e.g., <code>c("red", "orange", "gold")</code>). See <code>?openColours</code> for a full list of available schemes.</p></dd>
 
 
 <dt>n</dt>
@@ -109,27 +78,66 @@ the colours.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>Returns colour values - see examples below.</p>
+<p>A character vector of hex codes</p>
     </div>
     <div class="section level2">
+    <h2 id="schemes">Schemes<a class="anchor" aria-label="anchor" href="#schemes"></a></h2>
+    
+
+
+<p>The following schemes are made available by <code>openColours()</code>:</p>
+<p><strong>Sequential Colours:</strong></p><ul><li><p>"default", "increment", "brewer1", "heat", "jet", "turbo", "hue",
+"greyscale".</p></li>
+<li><p>Simplified versions of the <code>viridis</code> colours: "viridis", "plasma",
+"magma", "inferno", "cividis", and "turbo".</p></li>
+<li><p>Simplified versions of the <code>RColorBrewer</code> sequential palettes: "Blues", "BuGn",
+"BuPu", "GnBu", "Greens", "Greys", "Oranges", "OrRd", "PuBu", "PuBuGn",
+"PuRd", "Purples", "RdPu", "Reds", "YlGn", "YlGnBu", "YlOrBr", "YlOrRd".</p></li>
+</ul><p><strong>Diverging Palettes:</strong></p><ul><li><p>Simplified versions of the <code>RColorBrewer</code> diverging palettes: "BrBG",
+"PiYG", "PRGn", "PuOr", "RdBu", "RdGy", "RdYlBu", "RdYlGn", "Spectral".</p></li>
+</ul><p><strong>Qualitative Palettes:</strong></p><ul><li><p>Simplified versions of the <code>RColorBrewer</code> qualitative palettes:
+"Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3".</p></li>
+<li><p>"cbPalette", a colour-blind safe palette based on the work of
+<a href="https://www.nature.com/articles/nmeth.1618" class="external-link">https://www.nature.com/articles/nmeth.1618</a></p></li>
+</ul><p><strong>UK Government Palettes:</strong></p><ul><li><p>"daqi" and "daqi.bands", the colours associated with the UK daily air quality index; "daqi" (a palette of 10 colours, corresponding to each
+index value) or "daqi.bands" (4 colours, corresponding to each band - Low,
+Moderate, High, and Very High). These colours were taken directly from
+<a href="https://uk-air.defra.gov.uk/air-pollution/daqi" class="external-link">https://uk-air.defra.gov.uk/air-pollution/daqi</a> and may be useful in
+figures like <code><a href="calendarPlot.html">calendarPlot()</a></code>.</p></li>
+<li><p>"gaf.cat", "gaf.focus" and "gaf.seq", colours recommended by the UK Government Analysis function
+(<a href="https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/" class="external-link">https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/</a>).
+"gaf.cat" will return the 'categorical' palette (max 6 colours),
+"gaf.focus" the 'focus' palette (max 2 colours), and "gaf.seq" the
+'sequential' palette.</p></li>
+</ul></div>
+    <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Each of the pre-defined schemes have merits and their use will depend on a
-particular situation. For showing incrementing concentrations e.g. high
+    
+
+
+<p>Because of the way many of the schemes have been developed they only exist
+over certain number of colour gradations (typically 3--10) --- see
+<code>?brewer.pal</code> for actual details. If less than or more than the required
+number of colours is supplied then <code>openair</code> will interpolate the colours.</p>
+<p>Each of the pre-defined schemes have merits and their use will depend on a
+particular situation. For showing incrementing concentrations, e.g., high
 concentrations emphasised, then "default", "heat", "jet", "turbo", and
 "increment" are very useful. See also the description of <code>RColorBrewer</code>
 schemes for the option <code>scheme</code>.</p>
 <p>To colour-code categorical-type problems, e.g., colours for different
 pollutants, "hue" and "brewer1" are useful.</p>
 <p>When publishing in black and white, "greyscale" is often convenient.  With
-most openair functions, as well as generating a greyscale colour gradient, it
-also resets strip background and other coloured text and lines to greyscale
-values.</p>
-<p>Failing that, the user can define their own schemes based on R colour names.
-To see the full list of names, type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colors()</a></code> into R.</p>
+most openair functions, as well as generating a greyscale colour gradient,
+it also resets strip background and other coloured text and lines to
+greyscale values.</p>
+<p>Failing that, the user can define their own schemes based on R colour
+names. To see the full list of names, type <code><a href="https://rdrr.io/r/grDevices/colors.html" class="external-link">colors()</a></code> into R.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p><a href="https://colorbrewer2.org/" class="external-link">https://colorbrewer2.org/</a></p>
+<p><a href="https://uk-air.defra.gov.uk/air-pollution/daqi" class="external-link">https://uk-air.defra.gov.uk/air-pollution/daqi</a></p>
+<p><a href="https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/" class="external-link">https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/</a></p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -151,7 +159,6 @@ To see the full list of names, type <code><a href="https://rdrr.io/r/grDevices/c
 <span class="r-in"><span><span class="va">cols</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "#FFFF00" "#C6FF00" "#8DFF00" "#55FF00" "#1CFF00" "#1CE200" "#54AA00"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "#8D7100" "#C63800" "#FF0000"</span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
