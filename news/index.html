@@ -81,6 +81,7 @@
 <li><p>The <code>year</code> argument of <code><a href="../reference/importMeta.html">importMeta()</a></code> is now respected when <code>source = "kcl"</code> and <code>"europe"</code>.</p></li>
 <li><p>Several of the directional analysis plot family (e.g., <code><a href="../reference/polarFreq.html">polarFreq()</a></code>) have been refactored to use <code><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null()</a></code> or <code><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na()</a></code> over <code><a href="https://rdrr.io/r/base/missing.html" class="external-link">missing()</a></code>. While predominantly an internal change, this should be make these functions easier to use inside of other functions (e.g., <code>function(data, breaks = NA) polarFreq(data, breaks = breaks))</code> will now run successfully).</p></li>
 <li><p>For <code>calendarPlot</code> when annotated with ws or wd arrows, use max ws/wd that corresponds to hour of maximum pollutant concentration and not simple the max ws/wd for a day.</p></li>
+<li><p><code><a href="../reference/summaryPlot.html">summaryPlot()</a></code> no longer forces time zones to be GMT. (<a href="https://github.com/davidcarslaw/openair/issues/356" class="external-link">#356</a>)</p></li>
 </ul></div>
 </div>
     <div class="section level2">
