@@ -50,6 +50,8 @@
 
 - For `calendarPlot` when annotated with ws or wd arrows, use max ws/wd that corresponds to hour of maximum pollutant concentration and not simple the max ws/wd for a day.
 
+- `summaryPlot()` no longer forces time zones to be GMT. (#356)
+
 # openair 2.17-0
 
 ## New Features

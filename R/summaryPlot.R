@@ -133,7 +133,7 @@
 #' \dontrun{
 #' summaryPlot(mydata, col.dens = "black")
 #' }
-#' 
+#'
 summaryPlot <- function(mydata,
                         na.len = 24,
                         clip = TRUE,
