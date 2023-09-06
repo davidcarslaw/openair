@@ -231,7 +231,7 @@ summaryPlot <- function(mydata,
 
   ## if date in format dd/mm/yyyy hh:mm (basic check)
   if (length(grep("/", as.character(mydata$date[1]))) > 0) {
-    mydata$date <- as.POSIXct(strptime(mydata$date, "%d/%m/%Y %H:%M"), "GMT")
+    mydata$date <- as.POSIXct(strptime(mydata$date, "%d/%m/%Y %H:%M"))
   }
 
   ## check to see if there are any missing dates, stop if there are
@@ -287,7 +287,7 @@ summaryPlot <- function(mydata,
   mydata <- mydata[, sapply(mydata, function(x) !all(is.na(x)))]
 
   ## force to be date/time class, even if originally Date class
-  mydata$date <- as.POSIXct(mydata$date, "GMT")
+  mydata$date <- as.POSIXct(mydata$date, lubridate::tz(mydata$date))
 
   ## proper names of labelling
   pol.name <- sapply(
