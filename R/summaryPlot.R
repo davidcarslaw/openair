@@ -109,24 +109,35 @@
 #' @author David Carslaw
 #' @examples
 #' # do not clip density plot data
-#' \dontrun{summaryPlot(mydata, clip = FALSE)}
+#' \dontrun{
+#' summaryPlot(mydata, clip = FALSE)
+#' }
 #'
 #' # exclude highest 5 % of data etc.
-#' \dontrun{summaryPlot(mydata, percentile = 0.95)}
+#' \dontrun{
+#' summaryPlot(mydata, percentile = 0.95)
+#' }
 #'
 #' # show missing data where there are at least 96 contiguous missing
 #' # values (4 days)
-#' \dontrun{summaryPlot(mydata, na.len = 96)}
+#' \dontrun{
+#' summaryPlot(mydata, na.len = 96)
+#' }
 #'
 #' # show data in green
-#' \dontrun{summaryPlot(mydata, col.data = "green")}
+#' \dontrun{
+#' summaryPlot(mydata, col.data = "green")
+#' }
 #'
 #' # show missing data in yellow
-#' \dontrun{summaryPlot(mydata, col.mis = "yellow")}
+#' \dontrun{
+#' summaryPlot(mydata, col.mis = "yellow")
+#' }
 #'
 #' # show density plot line in black
-#' \dontrun{summaryPlot(mydata, col.dens = "black")}
-#'
+#' \dontrun{
+#' summaryPlot(mydata, col.dens = "black")
+#' }
 #'
 summaryPlot <- function(mydata,
                         na.len = 24,
@@ -149,7 +160,6 @@ summaryPlot <- function(mydata,
                         plot = TRUE,
                         debug = FALSE,
                         ...) {
-
   ## get rid of R check annoyances
   value <- NULL
 
@@ -192,7 +202,6 @@ summaryPlot <- function(mydata,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-
     fontsize = current.font
   ))
 
@@ -267,7 +276,8 @@ summaryPlot <- function(mydata,
 
 
       mydata <- tidyr::spread(mydata,
-                              key = variable, value = value)
+        key = variable, value = value
+      )
 
       warning(paste("More than one site detected, using", pollutant))
     }
@@ -289,51 +299,53 @@ summaryPlot <- function(mydata,
     names(subset(mydata, select = -date)),
     function(x) quickText(x, auto.text)
   )
-  
+
   ## round the dates depending on period
   min.year <- as.numeric(min(format(mydata$date, "%Y")))
   max.year <- as.numeric(max(format(mydata$date, "%Y")))
   start.date <- as.POSIXct(dateTrunc(min(mydata$date), period))
   end.date <- as.POSIXct(dateCeil(max(mydata$date), period) - 3600)
-  
+
   ## find time interval of data and pad any missing times
   interval <- find.time.interval(mydata$date)
   all.dates <- data.frame(date = seq(start.date, end.date, by = interval))
   mydata <- full_join(mydata, all.dates, by = "date") %>%
     arrange(date)
-  
-  
-  
+
+
+
   ## means for trend line
-  
+
   meanLine <- timeAverage(mydata, avg.time)
   meanLine <- gather(meanLine, key = variable, value = value, -date)
-  
+
   # ensure order of pollutants is correct
   meanLine <- mutate(meanLine,
-                     variable = factor(variable, levels = unique(variable)))
-  
+    variable = factor(variable, levels = unique(variable))
+  )
+
   meanLine <- split(meanLine, meanLine$variable)
-  
+
   mydata <- gather(mydata, key = variable, value = value, -date)
-  
+
   # ensure order of pollutants is correct
   mydata <- mutate(mydata,
-                   variable = factor(variable, levels = unique(variable)))
-  
+    variable = factor(variable, levels = unique(variable))
+  )
+
   plot.missing <- function(mydata, na.len, col = "red") {
     dat <- ifelse(is.na(mydata[["value"]]), 1, 0)
     rle.seq <- rle(dat)
     cumsum.seq <- cumsum(rle.seq$lengths)
     myruns <- which(rle.seq$values == 1 & rle.seq$lengths >= na.len)
-    
+
     ends <- cumsum.seq[myruns] # + 1 # to get whole hour
     newindex <- ifelse(myruns > 1, myruns - 1, 0)
     starts <- cumsum.seq[newindex] + 1
     if (0 %in% newindex) starts <- c(1, starts)
     data.frame(starts = mydata$date[starts], ends = mydata$date[ends])
   }
-  
+
   summmary.stats <- function(mydata, period) {
     value <- mydata$value
     mis.dat <- sum(is.na(value))
@@ -343,11 +355,11 @@ summaryPlot <- function(mydata,
     mean.dat <- round(mean(value, na.rm = TRUE), 1)
     median.dat <- round(median(value, na.rm = TRUE), 1)
     percentile <- round(quantile(value, probs = 0.95, na.rm = TRUE), 1)
-    
+
     if (period == "years") format.t <- "%Y"
     if (period == "months") format.t <- "%Y-%m"
     if (period == "days") format.t <- "%Y-%m-%d"
-    
+
     data.cap <- round(tapply(
       value, list(year = format(mydata$date, format.t)),
       function(x) 100 * length(na.omit(x)) / length(x)
@@ -358,29 +370,29 @@ summaryPlot <- function(mydata,
     ), data.cap = data.cap)
     return(res)
   }
-  
+
   ## range in data
   range01 <- function(x) {
     y <- c(x, 0) ## to get sensible range
     rng <- range(y, na.rm = TRUE)
     (x - rng[1]) / diff(rng)
   }
-  
+
   ## split data and calculate things needed for plot
   split.dat <- split(mydata, mydata$variable)
-  
+
   sum.stats <- lapply(split.dat, summmary.stats, period)
-  
+
   missing.dat <- lapply(split.dat, plot.missing, na.len)
-  
+
   dummy.dat <- lapply(split.dat, head)
   dummy.dat <- do.call(rbind, dummy.dat)
-  
+
   min.x <- as.numeric(min(mydata$date))
   max.x <- as.numeric(max(mydata$date))
   seq.year <- seq(start.date, end.date, by = period)
-  
-  
+
+
   # xlab, ylab handling for plt1
   # (so user inputs go through quicktext)
   my.ylab <- if (is.null(ylab[1]) || is.na(ylab[1])) {
@@ -393,15 +405,15 @@ summaryPlot <- function(mydata,
   } else {
     quickText(xlab[1], auto.text)
   }
-  
-  
+
+
   xyplot.args <- list(
     x = value ~ date | variable, data = dummy.dat, type = "n",
     ylim = c(0, 5.5),
     ylab = my.ylab,
     xlab = my.xlab,
     xlim = c(start.date - 60, end.date + 60),
-    
+
     ## override scaling for more sensible date/time breaks
     scales = list(
       y = list(draw = FALSE),
@@ -413,29 +425,28 @@ summaryPlot <- function(mydata,
     layout = c(1, length(unique(mydata$variable))),
     strip = FALSE,
     strip.left = strip.custom(horizontal = FALSE, factor.levels = pol.name),
-    
     par.strip.text = list(cex = 0.7),
     panel = function(x, y, subscripts) {
       panelNo <- panel.number()
-      
+
       panel.abline(v = dateBreaks, col = "grey85")
-      
+
       ## plot the monthly mean data as a line
       meanLine[[panelNo]]$value <- 1 + range01(meanLine[[panelNo]]$value) * 4
-      
+
       panel.xyplot(
         meanLine[[panelNo]]$date, meanLine[[panelNo]]$value,
         type = plot.type,
         col = col.trend, ...
       )
-      
+
       ## plot all data region
       with(mydata, lrect(
         as.numeric(min(date)), 0,
         as.numeric(max(date)), 1,
         col = col.data, border = NA
       ))
-      
+
       ## over-plot missing data - if there are any
       if (nrow(missing.dat[[panelNo]]) > 0) {
         lrect(
@@ -446,50 +457,50 @@ summaryPlot <- function(mydata,
       }
       stats <- sum.stats[[panelNo]]$results
       data.cap <- sum.stats[[panelNo]]$data.cap
-      
+
       ltext(min.x, 4, paste(
         "missing = ", stats[1], " (", stats[2], "%)",
         sep = ""
       ), cex = 0.6, pos = 4)
-      
+
       ltext(min.x, 3, paste("min =", stats[3]), cex = 0.6, pos = 4)
-      
+
       ltext(min.x, 2, paste("max =", stats[4]), cex = 0.6, pos = 4)
-      
+
       ltext(max.x, 4, paste("mean =", stats[5]), cex = 0.6, pos = 2)
-      
+
       ltext(max.x, 3, paste("median =", stats[6]), cex = 0.6, pos = 2)
-      
+
       ltext(max.x, 2, paste("95th percentile =", stats[7]), cex = 0.6, pos = 2)
-      
-      
+
+
       if (print.datacap) {
         ltext(seq.year, 5, paste(data.cap, "%"), cex = 0.6, col = col.stat, pos = 4)
       }
     }
   )
-  
+
   # reset for extra.args
   xyplot.args <- listUpdate(xyplot.args, extra.args)
-  
+
   # plot
   plt1 <- do.call(xyplot, xyplot.args)
-  
+
   ## this adjusts the space for the title to 2 lines (approx) if \n in title
   if (!is.null(main)) main <- quickText(main, auto.text)
   if (length(grep("atop", main) == 1)) y.upp <- 0.95 else y.upp <- 0.975
   if (is.null(main)) y.upp <- 1
-  
+
   ## clip data to help show interesting part of distribution
   if (clip) {
     result <- lapply(split.dat, function(.df) {
       subset(.df, value < quantile(value, probs = percentile, na.rm = TRUE))
     })
-    
+
     mydata <- do.call(rbind, result)
     row.names(mydata) <- NULL
   }
-  
+
   # xlab, ylab handling for plt2
   # (so user inputs go through quicktext)
   # (and unique histogram/density naming is handled)
@@ -504,14 +515,14 @@ summaryPlot <- function(mydata,
   } else {
     my.ylab <- quickText(my.ylab, auto.text)
   }
-  
+
   my.xlab <- if (is.null(xlab[2]) || is.na(xlab[2])) {
     "value"
   } else {
     quickText(xlab[2], auto.text)
   }
-  
-  
+
+
   if (type == "histogram") {
     histogram.args <- list(
       x = ~ value | variable, data = mydata,
@@ -521,14 +532,13 @@ summaryPlot <- function(mydata,
       layout = c(1, length(unique(mydata$variable))),
       scales = list(relation = "free", y = list(rot = 0), xcex = 0.7),
       strip = FALSE,
-      
       panel = function(x, ...) {
         panel.grid(-1, -1)
         panel.histogram(x, col = col.hist, border = NA, ...)
       }
     )
-    
-    
+
+
     plt2 <- do.call(histogram, histogram.args)
   } else {
     densityplot.args <- list(
@@ -538,7 +548,6 @@ summaryPlot <- function(mydata,
       layout = c(1, length(unique(mydata$variable))),
       scales = list(relation = "free", y = list(rot = 0), cex = 0.7),
       strip = FALSE,
-      
       panel = function(x, ...) {
         panel.grid(-1, -1)
         panel.densityplot(
@@ -548,34 +557,35 @@ summaryPlot <- function(mydata,
         )
       }
     )
-    
-    
+
+
     # plot
     plt2 <- do.call(densityplot, densityplot.args)
-    
+
     #   plt2 <- densityplot()
   }
-  
-  
+
+
   # reset if greyscale
   if (length(cols) == 1 && cols == "greyscale") {
     trellis.par.set("strip.background", current.strip)
   }
-  
+
   if (plot) {
     print(plt1, position = c(0, 0, 0.7, y.upp), more = TRUE)
     print(plt2, position = c(0.7, 0, 1, 0.975 * y.upp))
-    
+
     ## use grid to add an overall title
     grid.text(main, 0.5, y.upp, gp = gpar(fontsize = 14))
   }
-  
+
   ## create output with plot
   output <-
-    list(plot = list(plt1, plt2),
-         data = dplyr::tibble(dummy.dat),
-         call = match.call())
+    list(
+      plot = list(plt1, plt2),
+      data = dplyr::tibble(dummy.dat),
+      call = match.call()
+    )
   class(output) <- "openair"
   invisible(output)
 }
-
