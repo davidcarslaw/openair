@@ -72,7 +72,9 @@ readUKAQData <-
 
     # if particular pollutants have been selected
     if (pollutant[1] != "all") {
-      thedata <- thedata[, c("date", "site", "code", pollutant)]
+      thedata <-
+        dplyr::select(thedata, "date", "site", "code",
+                      dplyr::any_of(c(pollutant, "ws", "wd", "air_temp")))
     }
 
     # make sure it is in GMT
