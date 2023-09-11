@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Make a case for a new feature
-title: "[Feature Request]: "
+title: "[Feature Request]: (your title here)"
 labels: ["enhancement"]
 ---
 
