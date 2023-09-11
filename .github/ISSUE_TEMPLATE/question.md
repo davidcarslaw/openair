@@ -1,7 +1,7 @@
 ---
 name: Question
 about: Ask a question about openair plots or functions
-title: "[Question]: "
+title: "[Question]: (your title here)"
 labels: ["question"]
 ---
 
