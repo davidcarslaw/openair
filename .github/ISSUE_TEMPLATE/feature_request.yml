@@ -1,5 +1,5 @@
 name: Feature request
-about: Make a case for a new feature
+description: Make a case for a new feature
 labels: ["enhancement"]
 
 body:
