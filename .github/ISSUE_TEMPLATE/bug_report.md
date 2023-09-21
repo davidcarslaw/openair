@@ -1,20 +1,54 @@
 ---
 name: Bug report
-about: Describe a bug you've seen
-title: "[Bug]: (your title here)"
+about: Report an error or unexpected behaviour
 labels: ["bug"]
 ---
 
-Please briefly describe your problem and what output you expect.
-
 Please include a minimal reproducible example (AKA a reprex). If you've never heard of a [reprex](http://reprex.tidyverse.org/) before, a quick guide is provided [here](https://www.tidyverse.org/help/#reprex>).
 
-Feel free to delete these instructions before you submit your issue.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping with the development of `{openair}` by reporting a bug.
+        
+        If you haven't already, you might find it useful to read our [getting help guide](https://bookdown.org/david_carslaw/openair/sections/appendices/appendix-gethelp.html), which details how you can best help us help you!
 
----
+  - type: textarea
+    attributes:
+      label: Bug description
+      description: | 
+        Description of the bug.
+        Please clearly explain the difference between what you would *expect* to happen, and what is *actually* happening.
+      placeholder: Please describe the bug here.
 
-Brief description of the problem
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Tell us how to reproduce this bug.  
+        Please include a [minimal, fully reproducible example](https://bookdown.org/david_carslaw/openair/sections/appendices/appendix-gethelp.html#sec-reprex), ideally including code.
+        If you need to attach data, you can do so in a reply to your issue after it has been submitted.
+      placeholder: |
+        When providing code, please contain it within code chunks using the below formatting:
 
-```r
-# insert reprex here
-```
+        ```r
+        # code goes here!
+        openair::polarPlot(openair::mydata)
+        ```
+
+  - type: textarea
+    attributes:
+      label: Openair version
+      description: |
+        Please provide the output of running `packageVersion("openair")` in your console.
+      placeholder: |
+        Provide the output of:
+        ```r
+        packageVersion("openair")
+        ```
+  
+  - type: markdown
+    attributes:
+      value: "_Thank you for submitting this bug report!_"
+      

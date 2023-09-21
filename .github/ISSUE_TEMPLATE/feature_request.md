@@ -1,16 +1,28 @@
 ---
 name: Feature request
 about: Make a case for a new feature
-title: "[Feature Request]: (your title here)"
 labels: ["enhancement"]
 ---
 
-Please briefly describe the functionality you'd like adding to `openair`.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping with the development of `{openair}` by requesting a new feature.
+        
+        Before you submit your issue, it may be useful to check through the [openair book](https://bookdown.org/david_carslaw/openair/) just to make sure your suggestion can't already be achieved!
 
-Before you submit your issue, it may be useful to check through the [openair book](https://bookdown.org/david_carslaw/openair/) just to make sure your suggestion can't already be achieved!
-
-Feel free to delete these instructions before you submit your issue.
-
----
-
-Brief description of your feature request
+  - type: textarea
+    attributes:
+      label: Feature request
+      description: | 
+        Please provide a brief description of your feature request.
+      placeholder: |
+        If you would like to write pseudo-code, you can wrap it using the below syntax:
+        ```r
+        mySuggestedFunction()
+        ```
+        
+  - type: markdown
+    attributes:
+      value: "_Thank you for submitting this feature request!_"

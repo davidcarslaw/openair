@@ -1,16 +1,30 @@
 ---
 name: Question
 about: Ask a question about openair plots or functions
-title: "[Question]: (your title here)"
 labels: ["question"]
 ---
 
-Please ask your question about `openair`. This could be about how to properly use `openair` functions, interpret plots, or something else entirely.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is a place to ask a question about `openair`. This could be about how to properly use `openair` functions, interpret plots, or something else entirely.
+        
+        Before you submit your issue, it may be useful to check through the [openair book](https://bookdown.org/david_carslaw/openair/) just to make sure your question hasn't already been answered!
+        
+  - type: textarea
+    attributes:
+      label: Question
+      description: | 
+        Please ask your question below.
+      placeholder: |
+        Please write your question here. When providing code, please contain it within code chunks using the below formatting:
 
-Before you submit your issue, it may be useful to check through the [openair book](https://bookdown.org/david_carslaw/openair/) just to make sure your question hasn't already been answered!
+        ```r
+        # code goes here!
+        openair::polarPlot(openair::mydata)
+        ```
 
-Feel free to delete these instructions before you submit your issue.
-
-------------------------------------------------------------------------
-
-Your question, with example code/[reprex](https://www.tidyverse.org/help/#reprex%3E) if appropriate.
+  - type: markdown
+    attributes:
+      value: "_Thank you for your question!_"
