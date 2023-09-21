@@ -1,8 +1,6 @@
----
 name: Question
 about: Ask a question about openair plots or functions
 labels: ["question"]
----
 
 body:
   - type: markdown
