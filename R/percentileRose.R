@@ -317,11 +317,11 @@ percentileRose <- function(
     if (method == "default") {
 
       ## calculate percentiles
-
       percentiles <- group_by(mydata, wd) %>%
-        summarise({{ pollutant }} := quantile(.data[[pollutant]],
+        dplyr::reframe({{ pollutant }} := quantile(.data[[pollutant]],
                                               probs = percentile / 100,
                                               na.rm = TRUE)) %>%
+        group_by(wd) %>%
         mutate(percentile = percentile)
     }
 
@@ -430,9 +430,9 @@ percentileRose <- function(
     height = 0.60, width = 1.5, fit = "scale",
     plot.style = "other"
   )
-  
+
   col <- grDevices::adjustcolor(col, alpha.f = alpha)
-  
+
   legend <- makeOpenKeyLegend(key, legend, "percentileRose")
 
   if (mean.only || tolower(method) == "cpf") legend <- NULL
