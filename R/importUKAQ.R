@@ -5,7 +5,8 @@
 #' England (AQE), Scotland (SAQN), Wales (WAQN) and Northern Ireland (NI)
 #' Networks, and many "locally managed" monitoring networks across England.
 #' Files are imported from a remote server operated by Ricardo that provides air
-#' quality data files as R data objects.
+#' quality data files as R data objects. For an up to date list of available
+#' sites that can be imported, see [importMeta()].
 #'
 #' @section Importing UK Air Pollution Data:
 #'
@@ -15,19 +16,27 @@
 #'   date meta data. These files are updated on a daily basis. This approach
 #'   requires a link to the Internet to work.
 #'
-#'   For an up to date list of available sites that can be imported, see
-#'   [importMeta()].
-#'
-#'   The site codes and pollutant names can be upper or lower case.
-#'
 #'   There are several advantages over the web portal approach where .csv files
-#'   are downloaded. First, it is quick to select a range of sites, pollutants
-#'   and periods (see examples below). Second, storing the data as .RData
+#'   are downloaded.
+#'
+#'   -  First, it is quick to select a range of sites, pollutants
+#'   and periods (see examples below).
+#'
+#'   -  Second, storing the data as .RData
 #'   objects is very efficient as they are about four times smaller than .csv
 #'   files --- which means the data downloads quickly and saves bandwidth.
-#'   Third, the function completely avoids any need for data manipulation or
+#'
+#'   -  Third, the function completely avoids any need for data manipulation or
 #'   setting time formats, time zones etc. The function also has the advantage
-#'   that the proper site name is imported and used in `{openair}` functions.
+#'   that the proper site name is imported and used in
+#'   [openair][openair-package] functions.
+#'
+#'   Users should take care if using data from both [openair][openair-package]
+#'   *and* web portals (for example, [UK
+#'   AIR](https://uk-air.defra.gov.uk/data/)). One key difference is that the
+#'   data provided by openair is date *beginning*, whereas the web portal
+#'   provides date *ending*. Hourly concentrations may therefore appear offset
+#'   by an hour, for example.
 #'
 #'   The data are imported by stacking sites on top of one another and will have
 #'   field names `site`, `code` (the site code) and `pollutant`.
@@ -76,11 +85,12 @@
 #'   No corrections have been made to the PM2.5 data. The volatile component of
 #'   FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 #'
-#' @param site Site code of the site to import, e.g., `"my1"` is Marylebone Road.
-#'   Site codes can be discovered through the use of [importMeta()]. Several
-#'   sites can be imported at once. For example, `site = c("my1", "nott")`
-#'   imports both Marylebone Road and Nottingham. Sites from different networks
-#'   can be imported through also providing multiple `source`s.
+#' @param site Site code of the site to import, e.g., `"my1"` is Marylebone
+#'   Road. Site codes can be discovered through the use of [importMeta()].
+#'   Several sites can be imported at once. For example, `site = c("my1",
+#'   "nott")` imports both Marylebone Road and Nottingham. Sites from different
+#'   networks can be imported through also providing multiple `source`s. Site
+#'   codes can be upper or lower case.
 #' @param year Year(s) to import. To import a series of years use, e.g.,
 #'   `2000:2020`. To import several specific years use `year = c(2000, 2010,
 #'   2020)`.
@@ -110,7 +120,7 @@
 #'   available for locally managed monitoring networks.
 #' @param pollutant Pollutants to import. If omitted will import all pollutants
 #'   from a site. To import only NOx and NO2 for example use \code{pollutant =
-#'   c("nox", "no2")}.
+#'   c("nox", "no2")}. Pollutant names can be upper or lower case.
 #' @param hc Include hydrocarbon measurements in the imported data? Defaults to
 #'   `FALSE` as most users will not be interested in using hydrocarbon data.
 #' @param meta Append the site type, latitude and longitude of each selected
@@ -405,7 +415,7 @@ importUKAQ <-
 #'   "nott")` imports both Marylebone Road and Nottingham.
 #'
 #' @inheritParams importUKAQ
-#' @rdname import_ukaq_helper
+#' @rdname importUKAQ-wrapper
 #' @order 1
 #' @family import functions
 #' @export
@@ -441,7 +451,7 @@ importAURN <-
     )
   }
 
-#' @rdname import_ukaq_helper
+#' @rdname importUKAQ-wrapper
 #' @order 2
 #' @export
 importAQE <-
@@ -474,7 +484,7 @@ importAQE <-
     )
   }
 
-#' @rdname import_ukaq_helper
+#' @rdname importUKAQ-wrapper
 #' @order 3
 #' @export
 importSAQN <-
@@ -507,7 +517,7 @@ importSAQN <-
     )
   }
 
-#' @rdname import_ukaq_helper
+#' @rdname importUKAQ-wrapper
 #' @order 4
 #' @export
 importWAQN <-
@@ -540,7 +550,7 @@ importWAQN <-
     )
   }
 
-#' @rdname import_ukaq_helper
+#' @rdname importUKAQ-wrapper
 #' @order 5
 #' @export
 importNI <-
@@ -573,7 +583,7 @@ importNI <-
     )
   }
 
-#' @rdname import_ukaq_helper
+#' @rdname importUKAQ-wrapper
 #' @order 6
 #' @export
 importLocal <-

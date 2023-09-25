@@ -112,7 +112,7 @@ available for locally managed monitoring networks.
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use \code{pollutant =
-  c("nox", "no2")}.}
+  c("nox", "no2")}. Pollutant names can be upper or lower case.}
 
 \item{hc}{Include hydrocarbon measurements in the imported data? Defaults to
 \code{FALSE} as most users will not be interested in using hydrocarbon data.}
@@ -163,19 +163,25 @@ files (R workspaces) of all individual sites and years, as well as up to
 date meta data. These files are updated on a daily basis. This approach
 requires a link to the Internet to work.
 
-For an up to date list of available sites that can be imported, see
-\code{\link[=importMeta]{importMeta()}}.
-
-The site codes and pollutant names can be upper or lower case.
-
 There are several advantages over the web portal approach where .csv files
-are downloaded. First, it is quick to select a range of sites, pollutants
-and periods (see examples below). Second, storing the data as .RData
+are downloaded.
+\itemize{
+\item First, it is quick to select a range of sites, pollutants
+and periods (see examples below).
+\item Second, storing the data as .RData
 objects is very efficient as they are about four times smaller than .csv
 files --- which means the data downloads quickly and saves bandwidth.
-Third, the function completely avoids any need for data manipulation or
+\item Third, the function completely avoids any need for data manipulation or
 setting time formats, time zones etc. The function also has the advantage
-that the proper site name is imported and used in \code{{openair}} functions.
+that the proper site name is imported and used in
+\link[=openair-package]{openair} functions.
+}
+
+Users should take care if using data from both \link[=openair-package]{openair}
+\emph{and} web portals (for example, \href{https://uk-air.defra.gov.uk/data/}{UK AIR}). One key difference is that the
+data provided by openair is date \emph{beginning}, whereas the web portal
+provides date \emph{ending}. Hourly concentrations may therefore appear offset
+by an hour, for example.
 
 The data are imported by stacking sites on top of one another and will have
 field names \code{site}, \code{code} (the site code) and \code{pollutant}.

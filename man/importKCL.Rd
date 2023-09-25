@@ -26,7 +26,7 @@ to import Marylebone Road and North Kensignton for example.}
 
 \item{pollutant}{Pollutants to import. If omitted will import all pollutants
 from a site. To import only NOx and NO2 for example use \code{pollutant =
-  c("nox", "no2")}.}
+  c("nox", "no2")}. Pollutant names can be upper or lower case.}
 
 \item{met}{Should meteorological data be added to the import data? The
 default is \code{FALSE}. If \code{TRUE} wind speed (m/s), wind direction
