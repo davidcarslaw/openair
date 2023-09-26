@@ -130,22 +130,29 @@
 #' calendarPlot(mydata, pollutant = "o3", year = 2003, annotate = "wd")
 #' \dontrun{
 #' # show wind vectors scaled by wind speed and different colours
-#' calendarPlot(mydata, pollutant = "o3", year = 2003, annotate = "ws",
-#' cols = "heat")
+#' calendarPlot(mydata,
+#'   pollutant = "o3", year = 2003, annotate = "ws",
+#'   cols = "heat"
+#' )
 #'
 #' # show only specific months with selectByDate
-#' calendarPlot(selectByDate(mydata, month = c(3,6,10), year = 2003),
-#' pollutant = "o3", year = 2003, annotate = "ws", cols = "heat")
+#' calendarPlot(selectByDate(mydata, month = c(3, 6, 10), year = 2003),
+#'   pollutant = "o3", year = 2003, annotate = "ws", cols = "heat"
+#' )
 #'
 #' # categorical scale example
-#' calendarPlot(mydata, pollutant = "no2", breaks = c(0, 50, 100, 150, 1000),
-#' labels = c("Very low", "Low", "High", "Very High"),
-#' cols = c("lightblue", "green", "yellow",  "red"), statistic = "max")
+#' calendarPlot(mydata,
+#'   pollutant = "no2", breaks = c(0, 50, 100, 150, 1000),
+#'   labels = c("Very low", "Low", "High", "Very High"),
+#'   cols = c("lightblue", "green", "yellow", "red"), statistic = "max"
+#' )
 #'
 #' # UK daily air quality index
 #' pm10.breaks <- c(0, 17, 34, 50, 59, 67, 75, 84, 92, 100, 1000)
-#' calendarPlot(mydata, "pm10", year = 1999, breaks = pm10.breaks,
-#' labels = c(1:10), cols = "daqi", statistic = "mean", key.header = "DAQI")
+#' calendarPlot(mydata, "pm10",
+#'   year = 1999, breaks = pm10.breaks,
+#'   labels = c(1:10), cols = "daqi", statistic = "mean", key.header = "DAQI"
+#' )
 #' }
 calendarPlot <-
   function(mydata,
@@ -188,7 +195,7 @@ calendarPlot <-
 
     weekday.abb <-
       substr(format(ISOdate(2000, 1, 2:8), "%A"), 1, w.abbr.len)[((6:12) +
-                                                                    w.shift) %% 7 + 1]
+        w.shift) %% 7 + 1]
 
     ## extra args
     extra.args <- list(...)
@@ -219,12 +226,15 @@ calendarPlot <-
     }
 
     ## extract variables of interest
-    if (annotate %in% c("date", "value"))
+    if (annotate %in% c("date", "value")) {
       vars <- c("date", pollutant)
-    if (annotate == "wd")
+    }
+    if (annotate == "wd") {
       vars <- c("wd", "ws", "date", pollutant)
-    if (annotate == "ws")
+    }
+    if (annotate == "ws") {
       vars <- c("wd", "ws", "date", pollutant)
+    }
 
     ## select year first, then check variables
     if (!missing(year)) {
@@ -236,8 +246,9 @@ calendarPlot <-
     }
 
     # mydata <- selectByDate(mydata, year = year)
-    if (nrow(mydata) == 0)
+    if (nrow(mydata) == 0) {
       stop("No data to plot - check year chosen")
+    }
     mydata <-
       checkPrep(mydata, vars, "default", remove.calm = FALSE)
 
@@ -263,8 +274,9 @@ calendarPlot <-
 
     ## all the days in the year
     all.dates <- seq(as_date(floor_date(min(mydata$date), "month")),
-                     as_date(ceiling_date(max(mydata$date), "month")) - 1,
-                     by = "day")
+      as_date(ceiling_date(max(mydata$date), "month")) - 1,
+      by = "day"
+    )
 
     prepare.grid <- function(mydata, pollutant) {
       firstDay <- format(mydata$date[1], "%A")
@@ -301,13 +313,16 @@ calendarPlot <-
 
       actual_date <- c(actual_date, rep(NA, pad.start))
 
-      if (pad.start != 0)
+      if (pad.start != 0) {
         theDates <- c(theDates, beginDates)
+      }
 
       ## colurs for dates
-      dateColour <- c(rep("grey70", daysAtEnd),
-                      rep("black", nrow(mydata)),
-                      rep("grey70", pad.start))
+      dateColour <- c(
+        rep("grey70", daysAtEnd),
+        rep("black", nrow(mydata)),
+        rep("grey70", pad.start)
+      )
 
       ## convert to matrix
       conc.mat <- matrix(conc, ncol = 7, byrow = TRUE)
@@ -348,22 +363,26 @@ calendarPlot <-
 
       # averaged data
       mydata <- timeAverage(mydata,
-                            "day",
-                            statistic = statistic,
-                            data.thresh = data.thresh)
+        "day",
+        statistic = statistic,
+        data.thresh = data.thresh
+      )
       # replace with parallel max
-      mydata <- left_join(mydata %>%
-                            select(!any_of(vars)),
-                          maxes %>%
-                            select(!.data[[pollutant]]),
-                          by = join_by(date))
+      mydata <- left_join(
+        mydata %>%
+          select(!any_of(vars)),
+        maxes %>%
+          select(!.data[[pollutant]]),
+        by = join_by(date)
+      )
     } else {
       ## calculate daily means
 
       mydata <- timeAverage(mydata,
-                            "day",
-                            statistic = statistic,
-                            data.thresh = data.thresh)
+        "day",
+        statistic = statistic,
+        data.thresh = data.thresh
+      )
 
       mydata$date <- as_date(mydata$date)
     }
@@ -376,12 +395,13 @@ calendarPlot <-
 
     # split by year-month
     mydata <- mutate(mydata,
-                     cuts = format(date, "%B-%Y"),
-                     cuts = ordered(cuts, levels = unique(cuts)))
+      cuts = format(date, "%B-%Y"),
+      cuts = ordered(cuts, levels = unique(cuts))
+    )
 
     if (remove.empty) {
       mydata <- group_by(mydata, cuts) %>%
-        mutate(empty = all(is.na(across(pollutant))))  %>%
+        mutate(empty = all(is.na(across(pollutant)))) %>%
         filter(empty == FALSE) %>%
         ungroup()
     }
@@ -423,9 +443,11 @@ calendarPlot <-
 
       category <- TRUE
       mydata <- mutate(mydata,
-                       conc.mat = cut(conc.mat,
-                                      breaks = breaks,
-                                      labels = labels))
+        conc.mat = cut(conc.mat,
+          breaks = breaks,
+          labels = labels
+        )
+      )
     }
 
     if (annotate == "wd") {
@@ -466,8 +488,9 @@ calendarPlot <-
     ## categorical scales required
     if (category) {
       ## check the breaks and labels are consistent
-      if (length(labels) + 1 != length(breaks))
+      if (length(labels) + 1 != length(breaks)) {
         stop("Need one more break than labels")
+      }
       n <- length(levels(mydata$conc.mat))
 
       col <- openColours(cols, n)
@@ -621,8 +644,8 @@ calendarPlot <-
           larrows(
             x + 0.5 * sin(wd$value[subscripts]),
             y + 0.5 * cos(wd$value[subscripts]),
-            x+-0.5 * sin(wd$value[subscripts]),
-            y+-0.5 * cos(wd$value[subscripts]),
+            x + -0.5 * sin(wd$value[subscripts]),
+            y + -0.5 * cos(wd$value[subscripts]),
             angle = 20,
             length = 0.07,
             lwd = 0.5,
@@ -633,13 +656,13 @@ calendarPlot <-
         if (annotate == "ws") {
           larrows(
             x + (0.5 * sin(wd$value[subscripts]) *
-                   ws$value[subscripts]),
+              ws$value[subscripts]),
             y + (0.5 * cos(wd$value[subscripts]) *
-                   ws$value[subscripts]),
+              ws$value[subscripts]),
             x + (-0.5 * sin(wd$value[subscripts]) *
-                   ws$value[subscripts]),
+              ws$value[subscripts]),
             y + (-0.5 * cos(wd$value[subscripts]) *
-                   ws$value[subscripts]),
+              ws$value[subscripts]),
             angle = 20,
             length = 0.07,
             lwd = 0.5,
@@ -669,9 +692,11 @@ calendarPlot <-
       left_join(mydata, original_data %>% select(any_of(c("date", "ws", "wd"))),
                 by = "date")
 
-    output <- list(plot = plt,
-                   data = newdata,
-                   call = match.call())
+    output <- list(
+      plot = plt,
+      data = newdata,
+      call = match.call()
+    )
     class(output) <- "openair"
     invisible(output)
   }
