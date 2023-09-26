@@ -24,6 +24,7 @@ calendarPlot(
   labels = NA,
   breaks = NA,
   w.shift = 0,
+  w.abbr.len = 1,
   remove.empty = TRUE,
   main = NULL,
   key.header = "",
@@ -121,6 +122,11 @@ case.}
 \item{w.shift}{Controls the order of the days of the week. By default the
 plot shows Saturday first (\code{w.shift = 0}). To change this so that it
 starts on a Monday for example, set \code{w.shift = 2}, and so on.}
+
+\item{w.abbr.len}{The default (\code{1}) abbreviates the days of the week to a
+single letter (e.g., in English, S/S/M/T/W/T/F). \code{w.abbr.len} defines the
+number of letters to abbreviate until. For example, \code{w.abbr.len = 3} will
+abbreviate "Monday" to "Mon".}
 
 \item{remove.empty}{Should months with no data present be removed? Default is
 \code{TRUE}.}
