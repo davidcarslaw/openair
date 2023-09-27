@@ -179,35 +179,48 @@
 #' # for a subset of conditions
 #' \dontrun{
 #' timeVariation(subset(mydata, ws > 3 & wd > 100 & wd < 270),
-#' pollutant = "pm10", ylab = "pm10 (ug/m3)")
+#'   pollutant = "pm10", ylab = "pm10 (ug/m3)"
+#' )
 #' }
 #'
 #' # multiple pollutants with concentrations normalised
-#' \dontrun{timeVariation(mydata, pollutant = c("nox", "co"), normalise = TRUE)}
+#' \dontrun{
+#' timeVariation(mydata, pollutant = c("nox", "co"), normalise = TRUE)
+#' }
 #'
 #' # show BST/GMT variation (see ?cutData for more details)
 #' # the NOx plot shows the profiles are very similar when expressed in
 #' # local time, showing that the profile is dominated by a local source
 #' # that varies by local time and not by GMT i.e. road vehicle emissions
 #'
-#' \dontrun{timeVariation(mydata, pollutant = "nox", type = "dst", local.tz = "Europe/London")}
+#' \dontrun{
+#' timeVariation(mydata, pollutant = "nox", type = "dst", local.tz = "Europe/London")
+#' }
 #'
 #' ## In this case it is better to group the results for clarity:
-#' \dontrun{timeVariation(mydata, pollutant = "nox", group = "dst", local.tz = "Europe/London")}
+#' \dontrun{
+#' timeVariation(mydata, pollutant = "nox", group = "dst", local.tz = "Europe/London")
+#' }
 #'
 #' # By contrast, a variable such as wind speed shows a clear shift when
 #' #  expressed in local time. These two plots can help show whether the
 #' #  variation is dominated by man-made influences or natural processes
 #'
-#' \dontrun{timeVariation(mydata, pollutant = "ws", group = "dst", local.tz = "Europe/London")}
+#' \dontrun{
+#' timeVariation(mydata, pollutant = "ws", group = "dst", local.tz = "Europe/London")
+#' }
 #'
 #' ## It is also possible to plot several variables and set type. For
 #' ## example, consider the NOx and NO2 split by levels of O3:
 #'
-#' \dontrun{timeVariation(mydata, pollutant = c("nox", "no2"), type = "o3", normalise = TRUE)}
+#' \dontrun{
+#' timeVariation(mydata, pollutant = c("nox", "no2"), type = "o3", normalise = TRUE)
+#' }
 #'
 #' ## difference in concentrations
-#' \dontrun{timeVariation(mydata, poll= c("pm25", "pm10"), difference = TRUE)}
+#' \dontrun{
+#' timeVariation(mydata, poll = c("pm25", "pm10"), difference = TRUE)
+#' }
 #'
 #' # It is also useful to consider how concentrations vary by
 #' # considering two different periods e.g. in intervention
@@ -217,7 +230,7 @@
 #' # day of the week
 #'
 #' \dontrun{
-#' mydata <- splitByDate(mydata, dates= "1/1/2003", labels = c("before Jan. 2003", "After Jan. 2003"))
+#' mydata <- splitByDate(mydata, dates = "1/1/2003", labels = c("before Jan. 2003", "After Jan. 2003"))
 #' timeVariation(mydata, pollutant = "no2", group = "split.by", difference = TRUE)
 #' }
 #'
@@ -241,19 +254,23 @@
 #'
 #' ## plot quantiles and median
 #' \dontrun{
-#' timeVariation(mydata, stati="median", poll="pm10", col = "firebrick")
+#' timeVariation(mydata, stati = "median", poll = "pm10", col = "firebrick")
 #'
 #' ## with different intervals
-#' timeVariation(mydata, stati="median", poll="pm10", conf.int = c(0.75, 0.99),
-#' col = "firebrick")
+#' timeVariation(mydata,
+#'   stati = "median", poll = "pm10", conf.int = c(0.75, 0.99),
+#'   col = "firebrick"
+#' )
 #' }
-#' 
+#'
 timeVariation <- function(mydata,
                           pollutant = "nox",
                           local.tz = NULL,
                           normalise = FALSE,
-                          xlab = c("hour", "hour", "month",
-                                   "weekday"),
+                          xlab = c(
+                            "hour", "hour", "month",
+                            "weekday"
+                          ),
                           name.pol = pollutant,
                           type = "default",
                           group = NULL,
@@ -273,7 +290,7 @@ timeVariation <- function(mydata,
                           month.last = FALSE,
                           plot = TRUE,
                           ...) {
-    ## get rid of R check annoyances
+  ## get rid of R check annoyances
   variable <- NULL
 
   ## greyscale handling
@@ -287,7 +304,6 @@ timeVariation <- function(mydata,
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-
     fontsize = current.font
   ))
 
@@ -439,17 +455,18 @@ timeVariation <- function(mydata,
   if (difference && missing(group)) pollutant <- c(pollutant, paste(pollutant[2], "-", pollutant[1]))
 
   if (missing(name.pol)) {
-    mylab <- sapply(seq_along(pollutant), function(x)
-      quickText(pollutant[x], auto.text))
+    mylab <- sapply(seq_along(pollutant), function(x) {
+      quickText(pollutant[x], auto.text)
+    })
   }
 
   if (!missing(name.pol)) {
-    mylab <- sapply(seq_along(name.pol), function(x)
-      quickText(name.pol[x], auto.text))
+    mylab <- sapply(seq_along(name.pol), function(x) {
+      quickText(name.pol[x], auto.text)
+    })
   }
 
   if (missing(group)) {
-
     mydata <- gather(mydata, key = variable, value = value, poll.orig)
     mydata$variable <- factor(mydata$variable, levels = pollutant) ## drop unused factor levels
   } else {
@@ -497,16 +514,15 @@ timeVariation <- function(mydata,
 
   ## calculate temporal components
   mydata <- mutate(mydata,
-                   wkday = wday(date, label = TRUE, abbr = FALSE),
-                   wkday = ordered(wkday, levels = day.ord),
-                   hour= hour(date),
-                   mnth = month(date)
+    wkday = wday(date, label = TRUE, abbr = FALSE),
+    wkday = ordered(wkday, levels = day.ord),
+    hour = hour(date),
+    mnth = month(date)
   )
 
 
   ## y range taking account of expanded uncertainties
   rng <- function(x) {
-
     ## if no CI information, just return
     if (all(is.na(x[, c("Lower", "Upper")]))) {
       lims <- NULL
@@ -774,15 +790,17 @@ timeVariation <- function(mydata,
   if (ylimList) {
     extra.args$ylim <- ylim.list[[3]]
   }
-  
+
   ## plot
   xy.args <-
     list(
       x = myform, data = data.month, groups = data.month$variable,
       as.table = TRUE,
       xlab = xlab[3],
-      xlim = c(min(data.month$mnth) - 0.5, 
-               max(data.month$mnth) + 0.5),
+      xlim = c(
+        min(data.month$mnth) - 0.5,
+        max(data.month$mnth) + 0.5
+      ),
       key = key,
       strip = strip,
       par.strip.text = list(cex = 0.8),
@@ -1033,7 +1051,6 @@ timeVariation <- function(mydata,
 
 proc <- function(conf.int = conf.int, mydata, vars = "day.hour", pollutant, type, B = B,
                  statistic = statistic) {
-
   ## get rid of R check annoyances
   variable <- value <- NULL
 
@@ -1126,7 +1143,6 @@ wd.smean.normal <- function(wd, B = B, statistic, conf.int) {
 
 errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
                       conf.int = conf.int) {
-
   ## bootstrap mean difference confidence intervals
   ## rearrange data
 
@@ -1134,14 +1150,13 @@ errorDiff <- function(mydata, vars = "day.hour", poll1, poll2, type, B = B,
 
 
   if (anyDuplicated(mydata$date) > 0) {
-
     mydata$rowid <- 1:nrow(mydata)
-
   }
 
   mydata <- pivot_wider(mydata,
-                        names_from = "variable",
-                        values_from = "value")
+    names_from = "variable",
+    values_from = "value"
+  )
 
 
   if (vars == "hour") splits <- c("hour", type)
