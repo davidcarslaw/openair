@@ -144,7 +144,7 @@ properly e.g.  by subscripting the `2' in NO2.}
 data to extract calendar plot components and plotting them in other ways.}
 
 \item{...}{Other graphical parameters are passed onto the \code{lattice} function
-\code{\link[=lattice:levelplot]{lattice:levelplot()}}, with common axis and title labelling options (such
+\code{\link[lattice:levelplot]{lattice::levelplot()}}, with common axis and title labelling options (such
 as \code{xlab}, \code{ylab}, \code{main}) being passed to via \code{\link[=quickText]{quickText()}} to handle
 routine formatting.}
 }
@@ -192,22 +192,29 @@ calendarPlot(mydata, pollutant = "o3", year = 2003)
 calendarPlot(mydata, pollutant = "o3", year = 2003, annotate = "wd")
 \dontrun{
 # show wind vectors scaled by wind speed and different colours
-calendarPlot(mydata, pollutant = "o3", year = 2003, annotate = "ws",
-cols = "heat")
+calendarPlot(mydata,
+  pollutant = "o3", year = 2003, annotate = "ws",
+  cols = "heat"
+)
 
 # show only specific months with selectByDate
-calendarPlot(selectByDate(mydata, month = c(3,6,10), year = 2003),
-pollutant = "o3", year = 2003, annotate = "ws", cols = "heat")
+calendarPlot(selectByDate(mydata, month = c(3, 6, 10), year = 2003),
+  pollutant = "o3", year = 2003, annotate = "ws", cols = "heat"
+)
 
 # categorical scale example
-calendarPlot(mydata, pollutant = "no2", breaks = c(0, 50, 100, 150, 1000),
-labels = c("Very low", "Low", "High", "Very High"),
-cols = c("lightblue", "green", "yellow",  "red"), statistic = "max")
+calendarPlot(mydata,
+  pollutant = "no2", breaks = c(0, 50, 100, 150, 1000),
+  labels = c("Very low", "Low", "High", "Very High"),
+  cols = c("lightblue", "green", "yellow", "red"), statistic = "max"
+)
 
 # UK daily air quality index
 pm10.breaks <- c(0, 17, 34, 50, 59, 67, 75, 84, 92, 100, 1000)
-calendarPlot(mydata, "pm10", year = 1999, breaks = pm10.breaks,
-labels = c(1:10), cols = "daqi", statistic = "mean", key.header = "DAQI")
+calendarPlot(mydata, "pm10",
+  year = 1999, breaks = pm10.breaks,
+  labels = c(1:10), cols = "daqi", statistic = "mean", key.header = "DAQI"
+)
 }
 }
 \seealso{

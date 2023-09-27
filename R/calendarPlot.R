@@ -114,7 +114,7 @@
 #' @param plot Should a plot be produced? `FALSE` can be useful when analysing
 #'   data to extract calendar plot components and plotting them in other ways.
 #' @param ... Other graphical parameters are passed onto the `lattice` function
-#'   [lattice:levelplot()], with common axis and title labelling options (such
+#'   [lattice::levelplot()], with common axis and title labelling options (such
 #'   as `xlab`, `ylab`, `main`) being passed to via [quickText()] to handle
 #'   routine formatting.
 #' @export
