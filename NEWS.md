@@ -28,6 +28,8 @@
 
 - `calendarPlot()` now automatically creates its own `labels` if `breaks` are specified. For example, `c(0, 10, 20)` will create the labels `c("0 - 10", "10 - 20")`. `labels` can still be used to override the default values. (#341)
 
+- Added the `w.abbr.len` argument to `calendarPlot()` which controls the length of the weekday abbreviation. This was requested to help people using written Chinese, but will be more broadly useful (e.g., to use "Mon", "Tue", "Wed" in place of "M", "T", "W"). (#101)
+
 - return tibble from `timeAverage()`.
 
 - add option `panel.gap` to leave space between panels in `timeAverage` day-hour plots. Set to 0 for previous behaviour.

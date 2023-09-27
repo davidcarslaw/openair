@@ -26,6 +26,7 @@
 #' @return A tibble with \code{date} and calculated regression coefficients and
 #'   other information to plot dilution lines.
 #' @importFrom stats coefficients
+#' @importFrom stats .lm.fit
 #' @export
 #' @family time series and trend functions
 #' @references
@@ -55,28 +56,28 @@
 runRegression <- function(mydata, x = "nox", y = "pm10", run.len = 3,
                           date.pad = TRUE) {
   ## think about it in terms of y = fn(x) e.g. pm10 = a.nox + b
-  
+
   vars <- c("date", x, y)
-  
+
   mydata <- checkPrep(mydata, vars, type = "default")
-  
+
   ## pad missing data
   if (date.pad)
     mydata <- date.pad(mydata)
-  
+
   # list of rolling data frames
   mydata <-
     lapply(seq_len(nrow(mydata) - run.len + 1), function(i) {
       mydata[i:(i + run.len - 1), ]
     })
-  
+
   ## select non-missing with run.len rows
-  
+
   mydata <-
     mydata[which(lapply(mydata, function(x) {
       nrow(na.omit(x))
     }) == run.len)]
-  
+
   model <- function(df) {
    # lm(eval(paste(y, "~", x)), data = df)
     # fast model fitting
@@ -90,41 +91,41 @@ runRegression <- function(mydata, x = "nox", y = "pm10", run.len = 3,
     return(fit)
 
   }
-  
+
   # suppress warnings (perfect fit)
   rsq <- function(x) {
     tryCatch(summary(x)$r.squared, warning = function(w) return(1))
   }
-  
+
   # und models
   models <- lapply(mydata, model)
-  
+
   # extract components
   slope <- models %>%
     map(coefficients) %>%
     map_dbl(2)
-  
+
   intercept <- models %>%
     map(coefficients) %>%
     map_dbl(1)
-  
+
  # r_squared <- models %>% map_dbl(rsq)
   r_squared <- models %>% map("r.sq") %>% map_dbl(1)
   date <- mydata %>% map_vec(~ median(.x$date)) # use median date
-  date_start <- mydata %>% map_vec(~ min(.x$date)) 
-  date_end <- mydata %>% map_vec(~ max(.x$date)) 
-  
-  results <- tibble(date, date_start, date_end, intercept, slope, r_squared) 
-  
+  date_start <- mydata %>% map_vec(~ min(.x$date))
+  date_end <- mydata %>% map_vec(~ max(.x$date))
+
+  results <- tibble(date, date_start, date_end, intercept, slope, r_squared)
+
   # info for regression lines
   x1 <- mydata %>%
     map_dbl(~ min(.x[[x]]))
-  
+
   x2 <- mydata %>%
     map_dbl(~ max(.x[[x]]))
-  
+
   results <- cbind(results, x1, x2)
-  
+
   results <- results %>%
     mutate(
       y1 = slope * x1 + intercept,
@@ -132,13 +133,13 @@ runRegression <- function(mydata, x = "nox", y = "pm10", run.len = 3,
       delta_x = x2 - x1,
       delta_y = y2 - y1
     )
-  
+
   names(results)[names(results) == "x1"] <- paste0(x, "_1")
   names(results)[names(results) == "x2"] <- paste0(x, "_2")
   names(results)[names(results) == "y1"] <- paste0(y, "_1")
   names(results)[names(results) == "y2"] <- paste0(y, "_2")
   names(results)[names(results) == "delta_x"] <- paste0("delta_", x)
   names(results)[names(results) == "delta_y"] <- paste0("delta_", y)
-  
+
   as_tibble(results)
 }
