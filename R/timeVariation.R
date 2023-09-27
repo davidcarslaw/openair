@@ -770,25 +770,26 @@ timeVariation <- function(mydata, pollutant = "nox", local.tz = NULL,
   if (ylimList) {
     extra.args$ylim <- ylim.list[[3]]
   }
-
+  
   ## plot
   xy.args <-
     list(
       x = myform, data = data.month, groups = data.month$variable,
       as.table = TRUE,
       xlab = xlab[3],
-      xlim = c(0.5, 12.5),
+      xlim = c(min(data.month$mnth) - 0.5, 
+               max(data.month$mnth) + 0.5),
       key = key,
       strip = strip,
       par.strip.text = list(cex = 0.8),
       par.settings = simpleTheme(col = myColors, pch = 16),
       scales = list(x = list(
-        at = 1:12,
+        at = data.month[["mnth"]],
         labels = substr(format(
           seq(
             as_date("2000-01-01"),
             as_date("2000-12-31"), "month"
-          ),
+          )[data.month[["mnth"]]],
           "%B"
         ), 1, 1)
       )),
