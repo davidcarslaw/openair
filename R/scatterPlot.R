@@ -1783,7 +1783,7 @@ panel.linear <- function(x, y, x.nam = "x", y.nam = "y",
     slope <- coef(mod)[2]
     intercept <- coef(mod)[1]
 
-    if (intercept > 0) symb <- "+" else symb <- ""
+    if (intercept >= 0) symb <- "+" else symb <- ""
     panel.text(
       x, y, quickText(paste(
         y.nam,
@@ -1793,7 +1793,7 @@ panel.linear <- function(x, y, x.nam = "x", y.nam = "y",
         x.nam,
         "]",
         symb,
-        sprintf(slope, fmt = "%#.2f"),
+        sprintf(intercept, fmt = "%#.2f"),
         " R2=",
         sprintf(r.sq, fmt = "%#.2f"),
         sep = ""
