@@ -75,7 +75,7 @@ ambient temperature (\code{air_temp}). The variables are calculated from using
 the WRF model run by Ricardo Energy & Environment and are available for
 most but not all networks. Setting \code{meteo = FALSE} is useful if you have
 other meteorological data to use in preference, for example from
-\code{\link[worldmet]{worldmet}}.}
+the \code{worldmet} package.}
 
 \item{ratified}{Append \code{qc} column(s) to hourly data indicating whether each
 species was ratified (i.e., quality-checked)?  Defaults to \code{FALSE}.}

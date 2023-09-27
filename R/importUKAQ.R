@@ -131,7 +131,7 @@
 #'   the WRF model run by Ricardo Energy & Environment and are available for
 #'   most but not all networks. Setting `meteo = FALSE` is useful if you have
 #'   other meteorological data to use in preference, for example from
-#'   \code{\link[worldmet]{worldmet}}.
+#'   the `worldmet` package.
 #' @param ratified Append `qc` column(s) to hourly data indicating whether each
 #'   species was ratified (i.e., quality-checked)?  Defaults to `FALSE`.
 #' @param to_narrow Return the data in a "narrow"/"long"/"tidy" format? By
