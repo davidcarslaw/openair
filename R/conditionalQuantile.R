@@ -139,7 +139,6 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
                                 key.position = "bottom",
                                 auto.text = TRUE, ...) {
   ## partly based on from Wilks (2005) and package verification, with many modifications
-
   # keep R check quite
   data = second = third = NULL
 
@@ -252,20 +251,24 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
   all.results <- mydata %>%
     group_by(across(type)) %>%
     group_nest() %>%
-    mutate(results = map(data, procData))
+    mutate(results = map(data, procData),
+           .keep = "unused")
 
 
   results <- all.results %>%
     mutate(first = map(results, 1)) %>%
-    unnest(first)
+    unnest(first) %>%
+    dplyr::select(-"results")
 
   hist.results <- all.results %>%
     mutate(second = map(results, 2)) %>%
-    unnest(second)
+    unnest(second) %>%
+    dplyr::select(-"results")
 
   obs.results <- all.results %>%
     mutate(third = map(results, 3)) %>%
-    unnest(third)
+    unnest(third) %>%
+    dplyr::select(-"results")
 
   ## proper names of labelling #################################################
   pol.name <- sapply(levels(results[[type[1]]]), function(x) quickText(x, auto.text))
@@ -391,10 +394,11 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
       strip.left = strip.left
     ))
   }
-
+  
   invisible(trellis.last.object())
-
-  output <- list(plot = thePlot, data = results, call = match.call())
+  output <- list(plot = thePlot, 
+                 data = results, 
+                 call = match.call())
   class(output) <- "openair"
   invisible(output)
 }
