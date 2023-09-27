@@ -31,14 +31,12 @@ representing observed and modelled values.}
 \item{mod}{The name of the predictions (modelled values) in \code{mydata}.}
 
 \item{var.obs}{Other variable observations for which statistics should be
-calculated. Can be more than length one e.g. \code{var.obs = c("nox.obs",
-  "ws.obs")}. Note that including other variables could reduce the number of
+calculated. Can be more than length one e.g. \code{var.obs = c("nox.obs", "ws.obs")}. Note that including other variables could reduce the number of
 data available to plot due to the need of having non-missing data for all
 variables.}
 
 \item{var.mod}{Other variable predictions for which statistics should be
-calculated. Can be more than length one e.g. \code{var.obs = c("nox.obs",
-  "ws.obs")}.}
+calculated. Can be more than length one e.g. \code{var.obs = c("nox.obs", "ws.obs")}.}
 
 \item{type}{\code{type} determines how the data are split i.e. conditioned,
 and then plotted. The default is will produce a single plot using the
@@ -68,8 +66,7 @@ model performance varies by season across the distribution of predictions
 which might highlight that at high concentrations of NOx the model tends to
 underestimate concentrations and that these periods mostly occur in winter.
 \code{statistic} can also be another variable in the data frame --- see
-\code{cutData} for more information. A special case is \code{statistic =
-  "cluster"} if clusters have been calculated using \code{trajCluster}.}
+\code{cutData} for more information. A special case is \code{statistic = "cluster"} if clusters have been calculated using \code{trajCluster}.}
 
 \item{xlab}{label for the x-axis, by default \dQuote{predicted value}.}
 
@@ -91,8 +88,7 @@ names and units properly e.g.  by subscripting the `2' in NO2.}
 \item{...}{Other graphical parameters passed onto \code{conditionalQuantile}
 and \code{cutData}. For example, \code{conditionalQuantile} passes the
 option \code{hemisphere = "southern"} on to \code{cutData} to provide
-southern (rather than default northern) hemisphere handling of \code{type =
-  "season"}. Similarly, common axis and title labelling options (such as
+southern (rather than default northern) hemisphere handling of \code{type = "season"}. Similarly, common axis and title labelling options (such as
 \code{xlab}, \code{ylab}, \code{main}) are passed to \code{xyplot} via
 \code{quickText} to handle routine formatting.}
 }
@@ -113,24 +109,22 @@ variables vary across the same intervals as shown on the conditional quantile
 plot. There are two types of variable that can be considered by setting the
 value of \code{statistic}. First, \code{statistic} can be another variable in
 the data frame. In this case the plot will show the different proportions of
-\code{statistic} across the range of predictions. For example \code{statistic
-= "season"} will show for each interval of \code{mod} the proportion of
+\code{statistic} across the range of predictions. For example \code{statistic = "season"} will show for each interval of \code{mod} the proportion of
 predictions that were spring, summer, autumn or winter. This is useful
 because if model performance is worse for example at high concentrations of
 \code{mod} then knowing that these tend to occur during a particular season
 etc. can be very helpful when trying to understand \emph{why} a model fails.
-See \code{\link{cutData}} for more details on the types of variable that can
+See \code{\link[=cutData]{cutData()}} for more details on the types of variable that can
 be \code{statistic}. Another example would be \code{statistic = "ws"} (if
 wind speed were available in the data frame), which would then split wind
 speed into four quantiles and plot the proportions of each.
 
 Second, \code{conditionalEval} can simultaneously plot the model performance
-of other observed/predicted variable \bold{pairs} according to different
+of other observed/predicted variable \strong{pairs} according to different
 model evaluation statistics. These statistics derive from the
-\code{\link{modStats}} function and include \dQuote{MB}, \dQuote{NMB},
+\code{\link[=modStats]{modStats()}} function and include \dQuote{MB}, \dQuote{NMB},
 \dQuote{r}, \dQuote{COE}, \dQuote{MGE}, \dQuote{NMGE}, \dQuote{RMSE} and
-\dQuote{FAC2}. More than one statistic can be supplied e.g. \code{statistic =
-c("NMB", "COE")}. Bootstrap samples are taken from the corresponding values
+\dQuote{FAC2}. More than one statistic can be supplied e.g. \code{statistic = c("NMB", "COE")}. Bootstrap samples are taken from the corresponding values
 of other variables to be plotted and their statistics with 95\\% confidence
 intervals calculated. In this case, the model \emph{performance} of other
 variables is shown across the same intervals of \code{mod}, rather than just
@@ -144,9 +138,7 @@ of the main variables assessed in the conditional quantile e.g. ozone. In
 this case, values are supplied to \code{var.obs} (observed values for other
 variables) and \code{var.mod} (modelled values for other variables). For
 example, to consider how well the model predicts NOx and wind speed
-\code{var.obs = c("nox.obs", "ws.obs")} and \code{var.mod = c("nox.mod",
-"ws.mod")} would be supplied (assuming \code{nox.obs, nox.mod, ws.obs,
-ws.mod} are present in the data frame). The analysis could show for example,
+\code{var.obs = c("nox.obs", "ws.obs")} and \code{var.mod = c("nox.mod", "ws.mod")} would be supplied (assuming \verb{nox.obs, nox.mod, ws.obs, ws.mod} are present in the data frame). The analysis could show for example,
 when ozone concentrations are under-predicted, the model may also be shown to
 over-predict concentrations of NOx at the same time, or under-predict wind
 speeds. Such information can thus help identify the underlying causes of poor
@@ -157,8 +149,8 @@ might suggest an over-estimate of NOx emissions. One or more additional
 variables can be plotted.
 
 A special case is \code{statistic = "cluster"}. In this case a data frame is
-provided that contains the cluster calculated by \code{\link{trajCluster}}
-and \code{\link{importTraj}}. Alternatively users could supply their own
+provided that contains the cluster calculated by \code{\link[=trajCluster]{trajCluster()}}
+and \code{\link[=importTraj]{importTraj()}}. Alternatively users could supply their own
 pre-calculated clusters. These calculations can be very useful in showing
 whether certain back trajectory clusters are associated with poor (or good)
 model performance. Note that in the case of \code{statistic = "cluster"}

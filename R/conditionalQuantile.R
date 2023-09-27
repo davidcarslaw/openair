@@ -7,7 +7,7 @@
 #' Conditional quantiles are a very useful way of considering model performance
 #' against observations for continuous measurements (Wilks, 2005). The
 #' conditional quantile plot splits the data into evenly spaced bins. For each
-#' predicted value bin e.g. from 0 to 10~ppb the \emph{corresponding} values of
+#' predicted value bin e.g. from 0 to 10~ppb the *corresponding* values of
 #' the observations are identified and the median, 25/75th and 10/90 percentile
 #' (quantile) calculated for that bin. The data are plotted to show how these
 #' values vary across all bins. For a time series of observations and
@@ -31,12 +31,12 @@
 #' observations and can help reveal many useful characteristics of how well
 #' model predictions agree with observations --- across the full distribution of
 #' values. A single plot can therefore convey a considerable amount of
-#' information concerning model performance. The \code{conditionalQuantile}
+#' information concerning model performance. The `conditionalQuantile`
 #' function in openair allows conditional quantiles to be considered in a
 #' flexible way e.g. by considering how they vary by season.
 #'
 #' The function requires a data frame consisting of a column of observations and
-#' a column of predictions. The observations are split up into \code{bins}
+#' a column of predictions. The observations are split up into `bins`
 #' according to values of the predictions. The median prediction line together
 #' with the 25/75th and 10/90th quantile values are plotted together with a line
 #' showing a \dQuote{perfect} model. Also shown is a histogram of predicted
@@ -44,31 +44,31 @@
 #' line).
 #'
 #' Far more insight can be gained into model performance through conditioning
-#' using \code{type}. For example, \code{type = "season"} will plot conditional
-#' quantiles by each season. \code{type} can also be a factor or character field
+#' using `type`. For example, `type = "season"` will plot conditional
+#' quantiles by each season. `type` can also be a factor or character field
 #' e.g. representing different models used.
 #'
 #' See Wilks (2005) for more details and the examples below.
 #'
-#' @param mydata A data frame containing the field \code{obs} and \code{mod}
+#' @param mydata A data frame containing the field `obs` and `mod`
 #'   representing observed and modelled values.
-#' @param obs The name of the observations in \code{mydata}.
-#' @param mod The name of the predictions (modelled values) in \code{mydata}.
-#' @param type \code{type} determines how the data are split i.e. conditioned,
+#' @param obs The name of the observations in `mydata`.
+#' @param mod The name of the predictions (modelled values) in `mydata`.
+#' @param type `type` determines how the data are split i.e. conditioned,
 #'   and then plotted. The default is will produce a single plot using the
 #'   entire data. Type can be one of the built-in types as detailed in
-#'   \code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so
-#'   on. For example, \code{type = "season"} will produce four plots --- one for
+#'   `cutData` e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so
+#'   on. For example, `type = "season"` will produce four plots --- one for
 #'   each season.
 #'
-#'   It is also possible to choose \code{type} as another variable in the data
+#'   It is also possible to choose `type` as another variable in the data
 #'   frame. If that variable is numeric, then the data will be split into four
 #'   quantiles (if possible) and labelled accordingly. If type is an existing
 #'   character or factor variable, then those categories/levels will be used
 #'   directly. This offers great flexibility for understanding the variation of
 #'   different variables and how they depend on one another.
 #'
-#'   Type can be up length two e.g. \code{type = c("season", "weekday")} will
+#'   Type can be up length two e.g. `type = c("season", "weekday")` will
 #'   produce a 2x2 plot split by season and day of the week. Note, when two
 #'   types are provided the first forms the columns and the second the rows.
 #' @param bins Number of bins to be used in calculating the different quantile
@@ -81,23 +81,23 @@
 #'   line. Must be of length 5 or more.
 #' @param key.columns Number of columns to be used in the key.
 #' @param key.position Location of the key e.g. \dQuote{top}, \dQuote{bottom},
-#'   \dQuote{right}, \dQuote{left}. See \code{lattice} \code{xyplot} for more
+#'   \dQuote{right}, \dQuote{left}. See `lattice` `xyplot` for more
 #'   details.
-#' @param auto.text Either \code{TRUE} (default) or \code{FALSE}. If \code{TRUE}
+#' @param auto.text Either `TRUE` (default) or `FALSE`. If `TRUE`
 #'   titles and axis labels etc. will automatically try and format pollutant
 #'   names and units properly e.g.  by subscripting the `2' in NO2.
-#' @param \dots Other graphical parameters passed onto \code{cutData} and
-#'   \code{lattice:xyplot}. For example, \code{conditionalQuantile} passes the
-#'   option \code{hemisphere = "southern"} on to \code{cutData} to provide
-#'   southern (rather than default northern) hemisphere handling of \code{type =
-#'   "season"}. Similarly, common axis and title labelling options (such as
-#'   \code{xlab}, \code{ylab}, \code{main}) are passed to \code{xyplot} via
-#'   \code{quickText} to handle routine formatting.
+#' @param \dots Other graphical parameters passed onto `cutData` and
+#'   `lattice:xyplot`. For example, `conditionalQuantile` passes the
+#'   option `hemisphere = "southern"` on to `cutData` to provide
+#'   southern (rather than default northern) hemisphere handling of `type =
+#'   "season"`. Similarly, common axis and title labelling options (such as
+#'   `xlab`, `ylab`, `main`) are passed to `xyplot` via
+#'   `quickText` to handle routine formatting.
 #' @import latticeExtra purrr tidyr
 #' @export
 #' @author David Carslaw
 #' @family model evaluation functions
-#' @seealso The \code{verification} package for comprehensive functions for
+#' @seealso The `verification` package for comprehensive functions for
 #'   forecast verification.
 #' @references
 #'
@@ -109,7 +109,7 @@
 #' 91, Second Edition (International Geophysics), 2nd Edition. Academic Press.
 #' @examples
 #' ## make some dummy prediction data based on 'nox'
-#' mydata$mod <- mydata$nox*1.1 + mydata$nox * runif(1:nrow(mydata))
+#' mydata$mod <- mydata$nox * 1.1 + mydata$nox * runif(1:nrow(mydata))
 #'
 #' # basic conditional quantile plot
 #' ## A "perfect" model is shown by the blue line
@@ -127,7 +127,9 @@
 #' ## can split by season to show seasonal performance (not very
 #' ## enlightening in this case - try some real data and it will be!)
 #'
-#' \dontrun{conditionalQuantile(mydata, obs = "nox", mod = "mod", type = "season")}
+#' \dontrun{
+#' conditionalQuantile(mydata, obs = "nox", mod = "mod", type = "season")
+#' }
 conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
                                 type = "default",
                                 bins = 31,
@@ -140,7 +142,7 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
                                 auto.text = TRUE, ...) {
   ## partly based on from Wilks (2005) and package verification, with many modifications
   # keep R check quite
-  data = second = third = NULL
+  data <- second <- third <- NULL
 
   if (length(type) > 2) stop("Only two types can be used with this function")
 
@@ -153,7 +155,6 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
 
   ## reset graphic parameters
   on.exit(trellis.par.set(
-
     fontsize = current.font
   ))
 
@@ -196,8 +197,7 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
 
 
   procData <- function(mydata) {
-
-  mydata <- select_if(mydata, is.numeric)
+    mydata <- select_if(mydata, is.numeric)
     obs <- mydata[[obs]]
     pred <- mydata[[mod]]
     min.d <- min(mydata)
@@ -251,8 +251,10 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
   all.results <- mydata %>%
     group_by(across(type)) %>%
     group_nest() %>%
-    mutate(results = map(data, procData),
-           .keep = "unused")
+    mutate(
+      results = map(data, procData),
+      .keep = "unused"
+    )
 
 
   results <- all.results %>%
@@ -394,11 +396,13 @@ conditionalQuantile <- function(mydata, obs = "obs", mod = "mod",
       strip.left = strip.left
     ))
   }
-  
+
   invisible(trellis.last.object())
-  output <- list(plot = thePlot, 
-                 data = results, 
-                 call = match.call())
+  output <- list(
+    plot = thePlot,
+    data = results,
+    call = match.call()
+  )
   class(output) <- "openair"
   invisible(output)
 }

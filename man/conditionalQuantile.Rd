@@ -72,8 +72,7 @@ names and units properly e.g.  by subscripting the `2' in NO2.}
 \item{\dots}{Other graphical parameters passed onto \code{cutData} and
 \code{lattice:xyplot}. For example, \code{conditionalQuantile} passes the
 option \code{hemisphere = "southern"} on to \code{cutData} to provide
-southern (rather than default northern) hemisphere handling of \code{type =
-  "season"}. Similarly, common axis and title labelling options (such as
+southern (rather than default northern) hemisphere handling of \code{type = "season"}. Similarly, common axis and title labelling options (such as
 \code{xlab}, \code{ylab}, \code{main}) are passed to \code{xyplot} via
 \code{quickText} to handle routine formatting.}
 }
@@ -131,7 +130,7 @@ See Wilks (2005) for more details and the examples below.
 }
 \examples{
 ## make some dummy prediction data based on 'nox'
-mydata$mod <- mydata$nox*1.1 + mydata$nox * runif(1:nrow(mydata))
+mydata$mod <- mydata$nox * 1.1 + mydata$nox * runif(1:nrow(mydata))
 
 # basic conditional quantile plot
 ## A "perfect" model is shown by the blue line
@@ -149,7 +148,9 @@ conditionalQuantile(mydata, obs = "nox", mod = "mod")
 ## can split by season to show seasonal performance (not very
 ## enlightening in this case - try some real data and it will be!)
 
-\dontrun{conditionalQuantile(mydata, obs = "nox", mod = "mod", type = "season")}
+\dontrun{
+conditionalQuantile(mydata, obs = "nox", mod = "mod", type = "season")
+}
 }
 \references{
 Murphy, A. H., B.G. Brown and Y. Chen. (1989) Diagnostic Verification of
