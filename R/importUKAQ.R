@@ -151,6 +151,7 @@
 #' @author David Carslaw, Trevor Davies, and Jack Davison
 #' @family import functions
 #' @examples
+#' \dontrun{
 #' # import a single site from the AURN
 #' importUKAQ("my1", year = 2022)
 #'
@@ -178,6 +179,7 @@
 #'   pollutant = c("no2", "pm2.5", "pm10"),
 #'   source = c("aurn", "aqe")
 #' )
+#' }
 importUKAQ <-
   function(site = "my1",
            year = 2022,

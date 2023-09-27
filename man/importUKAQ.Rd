@@ -183,6 +183,7 @@ FDMS PM2.5 (where available) is shown in the 'v2.5' column.
 }
 
 \examples{
+\dontrun{
 # import a single site from the AURN
 importUKAQ("my1", year = 2022)
 
@@ -210,6 +211,7 @@ importUKAQ(
   pollutant = c("no2", "pm2.5", "pm10"),
   source = c("aurn", "aqe")
 )
+}
 }
 \seealso{
 Other import functions: 
