@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9022</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9023</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,6 +68,7 @@
 </ul></li>
 <li><p>new function <code><a href="../reference/runRegression.html">runRegression()</a></code> for extracting ‘dilution lines’ from air quality and other data. Online manual will be updated with principles and examples.</p></li>
 <li><p><code><a href="../reference/calendarPlot.html">calendarPlot()</a></code> now automatically creates its own <code>labels</code> if <code>breaks</code> are specified. For example, <code>c(0, 10, 20)</code> will create the labels <code>c("0 - 10", "10 - 20")</code>. <code>labels</code> can still be used to override the default values. (<a href="https://github.com/davidcarslaw/openair/issues/341" class="external-link">#341</a>)</p></li>
+<li><p>Added the <code>w.abbr.len</code> argument to <code><a href="../reference/calendarPlot.html">calendarPlot()</a></code> which controls the length of the weekday abbreviation. This was requested to help people using written Chinese, but will be more broadly useful (e.g., to use “Mon”, “Tue”, “Wed” in place of “M”, “T”, “W”). (<a href="https://github.com/davidcarslaw/openair/issues/101" class="external-link">#101</a>)</p></li>
 <li><p>return tibble from <code><a href="../reference/timeAverage.html">timeAverage()</a></code>.</p></li>
 <li><p>add option <code>panel.gap</code> to leave space between panels in <code>timeAverage</code> day-hour plots. Set to 0 for previous behaviour.</p></li>
 <li><p>Move regression formula off main plot for <code><a href="../reference/polarPlot.html">polarPlot()</a></code> for clarity and label slope as ‘m’.</p></li>
