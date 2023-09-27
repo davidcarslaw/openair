@@ -14,7 +14,7 @@ understand forecast predictions and how well they agree with observations."><met
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9023</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9024</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,8 +153,7 @@ names and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
 <dd><p>Other graphical parameters passed onto <code>cutData</code> and
 <code>lattice:xyplot</code>. For example, <code>conditionalQuantile</code> passes the
 option <code>hemisphere = "southern"</code> on to <code>cutData</code> to provide
-southern (rather than default northern) hemisphere handling of <code>type =
-  "season"</code>. Similarly, common axis and title labelling options (such as
+southern (rather than default northern) hemisphere handling of <code>type = "season"</code>. Similarly, common axis and title labelling options (such as
 <code>xlab</code>, <code>ylab</code>, <code>main</code>) are passed to <code>xyplot</code> via
 <code>quickText</code> to handle routine formatting.</p></dd>
 
@@ -227,7 +226,7 @@ forecast verification.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## make some dummy prediction data based on 'nox'</span></span></span>
-<span class="r-in"><span><span class="va">mydata</span><span class="op">$</span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="va">mydata</span><span class="op">$</span><span class="va">nox</span><span class="op">*</span><span class="fl">1.1</span> <span class="op">+</span> <span class="va">mydata</span><span class="op">$</span><span class="va">nox</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mydata</span><span class="op">$</span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="va">mydata</span><span class="op">$</span><span class="va">nox</span> <span class="op">*</span> <span class="fl">1.1</span> <span class="op">+</span> <span class="va">mydata</span><span class="op">$</span><span class="va">nox</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># basic conditional quantile plot</span></span></span>
 <span class="r-in"><span><span class="co">## A "perfect" model is shown by the blue line</span></span></span>
@@ -246,7 +245,9 @@ forecast verification.</p>
 <span class="r-in"><span><span class="co">## can split by season to show seasonal performance (not very</span></span></span>
 <span class="r-in"><span><span class="co">## enlightening in this case - try some real data and it will be!)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="fu">conditionalQuantile</span><span class="op">(</span><span class="va">mydata</span>, obs <span class="op">=</span> <span class="st">"nox"</span>, mod <span class="op">=</span> <span class="st">"mod"</span>, type <span class="op">=</span> <span class="st">"season"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">conditionalQuantile</span><span class="op">(</span><span class="va">mydata</span>, obs <span class="op">=</span> <span class="st">"nox"</span>, mod <span class="op">=</span> <span class="st">"mod"</span>, type <span class="op">=</span> <span class="st">"season"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

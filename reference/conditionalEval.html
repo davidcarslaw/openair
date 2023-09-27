@@ -26,7 +26,7 @@ underlying reasons why model performance is poor."><meta property="og:image" con
     
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9023</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.17.0.9024</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,16 +114,14 @@ representing observed and modelled values.</p></dd>
 
 <dt>var.obs</dt>
 <dd><p>Other variable observations for which statistics should be
-calculated. Can be more than length one e.g. <code>var.obs = c("nox.obs",
-  "ws.obs")</code>. Note that including other variables could reduce the number of
+calculated. Can be more than length one e.g. <code>var.obs = c("nox.obs", "ws.obs")</code>. Note that including other variables could reduce the number of
 data available to plot due to the need of having non-missing data for all
 variables.</p></dd>
 
 
 <dt>var.mod</dt>
 <dd><p>Other variable predictions for which statistics should be
-calculated. Can be more than length one e.g. <code>var.obs = c("nox.obs",
-  "ws.obs")</code>.</p></dd>
+calculated. Can be more than length one e.g. <code>var.obs = c("nox.obs", "ws.obs")</code>.</p></dd>
 
 
 <dt>type</dt>
@@ -157,8 +155,7 @@ model performance varies by season across the distribution of predictions
 which might highlight that at high concentrations of NOx the model tends to
 underestimate concentrations and that these periods mostly occur in winter.
 <code>statistic</code> can also be another variable in the data frame --- see
-<code>cutData</code> for more information. A special case is <code>statistic =
-  "cluster"</code> if clusters have been calculated using <code>trajCluster</code>.</p></dd>
+<code>cutData</code> for more information. A special case is <code>statistic = "cluster"</code> if clusters have been calculated using <code>trajCluster</code>.</p></dd>
 
 
 <dt>xlab</dt>
@@ -194,8 +191,7 @@ names and units properly e.g.  by subscripting the `2' in NO2.</p></dd>
 <dd><p>Other graphical parameters passed onto <code>conditionalQuantile</code>
 and <code>cutData</code>. For example, <code>conditionalQuantile</code> passes the
 option <code>hemisphere = "southern"</code> on to <code>cutData</code> to provide
-southern (rather than default northern) hemisphere handling of <code>type =
-  "season"</code>. Similarly, common axis and title labelling options (such as
+southern (rather than default northern) hemisphere handling of <code>type = "season"</code>. Similarly, common axis and title labelling options (such as
 <code>xlab</code>, <code>ylab</code>, <code>main</code>) are passed to <code>xyplot</code> via
 <code>quickText</code> to handle routine formatting.</p></dd>
 
@@ -207,23 +203,21 @@ variables vary across the same intervals as shown on the conditional quantile
 plot. There are two types of variable that can be considered by setting the
 value of <code>statistic</code>. First, <code>statistic</code> can be another variable in
 the data frame. In this case the plot will show the different proportions of
-<code>statistic</code> across the range of predictions. For example <code>statistic
-= "season"</code> will show for each interval of <code>mod</code> the proportion of
+<code>statistic</code> across the range of predictions. For example <code>statistic = "season"</code> will show for each interval of <code>mod</code> the proportion of
 predictions that were spring, summer, autumn or winter. This is useful
 because if model performance is worse for example at high concentrations of
 <code>mod</code> then knowing that these tend to occur during a particular season
 etc. can be very helpful when trying to understand <em>why</em> a model fails.
-See <code><a href="cutData.html">cutData</a></code> for more details on the types of variable that can
+See <code><a href="cutData.html">cutData()</a></code> for more details on the types of variable that can
 be <code>statistic</code>. Another example would be <code>statistic = "ws"</code> (if
 wind speed were available in the data frame), which would then split wind
 speed into four quantiles and plot the proportions of each.</p>
 <p>Second, <code>conditionalEval</code> can simultaneously plot the model performance
-of other observed/predicted variable <b>pairs</b> according to different
+of other observed/predicted variable <strong>pairs</strong> according to different
 model evaluation statistics. These statistics derive from the
-<code><a href="modStats.html">modStats</a></code> function and include “MB”, “NMB”,
+<code><a href="modStats.html">modStats()</a></code> function and include “MB”, “NMB”,
 “r”, “COE”, “MGE”, “NMGE”, “RMSE” and
-“FAC2”. More than one statistic can be supplied e.g. <code>statistic =
-c("NMB", "COE")</code>. Bootstrap samples are taken from the corresponding values
+“FAC2”. More than one statistic can be supplied e.g. <code>statistic = c("NMB", "COE")</code>. Bootstrap samples are taken from the corresponding values
 of other variables to be plotted and their statistics with 95\<!-- % confidence -->
 intervals calculated. In this case, the model <em>performance</em> of other
 variables is shown across the same intervals of <code>mod</code>, rather than just
@@ -236,9 +230,7 @@ of the main variables assessed in the conditional quantile e.g. ozone. In
 this case, values are supplied to <code>var.obs</code> (observed values for other
 variables) and <code>var.mod</code> (modelled values for other variables). For
 example, to consider how well the model predicts NOx and wind speed
-<code>var.obs = c("nox.obs", "ws.obs")</code> and <code>var.mod = c("nox.mod",
-"ws.mod")</code> would be supplied (assuming <code>nox.obs, nox.mod, ws.obs,
-ws.mod</code> are present in the data frame). The analysis could show for example,
+<code>var.obs = c("nox.obs", "ws.obs")</code> and <code>var.mod = c("nox.mod", "ws.mod")</code> would be supplied (assuming <code>nox.obs, nox.mod, ws.obs, ws.mod</code> are present in the data frame). The analysis could show for example,
 when ozone concentrations are under-predicted, the model may also be shown to
 over-predict concentrations of NOx at the same time, or under-predict wind
 speeds. Such information can thus help identify the underlying causes of poor
@@ -248,8 +240,8 @@ Similarly if wind speed predictions were good and NOx was over predicted it
 might suggest an over-estimate of NOx emissions. One or more additional
 variables can be plotted.</p>
 <p>A special case is <code>statistic = "cluster"</code>. In this case a data frame is
-provided that contains the cluster calculated by <code><a href="trajCluster.html">trajCluster</a></code>
-and <code><a href="importTraj.html">importTraj</a></code>. Alternatively users could supply their own
+provided that contains the cluster calculated by <code><a href="trajCluster.html">trajCluster()</a></code>
+and <code><a href="importTraj.html">importTraj()</a></code>. Alternatively users could supply their own
 pre-calculated clusters. These calculations can be very useful in showing
 whether certain back trajectory clusters are associated with poor (or good)
 model performance. Note that in the case of <code>statistic = "cluster"</code>
