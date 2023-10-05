@@ -404,14 +404,17 @@ and will be ignored if <code>"quantile.slope"</code> is not used.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>an <a href="openair-package.html">openair</a> object. The object includes three main
+<p>an <a href="openair-package.html">openair</a> object. The object includes four main
 components: <code>call</code>, the command used to generate the plot;
-<code>data</code>, by default the original data frame with a new field <code>cluster</code></p>
+<code>data</code>, by default the original data frame with a new field
+<code>cluster</code> identifying the cluster, <code>clust_stats</code> giving the
+contributions made by each cluster to number of measurements, their
+percentage and the percentage by pollutant; and <code>plot</code>, the plot
+itself. Note that any rows where the value of <code>pollutant</code> is <code>NA</code></p>
 
 
-<p>identifying the cluster; and <code>plot</code>, the plot itself. Note that any
-rows where the value of <code>pollutant</code> is <code>NA</code> are ignored so that
-the returned data frame may have fewer rows than the original.</p>
+<p>are ignored so that the returned data frame may have fewer rows than the
+original.</p>
 
 
 <p>If the clustering is carried out considering differences, i.e., an
