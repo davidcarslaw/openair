@@ -1,5 +1,7 @@
 # openair (development version)
 
+# openair 2.18-0
+
 ## New Features
 
 - added a new `importUKAQ()` function, which supersedes `importAURN()`, `importAQE()`, `importWAQN()`, `importSAQN()`, `importNI()` and `importLocal()`. `importUKAQ()` brings a lot of new functionality to accessing UK air quality data through `{openair}`.
@@ -39,6 +41,8 @@
 - Tweak seasonal trend decomposition using STL to allow the seasonal amplitude to vary more. Affects `smoothTrend()` and `TheilSen()`.
 
 - Added colours recommended by the UK Government Analysis Function (https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/) to `openColours()`.
+
+- `polarCluster` now prints the cluster contributions and returns a data frame of them in the output.
 
 ## Bug Fixes
 
