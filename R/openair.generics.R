@@ -257,7 +257,7 @@ print.openair <- function(x,
     
     other <- names(x)[!names(x) %in% c("data", "call", "plot")]
     
-    if (length(other) > 0){
+    if (length(other) > 0) {
       cli::cli_par(id = "other-stuff")
       cli::cli_inform("Other object(s):")
       cli::cli_ul(paste0("{.field $", other, "}"))
@@ -275,7 +275,7 @@ print.openair <- function(x,
 #' @export
 names.openair <- function(x, ...) {
   # stuff we own up to...
-  vis.elements <- c("data", "plot", "call", "clust")
+  vis.elements <- c("data", "plot", "call", "clust", "clust_stats")
   # make names non-recursive
   class(x) <- "not-openair"
   

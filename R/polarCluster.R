@@ -516,17 +516,18 @@ polarCluster <-
           plot = plt,
           data = out_data,
           after = after,
-          clust_stats = clust_stats,
-          call = match.call()
+          call = match.call(),
+          clust_stats = clust_stats
         )
     } else {
       output <- list(
         plot = plt,
         data = out_data,
-        clust_stats = clust_stats,
-        call = match.call()
+        call = match.call(),
+        clust_stats = clust_stats
       )
     }
 
+    class(output) <- "openair"
     invisible(output)
   }
