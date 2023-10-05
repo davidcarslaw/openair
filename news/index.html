@@ -49,8 +49,11 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="openair-development-version">openair (development version)<a class="anchor" aria-label="anchor" href="#openair-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.18-0" id="openair-218-0">openair 2.18-0<a class="anchor" aria-label="anchor" href="#openair-218-0"></a></h2>
 <div class="section level3">
-<h3 id="new-features-development-version">New Features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-2-18-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-18-0"></a></h3>
 <ul><li>
 <p>added a new <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> function, which supersedes <code><a href="../reference/importUKAQ-wrapper.html">importAURN()</a></code>, <code><a href="../reference/importUKAQ-wrapper.html">importAQE()</a></code>, <code><a href="../reference/importUKAQ-wrapper.html">importWAQN()</a></code>, <code><a href="../reference/importUKAQ-wrapper.html">importSAQN()</a></code>, <code><a href="../reference/importUKAQ-wrapper.html">importNI()</a></code> and <code><a href="../reference/importUKAQ-wrapper.html">importLocal()</a></code>. <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> brings a lot of new functionality to accessing UK air quality data through <a href="https://davidcarslaw.github.io/openair/">openair</a>.</p>
 <ul><li><p><code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> has all of the same arguments as the functions it supersedes, as well as “source” to define the specific network of interest. The “source” argument can either be of length 1 or equal to the length of the “site” argument. This means that <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> can import statistics from multiple different networks at once.</p></li>
@@ -74,9 +77,10 @@
 <li><p>Move regression formula off main plot for <code><a href="../reference/polarPlot.html">polarPlot()</a></code> for clarity and label slope as ‘m’.</p></li>
 <li><p>Tweak seasonal trend decomposition using STL to allow the seasonal amplitude to vary more. Affects <code><a href="../reference/smoothTrend.html">smoothTrend()</a></code> and <code><a href="../reference/TheilSen.html">TheilSen()</a></code>.</p></li>
 <li><p>Added colours recommended by the UK Government Analysis Function (<a href="https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/" class="external-link uri">https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/</a>) to <code><a href="../reference/openColours.html">openColours()</a></code>.</p></li>
+<li><p><code>polarCluster</code> now prints the cluster contributions and returns a data frame of them in the output.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-2-18-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-18-0"></a></h3>
 <ul><li><p>The order of columns in <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> will remain consistent (metadata, date, pollutants, meteo) regardless of whether <code>hc</code> is <code>TRUE</code> or <code>FALSE</code>.</p></li>
 <li><p><code><a href="../reference/quickText.html">quickText()</a></code> will now automatically capitalise “no” to “NO”. (<a href="https://github.com/davidcarslaw/openair/issues/343" class="external-link">#343</a>)</p></li>
 <li><p>The <code>year</code> argument of <code><a href="../reference/importMeta.html">importMeta()</a></code> is now respected when <code>source = "kcl"</code> and <code>"europe"</code>.</p></li>
