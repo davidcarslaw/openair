@@ -477,6 +477,34 @@ polarCluster <-
       out_data$cluster <- paste("C", out_data$cluster, sep = "")
       out_data$cluster[out_data$cluster == "CNA"] <- NA_character_
     }
+    
+    # print the stats
+    
+    var_mean <- paste0("mean_", pollutant)
+    var_percent <- paste0(pollutant, "_percent")
+    
+    clust_stats <- 
+      out_data %>% 
+      dplyr::group_by(cluster) %>%
+      dplyr::summarise(
+        {{ var_mean }} := mean(.data[[pollutant]], na.rm = TRUE),
+        n = dplyr::n()
+      ) %>% 
+      na.omit() %>% 
+      dplyr::mutate(
+        n_mean = n * .data[[var_mean ]],
+        n_percent = round(100 * n / sum(n), 1),
+        {{ var_percent }} := round(100 * n_mean / sum(n_mean), 1)
+      ) %>% 
+      dplyr::select(-n_mean)
+    
+    
+    if (plot) {
+      
+      print(clust_stats)
+      
+    }
+      
 
     # output
     if (is.data.frame(after)) {
@@ -485,12 +513,14 @@ polarCluster <-
           plot = plt,
           data = out_data,
           after = after,
+          clust_stats = clust_stats,
           call = match.call()
         )
     } else {
       output <- list(
         plot = plt,
         data = out_data,
+        clust_stats = clust_stats,
         call = match.call()
       )
     }
