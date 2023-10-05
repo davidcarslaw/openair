@@ -282,12 +282,15 @@ and will be ignored if \code{"quantile.slope"} is not used.}
   }}
 }
 \value{
-an \link[=openair-package]{openair} object. The object includes three main
+an \link[=openair-package]{openair} object. The object includes four main
 components: \code{call}, the command used to generate the plot;
-\code{data}, by default the original data frame with a new field \code{cluster}
-identifying the cluster; and \code{plot}, the plot itself. Note that any
-rows where the value of \code{pollutant} is \code{NA} are ignored so that
-the returned data frame may have fewer rows than the original.
+\code{data}, by default the original data frame with a new field
+\code{cluster} identifying the cluster, \code{clust_stats} giving the
+contributions made by each cluster to number of measurements, their
+percentage and the percentage by pollutant; and \code{plot}, the plot
+itself. Note that any rows where the value of \code{pollutant} is \code{NA}
+are ignored so that the returned data frame may have fewer rows than the
+original.
 
 If the clustering is carried out considering differences, i.e., an
 \code{after} data frame is supplied, the output also includes the
