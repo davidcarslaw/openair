@@ -481,10 +481,12 @@ polarCluster <-
       out_data$cluster[out_data$cluster == "CNA"] <- NA_character_
     }
     
-    # print the stats
+    # print the stats but only for cluster of length 1
     
     var_mean <- paste0("mean_", pollutant)
     var_percent <- paste0(pollutant, "_percent")
+    
+    if (length(n.clusters) == 1L) {
     
     clust_stats <- 
       out_data %>% 
@@ -501,8 +503,13 @@ polarCluster <-
       ) %>% 
       dplyr::select(-n_mean)
     
+    } else {
+      
+      clust_stats <- NULL
+    }
     
-    if (plot) {
+    
+    if (plot && length(n.clusters) == 1L) {
       
       print(clust_stats)
       
