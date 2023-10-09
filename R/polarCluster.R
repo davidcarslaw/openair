@@ -126,7 +126,7 @@
 #'   group = "cluster", col = openColours("Paired", 6)[c(3, 4)]
 #' )
 #' }
-#' 
+#'
 polarCluster <-
   function(mydata,
            pollutant = "nox",
@@ -463,12 +463,8 @@ polarCluster <-
         plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
       }
     }
-    # control output data
-    if (plot.data) {
-      out_data <- results.grid
-    } else {
-      out_data <- results
-    }
+
+    out_data <- results
 
     # currently conflicts with length(n.clusters) > 1 - resolve
     if (is.function(out_data)) {
@@ -480,41 +476,44 @@ polarCluster <-
       out_data$cluster <- paste("C", out_data$cluster, sep = "")
       out_data$cluster[out_data$cluster == "CNA"] <- NA_character_
     }
-    
+
     # print the stats but only for cluster of length 1
-    
+
     var_mean <- paste0("mean_", pollutant)
     var_percent <- paste0(pollutant, "_percent")
-    
+
     if (length(n.clusters) == 1L) {
-    
-    clust_stats <- 
-      out_data %>% 
+
+    clust_stats <-
+      out_data %>%
       dplyr::group_by(cluster) %>%
       dplyr::summarise(
         {{ var_mean }} := mean(.data[[pollutant]], na.rm = TRUE),
         n = dplyr::n()
-      ) %>% 
-      na.omit() %>% 
+      ) %>%
+      na.omit() %>%
       dplyr::mutate(
         n_mean = n * .data[[var_mean ]],
         n_percent = round(100 * n / sum(n), 1),
         {{ var_percent }} := round(100 * n_mean / sum(n_mean), 1)
-      ) %>% 
+      ) %>%
       dplyr::select(-n_mean)
-    
+
     } else {
-      
+
       clust_stats <- NULL
     }
-    
-    
+
+
     if (plot && length(n.clusters) == 1L) {
-      
+
       print(clust_stats)
-      
+
     }
-      
+
+    if (plot.data) {
+      out_data <- results.grid
+    }
 
     # output
     if (is.data.frame(after)) {
