@@ -101,10 +101,6 @@ aqStats <- function(mydata,
   # variables we need
   vars <- c("date", pollutant, type)
   
-  # some strange lubridate bug to do with time zones
-  if ("POSIXct" %in% class(mydata$date))
-    mydata <- mutate(mydata, date = ymd_hms(date))
-  
   # cut data by type
   mydata <- cutData(mydata, type)
   
