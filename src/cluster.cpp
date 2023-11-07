@@ -14,9 +14,11 @@ RcppExport SEXP distEuclid(SEXP x, SEXP y, SEXP z){
       sum = 0;
       if (j >= i) { // only need lower triangle
         for (int k = 0; k < nrows; k++) {
-          sum += pow(Am(k , i) - Am(k , j), 2)   + pow(Bm(k , i) - Bm(k , j), 2);
+      
+          sum += 110 * sqrt(pow(Am(k , i) - Am(k , j), 2) + 
+            pow((Bm(k , i) - Bm(k , j)) * cos(Am(k , i) * 3.14159 / 180), 2));
         }
-        Zm(j, i) = sqrt(sum);
+        Zm(j, i) = sum ; 
       }
     }
   }

@@ -3,6 +3,7 @@
 ## Bug fixes
 
 - fix date formatting issue in `aqStats`.
+- fix wrong formula for Euclidian distances in `trajCluster` that did not transform coordinates before distance matrix was calculated. Thanks to Dan Jaffe.
 
 # openair 2.18-0
 
