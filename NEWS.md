@@ -5,6 +5,10 @@
 - fix date formatting issue in `aqStats`.
 - fix wrong formula for Euclidian distances in `trajCluster` that did not transform coordinates before distance matrix was calculated. Thanks to Dan Jaffe.
 
+## New Features
+
+- add option to `corPlot` to carry through "use" option in `cor`.
+
 # openair 2.18-0
 
 ## New Features
