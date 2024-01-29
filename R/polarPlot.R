@@ -1068,6 +1068,9 @@ polarPlot <-
     labels <- pretty(c(mydata[[x]], upper) + min.scale)
     ## offset the lines/labels if necessary
     intervals <- intervals + (min(labels) - min.scale)
+    
+    # return radial scale as attribute "radial_scale" on returned data
+    radial_scale <- intervals
 
     ## add zero in the middle if it exists
     if (min.scale != 0) {
@@ -1187,6 +1190,9 @@ polarPlot <-
     }
 
     newdata <- res
+    
+    # return attribute of scale used - useful for data with negative scales such as air_temp
+    attr(newdata, "radial_scale") <-  range(radial_scale)
     output <- list(plot = plt, data = newdata, call = match.call())
     class(output) <- "openair"
 
