@@ -599,8 +599,13 @@ polarPlot <-
 
     # scale data by subtracting the min value this helps with dealing
     # with negative data on radial axis (starts from zero, always
-    # postive)
+    # positive)
+    
+    # return radial scale as attribute "radial_scale" on returned data for external plotting
+    radial_scale <- range(mydata[[x]])
+    
     mydata[[x]] <- mydata[[x]] - min(mydata[[x]], na.rm = TRUE)
+  
 
     # if more than one pollutant, need to stack the data and set type =
     # "variable" this case is most relevent for model-measurement
@@ -1069,9 +1074,6 @@ polarPlot <-
     ## offset the lines/labels if necessary
     intervals <- intervals + (min(labels) - min.scale)
     
-    # return radial scale as attribute "radial_scale" on returned data
-    radial_scale <- intervals
-
     ## add zero in the middle if it exists
     if (min.scale != 0) {
       labels <- labels[-1]
