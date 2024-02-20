@@ -118,6 +118,7 @@ quickText <- function(text, auto.text = TRUE) {
   ans <- gsub("m/s", "' 'm s' ^-1 *'", ans)
   ans <- gsub("m.s-1", "' 'm s' ^-1 *'", ans)
   ans <- gsub("m s-1", "' 'm s' ^-1 *'", ans)
+  ans <- gsub("km2", "' 'km' ^2 *'", ans)
   ans <- gsub("g/km", "' 'g km' ^-1 *'", ans)
   ans <- gsub("g/s", "' 'g s' ^-1 *'", ans)
   ans <- gsub("kW/t", "' 'kW t' ^-1 *'", ans)
