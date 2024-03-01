@@ -3,14 +3,14 @@
 #' Function for calculating the slope of variables using the York regression, 
 #' which accounts for errors provided for both x and y. 
 #' 
-#' The York regression (YR) was suggested by Derek York from the University of Toronto in 1968 (CITE).
+#' The York regression (YR) was suggested by Derek York from the University of Toronto in 1968.
 #' YR incorporates the correlation coefficient of errors in the minimising function. 
 #' The distance minimised for YR has an angle which depends on the weight of x and y errors. 
 #' When errors are higher for a variable, the relevant data points will weigh less, due to their bigger uncertainty. 
 #' 
 #' The method employed uses an iterative approach to estimate the slope.
 #' 
-#' The York approach is common among the geophysical community, but very limited for other sciences (CITE WEHR).
+#' The York approach is common among the geophysical community, but very limited for other sciences.
 #' 
 #' The slope, slope error and intercept are calculated using the YorkFit() function.
 #' 
@@ -35,6 +35,13 @@
 #' @param max_iterations Maximum number of iterations to identify the slope. 
 #' 
 #' @author Magdalini Alexiadou, Stuart Lacy
+#' 
+#' @references 
+#' York, D. (1966). Least-squares fitting of a straight line. Canadian Journal of Physics, 44(5), 1079-1086.
+#' 
+#' Wehr, R., & Saleska, S. R. (2017). The long-solved problem of the best-fit straight line: application to isotopic mixing lines. Biogeosciences, 14(1), 17-29.
+#' 
+#' Wu, C., & Yu, J. Z. (2018). Evaluation of linear regression techniques for atmospheric applications: the importance of appropriate weighting. Atmospheric Measurement Techniques, 11(2), 1233-1250.
 #' 
 #' @examples
 #' 
