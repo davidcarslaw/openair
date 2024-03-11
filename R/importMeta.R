@@ -22,7 +22,7 @@
 #'
 #' - `"kcl"`,  King's College London networks.
 #'
-#' - `"europe"`,  Hourly European data ([Air Quality e-Reporting](https://www.eea.europa.eu/data-and-maps/data/aqereporting-9)) based on a
+#' - `"europe"`,  Hourly European data (Air Quality e-Reporting) based on a
 #' simplified version of the `{saqgetr}` package.
 #'
 #' By default, the function will return the site latitude, longitude and site
