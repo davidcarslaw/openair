@@ -6,9 +6,10 @@
 
 ## Bug fixes
 
-- fix date formatting issue in `aqStats`.
-- fix wrong formula for Euclidian distances in `trajCluster` that did not transform coordinates before distance matrix was calculated. Thanks to Dan Jaffe.
-- fix the use of the `data_type` "15_min" in the `importUKAQ()` family
+- fix date formatting issue in `aqStats()`.
+- fix wrong formula for Euclidian distances in `trajCluster()` that did not transform coordinates before distance matrix was calculated. Thanks to Dan Jaffe.
+- "15_min" can once again be used as a `data_type` in the `importUKAQ()` family.
+- `importUKAQ()` can now be used to import annual, monthly, and DAQI statistics for multiple combinations of `source` and `year`.
 
 # openair 2.18-0
 

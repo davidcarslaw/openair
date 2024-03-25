@@ -269,7 +269,7 @@ importUKAQ <-
 
       # import statistics
       aq_data <- purrr::pmap(
-        list(files, year, source),
+        tidyr::crossing(tidyr::nesting(files, source), year),
         readSummaryData,
         data_type = data_type,
         to_narrow = to_narrow,
@@ -292,10 +292,11 @@ importUKAQ <-
       source <- unique(source)
       files <- paste0(url_domain, "annual_DAQI", url_abbr)
       files <- unique(files)
-
+      
       # import DAQI
       aq_data <-
-        purrr::pmap(list(files, year, source),
+        purrr::pmap(
+          tidyr::crossing(tidyr::nesting(files, source), year),
           readDAQI,
           .progress = ifelse(progress, "Importing DAQI", FALSE)
         ) %>%
