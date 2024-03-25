@@ -104,7 +104,7 @@ aqStats <- function(mydata,
   # cut data by type
   mydata <- cutData(mydata, type)
   
-  # check we have teh variables
+  # check we have the variables
   mydata <- checkPrep(mydata,
                       vars,
                       "default",

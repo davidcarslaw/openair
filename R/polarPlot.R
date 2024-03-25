@@ -344,7 +344,7 @@
 #'
 #' @import lattice
 #' @import mgcv
-#' @return an [openair][openair-package] object. `data` contians four set
+#' @return an [openair][openair-package] object. `data` contains four set
 #'   columns: \code{cond}, conditioning based on \code{type}; \code{u} and
 #'   \code{v}, the translational vectors based on \code{ws} and \code{wd}; and
 #'   the local \code{pollutant} estimate.

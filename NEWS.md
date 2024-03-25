@@ -29,7 +29,7 @@
   
   - `importAURN()`, `importAQE()`, `importWAQN()`, `importSAQN()`, `importNI()` and `importLocal()` are still exported by `{openair}`. These are all simply wrappers around `importUKAQ()` with forced "source" arguments, and remain for back-compatibility and convenience.
   
-  - While `importKCL()` also imports uk air quality data, it is not currently made available through `importUKAQ()`. Users should continue to import KCL data via `importKCL()` for the time being.
+  - While `importKCL()` also imports UK air quality data, it is not currently made available through `importUKAQ()`. Users should continue to import KCL data via `importKCL()` for the time being.
 
 - `importMeta()` has gained two new "source" options to assist with the new `importUKAQ()` function:
 

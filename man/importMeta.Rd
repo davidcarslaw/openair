@@ -59,7 +59,7 @@ Europe:
 \item \code{"ni"},  The \href{https://www.airqualityni.co.uk/}{Northern Ireland Air Quality Network}.
 \item \code{"local"},  Locally managed air quality networks in England.
 \item \code{"kcl"},  King's College London networks.
-\item \code{"europe"},  Hourly European data (\href{https://www.eea.europa.eu/data-and-maps/data/aqereporting-9}{Air Quality e-Reporting}) based on a
+\item \code{"europe"},  Hourly European data (Air Quality e-Reporting) based on a
 simplified version of the \code{{saqgetr}} package.
 }
 

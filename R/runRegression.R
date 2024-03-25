@@ -1,7 +1,7 @@
 #' Rolling regression for pollutant source characterisation.
 #'
 #' This function calculates rolling regressions for input data with a set window
-#' width. The principal use of teh function is to identify "dilution lines"
+#' width. The principal use of the function is to identify "dilution lines"
 #' where the ratio between two pollutant concentrations is invariant. The
 #' original idea is based on the work of Bentley (2004).
 #'
@@ -10,10 +10,10 @@
 #' concentrations changes by very little. By filtering the output for high R2
 #' values (typically more than 0.90 to 0.95), conditions where local source
 #' dilution is dominant can be isolated for post processing. The function is
-#' more fully descfibed and used in the \code{openair} online manual, together
+#' more fully described and used in the \code{openair} online manual, together
 #' with examples.
 #'
-#' @param mydata A data frame with  colums for \code{date} and at least two
+#' @param mydata A data frame with  columns for \code{date} and at least two
 #'   variables for use in a regression.
 #' @param x The column name of the \code{x} variable for use in a linear
 #'   regression \code{y = m.x + c}.

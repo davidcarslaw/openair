@@ -325,7 +325,7 @@ and \code{cutData}. For example, \code{polarPlot} passes the option
 \code{quickText} to handle routine formatting.}
 }
 \value{
-an \link[=openair-package]{openair} object. \code{data} contians four set
+an \link[=openair-package]{openair} object. \code{data} contains four set
 columns: \code{cond}, conditioning based on \code{type}; \code{u} and
 \code{v}, the translational vectors based on \code{ws} and \code{wd}; and
 the local \code{pollutant} estimate.

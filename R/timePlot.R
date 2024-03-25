@@ -254,7 +254,7 @@ timePlot <- function(mydata, pollutant = "nox", group = FALSE, stack = FALSE,
   ## optionally includes several pre-deifined averaging periods
   ## can deal with wide range of date/time formats e.g. minute, 15-min, hourly, daily
 
-  ## note that in teh case of type "site", each site is thought of as a "pollutant"
+  ## note that in the case of type "site", each site is thought of as a "pollutant"
 
   ## Author: David Carslaw 11 Sep. 09
   ## CHANGES:
