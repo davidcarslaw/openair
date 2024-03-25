@@ -230,16 +230,21 @@ importUKAQ <-
     allowed_types <- c(
       "hourly",
       "daily",
-      "15min",
       "monthly",
       "annual",
       "daqi",
+      "15min",
       "15_min",
       "24_hour",
       "8_hour",
       "daily_max_8"
     )
 
+    # handle 15_min for back-compatibility reasons
+    if (data_type == "15_min") {
+      data_type <- "15min"
+    }
+    
     if (!tolower(data_type) %in% allowed_types) {
       cli::cli_warn(
         c(
