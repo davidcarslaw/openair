@@ -1,5 +1,11 @@
 # openair (development version)
 
+## Bug fixes
+
+- Fixed an issue wherein `importUKAQ()` would drop sites if importing from `local` sites *and* another network.
+
+# openair 2.18-2
+
 ## New Features
 
 - add option to `corPlot` to carry through "use" option in `cor`.

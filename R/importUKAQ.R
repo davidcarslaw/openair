@@ -327,7 +327,8 @@ importUKAQ <-
             source = source,
             url_data = url_domain
           ) %>%
-          merge(pcodes) %>%
+          dplyr::left_join(pcodes, 
+                           by = "code") %>%
           tidyr::crossing(year = year)
       } else {
         site_info <-
@@ -339,7 +340,7 @@ importUKAQ <-
           dplyr::mutate(pcode = rep(NA, times = length(site))) %>%
           tidyr::crossing(year = year)
       }
-
+      
       aq_data <-
         purrr::pmap(
           .l = site_info,
