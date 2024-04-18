@@ -1,6 +1,8 @@
 url: https://davidcarslaw.github.io/openair/
 template:
   bootstrap: 5
+  bootswatch: lumen
+  pkgdown-nav-height: 100px
 navbar:
   title: openair
   type: default
