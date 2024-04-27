@@ -163,7 +163,7 @@ data to extract plot components and plotting them in other ways.}
 
 \item{month.last}{Not used. Please use the \code{panels} argument.}
 
-\item{...}{Other graphical parameters passed onto \code{\link[=lattice:xyplot]{lattice:xyplot()}} and
+\item{...}{Other graphical parameters passed onto \code{\link[lattice:xyplot]{lattice::xyplot()}} and
 \code{\link[=cutData]{cutData()}}. For example, in the case of \code{\link[=cutData]{cutData()}} the option \code{hemisphere = "southern"}.}
 }
 \value{

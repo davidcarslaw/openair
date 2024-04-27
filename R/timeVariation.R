@@ -166,7 +166,7 @@
 #' @param month.last Not used. Please use the `panels` argument.
 #' @param plot Should a plot be produced? `FALSE` can be useful when analysing
 #'   data to extract plot components and plotting them in other ways.
-#' @param ... Other graphical parameters passed onto [lattice:xyplot()] and
+#' @param ... Other graphical parameters passed onto [lattice::xyplot()] and
 #'   [cutData()]. For example, in the case of [cutData()] the option `hemisphere
 #'   = "southern"`.
 #'
