@@ -2,7 +2,9 @@
 
 ## New Features
 
-- add option to `corPlot` to carry through "use" option in `cor`.
+- `timeVariation()` has gained the `panels` argument. This allows users to both specify the order of the bottom row of panels (each of "hour", "day", and "month") but also exclude panels. This is likely most useful when only a single month of data has been provided; setting `panels = c("hour", "day")` will exclude the superfluous 'month' panel entirely.
+
+- add option to `corPlot()` to carry through "use" option in `cor`.
 
 ## Bug fixes
 
