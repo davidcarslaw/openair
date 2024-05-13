@@ -482,7 +482,7 @@ polarCluster <-
     var_mean <- paste0("mean_", pollutant)
     var_percent <- paste0(pollutant, "_percent")
 
-    if (length(n.clusters) == 1L) {
+    if (length(n.clusters) == 1L && length(pollutant) == 1L) {
 
     clust_stats <-
       out_data %>%
