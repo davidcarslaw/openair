@@ -4,9 +4,12 @@ Title: Tools for the Analysis of Air Pollution Data
 Version: 2.18.2.9001
 Date: 2024-03-11
 Authors@R: c(
-    person("David", "Carslaw", , "david.carslaw@york.ac.uk", role = c("aut", "cre")),
-    person("Jack", "Davison", , "jack.davison@ricardo.com", role = "aut"),
-    person("Karl", "Ropkins", , "K.Ropkins@its.leeds.ac.uk", role = "aut")
+    person("David", "Carslaw", , "david.carslaw@york.ac.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-0991-950X")),
+    person("Jack", "Davison", , "jack.davison@ricardo.com", role = "aut",
+           comment = c(ORCID = "0000-0003-2653-6615")),
+    person("Karl", "Ropkins", , "K.Ropkins@its.leeds.ac.uk", role = "aut",
+           comment = c(ORCID = "0000-0002-0294-6997"))
   )
 Maintainer: David Carslaw <david.carslaw@york.ac.uk>
 Description: Tools to analyse, interpret and understand air pollution
@@ -57,4 +60,4 @@ Language: en-GB
 LazyData: yes
 LazyLoad: yes
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
