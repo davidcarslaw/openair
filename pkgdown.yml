@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-07-17T07:35Z
+last_built: 2024-08-05T10:48Z
 urls:
   reference: https://davidcarslaw.github.io/openair/reference
   article: https://davidcarslaw.github.io/openair/articles
