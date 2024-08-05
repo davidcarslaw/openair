@@ -13,8 +13,9 @@ aqStat(
   avg.time = "hour",
   limit = NA,
   percentile = NA,
-  roll = NA,
+  roll.width = NA,
   roll.avg.time = NA,
+  roll.avg.stat = "max",
   name = NULL
 )
 }
@@ -47,13 +48,15 @@ calculated; passed directly to \code{\link[=timeAverage]{timeAverage()}}.}
 
 \item{percentile}{The percentile value, for \code{stat = "percentile"}.}
 
-\item{roll}{If an integer value is provided, a rolling mean will be
+\item{roll.width}{If an integer value is provided, a rolling mean will be
 calculated \emph{after} time averaging and before \emph{stat}. For example, to
 calculate an 8-hour rolling mean set \verb{avg.time = "1 hour", roll = 8L}.}
 
-\item{roll.avg.time}{If \code{roll} is specified, users can set \code{roll.avg.time} to
-time average the rolling mean values. This could be useful to calculate a
-\emph{max} daily running 8 hour mean to compare with an ozone limit, for example.}
+\item{roll.avg.time, roll.avg.stat}{If \code{roll.width} is specified, users can
+additionally set \code{roll.avg.time} and \code{roll.avg.stat} to time average the
+rolling mean values using \code{\link[=timeAverage]{timeAverage()}}. This could be useful to
+calculate a \emph{max} daily running 8 hour mean to compare with an ozone limit,
+for example.}
 
 \item{name}{Optionally change the output column name for this air quality
 statistic.}
@@ -64,6 +67,30 @@ constructed using \code{\link[=aqStat]{aqStat()}}. This pair of functions allows
 define air quality statistics and limits relevant to their local air quality
 legislation and quickly track compliance.
 }
+\section{Data Transformation Pipeline}{
+
+
+\code{\link[=calcAQStats]{calcAQStats()}} does \emph{a lot} in one go, so it is worth outlining the order
+of proceedings:
+\itemize{
+\item First, the data is time-averaged using \code{avg.time}. This is passed
+straight to \code{\link[=timeAverage]{timeAverage()}}. For hourly data and the default \code{avg.time} of
+\code{"hour"}, effectively nothing happens at this stage.
+\item Second, if \code{roll.width} is specified, a rolling mean is calculated
+using \code{\link[=rollingMean]{rollingMean()}}. Typically this should be combined with \code{avg.time =   "hour"} to ensure \emph{hourly} data is rolled. Most likely, \code{roll.width} will
+be \code{8L} (for ozone & carbon monoxide) or \code{24L} (for particulates).
+\item If \code{roll.avg.time} is set, the average rolled values will then
+themselves be averaged. \code{roll.avg.stat} defaults to \code{"max"}, which is
+expected to be the most useful for almost all applications. These options
+are likely only useful when \code{stat = "limit"} to compare complex statistics
+like "daily max rolling 8-hour mean ozone" with a limit value.
+\item Next, the \code{stat} is used to calculate a \code{period} (by default, annual)
+statistic. If \code{stat != "limit"} this, again, is passed straight to
+\code{\link[=timeAverage]{timeAverage()}}. If \code{stat == "limit"}, each value is checked against the
+\code{limit} and the number of values exceeding the limit are returned.
+}
+}
+
 \examples{
 # calculate some UK AQ limits
 calcAQStats(

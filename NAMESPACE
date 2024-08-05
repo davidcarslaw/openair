@@ -3,6 +3,7 @@
 S3method(head,openair)
 S3method(names,openair)
 S3method(plot,openair)
+S3method(print,aqStat)
 S3method(print,openair)
 S3method(results,default)
 S3method(results,openair)

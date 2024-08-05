@@ -22,6 +22,33 @@
 #' @seealso [aqStats()], for a simpler but more prescriptive way of calculating
 #'   air quality statistics
 #'
+#' @section Data Transformation Pipeline:
+#'
+#'   [calcAQStats()] does *a lot* in one go, so it is worth outlining the order
+#'   of proceedings:
+#'
+#'   - First, the data is time-averaged using `avg.time`. This is passed
+#'   straight to [timeAverage()]. For hourly data and the default `avg.time` of
+#'   `"hour"`, effectively nothing happens at this stage.
+#'
+#'   - Second, if `roll.width` is specified, a rolling mean is calculated
+#'   using [rollingMean()]. Typically this should be combined with `avg.time =
+#'   "hour"` to ensure *hourly* data is rolled. Most likely, `roll.width` will
+#'   be `8L` (for ozone & carbon monoxide) or `24L` (for particulates).
+#'
+#'   - If `roll.avg.time` is set, the average rolled values will then
+#'   themselves be averaged. `roll.avg.stat` defaults to `"max"`, which is
+#'   expected to be the most useful for almost all applications. These options
+#'   are likely only useful when `stat = "limit"` to compare complex statistics
+#'   like "daily max rolling 8-hour mean ozone" with a limit value.
+#'
+#'   - Next, the `stat` is used to calculate a `period` (by default, annual)
+#'   statistic. If `stat != "limit"` this, again, is passed straight to
+#'   [timeAverage()]. If `stat == "limit"`, each value is checked against the
+#'   `limit` and the number of values exceeding the limit are returned.
+#'
+#'  
+#'
 #' @examples
 #' # calculate some UK AQ limits
 #' calcAQStats(
@@ -49,6 +76,22 @@ calcAQStats <- function(mydata,
                         period = c("year"),
                         progress = TRUE) {
   period <- match.arg(period)
+  
+  # catch passing a single aqstat
+  if (inherits(aqstats, "aqStat")) {
+    aqstats <- list(aqstats)
+  }
+  
+  # catch passing things that aren't aqstats
+  if (!all(purrr::map_vec(test, function(x)
+    inherits(x, "aqStat")))) {
+    cli::cli_abort(
+      c("x" = "Unknown object passed to {.field aqstats}.",
+        "i" = "Please pass a {.fun list} of objects created by {.fun aqStat}.")
+    )
+  }
+  
+  # calculate air quality stats
   purrr::map(
     aqstats,
     ~ calculate_aqstat(mydata, .x, period = period),
@@ -71,12 +114,14 @@ calcAQStats <- function(mydata,
 #'   and returns the number of instances where the value exceeds the limit.
 #' @param avg.time An initial averaging time to calculate *before* the `stat` is
 #'   calculated; passed directly to [timeAverage()].
-#' @param roll If an integer value is provided, a rolling mean will be
+#' @param roll.width If an integer value is provided, a rolling mean will be
 #'   calculated *after* time averaging and before *stat*. For example, to
 #'   calculate an 8-hour rolling mean set `avg.time = "1 hour", roll = 8L`.
-#' @param roll.avg.time If `roll` is specified, users can set `roll.avg.time` to
-#'   time average the rolling mean values. This could be useful to calculate a
-#'   *max* daily running 8 hour mean to compare with an ozone limit, for example.
+#' @param roll.avg.time,roll.avg.stat If `roll.width` is specified, users can
+#'   additionally set `roll.avg.time` and `roll.avg.stat` to time average the
+#'   rolling mean values using [timeAverage()]. This could be useful to
+#'   calculate a *max* daily running 8 hour mean to compare with an ozone limit,
+#'   for example.
 #' @param limit The limit value, for `stat = "limit"`.
 #' @param percentile The percentile value, for `stat = "percentile"`.
 #' @param name Optionally change the output column name for this air quality
@@ -90,8 +135,9 @@ aqStat <- function(pollutant = "no2",
                    avg.time = "hour",
                    limit = NA,
                    percentile = NA,
-                   roll = NA,
+                   roll.width = NA,
                    roll.avg.time = NA,
+                   roll.avg.stat = "max",
                    name = NULL) {
   stat <- match.arg(stat)
   
@@ -102,8 +148,9 @@ aqStat <- function(pollutant = "no2",
       avg.time = avg.time,
       limit = limit,
       percentile = percentile,
-      roll = roll,
+      roll = roll.width,
       roll.avg.time = roll.avg.time,
+      roll.avg.stat = roll.avg.stat,
       name = name
     )
   
@@ -132,8 +179,9 @@ calculate_aqstat <- function(data, aqstat, period) {
       thedata <-
         openair::timeAverage(
           thedata,
-          pollutant = aqstat$pollutant, 
-          avg.time = aqstat$roll.avg.time
+          pollutant = aqstat$pollutant,
+          avg.time = aqstat$roll.avg.time,
+          statistic = aqstat$roll.avg.stat
         )
     }
   }
@@ -158,6 +206,13 @@ calculate_aqstat <- function(data, aqstat, period) {
   
   if (is.null(aqstat$name)) {
     newname <- paste(aqstat$pollutant, aqstat$stat, aqstat$avg.time, sep = ".")
+    if (!is.na(aqstat$roll)) {
+      if (!is.na(aqstat$roll.avg.time)) {
+        newname <- paste(newname, paste0(aqstat$roll.avg.stat, aqstat$roll.avg.time, "roll", aqstat$roll), sep = ".")
+      } else {
+        newname <- paste(newname, paste0("roll", aqstat$roll), sep = ".")
+      }
+    }
     if (aqstat$stat == "limit") {
       newname <- paste(newname, aqstat$limit, sep = ".")
     }
@@ -173,9 +228,9 @@ calculate_aqstat <- function(data, aqstat, period) {
   return(thedata)
 }
 
-#' Nice printing for aqStat objects
+#' @method print aqStat
 #' @author Jack Davison
-#' @noRd
+#' @export
 print.aqStat <- function(x) {
   cli::cli_h2("Air Quality Statistic")
   cli::cli_inform(c("i" = "Please use in {.fun calcAQStats}"))
