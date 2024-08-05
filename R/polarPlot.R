@@ -326,6 +326,8 @@
 #'
 #' @param formula.label When pair-wise statistics such as regression slopes are
 #'   calculated and plotted, should a formula label be displayed?
+#'   \code{formula.label} will also determine whether concentration information
+#'   is printed when \code{statistic = "cpf}.
 #'
 #' @param tau The quantile to be estimated when \code{statistic} is set to
 #'   \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
@@ -722,6 +724,7 @@ polarPlot <-
           "th percentile (=", format(Pval, digits = 2), ")",
           sep = ""
         )
+        if (!formula.label) sub <- NULL # no label
       }
     } else {
       sub <- NULL

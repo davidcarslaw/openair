@@ -302,7 +302,9 @@ correlation or regression techniques are used. Only \code{"gaussian"} is
 supported but this may be enhanced in the future.}
 
 \item{formula.label}{When pair-wise statistics such as regression slopes are
-calculated and plotted, should a formula label be displayed?}
+calculated and plotted, should a formula label be displayed?
+\code{formula.label} will also determine whether concentration information
+is printed when \code{statistic = "cpf}.}
 
 \item{tau}{The quantile to be estimated when \code{statistic} is set to
 \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
