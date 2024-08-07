@@ -48,9 +48,11 @@ Imports:
     utils
 Suggests:
     KernSmooth,
+    knitr,
     mapdata,
     maps,
     quantreg,
+    rmarkdown,
     spelling
 LinkingTo: 
     Rcpp
@@ -61,3 +63,4 @@ LazyData: yes
 LazyLoad: yes
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+VignetteBuilder: knitr
