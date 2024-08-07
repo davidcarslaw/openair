@@ -11,7 +11,7 @@
 [![R-CMD-check](https://github.com/davidcarslaw/openair/workflows/R-CMD-check/badge.svg)](https://github.com/davidcarslaw/openair/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/openair)](https://CRAN.R-project.org/package=openair)
-![](http://cranlogs.r-pkg.org/badges/grand-total/openair)
+![CRAN total downloads](http://cranlogs.r-pkg.org/badges/grand-total/openair)
 
 [![github](https://img.shields.io/badge/CODE-github-black?logo=github)](https://github.com/davidcarslaw/openair)
 [![website](https://img.shields.io/badge/DOCS-website-black)](https://davidcarslaw.github.io/openair)
