@@ -96,6 +96,6 @@ pak::pak("davidcarslaw/openair")
 
 🏛️ **openair** is primarily maintained by [David Carslaw](https://github.com/davidcarslaw).
 
-📃 **openair** is licensed under the [GNU General Public License](LICENSE.md).
+📃 **openair** is licensed under the [GNU General Public License](https://davidcarslaw.github.io/openair/LICENSE.html).
 
 🧑‍💻 Contributions are welcome from the wider community. See the [contributing guide](https://davidcarslaw.github.io/openair/CONTRIBUTING.html) and [code of conduct](https://davidcarslaw.github.io/openair/CODE_OF_CONDUCT.html) for more information.
