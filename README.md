@@ -55,8 +55,6 @@ status](https://www.r-pkg.org/badges/version/openair)](https://CRAN.R-project.or
 <img src="man/figures/feature-banner.png" width="800">
 </div>
 
-A paper on the latter is available [here](https://www.sciencedirect.com/science/article/pii/S1364815214001339).
-
 <hr>
 
 ## 📖 Documentation
