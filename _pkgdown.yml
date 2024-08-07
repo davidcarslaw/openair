@@ -1,21 +1,26 @@
 url: https://davidcarslaw.github.io/openair/
 template:
   bootstrap: 5
-  bootswatch: lumen
-  pkgdown-nav-height: 100px
+  bslib:
+    bootswatch: lumen
+    pkgdown-nav-height: 100px
+
 navbar:
   title: openair
-  type: default
-  left:
-  - text: Functions
-    href: reference/index.html
-  - text: News
-    href: news/index.html
-  - text: Book
-    href: https://bookdown.org/david_carslaw/openair/
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/davidcarslaw/openair
+  structure:
+    left:  [intro, reference, news, book, articles, tutorials]
+    right: [search, github]
+  components:
+    reference:
+      text: Functions
+      href: reference/index.html
+    news:
+      text: News
+      href: news/index.html
+    book:
+      text: Book (external)
+      href: https://bookdown.org/david_carslaw/openair/
+
 reference:
 - title: Data
   desc: In-built data to demonstrate openair functions.
