@@ -25,7 +25,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="default" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">openair</a>
 
@@ -38,12 +38,16 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/openair.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Functions</a></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">News</a></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://bookdown.org/david_carslaw/openair/">Book</a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://bookdown.org/david_carslaw/openair/">Book (external)</a></li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/davidcarslaw/openair"><span class="fa fa-github fa-lg"></span></a></li>
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/davidcarslaw/openair/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -51,161 +55,72 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="openair-open-source-tools-for-air-quality-data-analysis-">openair: open source tools for air quality data analysis <a class="anchor" aria-label="anchor" href="#openair-open-source-tools-for-air-quality-data-analysis-"></a>
-</h1>
-</div>
+  <main id="main" class="col-md-9"><div align="center">
+<p><img src="reference/figures/logo.png" height="200"></p>
+<div class="section level2">
+<h2 id="openair">
+<strong>openair</strong><a class="anchor" aria-label="anchor" href="#openair"></a>
+</h2>
+<div class="section level3">
+<h3 id="open-source-tools-for-air-quality-data-analysis">open source tools for air quality data analysis<a class="anchor" aria-label="anchor" href="#open-source-tools-for-air-quality-data-analysis"></a>
+</h3>
 <!-- badges: start -->
 
-<p><strong>openair</strong> is an R package developed for the purpose of analysing air quality data — or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council (<a href="https://www.ukri.org/councils/nerc/" class="external-link">NERC</a>), with additional funds from Defra.</p>
-<p>The most up to date information on <code>openair</code> can be found in the package itself and at the book website (<a href="https://bookdown.org/david_carslaw/openair/" class="external-link uri">https://bookdown.org/david_carslaw/openair/</a>).</p>
+<p><a href="https://github.com/davidcarslaw/openair" class="external-link"><img src="https://img.shields.io/badge/CODE-github-black?logo=github" alt="github"></a> <a href="https://davidcarslaw.github.io/openair"><img src="https://img.shields.io/badge/DOCS-website-black" alt="website"></a> <a href="https://bookdown.org/david_carslaw/openair/" class="external-link"><img src="https://img.shields.io/badge/DOCS-book-black" alt="book"></a> <!-- badges: end --></p>
+</div>
+</div>
+</div>
+<p><strong>openair</strong> is an R package developed for the purpose of analysing air quality data — or more generally atmospheric composition data. The package is extensively used in academia, the public and private sectors. The project was initially funded by the UK Natural Environment Research Council (<a href="https://www.ukri.org/councils/nerc/" class="external-link">NERC</a>), with additional funds from the UK Department for Environment Food &amp; Rural Affairs (<a href="https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs" class="external-link">Defra</a>).</p>
+<div align="center">
+<p><em>Part of the openair toolkit</em></p>
+<p><a href="https://davidcarslaw.github.io/openair"><img src="https://img.shields.io/badge/openair_core-06D6A0?style=flat-square" alt="openair"></a> | <a href="https://davidcarslaw.github.io/worldmet" class="external-link"><img src="https://img.shields.io/badge/worldmet-26547C?style=flat-square" alt="worldmet"></a> | <a href="https://davidcarslaw.github.io/openairmaps"><img src="https://img.shields.io/badge/openairmaps-FFD166?style=flat-square" alt="openairmaps"></a> | <a href="https://davidcarslaw.github.io/deweather" class="external-link"><img src="https://img.shields.io/badge/deweather-EF476F?style=flat-square" alt="deweather"></a></p>
+</div>
+<hr>
 <div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+<h2 id="id_-core-features">💡 Core Features<a class="anchor" aria-label="anchor" href="#id_-core-features"></a>
 </h2>
-<p>Installation can be done in the normal way:</p>
+<p><strong>openair</strong> has developed over many years to form an extensive toolkit of functions for analysing air quality and atmospheric composition data.</p>
+<ul>
+<li><p><strong>Access to data</strong> from several hundred UK air pollution monitoring sites through the <code><a href="reference/importUKAQ.html">importUKAQ()</a></code> family of functions.</p></li>
+<li><p><strong>Time Series &amp; Trend analysis</strong> to explore how air quality concentrations vary over time (e.g., through <code><a href="reference/timePlot.html">timePlot()</a></code>, <code><a href="reference/timeVariation.html">timeVariation()</a></code>, and <code><a href="reference/calendarPlot.html">calendarPlot()</a></code>).</p></li>
+<li><p><strong>Directional analysis</strong> to help characterise different sources of pollution, including the creation of <strong>bivariate polar plots</strong> using <code><a href="reference/polarPlot.html">polarPlot()</a></code>.</p></li>
+<li><p><strong>Trajectory analysis</strong> to examine NOAA Hysplit trajectories, with plotting (<code><a href="reference/trajPlot.html">trajPlot()</a></code>), heatmap (<code><a href="reference/trajLevel.html">trajLevel()</a></code>) and clustering (<code><a href="reference/trajCluster.html">trajCluster()</a></code>) functionality.</p></li>
+<li><p><strong>Utility functions</strong>, such as <code><a href="reference/timeAverage.html">timeAverage()</a></code> and <code><a href="reference/selectByDate.html">selectByDate()</a></code> to make it easier to manipulate atmospheric composition data.</p></li>
+<li><p><strong>Flexible plot conditioning</strong> to easily plot data by hour or the day, day of the week, season of the year, etc., through the <code>type</code> option available in most functions.</p></li>
+</ul>
+<div align="center">
+<p><img src="reference/figures/feature-banner.png" width="800"></p>
+</div>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="id_-documentation">📖 Documentation<a class="anchor" aria-label="anchor" href="#id_-documentation"></a>
+</h2>
+<p>All <strong>openair</strong> functions are fully documented; access documentation using R in your IDE of choice.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"openair"</span><span class="op">)</span></span></code></pre></div>
-<p>The development version can be installed from GitHub. Installation of <code>openair</code> from GitHub is easy using the <code>pak</code> package. Note, because <code>openair</code> contains C++ code a compiler is also needed. For Windows - for example, <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a> is needed.</p>
+<code class="sourceCode R"><span><span class="op">?</span><span class="fu">openair</span><span class="fu">::</span><span class="va"><a href="reference/polarPlot.html">polarPlot</a></span></span></code></pre></div>
+<p>Documentation is also hosted online on the <strong>package website</strong>.</p>
+<p><a href="https://davidcarslaw.github.io/openair"><img src="https://img.shields.io/badge/website-documentation-blue" alt="website"></a></p>
+<p>A guide to the openair toolkit can be found in the <strong>online book</strong>, which contains lots of code snippets, demonstrations of functionality, and ideas for the application of <strong>openair</strong>’s various functions.</p>
+<p><a href="https://bookdown.org/david_carslaw/openair/" class="external-link"><img src="https://img.shields.io/badge/book-code_demos_and_ideas-blue" alt="book"></a></p>
+<hr>
+</div>
+<div class="section level2">
+<h2 id="id_️-installation">🗃️ Installation<a class="anchor" aria-label="anchor" href="#id_%EF%B8%8F-installation"></a>
+</h2>
+<p><strong>openair</strong> can be installed from <strong>CRAN</strong> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"openair"</span><span class="op">)</span></span></code></pre></div>
+<p>You can also install the development version of <strong>openair</strong> from GitHub using <a href="https://pak.r-lib.org/" class="external-link">pak</a>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"davidcarslaw/openair"</span><span class="op">)</span></span></code></pre></div>
+<hr>
+<p>🏛️ <strong>openair</strong> is primarily maintained by <a href="https://github.com/davidcarslaw" class="external-link">David Carslaw</a>.</p>
+<p>📃 <strong>openair</strong> is licensed under the <a href="https://davidcarslaw.github.io/openair/LICENSE.html">GNU General Public License</a>.</p>
+<p>🧑‍💻 Contributions are welcome from the wider community. See the <a href="https://davidcarslaw.github.io/openair/CONTRIBUTING.html">contributing guide</a> and <a href="https://davidcarslaw.github.io/openair/CODE_OF_CONDUCT.html">code of conduct</a> for more information.</p>
 </div>
-<div class="section level2">
-<h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
-</h2>
-<p><code>openair</code> has developed over several years to help analyse air quality data.</p>
-<p>This package continues to develop and input from other developers would be welcome. A summary of some of the features are:</p>
-<ul>
-<li>
-<strong>Access to data</strong> from several hundred UK air pollution monitoring sites through the <code>importAURN</code> and family functions.</li>
-<li>
-<strong>Utility functions</strong> such as <code>timeAverage</code> and <code>selectByDate</code> to make it easier to manipulate atmospheric composition data.</li>
-<li>Flexible <strong>wind and pollution roses</strong> through <code>windRose</code> and <code>pollutionRose</code>.</li>
-<li>Flexible plot conditioning to easily plot data by hour or the day, day of the week, season etc. through the <code>openair</code> <code>type</code> option available in most functions.</li>
-<li>More sophisticated <strong>bivariate polar plots</strong> and conditional probability functions to help characterise different sources of pollution. A paper on the latter is available <a href="https://www.sciencedirect.com/science/article/pii/S1364815214001339" class="external-link">here</a>.</li>
-<li>Access to NOAA Hysplit pre-calculated annual 96-hour back <strong>trajectories</strong> and many plotting and analysis functions e.g. trajectory frequencies, Potential Source Contribution Function and trajectory clustering.</li>
-<li>Many functions for air quality <strong>model evaluation</strong> using the flexible methods described above e.g. the <code>type</code> option to easily evaluate models by season, hour of the day etc. These include key model statistics, Taylor Diagram, Conditional Quantile plots.</li>
-</ul>
-</div>
-<div class="section level2">
-<h2 id="brief-examples">Brief examples<a class="anchor" aria-label="anchor" href="#brief-examples"></a>
-</h2>
-<div class="section level3">
-<h3 id="import-data-from-the-uk-automatic-urban-and-rural-network">Import data from the UK Automatic Urban and Rural Network<a class="anchor" aria-label="anchor" href="#import-data-from-the-uk-automatic-urban-and-rural-network"></a>
-</h3>
-<p>It is easy to import hourly data from 100s of sites and to import several sites at one time and several years of data.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://davidcarslaw.github.io/openair/">openair</a></span><span class="op">)</span></span>
-<span><span class="va">kc1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/importUKAQ-wrapper.html">importAURN</a></span><span class="op">(</span>site <span class="op">=</span> <span class="st">"kc1"</span>, year <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span></span>
-<span><span class="va">kc1</span></span>
-<span><span class="co">#&gt; # A tibble: 8,784 × 15</span></span>
-<span><span class="co">#&gt;    source site     code  date                   co   nox   no2    no    o3   so2</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt; &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 aurn   London … KC1   2020-01-01 00:00:00 0.214  64.8  46.2 12.1   1.13    NA</span></span>
-<span><span class="co">#&gt;  2 aurn   London … KC1   2020-01-01 01:00:00 0.237  74.1  45.0 19.0   1.20    NA</span></span>
-<span><span class="co">#&gt;  3 aurn   London … KC1   2020-01-01 02:00:00 0.204  60.5  41.4 12.4   1.50    NA</span></span>
-<span><span class="co">#&gt;  4 aurn   London … KC1   2020-01-01 03:00:00 0.204  53.5  39.8  8.93  1.60    NA</span></span>
-<span><span class="co">#&gt;  5 aurn   London … KC1   2020-01-01 04:00:00 0.169  37.7  33.6  2.63  5.79    NA</span></span>
-<span><span class="co">#&gt;  6 aurn   London … KC1   2020-01-01 05:00:00 0.160  43.3  36.8  4.25  6.09    NA</span></span>
-<span><span class="co">#&gt;  7 aurn   London … KC1   2020-01-01 06:00:00 0.157  48.2  39.4  5.76  2.74    NA</span></span>
-<span><span class="co">#&gt;  8 aurn   London … KC1   2020-01-01 07:00:00 0.178  60.5  44.7 10.3   1.20    NA</span></span>
-<span><span class="co">#&gt;  9 aurn   London … KC1   2020-01-01 08:00:00 0.233  71.8  47.9 15.6   2.25    NA</span></span>
-<span><span class="co">#&gt; 10 aurn   London … KC1   2020-01-01 09:00:00 0.329 128.   46.9 53.2   2.25    NA</span></span>
-<span><span class="co">#&gt; # ℹ 8,774 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 5 more variables: pm10 &lt;dbl&gt;, pm2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   air_temp &lt;dbl&gt;</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="utility-functions">Utility functions<a class="anchor" aria-label="anchor" href="#utility-functions"></a>
-</h3>
-<p>Using the <code>selectByDate</code> function it is easy to select quite complex time-based periods. For example, to select weekday (Monday to Friday) data from June to September for 2012 <em>and</em> for the hours 7am to 7pm inclusive:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/selectByDate.html">selectByDate</a></span><span class="op">(</span><span class="va">kc1</span>,</span>
-<span>  day <span class="op">=</span> <span class="st">"weekday"</span>,</span>
-<span>  year <span class="op">=</span> <span class="fl">2020</span>,</span>
-<span>  month <span class="op">=</span> <span class="fl">6</span><span class="op">:</span><span class="fl">9</span>,</span>
-<span>  hour <span class="op">=</span> <span class="fl">7</span><span class="op">:</span><span class="fl">19</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">sub</span></span>
-<span><span class="co">#&gt; # A tibble: 1,144 × 15</span></span>
-<span><span class="co">#&gt;    date                source site    code      co   nox   no2    no    o3   so2</span></span>
-<span><span class="co">#&gt;    &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 2020-06-01 07:00:00 aurn   London… KC1   0.125   23.1 16.8  4.14   56.5  2.29</span></span>
-<span><span class="co">#&gt;  2 2020-06-01 08:00:00 aurn   London… KC1   0.133   25.2 17.8  4.79   61.7  2.68</span></span>
-<span><span class="co">#&gt;  3 2020-06-01 09:00:00 aurn   London… KC1   0.119   15.6 12.2  2.22   75.8  2.35</span></span>
-<span><span class="co">#&gt;  4 2020-06-01 10:00:00 aurn   London… KC1   0.104   13.8 11.1  1.79   87.1  1.57</span></span>
-<span><span class="co">#&gt;  5 2020-06-01 11:00:00 aurn   London… KC1   0.0956  14.0 11.8  1.46   96.7  1.44</span></span>
-<span><span class="co">#&gt;  6 2020-06-01 12:00:00 aurn   London… KC1   0.0985  11.3  9.97 0.893 106.   1.44</span></span>
-<span><span class="co">#&gt;  7 2020-06-01 13:00:00 aurn   London… KC1   0.0927  11.0  9.64 0.893 112.   2.03</span></span>
-<span><span class="co">#&gt;  8 2020-06-01 14:00:00 aurn   London… KC1   0.0927  12.5 10.8  1.14  114.   2.81</span></span>
-<span><span class="co">#&gt;  9 2020-06-01 15:00:00 aurn   London… KC1   0.0811  10.7  9.48 0.822 115.   2.88</span></span>
-<span><span class="co">#&gt; 10 2020-06-01 16:00:00 aurn   London… KC1   0.0898  13.9 11.9  1.29  104.   2.22</span></span>
-<span><span class="co">#&gt; # ℹ 1,134 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 5 more variables: pm10 &lt;dbl&gt;, pm2.5 &lt;dbl&gt;, ws &lt;dbl&gt;, wd &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   air_temp &lt;dbl&gt;</span></span></code></pre></div>
-<p>Similarly it is easy to time-average data in many flexible ways. For example, 2-week means can be calculated as</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sub2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/timeAverage.html">timeAverage</a></span><span class="op">(</span><span class="va">kc1</span>, avg.time <span class="op">=</span> <span class="st">"2 week"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="the-type-option">The <code>type</code> option<a class="anchor" aria-label="anchor" href="#the-type-option"></a>
-</h3>
-<p>One of the key aspects of <code>openair</code> is the use of the <code>type</code> option, which is available for almost all <code>openair</code> functions. The <code>type</code> option partitions data by different categories of variable. There are many built-in options that <code>type</code> can take based on splitting your data by different date values. A summary of in-built values of type are:</p>
-<ul>
-<li>“year” splits data by year</li>
-<li>“month” splits variables by month of the year</li>
-<li>“monthyear” splits data by year <em>and</em> month</li>
-<li>“season” splits variables by season. Note in this case the user can also supply a <code>hemisphere</code> option that can be either “northern” (default) or “southern”</li>
-<li>“weekday” splits variables by day of the week</li>
-<li>“weekend” splits variables by Saturday, Sunday, weekday</li>
-<li>“daylight” splits variables by nighttime/daytime. Note the user must supply a <code>longitude</code> and <code>latitude</code>
-</li>
-<li>“dst” splits variables by daylight saving time and non-daylight saving time (see manual for more details)</li>
-<li>“wd” if wind direction (<code>wd</code>) is available <code>type = "wd"</code> will split the data up into 8 sectors: N, NE, E, SE, S, SW, W, NW.</li>
-<li>“seasonyear (or”yearseason”) will split the data into year-season intervals, keeping the months of a season together. For example, December 2010 is considered as part of winter 2011 (with January and February 2011). This makes it easier to consider contiguous seasons. In contrast, <code>type = "season"</code> will just split the data into four seasons regardless of the year.</li>
-</ul>
-<p>If a categorical variable is present in a data frame e.g. <code>site</code> then that variables can be used directly e.g. <code>type = "site"</code>.</p>
-<p><code>type</code> can also be a numeric variable. In this case the numeric variable is split up into 4 <em>quantiles</em> i.e. four partitions containing equal numbers of points. Note the user can supply the option <code>n.levels</code> to indicate how many quantiles to use.</p>
-</div>
-<div class="section level3">
-<h3 id="example-directional-analysis">Example directional analysis<a class="anchor" aria-label="anchor" href="#example-directional-analysis"></a>
-</h3>
-<p><code>openair</code> can plot basic wind roses very easily provided the variables <code>ws</code> (wind speed) and <code>wd</code> (wind direction) are available.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="reference/figures/README-windrose-1.png" alt="A polar bar chart showing the proportion of wind coming from 12 compass directions, where we show most wind at the monitoring station arrives from the South West." width="50%"><p class="caption">
-A wind rose summarising the wind conditions at a monitoring station.
-</p>
-</div>
-<p>However, the real flexibility comes from being able to use the <code>type</code> option.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/windRose.html">windRose</a></span><span class="op">(</span><span class="va">mydata</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"year"</span>,</span>
-<span>  layout <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="reference/figures/README-windrose2-1.png" alt="Polar bar charts showing the proportion of wind coming from 12 compass directions. There are 8 charts, each representing a year of data from 1998 to 2005. While there is a small amount of variation, the dominant wind direction for each year is from the south west." width="100%"><p class="caption">
-Wind roses summarising the wind conditions at a monitoring station per year, demonstrating the <a href="https://davidcarslaw.github.io/openair/">openair</a> type option.
-</p>
-</div>
-<p>There are many flavours of bivariate polar plots, as described <a href="https://bookdown.org/david_carslaw/openair/sections/directional-analysis/polar-plots.html" class="external-link">here</a> that are useful for understanding air pollution sources.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/polarPlot.html">polarPlot</a></span><span class="op">(</span><span class="va">mydata</span>,</span>
-<span>  pollutant <span class="op">=</span> <span class="st">"so2"</span>,</span>
-<span>  statistic <span class="op">=</span> <span class="st">"cpf"</span>,</span>
-<span>  percentile <span class="op">=</span> <span class="fl">90</span>,</span>
-<span>  cols <span class="op">=</span> <span class="st">"YlGnBu"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="reference/figures/README-polarCPF-1.png" alt="A polar heatmap with wind direction on the spoke axes and wind speed on the radial axes showing the probability of sulfur dioxide being higher than the 90th percentile. The chart indicates the highest probabilities occur when the wind is coming from the east and is blowing at between 0 and 12 metres per second." width="60%"><p class="caption">
-A bivariate polar plot showing the wind conditions which give rise to elevated pollutant concentrations.
-</p>
-</div>
-</div>
-</div>
-</div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
