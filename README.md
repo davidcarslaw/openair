@@ -3,7 +3,7 @@
 
 <img src="man/figures/logo.png" height="200"/>
 
-# **openair**
+## **openair**
 ### open source tools for air quality data analysis
 
 <!-- badges: start -->
@@ -13,9 +13,9 @@
 status](https://www.r-pkg.org/badges/version/openair)](https://CRAN.R-project.org/package=openair)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/openair)
 
-[![github](https://img.shields.io/badge/code-github-black?logo=github)](https://github.com/davidcarslaw/openair)
-[![website](https://img.shields.io/badge/docs-website-black)](https://davidcarslaw.github.io/openair)
-[![book](https://img.shields.io/badge/docs-book-black)](https://bookdown.org/david_carslaw/openair/)
+[![github](https://img.shields.io/badge/CODE-github-black?logo=github)](https://github.com/davidcarslaw/openair)
+[![website](https://img.shields.io/badge/DOCS-website-black)](https://davidcarslaw.github.io/openair)
+[![book](https://img.shields.io/badge/DOCS-book-black)](https://bookdown.org/david_carslaw/openair/)
 <!-- badges: end -->
 
 </div>
