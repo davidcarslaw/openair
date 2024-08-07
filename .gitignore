@@ -13,3 +13,4 @@ README_cache/*
 .DS_Store
 docs
 *.html
+inst/doc
