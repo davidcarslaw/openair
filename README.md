@@ -7,12 +7,11 @@
 ### open source tools for air quality data analysis
 
 <!-- badges: start -->
-
 [![R-CMD-check](https://github.com/davidcarslaw/openair/workflows/R-CMD-check/badge.svg)](https://github.com/davidcarslaw/openair/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/openair)](https://CRAN.R-project.org/package=openair)
 [![metacran downloads](https://cranlogs.r-pkg.org/badges/grand-total/openair)](https://cran.r-project.org/package=openair)
-
+<br>
 [![github](https://img.shields.io/badge/CODE-github-black?logo=github)](https://github.com/davidcarslaw/openair)
 [![website](https://img.shields.io/badge/DOCS-website-black)](https://davidcarslaw.github.io/openair)
 [![book](https://img.shields.io/badge/DOCS-book-black)](https://bookdown.org/david_carslaw/openair/)
