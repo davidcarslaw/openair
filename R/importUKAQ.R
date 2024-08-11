@@ -94,8 +94,10 @@
 #' @param year Year(s) to import. To import a series of years use, e.g.,
 #'   `2000:2020`. To import several specific years use `year = c(2000, 2010,
 #'   2020)`.
-#' @param source The network to which the `site`(s) belong, defaulting to
-#'   `"aurn"`. Providing a single network will attempt to import all of the
+#' @param source The network to which the `site`(s) belong. The default, `NULL`,
+#'   allows [importUKAQ()] to guess the correct `source`. When this isn't possible
+#'   (for example, when the site code is ambiguous), users can provide a `source`.
+#'   Providing a single network will attempt to import all of the
 #'   given `site`s from the provided network. Alternatively, a vector of sources
 #'   can be provided of the same length as `site` to indicate which network each
 #'   `site` individually belongs. Available networks include:
@@ -183,7 +185,7 @@
 importUKAQ <-
   function(site = "my1",
            year = 2022,
-           source = "aurn",
+           source = NULL,
            data_type = "hourly",
            pollutant = "all",
            hc = FALSE,
@@ -203,6 +205,14 @@ importUKAQ <-
         .frequency = "regularly",
         .frequency_id = "lmam"
       )
+    }
+
+    # guess sources
+    if (is.null(source)) {
+      if (data_type %in% c("annual", "monthly", "daqi") & missing(site)) {
+        cli::cli_abort("Please provide a {.field source} when {.field data_type} is '{data_type}'.")
+      }
+      source <- guess_source(site)
     }
 
     # obtain correct URL info for the source
@@ -244,7 +254,7 @@ importUKAQ <-
     if (data_type == "15_min") {
       data_type <- "15min"
     }
-    
+
     if (!tolower(data_type) %in% allowed_types) {
       cli::cli_warn(
         c(
@@ -292,7 +302,7 @@ importUKAQ <-
       source <- unique(source)
       files <- paste0(url_domain, "annual_DAQI", url_abbr)
       files <- unique(files)
-      
+
       # import DAQI
       aq_data <-
         purrr::pmap(
@@ -327,8 +337,9 @@ importUKAQ <-
             source = source,
             url_data = url_domain
           ) %>%
-          dplyr::left_join(pcodes, 
-                           by = "code") %>%
+          dplyr::left_join(pcodes,
+            by = "code"
+          ) %>%
           tidyr::crossing(year = year)
       } else {
         site_info <-
@@ -340,7 +351,7 @@ importUKAQ <-
           dplyr::mutate(pcode = rep(NA, times = length(site))) %>%
           tidyr::crossing(year = year)
       }
-      
+
       aq_data <-
         purrr::pmap(
           .l = site_info,

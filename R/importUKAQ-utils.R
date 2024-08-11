@@ -409,3 +409,37 @@ filter_site_pollutant <- function(aq_data, site, pollutant, to_narrow, data_type
   # return output
   return(aq_data)
 }
+
+#' Helper function to guess the source of UKAQ data
+#' @param site Sites passed to [importUKAQ()]
+#' @noRd
+guess_source <- function(site) {
+  ukaq_meta <- importMeta("ukaq") |>
+    dplyr::mutate(source = factor(.data$source, c("aurn", "saqn", "aqe", "waqn", "ni", "local"))) |>
+    dplyr::arrange(.data$source) |>
+    dplyr::distinct(.data$site, .data$latitude, .data$longitude, .keep_all = TRUE)
+  
+  source_tbl <-
+    data.frame(code = toupper(site)) |>
+    dplyr::left_join(ukaq_meta, by = "code")
+
+  if (nrow(source_tbl) > length(site)) {
+    ambiguous_codes <- 
+      source_tbl |>
+      dplyr::add_count(.data$code) |>
+      dplyr::filter(.data$n > 1L) |>
+      dplyr::group_by(.data$code) |>
+      dplyr::summarise(source = paste(.data$source, collapse = ", ")) |>
+      dplyr::mutate(str = paste0(.data$code, " (", .data$source, ")")) |>
+      dplyr::pull(.data$str)
+
+    cli::cli_abort(
+      c(
+        "x" = "Ambiguous site codes detected. Please specify {.field source} in {.fun importUKAQ}.",
+        "i" = "Ambiguous codes: {ambiguous_codes}"
+      )
+    )
+  }
+
+  return(source_tbl$source)
+}
