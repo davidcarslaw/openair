@@ -1,5 +1,15 @@
 # openair (development version)
 
+## New Features
+
+- The `source` argument of `importUKAQ()` now defaults to `NULL`. This option allows the function to assign the `source` of each `site` itself, with some caveats:
+
+	- Ambiguous codes (e.g., `"AD1"`, which corresponds to a SAQN and locally managed site) will error. In this instance, users should define `source` manually.
+
+	- When `data_type` is one of the aggregate types (e.g., `"annual"`) and a `site` isn't defined, a `source` must be provided.
+
+	- It is likely *slightly* slower for the function to assign `source` itself than for users to specify it themselves.
+
 ## Bug fixes
 
 - Fixed an issue wherein `importUKAQ()` would drop sites if importing from `local` sites *and* another network.
