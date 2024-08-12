@@ -409,3 +409,56 @@ filter_site_pollutant <- function(aq_data, site, pollutant, to_narrow, data_type
   # return output
   return(aq_data)
 }
+
+#' Helper function to guess the source of UKAQ data
+#' @param site Sites passed to [importUKAQ()]
+#' @noRd
+guess_source <- function(site) {
+  ukaq_meta <- importMeta("ukaq") %>%
+    dplyr::mutate(source = factor(.data$source, c("aurn", "saqn", "aqe", "waqn", "ni", "local"))) %>%
+    dplyr::arrange(.data$source) %>%
+    dplyr::distinct(.data$site, .data$latitude, .data$longitude, .keep_all = TRUE)
+  
+  source_tbl <-
+    data.frame(code = toupper(site)) %>%
+    dplyr::left_join(ukaq_meta, by = "code")
+
+  if (any(is.na(source_tbl$source))) {
+    ambiguous_codes <-
+      source_tbl %>% 
+      dplyr::filter(is.na(.data$source)) %>%
+      dplyr::pull(.data$code)
+
+    cli::cli_abort(
+      c(
+        "x" = "Unknown site codes detected. Please ensure all site codes can be found in {.fun importMeta}.",
+        "i" = "Unknown site codes: {ambiguous_codes}"
+      )
+    )
+  }
+
+  if (nrow(source_tbl) > length(site)) {
+    source_tbl_all <- source_tbl
+
+    source_tbl <- dplyr::slice_head(source_tbl, n = 1, by = "code")
+    
+    source_tbl_other <-
+      dplyr::anti_join(source_tbl_all, source_tbl, by = join_by("code", "source", "site", "latitude", "longitude", "site_type"))
+
+    alternatives <-
+      source_tbl_other %>%
+      dplyr::mutate(str = paste0(.data$code, " (could also be '", .data$site, "' from the source: '", .data$source, "'.)")) %>%
+      dplyr::pull(.data$str)
+
+    msg <- c(
+      "x" = "Ambiguous site codes detected. National networks are imported preferentially to locally managed networks.",
+      alternatives,
+      "i" = "Specify {.field source} to import sites from specific monitoring networks.")
+
+    names(msg)[names(msg) == ""] <- "!"
+    
+    cli::cli_warn(msg)
+  }
+
+  return(source_tbl$source)
+}

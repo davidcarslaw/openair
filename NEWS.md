@@ -1,14 +1,30 @@
 # openair (development version)
 
+## New Features
+
+- The `source` argument of `importUKAQ()` now defaults to `NULL`. This option allows the function to assign the `source` of each `site` itself, with some caveats:
+
+	- Ambiguous codes (e.g., `"AD1"`, which corresponds to a SAQN and locally managed site) will preferentially import from the national networks (AURN, then AQE/SAQN/WAQN/NIAQN) over locally-managed networks. To override this users should manually define `source`.
+
+	- Incorrect codes not found in `importMeta()` will error if `importUKAQ()` is left to assign the `source`.
+
+	- When `data_type` is one of the aggregate types (e.g., `"annual"`) and a `site` isn't defined, a `source` must be provided.
+
+	- It is likely *slightly* slower for the function to assign `source` itself than for users to specify it themselves.
+
+- The `formula.label` argument of `polarPlot()` will now control whether concentration information is printed when `statistic = "cpf"`.
+
 ## Bug fixes
 
 - Fixed an issue wherein `importUKAQ()` would drop sites if importing from `local` sites *and* another network.
+
+- `polarCluster()` will no longer error with multiple `pollutant`s and a single `n.clusters`.
 
 # openair 2.18-2
 
 ## New Features
 
-- add option to `corPlot` to carry through "use" option in `cor`.
+- add option to `corPlot()` to carry through "use" option in `cor`.
 
 ## Bug fixes
 

@@ -7,7 +7,7 @@
 importUKAQ(
   site = "my1",
   year = 2022,
-  source = "aurn",
+  source = NULL,
   data_type = "hourly",
   pollutant = "all",
   hc = FALSE,
@@ -29,8 +29,10 @@ codes can be upper or lower case.}
 \item{year}{Year(s) to import. To import a series of years use, e.g.,
 \code{2000:2020}. To import several specific years use \code{year = c(2000, 2010, 2020)}.}
 
-\item{source}{The network to which the \code{site}(s) belong, defaulting to
-\code{"aurn"}. Providing a single network will attempt to import all of the
+\item{source}{The network to which the \code{site}(s) belong. The default, \code{NULL},
+allows \code{\link[=importUKAQ]{importUKAQ()}} to guess the correct \code{source}, preferring national
+networks over locally managed networks. Alternatively, users can define a \code{source}.
+Providing a single network will attempt to import all of the
 given \code{site}s from the provided network. Alternatively, a vector of sources
 can be provided of the same length as \code{site} to indicate which network each
 \code{site} individually belongs. Available networks include:
