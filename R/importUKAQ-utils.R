@@ -447,7 +447,7 @@ guess_source <- function(site) {
 
     alternatives <-
       source_tbl_other %>%
-      dplyr:::mutate(str = paste0(.data$code, " (could also be '", .data$site, "' from the source: '", .data$source, "'.)")) %>%
+      dplyr::mutate(str = paste0(.data$code, " (could also be '", .data$site, "' from the source: '", .data$source, "'.)")) %>%
       dplyr::pull(.data$str)
 
     msg <- c(
