@@ -423,6 +423,20 @@ guess_source <- function(site) {
     data.frame(code = toupper(site)) |>
     dplyr::left_join(ukaq_meta, by = "code")
 
+  if (any(is.na(source_tbl$source))) {
+    ambiguous_codes <-
+      source_tbl |> 
+      dplyr::filter(is.na(.data$source)) |>
+      dplyr::pull(.data$code)
+
+    cli::cli_abort(
+      c(
+        "x" = "Unknown site codes detected. Please ensure all site codes can be found in {.fun importMeta}.",
+        "i" = "Unknown site codes: {ambiguous_codes}"
+      )
+    )
+  }
+
   if (nrow(source_tbl) > length(site)) {
     ambiguous_codes <- 
       source_tbl |>
