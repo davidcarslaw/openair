@@ -30,8 +30,8 @@ codes can be upper or lower case.}
 \code{2000:2020}. To import several specific years use \code{year = c(2000, 2010, 2020)}.}
 
 \item{source}{The network to which the \code{site}(s) belong. The default, \code{NULL},
-allows \code{\link[=importUKAQ]{importUKAQ()}} to guess the correct \code{source}. When this isn't possible
-(for example, when the site code is ambiguous), users can provide a \code{source}.
+allows \code{\link[=importUKAQ]{importUKAQ()}} to guess the correct \code{source}, preferring national
+networks over locally managed networks. Alternatively, users can define a \code{source}.
 Providing a single network will attempt to import all of the
 given \code{site}s from the provided network. Alternatively, a vector of sources
 can be provided of the same length as \code{site} to indicate which network each

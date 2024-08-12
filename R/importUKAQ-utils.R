@@ -438,21 +438,26 @@ guess_source <- function(site) {
   }
 
   if (nrow(source_tbl) > length(site)) {
-    ambiguous_codes <- 
-      source_tbl %>%
-      dplyr::add_count(.data$code) %>%
-      dplyr::filter(.data$n > 1L) %>%
-      dplyr::group_by(.data$code) %>%
-      dplyr::summarise(source = paste(.data$source, collapse = ", ")) %>%
-      dplyr::mutate(str = paste0(.data$code, " (", .data$source, ")")) %>%
+    source_tbl_all <- source_tbl
+
+    source_tbl <- dplyr::slice_head(source_tbl, n = 1, by = "code")
+    
+    source_tbl_other <-
+      dplyr::anti_join(source_tbl_all, source_tbl, by = join_by("code", "source", "site", "latitude", "longitude", "site_type"))
+
+    alternatives <-
+      source_tbl_other %>%
+      dplyr:::mutate(str = paste0(.data$code, " (could also be '", .data$site, "' from the source: '", .data$source, "'.)")) %>%
       dplyr::pull(.data$str)
 
-    cli::cli_abort(
-      c(
-        "x" = "Ambiguous site codes detected. Please specify {.field source} in {.fun importUKAQ}.",
-        "i" = "Ambiguous codes: {ambiguous_codes}"
-      )
-    )
+    msg <- c(
+      "x" = "Ambiguous site codes detected. National networks are imported preferentially to locally managed networks.",
+      alternatives,
+      "i" = "Specify {.field source} to import sites from specific monitoring networks.")
+
+    names(msg)[names(msg) == ""] <- "!"
+    
+    cli::cli_warn(msg)
   }
 
   return(source_tbl$source)

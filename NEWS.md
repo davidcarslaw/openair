@@ -4,7 +4,7 @@
 
 - The `source` argument of `importUKAQ()` now defaults to `NULL`. This option allows the function to assign the `source` of each `site` itself, with some caveats:
 
-	- Ambiguous codes (e.g., `"AD1"`, which corresponds to a SAQN and locally managed site) will error. In this instance, users should define `source` manually.
+	- Ambiguous codes (e.g., `"AD1"`, which corresponds to a SAQN and locally managed site) will preferentially import from the national networks (AURN, then AQE/SAQN/WAQN/NIAQN) over locally-managed networks. To override this users should manually define `source`.
 
 	- Incorrect codes not found in `importMeta()` will error if `importUKAQ()` is left to assign the `source`.
 

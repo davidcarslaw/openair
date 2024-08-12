@@ -95,8 +95,8 @@
 #'   `2000:2020`. To import several specific years use `year = c(2000, 2010,
 #'   2020)`.
 #' @param source The network to which the `site`(s) belong. The default, `NULL`,
-#'   allows [importUKAQ()] to guess the correct `source`. When this isn't possible
-#'   (for example, when the site code is ambiguous), users can provide a `source`.
+#'   allows [importUKAQ()] to guess the correct `source`, preferring national 
+#'   networks over locally managed networks. Alternatively, users can define a `source`.
 #'   Providing a single network will attempt to import all of the
 #'   given `site`s from the provided network. Alternatively, a vector of sources
 #'   can be provided of the same length as `site` to indicate which network each
