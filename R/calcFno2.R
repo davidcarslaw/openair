@@ -116,10 +116,6 @@ calcFno2 <- function(input,
 
     calc.error <- function(user.fno2, nox, no2, nox.v, k, r, jno2, back_no2, back_o3, type) {
 
-      ## measured NOX-NO2 relationship
-      bin1 <- cut(nox, breaks = 200)
-      bin.meas <- aggregate(no2, list(bin1), mean, na.rm = TRUE)
-
       ## first calculate new hourly means with t, f-NO2
       d <- 1 / (k * tau)
       no2.v <- nox.v * user.fno2
@@ -130,10 +126,9 @@ calcFno2 <- function(input,
 
       o3 <- (jno2 * tau * no2.pred + back_o3) / (k * tau * (nox - no2.pred) + 1)
 
-      ## make NOx-NO2 relationship
-      bin.mod <- aggregate(no2.pred, list(bin1), mean, na.rm = TRUE)
-      error <- sum(bin.meas$x - bin.mod$x, na.rm = TRUE) ^ 2
-
+      # use RMSE on hourly predictions
+      error <- mean((no2 - no2.pred) ^ 2) ^ 0.5
+  
       ## return different results depending on use
       switch(type,
         err = error,

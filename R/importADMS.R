@@ -17,9 +17,9 @@
 #'
 #' @aliases importADMS importADMSBgd importADMSMet importADMSMop importADMSPst
 #' @param file The ADMS file to be imported. Default, [file.choose()] opens
-#'   browser. Use of [utils::read.csv()] also allows this to be a
-#'   readable text-mode connection or url (although these options are currently
-#'   not fully tested).
+#'   browser. Use of [utils::read.csv()] also allows this to be a readable
+#'   text-mode connection or url (although these options are currently not fully
+#'   tested).
 #' @param file.type Type of ADMS file to be imported. With default, "unknown",
 #'   the import uses the file extension to identify the file type and, where
 #'   recognised, uses this to identify the file structure and import method to
@@ -74,6 +74,8 @@
 #' @param names Option applied by \code{simplifyNamesADMS} when
 #'   \code{simplify.names} is enabled.  All names are simplified for the default
 #'   setting, \code{NULL}.
+#' @param all For .MOP files, return all variables or not. If \code{all = TRUE}
+#'   a large number of processed variables are returned.
 #' @inheritDotParams utils::read.csv
 #' @export
 #' @return In standard use [importADMS()] returns a data frame for use in
@@ -120,6 +122,7 @@ importADMS <- function(file = file.choose(), file.type = "unknown",
                        simplify.names = TRUE, test.file.structure = TRUE,
                        drop.delim = TRUE, add.prefixes = TRUE,
                        names = NULL,
+                       all = FALSE,
                        ...) {
 
   # importADMS
@@ -157,7 +160,7 @@ importADMS <- function(file = file.choose(), file.type = "unknown",
       file = file, drop.case = drop.case, drop.input.dates = drop.input.dates,
       keep.units = keep.units, simplify.names = simplify.names,
       test.file.structure = test.file.structure,
-      drop.delim = drop.delim, add.prefixes = add.prefixes,
+      drop.delim = drop.delim, add.prefixes = add.prefixes, all = all,
       ...
     ))
   }
@@ -475,7 +478,7 @@ importADMSMop <- function(file = file.choose(),
                           drop.case = TRUE, drop.input.dates = TRUE,
                           keep.units = TRUE, simplify.names = TRUE,
                           test.file.structure = TRUE,
-                          drop.delim = TRUE, add.prefixes = TRUE,
+                          drop.delim = TRUE, add.prefixes = TRUE, all = FALSE,
                           ...) {
 
   # problem
@@ -585,15 +588,8 @@ importADMSMop <- function(file = file.choose(),
   temp <- if (length(add.prefixes) > 1) paste(add.prefixes[1], temp, sep = ".") else temp
   if (temp %in% names(ans)) {
     ans[, temp][ans[, temp] == 0] <- 360
-    warning(
-      "Zero wind directions encountered, resetting to 360",
-      call. = FALSE
-    )
   }
 
-  # if(simplify.names){
-  #    names(ans) <- simplifyNamesADMS(names(ans))
-  # }
 
   # drop messy name handling
   names(ans) <- gsub("[.][.]", ".", names(ans))
@@ -630,9 +626,35 @@ importADMSMop <- function(file = file.choose(),
     }
     warning(reply, call. = FALSE)
   }
+  
+  # add stability
+  
+  ans <-  ans %>% 
+    mutate(H_LMO = process.recip.lmo * process.h,
+  stability = case_when(H_LMO > 2 ~ "Stable",
+                        H_LMO < -0.6 ~ "Unstable",
+                        is.na(H_LMO) ~ NA,
+                        .default = "Neutral"),
+  stability = factor(stability, 
+                     levels = c("Stable", "Neutral", "Unstable"))) %>% 
+    rename(air_temp = temp,
+           recip_lmo = process.recip.lmo,
+           H = process.h)
+  
+  if (all) {
+    
+    return(ans)
+    
+  } else {
+    
+    # select variables only
+    ans <- ans %>% 
+      select(any_of(c("date", "ws", "wd", "air_temp", "rhu", 
+                      "cl", "H",
+                      "recip_lmo", "H_LMO", "stability")))
+  }
 
-  print(unlist(sapply(ans, class)))
-  ans
+  return(tibble(ans))
 }
 
 

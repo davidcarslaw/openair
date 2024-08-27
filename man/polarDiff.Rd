@@ -9,7 +9,7 @@ polarDiff(
   after,
   pollutant = "nox",
   x = "ws",
-  limits = NA,
+  limits = NULL,
   plot = TRUE,
   ...
 )
@@ -204,10 +204,9 @@ the package \code{openairmaps}.}
 only a relatively few data points at very high wind speeds and plotting all
 of them can reduce the useful information in the plot.}
     \item{\code{angle.scale}}{Sometimes the placement of the scale may interfere with an
-interesting feature. The user can therefore set \code{angle.scale} to
-any value between 0 and 360 degrees to mitigate such problems. For
-example \code{angle.scale = 45} will draw the scale heading in a NE
-direction.}
+interesting feature. The user can therefore set \code{angle.scale} to any
+value between 0 and 360 degrees to mitigate such problems. For example
+\code{angle.scale = 45} will draw the scale heading in a NE direction.}
     \item{\code{units}}{The units shown on the polar axis scale.}
     \item{\code{force.positive}}{The default is \code{TRUE}. Sometimes if smoothing data
 with steep gradients it is possible for predicted values to be negative.
@@ -263,6 +262,10 @@ regression statistics are used such as \emph{r}. Default is \code{4}.}
     \item{\code{kernel}}{Type of kernel used for the weighting procedure for when
 correlation or regression techniques are used. Only \code{"gaussian"} is
 supported but this may be enhanced in the future.}
+    \item{\code{formula.label}}{When pair-wise statistics such as regression slopes are
+calculated and plotted, should a formula label be displayed?
+\code{formula.label} will also determine whether concentration information
+is printed when \code{statistic = "cpf"}.}
     \item{\code{tau}}{The quantile to be estimated when \code{statistic} is set to
 \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
 and will be ignored if \code{"quantile.slope"} is not used.}

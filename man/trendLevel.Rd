@@ -143,9 +143,7 @@ handling and \code{levelplot} in \code{lattice} for finer control of the
 plot itself.}
 }
 \value{
-an \link[=openair-package]{openair} object. Summary statistics can also be
-extracted directly using \code{results}, e.g., \code{results(object)} for
-\code{output <- trendLevel(mydata)}.
+an \link[=openair-package]{openair} object.
 }
 \description{
 The trendLevel function provides a way of rapidly showing a large amount of
@@ -202,6 +200,7 @@ cols = c("forestgreen", "yellow", "red"))
 Other time series and trend functions: 
 \code{\link{TheilSen}()},
 \code{\link{calendarPlot}()},
+\code{\link{runRegression}()},
 \code{\link{smoothTrend}()},
 \code{\link{timePlot}()},
 \code{\link{timeProp}()},

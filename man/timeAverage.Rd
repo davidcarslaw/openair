@@ -16,6 +16,7 @@ timeAverage(
   interval = NA,
   vector.ws = FALSE,
   fill = FALSE,
+  progress = TRUE,
   ...
 )
 }
@@ -120,6 +121,9 @@ values.}
 than the original time series, data are \sQuote{padded out} with \code{NA}.
 To \sQuote{pad-out} the additional data with the first row in each original
 time interval, choose \code{fill = TRUE}.}
+
+\item{progress}{Show a progress bar when many groups make up \code{type}? Defaults
+to \code{TRUE}.}
 
 \item{...}{Additional arguments for other functions calling
 \code{timeAverage}.}

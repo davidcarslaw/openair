@@ -310,6 +310,7 @@ c("nox", "no2"), lwd = c(1, 2), col = "black")
 Other time series and trend functions: 
 \code{\link{TheilSen}()},
 \code{\link{calendarPlot}()},
+\code{\link{runRegression}()},
 \code{\link{smoothTrend}()},
 \code{\link{timeProp}()},
 \code{\link{timeVariation}()},

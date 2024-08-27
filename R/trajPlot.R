@@ -87,6 +87,8 @@
 #'   then no points are added.
 #' @param origin If true a filled circle dot is shown to mark the receptor
 #'   point.
+#' @param plot Should a plot be produced? `FALSE` can be useful when analysing
+#'   data to extract plot components and plotting them in other ways.
 #' @param ... other arguments are passed to \code{cutData} and
 #'   \code{scatterPlot}. This provides access to arguments used in both these
 #'   functions and functions that they in turn pass arguments on to. For
@@ -128,7 +130,7 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
                      map.res = "default", map.cols = "grey40",
                      map.alpha = 0.4, projection = "lambert",
                      parameters = c(51, 51), orientation = c(90, 0, 0),
-                     grid.col = "deepskyblue", npoints = 12, origin = TRUE, ...) {
+                     grid.col = "deepskyblue", npoints = 12, origin = TRUE, plot = TRUE,...) {
   len <- NULL
   hour.inc <- NULL ## silence R check
 
@@ -282,9 +284,18 @@ trajPlot <- function(mydata, lon = "lon", lat = "lat", pollutant = "height",
 
   # reset for Args
   scatterPlot.args <- listUpdate(scatterPlot.args, Args)
+  scatterPlot.args <- listUpdate(scatterPlot.args, list(plot = plot))
 
   # plot
-  do.call(scatterPlot, scatterPlot.args)
+  plt <- do.call(scatterPlot, scatterPlot.args)
+  
+  output <-
+    list(plot = plt$plot,
+         data = dplyr::tibble(mydata),
+         call = match.call())
+  class(output) <- "openair"
+  
+  invisible(output)
 }
 
 

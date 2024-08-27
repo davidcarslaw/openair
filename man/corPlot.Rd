@@ -10,6 +10,7 @@ corPlot(
   type = "default",
   cluster = TRUE,
   method = "pearson",
+  use = "pairwise.complete.obs",
   dendrogram = FALSE,
   lower = FALSE,
   cols = "default",
@@ -30,9 +31,9 @@ corPlot(
 \item{type}{\code{type} determines how the data are split i.e. conditioned,
 and then plotted. The default is will produce a single plot using the
 entire data. Type can be one of the built-in types as detailed in
-\code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and
-so on. For example, \code{type = "season"} will produce four plots --- one
-for each season.
+\code{cutData} e.g. \dQuote{season}, \dQuote{year}, \dQuote{weekday} and so
+on. For example, \code{type = "season"} will produce four plots --- one for
+each season.
 
 It is also possible to choose \code{type} as another variable in the data
 frame. If that variable is numeric, then the data will be split into four
@@ -49,9 +50,13 @@ variables clustering can greatly assist interpretation.}
 \item{method}{The correlation method to use. Can be \dQuote{pearson},
 \dQuote{spearman} or \dQuote{kendall}.}
 
+\item{use}{How to handle missing values in the \code{cor} function. The default is
+"pairwise.complete.obs". Care should be taken with the choice of how to
+handle missing data when considering pair-wise correlations.}
+
 \item{dendrogram}{Should a dendrogram be plotted? When \code{TRUE} a
-dendrogram is shown on the right of the plot. Note that this will only
-work for \code{type = "default"}.}
+dendrogram is shown on the right of the plot. Note that this will only work
+for \code{type = "default"}.}
 
 \item{lower}{Should only the lower triangle be plotted?}
 
@@ -64,12 +69,12 @@ for more details).}
 type. This helps to highlight high correlations.}
 
 \item{text.col}{The colour of the text used to show the correlation values.
-The first value controls the colour of negative correlations and the
-second positive.}
+The first value controls the colour of negative correlations and the second
+positive.}
 
-\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If
-\code{TRUE} titles and axis labels will automatically try and format
-pollutant names and units properly e.g.  by subscripting the `2' in NO2.}
+\item{auto.text}{Either \code{TRUE} (default) or \code{FALSE}. If \code{TRUE}
+titles and axis labels will automatically try and format pollutant names
+and units properly e.g.  by subscripting the `2' in NO2.}
 
 \item{plot}{Should a plot be produced? \code{FALSE} can be useful when
 analysing data to extract corPlot components and plotting them in other
@@ -100,16 +105,16 @@ positive correlation a line at 45 degrees positive slope is drawn. For zero
 correlation the shape becomes a circle. See examples below.
 
 With many different variables it can be difficult to see relationships
-between variables, i.e., which variables tend to behave most like one another.
-For this reason hierarchical clustering is applied to the correlation
-matrices to group variables that are most similar to one another (if
-\code{cluster = TRUE}).
+between variables, i.e., which variables tend to behave most like one
+another. For this reason hierarchical clustering is applied to the
+correlation matrices to group variables that are most similar to one another
+(if \code{cluster = TRUE}).
 
 If clustering is chosen it is also possible to add a dendrogram using the
-option \code{dendrogram = TRUE}. Note that dendrogramscan only be plotted
-for \code{type = "default"} i.e. when there is only a single panel. The
-dendrogram can also be recovered from the plot object itself and plotted
-more clearly; see examples below.
+option \code{dendrogram = TRUE}. Note that dendrogramscan only be plotted for
+\code{type = "default"} i.e. when there is only a single panel. The
+dendrogram can also be recovered from the plot object itself and plotted more
+clearly; see examples below.
 
 It is also possible to use the \code{openair} type option to condition the
 data in many flexible ways, although this may become difficult to visualise
@@ -145,6 +150,5 @@ matrices. American Statistician, 2002(4), 1-16. doi:10.1198/000313002533
 some of the annotation code was used.
 }
 \author{
-David Carslaw --- but mostly based on code contained in Sarkar
-(2007)
+David Carslaw --- but mostly based on code contained in Sarkar (2007)
 }

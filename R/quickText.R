@@ -3,8 +3,6 @@
 #' Workhorse function that automatically applies routine text formatting to
 #' common expressions and data names used in openair.
 #'
-
-#'
 #' \code{quickText} is routine formatting lookup table. It screens the
 #' supplied character vector \code{text} and automatically applies formatting
 #' to any recognised character sub-series. The function is used in a number of
@@ -45,6 +43,7 @@ quickText <- function(text, auto.text = TRUE) {
   ans <- paste("expression(paste('", text, " ", sep = "")
   ans <- gsub("NO2", "' 'NO' [2] * '", ans)
   ans <- gsub("no2", "' 'NO' [2] * '", ans)
+  ans <- gsub("\\bno\\b", "NO", ans)
   ans <- gsub("\\bNOX\\b", "' 'NO' [x] * '", ans)
   ans <- gsub("\\bnox\\b", "' 'NO' [x] * '", ans)
   ans <- gsub("\\bNOx\\b", "' 'NO' [x] * '", ans)
@@ -119,6 +118,7 @@ quickText <- function(text, auto.text = TRUE) {
   ans <- gsub("m/s", "' 'm s' ^-1 *'", ans)
   ans <- gsub("m.s-1", "' 'm s' ^-1 *'", ans)
   ans <- gsub("m s-1", "' 'm s' ^-1 *'", ans)
+  ans <- gsub("km2", "' 'km' ^2 *'", ans)
   ans <- gsub("g/km", "' 'g km' ^-1 *'", ans)
   ans <- gsub("g/s", "' 'g s' ^-1 *'", ans)
   ans <- gsub("kW/t", "' 'kW t' ^-1 *'", ans)
@@ -126,6 +126,7 @@ quickText <- function(text, auto.text = TRUE) {
   ans <- gsub("g/hr", "' 'g hour' ^-1 *'", ans)
   ans <- gsub("g/m3", "' 'g m' ^-3 *'", ans)
   ans <- gsub("g/kg", "' 'g kg' ^-1 *'", ans)
+  ans <- gsub("cm-3", "' 'cm' ^-3 *'", ans)
   ans <- gsub("km/hr/s", "' 'km hr' ^-1 * ' s' ^-1 *'", ans)
   ans <- gsub("km/hour/s", "' 'km hr' ^-1 * ' s' ^-1 *'", ans)
   ans <- gsub("km/h/s", "km hr' ^-1 * ' s' ^-1 *'", ans)

@@ -676,8 +676,9 @@ windRose <- function(
   corr_bias <- function(results) {
 
     # check to see if data for this type combination are rounded to 10 degrees
+    # round wd so that tiny differences between integer a numeric do not arise
     wd_select <- inner_join(mydata_orig, results[1, type], by = type)
-    if (!all(wd_select[[wd]] %% 10 == 0, na.rm = TRUE)) return(results)
+    if (!all(round(wd_select[[wd]]) %% 10 == 0, na.rm = TRUE)) return(results)
 
     wds <- seq(10, 360, 10)
     tmp <- angle * ceiling(wds / angle - 0.5)
@@ -919,10 +920,18 @@ windRose <- function(
         lsegments(-upper, 0, upper, 0)
         lsegments(0, -upper, 0, upper)
 
-        ltext(upper * -1 * 0.95, 0.07 * upper, "W", cex = 0.7)
-        ltext(0.07 * upper, upper * -1 * 0.95, "S", cex = 0.7)
-        ltext(0.07 * upper, upper * 0.95, "N", cex = 0.7)
-        ltext(upper * 0.95, 0.07 * upper, "E", cex = 0.7)
+        if (!is.na(ws2) & !is.na(wd2)) {
+          axislabs <- c("0", "+90", paste0("+/-", 180), "-90")
+          s_adj <- 0.1
+        } else {
+          axislabs <- c("N", "E", "S", "W")
+          s_adj <- 0.07
+        }
+
+        ltext(upper * -1 * 0.95, 0.07 * upper, axislabs[4], cex = 0.7)
+        ltext(s_adj * upper, upper * -1 * 0.95, axislabs[3], cex = 0.7)
+        ltext(0.07 * upper, upper * 0.95, axislabs[1], cex = 0.7)
+        ltext(upper * 0.95, 0.07 * upper, axislabs[2], cex = 0.7)
 
       }
     }, legend = legend

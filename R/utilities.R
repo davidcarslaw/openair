@@ -159,7 +159,7 @@ date.pad <- function(mydata, type = NULL, print.int = FALSE) {
   ## return the same TZ that we started with
   attr(mydata$date, "tzone") <- TZ
 
-  if (print.int) print(paste0("Input data time interval assumed is ", interval))
+  if (print.int) message("Input data time interval assumed is ", interval)
 
   # make sure date-sorted
   mydata <- arrange(mydata, date)
@@ -635,7 +635,7 @@ panel.gam <- function(x, y, form = y ~ x, method = "loess", k = k, Args, ..., si
 
       boot.pred <- matrix(nrow = sam.size, ncol = n.sim)
 
-      print("Taking bootstrap samples. Please wait...")
+      message("Taking bootstrap samples. Please wait...")
 
       ## set up bootstrap
       block.length <- 1
@@ -738,7 +738,7 @@ fitGam <- function(thedata, x = "date", y = "conc", form = y ~ x, k = k,
 
       boot.pred <- matrix(nrow = sam.size, ncol = n.sim)
 
-      print("Taking bootstrap samples. Please wait...")
+      message("Taking bootstrap samples. Please wait...")
 
       ## set up bootstrap
       block.length <- 1
@@ -853,7 +853,7 @@ bootMeanDF <- function(x, conf.int = 0.95, B = 1000) {
 }
 
 
-bootMeanDiff <- function(mydata, x = "x", y = "y", conf.int = 0.95, B = 1000) {
+bootMeanDiff <- function(mydata, x = "x", y = "y", conf.int = 0.95, B = 1000, na.rm = FALSE) {
 
   ## calculates bootstrap mean differences
   ## assumes y - x
@@ -881,9 +881,9 @@ bootMeanDiff <- function(mydata, x = "x", y = "y", conf.int = 0.95, B = 1000) {
 
   x <- bootMean(x, B = B)
   y <- bootMean(y, B = B)
-  quant1 <- quantile(x, c((1 - conf.int) / 2, (1 + conf.int) / 2))
-  quant2 <- quantile(y, c((1 - conf.int) / 2, (1 + conf.int) / 2))
-  quant <- quantile(y - x, c((1 - conf.int) / 2, (1 + conf.int) / 2))
+  quant1 <- quantile(x, c((1 - conf.int) / 2, (1 + conf.int) / 2), na.rm = na.rm)
+  quant2 <- quantile(y, c((1 - conf.int) / 2, (1 + conf.int) / 2), na.rm = na.rm)
+  quant <- quantile(y - x, c((1 - conf.int) / 2, (1 + conf.int) / 2), na.rm = na.rm)
   names(quant1) <- NULL
   names(quant2) <- NULL
   names(quant) <- NULL

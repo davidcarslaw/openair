@@ -135,15 +135,11 @@ mytraj <- merge(mytraj, theData, by = "date")}
 \seealso{
 Other import functions: 
 \code{\link{importADMS}()},
-\code{\link{importAQE}()},
 \code{\link{importAURN}()},
 \code{\link{importEurope}()},
 \code{\link{importKCL}()},
-\code{\link{importLocal}()},
 \code{\link{importMeta}()},
-\code{\link{importNI}()},
-\code{\link{importSAQN}()},
-\code{\link{importWAQN}()}
+\code{\link{importUKAQ}()}
 
 Other trajectory analysis functions: 
 \code{\link{trajCluster}()},

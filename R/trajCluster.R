@@ -101,7 +101,7 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
     mutate(traj_len = length(date))
 
   if (length(unique(traj$traj_len)) > 1) {
-    warning("Trajectory lengths differ, using most common length.")
+ 
     ux <- unique(traj$traj_len)
     nmax <- ux[which.max(tabulate(match(traj$traj_len, ux)))]
     traj <- ungroup(traj) %>%
@@ -286,7 +286,8 @@ trajCluster <- function(traj, method = "Euclid", n.cluster = 5,
       plot = plt,
       data = list(
         traj = traj,
-        results = dplyr::left_join(resRtn, clusters, by = c("cluster", type))
+        results = dplyr::left_join(resRtn, clusters, by = c("cluster", type)),
+        subsets = c("traj", "results")
       ),
       call = match.call()
     )

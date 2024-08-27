@@ -221,6 +221,7 @@ percentile = c(5, 50, 95), lwd = c(1, 2, 1), lty = c(5, 1, 5))}
 Other time series and trend functions: 
 \code{\link{TheilSen}()},
 \code{\link{calendarPlot}()},
+\code{\link{runRegression}()},
 \code{\link{timePlot}()},
 \code{\link{timeProp}()},
 \code{\link{timeVariation}()},

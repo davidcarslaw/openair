@@ -11,7 +11,7 @@ polarPlot(
   wd = "wd",
   type = "default",
   statistic = "mean",
-  limits = NA,
+  limits = NULL,
   exclude.missing = TRUE,
   uncertainty = FALSE,
   percentile = NA,
@@ -25,7 +25,7 @@ polarPlot(
   force.positive = TRUE,
   k = 100,
   normalise = FALSE,
-  key.header = "",
+  key.header = statistic,
   key.footer = pollutant,
   key.position = "right",
   key = TRUE,
@@ -35,6 +35,7 @@ polarPlot(
   x_error = NA,
   y_error = NA,
   kernel = "gaussian",
+  formula.label = TRUE,
   tau = 0.5,
   alpha = 1,
   plot = TRUE,
@@ -227,10 +228,9 @@ only a relatively few data points at very high wind speeds and plotting all
 of them can reduce the useful information in the plot.}
 
 \item{angle.scale}{Sometimes the placement of the scale may interfere with an
-interesting feature. The user can therefore set \code{angle.scale} to
-any value between 0 and 360 degrees to mitigate such problems. For
-example \code{angle.scale = 45} will draw the scale heading in a NE
-direction.}
+interesting feature. The user can therefore set \code{angle.scale} to any
+value between 0 and 360 degrees to mitigate such problems. For example
+\code{angle.scale = 45} will draw the scale heading in a NE direction.}
 
 \item{units}{The units shown on the polar axis scale.}
 
@@ -301,6 +301,11 @@ regression statistics are used such as \emph{r}. Default is \code{4}.}
 correlation or regression techniques are used. Only \code{"gaussian"} is
 supported but this may be enhanced in the future.}
 
+\item{formula.label}{When pair-wise statistics such as regression slopes are
+calculated and plotted, should a formula label be displayed?
+\code{formula.label} will also determine whether concentration information
+is printed when \code{statistic = "cpf"}.}
+
 \item{tau}{The quantile to be estimated when \code{statistic} is set to
 \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
 and will be ignored if \code{"quantile.slope"} is not used.}
@@ -322,12 +327,10 @@ and \code{cutData}. For example, \code{polarPlot} passes the option
 \code{quickText} to handle routine formatting.}
 }
 \value{
-an \link[=openair-package]{openair} object. \code{polarPlot} surface data
-can also be extracted directly using the \code{results}, e.g.
-\code{results(object)} for \code{output <- polarPlot(mydata, "nox")}. This
-returns a data frame with four set columns: \code{cond}, conditioning based
-on \code{type}; \code{u} and \code{v}, the translational vectors based on
-\code{ws} and \code{wd}; and the local \code{pollutant} estimate.
+an \link[=openair-package]{openair} object. \code{data} contains four set
+columns: \code{cond}, conditioning based on \code{type}; \code{u} and
+\code{v}, the translational vectors based on \code{ws} and \code{wd}; and
+the local \code{pollutant} estimate.
 }
 \description{
 Function for plotting pollutant concentration in polar coordinates showing

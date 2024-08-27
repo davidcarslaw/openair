@@ -55,10 +55,9 @@ can also take the values \code{"viridis"}, \code{"magma"},
 ported from Python's Matplotlib library.}
 
 \item{angle.scale}{Sometimes the placement of the scale may interfere with an
-interesting feature. The user can therefore set \code{angle.scale} to
-any value between 0 and 360 degrees to mitigate such problems. For
-example \code{angle.scale = 45} will draw the scale heading in a NE
-direction.}
+interesting feature. The user can therefore set \code{angle.scale} to any
+value between 0 and 360 degrees to mitigate such problems. For example
+\code{angle.scale = 45} will draw the scale heading in a NE direction.}
 
 \item{units}{The units shown on the polar axis scale.}
 
@@ -275,18 +274,25 @@ regression statistics are used such as \emph{r}. Default is \code{4}.}
     \item{\code{kernel}}{Type of kernel used for the weighting procedure for when
 correlation or regression techniques are used. Only \code{"gaussian"} is
 supported but this may be enhanced in the future.}
+    \item{\code{formula.label}}{When pair-wise statistics such as regression slopes are
+calculated and plotted, should a formula label be displayed?
+\code{formula.label} will also determine whether concentration information
+is printed when \code{statistic = "cpf"}.}
     \item{\code{tau}}{The quantile to be estimated when \code{statistic} is set to
 \code{"quantile.slope"}. Default is \code{0.5} which is equal to the median
 and will be ignored if \code{"quantile.slope"} is not used.}
   }}
 }
 \value{
-an \link[=openair-package]{openair} object. The object includes three main
+an \link[=openair-package]{openair} object. The object includes four main
 components: \code{call}, the command used to generate the plot;
-\code{data}, by default the original data frame with a new field \code{cluster}
-identifying the cluster; and \code{plot}, the plot itself. Note that any
-rows where the value of \code{pollutant} is \code{NA} are ignored so that
-the returned data frame may have fewer rows than the original.
+\code{data}, by default the original data frame with a new field
+\code{cluster} identifying the cluster, \code{clust_stats} giving the
+contributions made by each cluster to number of measurements, their
+percentage and the percentage by pollutant; and \code{plot}, the plot
+itself. Note that any rows where the value of \code{pollutant} is \code{NA}
+are ignored so that the returned data frame may have fewer rows than the
+original.
 
 If the clustering is carried out considering differences, i.e., an
 \code{after} data frame is supplied, the output also includes the

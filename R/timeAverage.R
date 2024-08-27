@@ -132,6 +132,8 @@
 #'   than the original time series, data are \sQuote{padded out} with \code{NA}.
 #'   To \sQuote{pad-out} the additional data with the first row in each original
 #'   time interval, choose \code{fill = TRUE}.
+#' @param progress Show a progress bar when many groups make up `type`? Defaults
+#'   to `TRUE`.
 #' @param ... Additional arguments for other functions calling
 #'   \code{timeAverage}.
 #' @import dplyr
@@ -171,7 +173,7 @@
 timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
                         statistic = "mean", type = "default", percentile = NA,
                         start.date = NA, end.date = NA, interval = NA,
-                        vector.ws = FALSE, fill = FALSE, ...) {
+                        vector.ws = FALSE, fill = FALSE, progress = TRUE, ...) {
 
   ## get rid of R check annoyances
   year <- season <- month <- Uu <- Vv <- site <- default <- wd <- ws <- NULL
@@ -439,10 +441,13 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
       ## need to make sure all data are present..
       ## print out time interval assumed for input time series
       ## useful for debugging
-      if (!padded) mydata <- date.pad(mydata, type = type)
-
-      if (avg.time != "season") mydata$date <- as.POSIXct(cut(mydata$date, avg.time), tz = TZ)
-
+      if (!padded)
+        mydata <- date.pad(mydata, type = type)
+      
+      if (avg.time != "season")
+        mydata$date <-
+          lubridate::as_datetime(as.character(cut(mydata$date, avg.time)), tz = TZ)
+      
       if (statistic == "mean") { ## faster for some reason?
 
         avmet <- mydata %>%
@@ -473,8 +478,9 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
 
       ## faster if do not need data capture
       if (avg.time != "season") {
-      #   mydata$date <- lubridate::floor_date(mydata$date, avg.time)
-        mydata$date <- as.POSIXct(cut(mydata$date, avg.time), tz = TZ)
+        mydata$date <-
+          lubridate::as_datetime(as.character(cut(mydata$date, avg.time)), tz = TZ)
+        # mydata$date <- as.POSIXct(cut(mydata$date, avg.time), tz = TZ)
       }
 
       avmet <- # select(mydata, -date) %>%
@@ -547,9 +553,14 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
   }
 
   ## calculate stats split by type
+  if (progress) progress <- "Calculating Time Averages"
   mydata <- mydata %>%
     group_by(across(type)) %>%
-    do(suppressWarnings(calc.mean(., start.date)))
+    group_split() %>%
+    purrr::map(calc.mean, start.date = start.date,
+               .progress = progress) %>%
+    purrr::list_rbind() %>% 
+    as_tibble()
 
   ## don't need default column
   if ("default" %in% names(mydata)) {

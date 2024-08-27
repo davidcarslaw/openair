@@ -77,12 +77,15 @@
 #'   -units -auto.text -plot
 #' @export
 #' @import cluster
-#' @return an [openair][openair-package] object. The object includes three main
+#' @return an [openair][openair-package] object. The object includes four main
 #'   components: \code{call}, the command used to generate the plot;
-#'   \code{data}, by default the original data frame with a new field \code{cluster}
-#'   identifying the cluster; and \code{plot}, the plot itself. Note that any
-#'   rows where the value of \code{pollutant} is \code{NA} are ignored so that
-#'   the returned data frame may have fewer rows than the original.
+#'   \code{data}, by default the original data frame with a new field
+#'   \code{cluster} identifying the cluster, \code{clust_stats} giving the
+#'   contributions made by each cluster to number of measurements, their
+#'   percentage and the percentage by pollutant; and \code{plot}, the plot
+#'   itself. Note that any rows where the value of \code{pollutant} is \code{NA}
+#'   are ignored so that the returned data frame may have fewer rows than the
+#'   original.
 #'
 #'   If the clustering is carried out considering differences, i.e., an
 #'   \code{after} data frame is supplied, the output also includes the
@@ -247,10 +250,15 @@ polarCluster <-
       dat.orig
     }
 
+    # results.grid <-
+    #   group_by(data.frame(n = seq_along(n.clusters)), n) %>%
+    #   do(make.clust(i = .$n, results.grid))
 
     results.grid <-
-      group_by(data.frame(n = seq_along(n.clusters)), n) %>%
-      do(make.clust(i = .$n, results.grid))
+      purrr::map(.x = seq_along(n.clusters),
+               .f = make.clust,
+               results.grid = results.grid, .progress = "Calculating Clusters") %>%
+      purrr::list_rbind()
 
     results.grid$nclust <-
       ordered(results.grid$nclust, levels = paste(n.clusters, "clusters"))
@@ -455,12 +463,8 @@ polarCluster <-
         plot(useOuterStrips(plt, strip = strip, strip.left = strip.left))
       }
     }
-    # control output data
-    if (plot.data) {
-      out_data <- results.grid
-    } else {
-      out_data <- results
-    }
+
+    out_data <- results
 
     # currently conflicts with length(n.clusters) > 1 - resolve
     if (is.function(out_data)) {
@@ -473,6 +477,44 @@ polarCluster <-
       out_data$cluster[out_data$cluster == "CNA"] <- NA_character_
     }
 
+    # print the stats but only for cluster of length 1
+
+    var_mean <- paste0("mean_", pollutant)
+    var_percent <- paste0(pollutant, "_percent")
+
+    if (length(n.clusters) == 1L && length(pollutant) == 1L) {
+
+    clust_stats <-
+      out_data %>%
+      dplyr::group_by(cluster) %>%
+      dplyr::summarise(
+        {{ var_mean }} := mean(.data[[pollutant]], na.rm = TRUE),
+        n = dplyr::n()
+      ) %>%
+      na.omit() %>%
+      dplyr::mutate(
+        n_mean = n * .data[[var_mean ]],
+        n_percent = round(100 * n / sum(n), 1),
+        {{ var_percent }} := round(100 * n_mean / sum(n_mean), 1)
+      ) %>%
+      dplyr::select(-n_mean)
+
+    } else {
+
+      clust_stats <- NULL
+    }
+
+
+    if (plot && length(n.clusters) == 1L) {
+
+      print(clust_stats)
+
+    }
+
+    if (plot.data) {
+      out_data <- results.grid
+    }
+
     # output
     if (is.data.frame(after)) {
       output <-
@@ -480,14 +522,18 @@ polarCluster <-
           plot = plt,
           data = out_data,
           after = after,
-          call = match.call()
+          call = match.call(),
+          clust_stats = clust_stats
         )
     } else {
       output <- list(
         plot = plt,
         data = out_data,
-        call = match.call()
+        call = match.call(),
+        clust_stats = clust_stats
       )
     }
+
+    class(output) <- "openair"
     invisible(output)
   }
