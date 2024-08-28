@@ -241,11 +241,12 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     FUN <- function(x)
       quantile(x, probs = percentile,na.rm = TRUE)
   } else if (statistic == "percentile" & percentileInterpolation==FALSE){
-    FUN <-function(x)
+    FUN <-function(x){
       sorted_data <- sort(na.omit(x))
       n <- length(sorted_data)
       position <- ceiling((percentile / 100) * n)
       return(sorted_data[position])
+    }
   }
 
   calc.mean <- function(mydata, start.date) { ## function to calculate means
