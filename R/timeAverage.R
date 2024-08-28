@@ -244,7 +244,7 @@ timeAverage <- function(mydata, avg.time = "day", data.thresh = 0,
     FUN <-function(x){
       sorted_data <- sort(na.omit(x))
       n <- length(sorted_data)
-      position <- ceiling((percentile / 100) * n)
+      position <- ceiling((percentile) * n)
       return(sorted_data[position])
     }
   }
