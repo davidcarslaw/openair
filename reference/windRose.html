@@ -13,7 +13,7 @@ wind speed."><meta property="og:image" content="https://davidcarslaw.github.io/o
 
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.18.2.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.18.2.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,6 +58,7 @@ wind speed.</p>
 <span>  ws.int <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  angle <span class="op">=</span> <span class="fl">30</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>  calm.thresh <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  bias.corr <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  cols <span class="op">=</span> <span class="st">"default"</span>,</span>
 <span>  grid.line <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -135,6 +136,13 @@ different variables and how they depend on one another.</p>
 <p>Type can be up length two e.g. <code>type = c("season", "weekday")</code> will
 produce a 2x2 plot split by season and day of the week. Note, when two
 types are provided the first forms the columns and the second the rows.</p></dd>
+
+
+<dt id="arg-calm-thresh">calm.thresh<a class="anchor" aria-label="anchor" href="#arg-calm-thresh"></a></dt>
+<dd><p>By default, conditions are considered to be calm when the
+wind speed is zero. The user can set a different threshold for calms be
+setting <code>calm.thresh</code> to a higher value. For example,
+<code>calm.thresh = 0.5</code> will identify wind speeds <strong>below</strong> 0.5 as calm.</p></dd>
 
 
 <dt id="arg-bias-corr">bias.corr<a class="anchor" aria-label="anchor" href="#arg-bias-corr"></a></dt>
@@ -388,7 +396,7 @@ Roses and Conducting Sector-Based Air Dispersion Modeling, Journal of the Air
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer></div>
