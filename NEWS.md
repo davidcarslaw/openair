@@ -3,7 +3,7 @@
 ## Bug fixes
 
 - Fixed an issue wherein `importUKAQ()` would drop sites if importing from `local` sites *and* another network.
-
+- add `calm.thresh` as an option to `windRose`. This change allows users to set a non-zero wind speed threshold that is considered as calm.
 # openair 2.18-2
 
 ## New Features
