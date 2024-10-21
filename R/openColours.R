@@ -216,10 +216,8 @@ openColours <- function(scheme = "default", n = 100) {
 
   # The palette with grey:
   cbPalette <- function(n) {
-    cols <- c(
-      "#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
-      "#D55E00", "#CC79A7"
-    )
+    cols <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", 
+              "#CC79A7", "#999999", "#000000")
 
     if (n >= 1 && n < 9) {
       cols <- cols[1:n]
