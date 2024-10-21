@@ -105,7 +105,7 @@
 #' cols
 #'
 openColours <- function(scheme = "default", n = 100) {
-  ## pre-defined brewer colour palettes sequential, diverging, qualitative
+  # pre-defined brewer colour palettes sequential, diverging, qualitative
   brewer.col <- c(
     "Blues",
     "BuGn",
@@ -144,9 +144,10 @@ openColours <- function(scheme = "default", n = 100) {
     "Set3"
   )
   
-  ## max colours allowed
+  # max colours allowed for each brewer pal
   brewer.n <- c(rep(9, 18), rep(9, 9), c(8, 8, 12, 9, 8, 9, 8, 12))
   
+  # sequential palettes
   seq_schemes <-
     c(
       "increment",
@@ -162,22 +163,26 @@ openColours <- function(scheme = "default", n = 100) {
       "gaf.seq"
     )
   
-  qual_schemes <- c(
-    "okabeito",
-    "cbPalette",
-    "daqi",
-    "daqi.bands",
-    "gaf.cat",
-    "gaf.focus",
-    "tableau",
-    "observable",
-    "tol",
-    "tol.bright",
-    "tol.muted",
-    "tol.light"
+  # qualitative palettes and maximum lengths
+  qual_scheme_lengths <- c(
+    "okabeito" = 9,
+    "cbPalette" = 9,
+    "daqi" = 10,
+    "daqi.bands" = 4,
+    "gaf.cat" = 6,
+    "gaf.focus" = 2,
+    "tableau" = 10,
+    "observable" = 10,
+    "tol" = 7,
+    "tol.bright" = 7,
+    "tol.muted" = 10,
+    "tol.light" = 9
   )
   
-  ## all schemes
+  # names of qualitative palettes
+  qual_schemes <- names(qual_scheme_lengths)
+  
+  # combine all schemes into vector
   schemes <- c(seq_schemes,
                qual_schemes,
                "brewer1",
@@ -185,7 +190,7 @@ openColours <- function(scheme = "default", n = 100) {
                "greyscale",
                brewer.col)
   
-  ## error catcher
+  # get colours based on scheme
   if (length(scheme) == 1) {
     if (scheme == "brewer1") {
       cols <- brewerPalette(n, "Set1")
@@ -203,14 +208,18 @@ openColours <- function(scheme = "default", n = 100) {
       cols <- seqPalette(n, scheme = scheme)
     }
     if (scheme %in% qual_schemes) {
+      # if n not provided, return max number o
+      if (missing(n)) {
+        n <- qual_scheme_lengths[[scheme]]
+      }
       cols <- qualPalette(n, scheme = scheme)
     }
   }
   
+  # if scheme isn't a scheme name, assume user has given own colours
   if (!any(scheme %in% schemes)) {
-    # assume user has given own colours
     if (length(scheme) > 1) {
-      ## interpolate
+      # interpolate
       user.cols <- colorRampPalette(scheme)
       cols <- user.cols(n)
     } else {

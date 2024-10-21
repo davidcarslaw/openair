@@ -4,7 +4,12 @@
 
 - add `calm.thresh` as an option to `windRose`. This change allows users to set a non-zero wind speed threshold that is considered as calm.
 
-- added new qualitative colour palettes to `openColours()`; the "tol" family are colour-blind friendly palettes based on the work of Paul Tol (<https://personal.sron.nl/~pault/>), and "tableau" and "observable" provide access to the "Tableau10" and "Observable10" palettes to aid in consistency with plots made in those platforms.
+- Added new features for `openColours()`:
+
+    - Added new qualitative colour palettes: the "tol" family are colour-blind friendly palettes based on the work of Paul Tol (<https://personal.sron.nl/~pault/>), and "tableau" and "observable" provide access to the "Tableau10" and "Observable10" palettes to aid in consistency with plots made in those platforms.
+  
+    - When `n` isn't defined for a qualitative palette (e.g., "Dark2"), the full qualitative palette will be returned. Previously this errored with the default of `100`.
+  
 
 ## Bug fixes
 
