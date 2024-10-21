@@ -143,10 +143,10 @@ openColours <- function(scheme = "default", n = 100) {
     "Set2",
     "Set3"
   )
-  
+
   # max colours allowed for each brewer pal
   brewer.n <- c(rep(9, 18), rep(9, 9), c(8, 8, 12, 9, 8, 9, 8, 12))
-  
+
   # sequential palettes
   seq_schemes <-
     c(
@@ -162,7 +162,7 @@ openColours <- function(scheme = "default", n = 100) {
       "cividis",
       "gaf.seq"
     )
-  
+
   # qualitative palettes and maximum lengths
   qual_scheme_lengths <- c(
     "okabeito" = 9,
@@ -178,25 +178,27 @@ openColours <- function(scheme = "default", n = 100) {
     "tol.muted" = 10,
     "tol.light" = 9
   )
-  
+
   # names of qualitative palettes
   qual_schemes <- names(qual_scheme_lengths)
-  
+
   # combine all schemes into vector
-  schemes <- c(seq_schemes,
-               qual_schemes,
-               "brewer1",
-               "hue",
-               "greyscale",
-               brewer.col)
-  
+  schemes <- c(
+    seq_schemes,
+    qual_schemes,
+    "brewer1",
+    "hue",
+    "greyscale",
+    brewer.col
+  )
+
   # get colours based on scheme
-  if (length(scheme) == 1) {
+  if (length(scheme) == 1L) {
     if (scheme == "brewer1") {
-      cols <- brewerPalette(n, "Set1")
+      cols <- brewerPalette(n, "Set1", brewer.col, brewer.n)
     }
     if (scheme %in% brewer.col) {
-      cols <- brewerPalette(n, scheme)
+      cols <- brewerPalette(n, scheme, brewer.col, brewer.n)
     }
     if (scheme == "hue") {
       cols <- huePalette(n)
@@ -215,9 +217,18 @@ openColours <- function(scheme = "default", n = 100) {
       cols <- qualPalette(n, scheme = scheme)
     }
   }
-  
+
   # if scheme isn't a scheme name, assume user has given own colours
   if (!any(scheme %in% schemes)) {
+    check <- areColors(scheme)
+    if (any(!check)) {
+      bad_cols <- unique(names(check[!check]))
+      cli::cli_abort(
+        c("x" = "The following are not valid R colours nor {.fun openColours} palettes: {.field {bad_cols}}"),
+        call = NULL
+      )
+    }
+
     if (length(scheme) > 1) {
       # interpolate
       user.cols <- colorRampPalette(scheme)
@@ -226,15 +237,25 @@ openColours <- function(scheme = "default", n = 100) {
       cols <- rep(scheme, n)
     }
   }
-  
+
+  if (any(scheme %in% schemes) & length(scheme) > 1L) {
+    cli::cli_abort(
+      c(
+        "x" = "Please provide {.strong either} 1 {.fun openColours} palette {.emph or} a vector of valid R colours",
+        "i" = "See {.code ?openColours} for a list of palettes."
+      ),
+      call = NULL
+    )
+  }
+
   cols
 }
 
 #' Function to build Brewer palettes
 #' @noRd
-brewerPalette <- function(n, scheme) {
+brewerPalette <- function(n, scheme, brewer.col, brewer.n) {
   n.brew <- brewer.n[scheme == brewer.col]
-  
+
   if (n >= 3 & n <= n.brew) {
     brewer.pal(n, scheme)
   } else {
@@ -250,14 +271,16 @@ huePalette <- function(n) {
   h <- c(0, 360) + 15
   l <- 65
   c <- 100
-  
+
   if ((diff(h) %% 360) < 1) {
     h[2] <- h[2] - 360 / n
   }
-  
-  grDevices::hcl(h = seq(h[1], h[2], length = n),
-                 c = c,
-                 l = l)
+
+  grDevices::hcl(
+    h = seq(h[1], h[2], length = n),
+    c = c,
+    l = l
+  )
 }
 
 #' Function to manage qualitative palettes
@@ -276,7 +299,7 @@ qualPalette <- function(n, scheme) {
       "#000000"
     )
   }
-  
+
   if (scheme %in% c("daqi")) {
     cols <- c(
       "#9CFF9C",
@@ -291,36 +314,40 @@ qualPalette <- function(n, scheme) {
       "#CE30FF"
     )
   }
-  
+
   if (scheme %in% c("daqi.bands")) {
     cols <- c("#009900", "#ff9900", "#ff0000", "#990099")
   }
-  
+
   if (scheme %in% c("gaf.cat")) {
     cols <-
-      c("#12436D",
+      c(
+        "#12436D",
         "#28A197",
         "#801650",
         "#F46A25",
         "#3D3D3D",
-        "#A285D1")
+        "#A285D1"
+      )
   }
-  
+
   if (scheme %in% c("gaf.focus")) {
     cols <- c("#BFBFBF", "#12436D")
   }
-  
+
   if (scheme %in% c("tol", "tol.bright")) {
     cols <-
-      c("#EE6677",
+      c(
+        "#EE6677",
         "#228833",
         "#4477AA",
         "#CCBB44",
         "#66CCEE",
         "#AA3377",
-        "#BBBBBB")
+        "#BBBBBB"
+      )
   }
-  
+
   if (scheme == "tol.muted") {
     cols <-
       c(
@@ -336,7 +363,7 @@ qualPalette <- function(n, scheme) {
         "#DDDDDD"
       )
   }
-  
+
   if (scheme == "tol.light") {
     cols <-
       c(
@@ -351,7 +378,7 @@ qualPalette <- function(n, scheme) {
         "#DDDDDD"
       )
   }
-  
+
   if (scheme == "tableau") {
     cols <- c(
       "#5778a4",
@@ -366,7 +393,7 @@ qualPalette <- function(n, scheme) {
       "#b8b0ac"
     )
   }
-  
+
   if (scheme == "observable") {
     cols <- c(
       "#4269D0",
@@ -381,15 +408,17 @@ qualPalette <- function(n, scheme) {
       "#9498A0"
     )
   }
-  
+
   max <- length(cols)
-  
+
   if (n >= 1 && n <= max) {
     cols <- cols[1:n]
   } else {
     cli::cli_abort(
-      c("!" = "Too many colours selected for {.code {scheme}}.",
-        "i" = "{.code n} should be between 1 and {max}."),
+      c(
+        "!" = "Too many colours selected for {.code {scheme}}.",
+        "i" = "{.code n} should be between 1 and {max}."
+      ),
       call = NULL
     )
   }
@@ -400,12 +429,12 @@ qualPalette <- function(n, scheme) {
 #' @noRd
 seqPalette <- function(n, scheme) {
   interpolate <- "linear"
-  
+
   if (scheme == "default") {
     cols <- rev(brewer.pal(11, "Spectral"))
     interpolate <- "spline"
   }
-  
+
   if (scheme == "increment") {
     cols <- c(
       "#B0FFF1",
@@ -425,12 +454,12 @@ seqPalette <- function(n, scheme) {
       "#520066"
     )
   }
-  
+
   if (scheme == "heat") {
     cols <- brewer.pal(9, "YlOrRd")
     interpolate <- "spline"
   }
-  
+
   if (scheme == "viridis") {
     cols <- c(
       "#440154FF",
@@ -445,7 +474,7 @@ seqPalette <- function(n, scheme) {
       "#FDE725FF"
     )
   }
-  
+
   if (scheme == "inferno") {
     cols <- c(
       "#000004FF",
@@ -460,7 +489,7 @@ seqPalette <- function(n, scheme) {
       "#FCFFA4FF"
     )
   }
-  
+
   if (scheme == "magma") {
     cols <- c(
       "#000004FF",
@@ -475,7 +504,7 @@ seqPalette <- function(n, scheme) {
       "#FCFDBFFF"
     )
   }
-  
+
   if (scheme == "plasma") {
     cols <- c(
       "#0D0887FF",
@@ -490,7 +519,7 @@ seqPalette <- function(n, scheme) {
       "#F0F921FF"
     )
   }
-  
+
   if (scheme == "cividis") {
     cols <- c(
       "#00204DFF",
@@ -505,7 +534,7 @@ seqPalette <- function(n, scheme) {
       "#FFEA46FF"
     )
   }
-  
+
   if (scheme == "jet") {
     cols <- c(
       "#00007F",
@@ -519,7 +548,7 @@ seqPalette <- function(n, scheme) {
       "#7F0000"
     )
   }
-  
+
   if (scheme == "turbo") {
     cols <- c(
       "#30123BFF",
@@ -534,14 +563,27 @@ seqPalette <- function(n, scheme) {
       "#7A0403FF"
     )
   }
-  
+
   if (scheme == "gaf.seq") {
     cols <- c("#12436D", "#2073BC", "#6BACE6")
   }
-  
+
   fun <- colorRampPalette(colors = cols, interpolate = interpolate)
-  
+
   cols <- fun(n)
-  
+
   return(cols)
+}
+
+#' Helper to check provided data are valid colours
+#' @noRd
+areColors <- function(x) {
+  sapply(x, function(X) {
+    tryCatch(
+      is.matrix(col2rgb(X)),
+      error = function(e) {
+        FALSE
+      }
+    )
+  })
 }

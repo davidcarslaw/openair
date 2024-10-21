@@ -9,6 +9,8 @@
     - Added new qualitative colour palettes: the "tol" family are colour-blind friendly palettes based on the work of Paul Tol (<https://personal.sron.nl/~pault/>), and "tableau" and "observable" provide access to the "Tableau10" and "Observable10" palettes to aid in consistency with plots made in those platforms.
   
     - When `n` isn't defined for a qualitative palette (e.g., "Dark2"), the full qualitative palette will be returned. Previously this errored with the default of `100`.
+    
+    - `openColours()` will now check whether the provided `scheme` is either a known scheme name *or* a vector of valid R colours, and provide an informative error if this is not the case.
   
 
 ## Bug fixes
