@@ -46,8 +46,16 @@ The following schemes are made available by \code{openColours()}:
 \itemize{
 \item Simplified versions of the \code{RColorBrewer} qualitative palettes:
 "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3".
-\item "cbPalette", a colour-blind safe palette based on the work of
-\url{https://www.nature.com/articles/nmeth.1618}
+\item "okabeito" (or "cbPalette"), a colour-blind safe palette based on
+the work of Masataka Okabe and Kei Ito (\url{https://jfly.uni-koeln.de/color/})
+\item "tol.bright" (or "tol"), "tol.muted" and "tol.light", colour-blind safe
+palettes based on the work of Paul Tol (\url{https://personal.sron.nl/~pault/})
+\item "tableau" and "observable", aliases for the
+"Tableau10"
+(\url{https://www.tableau.com/blog/colors-upgrade-tableau-10-56782}) and
+"Observable10" (\url{https://observablehq.com/blog/crafting-data-colors})
+colour palettes. These could be useful for consistency between openair
+plots and with figures made in Tableau or Observable Plot.
 }
 
 \strong{UK Government Palettes:}

@@ -30,8 +30,18 @@
 #'   * Simplified versions of the `RColorBrewer` qualitative palettes:
 #'   "Accent", "Dark2", "Paired", "Pastel1", "Pastel2", "Set1", "Set2", "Set3".
 #'
-#'   * "cbPalette", a colour-blind safe palette based on the work of
-#'   <https://www.nature.com/articles/nmeth.1618>
+#'   * "okabeito" (or "cbPalette"), a colour-blind safe palette based on
+#'   the work of Masataka Okabe and Kei Ito (<https://jfly.uni-koeln.de/color/>)
+#'
+#'   * "tol.bright" (or "tol"), "tol.muted" and "tol.light", colour-blind safe
+#'   palettes based on the work of Paul Tol (<https://personal.sron.nl/~pault/>)
+#'
+#'   * "tableau" and "observable", aliases for the
+#'   "Tableau10"
+#'   (<https://www.tableau.com/blog/colors-upgrade-tableau-10-56782>) and
+#'   "Observable10" (<https://observablehq.com/blog/crafting-data-colors>)
+#'   colour palettes. These could be useful for consistency between openair
+#'   plots and with figures made in Tableau or Observable Plot.
 #'
 #'   **UK Government Palettes:**
 #'
@@ -81,7 +91,8 @@
 #' @author Jack Davison
 #' @references \url{https://colorbrewer2.org/}
 #' @references \url{https://uk-air.defra.gov.uk/air-pollution/daqi}
-#' @references \url{https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/}
+#' @references
+#' \url{https://analysisfunction.civilservice.gov.uk/policy-store/data-visualisation-colours-in-charts/}
 #' @examples
 #'
 #' # to return 5 colours from the "jet" scheme:
@@ -92,7 +103,7 @@
 #' #  green to red:
 #' cols <- openColours(c("yellow", "green", "red"), 10)
 #' cols
-#'
+#' 
 openColours <- function(scheme = "default", n = 100) {
   ## pre-defined brewer colour palletes sequential, diverging, qualitative
   brewer.col <- c(
@@ -108,9 +119,10 @@ openColours <- function(scheme = "default", n = 100) {
   ## predefined schemes
   schemes <- c(
     "increment", "default", "brewer1", "heat", "jet", "hue",
-    "greyscale", brewer.col, "cbPalette", "viridis", "magma",
+    "greyscale", brewer.col, "cbPalette", "okabeito", "viridis", "magma",
     "inferno", "plasma", "cividis", "turbo", "daqi", "daqi.bands",
-    "gaf.cat", "gaf.seq", "gaf.focus"
+    "gaf.cat", "gaf.seq", "gaf.focus", "tableau", "observable",
+    "tol", "tol.bright", "tol.muted", "tol.light"
   )
 
   ## schemes
@@ -158,7 +170,7 @@ openColours <- function(scheme = "default", n = 100) {
 
   default.col <- colorRampPalette(brewer.pal(11, "Spectral"), interpolate = "spline")
 
-  ## for this pallete use specfified number if possible - because it has been thought about...
+  ## for this palette use specified number if possible - because it has been thought about...
   brewer1 <- function(n) {
     if (n >= 3 & n <= 9) {
       brewer.pal(n, "Set1")
@@ -168,7 +180,7 @@ openColours <- function(scheme = "default", n = 100) {
     }
   }
 
-  ## for this pallete use specfified number if possible - because it has been thought about...
+  ## for this palette use specified number if possible - because it has been thought about...
   find.brewer <- function(thecol, n) {
     n.brew <- brewer.n[scheme == brewer.col]
 
@@ -269,7 +281,77 @@ openColours <- function(scheme = "default", n = 100) {
       )
     }
   }
-
+  
+  # from Paul Tol <https://personal.sron.nl/~pault/>
+  tol_pal <- function(n, extent = c("bright", "muted", "light")) {
+    if (extent == "bright") {
+      cols <- c('#EE6677', '#228833', '#4477AA', '#CCBB44', '#66CCEE', '#AA3377', '#BBBBBB') 
+    }
+    if (extent == "muted") {
+      cols <- c('#88CCEE', '#44AA99', '#117733', '#332288', '#DDCC77', '#999933','#CC6677', '#882255', '#AA4499', '#DDDDDD')
+    }
+    if (extent == "light") {
+      cols <- c('#BBCC33', '#AAAA00', '#77AADD', '#EE8866', '#EEDD88', '#FFAABB', '#99DDFF', '#44BB99', '#DDDDDD')
+    }
+    
+    max <- length(cols)
+    
+    if (n >= 1 && n <= max) {
+      cols <- cols[1:n]
+      return(cols)
+    } else {
+      cli::cli_abort(
+        c("!" = "Too many colours selected for {.code {scheme}}.",
+          "i" = "{.code n} should be between 1 and {max}."),
+        call = NULL
+      )
+    }
+  }
+  
+  borrowed_pal <- function(n, pal = "tableau") {
+    if (pal == "tableau") {
+      cols <- c(
+        "#5778a4",
+        "#e49444",
+        "#d1615d",
+        "#85b6b2",
+        "#6a9f58",
+        "#e7ca60",
+        "#a87c9f",
+        "#f1a2a9",
+        "#967662",
+        "#b8b0ac"
+      )
+    }
+    if (pal == "observable") {
+      cols <- c(
+        "#4269D0",
+        "#EFB118",
+        "#FF725C",
+        "#6CC5B0",
+        "#3CA951",
+        "#FF8AB7",
+        "#A463F2",
+        "#97BBF5",
+        "#9C6B4E",
+        "#9498A0"
+      )
+    }
+    
+    max <- length(cols)
+    
+    if (n >= 1 && n <= max) {
+      cols <- cols[1:n]
+      return(cols)
+    } else {
+      cli::cli_abort(
+        c("!" = "Too many colours selected for {.code {scheme}}.",
+          "i" = "{.code n} should be between 1 and {max}."),
+        call = NULL
+      )
+    }
+  }
+  
 
   ## error catcher
   if (length(scheme) == 1) {
@@ -288,12 +370,17 @@ openColours <- function(scheme = "default", n = 100) {
     if (scheme == "cividis") cols <- cividis(n)
     if (scheme == "hue") cols <- hue
     if (scheme == "greyscale") cols <- greyscale
-    if (scheme == "cbPalette") cols <- cbPalette(n)
+    if (scheme %in% c("okabeito", "cbPalette")) cols <- cbPalette(n)
     if (scheme == "daqi") cols <- daqi_pal(n, extent = "i")
     if (scheme == "daqi.bands") cols <- daqi_pal(n, extent = "b")
     if (scheme == "gaf.cat") cols <- gaf_pal(n, extent = "c")
     if (scheme == "gaf.focus") cols <- gaf_pal(n, extent = "f")
     if (scheme == "gaf.seq") cols <- gaf_ramp(n)
+    if (scheme == "tableau") cols <- borrowed_pal(n, "tableau")
+    if (scheme == "observable") cols <- borrowed_pal(n, "observable")
+    if (scheme %in% c("tol", "tol.bright")) cols <- tol_pal(n, "bright")
+    if (scheme == "tol.muted") cols <- tol_pal(n, "muted")
+    if (scheme == "tol.light") cols <- tol_pal(n, "light")
   }
 
   if (!any(scheme %in% schemes)) { # assume user has given own colours
