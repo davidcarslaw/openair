@@ -338,9 +338,9 @@ qualPalette <- function(n, scheme) {
   if (scheme %in% c("tol", "tol.bright")) {
     cols <-
       c(
+        "#4477AA",
         "#EE6677",
         "#228833",
-        "#4477AA",
         "#CCBB44",
         "#66CCEE",
         "#AA3377",
@@ -351,14 +351,14 @@ qualPalette <- function(n, scheme) {
   if (scheme == "tol.muted") {
     cols <-
       c(
-        "#88CCEE",
-        "#44AA99",
-        "#117733",
+        "#CC6677",
         "#332288",
         "#DDCC77",
-        "#999933",
-        "#CC6677",
+        "#117733",
+        "#88CCEE",
         "#882255",
+        "#44AA99",
+        "#999933",
         "#AA4499",
         "#DDDDDD"
       )
@@ -367,14 +367,14 @@ qualPalette <- function(n, scheme) {
   if (scheme == "tol.light") {
     cols <-
       c(
-        "#BBCC33",
-        "#AAAA00",
         "#77AADD",
         "#EE8866",
         "#EEDD88",
         "#FFAABB",
         "#99DDFF",
         "#44BB99",
+        "#BBCC33",
+        "#AAAA00",
         "#DDDDDD"
       )
   }
