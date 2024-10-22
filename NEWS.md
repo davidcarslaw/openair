@@ -4,17 +4,13 @@
 
 - The `source` argument of `importUKAQ()` now defaults to `NULL`. This option allows the function to assign the `source` of each `site` itself, with some caveats:
 
-	- Ambiguous codes (e.g., `"AD1"`, which corresponds to a SAQN and locally managed site) will preferentially import from the national networks (AURN, then AQE/SAQN/WAQN/NIAQN) over locally-managed networks. To override this users should manually define `source`.
+    - Ambiguous codes (e.g., `"AD1"`, which corresponds to a SAQN and locally managed site) will preferentially import from the national networks (AURN, then AQE/SAQN/WAQN/NIAQN) over locally-managed networks. To override this users should manually define `source`.
 
-	- Incorrect codes not found in `importMeta()` will error if `importUKAQ()` is left to assign the `source`.
+    - Incorrect codes not found in `importMeta()` will error if `importUKAQ()` is left to assign the `source`.
 
-	- When `data_type` is one of the aggregate types (e.g., `"annual"`) and a `site` isn't defined, a `source` must be provided.
+    - When `data_type` is one of the aggregate types (e.g., `"annual"`) and a `site` isn't defined, a `source` must be provided.
 
-	- It is likely *slightly* slower for the function to assign `source` itself than for users to specify it themselves.
-
-- The `formula.label` argument of `polarPlot()` will now control whether concentration information is printed when `statistic = "cpf"`.
-
-- add `calm.thresh` as an option to `windRose`. This change allows users to set a non-zero wind speed threshold that is considered as calm.
+    - It is likely *slightly* slower for the function to assign `source` itself than for users to specify it themselves.
 
 - Added new features for `openColours()`:
 
@@ -23,6 +19,12 @@
     - When `n` isn't defined for a qualitative palette (e.g., "Dark2"), the full qualitative palette will be returned. Previously this errored with the default of `100`.
     
     - `openColours()` will now check whether the provided `scheme` is either a known scheme name *or* a vector of valid R colours, and provide an informative error if this is not the case.
+    
+- The `formula.label` argument of `polarPlot()` will now control whether concentration information is printed when `statistic = "cpf"`.
+
+- add `calm.thresh` as an option to `windRose`. This change allows users to set a non-zero wind speed threshold that is considered as calm.
+
+- DAQI information imported using `importUKAQ(data_type = "daqi")` will be returned with the relevant DAQI band appended as an additional factor column; either "Low" (1-3), "Moderate" (4-6), "High" (7-9), or "Very High" (10). See <https://uk-air.defra.gov.uk/air-pollution/daqi> for more information.
  
 ## Bug fixes
 
