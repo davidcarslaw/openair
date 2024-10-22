@@ -37,7 +37,15 @@
 <h2 class="pkg-version" data-toc-text="development version" id="openair-development-version">openair (development version)<a class="anchor" aria-label="anchor" href="#openair-development-version"></a></h2>
 <div class="section level3">
 <h3 id="new-features-development-version">New Features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
-<ul><li><p>add <code>calm.thresh</code> as an option to <code>windRose</code>. This change allows users to set a non-zero wind speed threshold that is considered as calm.</p></li>
+<ul><li>
+<p>The <code>source</code> argument of <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> now defaults to <code>NULL</code>. This option allows the function to assign the <code>source</code> of each <code>site</code> itself, with some caveats:</p>
+<ul><li><p>Ambiguous codes (e.g., <code>"AD1"</code>, which corresponds to a SAQN and locally managed site) will preferentially import from the national networks (AURN, then AQE/SAQN/WAQN/NIAQN) over locally-managed networks. To override this users should manually define <code>source</code>.</p></li>
+<li><p>Incorrect codes not found in <code><a href="../reference/importMeta.html">importMeta()</a></code> will error if <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> is left to assign the <code>source</code>.</p></li>
+<li><p>When <code>data_type</code> is one of the aggregate types (e.g., <code>"annual"</code>) and a <code>site</code> isn’t defined, a <code>source</code> must be provided.</p></li>
+<li><p>It is likely <em>slightly</em> slower for the function to assign <code>source</code> itself than for users to specify it themselves.</p></li>
+</ul></li>
+<li><p>The <code>formula.label</code> argument of <code><a href="../reference/polarPlot.html">polarPlot()</a></code> will now control whether concentration information is printed when <code>statistic = "cpf"</code>.</p></li>
+<li><p>add <code>calm.thresh</code> as an option to <code>windRose</code>. This change allows users to set a non-zero wind speed threshold that is considered as calm.</p></li>
 <li>
 <p>Added new features for <code><a href="../reference/openColours.html">openColours()</a></code>:</p>
 <ul><li><p>Added new qualitative colour palettes: the “tol” family are colour-blind friendly palettes based on the work of Paul Tol (<a href="https://personal.sron.nl/~pault/" class="external-link uri">https://personal.sron.nl/~pault/</a>), and “tableau” and “observable” provide access to the “Tableau10” and “Observable10” palettes to aid in consistency with plots made in those platforms.</p></li>
@@ -47,14 +55,15 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
-<ul><li>Fixed an issue wherein <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> would drop sites if importing from <code>local</code> sites <em>and</em> another network.</li>
+<ul><li><p>Fixed an issue wherein <code><a href="../reference/importUKAQ.html">importUKAQ()</a></code> would drop sites if importing from <code>local</code> sites <em>and</em> another network.</p></li>
+<li><p><code><a href="../reference/polarCluster.html">polarCluster()</a></code> will no longer error with multiple <code>pollutant</code>s and a single <code>n.clusters</code>.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.18-2" id="openair-218-2">openair 2.18-2<a class="anchor" aria-label="anchor" href="#openair-218-2"></a></h2><p class="text-muted">CRAN release: 2024-03-11</p>
 <div class="section level3">
 <h3 id="new-features-2-18-2">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-18-2"></a></h3>
-<ul><li>add option to <code>corPlot</code> to carry through “use” option in <code>cor</code>.</li>
+<ul><li>add option to <code><a href="../reference/corPlot.html">corPlot()</a></code> to carry through “use” option in <code>cor</code>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-18-2">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-18-2"></a></h3>
