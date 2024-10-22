@@ -310,7 +310,18 @@ importUKAQ <-
           readDAQI,
           .progress = ifelse(progress, "Importing DAQI", FALSE)
         ) %>%
-        purrr::list_rbind()
+        purrr::list_rbind() %>%
+        dplyr::tibble() %>%
+        dplyr::mutate(
+          band = dplyr::case_when(
+            .data$poll_index %in% 1:3 ~ "Low",
+            .data$poll_index %in% 4:6 ~ "Moderate",
+            .data$poll_index %in% 7:9 ~ "High",
+            .data$poll_index == 10 ~ "Very High"
+          ),
+          band = factor(.data$band, c("Low", "Moderate", "High", "Very High")),
+          .after = "poll_index"
+        )
     }
 
     # Import any other stat
