@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">openair</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.18.2.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.18.2.9004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,14 +44,15 @@
 <li><p>When <code>data_type</code> is one of the aggregate types (e.g., <code>"annual"</code>) and a <code>site</code> isn’t defined, a <code>source</code> must be provided.</p></li>
 <li><p>It is likely <em>slightly</em> slower for the function to assign <code>source</code> itself than for users to specify it themselves.</p></li>
 </ul></li>
-<li><p>The <code>formula.label</code> argument of <code><a href="../reference/polarPlot.html">polarPlot()</a></code> will now control whether concentration information is printed when <code>statistic = "cpf"</code>.</p></li>
-<li><p>add <code>calm.thresh</code> as an option to <code>windRose</code>. This change allows users to set a non-zero wind speed threshold that is considered as calm.</p></li>
 <li>
 <p>Added new features for <code><a href="../reference/openColours.html">openColours()</a></code>:</p>
 <ul><li><p>Added new qualitative colour palettes: the “tol” family are colour-blind friendly palettes based on the work of Paul Tol (<a href="https://personal.sron.nl/~pault/" class="external-link uri">https://personal.sron.nl/~pault/</a>), and “tableau” and “observable” provide access to the “Tableau10” and “Observable10” palettes to aid in consistency with plots made in those platforms.</p></li>
 <li><p>When <code>n</code> isn’t defined for a qualitative palette (e.g., “Dark2”), the full qualitative palette will be returned. Previously this errored with the default of <code>100</code>.</p></li>
 <li><p><code><a href="../reference/openColours.html">openColours()</a></code> will now check whether the provided <code>scheme</code> is either a known scheme name <em>or</em> a vector of valid R colours, and provide an informative error if this is not the case.</p></li>
 </ul></li>
+<li><p>The <code>formula.label</code> argument of <code><a href="../reference/polarPlot.html">polarPlot()</a></code> will now control whether concentration information is printed when <code>statistic = "cpf"</code>.</p></li>
+<li><p>add <code>calm.thresh</code> as an option to <code>windRose</code>. This change allows users to set a non-zero wind speed threshold that is considered as calm.</p></li>
+<li><p>DAQI information imported using <code>importUKAQ(data_type = "daqi")</code> will be returned with the relevant DAQI band appended as an additional factor column; either “Low” (1-3), “Moderate” (4-6), “High” (7-9), or “Very High” (10). See <a href="https://uk-air.defra.gov.uk/air-pollution/daqi" class="external-link uri">https://uk-air.defra.gov.uk/air-pollution/daqi</a> for more information.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
