@@ -164,6 +164,10 @@ pollutionRose <- function(
 #'   Type can be up length two e.g. \code{type = c("season", "weekday")} will
 #'   produce a 2x2 plot split by season and day of the week. Note, when two
 #'   types are provided the first forms the columns and the second the rows.
+#' @param calm.thresh By default, conditions are considered to be calm when the
+#'   wind speed is zero. The user can set a different threshold for calms be
+#'   setting \code{calm.thresh} to a higher value. For example,
+#'   \code{calm.thresh = 0.5} will identify wind speeds **below** 0.5 as calm.
 #' @param bias.corr When \code{angle} does not divide exactly into 360 a bias is
 #'   introduced in the frequencies when the wind direction is already supplied
 #'   rounded to the nearest 10 degrees, as is often the case. For example, if
@@ -302,6 +306,7 @@ windRose <- function(
     ws.int = 2,
     angle = 30,
     type = "default",
+    calm.thresh = 0,
     bias.corr = TRUE,
     cols = "default",
     grid.line = NULL,
@@ -524,7 +529,18 @@ windRose <- function(
   mydata[[wd]][mydata[[wd]] == 0] <- 360
 
   ## flag calms as negatives
-  mydata[[wd]][mydata[, ws] == 0] <- -999 ## set wd to flag where there are calms
+  if (calm.thresh == 0) {
+    
+    mydata[[wd]][mydata[, ws] == 0] <- -999 ## set wd to flag where there are calms
+    
+  } else {
+    
+    mydata[[wd]][mydata[, ws] < calm.thresh] <- -999 ## Note < not <=
+    
+  }
+    
+
+  mydata[[wd]][mydata[, ws] < calm.thresh] <- -999 ## set wd to flag where there are calms
   ## do after rounding or -999 changes
 
   if (length(breaks) == 1) breaks <- 0:(breaks - 1) * ws.int

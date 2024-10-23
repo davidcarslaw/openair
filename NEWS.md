@@ -40,7 +40,7 @@
 
 ## New Features
 
-- add option to `corPlot` to carry through "use" option in `cor`.
+- add option to `corPlot()` to carry through "use" option in `cor`.
 
 ## Bug fixes
 
