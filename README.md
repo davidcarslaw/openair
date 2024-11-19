@@ -25,10 +25,10 @@ status](https://www.r-pkg.org/badges/version/openair)](https://CRAN.R-project.or
 
 *Part of the openair toolkit*
 
-[![openair](https://img.shields.io/badge/openair_core-06D6A0?style=flat-square)](https://davidcarslaw.github.io/openair) | 
-[![worldmet](https://img.shields.io/badge/worldmet-26547C?style=flat-square)](https://davidcarslaw.github.io/worldmet) | 
-[![openairmaps](https://img.shields.io/badge/openairmaps-FFD166?style=flat-square)](https://davidcarslaw.github.io/openairmaps) | 
-[![deweather](https://img.shields.io/badge/deweather-EF476F?style=flat-square)](https://davidcarslaw.github.io/deweather)
+[![openair](https://img.shields.io/badge/openair_core-06D6A0?style=flat-square)](https://davidcarslaw.github.io/openair/) | 
+[![worldmet](https://img.shields.io/badge/worldmet-26547C?style=flat-square)](https://davidcarslaw.github.io/worldmet/) | 
+[![openairmaps](https://img.shields.io/badge/openairmaps-FFD166?style=flat-square)](https://davidcarslaw.github.io/openairmaps/) | 
+[![deweather](https://img.shields.io/badge/deweather-EF476F?style=flat-square)](https://davidcarslaw.github.io/deweather/)
 
 </div>
 
@@ -66,7 +66,7 @@ All **openair** functions are fully documented; access documentation using R in 
 
 Documentation is also hosted online on the **package website**.
 
-[![website](https://img.shields.io/badge/website-documentation-blue)](https://davidcarslaw.github.io/openair)
+[![website](https://img.shields.io/badge/website-documentation-blue)](https://davidcarslaw.github.io/openair/)
 
 A guide to the openair toolkit can be found in the **online book**, which contains lots of code snippets, demonstrations of functionality, and ideas for the application of **openair**'s various functions.
 
