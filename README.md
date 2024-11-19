@@ -13,7 +13,7 @@ status](https://www.r-pkg.org/badges/version/openair)](https://CRAN.R-project.or
 [![metacran downloads](https://cranlogs.r-pkg.org/badges/grand-total/openair)](https://cran.r-project.org/package=openair)
 <br>
 [![github](https://img.shields.io/badge/CODE-github-black?logo=github)](https://github.com/davidcarslaw/openair)
-[![website](https://img.shields.io/badge/DOCS-website-black)](https://davidcarslaw.github.io/openair)
+[![website](https://img.shields.io/badge/DOCS-website-black)](https://davidcarslaw.github.io/openair/)
 [![book](https://img.shields.io/badge/DOCS-book-black)](https://bookdown.org/david_carslaw/openair/)
 <!-- badges: end -->
 
