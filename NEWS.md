@@ -32,6 +32,8 @@
 
 - `polarCluster()` will no longer error with multiple `pollutant`s and a single `n.clusters`.
 
+- `importUKAQ()` will correctly append site meta data when `meta = TRUE`, `source` is a length greater than 1, and a single site is repeated in more than one source (e.g., `importUKAQ(source = c("waqn", "aurn"), data_type = "daqi", year = 2024L))`)
+
 # openair 2.18-2
 
 ## New Features
